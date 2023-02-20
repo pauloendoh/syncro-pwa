@@ -16,7 +16,11 @@ const TrailerSection = (props: Props) => {
       <div>
         {data?.map((url) => (
           <div key={url}>
-            <ReactPlayer url={url} width={width > 600 ? 600 : width - 24} />
+            <ReactPlayer
+              url={url}
+              width={width > 600 ? 600 : width - 24}
+              controls={true}
+            />
           </div>
         ))}
       </div>
