@@ -6,12 +6,13 @@ import {
 } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { NotificationsProvider } from '@mantine/notifications'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import useCheckAuthOrLogout from '../domains/auth/useCheckAuthUserOrLogout'
 import { myTheme } from '../utils/mantine/myTheme'
+import { useMyQueryClient } from '../utils/myQueryClient'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -25,7 +26,7 @@ export default function App(props: AppProps) {
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
 
-  const [queryClient] = useState(new QueryClient())
+  const myQueryClient = useMyQueryClient()
   const { checkAuthOrLogout, loading } = useCheckAuthOrLogout()
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function App(props: AppProps) {
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={myQueryClient}>
         <Head>
           <title>Page title</title>
           <meta

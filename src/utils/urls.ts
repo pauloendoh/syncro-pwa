@@ -1,28 +1,29 @@
-import queryString from "query-string";
+import queryString from 'query-string'
 
-import { SearchParams } from "../domains/search/types/SearchParams";
-import { SyncroItemType } from "../domains/syncro-item/SyncroItemType";
-import { myEnvs } from "./myEnvs";
+import { SearchParams } from '../domains/search/types/SearchParams'
+import { SyncroItemType } from '../domains/syncro-item/SyncroItemType'
+import { myEnvs } from './myEnvs'
 
-const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs;
+const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
 
 export const urls = {
   pages: {
-    index: "/",
+    index: '/',
+    syncroItem: (id: string) => `/item?syncroItemId=${id}`,
   },
   api: {
     register: (pushToken: string | null) =>
-      API_URL + "/auth/register?pushToken=" + pushToken,
+      API_URL + '/auth/register?pushToken=' + pushToken,
     login: (pushToken: string | null) =>
       API_URL + `/auth/login?pushToken=${pushToken}`,
-    tempUser: API_URL + "/auth/temp-user",
+    tempUser: API_URL + '/auth/temp-user',
 
-    me: API_URL + "/auth/me",
+    me: API_URL + '/auth/me',
 
     search: (params: SearchParams) =>
-      API_URL + "/search?" + queryString.stringify(params),
+      API_URL + '/search?' + queryString.stringify(params),
     searchMore: (params: SearchParams) =>
-      API_URL + "/search-more?" + queryString.stringify(params),
+      API_URL + '/search-more?' + queryString.stringify(params),
 
     syncroItemDetails: (id?: string | null) =>
       API_URL + `/syncro-item?id=${id}`,
@@ -63,8 +64,8 @@ export const urls = {
       API_URL + `/user/${userId}/following-users`,
     toggleFollow: (userId: string) => API_URL + `/user/${userId}/toggle-follow`,
 
-    profilePicture: API_URL + "/profiles/picture",
-    myProfile: API_URL + "/me/profile",
+    profilePicture: API_URL + '/profiles/picture',
+    myProfile: API_URL + '/me/profile',
 
     customPositionsByItemType: (itemType: SyncroItemType) =>
       API_URL + `/custom-positions?itemType=${itemType}`,
@@ -101,4 +102,4 @@ export const urls = {
   others: {
     imdbItem: (id: string) => `https://www.imdb.com${id}`,
   },
-};
+}

@@ -1,9 +1,11 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import Image from 'next/image'
+import NextLink from 'next/link'
 import { format } from 'timeago.js'
 import { RatingDto } from '../../../types/domains/rating/RatingDto'
 import { getSyncroItemImageOrDefault } from '../../../utils/image/getSyncroItemImageOrDefault'
+import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyPaper from '../../_common/overrides/MyPaper'
 
@@ -53,15 +55,19 @@ const HomeRatingItem = (props: Props) => {
           </Text>
           <Text size={'xs'}>{format(props.rating.createdAt)}</Text>
         </FlexCol>
-        <Image
-          width={100}
-          height={100}
-          src={getSyncroItemImageOrDefault(props.rating.syncroItem?.imageUrl)}
-          alt={props.rating.syncroItem?.title || 'syncro-item'}
-          style={{
-            objectFit: 'cover',
-          }}
-        />
+        <NextLink
+          href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}
+        >
+          <Image
+            width={100}
+            height={100}
+            src={getSyncroItemImageOrDefault(props.rating.syncroItem?.imageUrl)}
+            alt={props.rating.syncroItem?.title || 'syncro-item'}
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        </NextLink>
       </Flex>
     </MyPaper>
   )
