@@ -28,6 +28,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'endoh.s3.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }
