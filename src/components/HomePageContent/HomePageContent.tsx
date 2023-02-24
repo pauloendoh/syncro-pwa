@@ -45,7 +45,7 @@ const HomePageContent = () => {
 
   const { ref, entry } = useIntersection({
     root: containerRef.current,
-    threshold: 1,
+    threshold: 0.5,
   })
 
   useEffect(() => {
