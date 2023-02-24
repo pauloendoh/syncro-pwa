@@ -1,5 +1,6 @@
-import { Button, Container, Title } from '@mantine/core'
-import { useMemo, useState } from 'react'
+import { Box, Button, Center, Container, Loader, Title } from '@mantine/core'
+import { useIntersection } from '@mantine/hooks'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useAuthStore from '../../domains/auth/useAuthStore'
 import { useLogout } from '../../hooks/domains/auth/useLogout'
 import { useHomeRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
@@ -41,6 +42,22 @@ const HomePageContent = () => {
     return uniqueRatings
   }, [homeRatings, hasNextPage, lastRatings])
 
+  const containerRef = useRef()
+
+  const { ref, entry } = useIntersection({
+    root: containerRef.current,
+    threshold: 1,
+  })
+
+  useEffect(() => {
+    if (entry?.isIntersecting && hasNextPage && homeRatings?.pages?.length) {
+      fetchNextPage().then(() => {
+        setLastRatings(uniqueRatings)
+        setPage(page + 1)
+      })
+    }
+  }, [entry?.isIntersecting, hasNextPage, homeRatings])
+
   return (
     <div>
       hello {authUser?.username}
@@ -57,7 +74,15 @@ const HomePageContent = () => {
               <HomeRatingItem rating={rating} key={rating.id} />
             ))
           )}
+
+          {hasNextPage && (
+            <Center sx={{ height: 80 }} ref={ref}>
+              <Loader />
+            </Center>
+          )}
         </FlexCol>
+
+        <Box mt={40} />
       </Container>
     </div>
   )

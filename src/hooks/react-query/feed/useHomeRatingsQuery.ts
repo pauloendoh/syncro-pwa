@@ -5,7 +5,7 @@ import { RatingDto } from '../../../types/domains/rating/RatingDto'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 3
 
 export const useHomeRatingsQuery = (currentPage: number) => {
   const axios = useAxios()
@@ -22,5 +22,6 @@ export const useHomeRatingsQuery = (currentPage: number) => {
       }
       return currentPage + 1
     },
+    refetchOnWindowFocus: false,
   })
 }
