@@ -37,7 +37,9 @@ export default function App(props: AppProps) {
     <>
       <QueryClientProvider client={myQueryClient}>
         <Head>
-          <title>Page title</title>
+          <title>Syncro</title>
+          {/* favicon */}
+          <link rel="icon" href="/favicon.ico" />
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
