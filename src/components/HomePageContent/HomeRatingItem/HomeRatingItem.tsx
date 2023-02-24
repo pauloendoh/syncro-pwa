@@ -68,7 +68,7 @@ const HomeRatingItem = (props: Props) => {
             </NextLink>
 
             <span
-              style={{ marginLeft: 8, top: 3, position: 'relative' }}
+              style={{ marginLeft: 8, top: 1, position: 'relative' }}
               title={props.rating.syncroItem?.type}
             >
               <SyncroItemIcon
