@@ -33,7 +33,7 @@ const SyncroItemPageContent = (props: Props) => {
           {item && (
             <>
               <Title order={3} weight={500}>
-                {item.title} {item.year && `(${item.year})`}
+                {item.title} {item.year && `[${item.year}]`}
               </Title>
               <Flex mt={16} gap={16}>
                 <SyncroItemImage
