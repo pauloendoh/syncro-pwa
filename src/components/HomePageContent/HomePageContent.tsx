@@ -1,45 +1,17 @@
-import { Box, Button, Center, Container, Loader, Title } from '@mantine/core'
+import { Box, Center, Container, Loader, Title } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import useAuthStore from '../../domains/auth/useAuthStore'
-import { useLogout } from '../../hooks/domains/auth/useLogout'
+import { useEffect, useRef } from 'react'
 import { useHomeRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
-import { buildRatingDto, RatingDto } from '../../types/domains/rating/RatingDto'
 import FlexCol from '../_common/flex/FlexCol'
+import LoggedLayout from '../_common/layout/LoggedLayout'
 import HomeRatingItem from './HomeRatingItem/HomeRatingItem'
 
 const HomePageContent = () => {
-  const logout = useLogout()
-  const { authUser } = useAuthStore()
-
   const {
     data: homeRatings,
-    isLoading,
-    isFetching,
     fetchNextPage,
     hasNextPage,
   } = useHomeRatingsQuery()
-
-  const [lastRatings, setLastRatings] = useState<RatingDto[]>([])
-
-  const uniqueRatings = useMemo(() => {
-    if (!homeRatings) return []
-    const flattened = homeRatings.pages.flatMap((pageData) => pageData)
-    const flattenedWithLoading = [
-      ...flattened,
-      buildRatingDto({
-        id: hasNextPage ? 'loading' : 'end',
-      }),
-    ]
-
-    const all = [...lastRatings, ...flattenedWithLoading]
-
-    const uniqueRatings = [
-      ...new Map(all.map((item) => [item.id, item])).values(),
-    ]
-
-    return uniqueRatings
-  }, [homeRatings, hasNextPage, lastRatings])
 
   const containerRef = useRef()
 
@@ -55,11 +27,7 @@ const HomePageContent = () => {
   }, [entry?.isIntersecting, hasNextPage, homeRatings])
 
   return (
-    <div>
-      hello {authUser?.username}
-      <div>
-        <Button onClick={logout}>Logout</Button>
-      </div>
+    <LoggedLayout>
       <Container size="xs">
         <Title order={4} mt={24}>
           Home
@@ -80,7 +48,7 @@ const HomePageContent = () => {
 
         <Box mt={40} />
       </Container>
-    </div>
+    </LoggedLayout>
   )
 }
 

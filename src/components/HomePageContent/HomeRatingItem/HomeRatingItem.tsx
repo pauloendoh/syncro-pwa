@@ -4,9 +4,9 @@ import Image from 'next/image'
 
 import { format } from 'timeago.js'
 import { RatingDto } from '../../../types/domains/rating/RatingDto'
-import { getSyncroItemImageOrDefault } from '../../../utils/image/getSyncroItemImageOrDefault'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
+import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyPaper from '../../_common/overrides/MyPaper'
 import {
   default as Link,
@@ -60,7 +60,13 @@ const HomeRatingItem = (props: Props) => {
                 encodeURI(props.rating.syncroItemId!)
               )}
             >
-              <Text span weight={600}>
+              <Text
+                span
+                weight={600}
+                sx={(theme) => ({
+                  color: theme.colors.gray[0],
+                })}
+              >
                 {props.rating.syncroItem?.title}{' '}
                 {props.rating.syncroItem?.year &&
                   `(${props.rating.syncroItem?.year})`}
@@ -81,15 +87,7 @@ const HomeRatingItem = (props: Props) => {
         <Link
           href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}
         >
-          <Image
-            width={100}
-            height={100}
-            src={getSyncroItemImageOrDefault(props.rating.syncroItem?.imageUrl)}
-            alt={props.rating.syncroItem?.title || 'syncro-item'}
-            style={{
-              objectFit: 'cover',
-            }}
-          />
+          <SyncroItemImage item={props.rating.syncroItem} />
         </Link>
       </Flex>
     </MyPaper>

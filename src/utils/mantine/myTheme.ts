@@ -3,6 +3,14 @@ import { MantineThemeOverride } from '@mantine/core'
 export const myTheme: MantineThemeOverride = {
   primaryColor: 'primary',
   fontFamily: 'Noto Sans',
+
+  fontSizes: {
+    xs: 10,
+    sm: 12,
+    md: 14,
+    lg: 16,
+    xl: 20,
+  },
   colors: {
     primary: [
       '#F5F9F7',
@@ -30,9 +38,9 @@ export const myTheme: MantineThemeOverride = {
       '#C862AC',
     ],
     dark: [
-      '#D5D5D5',
-      '#B3B3B3',
-      '#919191',
+      'white',
+      '#e9e9e9',
+      '#afafaf',
       '#6F6F6F',
       '#4D4D4D',
       '#2B2B2B',
