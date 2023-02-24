@@ -4,10 +4,11 @@ import { useLogout } from '../../../../hooks/domains/auth/useLogout'
 import { urls } from '../../../../utils/urls'
 import MyNextLink from '../../overrides/MyNextLink'
 import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'
+import SearchBar from './SearchBar/SearchBar'
 
 type Props = {}
 
-const MyNavbarHeader = (props: Props) => {
+const MyNavbar = (props: Props) => {
   const { authUser } = useAuthStore()
 
   const logout = useLogout()
@@ -15,7 +16,7 @@ const MyNavbarHeader = (props: Props) => {
   return (
     <Header
       height={60}
-      px={17}
+      px={32}
       sx={(theme) => ({
         display: 'flex',
         alignItems: 'center',
@@ -35,9 +36,11 @@ const MyNavbarHeader = (props: Props) => {
           Syncro
         </Title>
       </MyNextLink>
+      <SearchBar />
+
       <NavbarUserMenu />
     </Header>
   )
 }
 
-export default MyNavbarHeader
+export default MyNavbar

@@ -1,6 +1,6 @@
 import { Box } from '@mantine/core'
 import React from 'react'
-import MyNavbarHeader from './MyNavbarHeader/MyNavbarHeader'
+import MyNavbar from './MyNavbar/MyNavbar'
 
 type Props = {
   children: React.ReactNode
@@ -10,7 +10,7 @@ type Props = {
 const LoggedLayout = (props: Props) => {
   return (
     <div>
-      <MyNavbarHeader />
+      <MyNavbar />
       {props.disableMarginTop ? null : <Box mt={96} />}
 
       {props.children}

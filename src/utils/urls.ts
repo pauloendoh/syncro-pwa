@@ -11,6 +11,10 @@ export const urls = {
     index: '/',
     syncroItem: (id: string) => `/item?syncroItemId=${id}`,
     user: (userId: string) => `/user/${userId}`,
+    search: (params: SearchParams) => {
+      const query = queryString.stringify(params)
+      return `/search?${query}`
+    },
   },
   api: {
     register: (pushToken: string | null) =>
