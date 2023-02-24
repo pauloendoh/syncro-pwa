@@ -3,6 +3,7 @@ import { useMediaQuery } from '@mantine/hooks'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { format } from 'timeago.js'
+import SyncroItemIcon from '../../../hooks/domains/syncro-item/SyncroItemIcon'
 import { RatingDto } from '../../../types/domains/rating/RatingDto'
 import { getSyncroItemImageOrDefault } from '../../../utils/image/getSyncroItemImageOrDefault'
 import { urls } from '../../../utils/urls'
@@ -52,6 +53,15 @@ const HomeRatingItem = (props: Props) => {
               {props.rating.syncroItem?.year &&
                 `(${props.rating.syncroItem?.year})`}
             </b>
+
+            <span
+              style={{ marginLeft: 8, top: 3, position: 'relative' }}
+              title={props.rating.syncroItem?.type}
+            >
+              <SyncroItemIcon
+                type={props.rating.syncroItem?.type || 'tvSeries'}
+              />
+            </span>
           </Text>
           <Text size={'xs'}>{format(props.rating.createdAt)}</Text>
         </FlexCol>
