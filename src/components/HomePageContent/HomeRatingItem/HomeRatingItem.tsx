@@ -1,17 +1,17 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
-import Image from 'next/image'
 
 import { format } from 'timeago.js'
 import { RatingDto } from '../../../types/domains/rating/RatingDto'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
-import MyPaper from '../../_common/overrides/MyPaper'
+import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 import {
   default as Link,
-  default as NextLink,
-} from '../../_common/overrides/NextLink'
+  default as MyNextLink,
+} from '../../_common/overrides/MyNextLink'
+import MyPaper from '../../_common/overrides/MyPaper'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
 
 type Props = {
@@ -25,20 +25,20 @@ const HomeRatingItem = (props: Props) => {
 
   return (
     <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
-      <Image
-        alt={props.rating.user?.username || 'username'}
-        src={
-          props.rating.user?.profile?.pictureUrl || '/images/avatars/avatar.png'
-        }
-        width={40}
-        height={40}
-        style={{
-          position: 'absolute',
-          borderRadius: 40,
-          left: isSmallScreen ? -16 : -24,
-          top: 24,
-        }}
-      />
+      <MyNextLink href={urls.pages.user(props.rating.userId)}>
+        <div
+          style={{
+            position: 'absolute',
+            left: isSmallScreen ? -16 : -24,
+            top: 24,
+          }}
+        >
+          <UserImage
+            pictureUrl={props.rating.user?.profile?.pictureUrl}
+            username={props.rating.user?.username}
+          />
+        </div>
+      </MyNextLink>
       <Flex ml={16} justify="space-between">
         <FlexCol>
           <Text>
@@ -55,7 +55,7 @@ const HomeRatingItem = (props: Props) => {
             </b>
           </Text>
           <Text>
-            <NextLink
+            <MyNextLink
               href={urls.pages.syncroItem(
                 encodeURI(props.rating.syncroItemId!)
               )}
@@ -71,7 +71,7 @@ const HomeRatingItem = (props: Props) => {
                 {props.rating.syncroItem?.year &&
                   `(${props.rating.syncroItem?.year})`}
               </Text>
-            </NextLink>
+            </MyNextLink>
 
             <span
               style={{ marginLeft: 8, top: 2, position: 'relative' }}

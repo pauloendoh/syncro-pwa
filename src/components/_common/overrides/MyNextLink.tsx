@@ -1,10 +1,10 @@
-import { useMantineTheme } from '@mantine/core'
 import Link from 'next/link'
 import React from 'react'
 
+type Props = React.ComponentProps<typeof Link>
+
 // override link with ref
-const NextLink = React.forwardRef<HTMLAnchorElement, any>((props, ref) => {
-  const theme = useMantineTheme()
+const MyNextLink = React.forwardRef<HTMLAnchorElement, Props>((props, ref) => {
   return (
     <Link
       {...props}
@@ -19,4 +19,4 @@ const NextLink = React.forwardRef<HTMLAnchorElement, any>((props, ref) => {
   )
 })
 
-export default NextLink
+export default MyNextLink

@@ -2,7 +2,7 @@ import { Header, Title } from '@mantine/core'
 import useAuthStore from '../../../../domains/auth/useAuthStore'
 import { useLogout } from '../../../../hooks/domains/auth/useLogout'
 import { urls } from '../../../../utils/urls'
-import NextLink from '../../overrides/NextLink'
+import MyNextLink from '../../overrides/MyNextLink'
 import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'
 
 type Props = {}
@@ -25,7 +25,7 @@ const MyNavbarHeader = (props: Props) => {
       })}
       fixed
     >
-      <NextLink href={urls.pages.index}>
+      <MyNextLink href={urls.pages.index}>
         <Title
           sx={(theme) => ({
             color: theme.colors.dark[0],
@@ -34,7 +34,7 @@ const MyNavbarHeader = (props: Props) => {
         >
           Syncro
         </Title>
-      </NextLink>
+      </MyNextLink>
       <NavbarUserMenu />
     </Header>
   )

@@ -5,5 +5,6 @@ export const useMyRouterQuery = () => {
   const query = router.query
   return query as {
     syncroItemId?: string
+    userId?: string
   }
 }

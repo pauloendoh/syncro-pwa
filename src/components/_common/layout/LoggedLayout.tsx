@@ -1,22 +1,18 @@
 import { Box } from '@mantine/core'
 import React from 'react'
-import useAuthStore from '../../../domains/auth/useAuthStore'
-import { useLogout } from '../../../hooks/domains/auth/useLogout'
 import MyNavbarHeader from './MyNavbarHeader/MyNavbarHeader'
 
 type Props = {
   children: React.ReactNode
+  disableMarginTop?: boolean
 }
 
 const LoggedLayout = (props: Props) => {
-  const { authUser } = useAuthStore()
-
-  const logout = useLogout()
-
   return (
     <div>
       <MyNavbarHeader />
-      <Box mt={60} />
+      {props.disableMarginTop ? null : <Box mt={96} />}
+
       {props.children}
     </div>
   )

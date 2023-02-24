@@ -10,6 +10,7 @@ export const urls = {
   pages: {
     index: '/',
     syncroItem: (id: string) => `/item?syncroItemId=${id}`,
+    user: (userId: string) => `/user/${userId}`,
   },
   api: {
     register: (pushToken: string | null) =>

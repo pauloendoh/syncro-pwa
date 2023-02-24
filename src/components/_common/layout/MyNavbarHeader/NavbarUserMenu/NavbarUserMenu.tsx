@@ -3,6 +3,8 @@ import Image from 'next/image'
 import useAuthStore from '../../../../../domains/auth/useAuthStore'
 import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
+import { urls } from '../../../../../utils/urls'
+import MyNextLink from '../../../overrides/MyNextLink'
 
 type Props = {}
 
@@ -14,6 +16,8 @@ const NavbarUserMenu = (props: Props) => {
   const imageUrl =
     userInfo?.profile.pictureUrl ||
     'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
+
+  if (!authUser) return null
 
   return (
     <Menu
@@ -40,6 +44,15 @@ const NavbarUserMenu = (props: Props) => {
       </Menu.Target>
 
       <Menu.Dropdown>
+        <MyNextLink
+          href={urls.pages.user(authUser?.id || '')}
+          style={{
+            textDecoration: 'none',
+          }}
+        >
+          <Menu.Item>Profile</Menu.Item>
+        </MyNextLink>
+
         <Menu.Item onClick={logout}>Logout</Menu.Item>
       </Menu.Dropdown>
     </Menu>
