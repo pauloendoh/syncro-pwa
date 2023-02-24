@@ -1,7 +1,8 @@
-import { Button } from '@mantine/core'
+import { Box } from '@mantine/core'
 import React from 'react'
 import useAuthStore from '../../../domains/auth/useAuthStore'
 import { useLogout } from '../../../hooks/domains/auth/useLogout'
+import MyNavbarHeader from './MyNavbarHeader/MyNavbarHeader'
 
 type Props = {
   children: React.ReactNode
@@ -14,10 +15,8 @@ const LoggedLayout = (props: Props) => {
 
   return (
     <div>
-      hello {authUser?.username}
-      <div>
-        <Button onClick={logout}>Logout</Button>
-      </div>
+      <MyNavbarHeader />
+      <Box mt={60} />
       {props.children}
     </div>
   )

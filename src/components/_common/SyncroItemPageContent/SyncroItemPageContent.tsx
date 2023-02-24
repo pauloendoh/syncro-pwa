@@ -1,4 +1,5 @@
 import { Container, Flex, Text, Title, useMantineTheme } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { MdStarRate } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
@@ -23,6 +24,8 @@ const SyncroItemPageContent = (props: Props) => {
     itemType: item?.type,
   })
 
+  const isSmallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
+
   return (
     <LoggedLayout>
       <Container mt={40} size="xs">
@@ -36,17 +39,24 @@ const SyncroItemPageContent = (props: Props) => {
                 <SyncroItemImage item={item} />
 
                 <FlexCol gap={8}>
-                  <FlexVCenter gap={40} sx={{ height: 'fit-content' }}>
-                    <FlexVCenter gap={4}>
-                      <MdStarRate color={theme.colors.yellow[5]} size={24} />
-                      <Text>{item?.avgRating}/10</Text>
+                  <Flex gap={40}>
+                    <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
+                      <MdStarRate
+                        color={theme.colors.yellow[5]}
+                        size={isSmallScreen ? 16 : 24}
+                      />
+
+                      <Text>
+                        {item?.avgRating}
+                        /10
+                      </Text>
                     </FlexVCenter>
 
                     <Text>
                       {shortNumberFormatter(item?.ratingCount)} votes on{' '}
                       {itemTypeMap.site}
                     </Text>
-                  </FlexVCenter>
+                  </Flex>
 
                   <FlexVCenter gap={4}>
                     <SyncroItemIcon type={item.type} size={24} />
