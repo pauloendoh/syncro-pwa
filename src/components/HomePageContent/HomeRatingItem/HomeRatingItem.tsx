@@ -70,8 +70,8 @@ const HomeRatingItem = (props: Props) => {
             >
               <SyncroItemImage
                 item={props.rating.syncroItem}
-                height={isSmallScreen ? 100 : 160}
-                width={isSmallScreen ? 100 : 160}
+                height={isSmallScreen ? 100 : 140}
+                width={isSmallScreen ? 100 : 140}
               />
             </MyNextLink>
 
