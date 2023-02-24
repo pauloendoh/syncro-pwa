@@ -1,14 +1,18 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import Image from 'next/image'
-import NextLink from 'next/link'
+
 import { format } from 'timeago.js'
-import SyncroItemIcon from '../../../hooks/domains/syncro-item/SyncroItemIcon'
 import { RatingDto } from '../../../types/domains/rating/RatingDto'
 import { getSyncroItemImageOrDefault } from '../../../utils/image/getSyncroItemImageOrDefault'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyPaper from '../../_common/overrides/MyPaper'
+import {
+  default as Link,
+  default as NextLink,
+} from '../../_common/overrides/NextLink'
+import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
 
 type Props = {
   rating: RatingDto
@@ -38,7 +42,10 @@ const HomeRatingItem = (props: Props) => {
       <Flex ml={16} justify="space-between">
         <FlexCol>
           <Text>
-            <b>{props.rating.user?.username}</b> rated{' '}
+            <Text weight={600} span>
+              {props.rating.user?.username}
+            </Text>{' '}
+            rated{' '}
             <b
               style={{
                 color: theme.colors.yellow[5],
@@ -48,11 +55,17 @@ const HomeRatingItem = (props: Props) => {
             </b>
           </Text>
           <Text>
-            <b>
-              {props.rating.syncroItem?.title}{' '}
-              {props.rating.syncroItem?.year &&
-                `(${props.rating.syncroItem?.year})`}
-            </b>
+            <NextLink
+              href={urls.pages.syncroItem(
+                encodeURI(props.rating.syncroItemId!)
+              )}
+            >
+              <Text span weight={600}>
+                {props.rating.syncroItem?.title}{' '}
+                {props.rating.syncroItem?.year &&
+                  `(${props.rating.syncroItem?.year})`}
+              </Text>
+            </NextLink>
 
             <span
               style={{ marginLeft: 8, top: 3, position: 'relative' }}
@@ -65,7 +78,7 @@ const HomeRatingItem = (props: Props) => {
           </Text>
           <Text size={'xs'}>{format(props.rating.createdAt)}</Text>
         </FlexCol>
-        <NextLink
+        <Link
           href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}
         >
           <Image
@@ -77,7 +90,7 @@ const HomeRatingItem = (props: Props) => {
               objectFit: 'cover',
             }}
           />
-        </NextLink>
+        </Link>
       </Flex>
     </MyPaper>
   )

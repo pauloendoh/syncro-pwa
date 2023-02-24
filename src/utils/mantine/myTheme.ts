@@ -2,6 +2,7 @@ import { MantineThemeOverride } from '@mantine/core'
 
 export const myTheme: MantineThemeOverride = {
   primaryColor: 'primary',
+  fontFamily: 'Noto Sans',
   colors: {
     primary: [
       '#F5F9F7',
