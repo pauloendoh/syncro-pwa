@@ -11,7 +11,6 @@ import HomeRatingItem from './HomeRatingItem/HomeRatingItem'
 const HomePageContent = () => {
   const logout = useLogout()
   const { authUser } = useAuthStore()
-  const [page, setPage] = useState(1)
 
   const {
     data: homeRatings,
@@ -19,7 +18,7 @@ const HomePageContent = () => {
     isFetching,
     fetchNextPage,
     hasNextPage,
-  } = useHomeRatingsQuery(page)
+  } = useHomeRatingsQuery()
 
   const [lastRatings, setLastRatings] = useState<RatingDto[]>([])
 
@@ -51,10 +50,7 @@ const HomePageContent = () => {
 
   useEffect(() => {
     if (entry?.isIntersecting && hasNextPage && homeRatings?.pages?.length) {
-      fetchNextPage().then(() => {
-        setLastRatings(uniqueRatings)
-        setPage((prev) => (prev += 1))
-      })
+      fetchNextPage()
     }
   }, [entry?.isIntersecting, hasNextPage, homeRatings])
 

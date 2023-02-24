@@ -7,7 +7,7 @@ import { useAxios } from '../../../utils/useAxios'
 
 const PAGE_SIZE = 10
 
-export const useHomeRatingsQuery = (currentPage: number) => {
+export const useHomeRatingsQuery = () => {
   const axios = useAxios()
   const fetcher = async ({ pageParam = 1 }) => {
     const data = await axios
@@ -16,11 +16,11 @@ export const useHomeRatingsQuery = (currentPage: number) => {
     return data
   }
   return useInfiniteQuery<RatingDto[], AxiosError>(['home-ratings'], fetcher, {
-    getNextPageParam: (lastPageData) => {
+    getNextPageParam: (lastPageData, pages) => {
       if (lastPageData.length < PAGE_SIZE) {
         return undefined
       }
-      return currentPage + 1
+      return pages.length + 1
     },
     refetchOnWindowFocus: false,
   })
