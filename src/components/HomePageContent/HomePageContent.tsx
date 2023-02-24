@@ -53,7 +53,7 @@ const HomePageContent = () => {
     if (entry?.isIntersecting && hasNextPage && homeRatings?.pages?.length) {
       fetchNextPage().then(() => {
         setLastRatings(uniqueRatings)
-        setPage(page + 1)
+        setPage((prev) => (prev += 1))
       })
     }
   }, [entry?.isIntersecting, hasNextPage, homeRatings])
