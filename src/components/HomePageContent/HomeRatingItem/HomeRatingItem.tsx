@@ -68,7 +68,11 @@ const HomeRatingItem = (props: Props) => {
                 encodeURI(props.rating.syncroItemId!)
               )}
             >
-              <SyncroItemImage item={props.rating.syncroItem} />
+              <SyncroItemImage
+                item={props.rating.syncroItem}
+                height={isSmallScreen ? 100 : 160}
+                width={isSmallScreen ? 100 : 160}
+              />
             </MyNextLink>
 
             <FlexCol>

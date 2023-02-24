@@ -4,13 +4,15 @@ import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroIt
 
 type Props = {
   item?: SyncroItemDto
+  width?: number
+  height?: number
 }
 
 const SyncroItemImage = (props: Props) => {
   return (
     <Image
-      width={100}
-      height={100}
+      width={props.width || 100}
+      height={props.height || 100}
       src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
       alt={props.item?.title || 'syncro-item'}
       style={{

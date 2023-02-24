@@ -36,7 +36,11 @@ const SyncroItemPageContent = (props: Props) => {
                 {item.title} {item.year && `(${item.year})`}
               </Title>
               <Flex mt={16} gap={16}>
-                <SyncroItemImage item={item} />
+                <SyncroItemImage
+                  item={item}
+                  width={isSmallScreen ? 100 : 160}
+                  height={isSmallScreen ? 100 : 160}
+                />
 
                 <FlexCol gap={8}>
                   <Flex gap={40}>
