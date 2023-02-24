@@ -15,6 +15,7 @@ const SyncroItemImage = (props: Props) => {
       alt={props.item?.title || 'syncro-item'}
       style={{
         objectFit: 'cover',
+        borderRadius: 4,
       }}
     />
   )
