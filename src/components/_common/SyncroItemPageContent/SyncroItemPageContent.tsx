@@ -28,7 +28,7 @@ const SyncroItemPageContent = (props: Props) => {
 
   return (
     <LoggedLayout>
-      <Container mt={40} size="xs">
+      <Container mt={96} size="xs">
         <MyPaper>
           {item && (
             <>

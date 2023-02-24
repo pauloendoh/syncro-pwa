@@ -28,10 +28,8 @@ const HomePageContent = () => {
 
   return (
     <LoggedLayout>
-      <Container size="xs">
-        <Title order={4} mt={24}>
-          Home
-        </Title>
+      <Container size="xs" mt={96}>
+        <Title order={4}>Home</Title>
         <FlexCol gap={16} mt={24}>
           {homeRatings?.pages.map((page) =>
             page.map((rating) => (
