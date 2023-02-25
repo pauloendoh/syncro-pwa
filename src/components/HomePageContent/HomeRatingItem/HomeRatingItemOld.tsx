@@ -87,7 +87,11 @@ const HomeRatingItemOld = (props: Props) => {
         <Link
           href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}
         >
-          <SyncroItemImage item={props.rating.syncroItem} />
+          <SyncroItemImage
+            item={props.rating.syncroItem}
+            width={isSmallScreen ? 120 : 160}
+            height={isSmallScreen ? 120 : 160}
+          />
         </Link>
       </Flex>
     </MyPaper>

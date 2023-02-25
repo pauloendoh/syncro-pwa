@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useHomeRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import FlexCol from '../_common/flex/FlexCol'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import HomeRatingItem from './HomeRatingItem/HomeRatingItem'
+import HomeRatingItemOld from './HomeRatingItem/HomeRatingItemOld'
 
 const HomePageContent = () => {
   const {
@@ -33,7 +33,7 @@ const HomePageContent = () => {
         <FlexCol gap={16} mt={24}>
           {homeRatings?.pages.map((page) =>
             page.map((rating) => (
-              <HomeRatingItem rating={rating} key={rating.id} />
+              <HomeRatingItemOld rating={rating} key={rating.id} />
             ))
           )}
 
