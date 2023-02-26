@@ -1,10 +1,10 @@
-import { Box, Center, Container, Loader, Title } from '@mantine/core'
+import { Center, Container, Loader, Title } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { useEffect, useRef } from 'react'
 import { useHomeRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import FlexCol from '../_common/flex/FlexCol'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import HomeRatingItemOld from './HomeRatingItem/HomeRatingItemOld'
+import HomeRatingItem from './HomeRatingItem/HomeRatingItem'
 
 const HomePageContent = () => {
   const {
@@ -28,12 +28,12 @@ const HomePageContent = () => {
 
   return (
     <LoggedLayout>
-      <Container size="xs" mt={96}>
+      <Container size="xs">
         <Title order={4}>Home</Title>
-        <FlexCol gap={16} mt={24}>
+        <FlexCol gap={16} mt={16}>
           {homeRatings?.pages.map((page) =>
             page.map((rating) => (
-              <HomeRatingItemOld rating={rating} key={rating.id} />
+              <HomeRatingItem rating={rating} key={rating.id} />
             ))
           )}
 
@@ -43,8 +43,6 @@ const HomePageContent = () => {
             </Center>
           )}
         </FlexCol>
-
-        <Box mt={40} />
       </Container>
     </LoggedLayout>
   )

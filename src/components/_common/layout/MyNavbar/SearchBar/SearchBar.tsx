@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import { urls } from '../../../../../utils/urls'
@@ -9,7 +9,10 @@ type Props = {}
 
 const SearchBar = (props: Props) => {
   const { q } = useMyRouterQuery()
-  const [input, setInput] = useState(q || '')
+  const [input, setInput] = useState('')
+  useEffect(() => {
+    if (q) setInput(q)
+  }, [q])
   const router = useRouter()
 
   const { type } = useMyRouterQuery()

@@ -1,4 +1,12 @@
-import { Container, Flex, Text, Title, useMantineTheme } from '@mantine/core'
+import {
+  Center,
+  Container,
+  Flex,
+  Loader,
+  Text,
+  Title,
+  useMantineTheme,
+} from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { MdStarRate } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
@@ -16,7 +24,7 @@ type Props = {}
 
 const SyncroItemPageContent = (props: Props) => {
   const { syncroItemId } = useMyRouterQuery()
-  const { data: item } = useSyncroItemDetailsQuery(syncroItemId)
+  const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId)
   const isMovieOrSeries = item?.type === 'tvSeries' || item?.type === 'movie'
   const theme = useMantineTheme()
 
@@ -28,8 +36,14 @@ const SyncroItemPageContent = (props: Props) => {
 
   return (
     <LoggedLayout>
-      <Container mt={96} size="xs">
+      <Container size="xs">
         <MyPaper>
+          {isLoading && (
+            <Center sx={{ height: 80 }}>
+              <Loader />
+            </Center>
+          )}
+
           {item && (
             <>
               <Title order={3} weight={500}>
@@ -45,10 +59,7 @@ const SyncroItemPageContent = (props: Props) => {
                 <FlexCol gap={8}>
                   <Flex gap={40}>
                     <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
-                      <MdStarRate
-                        color={theme.colors.yellow[5]}
-                        size={isSmallScreen ? 16 : 24}
-                      />
+                      <MdStarRate color={theme.colors.yellow[5]} size={16} />
 
                       <Text>
                         {item?.avgRating}
@@ -63,11 +74,10 @@ const SyncroItemPageContent = (props: Props) => {
                   </Flex>
 
                   <FlexVCenter gap={4}>
-                    <SyncroItemIcon type={item.type} size={24} />
+                    <SyncroItemIcon type={item.type} size={16} />
                     <Text
                       sx={{
                         position: 'relative',
-                        top: 2,
                       }}
                     >
                       {itemTypeMap.getTypeLabel()}

@@ -18,6 +18,14 @@ const SearchPageContent = (props: Props) => {
     <LoggedLayout>
       <Container size="xs">
         <Tabs
+          styles={{
+            tabsList: {
+              overflowY: 'auto',
+              flexWrap: 'unset',
+              paddingBottom: 6,
+              borderBottom: 'none',
+            },
+          }}
           value={type}
           onTabChange={(newTabValue) => {
             router.push(

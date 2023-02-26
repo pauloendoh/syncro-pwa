@@ -5,6 +5,7 @@ import MyNavbar from './MyNavbar/MyNavbar'
 type Props = {
   children: React.ReactNode
   disableMarginTop?: boolean
+  disableMarginBottom?: boolean
 }
 
 const LoggedLayout = (props: Props) => {
@@ -14,6 +15,8 @@ const LoggedLayout = (props: Props) => {
       {props.disableMarginTop ? null : <Box mt={96} />}
 
       {props.children}
+
+      {props.disableMarginBottom ? null : <Box mt={96} />}
     </div>
   )
 }
