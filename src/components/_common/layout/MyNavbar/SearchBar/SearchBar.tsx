@@ -12,6 +12,8 @@ const SearchBar = (props: Props) => {
   const [input, setInput] = useState(q || '')
   const router = useRouter()
 
+  const { type } = useMyRouterQuery()
+
   return (
     <form
       onSubmit={(e) => {
@@ -19,7 +21,7 @@ const SearchBar = (props: Props) => {
         router.push(
           urls.pages.search({
             q: input,
-            type: 'movie',
+            type: type || 'movie',
           })
         )
       }}
