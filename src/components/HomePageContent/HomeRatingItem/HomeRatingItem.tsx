@@ -1,4 +1,4 @@
-import { Flex, Text, useMantineTheme } from '@mantine/core'
+import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 
 import { format } from 'timeago.js'
@@ -13,6 +13,7 @@ import {
 } from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
 import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons'
+import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
 
 type Props = {
   rating: RatingDto
@@ -93,11 +94,28 @@ const HomeRatingItem = (props: Props) => {
         <Link
           href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}
         >
-          <SyncroItemImage
-            item={props.rating.syncroItem}
-            width={isSmallScreen ? 120 : 160}
-            height={isSmallScreen ? 120 : 160}
-          />
+          <Box pos="relative">
+            <SyncroItemImage
+              item={props.rating.syncroItem}
+              width={isSmallScreen ? 120 : 160}
+              height={isSmallScreen ? 120 : 160}
+            />
+
+            <Center
+              pos="absolute"
+              right={2}
+              bottom={2}
+              title={props.rating.syncroItem?.type}
+              sx={{
+                backgroundColor: theme.colors.gray[9],
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+              }}
+            >
+              <SyncroItemIcon type={props.rating.syncroItem!.type} size={16} />
+            </Center>
+          </Box>
         </Link>
       </Flex>
     </MyPaper>
