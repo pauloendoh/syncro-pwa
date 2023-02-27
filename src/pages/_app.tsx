@@ -10,6 +10,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useEffect } from 'react'
+import GlobalModals from '../components/_common/modals/GlobalModals'
 import useCheckAuthOrLogout from '../domains/auth/useCheckAuthUserOrLogout'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
@@ -62,6 +63,8 @@ export default function App(props: AppProps) {
                 transitionDuration={500}
               />
               <Component {...pageProps} />
+
+              <GlobalModals />
             </NotificationsProvider>
           </MantineProvider>
         </ColorSchemeProvider>
