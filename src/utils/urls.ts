@@ -17,6 +17,8 @@ export const urls = {
     },
     userItems: (userId: string, type: SyncroItemType) =>
       `/user/${userId}/items?type=${type}`,
+
+    savedItems: '/saved',
   },
   api: {
     register: (pushToken: string | null) =>
