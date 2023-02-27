@@ -1,4 +1,5 @@
 import {
+  Box,
   Center,
   Container,
   Flex,
@@ -19,6 +20,7 @@ import FlexVCenter from '../flex/FlexVCenter'
 import SyncroItemImage from '../image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../layout/LoggedLayout'
 import MyPaper from '../overrides/MyPaper'
+import RatingRow from './RatingRow/RatingRow'
 
 type Props = {}
 
@@ -92,6 +94,9 @@ const SyncroItemPageContent = (props: Props) => {
                 </Title>
                 <Text mt={8}>{item.plotSummary}</Text>
               </FlexCol>
+
+              <Box mt={16} />
+              <RatingRow syncroItem={item} />
             </>
           )}
         </MyPaper>
