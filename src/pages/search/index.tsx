@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import SearchPageContent from '../../components/SearchPageContent/SearchPageContent'
 
-const UserItem: NextPage = () => {
+const MyNextPage: NextPage = () => {
   return <SearchPageContent />
 }
 
-export default UserItem
+export default MyNextPage

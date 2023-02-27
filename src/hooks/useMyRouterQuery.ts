@@ -5,10 +5,10 @@ export const useMyRouterQuery = () => {
   const router = useRouter()
   const query = router.query
   return query as {
-    syncroItemId?: string
-    userId?: string
+    syncroItemId: string
+    userId: string
 
-    q?: string
-    type?: SearchParams['type']
+    q: string
+    type: SearchParams['type']
   }
 }

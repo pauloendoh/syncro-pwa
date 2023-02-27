@@ -33,7 +33,7 @@ const UserPageContent = (props: Props) => {
   return (
     <LoggedLayout>
       <Container size="xs">
-        <MyPaper>
+        <MyPaper sx={{ width: '100%' }}>
           {isLoading && (
             <Center sx={{ height: 96 }}>
               <Loader />
@@ -81,11 +81,11 @@ const UserPageContent = (props: Props) => {
           )}
         </MyPaper>
 
-        <Flex mt={2}>
+        <Flex mt={16}>
           {noRatings ? (
             <NoRatingsUserProfile userId={userId!} />
           ) : (
-            <>
+            <Flex gap={16} wrap="wrap">
               {syncroItemTypes.map((itemType) => (
                 <ProfileScreenRatingItem
                   key={itemType}
@@ -100,7 +100,7 @@ const UserPageContent = (props: Props) => {
                   // }
                 />
               ))}
-            </>
+            </Flex>
           )}
         </Flex>
       </Container>
