@@ -1,7 +1,7 @@
 import { useMantineTheme } from '@mantine/core'
 import { FiFilm, FiTv } from 'react-icons/fi'
 import { IoLogoGameControllerA, IoMdBook } from 'react-icons/io'
-import { SyncroItemType } from '../../../../domains/syncro-item/SyncroItemType'
+import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 interface Props {
   type: SyncroItemType
   color?: string

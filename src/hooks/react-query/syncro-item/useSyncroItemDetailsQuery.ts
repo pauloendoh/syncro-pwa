@@ -1,8 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
+import {
+  buildSyncroItemDto,
+  SyncroItemDto,
+} from '../../../types/domain/syncro-item/SyncroItemDto'
 
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
-import { buildSyncroItemDto, SyncroItemDto } from './SyncroItemDto'
 
 export const useSyncroItemDetailsQuery = (id?: string | null) => {
   const axios = useAxios()

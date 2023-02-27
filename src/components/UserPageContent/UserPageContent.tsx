@@ -7,18 +7,29 @@ import {
   Text,
   Title,
 } from '@mantine/core'
+import { useMemo, useState } from 'react'
+import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
+import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../_common/flex/FlexCol'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
+import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
+import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
 
 type Props = {}
 
 const UserPageContent = (props: Props) => {
   const { userId } = useMyRouterQuery()
   const { data: userInfo, isLoading } = useUserInfoQuery(userId!)
+
+  const { data: userRatings } = useUserRatingsQuery(userId!)
+
+  const noRatings = useMemo(() => userRatings?.length === 0, [userRatings])
+  const [refreshedAt, setRefreshedAt] = useState(new Date().toISOString())
+
   return (
     <LoggedLayout>
       <Container size="xs">
@@ -69,6 +80,29 @@ const UserPageContent = (props: Props) => {
             </FlexCol>
           )}
         </MyPaper>
+
+        <Flex mt={2}>
+          {noRatings ? (
+            <NoRatingsUserProfile userId={userId!} />
+          ) : (
+            <>
+              {syncroItemTypes.map((itemType) => (
+                <ProfileScreenRatingItem
+                  key={itemType}
+                  itemType={itemType}
+                  userId={userId!}
+                  refreshedAt={refreshedAt}
+                  // onClick={() =>
+                  //   navigation.push('UserItems', {
+                  //     userId: route.params.userId,
+                  //     itemType,
+                  //   })
+                  // }
+                />
+              ))}
+            </>
+          )}
+        </Flex>
       </Container>
     </LoggedLayout>
   )

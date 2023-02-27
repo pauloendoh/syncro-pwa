@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { SyncroItemType } from '../../../domains/syncro-item/SyncroItemType'
+import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 export const useSyncroItemTypeMap = (by: {
   tabIndex?: number

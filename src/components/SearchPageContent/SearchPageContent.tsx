@@ -1,7 +1,7 @@
 import { Box, Container, Tabs } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { SearchParams } from '../../domains/search/types/SearchParams'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
+import { SearchParams } from '../../types/domain/search/SearchParams'
 import { urls } from '../../utils/urls'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import ItemSearchResults from './ItemSearchResults/ItemSearchResults'

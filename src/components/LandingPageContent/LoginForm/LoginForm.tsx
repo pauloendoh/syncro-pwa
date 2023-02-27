@@ -1,15 +1,23 @@
 import { classValidatorResolver } from '@hookform/resolvers/class-validator'
 import { Button, Flex } from '@mantine/core'
+import { IsString } from 'class-validator'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { AuthUserGetDto } from '../../../domains/auth/types/AuthUserGetDto'
-import { LoginDto } from '../../../domains/auth/types/LoginDto'
-import useAuthStore from '../../../domains/auth/useAuthStore'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyTextInput from '../../_common/inputs/MyTextInput'
+
+class LoginDto {
+  @IsString()
+  identificator: string
+
+  @IsString()
+  password: string
+}
 
 interface Props {
   onToggleForm: () => void

@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import { deleteFromArray } from 'endoh-utils'
-
-import { upsert } from 'endoh-utils/dist/array'
+import { upsert } from 'endoh-utils'
+import { deleteFromArray } from 'endoh-utils/dist/array'
+import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
-import { InterestDto } from './InterestDto'
 
 const useSaveInterestMutation = () => {
   const queryClient = useQueryClient()
@@ -41,10 +39,6 @@ const useSaveInterestMutation = () => {
         )
 
         myNotifications.success('Interest saved!')
-      },
-      onError: (err: AxiosError<any>) => {
-        alert(err?.response?.data?.message || 'Error saving idea')
-        // setErrorMessage(err?.response?.data?.message || "Error saving idea")
       },
     }
   )

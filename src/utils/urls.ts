@@ -1,7 +1,7 @@
 import queryString from 'query-string'
+import { SearchParams } from '../types/domain/search/SearchParams'
+import { SyncroItemType } from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
-import { SearchParams } from '../domains/search/types/SearchParams'
-import { SyncroItemType } from '../domains/syncro-item/SyncroItemType'
 import { myEnvs } from './myEnvs'
 
 const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
@@ -15,6 +15,8 @@ export const urls = {
       const query = queryString.stringify(params)
       return `/search?${query}`
     },
+    userItems: (userId: string, type: SyncroItemType) =>
+      `/user/${userId}/items?type=${type}`,
   },
   api: {
     register: (pushToken: string | null) =>

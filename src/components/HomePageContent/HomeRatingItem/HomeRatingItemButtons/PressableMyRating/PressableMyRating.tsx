@@ -1,8 +1,8 @@
 import { Text, useMantineTheme } from '@mantine/core'
 import { MdStar } from 'react-icons/md'
-import { useMyRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyRatingsQuery'
-import useRatingModalStore from '../../../../../hooks/zustand/domains/modals/useRatingModalStore'
-import { buildRatingDto } from '../../../../../types/domains/rating/RatingDto'
+import { useMyRatingQU } from '../../../../../hooks/react-query/rating/useMyRatingsQuery'
+import useRatingModalStore from '../../../../../hooks/zustand/modals/useRatingModalStore'
+import { buildRatingDto } from '../../../../../types/domain/rating/RatingDto'
 import FlexVCenter from '../../../../_common/flex/FlexVCenter'
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 const PressableMyRating = (props: Props) => {
   const { openModal: openRatingModal } = useRatingModalStore()
-  const myRating = useMyRatingQueryUtils(props.itemId)
+  const myRating = useMyRatingQU(props.itemId)
 
   const theme = useMantineTheme()
 

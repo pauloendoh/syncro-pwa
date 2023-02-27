@@ -2,7 +2,7 @@ import { Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 
 import { format } from 'timeago.js'
-import { RatingDto } from '../../../types/domains/rating/RatingDto'
+import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'

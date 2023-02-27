@@ -1,8 +1,8 @@
 import { Menu } from '@mantine/core'
 import Image from 'next/image'
-import useAuthStore from '../../../../../domains/auth/useAuthStore'
 import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
+import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../utils/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
 

@@ -1,6 +1,6 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
 import Image from 'next/image'
-import { SyncroItemDto } from '../../../../hooks/react-query/syncro-item/SyncroItemDto'
+import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'

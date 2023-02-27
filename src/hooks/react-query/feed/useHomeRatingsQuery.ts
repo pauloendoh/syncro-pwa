@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { RatingDto } from '../../../types/domains/rating/RatingDto'
+import { RatingDto } from '../../../types/domain/rating/RatingDto'
 
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'

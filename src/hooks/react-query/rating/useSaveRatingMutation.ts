@@ -1,15 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { deleteFromArray, upsert } from 'endoh-utils'
-import { RatingDto } from '../../../types/domains/rating/RatingDto'
+import { deleteFromArray, upsert } from 'endoh-utils/dist/array'
+import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
-
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
 
   const axios = useAxios()

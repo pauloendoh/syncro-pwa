@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { SyncroItemDto } from '../../../../hooks/react-query/syncro-item/SyncroItemDto'
+import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 
 type Props = {

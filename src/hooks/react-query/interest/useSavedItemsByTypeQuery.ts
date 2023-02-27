@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
-import { SyncroItemType } from '../../../domains/syncro-item/SyncroItemType'
+import { useQuery } from "@tanstack/react-query"
+import { InterestDto } from "../../../types/domain/interest/InterestDto"
+import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 
-import { urls } from '../../../utils/urls'
-import { InterestDto } from './InterestDto'
+import { urls } from "../../../utils/urls"
 
 export const useSavedItemsByTypeQuery = (type: SyncroItemType) => {
   return useQuery<InterestDto[], Error>([urls.api.findSavedItemsByType(type)])

@@ -1,4 +1,4 @@
-import { resetAuthStore } from '../../../domains/auth/useAuthStore'
+import { resetAuthStore } from '../../zustand/useAuthStore'
 
 export const useLogout = () => {
   // const { showSuccessToast } = useMyToast()

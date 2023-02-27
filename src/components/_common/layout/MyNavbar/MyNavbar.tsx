@@ -1,6 +1,6 @@
 import { Header, Title } from '@mantine/core'
-import useAuthStore from '../../../../domains/auth/useAuthStore'
 import { useLogout } from '../../../../hooks/domains/auth/useLogout'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls'
 import MyNextLink from '../../overrides/MyNextLink'
 import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'

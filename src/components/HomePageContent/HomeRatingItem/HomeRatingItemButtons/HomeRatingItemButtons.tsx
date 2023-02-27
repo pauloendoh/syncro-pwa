@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react'
 import { MdBookmark, MdBookmarkBorder } from 'react-icons/md'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
-import { RatingDto } from '../../../../types/domains/rating/RatingDto'
+import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import PressableMyRating from './PressableMyRating/PressableMyRating'
 

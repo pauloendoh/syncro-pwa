@@ -1,4 +1,4 @@
-import { SearchParams } from '../../../domains/search/types/SearchParams'
+import { SearchParams } from '../../../types/domain/search/SearchParams'
 
 export const searchTabOptions: {
   key: SearchParams['type']

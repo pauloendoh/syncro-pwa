@@ -1,6 +1,6 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
 import Image from 'next/image'
-import { IImdbResultItem } from '../../../../types/domains/imdb/IImdbResultItem'
+import { IImdbResultItem } from '../../../../types/domain/movie/MovieResultResponseDto'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
