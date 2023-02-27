@@ -81,7 +81,7 @@ const HomeRatingItem = (props: Props) => {
                 >
                   {props.rating.syncroItem?.title}{' '}
                   {props.rating.syncroItem?.year &&
-                    `(${props.rating.syncroItem?.year})`}
+                    `[${props.rating.syncroItem?.year}]`}
                 </Text>
               </MyNextLink>
             </Text>

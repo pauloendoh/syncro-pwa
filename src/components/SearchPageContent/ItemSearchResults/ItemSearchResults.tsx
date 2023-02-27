@@ -8,6 +8,7 @@ import { IImdbResultItem } from '../../../types/domains/imdb/IImdbResultItem'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyPaper from '../../_common/overrides/MyPaper'
 import ImdbSearchItem from './ImdbSearchItem/ImdbSearchItem'
+import SyncroSearchItem from './SyncroSearchItem/SyncroSearchItem'
 
 type Props = {
   query: string
@@ -73,16 +74,11 @@ const ItemSearchResults = (props: Props) => {
           <ImdbSearchItem resultItem={imdbItem} key={imdbItem.id} />
         ))}
 
-        {/* {otherSyncroItems?.map((syncroItem) => (
-    <SyncroSearchItem
-      syncroItem={syncroItem}
-      key={syncroItem.id}
-      onClick={() => onClickItemId(syncroItem.id)}
-    />
-  ))}
+        {otherSyncroItems?.map((syncroItem) => (
+          <SyncroSearchItem item={syncroItem} key={syncroItem.id} />
+        ))}
 
-
-        {items?.map((item) => (
+        {/* {items?.map((item) => (
           <div key={item.id}>{item.title}</div>
         ))} */}
       </FlexCol>
