@@ -6,6 +6,7 @@ import { urls } from '../../utils/urls'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import ItemSearchResults from './ItemSearchResults/ItemSearchResults'
 import { searchTabOptions } from './searchTabOptions/searchTabOptions'
+import UserSearchResults from './UserSearchResults/UserSearchResults'
 
 type Props = {}
 
@@ -47,6 +48,10 @@ const SearchPageContent = (props: Props) => {
           <Box mt={16} />
           {type !== 'users' && !!q && !!type && (
             <ItemSearchResults query={q} type={type} />
+          )}
+
+          {type === 'users' && (
+            <UserSearchResults onClickUser={() => {}} query={q} />
           )}
         </Tabs>
       </Container>
