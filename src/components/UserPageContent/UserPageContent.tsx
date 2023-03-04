@@ -1,5 +1,6 @@
 import {
   Anchor,
+  Box,
   Center,
   Container,
   Flex,
@@ -11,11 +12,14 @@ import { useMemo, useState } from 'react'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
+import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../_common/flex/FlexCol'
+import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
+import ItemsCountUserProfile from './ItemsCountUserProfile/ItemsCountUserProfile'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
 import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
@@ -30,6 +34,13 @@ const UserPageContent = (props: Props) => {
 
   const noRatings = useMemo(() => userRatings?.length === 0, [userRatings])
   const [refreshedAt, setRefreshedAt] = useState(new Date().toISOString())
+
+  const authUser = useAuthStore((s) => s.authUser)
+
+  const thisIsMyProfile = useMemo(
+    () => authUser?.id === userId,
+    [authUser, userId]
+  )
 
   return (
     <LoggedLayout>
@@ -54,7 +65,26 @@ const UserPageContent = (props: Props) => {
                     {userInfo.username}
                   </Title>
 
-                  <ProfileScreenButtons userId={userId} />
+                  <Box mt={16}>
+                    <ItemsCountUserProfile userId={userId} />
+                  </Box>
+
+                  <FlexVCenter mt={16}>
+                    {thisIsMyProfile ? null : (
+                      // <Button
+                      //   colorScheme="gray"
+                      //   width="100%"
+                      //   onPress={() =>
+                      //     navigation.push("EditProfile", {
+                      //       initialValues: userInfo!.profile,
+                      //     })
+                      //   }
+                      // >
+                      //   Edit profile
+                      // </Button>
+                      <ProfileScreenButtons userId={userId} />
+                    )}
+                  </FlexVCenter>
                 </FlexCol>
               </Flex>
 

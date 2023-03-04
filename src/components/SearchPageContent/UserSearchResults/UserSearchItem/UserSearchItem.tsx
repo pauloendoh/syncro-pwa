@@ -15,7 +15,7 @@ interface Props {
 
 const UserSearchItem = ({ user, onClickUser }: Props) => {
   const authUser = useAuthStore((s) => s.authUser)
-  const itsAuthUser = useMemo(() => authUser?.id === user.id, [authUser])
+  const itsAuthUser = useMemo(() => authUser?.id === user.id, [authUser, user])
 
   return (
     <Box>

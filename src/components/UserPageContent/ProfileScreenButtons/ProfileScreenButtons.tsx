@@ -7,7 +7,7 @@ interface Props {
 
 const ProfileScreenButtons = (props: Props) => {
   return (
-    <FlexVCenter gap={4}>
+    <FlexVCenter gap={16}>
       <FollowUnfollowButton profileUserId={props.userId} />
       {/* <RecommendUserButton userId={props.userId} /> */}
     </FlexVCenter>
