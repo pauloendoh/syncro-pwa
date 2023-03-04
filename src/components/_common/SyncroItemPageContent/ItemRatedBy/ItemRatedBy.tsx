@@ -58,8 +58,14 @@ const ItemRatedBy = (props: Props) => {
         ))}
       </div>
 
-      <Box miw={sliced.length === 1 ? 8 : 0} />
-      {label}
+      <Box
+        sx={{
+          position: 'relative',
+          left: 16 - sliced.length * 8,
+        }}
+      >
+        {label}
+      </Box>
     </FlexVCenter>
   )
 }
