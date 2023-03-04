@@ -9,6 +9,7 @@ interface Props {
   onCancel?: () => void
   onEnabledAndCtrlEnter?: () => void
   onEnableAndCtrlS?: () => void
+  saveText?: string
 }
 
 const SaveCancelButtons = (props: Props) => {
@@ -49,7 +50,7 @@ const SaveCancelButtons = (props: Props) => {
         disabled={props.disabled || props.isLoading}
         onClick={props.onSave}
       >
-        Save
+        {props.saveText ? props.saveText : 'Save'}
       </Button>
 
       <Box ml={8}>

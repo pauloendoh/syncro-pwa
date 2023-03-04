@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
 import { urls } from '../../../../utils/urls'
+import FollowUnfollowButton from '../../../UserPageContent/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
 import FlexCol from '../../../_common/flex/FlexCol'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 import UserProfilePicture from '../../../_common/UserProfilePicture/UserProfilePicture'
@@ -43,7 +44,7 @@ const UserSearchItem = ({ user, onClickUser }: Props) => {
           </FlexCol>
         </Flex>
         <Flex w={100}>
-          {/* {!itsAuthUser && <FollowUnfollowButton profileUserId={user.id} />} */}
+          {!itsAuthUser && <FollowUnfollowButton profileUserId={user.id} />}
         </Flex>
       </Flex>
     </Box>

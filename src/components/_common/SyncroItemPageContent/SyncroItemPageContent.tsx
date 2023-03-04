@@ -111,15 +111,15 @@ const SyncroItemPageContent = (props: Props) => {
 
               <Box mt={16} />
               <RatingRow syncroItem={item} />
-
-              {isMovieOrSeries && (
-                <Box mt={24}>
-                  <TrailerSection itemId={syncroItemId!} />
-                </Box>
-              )}
             </>
           )}
         </MyPaper>
+
+        {isMovieOrSeries && (
+          <Box mt={24}>
+            <TrailerSection itemId={syncroItemId!} />
+          </Box>
+        )}
       </Container>
     </LoggedLayout>
   )

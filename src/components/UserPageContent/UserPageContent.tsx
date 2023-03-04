@@ -17,6 +17,7 @@ import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
+import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
 
 type Props = {}
@@ -47,9 +48,14 @@ const UserPageContent = (props: Props) => {
                   username={userInfo.username}
                   widthHeight={96}
                 />
-                <Title order={4} weight={500}>
-                  {userInfo.username}
-                </Title>
+
+                <FlexCol>
+                  <Title order={4} weight={500}>
+                    {userInfo.username}
+                  </Title>
+
+                  <ProfileScreenButtons userId={userId} />
+                </FlexCol>
               </Flex>
 
               {userInfo.profile.fullName.length > 0 && (
