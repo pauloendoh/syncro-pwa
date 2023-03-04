@@ -14,7 +14,7 @@ interface Props {
 // PE 1/3 - rename this
 const SearchItemImdbSection = (props: Props) => {
   return (
-    <>
+    <FlexCol w={100}>
       <Text weight={500}>{props.title || 'IMDb'}</Text>
 
       <FlexCol gap={4}>
@@ -30,7 +30,7 @@ const SearchItemImdbSection = (props: Props) => {
           <Text>{shortNumberFormatter(props.ratingCount)} votes</Text>
         </FlexVCenter>
       </FlexCol>
-    </>
+    </FlexCol>
   )
 }
 
