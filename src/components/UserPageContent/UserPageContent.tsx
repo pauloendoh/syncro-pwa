@@ -1,6 +1,7 @@
 import {
   Anchor,
   Box,
+  Button,
   Center,
   Container,
   Flex,
@@ -15,14 +16,14 @@ import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { urls } from '../../utils/urls'
 import FlexCol from '../_common/flex/FlexCol'
-import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
+import MyNextLink from '../_common/overrides/MyNextLink'
 import MyPaper from '../_common/overrides/MyPaper'
 import ItemsCountUserProfile from './ItemsCountUserProfile/ItemsCountUserProfile'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
-import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
 
 type Props = {}
@@ -71,23 +72,6 @@ const UserPageContent = (props: Props) => {
                   <Box mt={16}>
                     <ItemsCountUserProfile userId={userId} />
                   </Box>
-
-                  <FlexVCenter mt={16}>
-                    {thisIsMyProfile ? null : (
-                      // <Button
-                      //   colorScheme="gray"
-                      //   width="100%"
-                      //   onPress={() =>
-                      //     navigation.push("EditProfile", {
-                      //       initialValues: userInfo!.profile,
-                      //     })
-                      //   }
-                      // >
-                      //   Edit profile
-                      // </Button>
-                      <ProfileScreenButtons userId={userId} />
-                    )}
-                  </FlexVCenter>
                 </FlexCol>
               </Flex>
 
@@ -115,6 +99,14 @@ const UserPageContent = (props: Props) => {
                 >
                   {userInfo.profile.websiteUrl}
                 </Anchor>
+              )}
+
+              {authUser?.id === userId && (
+                <MyNextLink href={urls.pages.editProfile}>
+                  <Button color="gray" fullWidth>
+                    <Text>Edit profile</Text>
+                  </Button>
+                </MyNextLink>
               )}
             </FlexCol>
           )}

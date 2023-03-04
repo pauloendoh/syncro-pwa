@@ -22,6 +22,7 @@ export const urls = {
     savedItems: '/saved',
     explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
     notifications: '/notifications',
+    editProfile: '/edit-profile',
   },
   api: {
     register: (pushToken: string | null) =>
