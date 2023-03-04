@@ -1,3 +1,5 @@
+import ShowMoreText from 'react-show-more-text'
+
 import {
   Box,
   Center,
@@ -93,7 +95,18 @@ const SyncroItemPageContent = (props: Props) => {
                 <Title order={5} weight={500}>
                   Summary
                 </Title>
-                <Text mt={8}>{item.plotSummary}</Text>
+                <Box
+                  mt={8}
+                  sx={(theme) => ({
+                    a: {
+                      color: theme.colors.primary,
+                    },
+                  })}
+                >
+                  {item.plotSummary.length > 0 && (
+                    <ShowMoreText lines={5}>{item.plotSummary}</ShowMoreText>
+                  )}
+                </Box>
               </FlexCol>
 
               <Box mt={16} />

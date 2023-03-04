@@ -31,6 +31,8 @@ const TrailerSection = (props: Props) => {
             controls={true}
           />
         )}
+
+        {!isLoading && !firstTrailer && <Box>No trailers found</Box>}
       </Box>
     </Box>
   )
