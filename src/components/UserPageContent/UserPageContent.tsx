@@ -11,6 +11,7 @@ import {
 import { useMemo, useState } from 'react'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -42,6 +43,8 @@ const UserPageContent = (props: Props) => {
     [authUser, userId]
   )
 
+  const { isSmallScreen } = useMyMediaQuery()
+
   return (
     <LoggedLayout>
       <Container size="xs">
@@ -57,7 +60,7 @@ const UserPageContent = (props: Props) => {
                 <UserImage
                   pictureUrl={userInfo.profile.pictureUrl}
                   username={userInfo.username}
-                  widthHeight={96}
+                  widthHeight={isSmallScreen ? 80 : 96}
                 />
 
                 <FlexCol>

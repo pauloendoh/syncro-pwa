@@ -1,7 +1,10 @@
-import { ActionIcon, Header, Title, Tooltip } from '@mantine/core'
+import { ActionIcon, Header, Indicator, Title, Tooltip } from '@mantine/core'
+import { useMemo } from 'react'
 import { IoMdCompass } from 'react-icons/io'
-import { MdBookmark } from 'react-icons/md'
+import { MdBookmark, MdNotifications } from 'react-icons/md'
 import { useLogout } from '../../../../hooks/domains/auth/useLogout'
+import { useNotificationsQuery } from '../../../../hooks/react-query/notification/useNotificationsQuery'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls'
 import FlexVCenter from '../../flex/FlexVCenter'
@@ -16,6 +19,15 @@ const MyNavbar = (props: Props) => {
 
   const logout = useLogout()
 
+  const { data: notifications, refetch } = useNotificationsQuery()
+
+  const unseenNotifications = useMemo(
+    () => notifications?.filter((n) => n.showDot) || [],
+    [notifications]
+  )
+
+  const { isSmallScreen } = useMyMediaQuery()
+
   return (
     <Header
       height={60}
@@ -29,22 +41,24 @@ const MyNavbar = (props: Props) => {
       })}
       fixed
     >
-      <MyNextLink href={urls.pages.index}>
-        <Title
-          sx={(theme) => ({
-            color: theme.colors.dark[0],
-          })}
-          order={2}
-        >
-          Syncro
-        </Title>
-      </MyNextLink>
+      {!isSmallScreen && (
+        <MyNextLink href={urls.pages.index}>
+          <Title
+            sx={(theme) => ({
+              color: theme.colors.dark[0],
+            })}
+            order={2}
+          >
+            Syncro
+          </Title>
+        </MyNextLink>
+      )}
       <SearchBar />
 
       <FlexVCenter gap={24}>
         {authUser && (
           <FlexVCenter gap={24}>
-            <Tooltip label="Saved items" withArrow>
+            <Tooltip label="Explore" withArrow>
               <MyNextLink href={urls.pages.explore('popular-users')}>
                 <ActionIcon>
                   <IoMdCompass size={24} />
@@ -58,6 +72,24 @@ const MyNavbar = (props: Props) => {
                   <MdBookmark size={24} />
                 </ActionIcon>
               </MyNextLink>
+            </Tooltip>
+
+            <Tooltip label="Notifications" withArrow>
+              <Indicator
+                disabled={unseenNotifications.length === 0}
+                label={
+                  unseenNotifications.length > 0
+                    ? unseenNotifications.length
+                    : undefined
+                }
+                size={16}
+              >
+                <MyNextLink href={urls.pages.notifications}>
+                  <ActionIcon>
+                    <MdNotifications size={24} />
+                  </ActionIcon>
+                </MyNextLink>
+              </Indicator>
             </Tooltip>
           </FlexVCenter>
         )}

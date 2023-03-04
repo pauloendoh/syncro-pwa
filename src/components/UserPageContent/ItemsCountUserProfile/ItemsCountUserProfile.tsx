@@ -4,6 +4,7 @@ import { useFollowersQuery } from '../../../hooks/react-query/follow/useFollower
 import { useFollowingUsersQuery } from '../../../hooks/react-query/follow/useFollowingUsersQuery'
 import { useUserRatingsQuery } from '../../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserItemsCountQuery } from '../../../hooks/react-query/syncro-item/useUserItemsCountQuery'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -27,8 +28,10 @@ const ItemsCountUserProfile = (props: Props) => {
 
   const { data: itemsCount } = useUserItemsCountQuery(props.userId)
 
+  const { isSmallScreen } = useMyMediaQuery()
+
   return (
-    <FlexVCenter gap={32}>
+    <FlexVCenter gap={isSmallScreen ? 16 : 32}>
       <FlexCol
         align={'center'}
         onClick={() => {

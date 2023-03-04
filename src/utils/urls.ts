@@ -21,6 +21,7 @@ export const urls = {
 
     savedItems: '/saved',
     explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
+    notifications: '/notifications',
   },
   api: {
     register: (pushToken: string | null) =>

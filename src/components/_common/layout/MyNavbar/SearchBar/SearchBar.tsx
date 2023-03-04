@@ -35,14 +35,14 @@ const SearchBar = (props: Props) => {
       <MyTextInput
         placeholder={
           isSmallScreen
-            ? 'Search...'
+            ? 'Search'
             : 'Search your favorite movies, TV shows, games...'
         }
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
         icon={<MdSearch />}
         sx={{
-          width: 'clamp(160px, 40vw , 540px)',
+          width: 'clamp(64px, 25vw , 540px)',
         }}
       />
       <button
