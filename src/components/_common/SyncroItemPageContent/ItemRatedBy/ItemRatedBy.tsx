@@ -46,7 +46,7 @@ const ItemRatedBy = (props: Props) => {
             key={rating.id}
             style={{
               position: 'relative',
-              right: index * 10,
+              right: index * 12,
             }}
           >
             <UserImage
@@ -61,7 +61,7 @@ const ItemRatedBy = (props: Props) => {
       <Box
         sx={{
           position: 'relative',
-          left: 16 - sliced.length * 8,
+          left: 20 - sliced.length * 12,
         }}
       >
         {label}
