@@ -21,6 +21,7 @@ import SyncroItemImage from '../image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../layout/LoggedLayout'
 import MyPaper from '../overrides/MyPaper'
 import RatingRow from './RatingRow/RatingRow'
+import TrailerSection from './TrailerSection/TrailerSection'
 
 type Props = {}
 
@@ -97,12 +98,16 @@ const SyncroItemPageContent = (props: Props) => {
 
               <Box mt={16} />
               <RatingRow syncroItem={item} />
+
+              {isMovieOrSeries && (
+                <Box mt={24}>
+                  <TrailerSection itemId={syncroItemId!} />
+                </Box>
+              )}
             </>
           )}
         </MyPaper>
       </Container>
-
-      {/* {isMovieOrSeries && <TrailerSection itemId={syncroItemId!} />} */}
     </LoggedLayout>
   )
 }

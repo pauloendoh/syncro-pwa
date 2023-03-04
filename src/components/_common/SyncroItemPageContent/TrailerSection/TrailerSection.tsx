@@ -1,4 +1,6 @@
+import { Box, Center, Loader, Title } from '@mantine/core'
 import { useViewportSize } from '@mantine/hooks'
+import { useMemo } from 'react'
 import ReactPlayer from 'react-player'
 import { useYoutubeTrailersQuery } from '../../../../hooks/react-query/youtube/useYoutubeTrailersQuery'
 
@@ -7,24 +9,30 @@ type Props = {
 }
 
 const TrailerSection = (props: Props) => {
-  const { data } = useYoutubeTrailersQuery(props.itemId)
+  const { data, isLoading } = useYoutubeTrailersQuery(props.itemId)
   const { width } = useViewportSize()
 
+  const firstTrailer = useMemo(() => data?.[0], [data])
+
   return (
-    <div>
-      <div>Trailers</div>
-      <div>
-        {data?.map((url) => (
-          <div key={url}>
-            <ReactPlayer
-              url={url}
-              width={width > 600 ? 600 : width - 24}
-              controls={true}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+    <Box>
+      <Title order={5}>Trailers</Title>
+      <Box mt={8}>
+        {isLoading && (
+          <Center sx={{ height: 80 }}>
+            <Loader />
+          </Center>
+        )}
+
+        {firstTrailer && (
+          <ReactPlayer
+            url={firstTrailer}
+            width={width > 600 ? '100%' : width - 24}
+            controls={true}
+          />
+        )}
+      </Box>
+    </Box>
   )
 }
 
