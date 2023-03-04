@@ -36,7 +36,7 @@ const PressableMyRating = (props: Props) => {
         size={24}
       />
 
-      <Text color={myRating && 'secondary'}>
+      <Text color={myRating && 'secondary'} w={36}>
         {myRating?.ratingValue || <Text>Rate</Text>}
       </Text>
     </FlexVCenter>

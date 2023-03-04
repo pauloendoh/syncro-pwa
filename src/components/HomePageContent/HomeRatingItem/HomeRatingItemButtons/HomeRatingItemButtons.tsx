@@ -49,7 +49,7 @@ const HomeRatingItemButtons = (props: Props) => {
             />
           )}
 
-          <Text>{myInterest ? 'Saved' : 'Save'}</Text>
+          <Text w={48}>{myInterest ? 'Saved' : 'Save'}</Text>
         </FlexVCenter>
       </FlexVCenter>
     </FlexVCenter>

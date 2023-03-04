@@ -62,7 +62,7 @@ const SyncroItemPageContent = (props: Props) => {
                 />
 
                 <FlexCol gap={8}>
-                  <Flex gap={40}>
+                  <Flex gap={isSmallScreen ? 24 : 40}>
                     <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
                       <MdStarRate color={theme.colors.yellow[5]} size={16} />
 
@@ -73,8 +73,8 @@ const SyncroItemPageContent = (props: Props) => {
                     </FlexVCenter>
 
                     <Text>
-                      {shortNumberFormatter(item?.ratingCount)} votes on{' '}
-                      {itemTypeMap.site}
+                      {shortNumberFormatter(item?.ratingCount)}{' '}
+                      {isSmallScreen ? 'on' : 'votes on'} {itemTypeMap.site}
                     </Text>
                   </Flex>
 

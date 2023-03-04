@@ -7,7 +7,7 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { MdClose } from 'react-icons/md'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
@@ -52,16 +52,26 @@ const RatingModal = () => {
     setRating(newRating)
   }
 
+  const isDisabled = useMemo(
+    () => !initialValue?.id && rating === null,
+    [initialValue?.id, rating]
+  )
+
   return (
     <Modal
       opened={isOpen}
       onClose={closeModal}
       title={
         <FlexVCenter justify="space-between">
-          <Title order={4}>How would you rate {syncroItem?.title}?</Title>
+          <Title order={4}>How would you rate "{syncroItem?.title}"?</Title>
         </FlexVCenter>
       }
       withCloseButton={false}
+      styles={{
+        modal: {
+          top: 80,
+        },
+      }}
     >
       <FlexVCenter mt={24} justify="space-between">
         <Rating
@@ -79,13 +89,18 @@ const RatingModal = () => {
 
       <Box mt={40} />
       <Button
-        disabled={!initialValue?.id && rating === null}
+        disabled={isDisabled}
         fullWidth
         onClick={() => {
           if (initialValue) onSubmit({ ...initialValue, ratingValue: rating })
         }}
         color="secondary"
         loading={isLoading}
+        styles={{
+          label: {
+            color: isDisabled ? theme.colors.dark[2] : theme.colors.dark[0],
+          },
+        }}
       >
         {initialValue?.ratingValue && rating === null
           ? 'Remove rating'

@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
+import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import { urls } from '../../../../../utils/urls'
 import MyTextInput from '../../../inputs/MyTextInput'
@@ -17,6 +18,8 @@ const SearchBar = (props: Props) => {
 
   const { type } = useMyRouterQuery()
 
+  const { isSmallScreen } = useMyMediaQuery()
+
   return (
     <form
       onSubmit={(e) => {
@@ -30,10 +33,17 @@ const SearchBar = (props: Props) => {
       }}
     >
       <MyTextInput
-        placeholder="Search"
+        placeholder={
+          isSmallScreen
+            ? 'Search...'
+            : 'Search your favorite movies, TV shows, games...'
+        }
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
         icon={<MdSearch />}
+        sx={{
+          width: 'clamp(160px, 40vw , 540px)',
+        }}
       />
       <button
         style={{
