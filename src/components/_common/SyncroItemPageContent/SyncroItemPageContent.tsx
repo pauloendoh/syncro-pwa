@@ -31,7 +31,8 @@ type Props = {}
 const SyncroItemPageContent = (props: Props) => {
   const { syncroItemId } = useMyRouterQuery()
   const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId)
-  const isMovieOrSeries = item?.type === 'tvSeries' || item?.type === 'movie'
+  const canHaveTrailers =
+    item?.type === 'tvSeries' || item?.type === 'movie' || item?.type === 'game'
   const theme = useMantineTheme()
 
   const itemTypeMap = useSyncroItemTypeMap({
@@ -119,7 +120,7 @@ const SyncroItemPageContent = (props: Props) => {
           )}
         </MyPaper>
 
-        {isMovieOrSeries && (
+        {canHaveTrailers && (
           <Box mt={24}>
             <TrailerSection itemId={syncroItemId!} />
           </Box>
