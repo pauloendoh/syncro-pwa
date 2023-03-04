@@ -10,5 +10,8 @@ export const useMyRouterQuery = () => {
 
     q: string
     type: SearchParams['type']
+    exploreSlug: ExploreSlug
   }
 }
+
+export type ExploreSlug = 'popular-users' | 'rating-similarity' | 'new-users'

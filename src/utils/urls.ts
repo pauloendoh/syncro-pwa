@@ -1,4 +1,5 @@
 import queryString from 'query-string'
+import { ExploreSlug } from '../hooks/useMyRouterQuery'
 import { SearchParams } from '../types/domain/search/SearchParams'
 import { SyncroItemType } from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
@@ -19,6 +20,7 @@ export const urls = {
       `/user/${userId}/items?type=${type}`,
 
     savedItems: '/saved',
+    explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
   },
   api: {
     register: (pushToken: string | null) =>

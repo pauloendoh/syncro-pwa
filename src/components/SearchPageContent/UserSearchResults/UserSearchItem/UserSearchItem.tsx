@@ -10,10 +10,9 @@ import UserProfilePicture from '../../../_common/UserProfilePicture/UserProfileP
 
 interface Props {
   user: UserSimpleDto
-  onClickUser: (user: UserSimpleDto) => void
 }
 
-const UserSearchItem = ({ user, onClickUser }: Props) => {
+const UserSearchItem = ({ user }: Props) => {
   const authUser = useAuthStore((s) => s.authUser)
   const itsAuthUser = useMemo(() => authUser?.id === user.id, [authUser, user])
 
@@ -44,7 +43,9 @@ const UserSearchItem = ({ user, onClickUser }: Props) => {
           </FlexCol>
         </Flex>
         <Flex w={100}>
-          {!itsAuthUser && <FollowUnfollowButton profileUserId={user.id} />}
+          {!itsAuthUser && (
+            <FollowUnfollowButton profileUserId={user.id} width={100} />
+          )}
         </Flex>
       </Flex>
     </Box>

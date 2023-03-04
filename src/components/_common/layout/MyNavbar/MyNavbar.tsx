@@ -1,4 +1,5 @@
 import { ActionIcon, Header, Title, Tooltip } from '@mantine/core'
+import { IoMdCompass } from 'react-icons/io'
 import { MdBookmark } from 'react-icons/md'
 import { useLogout } from '../../../../hooks/domains/auth/useLogout'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
@@ -43,13 +44,13 @@ const MyNavbar = (props: Props) => {
       <FlexVCenter gap={24}>
         {authUser && (
           <FlexVCenter gap={24}>
-            {/* <Tooltip label="Saved items" withArrow>
-              <MyNextLink href={urls.pages.savedItems}>
+            <Tooltip label="Saved items" withArrow>
+              <MyNextLink href={urls.pages.explore('popular-users')}>
                 <ActionIcon>
                   <IoMdCompass size={24} />
                 </ActionIcon>
               </MyNextLink>
-            </Tooltip> */}
+            </Tooltip>
 
             <Tooltip label="Saved items" withArrow>
               <MyNextLink href={urls.pages.savedItems}>

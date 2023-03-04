@@ -32,13 +32,7 @@ const UserSearchResults = (props: Props) => {
       {noResults ? (
         <Text>No users found :(</Text>
       ) : (
-        users?.map((user) => (
-          <UserSearchItem
-            key={user.id}
-            user={user}
-            onClickUser={props.onClickUser}
-          />
-        ))
+        users?.map((user) => <UserSearchItem key={user.id} user={user} />)
       )}
     </FlexCol>
   )
