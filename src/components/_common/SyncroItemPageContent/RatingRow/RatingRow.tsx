@@ -1,5 +1,6 @@
 import { useMantineTheme } from '@mantine/core'
-import { MdBookmark, MdLink, MdShare, MdStar } from 'react-icons/md'
+import { IoMdShareAlt } from 'react-icons/io'
+import { MdBookmark, MdLink, MdStar } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestQU } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
@@ -85,7 +86,7 @@ const RatingRow = ({ syncroItem }: Props) => {
       <RatingRowButton
         ml={2}
         onClick={() => openRecommendItemModal(syncroItem.id)}
-        leftIcon={<MdShare color={theme.colors.dark[0]} size={16} />}
+        leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
       >
         Recommend
       </RatingRowButton>

@@ -6,11 +6,13 @@ import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
+import { urls } from '../../../utils/urls'
 import SearchItemImdbSection from '../../SearchPageContent/ItemSearchResults/ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection'
 import SearchItemYourSection from '../../SearchPageContent/ItemSearchResults/SearchItemYourSection/SearchItemYourSection'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
+import MyNextLink from '../../_common/overrides/MyNextLink'
 
 interface Props {
   item: UserItemDto
@@ -37,13 +39,17 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
     <Box>
       <Flex gap={16}>
         <Box onClick={props.onPress}>
-          <SyncroItemImage height={120} width={120} item={item} />
+          <MyNextLink href={urls.pages.syncroItem(item.id)}>
+            <SyncroItemImage height={120} width={120} item={item} />
+          </MyNextLink>
         </Box>
 
         <FlexCol style={{ flexShrink: 1 }}>
-          <Text style={{ fontWeight: '500' }}>
-            {item.title} {item.year && `(${item.year})`}
-          </Text>
+          <MyNextLink href={urls.pages.syncroItem(item.id)}>
+            <Text style={{ fontWeight: '500' }}>
+              {item.title} {item.year && `(${item.year})`}
+            </Text>
+          </MyNextLink>
 
           <Flex mt={16}>
             <FlexCol w={120}>

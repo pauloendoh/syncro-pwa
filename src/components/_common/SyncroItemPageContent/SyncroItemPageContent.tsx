@@ -22,6 +22,7 @@ import FlexVCenter from '../flex/FlexVCenter'
 import SyncroItemImage from '../image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../layout/LoggedLayout'
 import MyPaper from '../overrides/MyPaper'
+import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 
@@ -88,6 +89,9 @@ const SyncroItemPageContent = (props: Props) => {
                       {itemTypeMap.getTypeLabel()}
                     </Text>
                   </FlexVCenter>
+
+                  <ItemRatedBy itemId={syncroItemId!} />
+                  <FlexVCenter></FlexVCenter>
                 </FlexCol>
               </Flex>
 
