@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
 import useHideNotificationDotsMutation from '../../hooks/react-query/notification/useHideNotificationDotsMutation'
 import { useNotificationsQuery } from '../../hooks/react-query/notification/useNotificationsQuery'
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import FlexCol from '../_common/flex/FlexCol'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import FollowNotificationItem from './FollowNotificationItem/FollowNotificationItem'
@@ -36,10 +37,12 @@ const NotificationsPage = (props: Props) => {
     [notifications]
   )
 
+  const { isSmallScreen } = useMyMediaQuery()
+
   return (
     <LoggedLayout>
       <Container size="xs">
-        <FlexCol>
+        <FlexCol gap={isSmallScreen ? 0 : 16}>
           {sortedNotifications.map((n) => {
             if (n.follow)
               return (
