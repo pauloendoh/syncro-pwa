@@ -42,13 +42,23 @@ const MyNavbar = (props: Props) => {
 
       <FlexVCenter gap={24}>
         {authUser && (
-          <Tooltip label="Saved items" withArrow>
-            <MyNextLink href={urls.pages.savedItems}>
-              <ActionIcon>
-                <MdBookmark size={24} />
-              </ActionIcon>
-            </MyNextLink>
-          </Tooltip>
+          <FlexVCenter gap={24}>
+            {/* <Tooltip label="Saved items" withArrow>
+              <MyNextLink href={urls.pages.savedItems}>
+                <ActionIcon>
+                  <IoMdCompass size={24} />
+                </ActionIcon>
+              </MyNextLink>
+            </Tooltip> */}
+
+            <Tooltip label="Saved items" withArrow>
+              <MyNextLink href={urls.pages.savedItems}>
+                <ActionIcon>
+                  <MdBookmark size={24} />
+                </ActionIcon>
+              </MyNextLink>
+            </Tooltip>
+          </FlexVCenter>
         )}
 
         <NavbarUserMenu />

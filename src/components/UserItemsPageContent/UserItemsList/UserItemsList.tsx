@@ -1,4 +1,4 @@
-import { Box, Text } from '@mantine/core'
+import { Text } from '@mantine/core'
 import { SortingByTypes } from '../../../types/domain/others/SortingByTypes'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -23,21 +23,19 @@ const UserItemsList = ({
   ...props
 }: Props) => {
   return (
-    <FlexCol gap={4} mt={4} style={{ flex: 1 }}>
+    <FlexCol gap={16} mt={16} style={{ flex: 1 }}>
       {sortingBy === 'customOrdering' && <Text>Min interest: 3</Text>}
-      <Box style={{ flex: 1 }}>
-        {sortedItems.map((item) => {
-          return (
-            <UserItem
-              item={item}
-              onPress={() => props.onPressItem(item)}
-              thisIsYourList={props.thisIsYourList}
-              itemType={props.itemType}
-              isCustomOrdering={sortingBy === 'customOrdering'}
-            />
-          )
-        })}
-      </Box>
+      {sortedItems.map((item) => {
+        return (
+          <UserItem
+            item={item}
+            onPress={() => props.onPressItem(item)}
+            thisIsYourList={props.thisIsYourList}
+            itemType={props.itemType}
+            isCustomOrdering={sortingBy === 'customOrdering'}
+          />
+        )
+      })}
     </FlexCol>
   )
 }

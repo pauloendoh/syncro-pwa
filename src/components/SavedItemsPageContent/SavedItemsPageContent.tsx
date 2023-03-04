@@ -1,8 +1,9 @@
-import { Container } from '@mantine/core'
+import { Container, Title } from '@mantine/core'
 import { useMemo } from 'react'
 import { useSavedItemsQuery } from '../../hooks/react-query/interest/useSavedItemsQuery'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../_common/flex/FlexCol'
+import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import SavedItemsByType from './SavedItemsByType/SavedItemsByType'
 
@@ -27,7 +28,10 @@ const SavedItemsPageContent = (props: Props) => {
   return (
     <LoggedLayout>
       <Container size="sm">
-        <FlexCol gap={32}>
+        <FlexVCenter>
+          <Title order={2}>Saved items</Title>
+        </FlexVCenter>
+        <FlexCol gap={32} mt={24}>
           {groupedSavedItems.map((group) => (
             <SavedItemsByType itemType={group.type} savedItems={group.items} />
           ))}

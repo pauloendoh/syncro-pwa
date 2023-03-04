@@ -3,6 +3,7 @@ import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSync
 import { useMyColors } from '../../../hooks/useMyColors'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
+import SearchItemImdbSection from '../../SearchPageContent/ItemSearchResults/ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 
@@ -23,9 +24,9 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
 
   return (
     <Box>
-      <Flex gap="4">
+      <Flex gap={16}>
         <Box onClick={props.onPress}>
-          <SyncroItemImage height={100} width={100} item={item} />
+          <SyncroItemImage height={120} width={120} item={item} />
         </Box>
 
         <FlexCol style={{ flexShrink: 1 }}>
@@ -33,19 +34,17 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
             {item.title} {item.year && `(${item.year})`}
           </Text>
 
-          <Flex mt={2}>
-            <FlexCol style={{ width: 120 }}>
+          <Flex mt={16}>
+            <FlexCol>
               {props.thisIsYourList ? (
                 props.isCustomOrdering ? (
-                  // <CustomPositionSection itemId={item.id} itemType={itemType} />
                   <></>
                 ) : (
-                  // <SearchItemImdbSection
-                  //   avgRating={item.avgRating}
-                  //   ratingCount={item.ratingCount}
-                  //   title={itemTypeMap.site}
-                  // />
-                  <></>
+                  <SearchItemImdbSection
+                    avgRating={item.avgRating}
+                    ratingCount={item.ratingCount}
+                    title={itemTypeMap.site}
+                  />
                 )
               ) : (
                 <>
