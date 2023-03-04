@@ -46,7 +46,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
           </Text>
 
           <Flex mt={16}>
-            <FlexCol w={100}>
+            <FlexCol w={120}>
               {props.thisIsYourList ? (
                 props.isCustomOrdering ? (
                   <></>

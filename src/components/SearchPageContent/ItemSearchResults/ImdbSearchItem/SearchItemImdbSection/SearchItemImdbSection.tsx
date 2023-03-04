@@ -14,7 +14,7 @@ interface Props {
 // PE 1/3 - rename this
 const SearchItemImdbSection = (props: Props) => {
   return (
-    <FlexCol w={100}>
+    <FlexCol>
       <Text weight={500}>{props.title || 'IMDb'}</Text>
 
       <FlexCol gap={4}>
