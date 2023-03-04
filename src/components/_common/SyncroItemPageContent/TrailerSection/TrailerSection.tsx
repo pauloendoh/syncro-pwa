@@ -25,11 +25,7 @@ const TrailerSection = (props: Props) => {
         )}
 
         {firstTrailer && (
-          <ReactPlayer
-            url={firstTrailer}
-            width={width > 600 ? '100%' : width - 24}
-            controls={true}
-          />
+          <ReactPlayer url={firstTrailer} width={'100%'} controls={true} />
         )}
 
         {!isLoading && !firstTrailer && <Box>No trailers found</Box>}
