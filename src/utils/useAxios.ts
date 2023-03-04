@@ -3,7 +3,6 @@ import { ValidationError } from 'class-validator'
 import nookies from 'nookies'
 
 import { myNotifications } from './mantine/myNotifications'
-import { urls } from './urls'
 
 export const useAxios = (showErrorMessage = true) => {
   const localAxios = axios.create()
@@ -23,9 +22,10 @@ export const useAxios = (showErrorMessage = true) => {
     },
     (error) => {
       // unauthenticated -> go to "/"
-      if (error?.response?.status === 401 && window) {
-        window.location.href = urls.pages.index
-      }
+      // if (error?.response?.status === 401 && window) {
+      //   window.location.href = urls.pages.index
+      //   return
+      // }
 
       if (!showErrorMessage) return Promise.reject(error)
 

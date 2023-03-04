@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { upsert } from 'endoh-utils'
+import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { ItemRecommendationDto } from '../notification/types/ItemRecommendationDto'
@@ -14,6 +15,7 @@ const useRecommendItemMutation = () => {
         .then((res) => res.data),
     {
       onSuccess: (returnedRecommendation, payload) => {
+        myNotifications.success('Item recommended')
         qc.setQueryData<ItemRecommendationDto[]>(
           [urls.api.recommendationsFromMe],
           (curr) => {

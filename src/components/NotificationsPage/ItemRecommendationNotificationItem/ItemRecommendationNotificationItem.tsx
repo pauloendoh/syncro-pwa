@@ -44,19 +44,6 @@ const ItemRecommendationNotificationItem = ({
         <FlexCol ml={16} pr={40}>
           <span>
             <b>{itemRecommendation.fromUser?.username}</b> recommended you:
-            {props.showDot && (
-              <Box>
-                <Box
-                  style={{
-                    backgroundColor: theme.colors.primary[9],
-                    minWidth: 8,
-                    minHeight: 8,
-                    borderRadius: 8,
-                    marginLeft: 8,
-                  }}
-                />
-              </Box>
-            )}
           </span>
           <MyNextLink
             href={urls.pages.syncroItem(itemRecommendation.item?.id!)}
@@ -65,6 +52,25 @@ const ItemRecommendationNotificationItem = ({
               {itemRecommendation.item?.title}{' '}
               {itemRecommendation.item?.year &&
                 `(${itemRecommendation.item?.year})`}
+              <span
+                style={{
+                  display: 'inline-flex',
+                }}
+              >
+                &nbsp;
+                {props.showDot && (
+                  <div>
+                    <div
+                      style={{
+                        backgroundColor: theme.colors.primary[9],
+                        width: 8,
+                        height: 8,
+                        borderRadius: 8,
+                      }}
+                    />
+                  </div>
+                )}
+              </span>
             </span>
           </MyNextLink>
 
