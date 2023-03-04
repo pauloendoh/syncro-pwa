@@ -42,7 +42,7 @@ const NotificationsPage = (props: Props) => {
   return (
     <LoggedLayout>
       <Container size="xs">
-        <FlexCol gap={isSmallScreen ? 0 : 16}>
+        <FlexCol gap={24}>
           {sortedNotifications.map((n) => {
             if (n.follow)
               return (

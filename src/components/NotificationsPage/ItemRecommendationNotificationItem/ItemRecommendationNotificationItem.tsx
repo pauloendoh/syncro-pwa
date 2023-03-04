@@ -2,7 +2,10 @@ import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
 import { format } from 'timeago.js'
 import { ItemRecommendationDto } from '../../../hooks/react-query/notification/types/ItemRecommendationDto'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import { urls } from '../../../utils/urls'
+import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
+import MyNextLink from '../../_common/overrides/MyNextLink'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 
 interface Props {
@@ -30,16 +33,17 @@ const ItemRecommendationNotificationItem = ({
             // })
           }}
         >
-          <UserProfilePicture
-            userId={itemRecommendation.fromUserId}
-            widthHeigth={36}
-          />
+          <MyNextLink href={urls.pages.user(itemRecommendation.fromUserId)}>
+            <UserProfilePicture
+              userId={itemRecommendation.fromUserId}
+              widthHeigth={36}
+            />
+          </MyNextLink>
         </Box>
 
-        <Flex ml={16} pr={40}>
-          <Text maw={200}>
-            <Text weight={500}>{itemRecommendation.fromUser?.username}</Text>{' '}
-            recommended you:
+        <FlexCol ml={16} pr={40}>
+          <span>
+            <b>{itemRecommendation.fromUser?.username}</b> recommended you:
             {props.showDot && (
               <Box>
                 <Box
@@ -53,27 +57,28 @@ const ItemRecommendationNotificationItem = ({
                 />
               </Box>
             )}
-          </Text>
-          <Text style={{ fontWeight: '500' }}>
-            {itemRecommendation.item?.title}{' '}
-            {itemRecommendation.item?.year &&
-              `(${itemRecommendation.item?.year})`}
-          </Text>
+          </span>
+          <MyNextLink
+            href={urls.pages.syncroItem(itemRecommendation.item?.id!)}
+          >
+            <span style={{ fontWeight: '500' }}>
+              {itemRecommendation.item?.title}{' '}
+              {itemRecommendation.item?.year &&
+                `(${itemRecommendation.item?.year})`}
+            </span>
+          </MyNextLink>
 
           <Text size="sm">{format(itemRecommendation.createdAt)}</Text>
-        </Flex>
+        </FlexCol>
       </Flex>
-      <Box
-        onClick={() => {
-          // push("SyncroItem", { itemId: itemRecommendation.itemId })
-        }}
-      >
+
+      <MyNextLink href={urls.pages.syncroItem(itemRecommendation.item?.id!)}>
         <SyncroItemImage
           item={itemRecommendation.item}
           width={100}
           height={100}
         />
-      </Box>
+      </MyNextLink>
     </Flex>
   )
 }

@@ -11,6 +11,7 @@ const MyNextLink = React.forwardRef<HTMLAnchorElement, Props>((props, ref) => {
       passHref
       style={{
         textDecoration: 'none',
+        color: 'inherit',
         ...props.style,
       }}
     >
