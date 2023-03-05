@@ -19,7 +19,7 @@ export const urls = {
     userItems: (userId: string, type: SyncroItemType) =>
       `/user/${userId}/items?type=${type}`,
 
-    savedItems: '/saved',
+    savedItems: (type: SyncroItemType | 'all') => '/saved?type=' + type,
     explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',

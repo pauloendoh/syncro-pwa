@@ -67,7 +67,7 @@ const MyNavbar = (props: Props) => {
             </Tooltip>
 
             <Tooltip label="Saved items" withArrow>
-              <MyNextLink href={urls.pages.savedItems}>
+              <MyNextLink href={urls.pages.savedItems('all')}>
                 <ActionIcon>
                   <MdBookmark size={24} />
                 </ActionIcon>
