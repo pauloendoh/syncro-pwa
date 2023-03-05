@@ -1,5 +1,5 @@
 import { Box, Modal, Select, Title } from '@mantine/core'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useSavedItemsQuery } from '../../../../hooks/react-query/interest/useSavedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
@@ -58,6 +58,15 @@ const SavedPositionModal = (props: Props) => {
       label: p.toString(),
     }))
   }, [positionOptions])
+
+  const selectRef = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    if (props.isOpen) {
+      setTimeout(() => {
+        selectRef.current?.focus()
+      }, 100)
+    }
+  }, [props.isOpen])
 
   return (
     <Modal
