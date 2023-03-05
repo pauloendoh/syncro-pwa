@@ -1,6 +1,7 @@
 import { Box, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../../hooks/react-query/rating/useItemRatedByQuery'
+import useItemRatedByModalStore from '../../../../hooks/zustand/modals/useItemRatedByModalStore'
 import FlexVCenter from '../../flex/FlexVCenter'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 
@@ -28,20 +29,30 @@ const ItemRatedBy = (props: Props) => {
       </Text>
     )
   }, [data])
+
+  const sliced = useMemo(() => data?.slice(0, 3) || [], [data])
+
+  const { openModal } = useItemRatedByModalStore()
+
   if (!data || data.length === 0) {
     return null
   }
 
-  const sliced = data?.slice(0, 3)
-
   return (
-    <FlexVCenter>
+    <FlexVCenter
+      onClick={() => {
+        openModal(props.itemId)
+      }}
+      sx={{
+        cursor: 'pointer',
+      }}
+    >
       <div
         style={{
           display: 'inline-flex',
         }}
       >
-        {sliced.map((rating, index) => (
+        {sliced?.map((rating, index) => (
           <div
             key={rating.id}
             style={{

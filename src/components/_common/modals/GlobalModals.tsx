@@ -1,4 +1,5 @@
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
+import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
 import RatingModal from './RatingModal/RatingModal'
 import RecommendItemActionSheet from './RecommendItemActionSheet/RecommendItemActionSheet'
 
@@ -10,6 +11,7 @@ const GlobalModals = (props: Props) => {
       <RatingModal />
       <ConfirmationModal />
       <RecommendItemActionSheet />
+      <ItemRatedByModal />
     </>
   )
 }
