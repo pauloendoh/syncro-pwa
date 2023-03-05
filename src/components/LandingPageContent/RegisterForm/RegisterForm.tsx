@@ -53,10 +53,10 @@ const RegisterForm = (props: Props) => {
       const res = axios
         .post<AuthUserGetDto>(urls.api.register(''), data)
         .then((res) => {
-          setLoading(false)
           setAuthUser(res.data)
           myNotifications.success('Success')
         })
+        .finally(() => setLoading(false))
     } catch (err: unknown) {
       console.log({ err })
       setLoading(false)
@@ -94,7 +94,6 @@ const RegisterForm = (props: Props) => {
             <Button type="submit" loading={loading}>
               Register
             </Button>
-            {JSON.stringify(errors)}
 
             <Button variant="subtle" onClick={props.onToggleForm}>
               Login
