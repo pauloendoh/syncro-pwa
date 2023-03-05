@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Text, Title } from '@mantine/core'
+import { Box, Center, Flex, Text, Title, Tooltip } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useSavedPositionSheetStore from '../../../hooks/zustand/action-sheets/useSavedPositionSheetStore'
 import useSaveItemModalStore from '../../../hooks/zustand/modals/useSaveItemModalStore'
@@ -50,21 +50,25 @@ const SavedItemsByType = ({ savedItems, ...props }: Props) => {
               </MyNextLink>
 
               {/* <Pressable onPress={() => openSheet(savedItem)}> */}
-              <Center
-                sx={{
-                  right: 0,
-                  bottom: 0,
-                  position: 'absolute',
-                  opacity: 0.9,
-                  width: 32,
-                  display: 'flex',
-                  alignItems: 'center',
-                  py: 2,
-                  backgroundColor: '#151515',
-                }}
-              >
-                <Text>{savedItem.position}</Text>
-              </Center>
+              <Tooltip label={'Change the position of this item'} withArrow>
+                <Center
+                  onClick={() => openSheet(savedItem)}
+                  sx={{
+                    right: 0,
+                    bottom: 0,
+                    position: 'absolute',
+                    opacity: 0.9,
+                    width: 32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    py: 2,
+                    backgroundColor: '#151515',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Text>{savedItem.position}</Text>
+                </Center>
+              </Tooltip>
               {/* </Pressable> */}
             </Box>
           ))}
