@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query"
-import { AxiosError } from "axios"
-import { UserSimpleDto } from "../../../types/domain/user/UserSimpleDto"
+import { useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import { UserSimpleDto } from '../../../types/domain/user/UserSimpleDto'
 
-import { urls } from "../../../utils/urls"
+import { urls } from '../../../utils/urls'
 
 export type MutualSavedItemDto = {
   user: UserSimpleDto
@@ -10,7 +10,10 @@ export type MutualSavedItemDto = {
 }
 
 export const useMutualsSavedItemQuery = (itemId: string) => {
-  return useQuery<MutualSavedItemDto[], AxiosError>([
-    urls.api.mutualsSavedItem(itemId),
-  ])
+  return useQuery<MutualSavedItemDto[], AxiosError>(
+    [urls.api.mutualsSavedItem(itemId)],
+    {
+      enabled: !!itemId,
+    }
+  )
 }

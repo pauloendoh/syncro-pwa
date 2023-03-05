@@ -1,5 +1,6 @@
 import { Box } from '@mantine/core'
 import React from 'react'
+import GlobalModals from '../modals/GlobalModals'
 import MyNavbar from './MyNavbar/MyNavbar'
 
 type Props = {
@@ -17,6 +18,8 @@ const LoggedLayout = (props: Props) => {
       {props.children}
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
+
+      <GlobalModals />
     </div>
   )
 }

@@ -52,6 +52,17 @@ const NavbarUserMenu = (props: Props) => {
         >
           <Menu.Item>Profile</Menu.Item>
         </MyNextLink>
+        <a
+          href="https://discord.gg/gx3TKUYfrb"
+          target="_blank"
+          style={{
+            textDecoration: 'none',
+          }}
+        >
+          <Menu.Item>Join our Discord!</Menu.Item>
+        </a>
+
+        <Menu.Divider />
 
         <Menu.Item onClick={logout}>Logout</Menu.Item>
       </Menu.Dropdown>
