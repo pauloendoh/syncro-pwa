@@ -1,10 +1,15 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
 import Image from 'next/image'
+import { useMemo } from 'react'
+import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
+import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
+import SearchItemImdbSection from '../ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection'
+import SearchItemYourSection from '../SearchItemYourSection/SearchItemYourSection'
 
 interface Props {
   item: SyncroItemDto
@@ -14,22 +19,22 @@ interface Props {
 const SyncroSearchItem = ({ item }: Props) => {
   const theme = useMantineTheme()
 
-  // const { data: myRatings } = useMyRatingsQuery()
-  // const { data: myInterests } = useMyInterestsQuery()
+  const { data: myRatings } = useMyRatingsQuery()
+  const { data: myInterests } = useMyInterestsQuery()
 
-  // const myRatingValue = useMemo(
-  //   () =>
-  //     myRatings?.find((rating) => rating.syncroItemId === resultItem.id)
-  //       ?.ratingValue || null,
-  //   [myRatings, resultItem.id]
-  // )
+  const myRatingValue = useMemo(
+    () =>
+      myRatings?.find((rating) => rating.syncroItemId === item.id)
+        ?.ratingValue || null,
+    [myRatings, item.id]
+  )
 
-  // const myInterestLevel = useMemo(
-  //   () =>
-  //     myInterests?.find((interest) => interest.syncroItemId === resultItem.id)
-  //       ?.interestLevel || null,
-  //   [myInterests, resultItem.id]
-  // )
+  const myInterestLevel = useMemo(
+    () =>
+      myInterests?.find((interest) => interest.syncroItemId === item.id)
+        ?.interestLevel || null,
+    [myInterests, item.id]
+  )
 
   return (
     <Flex gap={16}>
@@ -56,20 +61,22 @@ const SyncroSearchItem = ({ item }: Props) => {
 
         <Flex mt={2}>
           <FlexCol style={{ width: 120 }}>
-            {/* {resultItem.syncroItem ? (
-                <SearchItemImdbSection
-                  avgRating={resultItem.syncroItem?.avgRating}
-                  ratingCount={resultItem.syncroItem?.ratingCount}
-                />
-              ) : (
+            {item.id ? (
+              <SearchItemImdbSection
+                avgRating={item?.avgRating}
+                ratingCount={item?.ratingCount}
+              />
+            ) : (
+              <MyNextLink href={urls.pages.syncroItem(item.id)}>
                 <Text>See details</Text>
-              )} */}
+              </MyNextLink>
+            )}
           </FlexCol>
-          {/* <FlexCol style={{ width: 120 }}>
-              {Boolean(myRatingValue || myInterestLevel) && (
-                <SearchItemYourSection itemId={resultItem.id} />
-              )}
-            </FlexCol> */}
+          <FlexCol style={{ width: 120 }}>
+            {Boolean(myRatingValue || myInterestLevel) && (
+              <SearchItemYourSection itemId={item.id} />
+            )}
+          </FlexCol>
         </Flex>
       </FlexCol>
     </Flex>
