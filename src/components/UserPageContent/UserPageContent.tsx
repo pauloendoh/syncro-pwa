@@ -24,6 +24,7 @@ import MyNextLink from '../_common/overrides/MyNextLink'
 import MyPaper from '../_common/overrides/MyPaper'
 import ItemsCountUserProfile from './ItemsCountUserProfile/ItemsCountUserProfile'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
+import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
 
 type Props = {}
@@ -101,12 +102,14 @@ const UserPageContent = (props: Props) => {
                 </Anchor>
               )}
 
-              {authUser?.id === userId && (
+              {thisIsMyProfile ? (
                 <MyNextLink href={urls.pages.editProfile}>
                   <Button color="gray" fullWidth>
                     <Text>Edit profile</Text>
                   </Button>
                 </MyNextLink>
+              ) : (
+                <ProfileScreenButtons userId={userId!} />
               )}
             </FlexCol>
           )}

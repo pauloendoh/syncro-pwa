@@ -3,6 +3,7 @@ import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
 import RatingModal from './RatingModal/RatingModal'
 import RecommendItemActionSheet from './RecommendItemActionSheet/RecommendItemActionSheet'
+import RecommendUserSheet from './RecommendUserSheet/RecommendUserSheet'
 import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
 
 type Props = {}
@@ -20,6 +21,7 @@ const GlobalModals = (props: Props) => {
         isOpen={savedPosition.isOpen}
         onClose={savedPosition.closeSheet}
       />
+      <RecommendUserSheet />
     </>
   )
 }
