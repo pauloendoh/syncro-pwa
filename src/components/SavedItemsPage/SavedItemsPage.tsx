@@ -30,7 +30,7 @@ const SavedItemsPage = (props: Props) => {
         items: savedItems.filter((i) => i.syncroItem?.type === t),
       }))
       .filter((t) => {
-        if (type.toString() === 'all') return true
+        if (String(type) === 'all') return true
         return type === t.type
       })
     // .sort(
