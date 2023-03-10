@@ -75,8 +75,8 @@ const SyncroItemPageContent = (props: Props) => {
                     </FlexVCenter>
 
                     <Text>
-                      {shortNumberFormatter(item?.ratingCount)}{' '}
-                      {isSmallScreen ? 'on' : 'votes on'} {itemTypeMap.site}
+                      {shortNumberFormatter(item?.ratingCount)} votes{' '}
+                      {!isSmallScreen && `on ${itemTypeMap.site}`}
                     </Text>
                   </Flex>
 

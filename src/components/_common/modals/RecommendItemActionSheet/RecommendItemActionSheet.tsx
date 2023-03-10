@@ -22,7 +22,7 @@ const RecommendItemActionSheet = (props: Props) => {
         },
       }}
     >
-      <FlexCol gap={8}>
+      <FlexCol gap={16}>
         {mutuals?.map((mutual) => (
           <RecommendMutualItem mutual={mutual} itemId={itemId!} />
         ))}

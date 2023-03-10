@@ -9,6 +9,7 @@ import {
   Text,
   Title,
 } from '@mantine/core'
+import Head from 'next/head'
 import { useMemo, useState } from 'react'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
@@ -49,6 +50,9 @@ const UserPageContent = (props: Props) => {
 
   return (
     <LoggedLayout>
+      <Head>
+        <title>{userInfo?.username} - Syncro</title>
+      </Head>
       <Container size="xs">
         <MyPaper sx={{ width: '100%' }}>
           {isLoading && (

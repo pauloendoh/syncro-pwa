@@ -2,6 +2,7 @@ import { Text } from '@mantine/core'
 import { shortNumberFormatter } from 'endoh-utils'
 import { IoMdEye } from 'react-icons/io'
 import { MdStar } from 'react-icons/md'
+import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import FlexCol from '../../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../../_common/flex/FlexVCenter'
 
@@ -13,6 +14,7 @@ interface Props {
 
 // PE 1/3 - rename this
 const SearchItemImdbSection = (props: Props) => {
+  const { isSmallScreen } = useMyMediaQuery()
   return (
     <FlexCol>
       <Text weight={500}>{props.title || 'IMDb'}</Text>
@@ -27,7 +29,10 @@ const SearchItemImdbSection = (props: Props) => {
       <FlexCol gap={4}>
         <FlexVCenter gap={8}>
           <IoMdEye size={18} />
-          <Text>{shortNumberFormatter(props.ratingCount)} votes</Text>
+          <Text>
+            {shortNumberFormatter(props.ratingCount)}{' '}
+            {!isSmallScreen && 'votes'}
+          </Text>
         </FlexVCenter>
       </FlexCol>
     </FlexCol>

@@ -1,10 +1,11 @@
-import { useMantineTheme } from '@mantine/core'
+import { ScrollArea, useMantineTheme } from '@mantine/core'
 import { IoMdShareAlt } from 'react-icons/io'
 import { MdBookmark, MdLink, MdStar } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestQU } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyRatingQU } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useRecommendItemActionSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -59,46 +60,48 @@ const RatingRow = ({ syncroItem }: Props) => {
   const typeMap = useSyncroItemTypeMap({
     itemType: syncroItem.type,
   })
-
+  const { isSmallScreen } = useMyMediaQuery()
   return (
-    <FlexVCenter gap={8}>
-      <RatingRowButton
-        onClick={() =>
-          openRatingModal(
-            myRating || buildRatingDto({ syncroItemId: syncroItem.id })
-          )
-        }
-        isActive={!!myRating?.ratingValue}
-        leftIcon={<MdStar color={theme.colors.dark[0]} size={16} />}
-      >
-        {myRating?.ratingValue || 'Rate'}
-      </RatingRowButton>
+    <ScrollArea type="auto">
+      <FlexVCenter gap={8} pb={isSmallScreen ? 16 : 0}>
+        <RatingRowButton
+          onClick={() =>
+            openRatingModal(
+              myRating || buildRatingDto({ syncroItemId: syncroItem.id })
+            )
+          }
+          isActive={!!myRating?.ratingValue}
+          leftIcon={<MdStar color={theme.colors.dark[0]} size={16} />}
+        >
+          {myRating?.ratingValue || 'Rate'}
+        </RatingRowButton>
 
-      <RatingRowButton
-        ml={2}
-        onClick={() => submitToggleSave(syncroItem.id)}
-        isActive={!!myInterest?.interestLevel}
-        leftIcon={<MdBookmark color={theme.colors.dark[0]} size={16} />}
-      >
-        {myInterest?.interestLevel ? 'Saved' : 'Save'}
-      </RatingRowButton>
+        <RatingRowButton
+          ml={2}
+          onClick={() => submitToggleSave(syncroItem.id)}
+          isActive={!!myInterest?.interestLevel}
+          leftIcon={<MdBookmark color={theme.colors.dark[0]} size={16} />}
+        >
+          {myInterest?.interestLevel ? 'Saved' : 'Save'}
+        </RatingRowButton>
 
-      <RatingRowButton
-        ml={2}
-        onClick={() => openRecommendItemModal(syncroItem.id)}
-        leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
-      >
-        Recommend
-      </RatingRowButton>
+        <RatingRowButton
+          ml={2}
+          onClick={() => openRecommendItemModal(syncroItem.id)}
+          leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
+        >
+          Recommend
+        </RatingRowButton>
 
-      <RatingRowButton
-        ml={2}
-        onClick={openExternalLink}
-        leftIcon={<MdLink color={theme.colors.dark[0]} size={16} />}
-      >
-        {typeMap.site}
-      </RatingRowButton>
-    </FlexVCenter>
+        <RatingRowButton
+          ml={2}
+          onClick={openExternalLink}
+          leftIcon={<MdLink color={theme.colors.dark[0]} size={16} />}
+        >
+          {typeMap.site}
+        </RatingRowButton>
+      </FlexVCenter>
+    </ScrollArea>
   )
 }
 

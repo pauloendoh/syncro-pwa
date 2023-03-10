@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useMemo } from 'react'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 import { urls } from '../../../../utils/urls'
@@ -36,6 +37,8 @@ const SyncroSearchItem = ({ item }: Props) => {
     [myInterests, item.id]
   )
 
+  const { isSmallScreen } = useMyMediaQuery()
+
   return (
     <Flex gap={16}>
       <MyNextLink href={urls.pages.syncroItem(item.id)}>
@@ -60,7 +63,7 @@ const SyncroSearchItem = ({ item }: Props) => {
         </MyNextLink>
 
         <Flex mt={2}>
-          <FlexCol style={{ width: 120 }}>
+          <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>
             {item.id ? (
               <SearchItemImdbSection
                 avgRating={item?.avgRating}
@@ -72,7 +75,7 @@ const SyncroSearchItem = ({ item }: Props) => {
               </MyNextLink>
             )}
           </FlexCol>
-          <FlexCol style={{ width: 120 }}>
+          <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>
             {Boolean(myRatingValue || myInterestLevel) && (
               <SearchItemYourSection itemId={item.id} />
             )}

@@ -42,7 +42,10 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
   return (
     <Flex justify="space-between">
       <FlexVCenter>
-        <MyNextLink href={urls.pages.user(mutual.user.id)}>
+        <MyNextLink
+          href={urls.pages.user(mutual.user.id)}
+          onClick={closeActionSheet}
+        >
           <UserProfilePicture userId={mutual.user.id} widthHeigth={36} />
         </MyNextLink>
 
