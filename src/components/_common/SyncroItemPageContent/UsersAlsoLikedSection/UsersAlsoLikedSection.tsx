@@ -46,7 +46,6 @@ const UsersAlsoLikedSection = (props: Props) => {
                 <MyNextLink href={urls.pages.syncroItem(item.id)}>
                   <Text align="center" lineClamp={3}>
                     {item.title}
-                    {item.year && ` [${item.year}]`}
                   </Text>
                 </MyNextLink>
               </FlexCol>
