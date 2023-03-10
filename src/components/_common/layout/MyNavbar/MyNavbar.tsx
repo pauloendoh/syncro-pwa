@@ -1,7 +1,16 @@
-import { ActionIcon, Header, Indicator, Title, Tooltip } from '@mantine/core'
+import {
+  ActionIcon,
+  Container,
+  Grid,
+  Header,
+  Indicator,
+  Title,
+  Tooltip,
+  useMantineTheme,
+} from '@mantine/core'
 import { useMemo } from 'react'
 import { IoMdCompass } from 'react-icons/io'
-import { MdBookmark, MdNotifications } from 'react-icons/md'
+import { MdBookmark, MdHome, MdNotifications } from 'react-icons/md'
 import { useLogout } from '../../../../hooks/domains/auth/useLogout'
 import { useNotificationsQuery } from '../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
@@ -28,74 +37,101 @@ const MyNavbar = (props: Props) => {
 
   const { isSmallScreen } = useMyMediaQuery()
 
+  const theme = useMantineTheme()
+
   return (
     <Header
       height={60}
-      px={32}
-      sx={(theme) => ({
+      fixed
+      sx={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: theme.colors.dark[9],
-        borderBottom: `1px solid ${theme.colors.dark[5]}`,
-      })}
-      fixed
+      }}
     >
-      {!isSmallScreen && (
-        <MyNextLink href={urls.pages.index}>
-          <Title
-            sx={(theme) => ({
+      <Grid
+        sx={{
+          width: '100%',
+        }}
+        align="center"
+      >
+        <Grid.Col span={1} xs={2} sm={'auto'} md={'auto'}>
+          <MyNextLink
+            href={urls.pages.index}
+            style={{
               color: theme.colors.dark[0],
-            })}
-            order={2}
+            }}
           >
-            Syncro
-          </Title>
-        </MyNextLink>
-      )}
-      <SearchBar />
-
-      <FlexVCenter gap={24}>
-        {authUser && (
-          <FlexVCenter gap={24}>
-            <Tooltip label="Explore" withArrow>
-              <MyNextLink href={urls.pages.explore('popular-users')}>
+            <FlexVCenter
+              sx={{
+                paddingLeft: isSmallScreen ? 16 : 32,
+              }}
+            >
+              {isSmallScreen ? (
                 <ActionIcon>
-                  <IoMdCompass size={24} />
+                  <MdHome size={24} />
                 </ActionIcon>
-              </MyNextLink>
-            </Tooltip>
+              ) : (
+                <Title
+                  sx={(theme) => ({
+                    color: theme.colors.dark[0],
+                  })}
+                  order={2}
+                >
+                  Syncro
+                </Title>
+              )}
+            </FlexVCenter>
+          </MyNextLink>
+        </Grid.Col>
+        <Grid.Col span={5} xs={5} sm={6} md={6}>
+          <Container size="xs">
+            <SearchBar />
+          </Container>
+        </Grid.Col>
+        <Grid.Col span={6} xs={'auto'} sm={'auto'} md={'auto'}>
+          <FlexVCenter gap={24} justify="flex-end">
+            {authUser && (
+              <FlexVCenter gap={24}>
+                <Tooltip label="Explore" withArrow>
+                  <MyNextLink href={urls.pages.explore('popular-users')}>
+                    <ActionIcon>
+                      <IoMdCompass size={24} />
+                    </ActionIcon>
+                  </MyNextLink>
+                </Tooltip>
 
-            <Tooltip label="Saved items" withArrow>
-              <MyNextLink href={urls.pages.savedItems('all')}>
-                <ActionIcon>
-                  <MdBookmark size={24} />
-                </ActionIcon>
-              </MyNextLink>
-            </Tooltip>
+                <Tooltip label="Saved items" withArrow>
+                  <MyNextLink href={urls.pages.savedItems('all')}>
+                    <ActionIcon>
+                      <MdBookmark size={24} />
+                    </ActionIcon>
+                  </MyNextLink>
+                </Tooltip>
 
-            <Tooltip label="Notifications" withArrow>
-              <Indicator
-                disabled={unseenNotifications.length === 0}
-                label={
-                  unseenNotifications.length > 0
-                    ? unseenNotifications.length
-                    : undefined
-                }
-                size={16}
-              >
-                <MyNextLink href={urls.pages.notifications}>
-                  <ActionIcon>
-                    <MdNotifications size={24} />
-                  </ActionIcon>
-                </MyNextLink>
-              </Indicator>
-            </Tooltip>
+                <Tooltip label="Notifications" withArrow>
+                  <Indicator
+                    disabled={unseenNotifications.length === 0}
+                    label={
+                      unseenNotifications.length > 0
+                        ? unseenNotifications.length
+                        : undefined
+                    }
+                    size={16}
+                  >
+                    <MyNextLink href={urls.pages.notifications}>
+                      <ActionIcon>
+                        <MdNotifications size={24} />
+                      </ActionIcon>
+                    </MyNextLink>
+                  </Indicator>
+                </Tooltip>
+              </FlexVCenter>
+            )}
+
+            <NavbarUserMenu />
           </FlexVCenter>
-        )}
-
-        <NavbarUserMenu />
-      </FlexVCenter>
+        </Grid.Col>
+      </Grid>
     </Header>
   )
 }

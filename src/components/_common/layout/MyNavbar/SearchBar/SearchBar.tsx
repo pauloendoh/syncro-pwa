@@ -41,9 +41,6 @@ const SearchBar = (props: Props) => {
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
         icon={<MdSearch />}
-        sx={{
-          width: 'clamp(64px, 25vw , 540px)',
-        }}
       />
       <button
         style={{

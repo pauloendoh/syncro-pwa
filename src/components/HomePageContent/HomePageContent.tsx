@@ -2,6 +2,7 @@ import {
   Box,
   Center,
   Container,
+  Grid,
   Loader,
   Text,
   Title,
@@ -45,45 +46,53 @@ const HomePageContent = () => {
   const theme = useMantineTheme()
   return (
     <LoggedLayout>
-      <Container size="xs">
-        {isLoading && <CenterLoader />}
+      <Container fluid>
+        <Grid>
+          <Grid.Col md={'auto'} />
+          <Grid.Col md={6}>
+            <Container size="xs">
+              {isLoading && <CenterLoader />}
 
-        {!isLoading && flatRatings.length === 0 && (
-          <Box sx={{ height: 400 }}>
-            <Text>
-              Your feed is empty. Check some
-              <MyNextLink
-                href={urls.pages.explore('popular-users')}
-                style={{
-                  color: theme.colors.primary[9],
-                }}
-              >
-                {' '}
-                popular users{' '}
-              </MyNextLink>
-              to follow.
-            </Text>
-          </Box>
-        )}
-
-        {!isLoading && flatRatings.length > 0 && (
-          <>
-            <Title order={4}>Home</Title>
-            <FlexCol gap={16} mt={16}>
-              {homeRatings?.pages.map((page) =>
-                page.map((rating) => (
-                  <HomeRatingItem rating={rating} key={rating.id} />
-                ))
+              {!isLoading && flatRatings.length === 0 && (
+                <Box sx={{ height: 400 }}>
+                  <Text>
+                    Your feed is empty. Check some
+                    <MyNextLink
+                      href={urls.pages.explore('popular-users')}
+                      style={{
+                        color: theme.colors.primary[9],
+                      }}
+                    >
+                      {' '}
+                      popular users{' '}
+                    </MyNextLink>
+                    to follow.
+                  </Text>
+                </Box>
               )}
 
-              {hasNextPage && (
-                <Center sx={{ height: 80 }} ref={ref}>
-                  <Loader />
-                </Center>
+              {!isLoading && flatRatings.length > 0 && (
+                <>
+                  <Title order={4}>Home</Title>
+                  <FlexCol gap={16} mt={16}>
+                    {homeRatings?.pages.map((page) =>
+                      page.map((rating) => (
+                        <HomeRatingItem rating={rating} key={rating.id} />
+                      ))
+                    )}
+
+                    {hasNextPage && (
+                      <Center sx={{ height: 80 }} ref={ref}>
+                        <Loader />
+                      </Center>
+                    )}
+                  </FlexCol>
+                </>
               )}
-            </FlexCol>
-          </>
-        )}
+            </Container>
+          </Grid.Col>
+          <Grid.Col md={'auto'} />
+        </Grid>
       </Container>
     </LoggedLayout>
   )
