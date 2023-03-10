@@ -48,7 +48,7 @@ const HomePageContent = () => {
     <LoggedLayout>
       <Container fluid>
         <Grid>
-          <Grid.Col span="auto" xs="auto" sm={'auto'} md={'auto'} />
+          <Grid.Col span={'auto'} xs="auto" sm={'auto'} md={'auto'} p={0} />
           <Grid.Col span={12} xs={12} sm={6} md={6}>
             <Container size="xs" fluid px={0}>
               {isLoading && <CenterLoader />}
