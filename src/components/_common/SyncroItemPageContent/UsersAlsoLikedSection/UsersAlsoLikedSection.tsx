@@ -43,7 +43,7 @@ const UsersAlsoLikedSection = (props: Props) => {
                     showItemType={item.type}
                   />
                 </MyNextLink>
-                <Text align="center">
+                <Text align="center" lineClamp={3}>
                   {item.title}
                   {item.year && ` [${item.year}]`}
                 </Text>
