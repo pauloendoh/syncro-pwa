@@ -1,7 +1,8 @@
 import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
+import { useElementSize, useMediaQuery } from '@mantine/hooks'
 
 import { format } from 'timeago.js'
+import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -23,6 +24,8 @@ const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
   const isSmallScreen = useMediaQuery('(max-width: 600px)')
+  const { ref: reviewRef, height: reviewHeight } = useElementSize()
+  const { openModal } = useRatingDetailsModalStore()
 
   return (
     <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
@@ -58,6 +61,7 @@ const HomeRatingItem = (props: Props) => {
                   {props.rating.user?.username}
                 </Text>{' '}
               </MyNextLink>
+              {!!props.rating.review && 'reviewed and '}
               rated{' '}
               <b
                 style={{
@@ -87,6 +91,34 @@ const HomeRatingItem = (props: Props) => {
               </MyNextLink>
             </Text>
             <Text size={'xs'}>{format(props.rating.createdAt)}</Text>
+
+            <Text
+              sx={{
+                marginBottom: 16,
+                marginTop: 8,
+                fontSize: 14,
+                fontStyle: 'italic',
+                a: {
+                  textDecoration: 'none',
+                },
+                whiteSpace: 'pre-line',
+              }}
+            >
+              <Text lineClamp={3} ref={reviewRef}>
+                {props.rating.review}
+              </Text>
+              {reviewHeight > 64 && (
+                <Text
+                  sx={{
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                  }}
+                  onClick={() => openModal(props.rating)}
+                >
+                  See more
+                </Text>
+              )}
+            </Text>
           </FlexCol>
 
           <HomeRatingItemButtons rating={props.rating} />

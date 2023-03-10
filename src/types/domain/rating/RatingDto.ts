@@ -6,6 +6,7 @@ export type RatingDto = {
   syncroItemId: string | null
   userId: string
   ratingValue: number | null
+  review: string
   createdAt: string
   updatedAt: string
 
@@ -21,6 +22,7 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   syncroItemId: '',
   userId: '',
   ratingValue: null,
+  review: '',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   ...p,

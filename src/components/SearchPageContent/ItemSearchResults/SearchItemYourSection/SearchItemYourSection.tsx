@@ -4,7 +4,8 @@ import { MdBookmark, MdStar } from 'react-icons/md'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
-import useRatingModalStore from '../../../../hooks/zustand/modals/useRatingModalStore'
+import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 
@@ -17,7 +18,7 @@ const SearchItemYourSection = (props: Props) => {
 
   const { mutate: submitToggleSave } = useToggleSaveItemMutation()
 
-  const { openModal: openRatingModal } = useRatingModalStore()
+  const { openModal: openRatingModal } = useSaveRatingModalStore()
 
   const { data: myRatings } = useMyRatingsQuery()
 
@@ -33,6 +34,8 @@ const SearchItemYourSection = (props: Props) => {
     () => myInterests?.find((r) => r.syncroItemId === props.itemId) || null,
     [myInterests, props.itemId]
   )
+
+  const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
 
   return (
     <>
@@ -59,6 +62,20 @@ const SearchItemYourSection = (props: Props) => {
             />
           </FlexVCenter>
           <Text>{myRating?.ratingValue || <Text>&nbsp;</Text>}</Text>
+          {!!myRating?.review && (
+            <Text
+              sx={{
+                fontStyle: 'italic',
+                color: theme.colors.gray[6],
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                openRatingDetailsModal(myRating)
+              }}
+            >
+              (Review)
+            </Text>
+          )}
         </FlexVCenter>
       </Box>
       <Box

@@ -11,7 +11,14 @@ const ConfirmationModal = () => {
   }
 
   return (
-    <Modal opened={isOpen} onClose={closeModal} title={initialValue.title}>
+    <Modal
+      opened={isOpen}
+      onClose={closeModal}
+      title={initialValue.title}
+      sx={{
+        zIndex: 1000,
+      }}
+    >
       <>
         {initialValue.description ? initialValue.description : null}
 

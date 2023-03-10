@@ -1,14 +1,14 @@
 import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 
-interface IRatingModalStore {
+interface IStore {
   initialValue: RatingDto | null
   isOpen: boolean
   openModal: (ratingDto: RatingDto) => void
   closeModal: () => void
 }
 
-const useRatingModalStore = create<IRatingModalStore>((set, get) => ({
+const useSaveRatingModalStore = create<IStore>((set, get) => ({
   initialValue: null,
   isOpen: false,
   openModal: (initialValue) => {
@@ -17,4 +17,4 @@ const useRatingModalStore = create<IRatingModalStore>((set, get) => ({
   closeModal: () => set({ isOpen: false }),
 }))
 
-export default useRatingModalStore
+export default useSaveRatingModalStore

@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
 import { deleteFromArray, upsert } from 'endoh-utils/dist/array'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
@@ -36,10 +35,6 @@ const useSaveRatingMutation = () => {
         })
 
         myNotifications.success('Rating saved!')
-      },
-      onError: (err: AxiosError<any>) => {
-        alert(err?.response?.data?.message || 'Error saving idea')
-        // setErrorMessage(err?.response?.data?.message || "Error saving idea")
       },
     }
   )

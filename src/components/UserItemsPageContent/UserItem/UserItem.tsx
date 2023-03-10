@@ -4,6 +4,7 @@ import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSync
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
+import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
 import { urls } from '../../../utils/urls'
@@ -34,6 +35,8 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
   const { userId } = useMyRouterQuery()
 
   const { data: userInfo } = useUserInfoQuery(userId)
+
+  const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
 
   return (
     <Box>
@@ -80,6 +83,22 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                     </FlexVCenter>
                     {item.ratings?.[0]?.ratingValue && (
                       <Text>{item.ratings?.[0]?.ratingValue || ''}</Text>
+                    )}
+                    {!!item.ratings?.[0]?.review && (
+                      <Text
+                        sx={{
+                          fontStyle: 'italic',
+                          color: theme.colors.gray[6],
+                          cursor: 'pointer',
+                        }}
+                        onClick={() => {
+                          if (item.ratings?.[0]) {
+                            openRatingDetailsModal(item.ratings?.[0])
+                          }
+                        }}
+                      >
+                        (Review)
+                      </Text>
                     )}
                   </Flex>
                   {item.interests?.[0]?.interestLevel && (

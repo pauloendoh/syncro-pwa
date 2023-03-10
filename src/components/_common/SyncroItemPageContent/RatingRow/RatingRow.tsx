@@ -6,7 +6,7 @@ import { useMyInterestQU } from '../../../../hooks/react-query/interest/useMyInt
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyRatingQU } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
 import useRecommendItemActionSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
-import useRatingModalStore from '../../../../hooks/zustand/modals/useRatingModalStore'
+import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../utils/urls'
@@ -24,7 +24,7 @@ const RatingRow = ({ syncroItem }: Props) => {
 
   const theme = useMantineTheme()
 
-  const openRatingModal = useRatingModalStore((s) => s.openModal)
+  const openRatingModal = useSaveRatingModalStore((s) => s.openModal)
 
   const { mutate: submitToggleSave } = useToggleSaveItemMutation()
 
