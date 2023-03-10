@@ -43,10 +43,12 @@ const UsersAlsoLikedSection = (props: Props) => {
                     showItemType={item.type}
                   />
                 </MyNextLink>
-                <Text align="center" lineClamp={3}>
-                  {item.title}
-                  {item.year && ` [${item.year}]`}
-                </Text>
+                <MyNextLink href={urls.pages.syncroItem(item.id)}>
+                  <Text align="center" lineClamp={3}>
+                    {item.title}
+                    {item.year && ` [${item.year}]`}
+                  </Text>
+                </MyNextLink>
               </FlexCol>
 
               <HomeRatingItemButtons syncroItemId={item.id} gap={16} />
