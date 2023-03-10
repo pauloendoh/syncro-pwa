@@ -23,7 +23,7 @@ type Props = {
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
-  const isSmallScreen = useMediaQuery('(max-width: 600px)')
+  const isSmallScreen = useMediaQuery('(max-width: 824px)')
   const { ref: reviewRef, height: reviewHeight } = useElementSize()
   const { openModal } = useRatingDetailsModalStore()
 
