@@ -54,7 +54,7 @@ const MyNavbar = (props: Props) => {
         }}
         align="center"
       >
-        <Grid.Col span={1} xs={2} sm={'auto'} md={'auto'}>
+        <Grid.Col span={2} xs={2} sm={'auto'} md={'auto'}>
           <MyNextLink
             href={urls.pages.index}
             style={{
@@ -83,15 +83,15 @@ const MyNavbar = (props: Props) => {
             </FlexVCenter>
           </MyNextLink>
         </Grid.Col>
-        <Grid.Col span={5} xs={5} sm={6} md={6}>
+        <Grid.Col span={4} xs={5} sm={6} md={6}>
           <Container size="xs" fluid px={0}>
             <SearchBar />
           </Container>
         </Grid.Col>
         <Grid.Col span={6} xs={'auto'} sm={'auto'} md={'auto'}>
-          <FlexVCenter gap={24} justify="flex-end">
+          <FlexVCenter gap={isSmallScreen ? 16 : 24} justify="flex-end">
             {authUser && (
-              <FlexVCenter gap={24}>
+              <FlexVCenter gap={isSmallScreen ? 16 : 24}>
                 <Tooltip label="Explore" withArrow>
                   <MyNextLink href={urls.pages.explore('popular-users')}>
                     <ActionIcon>
