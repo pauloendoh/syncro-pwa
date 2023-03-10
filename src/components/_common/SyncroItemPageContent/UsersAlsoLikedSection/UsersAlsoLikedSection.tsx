@@ -1,4 +1,4 @@
-import { Flex, Text, Title } from '@mantine/core'
+import { Flex, ScrollArea, Text, Title } from '@mantine/core'
 import { useAlsoLikedItemsQuery } from '../../../../hooks/react-query/item-recommendation/useAlsoLikedItemsQuery'
 import { urls } from '../../../../utils/urls'
 import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
@@ -20,36 +20,42 @@ const UsersAlsoLikedSection = (props: Props) => {
     <FlexCol gap={8}>
       <Title order={3}>Users also liked</Title>
 
-      <Flex
-        gap={16}
-        sx={{
-          overflowX: 'auto',
-          paddingBottom: 16,
-        }}
-      >
-        {items?.map((item) => (
-          <MyPaper
-            sx={{
-              padding: 8,
-            }}
-          >
-            <FlexCol align="center" justify={'space-between'} h="100%" gap={24}>
-              <FlexCol align="center" gap={8}>
-                <MyNextLink href={urls.pages.syncroItem(item.id)}>
-                  <SyncroItemImage item={item} height={160} width={160} />
-                </MyNextLink>
-                <MyNextLink href={urls.pages.syncroItem(item.id)}>
-                  <Text align="center" lineClamp={3}>
-                    {item.title}
-                  </Text>
-                </MyNextLink>
-              </FlexCol>
+      <ScrollArea>
+        <Flex
+          gap={16}
+          sx={{
+            paddingBottom: 24,
+          }}
+        >
+          {items?.map((item) => (
+            <MyPaper
+              sx={{
+                padding: 8,
+              }}
+            >
+              <FlexCol
+                align="center"
+                justify={'space-between'}
+                h="100%"
+                gap={24}
+              >
+                <FlexCol align="center" gap={8}>
+                  <MyNextLink href={urls.pages.syncroItem(item.id)}>
+                    <SyncroItemImage item={item} height={160} width={160} />
+                  </MyNextLink>
+                  <MyNextLink href={urls.pages.syncroItem(item.id)}>
+                    <Text align="center" lineClamp={3}>
+                      {item.title}
+                    </Text>
+                  </MyNextLink>
+                </FlexCol>
 
-              <HomeRatingItemButtons syncroItemId={item.id} gap={16} />
-            </FlexCol>
-          </MyPaper>
-        ))}
-      </Flex>
+                <HomeRatingItemButtons syncroItemId={item.id} gap={16} />
+              </FlexCol>
+            </MyPaper>
+          ))}
+        </Flex>
+      </ScrollArea>
     </FlexCol>
   )
 }
