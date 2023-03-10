@@ -3,12 +3,12 @@ import { memo, useMemo } from 'react'
 import { MdBookmark, MdBookmarkBorder } from 'react-icons/md'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
-import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import PressableMyRating from './PressableMyRating/PressableMyRating'
 
 interface Props {
-  rating: RatingDto
+  syncroItemId: string
+  gap?: number
 }
 
 const HomeRatingItemButtons = (props: Props) => {
@@ -17,16 +17,15 @@ const HomeRatingItemButtons = (props: Props) => {
 
   const myInterest = useMemo(
     () =>
-      myInterests?.find((r) => r.syncroItemId === props.rating.syncroItemId) ||
-      null,
-    [myInterests, props.rating.syncroItemId]
+      myInterests?.find((r) => r.syncroItemId === props.syncroItemId) || null,
+    [myInterests, props.syncroItemId]
   )
 
   const { mutate: submitToggleSave } = useToggleSaveItemMutation()
 
   return (
-    <FlexVCenter mt={2} gap={32}>
-      <PressableMyRating itemId={props.rating.syncroItemId!} />
+    <FlexVCenter mt={2} gap={props.gap ?? 32}>
+      <PressableMyRating itemId={props.syncroItemId!} />
 
       <FlexVCenter
         sx={(theme) => ({
@@ -34,8 +33,8 @@ const HomeRatingItemButtons = (props: Props) => {
           cursor: 'pointer',
         })}
         onClick={() => {
-          if (props.rating.syncroItemId) {
-            submitToggleSave(props.rating.syncroItemId)
+          if (props.syncroItemId) {
+            submitToggleSave(props.syncroItemId)
           }
         }}
       >

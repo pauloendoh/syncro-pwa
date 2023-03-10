@@ -11,6 +11,7 @@ import {
 import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
 import { useHomeRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
 import FlexCol from '../_common/flex/FlexCol'
 import LoggedLayout from '../_common/layout/LoggedLayout'
@@ -43,6 +44,7 @@ const HomePageContent = () => {
     return homeRatings?.pages.flat() || []
   }, [homeRatings])
 
+  const { isSmallScreen } = useMyMediaQuery()
   const theme = useMantineTheme()
   return (
     <LoggedLayout>
@@ -50,7 +52,11 @@ const HomePageContent = () => {
         <Grid>
           <Grid.Col span={'auto'} xs="auto" sm={'auto'} md={'auto'} p={0} />
           <Grid.Col span={12} xs={12} sm={6} md={6}>
-            <Container size="xs" fluid px={0}>
+            <Container
+              size="xs"
+              fluid={isSmallScreen}
+              px={isSmallScreen ? 0 : undefined}
+            >
               {isLoading && <CenterLoader />}
 
               {!isLoading && flatRatings.length === 0 && (

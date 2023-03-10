@@ -95,6 +95,8 @@ export const urls = {
     mutualsSavedItem: (itemId: string) =>
       API_URL + `/me/mutuals/saved-item?itemId=${itemId}`,
 
+    usersAlsoLiked: (itemId: string) =>
+      API_URL + `/users-also-liked?itemId=${itemId}`,
     recommendItem: (itemId: string, userId: string) =>
       API_URL + `/recommend-item?itemId=${itemId}&userId=${userId}`,
     recommendationsFromMe: API_URL + `/item-recommendations-from-me`,

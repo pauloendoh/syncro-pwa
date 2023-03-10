@@ -100,7 +100,7 @@ const RatingDetailsModal = () => {
             {rating.review}
           </Text>
 
-          <HomeRatingItemButtons rating={rating} />
+          <HomeRatingItemButtons syncroItemId={rating.syncroItemId!} />
         </FlexCol>
       )}
     </Modal>

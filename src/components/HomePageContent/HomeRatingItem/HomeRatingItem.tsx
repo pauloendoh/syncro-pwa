@@ -23,7 +23,7 @@ type Props = {
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
-  const isSmallScreen = useMediaQuery('(max-width: 824px)')
+  const isSmallScreen = useMediaQuery('(max-width: 860px)')
   const { ref: reviewRef, height: reviewHeight } = useElementSize()
   const { openModal } = useRatingDetailsModalStore()
 
@@ -121,7 +121,7 @@ const HomeRatingItem = (props: Props) => {
             </Text>
           </FlexCol>
 
-          <HomeRatingItemButtons rating={props.rating} />
+          <HomeRatingItemButtons syncroItemId={props.rating.syncroItemId!} />
         </FlexCol>
         <Link
           href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}

@@ -25,6 +25,7 @@ import MyPaper from '../overrides/MyPaper'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
+import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
 
 type Props = {}
 
@@ -43,7 +44,7 @@ const SyncroItemPageContent = (props: Props) => {
 
   return (
     <LoggedLayout>
-      <Container size="xs">
+      <Container size="sm">
         <MyPaper>
           {isLoading && (
             <Center sx={{ height: 80 }}>
@@ -125,6 +126,10 @@ const SyncroItemPageContent = (props: Props) => {
             <TrailerSection itemId={syncroItemId!} />
           </Box>
         )}
+
+        <Box mt={32}>
+          <UsersAlsoLikedSection itemId={syncroItemId!} />
+        </Box>
       </Container>
     </LoggedLayout>
   )

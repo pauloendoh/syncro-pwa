@@ -84,7 +84,7 @@ const MyNavbar = (props: Props) => {
           </MyNextLink>
         </Grid.Col>
         <Grid.Col span={4} xs={5} sm={6} md={6}>
-          <Container size="xs" fluid px={0}>
+          <Container size="xs" px={0}>
             <SearchBar />
           </Container>
         </Grid.Col>
