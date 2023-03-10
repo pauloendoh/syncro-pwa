@@ -36,12 +36,7 @@ const UsersAlsoLikedSection = (props: Props) => {
             <FlexCol align="center" justify={'space-between'} h="100%" gap={24}>
               <FlexCol align="center" gap={8}>
                 <MyNextLink href={urls.pages.syncroItem(item.id)}>
-                  <SyncroItemImage
-                    item={item}
-                    height={160}
-                    width={160}
-                    showItemType={item.type}
-                  />
+                  <SyncroItemImage item={item} height={160} width={160} />
                 </MyNextLink>
                 <MyNextLink href={urls.pages.syncroItem(item.id)}>
                   <Text align="center" lineClamp={3}>
