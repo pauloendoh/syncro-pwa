@@ -1,5 +1,6 @@
 import useSavedPositionSheetStore from '../../../hooks/zustand/action-sheets/useSavedPositionSheetStore'
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
+import FollowersModal from './FollowersModal/FollowersModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
 import RatingDetailsModal from './RatingDetailsModal/RatingDetailsModal'
 import RecommendItemActionSheet from './RecommendItemActionSheet/RecommendItemActionSheet'
@@ -24,6 +25,7 @@ const GlobalModals = (props: Props) => {
       />
       <RatingDetailsModal />
       <RecommendUserSheet />
+      <FollowersModal />
     </>
   )
 }

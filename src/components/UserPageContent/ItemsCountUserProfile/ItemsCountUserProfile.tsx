@@ -5,6 +5,7 @@ import { useFollowingUsersQuery } from '../../../hooks/react-query/follow/useFol
 import { useUserRatingsQuery } from '../../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserItemsCountQuery } from '../../../hooks/react-query/syncro-item/useUserItemsCountQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
+import useFollowersModalStore from '../../../hooks/zustand/modals/useFollowersModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -29,12 +30,20 @@ const ItemsCountUserProfile = (props: Props) => {
   const { data: itemsCount } = useUserItemsCountQuery(props.userId)
 
   const { isSmallScreen } = useMyMediaQuery()
+  const { openModal } = useFollowersModalStore()
 
   return (
     <FlexVCenter gap={isSmallScreen ? 16 : 32}>
       <FlexCol
         align={'center'}
+        sx={{
+          cursor: 'pointer',
+        }}
         onClick={() => {
+          openModal({
+            type: 'followers',
+            userId: props.userId,
+          })
           // navigation.push("FollowersScreen", {
           //   type: "followers",
           //   userId: props.userId,
@@ -49,7 +58,15 @@ const ItemsCountUserProfile = (props: Props) => {
 
       <FlexCol
         align={'center'}
+        sx={{
+          cursor: 'pointer',
+        }}
         onClick={() => {
+          openModal({
+            type: 'following',
+            userId: props.userId,
+          })
+
           // navigation.push("FollowersScreen", {
           //   type: "following-users",
           //   userId: props.userId,
