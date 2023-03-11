@@ -1,23 +1,13 @@
-import {
-  Box,
-  Center,
-  Container,
-  Grid,
-  Loader,
-  Text,
-  Title,
-  useMantineTheme,
-} from '@mantine/core'
+import { Box, Container, Grid, Text, useMantineTheme } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
-import { useHomeRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
+import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
-import FlexCol from '../_common/flex/FlexCol'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../_common/overrides/MyNextLink'
-import HomeRatingItem from './HomeRatingItem/HomeRatingItem'
+import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
 const HomePageContent = () => {
   const {
@@ -25,7 +15,7 @@ const HomePageContent = () => {
     fetchNextPage,
     hasNextPage,
     isLoading,
-  } = useHomeRatingsQuery()
+  } = useTimelineRatingsQuery()
 
   const containerRef = useRef()
 
@@ -77,24 +67,7 @@ const HomePageContent = () => {
                 </Box>
               )}
 
-              {!isLoading && flatRatings.length > 0 && (
-                <>
-                  <Title order={4}>Home</Title>
-                  <FlexCol gap={16} mt={16}>
-                    {homeRatings?.pages.map((page) =>
-                      page.map((rating) => (
-                        <HomeRatingItem rating={rating} key={rating.id} />
-                      ))
-                    )}
-
-                    {hasNextPage && (
-                      <Center sx={{ height: 80 }} ref={ref}>
-                        <Loader />
-                      </Center>
-                    )}
-                  </FlexCol>
-                </>
-              )}
+              <RatingsTimeline />
             </Container>
           </Grid.Col>
           <Grid.Col span={'auto'} xs={12} sm="auto" md={'auto'} />

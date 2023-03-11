@@ -18,6 +18,7 @@ import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../utils/urls'
+import RatingsTimeline from '../HomePageContent/RatingsTimeline/RatingsTimeline'
 import FlexCol from '../_common/flex/FlexCol'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
@@ -130,17 +131,15 @@ const UserPageContent = (props: Props) => {
                   itemType={itemType}
                   userId={userId!}
                   refreshedAt={refreshedAt}
-                  // onClick={() =>
-                  //   navigation.push('UserItems', {
-                  //     userId: route.params.userId,
-                  //     itemType,
-                  //   })
-                  // }
                 />
               ))}
             </Flex>
           )}
         </Flex>
+
+        <FlexCol mt={64}>
+          <RatingsTimeline userId={userId} />
+        </FlexCol>
       </Container>
     </LoggedLayout>
   )

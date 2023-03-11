@@ -67,11 +67,20 @@ export const urls = {
     userInterests: (userId: string) => API_URL + `/user/${userId}/interests`,
 
     apiImages: (imageName: string) => API_URL + `/public/images/${imageName}`,
-    homeRatings: (page: number, pageSize: number) =>
-      API_URL + `/feed/home-ratings?page=${page}&pageSize=${pageSize}`,
-    homeLastRatings: (startingAt: string) =>
-      API_URL + `/feed/last-ratings?startingAt=${startingAt}`,
+    timelineItems: (params: {
+      page: number
+      pageSize: number
+      userId?: string
+    }) => {
+      const { page, pageSize, userId } = params
 
+      return (
+        API_URL +
+        `/feed/timeline-items?page=${page}&pageSize=${pageSize}&userId=${
+          userId || ''
+        }`
+      )
+    },
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
     userItems: (userId: string, itemType: SyncroItemType) =>
       API_URL + `/user/${userId}/items?itemType=${itemType}`,
