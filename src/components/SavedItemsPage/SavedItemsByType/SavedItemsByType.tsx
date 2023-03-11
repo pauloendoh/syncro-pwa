@@ -1,8 +1,9 @@
 import { Box, Center, Flex, Text, Title, Tooltip } from '@mantine/core'
+import { useQueryClient } from '@tanstack/react-query'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useSavedPositionSheetStore from '../../../hooks/zustand/action-sheets/useSavedPositionSheetStore'
-import useSaveItemModalStore from '../../../hooks/zustand/modals/useSaveItemModalStore'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
+import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -19,8 +20,17 @@ const SavedItemsByType = ({ savedItems, ...props }: Props) => {
     itemType: props.itemType,
   })
 
-  const { openModal } = useSaveItemModalStore()
   const { openSheet } = useSavedPositionSheetStore()
+
+  const queryClient = useQueryClient()
+  const handleClick = (interest: InterestDto) => {
+    if (interest.syncroItem) {
+      queryClient.setQueryData<SyncroItemDto>(
+        [urls.api.syncroItemDetails(interest.syncroItem.id)],
+        interest.syncroItem
+      )
+    }
+  }
 
   if (!savedItems || savedItems.length === 0) return null
 
@@ -41,6 +51,7 @@ const SavedItemsByType = ({ savedItems, ...props }: Props) => {
             >
               <MyNextLink
                 href={urls.pages.syncroItem(savedItem.syncroItem!.id)}
+                onClick={() => handleClick(savedItem)}
               >
                 <SyncroItemImage
                   item={savedItem.syncroItem}

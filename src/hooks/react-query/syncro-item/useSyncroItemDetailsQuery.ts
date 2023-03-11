@@ -16,6 +16,9 @@ export const useSyncroItemDetailsQuery = (id?: string | null) => {
         return axios.get(urls.api.syncroItemDetails(id)).then((res) => res.data)
 
       return buildSyncroItemDto()
+    },
+    {
+      enabled: !!id,
     }
   )
 }
