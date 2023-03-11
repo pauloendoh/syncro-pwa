@@ -6,7 +6,7 @@ import {
   LoadingOverlay,
   MantineProvider,
 } from '@mantine/core'
-import { useLocalStorage } from '@mantine/hooks'
+import { useLocalStorage, useViewportSize } from '@mantine/hooks'
 import { NotificationsProvider } from '@mantine/notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { AppProps } from 'next/app'
@@ -14,6 +14,7 @@ import Head from 'next/head'
 import { useEffect } from 'react'
 import useCheckAuthOrLogout from '../hooks/domains/auth/useCheckAuthUserOrLogout'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
+import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
 
@@ -37,6 +38,16 @@ export default function App(props: AppProps) {
   }, [])
 
   usePreserveScroll()
+
+  const { height, width } = useViewportSize()
+  const [setScreenHeight, setScreenWidth] = useScreenSizeStore((s) => [
+    s.setScreenHeight,
+    s.setScreenWidth,
+  ])
+  useEffect(() => {
+    setScreenHeight(height)
+    setScreenWidth(width)
+  }, [height, width])
 
   return (
     <>

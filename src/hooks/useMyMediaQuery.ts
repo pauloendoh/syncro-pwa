@@ -1,7 +1,9 @@
-import { useMediaQuery } from '@mantine/hooks'
+import { useMemo } from 'react'
+import useScreenSizeStore from './zustand/useScreenSizeStore'
 
 export const useMyMediaQuery = () => {
-  const isSmallScreen = useMediaQuery('(max-width: 768px)')
+  const screenWidth = useScreenSizeStore((s) => s.screenWidth)
+  const isSmallScreen = useMemo(() => screenWidth < 768, [screenWidth])
 
   return {
     isSmallScreen,

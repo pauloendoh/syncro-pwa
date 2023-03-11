@@ -11,7 +11,6 @@ import {
 import { useMemo } from 'react'
 import { IoMdCompass } from 'react-icons/io'
 import { MdBookmark, MdHome, MdNotifications } from 'react-icons/md'
-import { useLogout } from '../../../../hooks/domains/auth/useLogout'
 import { useNotificationsQuery } from '../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
@@ -26,9 +25,7 @@ type Props = {}
 const MyNavbar = (props: Props) => {
   const { authUser } = useAuthStore()
 
-  const logout = useLogout()
-
-  const { data: notifications, refetch } = useNotificationsQuery()
+  const { data: notifications } = useNotificationsQuery()
 
   const unseenNotifications = useMemo(
     () => notifications?.filter((n) => n.showDot) || [],
