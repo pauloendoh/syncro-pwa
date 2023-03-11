@@ -23,6 +23,7 @@ export const urls = {
     explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',
+    messageRoom: (roomId: string) => `/messages/${roomId}`,
   },
   api: {
     register: (pushToken: string | null) =>
@@ -116,6 +117,14 @@ export const urls = {
     youtubeVideos: (itemId: string) =>
       API_URL + `/youtube-videos?itemId=${itemId}`,
     mangaPanels: (itemId: string) => API_URL + `/manga-panels?itemId=${itemId}`,
+
+    messageRoomByUserId: (userId: string) =>
+      API_URL + `/message-room?userId=${userId}`,
+    messageRoomByRoomId: (roomId: string) =>
+      API_URL + `/message-room?roomId=${roomId}`,
+    messagesByRoomId: (roomId: string) =>
+      API_URL + `/messages?roomId=${roomId}`,
+    sendMessage: API_URL + `/message`,
   },
 
   others: {

@@ -11,6 +11,7 @@ export const useMyRouterQuery = () => {
     q: string
     type: SearchParams['type']
     exploreSlug: ExploreSlug
+    roomId: string
   }
 }
 

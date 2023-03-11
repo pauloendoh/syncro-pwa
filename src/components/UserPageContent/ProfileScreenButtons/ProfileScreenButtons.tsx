@@ -11,6 +11,7 @@ const ProfileScreenButtons = (props: Props) => {
     <FlexVCenter gap={16}>
       <FollowUnfollowButton profileUserId={props.userId} />
       <RecommendUserButton userId={props.userId} />
+      {/* <MessageButton userId={props.userId} /> */}
     </FlexVCenter>
   )
 }
