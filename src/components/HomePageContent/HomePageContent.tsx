@@ -1,34 +1,14 @@
 import { Box, Container, Grid, Text, useMantineTheme } from '@mantine/core'
-import { useIntersection } from '@mantine/hooks'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
 const HomePageContent = () => {
-  const {
-    data: homeRatings,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-  } = useTimelineRatingsQuery()
-
-  const containerRef = useRef()
-
-  const { ref, entry } = useIntersection({
-    root: containerRef.current,
-    threshold: 0.5,
-  })
-
-  useEffect(() => {
-    if (entry?.isIntersecting && hasNextPage && homeRatings?.pages?.length) {
-      fetchNextPage()
-    }
-  }, [entry?.isIntersecting, hasNextPage, homeRatings])
+  const { data: homeRatings, isLoading } = useTimelineRatingsQuery()
 
   const flatRatings = useMemo(() => {
     return homeRatings?.pages.flat() || []
@@ -47,7 +27,7 @@ const HomePageContent = () => {
               fluid={isSmallScreen}
               px={isSmallScreen ? 0 : undefined}
             >
-              {isLoading && <CenterLoader />}
+              <RatingsTimeline />
 
               {!isLoading && flatRatings.length === 0 && (
                 <Box sx={{ height: 400 }}>
@@ -66,8 +46,6 @@ const HomePageContent = () => {
                   </Text>
                 </Box>
               )}
-
-              <RatingsTimeline />
             </Container>
           </Grid.Col>
           <Grid.Col span={'auto'} xs={12} sm="auto" md={'auto'} />

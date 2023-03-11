@@ -1,6 +1,8 @@
 import { Box } from '@mantine/core'
 import React from 'react'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import GlobalModals from '../modals/GlobalModals'
+import MobileFooter from './MobileFooter/MobileFooter'
 import MyNavbar from './MyNavbar/MyNavbar'
 
 type Props = {
@@ -10,15 +12,18 @@ type Props = {
 }
 
 const LoggedLayout = (props: Props) => {
+  const { isXsScreen } = useMyMediaQuery()
   return (
     <div>
-      <MyNavbar />
+      {!isXsScreen && <MyNavbar />}
+
       {props.disableMarginTop ? null : <Box mt={96} />}
 
       {props.children}
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
 
+      {isXsScreen && <MobileFooter />}
       <GlobalModals />
     </div>
   )
