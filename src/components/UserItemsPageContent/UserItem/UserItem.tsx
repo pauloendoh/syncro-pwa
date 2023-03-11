@@ -54,13 +54,19 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
     <Box>
       <Flex gap={16}>
         <Box onClick={props.onPress}>
-          <MyNextLink href={urls.pages.syncroItem(item.id)}>
+          <MyNextLink
+            href={urls.pages.syncroItem(item.id)}
+            onClick={handleClick}
+          >
             <SyncroItemImage height={120} width={120} item={item} />
           </MyNextLink>
         </Box>
 
         <FlexCol style={{ flexShrink: 1 }}>
-          <MyNextLink href={urls.pages.syncroItem(item.id)}>
+          <MyNextLink
+            href={urls.pages.syncroItem(item.id)}
+            onClick={handleClick}
+          >
             <Text style={{ fontWeight: '500' }}>
               {item.title} {item.year && `(${item.year})`}
             </Text>
