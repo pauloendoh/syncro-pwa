@@ -62,7 +62,7 @@ const RatingRow = ({ syncroItem }: Props) => {
   })
   const { isSmallScreen } = useMyMediaQuery()
   return (
-    <ScrollArea type="auto">
+    <ScrollArea>
       <FlexVCenter gap={8} pb={isSmallScreen ? 16 : 0}>
         <RatingRowButton
           onClick={() =>
