@@ -137,7 +137,7 @@ const UserPageContent = (props: Props) => {
           )}
         </Flex>
 
-        <FlexCol mt={64}>
+        <FlexCol mt={120}>
           <RatingsTimeline userId={userId} />
         </FlexCol>
       </Container>
