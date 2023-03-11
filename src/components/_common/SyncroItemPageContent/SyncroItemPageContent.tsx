@@ -23,6 +23,7 @@ import SyncroItemImage from '../image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../layout/LoggedLayout'
 import MyPaper from '../overrides/MyPaper'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
+import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
@@ -124,6 +125,11 @@ const SyncroItemPageContent = (props: Props) => {
         {canHaveTrailers && (
           <Box mt={24}>
             <TrailerSection itemId={syncroItemId!} />
+          </Box>
+        )}
+        {item?.type === 'manga' && (
+          <Box mt={24}>
+            <MangaPanelsSection syncroItem={item} />
           </Box>
         )}
 

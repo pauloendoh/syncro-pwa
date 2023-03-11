@@ -1,3 +1,5 @@
+import 'react-photo-view/dist/react-photo-view.css'
+
 import {
   ColorScheme,
   ColorSchemeProvider,
