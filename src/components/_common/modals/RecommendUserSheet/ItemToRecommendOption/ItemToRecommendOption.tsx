@@ -1,7 +1,7 @@
 import { Button, Flex, Text } from '@mantine/core'
 import { useMemo } from 'react'
+import { ItemToRecommendDto } from '../../../../../hooks/react-query/item-recommendation/types/ItemToRecommendDto'
 import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery'
-import { ItemToRecommendDto } from '../../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
 import { urls } from '../../../../../utils/urls'
 import SyncroItemImage from '../../../image/SyncroItemImage/SyncroItemImage'
@@ -12,31 +12,23 @@ interface Props {
   userId: string
 }
 
-const ItemToRecommendOption = ({
-  itemToRecommend: itemToRecommend,
-  userId,
-}: Props) => {
-  const { item, myRating, theySaved } = itemToRecommend
+const ItemToRecommendOption = ({ itemToRecommend, userId }: Props) => {
+  const { item, myRating, theySaved, theirRating } = itemToRecommend
 
   const { data: myRecommendations } = useItemsRecommendationsFromMeQuery()
-  const buttonLabel = useMemo(() => {
-    if (theySaved) return 'Already saved'
+  const [isEnabled, buttonLabel] = useMemo<[boolean, string]>(() => {
+    if (theirRating && theirRating > 0) return [false, `Rated ${theirRating}`]
+    if (theySaved) return [false, 'Saved']
 
     if (
       myRecommendations?.find(
         (r) => r.itemId === item.id && userId === r.toUserId
       )
     )
-      return 'Recommended'
+      return [false, 'Recommended']
 
-    return 'Recommend'
+    return [true, 'Recommend']
   }, [myRecommendations, theySaved])
-
-  const isDisabled = useMemo(
-    () => buttonLabel === 'Already saved' || buttonLabel === 'Recommended',
-
-    [buttonLabel]
-  )
 
   const { mutate: submitRecommendItem, isLoading } = useRecommendItemMutation()
 
@@ -60,12 +52,12 @@ const ItemToRecommendOption = ({
               minWidth: 140,
             },
             label: {
-              color: isDisabled ? theme.colors.dark[2] : theme.colors.dark[0],
+              color: isEnabled ? theme.colors.dark[0] : theme.colors.dark[2],
             },
           })}
-          disabled={isDisabled}
+          disabled={!isEnabled}
           loading={isLoading}
-          color={isDisabled ? 'gray' : 'primary'}
+          color={isEnabled ? 'primary' : 'gray'}
           onClick={() => {
             submitRecommendItem({
               userId: userId,

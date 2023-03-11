@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query"
-import { AxiosError } from "axios"
-import { SyncroItemDto } from "../../../types/domain/syncro-item/SyncroItemDto"
-import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
+import { useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
-import { urls } from "../../../utils/urls"
+import { urls } from '../../../utils/urls'
+import { ItemToRecommendDto } from './types/ItemToRecommendDto'
 
 export const useItemsToRecommendQuery = (
   recommendToUserId: string | null,
@@ -15,10 +15,4 @@ export const useItemsToRecommendQuery = (
       enabled: !!recommendToUserId,
     }
   )
-}
-
-export interface ItemToRecommendDto {
-  item: SyncroItemDto
-  myRating: number
-  theySaved: boolean
 }

@@ -2,7 +2,7 @@ import { Button, Flex, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery'
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
-import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/useMutualsSavedItemQuery'
+import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
 import useRecommendItemActionSheetStore from '../../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
 import { urls } from '../../../../../utils/urls'
 import FlexCol from '../../../flex/FlexCol'
@@ -28,16 +28,13 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
     )
   }, [itemsRecommended])
 
-  const isDisabled = useMemo(() => {
-    if (isAlreadyRecommended || mutual.isSaved) return true
-    return false
-  }, [isAlreadyRecommended, mutual.isSaved])
-
-  const buttonLabel = useMemo(() => {
-    if (isAlreadyRecommended) return 'Recommended'
-    if (mutual.isSaved) return 'Already saved.'
-    return 'Recommend'
-  }, [isAlreadyRecommended, mutual.isSaved])
+  const [isDisabled, buttonLabel] = useMemo<[boolean, string]>(() => {
+    if (mutual.theirRating && mutual.theirRating > 0)
+      return [true, `Rated ${mutual.theirRating}`]
+    if (mutual.isSaved) return [true, 'Saved']
+    if (isAlreadyRecommended) return [true, 'Recommended']
+    return [false, 'Recommend']
+  }, [mutual, isAlreadyRecommended])
 
   return (
     <Flex justify="space-between">
