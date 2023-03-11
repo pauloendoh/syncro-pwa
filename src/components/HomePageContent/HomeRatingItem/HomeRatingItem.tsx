@@ -1,17 +1,16 @@
 import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 import { useElementSize, useMediaQuery } from '@mantine/hooks'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { format } from 'timeago.js'
 import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
+import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
-import {
-  default as Link,
-  default as MyNextLink,
-} from '../../_common/overrides/MyNextLink'
+import { default as MyNextLink } from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
 import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
@@ -26,6 +25,16 @@ const HomeRatingItem = (props: Props) => {
   const isSmallScreen = useMediaQuery('(max-width: 860px)')
   const { ref: reviewRef, height: reviewHeight } = useElementSize()
   const { openModal } = useRatingDetailsModalStore()
+
+  const queryClient = useQueryClient()
+  const handleClick = () => {
+    if (props.rating.syncroItem) {
+      queryClient.setQueryData<SyncroItemDto>(
+        [urls.api.syncroItemDetails(props.rating.syncroItem.id)],
+        props.rating.syncroItem
+      )
+    }
+  }
 
   return (
     <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
@@ -73,6 +82,7 @@ const HomeRatingItem = (props: Props) => {
             </Text>
             <Text>
               <MyNextLink
+                onClick={handleClick}
                 href={urls.pages.syncroItem(
                   encodeURI(props.rating.syncroItemId!)
                 )}
@@ -123,7 +133,8 @@ const HomeRatingItem = (props: Props) => {
 
           <HomeRatingItemButtons syncroItemId={props.rating.syncroItemId!} />
         </FlexCol>
-        <Link
+        <MyNextLink
+          onClick={handleClick}
           href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}
         >
           <Box pos="relative">
@@ -148,7 +159,7 @@ const HomeRatingItem = (props: Props) => {
               <SyncroItemIcon type={props.rating.syncroItem!.type} size={16} />
             </Center>
           </Box>
-        </Link>
+        </MyNextLink>
       </Flex>
     </MyPaper>
   )

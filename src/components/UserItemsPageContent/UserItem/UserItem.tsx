@@ -1,10 +1,12 @@
 import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
+import { useQueryClient } from '@tanstack/react-query'
 import { MdBookmark, MdStar } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
 import { urls } from '../../../utils/urls'
@@ -37,6 +39,16 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
   const { data: userInfo } = useUserInfoQuery(userId)
 
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
+
+  const queryClient = useQueryClient()
+  const handleClick = () => {
+    if (item) {
+      queryClient.setQueryData<SyncroItemDto>(
+        [urls.api.syncroItemDetails(item.id)],
+        item
+      )
+    }
+  }
 
   return (
     <Box>
