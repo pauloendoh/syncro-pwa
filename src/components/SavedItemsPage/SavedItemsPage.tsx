@@ -33,10 +33,6 @@ const SavedItemsPage = (props: Props) => {
         if (String(type) === 'all') return true
         return type === t.type
       })
-    // .sort(
-    //   // sort by number of items descending
-    //   (a, b) => (a.items.length > b.items.length ? -1 : 1)
-    // )
   }, [savedItems, type])
 
   const options = useMemo(() => {
