@@ -1,13 +1,13 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
-import Image from 'next/image'
 import { useMemo } from 'react'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
-import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
+import { syncroItemMapping } from '../../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
 import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
+import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 import SearchItemImdbSection from '../ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection'
 import SearchItemYourSection from '../SearchItemYourSection/SearchItemYourSection'
@@ -42,12 +42,7 @@ const SyncroSearchItem = ({ item }: Props) => {
   return (
     <Flex gap={16}>
       <MyNextLink href={urls.pages.syncroItem(item.id)}>
-        <Image
-          src={getSyncroItemImageOrDefault(item?.imageUrl)}
-          width={100}
-          height={100}
-          alt={item.title}
-        />
+        <SyncroItemImage item={item} width={100} height={100} />
       </MyNextLink>
 
       <FlexCol>
@@ -68,6 +63,7 @@ const SyncroSearchItem = ({ item }: Props) => {
               <SearchItemImdbSection
                 avgRating={item?.avgRating}
                 ratingCount={item?.ratingCount}
+                title={syncroItemMapping[item.type].site}
               />
             ) : (
               <MyNextLink href={urls.pages.syncroItem(item.id)}>

@@ -1,9 +1,12 @@
+import { Select } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
+import { SearchType } from '../../../../../types/domain/search/SearchParams'
 import { urls } from '../../../../../utils/urls'
+import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
 import MyTextInput from '../../../inputs/MyTextInput'
 
 type Props = {
@@ -21,34 +24,89 @@ const SearchBar = (props: Props) => {
 
   const { type } = useMyRouterQuery()
 
+  const [selectedType, setSelectedType] = useState<SearchType>('movie')
+
   const { isSmallScreen } = useMyMediaQuery()
+
+  const handleSubmit = () => {
+    router.push(
+      urls.pages.search({
+        q: input,
+        type: selectedType || 'movie',
+      })
+    )
+  }
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (input.length > 0) handleSubmit()
+  }, [selectedType])
 
   return (
     <form
       style={{
         width: '100%',
+        position: 'relative',
+        display: 'flex',
       }}
       onSubmit={(e) => {
         e.preventDefault()
-        router.push(
-          urls.pages.search({
-            q: input,
-            type: type || 'movie',
-          })
-        )
+        handleSubmit()
       }}
     >
+      <Select
+        data={searchTabOptions.map((option) => ({
+          label: option.label,
+          value: option.key,
+        }))}
+        onKeyDown={(e) => {
+          console.log('xd')
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            handleSubmit()
+          }
+        }}
+        w={110}
+        sx={{
+          position: 'relative',
+          left: 0,
+        }}
+        styles={(theme) => ({
+          input: {
+            borderRadius: '4px 0 0 4px',
+            ':focus': {
+              borderRight: `2px solid ${theme.colors.primary[9]}`,
+            },
+          },
+        })}
+        value={selectedType}
+        onChange={(value) => {
+          setSelectedType(value as any)
+        }}
+      />
       <MyTextInput
-        placeholder={
-          isSmallScreen
-            ? 'Search'
-            : 'Search your favorite movies, TV shows, games...'
-        }
+        rightSection={<MdSearch />}
+        placeholder={'Search Syncro'}
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
-        icon={<MdSearch />}
         autoFocus={props.autofocus}
+        sx={{
+          position: 'relative',
+          left: -1,
+          flexGrow: 1,
+        }}
+        styles={{
+          input: {
+            borderRadius: '0 4px 4px 0',
+          },
+        }}
+        onClick={() => {
+          inputRef.current?.select()
+        }}
+        ref={inputRef}
       />
+
       <button
         style={{
           display: 'none',

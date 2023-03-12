@@ -1,10 +1,12 @@
-import { IsString } from "class-validator"
-import { SyncroItemType } from "../syncro-item/SyncroItemType/SyncroItemType"
+import { IsString } from 'class-validator'
+import { SyncroItemType } from '../syncro-item/SyncroItemType/SyncroItemType'
 
 export class SearchParams {
   @IsString()
   q: string
 
   @IsString()
-  type: SyncroItemType | "users"
+  type: SyncroItemType | 'users'
 }
+
+export type SearchType = SyncroItemType | 'users'

@@ -1,6 +1,6 @@
 import { SearchParams } from '../../../../../types/domain/search/SearchParams'
 
-export const searchTabOptions: {
+export const itemToRecommendTabOptions: {
   key: SearchParams['type']
   label: string
 }[] = [

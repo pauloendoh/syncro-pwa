@@ -7,7 +7,7 @@ import useRecommendUserSheetStore from '../../../../hooks/zustand/action-sheets/
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../flex/FlexCol'
 import ItemToRecommendOption from './ItemToRecommendOption/ItemToRecommendOption'
-import { searchTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
+import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
 
 interface Props {}
 
@@ -59,7 +59,7 @@ const RecommendUserSheet = (props: Props) => {
           }}
         >
           <Tabs.List>
-            {searchTabOptions.map((option) => (
+            {itemToRecommendTabOptions.map((option) => (
               <Tabs.Tab key={option.key} value={option.key}>
                 {option.label}
               </Tabs.Tab>
