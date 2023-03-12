@@ -59,7 +59,7 @@ export const useSortedItems = ({
       if (ratingB > ratingA) return 1
       return -1
     })
-  }, [items, sortingBy, customPositions])
+  }, [items?.length, sortingBy, customPositions])
 
   return sortedItems
 }

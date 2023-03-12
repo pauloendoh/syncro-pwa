@@ -1,5 +1,5 @@
 import { Box, Text, useMantineTheme } from '@mantine/core'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useUserItemsQuery } from '../../../hooks/react-query/user/useUserItemsQuery'
 import { syncroItemMapping } from '../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -11,21 +11,11 @@ import { useSortedItems } from './useSortedItems/useSortedItems'
 
 interface Props {
   userId: string
-  // onClick: () => void
   itemType: SyncroItemType
-  refreshedAt: string
 }
 
 const ProfileScreenRatingItem = (props: Props) => {
-  const {
-    data: userItems,
-    refetch: refetchUserRatings,
-    isLoading: isLoadingUserRatings,
-  } = useUserItemsQuery(props.userId, props.itemType)
-
-  useEffect(() => {
-    refetchUserRatings()
-  }, [props.refreshedAt])
+  const { data: userItems } = useUserItemsQuery(props.userId, props.itemType)
 
   const sortedItems = useSortedItems({
     items: userItems,

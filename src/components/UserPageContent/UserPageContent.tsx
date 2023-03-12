@@ -10,7 +10,7 @@ import {
   Title,
 } from '@mantine/core'
 import Head from 'next/head'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -38,7 +38,6 @@ const UserPageContent = (props: Props) => {
   const { data: userRatings } = useUserRatingsQuery(userId!)
 
   const noRatings = useMemo(() => userRatings?.length === 0, [userRatings])
-  const [refreshedAt, setRefreshedAt] = useState(new Date().toISOString())
 
   const authUser = useAuthStore((s) => s.authUser)
 
@@ -130,7 +129,6 @@ const UserPageContent = (props: Props) => {
                   key={itemType}
                   itemType={itemType}
                   userId={userId!}
-                  refreshedAt={refreshedAt}
                 />
               ))}
             </Flex>
