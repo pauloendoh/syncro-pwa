@@ -54,6 +54,24 @@ export const useSortedItems = ({
     return items.sort((a, b) => {
       const ratingA = a.ratings?.[0]?.ratingValue
       const ratingB = b.ratings?.[0]?.ratingValue
+
+      if (ratingA && ratingB) {
+        if (ratingA === ratingB) {
+          const createdAtA = a.ratings?.[0]?.createdAt
+          const createdAtB = b.ratings?.[0]?.createdAt
+
+          if (createdAtA && createdAtB) {
+            // A is newer, return B
+            if (createdAtA > createdAtB) return 1
+            return -1
+          }
+
+          if (createdAtB) return 1
+
+          return -1
+        }
+      }
+
       if (ratingB && !ratingA) return 1
       if (!ratingA || !ratingB) return -1
       if (ratingB > ratingA) return 1
