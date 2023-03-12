@@ -5,6 +5,7 @@ import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
+import MobileHomeHeader from './MobileHomeHeader/MobileHomeHeader'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
 const HomePageContent = () => {
@@ -14,10 +15,16 @@ const HomePageContent = () => {
     return homeRatings?.pages.flat() || []
   }, [homeRatings])
 
-  const { isSmallScreen } = useMyMediaQuery()
+  const { isSmallScreen, isXsScreen } = useMyMediaQuery()
   const theme = useMantineTheme()
   return (
     <LoggedLayout>
+      {isXsScreen && (
+        <>
+          <MobileHomeHeader />
+          <Box mt={40} />
+        </>
+      )}
       <Container fluid>
         <Grid>
           <Grid.Col span={'auto'} xs="auto" sm={'auto'} md={'auto'} p={0} />

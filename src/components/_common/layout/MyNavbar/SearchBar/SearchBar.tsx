@@ -6,11 +6,14 @@ import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import { urls } from '../../../../../utils/urls'
 import MyTextInput from '../../../inputs/MyTextInput'
 
-type Props = {}
+type Props = {
+  autofocus?: boolean
+}
 
 const SearchBar = (props: Props) => {
   const { q } = useMyRouterQuery()
   const [input, setInput] = useState('')
+
   useEffect(() => {
     if (q) setInput(q)
   }, [q])
@@ -22,6 +25,9 @@ const SearchBar = (props: Props) => {
 
   return (
     <form
+      style={{
+        width: '100%',
+      }}
       onSubmit={(e) => {
         e.preventDefault()
         router.push(
@@ -41,6 +47,7 @@ const SearchBar = (props: Props) => {
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
         icon={<MdSearch />}
+        autoFocus={props.autofocus}
       />
       <button
         style={{

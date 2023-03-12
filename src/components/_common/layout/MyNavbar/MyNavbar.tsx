@@ -3,14 +3,13 @@ import {
   Container,
   Grid,
   Header,
-  Indicator,
   Title,
   Tooltip,
   useMantineTheme,
 } from '@mantine/core'
 import { useMemo } from 'react'
 import { IoMdCompass } from 'react-icons/io'
-import { MdBookmark, MdHome, MdNotifications } from 'react-icons/md'
+import { MdHome } from 'react-icons/md'
 import { useNotificationsQuery } from '../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
@@ -18,6 +17,7 @@ import { urls } from '../../../../utils/urls'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyNextLink from '../../overrides/MyNextLink'
 import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'
+import SavedAndNotificationIcons from './SavedNotificationIcons/SavedAndNotificationIcons'
 import SearchBar from './SearchBar/SearchBar'
 
 type Props = {}
@@ -97,31 +97,7 @@ const MyNavbar = (props: Props) => {
                   </MyNextLink>
                 </Tooltip>
 
-                <Tooltip label="Saved items" withArrow>
-                  <MyNextLink href={urls.pages.savedItems('all')}>
-                    <ActionIcon>
-                      <MdBookmark size={24} />
-                    </ActionIcon>
-                  </MyNextLink>
-                </Tooltip>
-
-                <Tooltip label="Notifications" withArrow>
-                  <Indicator
-                    disabled={unseenNotifications.length === 0}
-                    label={
-                      unseenNotifications.length > 0
-                        ? unseenNotifications.length
-                        : undefined
-                    }
-                    size={16}
-                  >
-                    <MyNextLink href={urls.pages.notifications}>
-                      <ActionIcon>
-                        <MdNotifications size={24} />
-                      </ActionIcon>
-                    </MyNextLink>
-                  </Indicator>
-                </Tooltip>
+                <SavedAndNotificationIcons />
               </FlexVCenter>
             )}
 

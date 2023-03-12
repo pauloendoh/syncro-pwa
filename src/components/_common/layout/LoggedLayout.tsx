@@ -17,7 +17,7 @@ const LoggedLayout = (props: Props) => {
     <div>
       {!isXsScreen && <MyNavbar />}
 
-      {props.disableMarginTop ? null : <Box mt={96} />}
+      {props.disableMarginTop ? null : <Box mt={isXsScreen ? 24 : 96} />}
 
       {props.children}
 
