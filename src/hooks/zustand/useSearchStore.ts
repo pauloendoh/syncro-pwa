@@ -1,19 +1,14 @@
 import { create } from 'zustand'
+import { SearchType } from '../../types/domain/search/SearchParams'
 
 interface IStore {
-  searchText: string
-  setSearchText: (text: string) => void
-
-  submittedText: string
-  onSubmit: (text: string) => void
+  selectedType: SearchType
+  setSelectedType: (type: SearchType) => void
 }
 
 const useSearchStore = create<IStore>((set, get) => ({
-  searchText: '',
-  setSearchText: (text) => set({ searchText: text }),
-
-  submittedText: '',
-  onSubmit: (text) => set({ submittedText: text }),
+  selectedType: 'movie',
+  setSelectedType: (type) => set({ selectedType: type }),
 }))
 
 export default useSearchStore

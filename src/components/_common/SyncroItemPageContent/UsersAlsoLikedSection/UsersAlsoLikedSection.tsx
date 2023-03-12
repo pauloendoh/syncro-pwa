@@ -32,6 +32,7 @@ const UsersAlsoLikedSection = (props: Props) => {
               sx={{
                 padding: 8,
               }}
+              w={180}
             >
               <FlexCol
                 align="center"

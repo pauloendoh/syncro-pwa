@@ -2,9 +2,8 @@ import { Select } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
-import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
-import { SearchType } from '../../../../../types/domain/search/SearchParams'
+import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
 import { urls } from '../../../../../utils/urls'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
 import MyTextInput from '../../../inputs/MyTextInput'
@@ -24,9 +23,7 @@ const SearchBar = (props: Props) => {
 
   const { type } = useMyRouterQuery()
 
-  const [selectedType, setSelectedType] = useState<SearchType>('movie')
-
-  const { isSmallScreen } = useMyMediaQuery()
+  const { selectedType, setSelectedType } = useSearchStore()
 
   const handleSubmit = () => {
     router.push(
