@@ -12,10 +12,10 @@ type Props = {
 }
 
 const LoggedLayout = (props: Props) => {
-  const { isXsScreen } = useMyMediaQuery()
+  const { isXsScreen, isLoading } = useMyMediaQuery()
   return (
     <div>
-      {!isXsScreen && <MyNavbar />}
+      {!isXsScreen && !isLoading && <MyNavbar />}
 
       {props.disableMarginTop ? null : <Box mt={isXsScreen ? 24 : 96} />}
 
@@ -23,7 +23,7 @@ const LoggedLayout = (props: Props) => {
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
 
-      {isXsScreen && <MobileFooter />}
+      {isXsScreen && !isLoading && <MobileFooter />}
       <GlobalModals />
     </div>
   )

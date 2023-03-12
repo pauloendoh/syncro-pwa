@@ -17,6 +17,7 @@ import { usePreserveScroll } from '../hooks/usePreserveScroll'
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
+import { zIndexes } from '../utils/zIndexes'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -76,6 +77,9 @@ export default function App(props: AppProps) {
                 visible={loading}
                 overlayOpacity={1}
                 transitionDuration={500}
+                sx={{
+                  zIndex: zIndexes.loadingPageOverlay,
+                }}
               />
               <Component {...pageProps} />
             </NotificationsProvider>
