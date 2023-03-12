@@ -61,7 +61,7 @@ export const useSortedItems = ({
           const createdAtB = b.ratings?.[0]?.createdAt
 
           if (createdAtA && createdAtB) {
-            // A is newer, return B
+            // A is newer, return B (older)
             if (createdAtA > createdAtB) return 1
             return -1
           }
@@ -77,7 +77,7 @@ export const useSortedItems = ({
       if (ratingB > ratingA) return 1
       return -1
     })
-  }, [items?.length, sortingBy, customPositions])
+  }, [items, sortingBy, customPositions])
 
   return sortedItems
 }
