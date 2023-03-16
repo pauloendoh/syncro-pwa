@@ -1,8 +1,8 @@
 import { Draggable } from 'react-beautiful-dnd'
 
-import { ActionIcon, createStyles, Flex, Text, Tooltip } from '@mantine/core'
+import { createStyles, Flex, Text } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
-import { MdClose, MdDragHandle } from 'react-icons/md'
+import { MdDragHandle } from 'react-icons/md'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { InterestDto } from '../../../../types/domain/interest/InterestDto'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
@@ -79,16 +79,6 @@ const PlannedItem = (props: Props) => {
                 >
                   <Text lineClamp={3}>{syncroItem?.title}</Text>
                 </MyNextLink>
-
-                <Tooltip label="Remove from list" withArrow>
-                  <ActionIcon
-                    onClick={() =>
-                      submitToggleSave(props.planned.syncroItemId!)
-                    }
-                  >
-                    <MdClose />
-                  </ActionIcon>
-                </Tooltip>
               </Flex>
             </FlexCol>
           </Flex>
