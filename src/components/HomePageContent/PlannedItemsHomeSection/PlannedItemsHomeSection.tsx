@@ -1,7 +1,9 @@
 import { ScrollArea, Title } from '@mantine/core'
 import { useMemo, useState } from 'react'
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 import { MdBookmark } from 'react-icons/md'
 import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
+import useUpdateSavedPositionMutation from '../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import {
   SyncroItemType,
   syncroItemTypes,
@@ -27,6 +29,18 @@ const PlannedItemsHomeSection = (props: Props) => {
         ?.sort((a, b) => a.position - b.position) || []
     )
   }, [selectedType, savedItems])
+
+  const { mutate: submitUpdateSavedPosition } = useUpdateSavedPositionMutation()
+
+  const onDragEnd = (result: DropResult) => {
+    const interestId = result.draggableId
+    const newPosition =
+      result.destination?.index === undefined
+        ? 1
+        : result.destination?.index + 1
+
+    submitUpdateSavedPosition({ interestId, newPosition })
+  }
 
   return (
     <FlexCol gap={16}>
@@ -58,11 +72,21 @@ const PlannedItemsHomeSection = (props: Props) => {
             </FlexVCenter>
           </ScrollArea>
 
-          <FlexCol>
-            {sortedPlanned.map((planned) => (
-              <PlannedItem key={planned.syncroItem?.id} planned={planned} />
-            ))}
-          </FlexCol>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="dnd-list" direction="vertical">
+              {(provided) => (
+                <FlexCol {...provided.droppableProps} ref={provided.innerRef}>
+                  {sortedPlanned.map((planned, index) => (
+                    <PlannedItem
+                      key={planned.syncroItem?.id}
+                      planned={planned}
+                      index={index}
+                    />
+                  ))}
+                </FlexCol>
+              )}
+            </Droppable>
+          </DragDropContext>
         </FlexCol>
       </MyPaper>
     </FlexCol>
