@@ -28,7 +28,7 @@ const HomePageContent = () => {
       )}
       <Container fluid>
         <Grid>
-          <Grid.Col span={0} xs={0} sm={0} md={'auto'} p={0} />
+          <Grid.Col span={0} xs={0} sm={0} md={3} p={0} />
           <Grid.Col span={12} xs={12} sm={7} md={6}>
             <Container
               size="xs"
