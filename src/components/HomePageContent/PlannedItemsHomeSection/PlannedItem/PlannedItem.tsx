@@ -1,13 +1,15 @@
 import { Draggable } from 'react-beautiful-dnd'
 
-import { createStyles, Flex, Text } from '@mantine/core'
+import { ActionIcon, createStyles, Flex, Text, Tooltip } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
-import { MdDragHandle } from 'react-icons/md'
+import { MdClose, MdDragHandle } from 'react-icons/md'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { InterestDto } from '../../../../types/domain/interest/InterestDto'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../utils/urls'
+import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
+import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 
 type Props = {
@@ -37,9 +39,9 @@ const PlannedItem = (props: Props) => {
   return (
     <Draggable index={props.index} draggableId={props.planned.id}>
       {(provided) => (
-        <Flex
-          gap={8}
+        <FlexVCenter
           py={8}
+          gap={8}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
@@ -47,15 +49,50 @@ const PlannedItem = (props: Props) => {
             <MdDragHandle size={20} />
           </div>
 
-          <FlexVCenter justify={'space-between'} w="100%">
+          <Flex
+            gap={8}
+            sx={{
+              flexGrow: 1,
+            }}
+          >
             <MyNextLink
               href={urls.pages.syncroItem(syncroItem!.id)}
               onClick={() => handleClick(props.planned)}
             >
-              <Text size="sm">{syncroItem?.title}</Text>
+              <SyncroItemImage item={syncroItem} height={64} width={64} />
             </MyNextLink>
-          </FlexVCenter>
-        </Flex>
+
+            <FlexCol
+              gap={8}
+              sx={() => ({
+                fontSize: 13,
+                flexGrow: 1,
+                svg: {
+                  height: 20,
+                },
+              })}
+            >
+              <Flex justify={'space-between'} w="100%">
+                <MyNextLink
+                  href={urls.pages.syncroItem(syncroItem!.id)}
+                  onClick={() => handleClick(props.planned)}
+                >
+                  <Text lineClamp={3}>{syncroItem?.title}</Text>
+                </MyNextLink>
+
+                <Tooltip label="Remove from list" withArrow>
+                  <ActionIcon
+                    onClick={() =>
+                      submitToggleSave(props.planned.syncroItemId!)
+                    }
+                  >
+                    <MdClose />
+                  </ActionIcon>
+                </Tooltip>
+              </Flex>
+            </FlexCol>
+          </Flex>
+        </FlexVCenter>
       )}
     </Draggable>
   )
@@ -70,7 +107,7 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
+    height: '100%',
     color:
       theme.colorScheme === 'dark'
         ? theme.colors.dark[1]
