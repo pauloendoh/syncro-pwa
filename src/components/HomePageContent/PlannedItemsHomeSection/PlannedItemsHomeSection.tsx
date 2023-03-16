@@ -84,11 +84,19 @@ const PlannedItemsHomeSection = (props: Props) => {
             </FlexVCenter>
           </ScrollArea>
 
-          <ScrollArea h={400} sx={{ paddingRight: 16, paddingLeft: 8 }}>
+          <ScrollArea
+            sx={{ paddingRight: 16, paddingLeft: 8, paddingBottom: 8 }}
+          >
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="dnd-list" direction="vertical">
                 {(provided) => (
-                  <FlexCol {...provided.droppableProps} ref={provided.innerRef}>
+                  <FlexCol
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    sx={{
+                      maxHeight: 480,
+                    }}
+                  >
                     {sortedPlanned.map((planned, index) => (
                       <PlannedItem
                         key={planned.syncroItem?.id}
