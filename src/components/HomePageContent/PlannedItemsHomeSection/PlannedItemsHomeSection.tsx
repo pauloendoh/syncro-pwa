@@ -46,7 +46,7 @@ const PlannedItemsHomeSection = (props: Props) => {
     submitUpdateSavedPosition({ interestId, newPosition })
   }
 
-  if (!savedItems) return null
+  if (!savedItems || savedItems.length === 0) return null
 
   return (
     <FlexCol gap={16}>
