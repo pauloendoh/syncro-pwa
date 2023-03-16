@@ -56,7 +56,7 @@ const HomePageContent = () => {
               )}
             </Container>
           </Grid.Col>
-          <Grid.Col span={0} xs={12} sm={5} md={6}>
+          <Grid.Col span={0} xs={12} sm={5} md={3}>
             {!isSmallScreen && <PlannedItemsHomeSection />}
           </Grid.Col>
         </Grid>
