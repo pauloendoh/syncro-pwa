@@ -73,7 +73,7 @@ const PlannedItem = (props: Props) => {
                 },
               })}
             >
-              <FlexVCenter justify={'space-between'} w="100%">
+              <Flex justify={'space-between'} w="100%">
                 <Text lineClamp={3}>{syncroItem?.title}</Text>
 
                 <Tooltip label="Remove from list" withArrow>
@@ -85,7 +85,7 @@ const PlannedItem = (props: Props) => {
                     <MdClose />
                   </ActionIcon>
                 </Tooltip>
-              </FlexVCenter>
+              </Flex>
 
               <FlexVCenter justify={'space-between'} w="100%">
                 <PressableMyRating itemId={syncroItem?.id!} />
