@@ -74,7 +74,7 @@ const PlannedItem = (props: Props) => {
               })}
             >
               <FlexVCenter justify={'space-between'} w="100%">
-                <Text lineClamp={1}>{syncroItem?.title}</Text>
+                <Text lineClamp={2}>{syncroItem?.title}</Text>
 
                 <Tooltip label="Remove from list" withArrow>
                   <ActionIcon
