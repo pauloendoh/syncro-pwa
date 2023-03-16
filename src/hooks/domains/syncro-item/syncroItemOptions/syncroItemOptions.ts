@@ -16,7 +16,7 @@ export const syncroItemOptions: {
     tabIndex: 0,
     getTypeLabel: (isPlural = false) => (isPlural ? 'TV Series' : 'TV Series'),
     getTypeLabelLowerCase: (isPlural = false) =>
-      isPlural ? 'tv series' : 'tv series',
+      isPlural ? 'TV series' : 'TV series',
   },
   {
     itemType: 'movie',

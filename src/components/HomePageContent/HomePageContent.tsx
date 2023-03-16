@@ -6,6 +6,7 @@ import { urls } from '../../utils/urls'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MobileHomeHeader from './MobileHomeHeader/MobileHomeHeader'
+import PlannedItemsHomeSection from './PlannedItemsHomeSection/PlannedItemsHomeSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
 const HomePageContent = () => {
@@ -27,8 +28,8 @@ const HomePageContent = () => {
       )}
       <Container fluid>
         <Grid>
-          <Grid.Col span={'auto'} xs="auto" sm={'auto'} md={'auto'} p={0} />
-          <Grid.Col span={12} xs={12} sm={6} md={6}>
+          <Grid.Col span={0} xs={0} sm={0} md={'auto'} p={0} />
+          <Grid.Col span={12} xs={12} sm={8} md={6}>
             <Container
               size="xs"
               fluid={isSmallScreen}
@@ -55,7 +56,9 @@ const HomePageContent = () => {
               )}
             </Container>
           </Grid.Col>
-          <Grid.Col span={'auto'} xs={12} sm="auto" md={'auto'} />
+          <Grid.Col span={0} xs={12} sm={4} md={'auto'}>
+            {!isSmallScreen && <PlannedItemsHomeSection />}
+          </Grid.Col>
         </Grid>
       </Container>
     </LoggedLayout>
