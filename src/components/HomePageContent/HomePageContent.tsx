@@ -29,7 +29,7 @@ const HomePageContent = () => {
       <Container fluid>
         <Grid>
           <Grid.Col span={0} xs={0} sm={0} md={'auto'} p={0} />
-          <Grid.Col span={12} xs={12} sm={8} md={6}>
+          <Grid.Col span={12} xs={12} sm={7} md={6}>
             <Container
               size="xs"
               fluid={isSmallScreen}
@@ -56,7 +56,7 @@ const HomePageContent = () => {
               )}
             </Container>
           </Grid.Col>
-          <Grid.Col span={0} xs={12} sm={4} md={'auto'}>
+          <Grid.Col span={0} xs={12} sm={5} md={6}>
             {!isSmallScreen && <PlannedItemsHomeSection />}
           </Grid.Col>
         </Grid>
