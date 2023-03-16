@@ -94,7 +94,7 @@ const PlannedItemsHomeSection = (props: Props) => {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     sx={{
-                      maxHeight: 480,
+                      maxHeight: `calc(100vh - 300px)`,
                     }}
                   >
                     {sortedPlanned.map((planned, index) => (
