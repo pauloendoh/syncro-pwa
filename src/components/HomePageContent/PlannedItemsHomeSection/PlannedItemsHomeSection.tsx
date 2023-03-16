@@ -1,5 +1,6 @@
 import { ScrollArea, Title } from '@mantine/core'
-import { useMemo, useState } from 'react'
+import { useLocalStorage } from '@mantine/hooks'
+import { useMemo } from 'react'
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 import { MdBookmark } from 'react-icons/md'
 import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
@@ -19,7 +20,10 @@ import PlannedItemButton from './PlannedItemButton/PlannedItemButton'
 type Props = {}
 
 const PlannedItemsHomeSection = (props: Props) => {
-  const [selectedType, setSelectedType] = useState<SyncroItemType>('movie')
+  const [selectedType, setSelectedType] = useLocalStorage<SyncroItemType>({
+    key: 'planned-items-home-section-selected-type',
+    defaultValue: 'movie',
+  })
   const { data: savedItems } = useSavedItemsQuery()
 
   const sortedPlanned = useMemo(() => {
@@ -58,9 +62,9 @@ const PlannedItemsHomeSection = (props: Props) => {
       </FlexVCenter>
 
       <MyPaper>
-        <FlexCol gap={16}>
+        <FlexCol gap={8}>
           <ScrollArea>
-            <FlexVCenter gap={16} pb={16}>
+            <FlexVCenter gap={16} pb={8}>
               {syncroItemTypes.map((type) => (
                 <PlannedItemButton
                   key={type}
@@ -72,21 +76,23 @@ const PlannedItemsHomeSection = (props: Props) => {
             </FlexVCenter>
           </ScrollArea>
 
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="dnd-list" direction="vertical">
-              {(provided) => (
-                <FlexCol {...provided.droppableProps} ref={provided.innerRef}>
-                  {sortedPlanned.map((planned, index) => (
-                    <PlannedItem
-                      key={planned.syncroItem?.id}
-                      planned={planned}
-                      index={index}
-                    />
-                  ))}
-                </FlexCol>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <ScrollArea h={400} sx={{ paddingRight: 16 }}>
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="dnd-list" direction="vertical">
+                {(provided) => (
+                  <FlexCol {...provided.droppableProps} ref={provided.innerRef}>
+                    {sortedPlanned.map((planned, index) => (
+                      <PlannedItem
+                        key={planned.syncroItem?.id}
+                        planned={planned}
+                        index={index}
+                      />
+                    ))}
+                  </FlexCol>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </ScrollArea>
         </FlexCol>
       </MyPaper>
     </FlexCol>
