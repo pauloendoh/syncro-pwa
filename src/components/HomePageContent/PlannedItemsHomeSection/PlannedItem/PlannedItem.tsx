@@ -60,7 +60,7 @@ const PlannedItem = (props: Props) => {
               href={urls.pages.syncroItem(syncroItem!.id)}
               onClick={() => handleClick(props.planned)}
             >
-              <SyncroItemImage item={syncroItem} height={80} width={80} />
+              <SyncroItemImage item={syncroItem} height={96} width={96} />
             </MyNextLink>
 
             <FlexCol
@@ -74,7 +74,7 @@ const PlannedItem = (props: Props) => {
               })}
             >
               <FlexVCenter justify={'space-between'} w="100%">
-                <Text lineClamp={2}>{syncroItem?.title}</Text>
+                <Text lineClamp={3}>{syncroItem?.title}</Text>
 
                 <Tooltip label="Remove from list" withArrow>
                   <ActionIcon
