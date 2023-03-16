@@ -66,13 +66,13 @@ const PlannedItemsHomeSection = (props: Props) => {
           padding: 0,
         }}
       >
-        <FlexCol gap={8}>
+        <FlexCol>
           <ScrollArea
             sx={{
               padding: 16,
             }}
           >
-            <FlexVCenter gap={16} pb={8}>
+            <FlexVCenter gap={16}>
               {syncroItemTypes.map((type) => (
                 <PlannedItemButton
                   key={type}
