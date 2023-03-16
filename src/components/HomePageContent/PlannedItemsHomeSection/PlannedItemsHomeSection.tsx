@@ -61,9 +61,17 @@ const PlannedItemsHomeSection = (props: Props) => {
         </MyNextLink>
       </FlexVCenter>
 
-      <MyPaper>
+      <MyPaper
+        sx={{
+          padding: 0,
+        }}
+      >
         <FlexCol gap={8}>
-          <ScrollArea>
+          <ScrollArea
+            sx={{
+              padding: 16,
+            }}
+          >
             <FlexVCenter gap={16} pb={8}>
               {syncroItemTypes.map((type) => (
                 <PlannedItemButton
@@ -76,7 +84,7 @@ const PlannedItemsHomeSection = (props: Props) => {
             </FlexVCenter>
           </ScrollArea>
 
-          <ScrollArea h={400} sx={{ paddingRight: 16 }}>
+          <ScrollArea h={400} sx={{ paddingRight: 16, paddingLeft: 8 }}>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="dnd-list" direction="vertical">
                 {(provided) => (

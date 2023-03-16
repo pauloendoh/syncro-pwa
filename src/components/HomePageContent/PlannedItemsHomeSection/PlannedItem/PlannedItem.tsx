@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd'
 
-import { ActionIcon, createStyles, Flex, Text } from '@mantine/core'
+import { ActionIcon, createStyles, Flex, Text, Tooltip } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
 import { MdClose, MdDragHandle } from 'react-icons/md'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
@@ -78,12 +78,15 @@ const PlannedItem = (props: Props) => {
               <FlexVCenter justify={'space-between'} w="100%">
                 <PressableMyRating itemId={syncroItem?.id!} />
 
-                <ActionIcon
-                  onClick={() => submitToggleSave(props.planned.syncroItemId!)}
-                  title={'Remove from your planned list'}
-                >
-                  <MdClose />
-                </ActionIcon>
+                <Tooltip label="Remove from list" withArrow>
+                  <ActionIcon
+                    onClick={() =>
+                      submitToggleSave(props.planned.syncroItemId!)
+                    }
+                  >
+                    <MdClose />
+                  </ActionIcon>
+                </Tooltip>
               </FlexVCenter>
             </FlexCol>
           </Flex>
