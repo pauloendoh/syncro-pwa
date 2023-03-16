@@ -1,17 +1,14 @@
 import { Draggable } from 'react-beautiful-dnd'
 
-import { ActionIcon, createStyles, Flex, Text, Tooltip } from '@mantine/core'
+import { createStyles, Flex, Text } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
-import { MdClose, MdDragHandle } from 'react-icons/md'
+import { MdDragHandle } from 'react-icons/md'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { InterestDto } from '../../../../types/domain/interest/InterestDto'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../utils/urls'
-import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
-import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
-import PressableMyRating from '../../HomeRatingItem/HomeRatingItemButtons/PressableMyRating/PressableMyRating'
 
 type Props = {
   planned: InterestDto
@@ -40,9 +37,9 @@ const PlannedItem = (props: Props) => {
   return (
     <Draggable index={props.index} draggableId={props.planned.id}>
       {(provided) => (
-        <FlexVCenter
-          py={8}
+        <Flex
           gap={8}
+          py={8}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
@@ -50,49 +47,15 @@ const PlannedItem = (props: Props) => {
             <MdDragHandle size={20} />
           </div>
 
-          <Flex
-            gap={8}
-            sx={{
-              flexGrow: 1,
-            }}
-          >
+          <FlexVCenter justify={'space-between'} w="100%">
             <MyNextLink
               href={urls.pages.syncroItem(syncroItem!.id)}
               onClick={() => handleClick(props.planned)}
             >
-              <SyncroItemImage item={syncroItem} height={96} width={96} />
+              <Text size="sm">{syncroItem?.title}</Text>
             </MyNextLink>
-
-            <FlexCol
-              gap={8}
-              sx={() => ({
-                fontSize: 13,
-                flexGrow: 1,
-                svg: {
-                  height: 20,
-                },
-              })}
-            >
-              <Flex justify={'space-between'} w="100%">
-                <Text lineClamp={3}>{syncroItem?.title}</Text>
-
-                <Tooltip label="Remove from list" withArrow>
-                  <ActionIcon
-                    onClick={() =>
-                      submitToggleSave(props.planned.syncroItemId!)
-                    }
-                  >
-                    <MdClose />
-                  </ActionIcon>
-                </Tooltip>
-              </Flex>
-
-              <FlexVCenter justify={'space-between'} w="100%">
-                <PressableMyRating itemId={syncroItem?.id!} />
-              </FlexVCenter>
-            </FlexCol>
-          </Flex>
-        </FlexVCenter>
+          </FlexVCenter>
+        </Flex>
       )}
     </Draggable>
   )
@@ -107,7 +70,7 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
+
     color:
       theme.colorScheme === 'dark'
         ? theme.colors.dark[1]
