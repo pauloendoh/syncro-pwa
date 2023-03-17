@@ -4,6 +4,7 @@ import { MdBookmark, MdStar } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
@@ -19,7 +20,6 @@ import MyNextLink from '../../_common/overrides/MyNextLink'
 
 interface Props {
   item: UserItemDto
-  onPress: () => void
   thisIsYourList: boolean
   itemType: SyncroItemType
   isCustomOrdering: boolean
@@ -50,10 +50,12 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
     }
   }
 
+  const { isSmallScreen } = useMyMediaQuery()
+
   return (
     <Box>
       <Flex gap={16}>
-        <Box onClick={props.onPress}>
+        <Box>
           <MyNextLink
             href={urls.pages.syncroItem(item.id)}
             onClick={handleClick}
@@ -67,12 +69,12 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
             href={urls.pages.syncroItem(item.id)}
             onClick={handleClick}
           >
-            <Text style={{ fontWeight: '500' }}>
-              {item.title} {item.year && `(${item.year})`}
+            <Text style={{ fontWeight: '500' }} lineClamp={2}>
+              {item.title} {item.year && `[${item.year}]`}
             </Text>
           </MyNextLink>
 
-          <Flex mt={16}>
+          <Flex mt={8}>
             <FlexCol w={120}>
               {props.thisIsYourList ? (
                 props.isCustomOrdering ? (

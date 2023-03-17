@@ -51,7 +51,7 @@ const ItemRecommendationNotificationItem = ({
             <span style={{ fontWeight: '500' }}>
               {itemRecommendation.item?.title}{' '}
               {itemRecommendation.item?.year &&
-                `(${itemRecommendation.item?.year})`}
+                `[${itemRecommendation.item?.year}]`}
               <span
                 style={{
                   display: 'inline-flex',

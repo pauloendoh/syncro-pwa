@@ -47,6 +47,10 @@ const ImdbSearchItem = ({ resultItem }: Props) => {
           width={100}
           height={100}
           alt={resultItem.title}
+          style={{
+            objectFit: 'cover',
+            borderRadius: 4,
+          }}
         />
       </MyNextLink>
 
@@ -58,7 +62,7 @@ const ImdbSearchItem = ({ resultItem }: Props) => {
               fontWeight: 500,
             })}
           >
-            {resultItem.title} {resultItem.year && `(${resultItem.year})`}
+            {resultItem.title} {resultItem.year && `[${resultItem.year}]`}
           </Text>
         </MyNextLink>
 

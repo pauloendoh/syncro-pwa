@@ -1,5 +1,6 @@
 import { Box, Button, Flex } from '@mantine/core'
 import { useHotkeys } from '@mantine/hooks'
+import { useMemo } from 'react'
 
 interface Props {
   submitButtonId?: string
@@ -10,6 +11,7 @@ interface Props {
   onEnabledAndCtrlEnter?: () => void
   onEnableAndCtrlS?: () => void
   saveText?: string
+  saveWidth?: number
 }
 
 const SaveCancelButtons = (props: Props) => {
@@ -40,6 +42,16 @@ const SaveCancelButtons = (props: Props) => {
     ['input', 'select', 'textarea']
   )
 
+  const label = useMemo(() => {
+    if (props.isLoading) {
+      return null
+    }
+    if (props.saveText) {
+      return props.saveText
+    }
+    return 'Save'
+  }, [props.isLoading, props.saveText])
+
   return (
     <Flex>
       <Button
@@ -49,8 +61,21 @@ const SaveCancelButtons = (props: Props) => {
         id={props.submitButtonId}
         disabled={props.disabled || props.isLoading}
         onClick={props.onSave}
+        styles={(theme) => ({
+          root: {
+            width: props.saveWidth || 80,
+          },
+          leftIcon: {
+            marginRight: props.isLoading ? 0 : undefined,
+          },
+          label: {
+            color: props.isLoading
+              ? theme.colors.dark[0]
+              : theme.colors.dark[0],
+          },
+        })}
       >
-        {props.saveText ? props.saveText : 'Save'}
+        {label}
       </Button>
 
       <Box ml={8}>

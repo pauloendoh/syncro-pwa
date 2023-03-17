@@ -68,12 +68,6 @@ const UserItemsPageContent = (props: Props) => {
           onRefresh={refetch}
           isLoading={isLoading}
           itemType={itemType}
-          onPressItem={(item) => {
-            // navigation.push('SyncroItem', {
-            //   itemId: item.id,
-            //   initialValue: item,
-            // })
-          }}
           sortedItems={sortedItems}
           sortingBy={sortingBy}
           thisIsYourList={thisIsYourList}

@@ -92,7 +92,7 @@ const RegisterForm = (props: Props) => {
 
           <Flex align="center" justify="space-between" mt={16}>
             <Button type="submit" loading={loading}>
-              Register
+              Sign up
             </Button>
 
             <Button variant="subtle" onClick={props.onToggleForm}>

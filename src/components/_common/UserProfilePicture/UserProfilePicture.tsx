@@ -16,7 +16,10 @@ const UserProfilePicture = (props: Props) => {
       alt={userInfo?.username || 'loading-profile-picture'}
       width={props.widthHeigth}
       height={props.widthHeigth}
-      style={{ borderRadius: props.widthHeigth }}
+      style={{
+        objectFit: 'cover',
+        borderRadius: props.widthHeigth,
+      }}
       src={
         userInfo?.profile?.pictureUrl ||
         'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'

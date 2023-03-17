@@ -61,7 +61,7 @@ const ProfileImageProfileScreen = (props: Props) => {
         }
         height={80}
         width={80}
-        style={{ borderRadius: 100 }}
+        style={{ borderRadius: 100, objectFit: 'cover' }}
       />
 
       <Text>Change profile image</Text>

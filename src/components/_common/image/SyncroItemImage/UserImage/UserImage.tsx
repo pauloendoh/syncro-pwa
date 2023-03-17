@@ -15,6 +15,7 @@ const UserImage = (props: Props) => {
       height={props.widthHeight || 40}
       style={{
         borderRadius: '50%',
+        objectFit: 'cover',
       }}
     />
   )

@@ -52,8 +52,9 @@ const SyncroSearchItem = ({ item }: Props) => {
               color: theme.colors.dark[0],
               fontWeight: 500,
             })}
+            lineClamp={2}
           >
-            {item.title} {item.year && `(${item.year})`}
+            {item.title} {item.year && `[${item.year}]`}
           </Text>
         </MyNextLink>
 

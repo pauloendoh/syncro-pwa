@@ -1,6 +1,6 @@
 import { ActionIcon, Indicator, Tooltip } from '@mantine/core'
 import { useMemo } from 'react'
-import { MdBookmark, MdNotifications } from 'react-icons/md'
+import { IoBookmarksOutline, IoNotificationsOutline } from 'react-icons/io5'
 import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
 import { urls } from '../../../../../utils/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
@@ -20,7 +20,7 @@ const SavedAndNotificationIcons = (props: Props) => {
       <Tooltip label="Saved items" withArrow>
         <MyNextLink href={urls.pages.savedItems('all')}>
           <ActionIcon>
-            <MdBookmark size={24} />
+            <IoBookmarksOutline size={24} />
           </ActionIcon>
         </MyNextLink>
       </Tooltip>
@@ -37,7 +37,7 @@ const SavedAndNotificationIcons = (props: Props) => {
         >
           <MyNextLink href={urls.pages.notifications}>
             <ActionIcon>
-              <MdNotifications size={24} />
+              <IoNotificationsOutline size={24} />
             </ActionIcon>
           </MyNextLink>
         </Indicator>

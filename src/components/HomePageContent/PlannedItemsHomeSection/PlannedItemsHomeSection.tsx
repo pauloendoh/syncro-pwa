@@ -2,7 +2,6 @@ import { ScrollArea, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useMemo } from 'react'
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
-import { MdBookmark } from 'react-icons/md'
 import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import {
@@ -52,7 +51,6 @@ const PlannedItemsHomeSection = (props: Props) => {
     <FlexCol gap={16}>
       <FlexVCenter justify={'space-between'}>
         <FlexVCenter gap={4}>
-          <MdBookmark size={24} />
           <Title order={5}>Planned items</Title>
         </FlexVCenter>
 

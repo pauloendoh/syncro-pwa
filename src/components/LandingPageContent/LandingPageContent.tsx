@@ -22,7 +22,8 @@ const LandingPageContent = (props: Props) => {
           <FlexCol align={'center'} gap={16}>
             <Title>Syncro</Title>
             <Text align="center">
-              Review movies, TV shows, games, books and mangas. All in one place
+              Plan and review movies, TV shows, games, books and mangas. All in
+              one place
             </Text>
           </FlexCol>
 

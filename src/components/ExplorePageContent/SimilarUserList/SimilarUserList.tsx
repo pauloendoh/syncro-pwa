@@ -4,6 +4,7 @@ import { useMySimilarUsersQuery } from '../../../types/domain/me/useMySimilarUse
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 
@@ -26,6 +27,8 @@ const SimilarUserList = (props: Props) => {
       }) || [],
     [ratingSimilarities]
   )
+
+  if (isLoading) return <CenterLoader />
 
   return (
     <FlexCol gap={16}>

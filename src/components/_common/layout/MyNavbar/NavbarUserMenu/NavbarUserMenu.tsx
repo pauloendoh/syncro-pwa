@@ -38,6 +38,7 @@ const NavbarUserMenu = (props: Props) => {
           height={36}
           style={{
             cursor: 'pointer',
+            objectFit: 'cover',
             borderRadius: '50%',
           }}
         />
@@ -52,6 +53,9 @@ const NavbarUserMenu = (props: Props) => {
         >
           <Menu.Item>Profile</Menu.Item>
         </MyNextLink>
+
+        <Menu.Divider />
+
         <a
           href="https://discord.gg/gx3TKUYfrb"
           target="_blank"

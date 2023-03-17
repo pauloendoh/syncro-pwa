@@ -34,9 +34,15 @@ const RatingsTimeline = (props: Props) => {
     return homeRatings?.pages.flat() || []
   }, [homeRatings])
 
+  const title = useMemo(() => {
+    if (flatRatings.length === 0) return null
+    if (props.userId) return 'Last ratings'
+    return 'Your feed'
+  }, [props.userId, flatRatings])
+
   return (
     <>
-      <Title order={4}>{props.userId ? 'Last ratings' : 'Your feed'}</Title>
+      <Title order={4}>{title}</Title>
       <FlexCol gap={16} mt={16}>
         {flatRatings.map((rating) => (
           <HomeRatingItem rating={rating} key={rating.id} />

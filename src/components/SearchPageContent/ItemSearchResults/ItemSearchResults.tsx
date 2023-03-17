@@ -5,6 +5,7 @@ import { useOverallSearchQuery } from '../../../hooks/react-query/search/useOver
 import { IImdbResultItem } from '../../../types/domain/movie/MovieResultResponseDto'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import textContainsWords from '../../../utils/text/textContainsWords'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyPaper from '../../_common/overrides/MyPaper'
 import ImdbSearchItem from './ImdbSearchItem/ImdbSearchItem'
@@ -49,8 +50,23 @@ const ItemSearchResults = (props: Props) => {
 
     if (!searchResultItems) return []
 
-    return [...searchResultItems] as SyncroItemDto[]
-  }, [searchResultItems, props.type])
+    const result = [...searchResultItems] as SyncroItemDto[]
+    return result.sort(
+      // order the results that contain title first
+      (a, b) => {
+        if (
+          textContainsWords(a.title, props.query) &&
+          textContainsWords(b.title, props.query)
+        ) {
+          return a.ratingCount > b.ratingCount ? -1 : 1
+        }
+
+        if (textContainsWords(a.title, props.query)) return -1
+        if (textContainsWords(b.title, props.query)) return 1
+        return 0
+      }
+    )
+  }, [searchResultItems, props.type, props.query])
 
   return (
     <MyPaper>

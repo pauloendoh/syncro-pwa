@@ -8,7 +8,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useMemo } from 'react'
-import { IoMdCompass } from 'react-icons/io'
+import { IoCompassOutline } from 'react-icons/io5'
 import { MdHome } from 'react-icons/md'
 import { useNotificationsQuery } from '../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
@@ -92,7 +92,7 @@ const MyNavbar = (props: Props) => {
                 <Tooltip label="Explore" withArrow>
                   <MyNextLink href={urls.pages.explore('popular-users')}>
                     <ActionIcon>
-                      <IoMdCompass size={24} />
+                      <IoCompassOutline size={24} />
                     </ActionIcon>
                   </MyNextLink>
                 </Tooltip>

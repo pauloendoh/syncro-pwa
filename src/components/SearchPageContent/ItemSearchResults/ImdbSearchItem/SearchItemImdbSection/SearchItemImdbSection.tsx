@@ -17,7 +17,7 @@ const SearchItemImdbSection = (props: Props) => {
   const { isSmallScreen } = useMyMediaQuery()
   return (
     <FlexCol>
-      <Text weight={500}>{props.title || 'IMDb'}</Text>
+      <Text>{props.title || 'IMDb'}</Text>
 
       <FlexCol gap={4}>
         <FlexVCenter gap={8}>

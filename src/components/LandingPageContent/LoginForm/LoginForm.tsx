@@ -60,7 +60,7 @@ const LoginForm = (props: Props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FlexCol mt={16} gap={8}>
           <MyTextInput
-            label="Username"
+            label="Username or email"
             {...register('identificator')}
             error={errors.identificator?.message}
           />
@@ -78,7 +78,7 @@ const LoginForm = (props: Props) => {
             </Button>
 
             <Button variant="subtle" onClick={props.onToggleForm}>
-              Register
+              Sign up
             </Button>
           </Flex>
         </FlexCol>

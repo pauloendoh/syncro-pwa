@@ -34,6 +34,7 @@ const RatingImportRequestNotificationItem = ({
           height={36}
           style={{
             borderRadius: 36,
+            objectFit: 'cover',
           }}
         />
 

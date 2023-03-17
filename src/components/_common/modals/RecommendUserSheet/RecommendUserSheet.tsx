@@ -41,7 +41,7 @@ const RecommendUserSheet = (props: Props) => {
       opened={isOpen}
       onClose={closeActionSheet}
       title={<Title order={4}>Recommend</Title>}
-      size="lg"
+      size="md"
     >
       <Box mt={4}>
         <Tabs

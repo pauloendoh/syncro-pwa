@@ -50,6 +50,7 @@ const SearchBar = (props: Props) => {
       onSubmit={(e) => {
         e.preventDefault()
         handleSubmit()
+        e.currentTarget.blur()
       }}
     >
       <Select
@@ -88,6 +89,12 @@ const SearchBar = (props: Props) => {
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
         autoFocus={props.autofocus}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSubmit()
+            e.currentTarget.blur()
+          }
+        }}
         sx={{
           position: 'relative',
           left: -1,

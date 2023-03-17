@@ -33,7 +33,7 @@ const MangaPanelsSection = (props: Props) => {
       <Box mt={2}>
         {isLoading && <CenterLoader />}
 
-        <PhotoProvider>
+        <PhotoProvider loop={images.length}>
           <ScrollArea
             sx={{
               div: {

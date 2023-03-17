@@ -39,18 +39,19 @@ const SearchItemYourSection = (props: Props) => {
 
   return (
     <>
-      <Text weight={500}>You</Text>
-      <Box
-        sx={{
-          cursor: 'pointer',
-        }}
-        onClick={() => {
-          openRatingModal(
-            myRating || buildRatingDto({ syncroItemId: props.itemId })
-          )
-        }}
-      >
-        <FlexVCenter gap={4}>
+      <Text>You</Text>
+      <FlexVCenter gap={4}>
+        <FlexVCenter
+          gap={4}
+          sx={{
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            openRatingModal(
+              myRating || buildRatingDto({ syncroItemId: props.itemId })
+            )
+          }}
+        >
           <FlexVCenter style={{ width: 24 }}>
             <MdStar
               color={
@@ -62,22 +63,24 @@ const SearchItemYourSection = (props: Props) => {
             />
           </FlexVCenter>
           <Text>{myRating?.ratingValue || <Text>&nbsp;</Text>}</Text>
-          {!!myRating?.review && (
-            <Text
-              sx={{
-                fontStyle: 'italic',
-                color: theme.colors.gray[6],
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                openRatingDetailsModal(myRating)
-              }}
-            >
-              (Review)
-            </Text>
-          )}
         </FlexVCenter>
-      </Box>
+
+        {!!myRating?.review && (
+          <Text
+            sx={{
+              fontStyle: 'italic',
+              color: theme.colors.gray[6],
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              openRatingDetailsModal(myRating)
+            }}
+          >
+            (Review)
+          </Text>
+        )}
+      </FlexVCenter>
+
       <Box
         sx={{
           cursor: 'pointer',
