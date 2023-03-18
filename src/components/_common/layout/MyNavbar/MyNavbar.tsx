@@ -7,8 +7,9 @@ import {
   Tooltip,
   useMantineTheme,
 } from '@mantine/core'
+import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { IoCompassOutline } from 'react-icons/io5'
+import { IoCompass, IoCompassOutline } from 'react-icons/io5'
 import { MdHome } from 'react-icons/md'
 import { useNotificationsQuery } from '../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
@@ -35,6 +36,11 @@ const MyNavbar = (props: Props) => {
   const { isSmallScreen } = useMyMediaQuery()
 
   const theme = useMantineTheme()
+
+  const router = useRouter()
+  const currentlyOnExplore = useMemo(() => {
+    return router.pathname.startsWith('/explore')
+  }, [router.pathname])
 
   return (
     <Header
@@ -92,7 +98,11 @@ const MyNavbar = (props: Props) => {
                 <Tooltip label="Explore" withArrow>
                   <MyNextLink href={urls.pages.explore('popular-users')}>
                     <ActionIcon>
-                      <IoCompassOutline size={24} />
+                      {currentlyOnExplore ? (
+                        <IoCompass size={24} />
+                      ) : (
+                        <IoCompassOutline size={24} />
+                      )}
                     </ActionIcon>
                   </MyNextLink>
                 </Tooltip>

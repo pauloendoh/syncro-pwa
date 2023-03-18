@@ -1,6 +1,12 @@
 import { ActionIcon, Indicator, Tooltip } from '@mantine/core'
+import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { IoBookmarksOutline, IoNotificationsOutline } from 'react-icons/io5'
+import {
+  IoBookmarks,
+  IoBookmarksOutline,
+  IoNotifications,
+  IoNotificationsOutline,
+} from 'react-icons/io5'
 import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
 import { urls } from '../../../../../utils/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
@@ -15,13 +21,26 @@ const SavedAndNotificationIcons = (props: Props) => {
     [notifications]
   )
 
+  const router = useRouter()
+  const isPlannedItemsPage = useMemo(() => {
+    return router.pathname.startsWith('/saved')
+  }, [router.pathname])
+
+  const isNotificationPage = useMemo(() => {
+    return router.pathname.startsWith('/notifications')
+  }, [router.pathname])
+
   return (
     <>
       <Tooltip label="Planned items" withArrow>
         <div>
           <MyNextLink href={urls.pages.savedItems('all')}>
             <ActionIcon>
-              <IoBookmarksOutline size={24} />
+              {isPlannedItemsPage ? (
+                <IoBookmarks size={24} />
+              ) : (
+                <IoBookmarksOutline size={24} />
+              )}
             </ActionIcon>
           </MyNextLink>
         </div>
@@ -39,7 +58,11 @@ const SavedAndNotificationIcons = (props: Props) => {
         >
           <MyNextLink href={urls.pages.notifications}>
             <ActionIcon>
-              <IoNotificationsOutline size={24} />
+              {isNotificationPage ? (
+                <IoNotifications size={24} />
+              ) : (
+                <IoNotificationsOutline size={24} />
+              )}
             </ActionIcon>
           </MyNextLink>
         </Indicator>
