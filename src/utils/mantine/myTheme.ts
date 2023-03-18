@@ -5,11 +5,11 @@ export const myTheme: MantineThemeOverride = {
   fontFamily: 'Noto Sans',
 
   fontSizes: {
-    xs: 11,
-    sm: 13,
-    md: 15,
-    lg: 17,
-    xl: 21,
+    xs: '11px',
+    sm: '13px',
+    md: '15px',
+    lg: '17px',
+    xl: '21px',
   },
   colors: {
     primary: [

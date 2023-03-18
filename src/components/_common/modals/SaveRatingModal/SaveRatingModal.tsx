@@ -88,7 +88,7 @@ const SaveRatingModal = () => {
       }
       withCloseButton={false}
       styles={{
-        modal: {
+        inner: {
           top: 80,
         },
       }}

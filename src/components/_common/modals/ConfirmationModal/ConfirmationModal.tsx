@@ -15,8 +15,10 @@ const ConfirmationModal = () => {
       opened={isOpen}
       onClose={closeModal}
       title={initialValue.title}
-      sx={{
-        zIndex: 1000,
+      styles={{
+        root: {
+          zIndex: 1000,
+        },
       }}
     >
       <>

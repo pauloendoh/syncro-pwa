@@ -34,7 +34,7 @@ const ItemRatedByModal = () => {
       title={<Title order={4}>Rated by users you follow</Title>}
       withCloseButton={false}
       styles={{
-        modal: {
+        root: {
           top: 80,
         },
       }}

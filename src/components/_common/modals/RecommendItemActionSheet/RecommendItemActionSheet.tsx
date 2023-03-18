@@ -26,8 +26,8 @@ const RecommendItemActionSheet = (props: Props) => {
       }}
       title={<Title order={4}>Recommend to your mutuals</Title>}
       styles={{
-        modal: {
-          top: 20,
+        inner: {
+          top: 40,
         },
       }}
     >

@@ -7,7 +7,7 @@ import {
   MantineProvider,
 } from '@mantine/core'
 import { useLocalStorage, useViewportSize } from '@mantine/hooks'
-import { NotificationsProvider } from '@mantine/notifications'
+import { Notifications } from '@mantine/notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -72,17 +72,16 @@ export default function App(props: AppProps) {
             withNormalizeCSS
             theme={{ ...myTheme, colorScheme }}
           >
-            <NotificationsProvider position="bottom-center">
-              <LoadingOverlay
-                visible={loading}
-                overlayOpacity={1}
-                transitionDuration={500}
-                sx={{
-                  zIndex: zIndexes.loadingPageOverlay,
-                }}
-              />
-              <Component {...pageProps} />
-            </NotificationsProvider>
+            <Notifications position="bottom-center" />
+            <LoadingOverlay
+              visible={loading}
+              overlayOpacity={1}
+              transitionDuration={500}
+              sx={{
+                zIndex: zIndexes.loadingPageOverlay,
+              }}
+            />
+            <Component {...pageProps} />
           </MantineProvider>
         </ColorSchemeProvider>
       </QueryClientProvider>
