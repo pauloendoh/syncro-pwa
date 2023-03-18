@@ -1,5 +1,4 @@
 import { Box, Container } from '@mantine/core'
-import { useRouter } from 'next/router'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import FlexVCenter from '../_common/flex/FlexVCenter'
@@ -13,8 +12,8 @@ type Props = {}
 const SearchPageContent = (props: Props) => {
   const { q, type } = useMyRouterQuery()
 
-  const router = useRouter()
   const { isXsScreen } = useMyMediaQuery()
+
   return (
     <LoggedLayout>
       <Container size="xs">

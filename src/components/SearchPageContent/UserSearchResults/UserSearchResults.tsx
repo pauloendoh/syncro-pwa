@@ -13,7 +13,7 @@ interface Props {
 }
 
 const UserSearchResults = (props: Props) => {
-  const { data: users, refetch, isLoading } = useUserSearchQuery(props.query)
+  const { data: users, isLoading } = useUserSearchQuery(props.query)
 
   // useFocusEffect(() => {
   //   refetch()
