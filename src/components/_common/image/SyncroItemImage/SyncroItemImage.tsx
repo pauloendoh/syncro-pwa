@@ -1,5 +1,4 @@
 import { Box, Center, useMantineTheme } from '@mantine/core'
-import Image from 'next/image'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
@@ -16,7 +15,7 @@ const SyncroItemImage = (props: Props) => {
   const theme = useMantineTheme()
   return (
     <Box pos="relative">
-      <Image
+      <img
         width={props.width || 100}
         height={props.height || 100}
         src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
