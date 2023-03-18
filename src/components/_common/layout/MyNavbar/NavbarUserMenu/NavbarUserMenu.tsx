@@ -1,5 +1,4 @@
 import { Menu } from '@mantine/core'
-import Image from 'next/image'
 import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
@@ -31,7 +30,7 @@ const NavbarUserMenu = (props: Props) => {
       position="bottom-end"
     >
       <Menu.Target>
-        <Image
+        <img
           alt="Picture of the user"
           src={imageUrl}
           width={36}

@@ -1,5 +1,4 @@
 import { Flex, Text, useMantineTheme } from '@mantine/core'
-import Image from 'next/image'
 import { useMemo } from 'react'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
@@ -42,7 +41,7 @@ const ImdbSearchItem = ({ resultItem }: Props) => {
   return (
     <Flex gap={16}>
       <MyNextLink href={urls.pages.syncroItem(resultItem.id)}>
-        <Image
+        <img
           src={getSyncroItemImageOrDefault(resultItem?.image?.url)}
           width={100}
           height={100}

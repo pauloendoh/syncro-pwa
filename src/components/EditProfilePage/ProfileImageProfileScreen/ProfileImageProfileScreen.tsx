@@ -1,5 +1,4 @@
 import { Box, Text } from '@mantine/core'
-import Image from 'next/image'
 import { ChangeEvent, createRef } from 'react'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
@@ -54,7 +53,7 @@ const ProfileImageProfileScreen = (props: Props) => {
         cursor: 'pointer',
       }}
     >
-      <Image
+      <img
         alt="profile-picture"
         src={
           userInfo?.profile?.pictureUrl ||

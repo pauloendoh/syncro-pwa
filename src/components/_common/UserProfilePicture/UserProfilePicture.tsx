@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { memo } from 'react'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 
@@ -12,7 +11,7 @@ const UserProfilePicture = (props: Props) => {
   const { data: userInfo } = useUserInfoQuery(props.userId)
 
   return (
-    <Image
+    <img
       alt={userInfo?.username || 'loading-profile-picture'}
       width={props.widthHeigth}
       height={props.widthHeigth}

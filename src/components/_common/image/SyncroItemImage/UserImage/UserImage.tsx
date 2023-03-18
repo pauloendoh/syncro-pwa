@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 type Props = {
   username?: string
   pictureUrl?: string
@@ -8,7 +6,7 @@ type Props = {
 
 const UserImage = (props: Props) => {
   return (
-    <Image
+    <img
       alt={props.username || 'username'}
       src={props.pictureUrl || '/images/avatars/avatar.png'}
       width={props.widthHeight || 40}

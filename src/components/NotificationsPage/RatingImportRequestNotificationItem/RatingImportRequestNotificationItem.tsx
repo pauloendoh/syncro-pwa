@@ -1,5 +1,4 @@
 import { Box, Text, useMantineTheme } from '@mantine/core'
-import Image from 'next/image'
 import { format } from 'timeago.js'
 import useMalImportResultsModalStore from '../../../hooks/zustand/modals/useMalImportResultsModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
@@ -25,7 +24,7 @@ const RatingImportRequestNotificationItem = ({
   return (
     <FlexVCenter justify={'space-between'} p={4}>
       <FlexVCenter>
-        <Image
+        <img
           alt="my-anime-list"
           src={
             'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png'
