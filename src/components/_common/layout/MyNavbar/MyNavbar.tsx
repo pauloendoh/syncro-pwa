@@ -96,15 +96,17 @@ const MyNavbar = (props: Props) => {
             {authUser && (
               <FlexVCenter gap={isSmallScreen ? 16 : 24}>
                 <Tooltip label="Explore" withArrow>
-                  <MyNextLink href={urls.pages.explore('popular-users')}>
-                    <ActionIcon>
-                      {currentlyOnExplore ? (
-                        <IoCompass size={24} />
-                      ) : (
-                        <IoCompassOutline size={24} />
-                      )}
-                    </ActionIcon>
-                  </MyNextLink>
+                  <div>
+                    <MyNextLink href={urls.pages.explore('popular-users')}>
+                      <ActionIcon>
+                        {currentlyOnExplore ? (
+                          <IoCompass size={24} />
+                        ) : (
+                          <IoCompassOutline size={24} />
+                        )}
+                      </ActionIcon>
+                    </MyNextLink>
+                  </div>
                 </Tooltip>
 
                 <SavedAndNotificationIcons />

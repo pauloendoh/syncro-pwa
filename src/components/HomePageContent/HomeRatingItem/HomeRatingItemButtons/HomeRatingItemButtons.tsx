@@ -47,7 +47,7 @@ const HomeRatingItemButtons = (props: Props) => {
     <FlexVCenter mt={2}>
       <PressableMyRating itemId={props.syncroItemId!} />
 
-      <Tooltip label={bookmarkTooltipLabel}>
+      <Tooltip label={bookmarkTooltipLabel} withArrow>
         <FlexVCenter
           sx={(theme) => ({
             color: myInterest
