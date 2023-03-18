@@ -1,5 +1,7 @@
 import { Center, Loader, Text } from '@mantine/core'
-import { useEffect, useMemo, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { upsertMany } from 'endoh-utils'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDidNotFindMutation from '../../../hooks/react-query/did-not-find/useDidNotFindMutation'
 import { useOverallSearchQuery } from '../../../hooks/react-query/search/useOverallSearchQuery'
@@ -7,6 +9,8 @@ import { IImdbResultItem } from '../../../types/domain/movie/MovieResultResponse
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import textContainsWords from '../../../utils/text/textContainsWords'
+import { urls } from '../../../utils/urls'
+import { useAxios } from '../../../utils/useAxios'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
@@ -27,7 +31,9 @@ const ItemSearchResults = (props: Props) => {
     data: searchResultItems,
     isLoading,
     isError,
-  } = useOverallSearchQuery(props.query, props.type)
+  } = useOverallSearchQuery(props.query, props.type, {
+    refetchOnWindowFocus: false,
+  })
 
   const noResults = useMemo(
     () => (!isLoading && searchResultItems?.length === 0) || isError,
@@ -88,7 +94,7 @@ const ItemSearchResults = (props: Props) => {
     }
 
     setShouldShowMore(queryIsValid && !!searchResultItems)
-  }, [props.query, props.type])
+  }, [props.query, props.type, searchResultItems])
 
   const shouldShowDidNotFind = useMemo(
     () =>
@@ -102,6 +108,41 @@ const ItemSearchResults = (props: Props) => {
 
   const { mutate: submitDidNotFind, isLoading: didNotFindIsLoading } =
     useDidNotFindMutation()
+
+  const [isLoadingSearchMore, setIsLoadingSearchMore] = useState(false)
+
+  const qc = useQueryClient()
+  const axios = useAxios()
+  const handleSearchMore = useCallback(() => {
+    setIsLoadingSearchMore(true)
+    axios
+      .get<SyncroItemDto[]>(
+        urls.api.searchMore({
+          q: props.query,
+          type: props.type,
+        })
+      )
+      .then((res) => {
+        qc.setQueryData<SyncroItemDto[]>(
+          [
+            urls.api.search({
+              q: props.query,
+              type: props.type,
+            }),
+          ],
+          (curr) => {
+            if (!curr) return res.data
+            return upsertMany(curr, res.data, (a, b) => a.id === b.id)
+          }
+        )
+
+        console.log(res.data)
+      })
+      .finally(() => {
+        setIsLoadingSearchMore(false)
+        setShouldShowMore(false)
+      })
+  }, [props.query, props.type])
 
   return (
     <MyPaper>
@@ -128,6 +169,23 @@ const ItemSearchResults = (props: Props) => {
         {otherSyncroItems?.map((syncroItem) => (
           <SyncroSearchItem item={syncroItem} key={syncroItem.id} />
         ))}
+
+        {shouldShowMore && (
+          <Center mt={4}>
+            {isLoadingSearchMore ? (
+              <Loader />
+            ) : (
+              <Text
+                color="primary"
+                onClick={() => {
+                  handleSearchMore()
+                }}
+              >
+                Search more
+              </Text>
+            )}
+          </Center>
+        )}
 
         {shouldShowDidNotFind && typeMap && (
           <FlexVCenter my={8}>
