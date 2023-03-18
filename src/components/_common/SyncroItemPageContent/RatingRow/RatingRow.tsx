@@ -1,4 +1,5 @@
 import { ScrollArea, useMantineTheme } from '@mantine/core'
+import { useRouter } from 'next/router'
 import { IoMdShareAlt } from 'react-icons/io'
 import { MdBookmark, MdLink, MdStar } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
@@ -71,6 +72,9 @@ const RatingRow = ({ syncroItem }: Props) => {
     itemType: syncroItem.type,
   })
   const { isSmallScreen } = useMyMediaQuery()
+
+  const router = useRouter()
+
   return (
     <ScrollArea>
       <FlexVCenter gap={8} pb={isSmallScreen ? 16 : 0}>
@@ -97,7 +101,9 @@ const RatingRow = ({ syncroItem }: Props) => {
 
         <RatingRowButton
           ml={2}
-          onClick={() => openRecommendItemModal(syncroItem.id)}
+          onClick={() => {
+            openRecommendItemModal(syncroItem.id)
+          }}
           leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
         >
           Recommend

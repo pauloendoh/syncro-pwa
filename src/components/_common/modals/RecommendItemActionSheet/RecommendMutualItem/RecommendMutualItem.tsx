@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery'
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
 import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
-import useRecommendItemActionSheetStore from '../../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
 import { urls } from '../../../../../utils/urls'
 import FlexCol from '../../../flex/FlexCol'
 import FlexVCenter from '../../../flex/FlexVCenter'
@@ -19,7 +18,6 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
   const { mutate: submitRecommendItem, isLoading } = useRecommendItemMutation()
 
   const { data: itemsRecommended } = useItemsRecommendationsFromMeQuery()
-  const { closeActionSheet } = useRecommendItemActionSheetStore()
 
   const isAlreadyRecommended = useMemo(() => {
     if (!itemsRecommended) return false
@@ -39,20 +37,12 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
   return (
     <Flex justify="space-between">
       <FlexVCenter>
-        <MyNextLink
-          href={urls.pages.user(mutual.user.id)}
-          onClick={closeActionSheet}
-        >
+        <MyNextLink href={urls.pages.user(mutual.user.id)}>
           <UserProfilePicture userId={mutual.user.id} widthHeigth={36} />
         </MyNextLink>
 
         <FlexCol ml={16}>
-          <MyNextLink
-            href={urls.pages.user(mutual.user.id)}
-            onClick={() => {
-              closeActionSheet()
-            }}
-          >
+          <MyNextLink href={urls.pages.user(mutual.user.id)}>
             <Text weight={500}>{mutual.user.username}</Text>
           </MyNextLink>
           {/* <Text></Text> */}

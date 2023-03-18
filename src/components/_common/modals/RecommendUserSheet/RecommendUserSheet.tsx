@@ -1,8 +1,9 @@
 import { Box, Modal, Tabs, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsToRecommendQuery } from '../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
+import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendUserSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../flex/FlexCol'
@@ -11,8 +12,10 @@ import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRec
 
 interface Props {}
 
+// PE 1/3 - rename to RecommendItemsToUserDialog
 const RecommendUserSheet = (props: Props) => {
-  const { isOpen, closeActionSheet, userId } = useRecommendUserSheetStore()
+  const { closeActionSheet, userId } = useRecommendUserSheetStore()
+  const { recommendItemsToUser } = useMyRouterQuery()
 
   const [currentType, setCurrentType] = useState<SyncroItemType>('movie')
 
@@ -32,13 +35,9 @@ const RecommendUserSheet = (props: Props) => {
 
   const router = useRouter()
 
-  useEffect(() => {
-    closeActionSheet()
-  }, [router.pathname])
-
   return (
     <Modal
-      opened={isOpen}
+      opened={!!recommendItemsToUser}
       onClose={closeActionSheet}
       title={<Title order={4}>Recommend</Title>}
       size="md"

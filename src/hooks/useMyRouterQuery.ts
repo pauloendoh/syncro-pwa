@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { SearchParams } from '../types/domain/search/SearchParams'
+import { recommendItemsToUser } from './zustand/action-sheets/useRecommendUserSheetStore'
 
 export const useMyRouterQuery = () => {
   const router = useRouter()
@@ -7,11 +8,14 @@ export const useMyRouterQuery = () => {
   return query as {
     syncroItemId: string
     userId: string
-
     q: string
     type: SearchParams['type']
     exploreSlug: ExploreSlug
     roomId: string
+
+    // dialogs are open
+    recommendItemIsOpen: string
+    [recommendItemsToUser]: string
   }
 }
 

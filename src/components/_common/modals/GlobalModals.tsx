@@ -12,6 +12,7 @@ type Props = {}
 
 const GlobalModals = (props: Props) => {
   const savedPosition = useSavedPositionSheetStore()
+
   return (
     <>
       <ConfirmationModal />
