@@ -28,9 +28,7 @@ import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
 
-type Props = {}
-
-const SyncroItemPageContent = (props: Props) => {
+const SyncroItemPageContent = () => {
   const { syncroItemId } = useMyRouterQuery()
   const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId)
   const canHaveTrailers =
@@ -133,9 +131,7 @@ const SyncroItemPageContent = (props: Props) => {
           </Box>
         )}
 
-        <Box mt={32}>
-          <UsersAlsoLikedSection itemId={syncroItemId!} />
-        </Box>
+        <Box mt={32}>{item && <UsersAlsoLikedSection itemId={item.id!} />}</Box>
       </Container>
     </LoggedLayout>
   )
