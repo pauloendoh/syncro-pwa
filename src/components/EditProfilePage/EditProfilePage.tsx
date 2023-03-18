@@ -1,9 +1,8 @@
-import { Box, Container, Textarea, useMantineTheme } from '@mantine/core'
+import { Box, Container, Textarea } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import useUpdateProfileMutation from '../../hooks/react-query/profile/useUpdateProfileMutation'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
-import { useMyColors } from '../../hooks/useMyColors'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { ProfilePutDto } from '../../types/domain/profile/ProfilePutDto'
 import { urls } from '../../utils/urls'
@@ -12,36 +11,29 @@ import MyTextInput from '../_common/inputs/MyTextInput'
 import SaveCancelButtons from '../_common/inputs/SaveCancelButtons'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
+import EditLookingForRecommendations from './EditLookingForRecommendations/EditLookingForRecommendations'
 import ProfileImageProfileScreen from './ProfileImageProfileScreen/ProfileImageProfileScreen'
 
 type Props = {}
 
 const EditProfilePage = (props: Props) => {
-  const { lightBackground } = useMyColors()
   const authUser = useAuthStore((s) => s.authUser)
-
-  // const openImagePickerAsync = usePickProfileImage(authUser!.id)
 
   const { data } = useUserInfoQuery(authUser?.id)
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<ProfilePutDto>({
+  const { control, handleSubmit, watch, setValue } = useForm<ProfilePutDto>({
     defaultValues: {
       bio: data?.profile.bio,
 
       name: data?.profile.fullName,
       username: authUser?.username,
       website: data?.profile.websiteUrl,
+      lookingForRecommendationTypes:
+        data?.profile.lookingForRecommendationTypes,
     },
   })
 
   const { mutate: submitUpdateProfile, isLoading } = useUpdateProfileMutation()
-
-  const theme = useMantineTheme()
 
   const router = useRouter()
 
@@ -121,6 +113,13 @@ const EditProfilePage = (props: Props) => {
                   />
                 )}
                 name="website"
+              />
+
+              <EditLookingForRecommendations
+                selectedTypes={watch('lookingForRecommendationTypes')}
+                onChange={(types) => {
+                  setValue('lookingForRecommendationTypes', types)
+                }}
               />
             </FlexCol>
 

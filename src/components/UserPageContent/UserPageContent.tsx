@@ -11,6 +11,7 @@ import {
 } from '@mantine/core'
 import Head from 'next/head'
 import { useMemo } from 'react'
+import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -20,6 +21,7 @@ import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/S
 import { urls } from '../../utils/urls'
 import RatingsTimeline from '../HomePageContent/RatingsTimeline/RatingsTimeline'
 import FlexCol from '../_common/flex/FlexCol'
+import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
@@ -31,6 +33,7 @@ import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRati
 
 type Props = {}
 
+// PE 1/3 - change name to UserProfilePage
 const UserPageContent = (props: Props) => {
   const { userId } = useMyRouterQuery()
   const { data: userInfo, isLoading } = useUserInfoQuery(userId!)
@@ -104,6 +107,26 @@ const UserPageContent = (props: Props) => {
                 >
                   {userInfo.profile.websiteUrl}
                 </Anchor>
+              )}
+
+              {userInfo.profile.lookingForRecommendationTypes.length > 0 && (
+                <FlexVCenter>
+                  <Text component="span" color="yellow" weight={500}>
+                    Looking for recommendations:{' '}
+                    {
+                      // split by ","
+                      userInfo.profile.lookingForRecommendationTypes
+                        .map((type) =>
+                          syncroItemOptions
+                            .find((o) => o.itemType === type)
+                            ?.getTypeLabelLowerCase(true)
+                        )
+                        .join(', ')
+                        .replace(/,(?=[^,]*$)/, ' and')
+                    }
+                    .
+                  </Text>
+                </FlexVCenter>
               )}
 
               {thisIsMyProfile ? (

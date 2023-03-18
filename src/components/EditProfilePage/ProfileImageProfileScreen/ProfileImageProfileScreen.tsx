@@ -14,6 +14,7 @@ interface Props {
   imageIsPressable?: boolean
 }
 
+// PE 1/3 - rename to ChangeProfileImage
 const ProfileImageProfileScreen = (props: Props) => {
   const authUser = useAuthStore((s) => s.authUser)
 
