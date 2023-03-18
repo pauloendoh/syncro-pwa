@@ -46,7 +46,12 @@ const ItemSearchResults = (props: Props) => {
   }, [searchResultItems, props.type])
 
   const otherSyncroItems = useMemo(() => {
-    if (props.type !== 'game' && props.type !== 'manga') return []
+    if (
+      props.type !== 'game' &&
+      props.type !== 'manga' &&
+      props.type !== 'book'
+    )
+      return []
 
     if (!searchResultItems) return []
 

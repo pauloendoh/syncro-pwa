@@ -71,6 +71,7 @@ const PlannedItemsHomeSection = (props: Props) => {
             sx={{
               padding: 16,
             }}
+            scrollbarSize={6}
           >
             <FlexVCenter gap={16}>
               {syncroItemTypes.map((type) => (

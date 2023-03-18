@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { syncroItemOptions } from './syncroItemOptions/syncroItemOptions'
 
+// PE 1/3 -  ?
 export const useSyncroItemTypeMap = (by: {
   tabIndex?: number
   itemType?: SyncroItemType

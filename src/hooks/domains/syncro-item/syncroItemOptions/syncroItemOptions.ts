@@ -1,5 +1,6 @@
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
+// PE 1/3 - remove ? use useSyncroItemTypeMap ?
 export const syncroItemOptions: {
   itemType: SyncroItemType
   labelPlural: string
@@ -27,11 +28,12 @@ export const syncroItemOptions: {
     getTypeLabelLowerCase: (isPlural = false) =>
       isPlural ? 'movies' : 'movie',
   },
+
   {
     itemType: 'game',
     labelPlural: 'Games',
     site: 'IGDb',
-    tabIndex: 2,
+    tabIndex: 3,
     getTypeLabel: (isPlural = false) => (isPlural ? 'Games' : 'Game'),
     getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'games' : 'game'),
   },
@@ -39,8 +41,16 @@ export const syncroItemOptions: {
     itemType: 'manga',
     labelPlural: 'Manga',
     site: 'MAL',
-    tabIndex: 3,
+    tabIndex: 4,
     getTypeLabel: (isPlural = false) => (isPlural ? 'Manga' : 'Manga'),
     getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'manga' : 'manga'),
+  },
+  {
+    itemType: 'book',
+    labelPlural: 'Books',
+    site: 'OpenLibrary',
+    tabIndex: 2,
+    getTypeLabel: (isPlural = false) => (isPlural ? 'Books' : 'Book'),
+    getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'books' : 'book'),
   },
 ]

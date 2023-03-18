@@ -15,17 +15,7 @@ export const useUserItemsQuery = (userId: string, itemType: SyncroItemType) => {
         urls.api.userItems(userId, itemType)
       )
 
-      if (itemType === 'movie')
-        return res.data?.filter((d) => d.type === 'movie') || []
-
-      if (itemType === 'tvSeries')
-        return res.data?.filter((d) => d.type === 'tvSeries') || []
-
-      if (itemType === 'game')
-        return res.data?.filter((d) => d.type === 'game') || []
-
-      if (itemType === 'manga')
-        return res.data?.filter((d) => d.type === 'manga') || []
+      if (itemType) return res.data?.filter((d) => d.type === itemType) || []
 
       return res?.data || []
     }

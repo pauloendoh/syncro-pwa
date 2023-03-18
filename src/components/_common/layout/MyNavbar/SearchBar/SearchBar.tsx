@@ -21,8 +21,6 @@ const SearchBar = (props: Props) => {
   }, [q])
   const router = useRouter()
 
-  const { type } = useMyRouterQuery()
-
   const { selectedType, setSelectedType } = useSearchStore()
 
   const handleSubmit = () => {

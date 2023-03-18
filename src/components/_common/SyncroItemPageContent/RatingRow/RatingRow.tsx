@@ -50,6 +50,16 @@ const RatingRow = ({ syncroItem }: Props) => {
       window.open(syncroItem.mangaMalUrl, '_blank')
       return
     }
+
+    if (syncroItem.type === 'book') {
+      if (!syncroItem.openLibraryUrl) {
+        alert('No external link available')
+        return
+      }
+      window.open(syncroItem.openLibraryUrl, '_blank')
+      return
+    }
+
     window.open(urls.others.imdbItem(syncroItem.id), '_blank')
   }
 

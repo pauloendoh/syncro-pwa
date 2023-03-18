@@ -12,19 +12,25 @@ export const syncroItemMapping: {
     site: 'IMDB',
     tabIndex: 0,
   },
+
   movie: {
     labelPlural: 'Movies',
     site: 'IMDB',
     tabIndex: 1,
   },
+  book: {
+    labelPlural: 'Books',
+    site: 'OpenLibrary',
+    tabIndex: 2,
+  },
   game: {
     labelPlural: 'Games',
     site: 'IGDB',
-    tabIndex: 2,
+    tabIndex: 3,
   },
   manga: {
     labelPlural: 'Manga',
     site: 'MAL',
-    tabIndex: 3,
+    tabIndex: 4,
   },
 }

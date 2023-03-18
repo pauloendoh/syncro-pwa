@@ -12,6 +12,7 @@ export const searchTabOptions: {
     key: 'tvSeries',
     label: 'TV Series',
   },
+
   {
     key: 'game',
     label: 'Games',
@@ -20,6 +21,11 @@ export const searchTabOptions: {
     key: 'manga',
     label: 'Manga',
   },
+  {
+    key: 'book',
+    label: 'Books',
+  },
+
   {
     key: 'users',
     label: 'Users',

@@ -17,7 +17,7 @@ export const urls = {
       return `/search?${query}`
     },
     userItems: (userId: string, type: SyncroItemType) =>
-      `/user/${userId}/items?type=${type}`,
+      `/user/${userId}/items?type=${type}`, // PE 1/3 - does not use the type anymore
 
     savedItems: (type: SyncroItemType | 'all') => '/saved?type=' + type,
     explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
