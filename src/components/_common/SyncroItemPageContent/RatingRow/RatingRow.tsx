@@ -92,7 +92,7 @@ const RatingRow = ({ syncroItem }: Props) => {
           isActive={!!myInterest?.interestLevel}
           leftIcon={<MdBookmark color={theme.colors.dark[0]} size={16} />}
         >
-          {myInterest?.interestLevel ? 'Saved' : 'Save'}
+          {myInterest?.interestLevel ? 'Planned' : typeMap.planTo}
         </RatingRowButton>
 
         <RatingRowButton

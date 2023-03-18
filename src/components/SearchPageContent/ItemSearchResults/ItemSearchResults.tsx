@@ -180,6 +180,9 @@ const ItemSearchResults = (props: Props) => {
                 onClick={() => {
                   handleSearchMore()
                 }}
+                sx={{
+                  cursor: 'pointer',
+                }}
               >
                 Search more
               </Text>

@@ -1,6 +1,8 @@
+import { Text } from '@mantine/core'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { upsert } from 'endoh-utils'
 import { deleteFromArray } from 'endoh-utils/dist/array'
+import MyNextLink from '../../../components/_common/overrides/MyNextLink'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
@@ -26,7 +28,7 @@ const useToggleSaveItemMutation = () => {
             (curr) => deleteFromArray(curr, (i) => i.syncroItemId === itemId)
           )
 
-          myNotifications.success('Removed from saved!')
+          myNotifications.success('Removed from planned!')
           return
         }
 
@@ -37,26 +39,17 @@ const useToggleSaveItemMutation = () => {
           }
         )
 
-        myNotifications.success('Saved!')
-        // showSuccessToast(
-        //   <Text>
-        //     Item saved!{" "}
-        //     <Text
-        //       onPress={() => {
-        //         navigate("SavedItems")
-        //       }}
-        //       fontWeight="semibold"
-        //       style={{
-        //         textDecorationLine: "underline",
-        //       }}
-        //     >
-        //       See list
-        //     </Text>
-        //   </Text>,
-        //   {
-        //     duration: 7500,
-        //   }
-        // )
+        if (data.syncroItem?.type)
+          myNotifications.success(
+            <Text component="span">
+              Added to planned!{' '}
+              <MyNextLink href={urls.pages.savedItems(data.syncroItem.type)}>
+                <Text component="span" color="primary" underline>
+                  See list!
+                </Text>
+              </MyNextLink>
+            </Text>
+          )
       },
     }
   )

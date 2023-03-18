@@ -72,7 +72,7 @@ export default function App(props: AppProps) {
             withNormalizeCSS
             theme={{ ...myTheme, colorScheme }}
           >
-            <NotificationsProvider>
+            <NotificationsProvider position="bottom-center">
               <LoadingOverlay
                 visible={loading}
                 overlayOpacity={1}

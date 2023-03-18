@@ -17,12 +17,14 @@ const SavedAndNotificationIcons = (props: Props) => {
 
   return (
     <>
-      <Tooltip label="Saved items" withArrow>
-        <MyNextLink href={urls.pages.savedItems('all')}>
-          <ActionIcon>
-            <IoBookmarksOutline size={24} />
-          </ActionIcon>
-        </MyNextLink>
+      <Tooltip label="Planned items" withArrow>
+        <div>
+          <MyNextLink href={urls.pages.savedItems('all')}>
+            <ActionIcon>
+              <IoBookmarksOutline size={24} />
+            </ActionIcon>
+          </MyNextLink>
+        </div>
       </Tooltip>
 
       <Tooltip label="Notifications" withArrow>

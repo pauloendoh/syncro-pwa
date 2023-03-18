@@ -133,7 +133,7 @@ const HomeRatingItem = (props: Props) => {
 
           <HomeRatingItemButtons
             syncroItemId={props.rating.syncroItemId!}
-            gap={isSmallScreen ? 8 : undefined}
+            itemType={props.rating.syncroItem?.type}
           />
         </FlexCol>
         <MyNextLink

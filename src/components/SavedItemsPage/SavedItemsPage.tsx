@@ -53,7 +53,7 @@ const SavedItemsPage = (props: Props) => {
       <Container size="sm">
         <FlexVCenter>
           <Select
-            label={'Saved items'}
+            label={'Planned items'}
             data={options}
             value={type}
             onChange={(value) => {
