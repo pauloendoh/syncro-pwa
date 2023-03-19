@@ -48,7 +48,13 @@ const PlannedItemsHomeSection = (props: Props) => {
   if (!savedItems || savedItems.length === 0) return null
 
   return (
-    <FlexCol gap={16}>
+    <FlexCol
+      gap={16}
+      sx={{
+        maxWidth: 400,
+        justifyContent: 'flex-start',
+      }}
+    >
       <FlexVCenter justify={'space-between'}>
         <FlexVCenter gap={4}>
           <Title order={5}>Planned items</Title>

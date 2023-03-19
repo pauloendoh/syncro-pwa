@@ -28,8 +28,8 @@ const HomePageContent = () => {
       )}
       <Container fluid>
         <Grid>
-          <Grid.Col span={0} xs={0} sm={0} md={3} p={0} />
-          <Grid.Col span={12} xs={12} sm={7} md={6}>
+          <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} />
+          <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}>
             <Container
               size="xs"
               fluid={isSmallScreen}
@@ -56,7 +56,7 @@ const HomePageContent = () => {
               )}
             </Container>
           </Grid.Col>
-          <Grid.Col span={0} xs={12} sm={5} md={3}>
+          <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
             {!isSmallScreen && <PlannedItemsHomeSection />}
           </Grid.Col>
         </Grid>
