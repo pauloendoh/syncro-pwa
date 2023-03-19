@@ -43,7 +43,7 @@ const ItemToRecommendOption = ({ itemToRecommend, userId }: Props) => {
         <Flex>
           <MyNextLink href={urls.pages.syncroItem(item.id)}>
             <Text lineClamp={2}>
-              {item.title} {item.year && `[${item.year}`}
+              {item.title} {item.year && `[${item.year}]`}
             </Text>
           </MyNextLink>
         </Flex>
