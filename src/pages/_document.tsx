@@ -44,6 +44,13 @@ export default class _Document extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
+
+          <link
+            rel="search"
+            type="application/opensearchdescription+xml"
+            title="syncro"
+            href="/search.xml"
+          />
         </Head>
         <body>
           <Main />

@@ -26,6 +26,7 @@ const SearchBar = (props: Props) => {
     if (router.isReady && type) setSelectedType(type)
   }, [router.isReady])
 
+  // PE 1/3 - ?
   const handleSubmit = () => {
     let type = selectedType
     let q = input
