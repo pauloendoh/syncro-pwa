@@ -48,8 +48,8 @@ export default class _Document extends Document {
           <link
             rel="search"
             type="application/opensearchdescription+xml"
-            title="syncro"
-            href="/search.xml"
+            title="Syncro"
+            href="/opensearch.xml"
           />
         </Head>
         <body>
