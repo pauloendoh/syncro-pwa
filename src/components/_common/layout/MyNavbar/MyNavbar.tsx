@@ -15,6 +15,7 @@ import { useNotificationsQuery } from '../../../../hooks/react-query/notificatio
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls'
+import { zIndexes } from '../../../../utils/zIndexes'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyNextLink from '../../overrides/MyNextLink'
 import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'
@@ -46,6 +47,7 @@ const MyNavbar = (props: Props) => {
     <Header
       height={60}
       fixed
+      zIndex={zIndexes.navbar}
       sx={{
         display: 'flex',
         alignItems: 'center',

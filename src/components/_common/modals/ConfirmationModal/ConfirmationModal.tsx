@@ -1,5 +1,7 @@
-import { Modal } from '@mantine/core'
+import { Modal, Title } from '@mantine/core'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
+import { zIndexes } from '../../../../utils/zIndexes'
+import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 
 const ConfirmationModal = () => {
@@ -14,22 +16,26 @@ const ConfirmationModal = () => {
     <Modal
       opened={isOpen}
       onClose={closeModal}
-      title={initialValue.title}
+      title={<Title order={4}>{initialValue.title}</Title>}
       styles={{
-        root: {
-          zIndex: 1000,
+        overlay: {
+          zIndex: zIndexes.confirmationModal,
+        },
+        inner: {
+          top: 100,
+          zIndex: zIndexes.confirmationModal,
         },
       }}
     >
-      <>
-        {initialValue.description ? initialValue.description : null}
+      {initialValue.description ? initialValue.description : null}
 
+      <FlexVCenter mt={24}>
         <SaveCancelButtons
           onSave={confirmAndClose}
           saveText={initialValue.confirmText ? initialValue.confirmText : 'Yes'}
           onCancel={closeModal}
         />
-      </>
+      </FlexVCenter>
     </Modal>
   )
 }
