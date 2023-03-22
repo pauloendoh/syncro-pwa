@@ -39,7 +39,7 @@ export const syncroItemOptions: {
   {
     itemType: 'game',
     labelPlural: 'Games',
-    site: 'IGDb',
+    site: 'IGDB',
     tabIndex: 3,
     getTypeLabel: (isPlural = false) => (isPlural ? 'Games' : 'Game'),
     getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'games' : 'game'),

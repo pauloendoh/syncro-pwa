@@ -9,13 +9,13 @@ export const syncroItemMapping: {
 } = {
   tvSeries: {
     labelPlural: 'TV Series',
-    site: 'IMDB',
+    site: 'IMDb',
     tabIndex: 0,
   },
 
   movie: {
     labelPlural: 'Movies',
-    site: 'IMDB',
+    site: 'IMDb',
     tabIndex: 1,
   },
   book: {

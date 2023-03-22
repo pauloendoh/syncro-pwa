@@ -12,7 +12,7 @@ type Props = {}
 const SearchPageContent = (props: Props) => {
   const { q, type } = useMyRouterQuery()
 
-  const { isXsScreen } = useMyMediaQuery()
+  const { isMobile: isXsScreen } = useMyMediaQuery()
 
   return (
     <LoggedLayout>

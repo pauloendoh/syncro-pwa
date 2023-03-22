@@ -11,6 +11,7 @@ import { useEffect, useMemo, useState } from 'react'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -77,6 +78,8 @@ const SaveRatingModal = () => {
     }
   }
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <Modal
       opened={isOpen}
@@ -103,7 +106,7 @@ const SaveRatingModal = () => {
           value={rating || 0}
           onChange={handleChangeRating}
           color={'secondary'}
-          size="xl"
+          size={isMobile ? 'lg' : 'xl'}
           count={10}
         />
       </FlexVCenter>

@@ -16,7 +16,7 @@ const HomePageContent = () => {
     return homeRatings?.pages.flat() || []
   }, [homeRatings])
 
-  const { isSmallScreen, isXsScreen } = useMyMediaQuery()
+  const { isSmallScreen, isMobile: isXsScreen } = useMyMediaQuery()
   const theme = useMantineTheme()
   return (
     <LoggedLayout>

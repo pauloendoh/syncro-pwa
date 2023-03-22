@@ -1,8 +1,16 @@
-import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
+import {
+  Box,
+  Center,
+  Flex,
+  Text,
+  Tooltip,
+  useMantineTheme,
+} from '@mantine/core'
 import { useElementSize, useMediaQuery } from '@mantine/hooks'
 import { useQueryClient } from '@tanstack/react-query'
 
 import { format } from 'timeago.js'
+import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
@@ -35,6 +43,10 @@ const HomeRatingItem = (props: Props) => {
       )
     }
   }
+
+  const typeMap = useSyncroItemTypeMap({
+    itemType: props.rating.syncroItem?.type,
+  })
 
   return (
     <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
@@ -151,7 +163,7 @@ const HomeRatingItem = (props: Props) => {
               pos="absolute"
               right={2}
               bottom={2}
-              title={props.rating.syncroItem?.type}
+              title={typeMap?.getTypeLabel() || 'Unknown type'}
               sx={{
                 backgroundColor: theme.colors.gray[9],
                 width: 32,

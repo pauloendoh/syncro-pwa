@@ -73,23 +73,16 @@ const PlannedItemsHomeSection = (props: Props) => {
         }}
       >
         <FlexCol>
-          <ScrollArea
-            sx={{
-              padding: 16,
-            }}
-            scrollbarSize={6}
-          >
-            <FlexVCenter gap={16}>
-              {syncroItemTypes.map((type) => (
-                <PlannedItemButton
-                  key={type}
-                  type={type}
-                  isSelected={type === selectedType}
-                  onClick={() => setSelectedType(type)}
-                />
-              ))}
-            </FlexVCenter>
-          </ScrollArea>
+          <FlexVCenter gap={8} wrap="wrap" p={16}>
+            {syncroItemTypes.map((type) => (
+              <PlannedItemButton
+                key={type}
+                type={type}
+                isSelected={type === selectedType}
+                onClick={() => setSelectedType(type)}
+              />
+            ))}
+          </FlexVCenter>
 
           <ScrollArea
             sx={{ paddingRight: 16, paddingLeft: 8, paddingBottom: 8 }}

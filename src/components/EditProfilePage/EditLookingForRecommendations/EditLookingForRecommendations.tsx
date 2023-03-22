@@ -14,7 +14,7 @@ type Props = {
 const EditLookingForRecommendations = (props: Props) => {
   return (
     <Box>
-      <Text>Looking for recommendations:</Text>
+      <Text size="sm">Looking for recommendations:</Text>
 
       <Flex gap={24} mt={8} wrap="wrap">
         {syncroItemTypes.map((type) => (

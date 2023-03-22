@@ -1,7 +1,13 @@
 import { ScrollArea, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { IoMdShareAlt } from 'react-icons/io'
-import { MdBookmark, MdLink, MdStar } from 'react-icons/md'
+import {
+  MdBookmark,
+  MdBookmarkBorder,
+  MdLink,
+  MdStar,
+  MdStarBorder,
+} from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestQU } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
@@ -85,7 +91,13 @@ const RatingRow = ({ syncroItem }: Props) => {
             )
           }
           isActive={!!myRating?.ratingValue}
-          leftIcon={<MdStar color={theme.colors.dark[0]} size={16} />}
+          leftIcon={
+            myRating?.ratingValue ? (
+              <MdStar color={theme.colors.dark[0]} size={16} />
+            ) : (
+              <MdStarBorder color={theme.colors.dark[0]} size={16} />
+            )
+          }
         >
           {myRating?.ratingValue || 'Rate'}
         </RatingRowButton>
@@ -94,7 +106,13 @@ const RatingRow = ({ syncroItem }: Props) => {
           ml={2}
           onClick={() => submitToggleSave(syncroItem.id)}
           isActive={!!myInterest?.interestLevel}
-          leftIcon={<MdBookmark color={theme.colors.dark[0]} size={16} />}
+          leftIcon={
+            myInterest?.interestLevel ? (
+              <MdBookmark color={theme.colors.dark[0]} size={16} />
+            ) : (
+              <MdBookmarkBorder color={theme.colors.dark[0]} size={16} />
+            )
+          }
         >
           {myInterest?.interestLevel ? 'Planned' : typeMap.planTo}
         </RatingRowButton>

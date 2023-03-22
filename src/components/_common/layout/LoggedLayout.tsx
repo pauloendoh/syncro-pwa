@@ -12,7 +12,7 @@ type Props = {
 }
 
 const LoggedLayout = (props: Props) => {
-  const { isXsScreen, isLoading } = useMyMediaQuery()
+  const { isMobile: isXsScreen, isLoading } = useMyMediaQuery()
   return (
     <div>
       {!isXsScreen && !isLoading && <MyNavbar />}
