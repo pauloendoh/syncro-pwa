@@ -8,6 +8,7 @@ export const useMessagesQuery = (roomId: string) => {
     [urls.api.messagesByRoomId(roomId)],
     {
       enabled: !!roomId,
+      refetchOnWindowFocus: false,
     }
   )
 }

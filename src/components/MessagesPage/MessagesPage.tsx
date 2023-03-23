@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { useMessageRoomQuery } from '../../hooks/react-query/message/useMessageRoomQuery'
 import { useMessagesQuery } from '../../hooks/react-query/message/useMessagesQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
+import { useMessageRoomSockets } from '../../hooks/socket/domain/message-room/useMessageRoomSockets'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { urls } from '../../utils/urls'
@@ -11,6 +12,7 @@ import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MyPaper from '../_common/overrides/MyPaper'
+import MessageItem from './MessageItem/MessageItem'
 import SendMessageInput from './SendMessageInput/SendMessageInput'
 
 type Props = {}
@@ -30,6 +32,7 @@ const MessagesPage = (props: Props) => {
 
   const { data: messages } = useMessagesQuery(roomId)
   const theme = useMantineTheme()
+  useMessageRoomSockets(roomId)
   return (
     <LoggedLayout>
       <Container size="xs">
@@ -59,20 +62,11 @@ const MessagesPage = (props: Props) => {
               }}
             >
               {messages?.map((message) => (
-                <Box
+                <MessageItem
                   key={message.id}
-                  sx={{
-                    padding: 8,
-                    background:
-                      message.userId === authUser?.id
-                        ? theme.colors.secondary[9]
-                        : theme.colors.dark[4],
-                    borderRadius: 8,
-                    marginBottom: 8,
-                  }}
-                >
-                  <Text>{message.text}</Text>
-                </Box>
+                  message={message}
+                  itsMe={message.userId === authUser?.id}
+                />
               ))}
 
               <SendMessageInput roomId={roomId} />

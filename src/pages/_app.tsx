@@ -1,3 +1,5 @@
+import { IoProvider } from 'socket.io-react-hook'
+
 import 'react-photo-view/dist/react-photo-view.css'
 
 import {
@@ -81,7 +83,9 @@ export default function App(props: AppProps) {
                 zIndex: zIndexes.loadingPageOverlay,
               }}
             />
-            <Component {...pageProps} />
+            <IoProvider>
+              <Component {...pageProps} />
+            </IoProvider>
           </MantineProvider>
         </ColorSchemeProvider>
       </QueryClientProvider>

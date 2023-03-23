@@ -92,7 +92,7 @@ const SaveRatingModal = () => {
       withCloseButton={false}
       styles={{
         inner: {
-          top: 80,
+          top: isMobile ? 40 : 80,
         },
       }}
     >
