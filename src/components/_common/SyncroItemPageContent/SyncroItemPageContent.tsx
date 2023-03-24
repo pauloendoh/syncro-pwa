@@ -67,11 +67,14 @@ const SyncroItemPageContent = () => {
                   <Flex gap={isSmallScreen ? 24 : 40}>
                     <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
                       <MdStarRate color={theme.colors.yellow[5]} size={16} />
-
-                      <Text>
-                        {item?.avgRating}
-                        /10
-                      </Text>
+                      {item?.avgRating ? (
+                        <Text>
+                          {item?.avgRating}
+                          /10
+                        </Text>
+                      ) : (
+                        <Text>?/10</Text>
+                      )}
                     </FlexVCenter>
 
                     <Text>

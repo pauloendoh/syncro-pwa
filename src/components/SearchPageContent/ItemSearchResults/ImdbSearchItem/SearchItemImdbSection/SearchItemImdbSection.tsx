@@ -1,20 +1,36 @@
 import { Text } from '@mantine/core'
 import { shortNumberFormatter } from 'endoh-utils'
+import { useMemo } from 'react'
 import { IoMdEye } from 'react-icons/io'
 import { MdStar } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
+import { urls } from '../../../../../utils/urls'
 import FlexCol from '../../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../../_common/flex/FlexVCenter'
+import MyNextLink from '../../../../_common/overrides/MyNextLink'
 
 interface Props {
   avgRating: number
   ratingCount: number
   title?: string
+  itemId?: string
 }
 
 // PE 1/3 - rename this
 const SearchItemImdbSection = (props: Props) => {
   const { isSmallScreen } = useMyMediaQuery()
+
+  const seeDetails = useMemo(() => {
+    return props.ratingCount === 0 || props.avgRating === 0
+  }, [props.avgRating, props.ratingCount])
+
+  if (seeDetails && props.itemId)
+    return (
+      <MyNextLink href={urls.pages.syncroItem(props.itemId)}>
+        <Text>See details</Text>
+      </MyNextLink>
+    )
+
   return (
     <FlexCol>
       <Text>{props.title || 'IMDb'}</Text>

@@ -65,6 +65,7 @@ const SyncroSearchItem = ({ item }: Props) => {
                 avgRating={item?.avgRating}
                 ratingCount={item?.ratingCount}
                 title={syncroItemMapping[item.type].site}
+                itemId={item.id}
               />
             ) : (
               <MyNextLink href={urls.pages.syncroItem(item.id)}>
