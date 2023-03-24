@@ -48,7 +48,7 @@ const UserItemNextPage: NextPage<Props> = (props) => {
           )}
           {/* twitter */}
           {/* not large image */}
-          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@syncroapp" />
           <meta name="twitter:creator" content="@syncroapp" />
           <meta name="twitter:title" content={props.item?.title || 'Syncro'} />
@@ -56,6 +56,7 @@ const UserItemNextPage: NextPage<Props> = (props) => {
             name="twitter:description"
             content={props.item?.plotSummary || 'Syncro - Review everything'}
           />
+
           {props.item.imageUrl && (
             <>
               <meta name="twitter:image" content={props.item.imageUrl} />

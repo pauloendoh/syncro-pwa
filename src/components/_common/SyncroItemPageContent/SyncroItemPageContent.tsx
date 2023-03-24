@@ -1,7 +1,10 @@
+import LinesEllipsis from 'react-lines-ellipsis'
+
 import ShowMoreText from 'react-show-more-text'
 
 import {
   Box,
+  Button,
   Center,
   Container,
   Flex,
@@ -27,7 +30,10 @@ import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
+import handler from '../../../pages/api/hello'
+import { useState } from 'react'
 
+// PE 1/3 - rename
 const SyncroItemPageContent = () => {
   const { syncroItemId } = useMyRouterQuery()
   const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId)
@@ -40,6 +46,29 @@ const SyncroItemPageContent = () => {
   })
 
   const isSmallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
+
+  // PE 1/3 - componentize and move to separate file
+  const [canToggleExpand, setCanToggleExpand] = useState(false)
+  const [seeMore, setSeeMore] = useState<boolean | null>(null)
+  const handleReflow = ({
+    clamped,
+    text,
+  }: {
+    clamped: boolean
+    text: string
+  }) => {
+    console.log({
+      clamped,
+      text,
+    })
+    if (!item) return
+
+    const isClamped = text.length < item.plotSummary.length
+
+    if (isClamped) {
+      setCanToggleExpand(true)
+    }
+  }
 
   return (
     <LoggedLayout>
@@ -112,7 +141,35 @@ const SyncroItemPageContent = () => {
                   })}
                 >
                   {item.plotSummary.length > 0 && (
-                    <ShowMoreText lines={5}>{item.plotSummary}</ShowMoreText>
+                    <LinesEllipsis
+                      text={item.plotSummary}
+                      maxLine={seeMore || seeMore === null ? 3 : 1000}
+                      onReflow={handleReflow}
+                    />
+                  )}
+                  {canToggleExpand && (
+                    <Text
+                      sx={{
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        marginTop: 8,
+                      }}
+                      onClick={() => {
+                        if (seeMore === null) {
+                          setSeeMore(false)
+                        }
+                        if (seeMore === true) {
+                          setSeeMore(false)
+                        }
+                        if (seeMore === false) {
+                          setSeeMore(true)
+                        }
+                      }}
+                    >
+                      {seeMore === null && 'Show more'}
+                      {seeMore === true && 'Show more '}
+                      {seeMore === false && 'Show less '}
+                    </Text>
                   )}
                 </Box>
               </FlexCol>
