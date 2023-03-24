@@ -30,6 +30,7 @@ import ItemsCountUserProfile from './ItemsCountUserProfile/ItemsCountUserProfile
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
 import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
+import UserMoreMenu from './UserMoreMenu/UserMoreMenu'
 
 type Props = {}
 
@@ -49,7 +50,7 @@ const UserPageContent = (props: Props) => {
     [authUser, userId]
   )
 
-  const { isSmallScreen } = useMyMediaQuery()
+  const { isSmallScreen, isMobile } = useMyMediaQuery()
 
   return (
     <LoggedLayout>
@@ -72,10 +73,13 @@ const UserPageContent = (props: Props) => {
                   widthHeight={isSmallScreen ? 80 : 96}
                 />
 
-                <FlexCol>
-                  <Title order={4} weight={500}>
-                    {userInfo.username}
-                  </Title>
+                <FlexCol sx={{ flexGrow: 1 }}>
+                  <FlexVCenter justify={'space-between'}>
+                    <Title order={4} weight={500}>
+                      {userInfo.username}
+                    </Title>
+                    {thisIsMyProfile && isMobile && <UserMoreMenu />}
+                  </FlexVCenter>
 
                   <Box mt={16}>
                     <ItemsCountUserProfile userId={userId} />
