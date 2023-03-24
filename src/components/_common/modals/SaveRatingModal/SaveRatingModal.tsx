@@ -12,6 +12,7 @@ import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDel
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
+import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -20,7 +21,8 @@ import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
 
 const SaveRatingModal = () => {
-  const { isOpen, initialValue, closeModal } = useSaveRatingModalStore()
+  const { initialValue, closeModal } = useSaveRatingModalStore()
+  const { saveRatingModal } = useMyRouterQuery()
 
   const { mutate: submitSaveRating, isLoading } = useSaveRatingMutation()
   // const { mutate: mutateDeleteTag } = useDeleteTagMutation()
@@ -82,7 +84,7 @@ const SaveRatingModal = () => {
 
   return (
     <Modal
-      opened={isOpen}
+      opened={!!saveRatingModal}
       onClose={closeModal}
       title={
         <FlexVCenter justify="space-between">
