@@ -13,7 +13,7 @@ const NavbarUserMenu = (props: Props) => {
 
   const { data: userInfo } = useUserInfoQuery(authUser?.id || '')
   const imageUrl =
-    userInfo?.profile.pictureUrl ||
+    userInfo?.profile?.pictureUrl ||
     'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
 
   if (!authUser) return null

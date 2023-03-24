@@ -20,6 +20,7 @@ import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
 import { zIndexes } from '../utils/zIndexes'
+import { useRouter } from 'next/router'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -36,9 +37,10 @@ export default function App(props: AppProps) {
   const myQueryClient = useMyQueryClient()
   const { checkAuthOrLogout, loading } = useCheckAuthOrLogout()
 
+  const router = useRouter()
   useEffect(() => {
-    checkAuthOrLogout()
-  }, [])
+    if (router.isReady) checkAuthOrLogout()
+  }, [router.isReady])
 
   usePreserveScroll()
 

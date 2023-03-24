@@ -12,6 +12,7 @@ export const useMyRouterQuery = () => {
     type: SearchParams['type']
     exploreSlug: ExploreSlug
     roomId: string
+    oauthToken: string
 
     // dialogs are open
     recommendItemIsOpen: string

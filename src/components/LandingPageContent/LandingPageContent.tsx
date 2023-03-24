@@ -1,4 +1,5 @@
-import { Box, Center, Divider, Text, Title } from '@mantine/core'
+import { AiOutlineGoogle } from 'react-icons/ai'
+import { Box, Button, Center, Divider, Text, Title } from '@mantine/core'
 import Link from 'next/link'
 import { useState } from 'react'
 import { SiDiscord } from 'react-icons/si'
@@ -7,6 +8,7 @@ import FlexVCenter from '../_common/flex/FlexVCenter'
 import MyPaper from '../_common/overrides/MyPaper'
 import LoginForm from './LoginForm/LoginForm'
 import RegisterForm from './RegisterForm/RegisterForm'
+import { myEnvs } from '../../utils/myEnvs'
 
 type Props = {}
 
@@ -14,6 +16,10 @@ const LandingPageContent = (props: Props) => {
   const [currentForm, setCurrentForm] = useState<'loginForm' | 'registerForm'>(
     'loginForm'
   )
+
+  const handleGoogleSignIn = () => {
+    window.open(myEnvs.NEXT_PUBLIC_API_URL + '/auth/google', '_self')
+  }
 
   return (
     <Box>
@@ -45,8 +51,21 @@ const LandingPageContent = (props: Props) => {
           )}
 
           <Box mt={16} />
-          <Divider />
+          <Divider label="Or" labelPosition="center" />
+
+          <Box mt={16}>
+            <Button
+              leftIcon={<AiOutlineGoogle size={24} />}
+              fullWidth
+              color="dark"
+              size="lg"
+              onClick={handleGoogleSignIn}
+            >
+              Enter with Google
+            </Button>
+          </Box>
           <Box mt={16} />
+
           <Center>
             <FlexVCenter gap={8}>
               <SiDiscord />

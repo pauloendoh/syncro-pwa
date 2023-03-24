@@ -3,6 +3,7 @@ import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import nookies from '../../../utils/nookies'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
+import { useMyRouterQuery } from '../../useMyRouterQuery'
 import useAuthStore from '../../zustand/useAuthStore'
 import { useLogoutAndPushIndex } from './useLogoutAndPushIndex'
 
@@ -11,12 +12,29 @@ const useCheckAuthOrLogout = () => {
 
   const [loading, setLoading] = useState(true)
 
+  const { oauthToken, userId } = useMyRouterQuery()
   const axios = useAxios(false)
   const { setAuthUser } = useAuthStore()
 
   const checkAuthOrLogout = () => {
     const userCookieStr = nookies.get(null).user
+    console.log({
+      userCookieStr,
+      oauthToken,
+      userId,
+    })
     if (!userCookieStr) {
+      if (oauthToken && userId) {
+        axios
+          .post<AuthUserGetDto>(urls.api.authGoogleLogin, {
+            userId,
+            token: oauthToken,
+          })
+          .then((res) => {
+            const user = res.data
+            setAuthUser(user)
+          })
+      }
       return setLoading(false)
     }
 

@@ -31,6 +31,7 @@ export const urls = {
     login: (pushToken: string | null) =>
       API_URL + `/auth/login?pushToken=${pushToken}`,
     tempUser: API_URL + '/auth/temp-user',
+    authGoogleLogin: API_URL + '/auth/google/login',
 
     me: API_URL + '/auth/me',
 
