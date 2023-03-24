@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { SearchParams } from '../types/domain/search/SearchParams'
 import { recommendItemsToUser } from './zustand/action-sheets/useRecommendUserSheetStore'
+import { ratingDetailsId } from './zustand/modals/useRatingDetailsModalStore'
 
 export const useMyRouterQuery = () => {
   const router = useRouter()
@@ -17,6 +18,7 @@ export const useMyRouterQuery = () => {
     // dialogs are open
     recommendItemIsOpen: string
     [recommendItemsToUser]: string
+    [ratingDetailsId]: string
   }
 }
 

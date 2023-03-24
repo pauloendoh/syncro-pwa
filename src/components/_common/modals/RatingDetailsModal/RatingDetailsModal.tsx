@@ -1,11 +1,15 @@
 import { ActionIcon, Flex, Modal, Text, useMantineTheme } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { MdClose } from 'react-icons/md'
 import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
+import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { urls } from '../../../../utils/urls'
+import { useAxios } from '../../../../utils/useAxios'
 import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
 import FlexCol from '../../flex/FlexCol'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
@@ -13,20 +17,36 @@ import MyNextLink from '../../overrides/MyNextLink'
 
 const RatingDetailsModal = () => {
   const {
-    isOpen,
     initialValue: rating,
     closeModal,
+    openModal,
   } = useRatingDetailsModalStore()
 
   const theme = useMantineTheme()
 
   const { data: syncroItem } = useSyncroItemDetailsQuery(rating?.syncroItemId)
 
-  const isSmallScreen = useMediaQuery('(max-width: 600px)')
   const { data: userInfo } = useUserInfoQuery(rating?.userId)
+  const { ratingDetailsId } = useMyRouterQuery()
+
+  const router = useRouter()
+  const axios = useAxios()
+  useEffect(() => {
+    if (router.isReady && !!ratingDetailsId) {
+      axios
+        .get<RatingDto>(urls.api.ratingId(ratingDetailsId))
+        .then(({ data }) => {
+          openModal(data)
+        })
+    }
+  }, [router.isReady])
 
   return (
-    <Modal opened={isOpen} onClose={closeModal} withCloseButton={false}>
+    <Modal
+      opened={!!ratingDetailsId}
+      onClose={closeModal}
+      withCloseButton={false}
+    >
       {!!rating && (
         <FlexCol>
           <Flex justify={'space-between'}>
