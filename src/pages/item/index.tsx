@@ -39,10 +39,26 @@ const UserItemNextPage: NextPage<Props> = (props) => {
           <meta property="og:title" content={props.item?.title || 'Syncro'} />
           <meta
             property="og:description"
-            content={props.item?.plotSummary || 'Review everything'}
+            content={props.item?.plotSummary || 'Syncro - Review everything'}
           />
           {props.item.imageUrl && (
-            <meta property="og:image" content={props.item.imageUrl} />
+            <>
+              <meta property="og:image" content={props.item.imageUrl} />
+            </>
+          )}
+          {/* twitter */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@syncroapp" />
+          <meta name="twitter:creator" content="@syncroapp" />
+          <meta name="twitter:title" content={props.item?.title || 'Syncro'} />
+          <meta
+            name="twitter:description"
+            content={props.item?.plotSummary || 'Syncro - Review everything'}
+          />
+          {props.item.imageUrl && (
+            <>
+              <meta name="twitter:image" content={props.item.imageUrl} />
+            </>
           )}
         </Head>
       )}
