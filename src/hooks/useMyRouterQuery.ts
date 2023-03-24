@@ -4,6 +4,8 @@ import { recommendItemsToUser } from './zustand/action-sheets/useRecommendUserSh
 import { ratingDetailsId } from './zustand/modals/useRatingDetailsModalStore'
 import { saveRatingModal } from './zustand/modals/useSaveRatingModalStore'
 
+export const mangaPanelQueryKey = 'mangaPanel'
+
 export const useMyRouterQuery = () => {
   const router = useRouter()
   const query = router.query
@@ -21,6 +23,7 @@ export const useMyRouterQuery = () => {
     [recommendItemsToUser]: string
     [ratingDetailsId]: string
     [saveRatingModal]: string
+    [mangaPanelQueryKey]: string
   }
 }
 

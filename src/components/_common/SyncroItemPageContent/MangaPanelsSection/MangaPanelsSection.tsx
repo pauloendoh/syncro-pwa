@@ -1,7 +1,9 @@
 import { Box, ScrollArea, Text, Title } from '@mantine/core'
-import { useMemo, useState } from 'react'
-import { PhotoProvider, PhotoView } from 'react-photo-view'
+import { useRouter } from 'next/router'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { PhotoProvider, PhotoSlider, PhotoView } from 'react-photo-view'
 import { useMangaPanelsQuery } from '../../../../hooks/react-query/manga/useMangaPanelsQuery'
+import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import FlexCol from '../../flex/FlexCol'
 import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
@@ -23,8 +25,31 @@ const MangaPanelsSection = (props: Props) => {
     [data]
   )
 
-  const [visible, setIsVisible] = useState(false)
-  const [imageIndex, setImageIndex] = useState(0)
+  const {} = useMyRouterQuery()
+  const router = useRouter()
+  const queryParam = 'manga-panels-open'
+  const [index, setIndex] = useState<null | number>(null)
+
+  useEffect(() => {
+    if (index !== null && ~index) {
+      router.query[queryParam] = String(index)
+      router.push(router, undefined, { scroll: false })
+    }
+  }, [index])
+
+  const handleClose = () => {
+    setIndex(null)
+    router.query[queryParam] = undefined
+    router.push(router, undefined, { scroll: false })
+  }
+
+  const queryValueRef = useRef(router?.query[queryParam])
+  useEffect(() => {
+    if (queryValueRef.current && !router?.query[queryParam]) {
+      setIndex(null)
+    }
+    queryValueRef.current = router?.query[queryParam]
+  }, [router.query[queryParam]])
 
   return (
     <FlexCol gap={8}>
@@ -33,32 +58,40 @@ const MangaPanelsSection = (props: Props) => {
       <Box mt={2}>
         {isLoading && <CenterLoader />}
 
-        <PhotoProvider loop={images.length}>
-          <ScrollArea
-            sx={{
-              div: {
-                display: 'flex !important',
-                gap: 16,
-              },
-              paddingBottom: 16,
-            }}
-          >
-            {images.map((image, index) => (
-              <PhotoView src={image.uri}>
-                <img
-                  src={image.uri}
-                  height={100}
-                  width={100}
-                  alt={`${props.syncroItem.title} ${index}`}
-                  style={{
-                    objectFit: 'cover',
-                    cursor: 'pointer',
-                  }}
-                />
-              </PhotoView>
-            ))}
-          </ScrollArea>
-        </PhotoProvider>
+        <PhotoSlider
+          images={images.map((image) => ({
+            src: image.uri,
+            key: image.uri,
+          }))}
+          visible={index !== null && index >= 0}
+          onClose={handleClose}
+          index={index || 0}
+          onIndexChange={setIndex}
+          loop={false}
+        />
+        <ScrollArea
+          sx={{
+            div: {
+              display: 'flex !important',
+              gap: 16,
+            },
+            paddingBottom: 16,
+          }}
+        >
+          {images.map((image, index) => (
+            <img
+              onClick={() => setIndex(index)}
+              src={image.uri}
+              height={100}
+              width={100}
+              alt={`${props.syncroItem.title} ${index}`}
+              style={{
+                objectFit: 'cover',
+                cursor: 'pointer',
+              }}
+            />
+          ))}
+        </ScrollArea>
 
         {notFound && <Text>No panels found</Text>}
       </Box>
