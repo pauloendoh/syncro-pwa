@@ -48,7 +48,7 @@ const HomePageContent = () => {
                       }}
                     >
                       {' '}
-                      popular users{' '}
+                      users{' '}
                     </MyNextLink>
                     to follow.
                   </Text>
