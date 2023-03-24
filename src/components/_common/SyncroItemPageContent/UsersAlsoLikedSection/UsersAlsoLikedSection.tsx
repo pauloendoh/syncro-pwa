@@ -1,5 +1,6 @@
 import { Flex, ScrollArea, Text, Title } from '@mantine/core'
 import { useAlsoLikedItemsQuery } from '../../../../hooks/react-query/item-recommendation/useAlsoLikedItemsQuery'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls'
 import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
 import FlexCol from '../../flex/FlexCol'
@@ -13,6 +14,7 @@ type Props = {
 
 const UsersAlsoLikedSection = (props: Props) => {
   const { data: items } = useAlsoLikedItemsQuery(props.itemId)
+  const { authUser } = useAuthStore()
 
   if (!items?.length) return null
 
@@ -51,7 +53,9 @@ const UsersAlsoLikedSection = (props: Props) => {
                   </MyNextLink>
                 </FlexCol>
 
-                <HomeRatingItemButtons syncroItemId={item.id} gap={16} />
+                {authUser && (
+                  <HomeRatingItemButtons syncroItemId={item.id} gap={16} />
+                )}
               </FlexCol>
             </MyPaper>
           ))}

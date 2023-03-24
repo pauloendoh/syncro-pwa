@@ -1,8 +1,12 @@
-import { useQuery } from "@tanstack/react-query"
-import { InterestDto } from "../../../types/domain/interest/InterestDto"
+import { useQuery } from '@tanstack/react-query'
+import { InterestDto } from '../../../types/domain/interest/InterestDto'
 
-import { urls } from "../../../utils/urls"
+import { urls } from '../../../utils/urls'
+import useAuthStore from '../../zustand/useAuthStore'
 
 export const useSavedItemsQuery = () => {
-  return useQuery<InterestDto[], Error>([urls.api.findSavedItems])
+  const { authUser } = useAuthStore()
+  return useQuery<InterestDto[], Error>([urls.api.findSavedItems], {
+    enabled: !!authUser,
+  })
 }

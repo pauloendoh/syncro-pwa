@@ -2,13 +2,20 @@ import { useQuery } from '@tanstack/react-query'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 
 import { urls } from '../../../utils/urls'
+import useAuthStore from '../../zustand/useAuthStore'
 
 export const useMyRatingsQuery = () => {
-  return useQuery<RatingDto[], Error>([urls.api.myRatings])
+  const { authUser } = useAuthStore()
+  return useQuery<RatingDto[], Error>([urls.api.myRatings], {
+    enabled: !!authUser,
+  })
 }
 
 export const useMyRatingQU = (itemId?: string | null) => {
-  const { data } = useQuery<RatingDto[], Error>([urls.api.myRatings])
+  const { authUser } = useAuthStore()
+  const { data } = useQuery<RatingDto[], Error>([urls.api.myRatings], {
+    enabled: !!authUser,
+  })
 
   return data?.find((rating) => rating.syncroItemId === itemId)
 }

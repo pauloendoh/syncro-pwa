@@ -15,6 +15,7 @@ import { useMyRatingQU } from '../../../../hooks/react-query/rating/useMyRatings
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useRecommendItemActionSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../utils/urls'
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const RatingRow = ({ syncroItem }: Props) => {
+  const { authUser } = useAuthStore()
   const myRating = useMyRatingQU(syncroItem.id)
 
   const myInterest = useMyInterestQU(syncroItem.id)
@@ -79,53 +81,55 @@ const RatingRow = ({ syncroItem }: Props) => {
   })
   const { isSmallScreen } = useMyMediaQuery()
 
-  const router = useRouter()
-
   return (
     <ScrollArea>
       <FlexVCenter gap={8} pb={isSmallScreen ? 16 : 0}>
-        <RatingRowButton
-          onClick={() =>
-            openRatingModal(
-              myRating || buildRatingDto({ syncroItemId: syncroItem.id })
-            )
-          }
-          isActive={!!myRating?.ratingValue}
-          leftIcon={
-            myRating?.ratingValue ? (
-              <MdStar color={theme.colors.dark[0]} size={16} />
-            ) : (
-              <MdStarBorder color={theme.colors.dark[0]} size={16} />
-            )
-          }
-        >
-          {myRating?.ratingValue || 'Rate'}
-        </RatingRowButton>
+        {authUser && (
+          <>
+            <RatingRowButton
+              onClick={() =>
+                openRatingModal(
+                  myRating || buildRatingDto({ syncroItemId: syncroItem.id })
+                )
+              }
+              isActive={!!myRating?.ratingValue}
+              leftIcon={
+                myRating?.ratingValue ? (
+                  <MdStar color={theme.colors.dark[0]} size={16} />
+                ) : (
+                  <MdStarBorder color={theme.colors.dark[0]} size={16} />
+                )
+              }
+            >
+              {myRating?.ratingValue || 'Rate'}
+            </RatingRowButton>
 
-        <RatingRowButton
-          ml={2}
-          onClick={() => submitToggleSave(syncroItem.id)}
-          isActive={!!myInterest?.interestLevel}
-          leftIcon={
-            myInterest?.interestLevel ? (
-              <MdBookmark color={theme.colors.dark[0]} size={16} />
-            ) : (
-              <MdBookmarkBorder color={theme.colors.dark[0]} size={16} />
-            )
-          }
-        >
-          {myInterest?.interestLevel ? 'Planned' : typeMap.planTo}
-        </RatingRowButton>
+            <RatingRowButton
+              ml={2}
+              onClick={() => submitToggleSave(syncroItem.id)}
+              isActive={!!myInterest?.interestLevel}
+              leftIcon={
+                myInterest?.interestLevel ? (
+                  <MdBookmark color={theme.colors.dark[0]} size={16} />
+                ) : (
+                  <MdBookmarkBorder color={theme.colors.dark[0]} size={16} />
+                )
+              }
+            >
+              {myInterest?.interestLevel ? 'Planned' : typeMap.planTo}
+            </RatingRowButton>
 
-        <RatingRowButton
-          ml={2}
-          onClick={() => {
-            openRecommendItemModal(syncroItem.id)
-          }}
-          leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
-        >
-          Recommend
-        </RatingRowButton>
+            <RatingRowButton
+              ml={2}
+              onClick={() => {
+                openRecommendItemModal(syncroItem.id)
+              }}
+              leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
+            >
+              Recommend
+            </RatingRowButton>
+          </>
+        )}
 
         <RatingRowButton
           ml={2}

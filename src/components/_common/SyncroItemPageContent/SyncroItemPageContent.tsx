@@ -1,10 +1,6 @@
 import LinesEllipsis from 'react-lines-ellipsis'
-
-import ShowMoreText from 'react-show-more-text'
-
 import {
   Box,
-  Button,
   Center,
   Container,
   Flex,
@@ -14,6 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
+import { useState } from 'react'
 import { MdStarRate } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
@@ -30,8 +27,6 @@ import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
-import handler from '../../../pages/api/hello'
-import { useState } from 'react'
 
 // PE 1/3 - rename
 const SyncroItemPageContent = () => {
