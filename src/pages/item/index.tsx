@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import SyncroItemPageContent from '../../components/_common/SyncroItemPageContent/SyncroItemPageContent'
+import SyncroItemPage from '../../components/SyncroItemPage/SyncroItemPage'
 import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../utils/urls'
 
@@ -64,7 +64,7 @@ const UserItemNextPage: NextPage<Props> = (props) => {
           )}
         </Head>
       )}
-      <SyncroItemPageContent />
+      <SyncroItemPage />
     </>
   )
 }

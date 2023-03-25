@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
-import { urls } from '../../../../../utils/urls'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
 import MyTextInput from '../../../inputs/MyTextInput'
+import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
 type Props = {
   autofocus?: boolean
@@ -26,45 +26,10 @@ const SearchBar = (props: Props) => {
     if (router.isReady && type) setSelectedType(type)
   }, [router.isReady])
 
-  // PE 1/3 - ?
-  const handleSubmit = () => {
-    let type = selectedType
-    let q = input
-    if (input.includes('#movie')) {
-      type = 'movie'
-      setSelectedType('movie')
-      q = input.split('#movie')[0]
-    }
-    if (input.includes('#tv')) {
-      type = 'tvSeries'
-      setSelectedType('tvSeries')
-      q = input.split('#tv')[0]
-    }
-    if (input.includes('#game')) {
-      type = 'game'
-      setSelectedType('game')
-      q = input.split('#game')[0]
-    }
-    if (input.includes('#manga')) {
-      type = 'manga'
-      setSelectedType('manga')
-      q = input.split('#manga')[0]
-    }
-    if (input.includes('#book')) {
-      type = 'book'
-      setSelectedType('book')
-      q = input.split('#book')[0]
-    }
-
-    setInput(q)
-
-    router.push(
-      urls.pages.search({
-        q,
-        type,
-      })
-    )
-  }
+  const handleSubmit = useSubmitSearchBar({
+    input,
+    setInput,
+  })
 
   const inputRef = useRef<HTMLInputElement>(null)
 

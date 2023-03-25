@@ -1,12 +1,12 @@
 import { Flex, ScrollArea, Text, Title } from '@mantine/core'
-import { useAlsoLikedItemsQuery } from '../../../../hooks/react-query/item-recommendation/useAlsoLikedItemsQuery'
-import useAuthStore from '../../../../hooks/zustand/useAuthStore'
-import { urls } from '../../../../utils/urls'
-import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
-import FlexCol from '../../flex/FlexCol'
-import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
-import MyNextLink from '../../overrides/MyNextLink'
-import MyPaper from '../../overrides/MyPaper'
+import { useAlsoLikedItemsQuery } from '../../../hooks/react-query/item-recommendation/useAlsoLikedItemsQuery'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import { urls } from '../../../utils/urls'
+import HomeRatingItemButtons from '../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
+import FlexCol from '../../_common/flex/FlexCol'
+import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
+import MyNextLink from '../../_common/overrides/MyNextLink'
+import MyPaper from '../../_common/overrides/MyPaper'
 
 type Props = {
   itemId: string

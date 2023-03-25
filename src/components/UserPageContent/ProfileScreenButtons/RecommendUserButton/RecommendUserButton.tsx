@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import { useMemo } from 'react'
 import { useFollowersQuery } from '../../../../hooks/react-query/follow/useFollowersQuery'
-import useRecommendUserSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
+import useRecommendItemsToUserModalStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const RecommendUserButton = (props: Props) => {
-  const { openActionSheet } = useRecommendUserSheetStore()
+  const { openActionSheet } = useRecommendItemsToUserModalStore()
 
   const { authUser } = useAuthStore()
   const { data: myFollowers } = useFollowersQuery(authUser?.id)

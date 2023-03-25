@@ -1,8 +1,8 @@
 import { Menu, ActionIcon } from '@mantine/core'
 import React from 'react'
 import { MdMoreHoriz, MdLogout, MdEdit } from 'react-icons/md'
-import { useEditItemModalStore } from '../../../../hooks/zustand/modals/useEditItemModal'
-import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
+import { useEditItemModalStore } from '../../../hooks/zustand/modals/useEditItemModal'
+import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 
 type Props = {
   item: SyncroItemDto

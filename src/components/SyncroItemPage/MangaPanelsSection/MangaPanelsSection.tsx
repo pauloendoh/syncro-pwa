@@ -2,11 +2,11 @@ import { Box, ScrollArea, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { PhotoProvider, PhotoSlider, PhotoView } from 'react-photo-view'
-import { useMangaPanelsQuery } from '../../../../hooks/react-query/manga/useMangaPanelsQuery'
-import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
-import FlexCol from '../../flex/FlexCol'
-import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
+import { useMangaPanelsQuery } from '../../../hooks/react-query/manga/useMangaPanelsQuery'
+import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
+import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
+import FlexCol from '../../_common/flex/FlexCol'
+import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 
 type Props = {
   syncroItem: SyncroItemDto

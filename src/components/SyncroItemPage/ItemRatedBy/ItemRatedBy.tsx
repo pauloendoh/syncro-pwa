@@ -1,9 +1,9 @@
 import { Box, Text } from '@mantine/core'
 import { useMemo } from 'react'
-import { useItemRatedByQuery } from '../../../../hooks/react-query/rating/useItemRatedByQuery'
-import useItemRatedByModalStore from '../../../../hooks/zustand/modals/useItemRatedByModalStore'
-import FlexVCenter from '../../flex/FlexVCenter'
-import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
+import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRatedByQuery'
+import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
+import FlexVCenter from '../../_common/flex/FlexVCenter'
+import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 
 type Props = {
   itemId: string

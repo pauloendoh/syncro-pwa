@@ -5,7 +5,7 @@ import FollowersModal from './FollowersModal/FollowersModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
 import RatingDetailsModal from './RatingDetailsModal/RatingDetailsModal'
 import RecommendItemActionSheet from './RecommendItemActionSheet/RecommendItemActionSheet'
-import RecommendUserSheet from './RecommendUserSheet/RecommendUserSheet'
+import RecommendItemsToUserModal from './RecommendItemsToUserModal/RecommendItemsToUserModal'
 import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
 import SaveRatingModal from './SaveRatingModal/SaveRatingModal'
 
@@ -26,7 +26,7 @@ const GlobalModals = (props: Props) => {
         onClose={savedPosition.closeSheet}
       />
       <RatingDetailsModal />
-      <RecommendUserSheet />
+      <RecommendItemsToUserModal />
       <FollowersModal />
       <EditItemModal />
     </>

@@ -9,7 +9,7 @@ interface Store {
   closeActionSheet: () => void
 }
 
-const useRecommendUserSheetStore = create<Store>((set, get) => ({
+const useRecommendItemsToUserModalStore = create<Store>((set, get) => ({
   userId: null,
   isOpen: false,
   openActionSheet: (userId) => {
@@ -22,4 +22,4 @@ const useRecommendUserSheetStore = create<Store>((set, get) => ({
   },
 }))
 
-export default useRecommendUserSheetStore
+export default useRecommendItemsToUserModalStore

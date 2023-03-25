@@ -4,17 +4,14 @@ import { useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsToRecommendQuery } from '../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import useRecommendUserSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
+import useRecommendItemsToUserModalStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../flex/FlexCol'
 import ItemToRecommendOption from './ItemToRecommendOption/ItemToRecommendOption'
 import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
 
-interface Props {}
-
-// PE 1/3 - rename to RecommendItemsToUserDialog
-const RecommendUserSheet = (props: Props) => {
-  const { closeActionSheet, userId } = useRecommendUserSheetStore()
+const RecommendItemsToUserModal = () => {
+  const { closeActionSheet, userId } = useRecommendItemsToUserModalStore()
   const { recommendItemsToUser } = useMyRouterQuery()
 
   const [currentType, setCurrentType] = useState<SyncroItemType>('movie')
@@ -79,4 +76,4 @@ const RecommendUserSheet = (props: Props) => {
   )
 }
 
-export default RecommendUserSheet
+export default RecommendItemsToUserModal

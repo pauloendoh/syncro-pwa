@@ -13,26 +13,26 @@ import {
 import { useMediaQuery } from '@mantine/hooks'
 import { useState } from 'react'
 import { MdMoreHoriz, MdStarRate } from 'react-icons/md'
-import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
-import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
-import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
-import { shortNumberFormatter } from '../../../utils/math/shortNumberFormatter'
-import SyncroItemIcon from '../../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
-import FlexCol from '../flex/FlexCol'
-import FlexVCenter from '../flex/FlexVCenter'
-import SyncroItemImage from '../image/SyncroItemImage/SyncroItemImage'
-import LoggedLayout from '../layout/LoggedLayout'
-import MyPaper from '../overrides/MyPaper'
+import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
+import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
+import { shortNumberFormatter } from '../../utils/math/shortNumberFormatter'
+import SyncroItemIcon from '../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
+import FlexCol from '../_common/flex/FlexCol'
+import FlexVCenter from '../_common/flex/FlexVCenter'
+import SyncroItemImage from '../_common/image/SyncroItemImage/SyncroItemImage'
+import LoggedLayout from '../_common/layout/LoggedLayout'
+import MyPaper from '../_common/overrides/MyPaper'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
-import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import useAuthStore from '../../hooks/zustand/useAuthStore'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 
 // PE 1/3 - rename
-const SyncroItemPageContent = () => {
+const SyncroItemPage = () => {
   const { syncroItemId } = useMyRouterQuery()
   const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId)
   const canHaveTrailers =
@@ -204,4 +204,4 @@ const SyncroItemPageContent = () => {
   )
 }
 
-export default SyncroItemPageContent
+export default SyncroItemPage

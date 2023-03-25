@@ -2,7 +2,7 @@ import { Box, Center, Loader, Title } from '@mantine/core'
 import { useViewportSize } from '@mantine/hooks'
 import { useMemo } from 'react'
 import ReactPlayer from 'react-player'
-import { useYoutubeTrailersQuery } from '../../../../hooks/react-query/youtube/useYoutubeTrailersQuery'
+import { useYoutubeTrailersQuery } from '../../../hooks/react-query/youtube/useYoutubeTrailersQuery'
 
 type Props = {
   itemId: string
