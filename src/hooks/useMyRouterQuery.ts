@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { SearchParams } from '../types/domain/search/SearchParams'
 import { recommendItemsToUser } from './zustand/action-sheets/useRecommendUserSheetStore'
+import { useEditItemModal } from './zustand/modals/useEditItemModal'
 import { ratingDetailsId } from './zustand/modals/useRatingDetailsModalStore'
 import { saveRatingModal } from './zustand/modals/useSaveRatingModalStore'
 
@@ -24,6 +25,7 @@ export const useMyRouterQuery = () => {
     [ratingDetailsId]: string
     [saveRatingModal]: string
     [mangaPanelQueryKey]: string
+    [useEditItemModal]: string
   }
 }
 

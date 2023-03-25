@@ -1,11 +1,12 @@
 import { ActionIcon, Menu } from '@mantine/core'
 import React, { useState } from 'react'
 import { MdLogout, MdMore, MdMoreHoriz } from 'react-icons/md'
+import { useLogout } from '../../../hooks/domains/auth/useLogout'
 
 type Props = {}
 
 const UserMoreMenu = (props: Props) => {
-  const [opened, setOpened] = useState(false)
+  const logout = useLogout()
   return (
     <Menu shadow="md" position="bottom-end">
       <Menu.Target>
@@ -15,7 +16,11 @@ const UserMoreMenu = (props: Props) => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Item color="red" icon={<MdLogout size={14} />}>
+        <Menu.Item
+          color="red"
+          onClick={() => logout()}
+          icon={<MdLogout size={14} />}
+        >
           Log out
         </Menu.Item>
       </Menu.Dropdown>

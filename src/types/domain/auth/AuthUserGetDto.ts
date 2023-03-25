@@ -3,5 +3,6 @@ export interface AuthUserGetDto {
   username: string
   email: string
   token: string
+  isAdmin: boolean
   expiresAt: string
 }

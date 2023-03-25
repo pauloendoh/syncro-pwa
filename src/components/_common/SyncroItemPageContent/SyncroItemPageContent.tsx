@@ -1,5 +1,6 @@
 import LinesEllipsis from 'react-lines-ellipsis'
 import {
+  ActionIcon,
   Box,
   Center,
   Container,
@@ -11,7 +12,7 @@ import {
 } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { useState } from 'react'
-import { MdStarRate } from 'react-icons/md'
+import { MdMoreHoriz, MdStarRate } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
@@ -27,6 +28,8 @@ import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 
 // PE 1/3 - rename
 const SyncroItemPageContent = () => {
@@ -65,6 +68,8 @@ const SyncroItemPageContent = () => {
     }
   }
 
+  const { authUser } = useAuthStore()
+
   return (
     <LoggedLayout>
       <Container size="sm">
@@ -77,9 +82,12 @@ const SyncroItemPageContent = () => {
 
           {item && (
             <>
-              <Title order={3} weight={500}>
-                {item.title} {item.year && `[${item.year}]`}
-              </Title>
+              <Flex justify={'space-between'}>
+                <Title order={3} weight={500}>
+                  {item.title} {item.year && `[${item.year}]`}
+                </Title>
+                {authUser?.isAdmin && <ItemMoreIconAdmin item={item} />}
+              </Flex>
               <Flex mt={16} gap={16}>
                 <SyncroItemImage
                   item={item}
@@ -132,6 +140,10 @@ const SyncroItemPageContent = () => {
                   sx={(theme) => ({
                     a: {
                       color: theme.colors.primary,
+                    },
+                    '.LinesEllipsis': {
+                      // multiline text
+                      whiteSpace: 'pre-wrap',
                     },
                   })}
                 >

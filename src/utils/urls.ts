@@ -40,6 +40,7 @@ export const urls = {
     searchMore: (params: SearchParams) =>
       API_URL + '/search-more?' + queryString.stringify(params),
 
+    syncroItem: API_URL + `/syncro-item`,
     syncroItemDetails: (id?: string | null) =>
       API_URL + `/syncro-item?id=${id}`,
     updateItemAvgRating: (itemId: string) =>
