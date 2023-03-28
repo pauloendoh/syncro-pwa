@@ -25,8 +25,10 @@ const useSaveRatingModalStore = create<IStore>((set, get) => ({
       const previousDomain = new URL(previousUrl).origin
       const currentDomain = new URL(window.location.href).origin
 
-      if (previousDomain === currentDomain) Router.back()
-      return
+      if (previousDomain === currentDomain) {
+        Router.back()
+        return
+      }
     }
     Router.query[saveRatingModal] = undefined
     Router.push(Router, undefined, { scroll: false })
