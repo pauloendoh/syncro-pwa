@@ -39,7 +39,8 @@ export const urls = {
       API_URL + '/search?' + queryString.stringify(params),
     searchMore: (params: SearchParams) =>
       API_URL + '/search-more?' + queryString.stringify(params),
-
+    searchAutocomplete: (params: SearchParams) =>
+      API_URL + '/search-autocomplete?' + queryString.stringify(params),
     syncroItem: API_URL + `/syncro-item`,
     syncroItemDetails: (id?: string | null) =>
       API_URL + `/syncro-item?id=${id}`,

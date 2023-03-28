@@ -1,11 +1,19 @@
-import { Select } from '@mantine/core'
+import { Flex, Paper, Select, Text, useMantineTheme } from '@mantine/core'
+import { useDebouncedValue, useElementSize } from '@mantine/hooks'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
+import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
+import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
+import { urls } from '../../../../../utils/urls'
+import { useAxios } from '../../../../../utils/useAxios'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
+import FlexCol from '../../../flex/FlexCol'
+import SyncroItemImage from '../../../image/SyncroItemImage/SyncroItemImage'
 import MyTextInput from '../../../inputs/MyTextInput'
+import MyNextLink from '../../../overrides/MyNextLink'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
 type Props = {
@@ -13,9 +21,11 @@ type Props = {
 }
 
 const SearchBar = (props: Props) => {
+  const theme = useMantineTheme()
   const { q, type } = useMyRouterQuery()
   const [input, setInput] = useState('')
 
+  const { isMobile } = useMyMediaQuery()
   useEffect(() => {
     if (q) setInput(q)
   }, [q])
@@ -31,14 +41,44 @@ const SearchBar = (props: Props) => {
     setInput,
   })
 
+  const [debouncedInput] = useDebouncedValue(input, 500)
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (input.length > 0) handleSubmit()
+    if (input.length > 0 && isMobile) handleSubmit()
   }, [selectedType])
+
+  const [previewedItems, setPreviewedItems] = useState<SyncroItemDto[]>([])
+
+  const { ref, width } = useElementSize()
+
+  const axios = useAxios()
+  useEffect(() => {
+    if (q === debouncedInput && type === selectedType) {
+      setPreviewedItems([])
+      return
+    }
+    if (debouncedInput.length > 0) {
+      axios
+        .get<SyncroItemDto[]>(
+          urls.api.searchAutocomplete({
+            q: debouncedInput,
+            type: selectedType,
+          })
+        )
+        .then((res) => {
+          setPreviewedItems(res.data)
+        })
+      return
+    }
+
+    setPreviewedItems([])
+  }, [debouncedInput, selectedType])
 
   return (
     <form
+      ref={ref}
       style={{
         width: '100%',
         position: 'relative',
@@ -110,6 +150,63 @@ const SearchBar = (props: Props) => {
           display: 'none',
         }}
       />
+
+      {previewedItems.length > 0 && (
+        <Paper
+          sx={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            width: width,
+            zIndex: 100,
+            maxHeight: 340,
+            overflowY: 'auto',
+            backgroundColor: theme.colors.dark[8],
+          }}
+        >
+          <MyNextLink
+            href={urls.pages.search({
+              q: input,
+              type: selectedType,
+            })}
+          >
+            <Flex
+              p={8}
+              justify="center"
+              sx={{
+                cursor: 'pointer',
+                ':hover': {
+                  backgroundColor: theme.colors.dark[4],
+                },
+              }}
+            >
+              <Text color="primary" underline>
+                See all results
+              </Text>
+            </Flex>
+          </MyNextLink>
+          {previewedItems.map((item) => (
+            <MyNextLink key={item.id} href={urls.pages.syncroItem(item.id)}>
+              <Flex
+                p={8}
+                gap={8}
+                sx={{
+                  cursor: 'pointer',
+                  ':hover': {
+                    backgroundColor: theme.colors.dark[4],
+                  },
+                }}
+              >
+                <SyncroItemImage item={item} height={80} width={80} />
+                <FlexCol>
+                  <Text>{item.title}</Text>
+                  {item.year ?? <Text>{item.year}</Text>}
+                </FlexCol>
+              </Flex>
+            </MyNextLink>
+          ))}
+        </Paper>
+      )}
     </form>
   )
 }
