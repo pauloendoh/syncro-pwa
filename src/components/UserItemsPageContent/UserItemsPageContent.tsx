@@ -4,16 +4,18 @@ import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useUserItemsQuery } from '../../hooks/react-query/user/useUserItemsQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
-import { SortingByTypes } from '../../types/domain/others/SortingByTypes'
+import { SortingByType } from '../../types/domain/others/SortingByTypes'
 import { syncroItemMapping } from '../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { useSortedItems } from '../UserPageContent/ProfileScreenRatingItem/useSortedItems/useSortedItems'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
+import SortBySelector from './SortBySelector/SortBySelector'
 import UserItemsList from './UserItemsList/UserItemsList'
 
 type Props = {}
 
+// PE 1/3 - rename to UserItemsPage
 const UserItemsPageContent = (props: Props) => {
   const { userId, type } = useMyRouterQuery()
 
@@ -33,14 +35,6 @@ const UserItemsPageContent = (props: Props) => {
     return `${userInfo.username} - ${syncroItemMapping[itemType].labelPlural}`
   }, [userInfo, itemType])
 
-  // useEffect(
-  //   () =>
-  //     navigation.setOptions({
-  //       headerTitle,
-  //     }),
-  //   [headerTitle]
-  // )
-
   const authUser = useAuthStore((s) => s.authUser)
 
   const thisIsYourList = useMemo(
@@ -48,20 +42,18 @@ const UserItemsPageContent = (props: Props) => {
     [authUser, userId]
   )
 
-  const [sortingBy, setSortingBy] = useState<SortingByTypes>('theirRatingDesc')
+  const [sortingBy, setSortingBy] = useState<SortingByType>('theirRatingDesc')
 
   const sortedItems = useSortedItems({ items, sortingBy })
 
   return (
     <LoggedLayout>
       <Container size="xs">
-        <FlexVCenter>
+        <FlexVCenter justify={'space-between'}>
           <Text size="lg">{items?.length} items</Text>
-          {/* <SortingBySection
-              onChangeSortingBy={setSortingBy}
-              sortingBy={sortingBy}
-              thisIsYourList={thisIsYourList}
-            /> */}
+          {!thisIsYourList && (
+            <SortBySelector onChange={setSortingBy} value={sortingBy} />
+          )}
         </FlexVCenter>
 
         <UserItemsList

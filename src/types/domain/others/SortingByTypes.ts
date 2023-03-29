@@ -1,23 +1,24 @@
-export type SortingByTypes =
-  | "theirRatingDesc"
-  | "theirInterestDesc"
-  | "customOrdering"
-  | "avgInterest"
+export type SortingByType =
+  | 'theirRatingDesc'
+  | 'theirInterestDesc'
+  | 'customOrdering'
+  | 'avgInterest'
+  | 'bothPlannedDesc'
 
 type SortingOption = {
-  type: SortingByTypes
+  type: SortingByType
   label: string
 }
 
 export const getSortingOptions = (thisIsYourList = false): SortingOption[] => {
   const options: SortingOption[] = [
     {
-      label: "⭐ Rating - highest",
-      type: "theirRatingDesc",
+      label: '⭐ Rating - highest',
+      type: 'theirRatingDesc',
     },
     {
-      label: "🔖 Saved",
-      type: "theirInterestDesc",
+      label: '🔖 Saved',
+      type: 'theirInterestDesc',
     },
   ]
 

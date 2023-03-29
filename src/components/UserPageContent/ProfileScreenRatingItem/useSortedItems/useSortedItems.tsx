@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 import { CustomPositionDto } from '../../../../types/domain/custom-position/CustomPositionDto'
-import { SortingByTypes } from '../../../../types/domain/others/SortingByTypes'
+import { SortingByType } from '../../../../types/domain/others/SortingByTypes'
 import { UserItemDto } from '../../../../types/domain/syncro-item/UserItemDto'
 
 type Params = {
   items?: UserItemDto[]
-  sortingBy: SortingByTypes
+  sortingBy: SortingByType
   customPositions?: CustomPositionDto[]
 }
 
@@ -16,6 +16,23 @@ export const useSortedItems = ({
 }: Params) => {
   const sortedItems = useMemo(() => {
     if (!items) return []
+
+    if (sortingBy === 'bothPlannedDesc') {
+      return items.sort((a, b) => {
+        const theyPlannedA = !!a.interests?.[0]
+        const theyPlannedB = !!b.interests?.[0]
+
+        const iPlannedA = !!a.myInterest
+        const iPlannedB = !!b.myInterest
+
+        if (theyPlannedA && !theyPlannedB) return -1
+        if (!theyPlannedA && theyPlannedB) return 1
+        if (iPlannedA && !iPlannedB) return -1
+        if (!iPlannedA && iPlannedB) return 1
+        return 0
+      })
+    }
+
     if (sortingBy === 'theirInterestDesc')
       return items.sort((a, b) => {
         const interestA = a.interests?.[0]?.interestLevel

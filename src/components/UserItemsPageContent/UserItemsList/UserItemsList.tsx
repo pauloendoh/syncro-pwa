@@ -1,12 +1,12 @@
 import { Text } from '@mantine/core'
-import { SortingByTypes } from '../../../types/domain/others/SortingByTypes'
+import { SortingByType } from '../../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
 import FlexCol from '../../_common/flex/FlexCol'
 import UserItem from '../UserItem/UserItem'
 
 interface Props {
-  sortingBy: SortingByTypes
+  sortingBy: SortingByType
   isLoading: boolean
   sortedItems: UserItemDto[]
   thisIsYourList: boolean
