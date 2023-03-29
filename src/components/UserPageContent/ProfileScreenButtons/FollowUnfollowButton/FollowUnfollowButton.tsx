@@ -1,8 +1,8 @@
-import { Button } from '@mantine/core'
 import { useMemo } from 'react'
 import { useMyFollowingUsersQuery } from '../../../../hooks/react-query/follow/useMyFollowingUsersQuery'
 import useToggleFollowMutation from '../../../../hooks/react-query/follow/useToggleFollowMutation'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
+import MyLoadingButton from '../../../_common/overrides/MyLoadingButton'
 
 interface Props {
   profileUserId: string
@@ -23,8 +23,6 @@ const FollowUnfollowButton = (props: Props) => {
   const { mutate: submitToggleFollow } = useToggleFollowMutation()
 
   const label = useMemo(() => {
-    if (isLoading) return 'Loading...'
-
     if (alreadyFollowing) return 'Following'
     return 'Follow'
   }, [isLoading, alreadyFollowing])
@@ -43,18 +41,14 @@ const FollowUnfollowButton = (props: Props) => {
   }
 
   return (
-    <Button
+    <MyLoadingButton
       loading={isLoading}
       color={alreadyFollowing ? 'gray' : 'secondary'}
       onClick={handleClick}
-      styles={{
-        root: {
-          width: props.width,
-        },
-      }}
+      width={props.width || 100}
     >
       {label}
-    </Button>
+    </MyLoadingButton>
   )
 }
 

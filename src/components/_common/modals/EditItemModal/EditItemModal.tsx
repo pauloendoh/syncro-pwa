@@ -1,38 +1,14 @@
-import {
-  ActionIcon,
-  Flex,
-  Modal,
-  NumberInput,
-  Text,
-  Textarea,
-  useMantineTheme,
-} from '@mantine/core'
-import { useRouter } from 'next/router'
+import { Flex, Modal, NumberInput, Textarea } from '@mantine/core'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { MdClose } from 'react-icons/md'
-import { format } from 'timeago.js'
 import useEditItemMutation from '../../../../hooks/react-query/syncro-item/useEditItemMutation'
-import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
-import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import {
-  useEditItemModal,
-  useEditItemModalStore,
-} from '../../../../hooks/zustand/modals/useEditItemModal'
-import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
-import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import { useEditItemModalStore } from '../../../../hooks/zustand/modals/useEditItemModal'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
-import { urls } from '../../../../utils/urls'
-import { useAxios } from '../../../../utils/useAxios'
-import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
-import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
-import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
-import MyNextLink from '../../overrides/MyNextLink'
 
 const EditItemModal = () => {
   const { initialValue: initialItem, closeModal } = useEditItemModalStore()
@@ -69,6 +45,7 @@ const EditItemModal = () => {
       opened={!!editingItem}
       onClose={closeModal}
       title={`Edit item - ${initialItem?.id}`}
+      size="lg"
     >
       {initialItem && (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,13 +54,13 @@ const EditItemModal = () => {
               <SyncroItemImage item={initialItem} height={120} width={120} />
 
               <FlexCol sx={{ flexGrow: 1 }} gap={8}>
-                <MyTextInput
+                <Textarea
                   label="Title*"
                   {...register('title', {
                     required: 'Title is required',
                   })}
                   error={errors.title?.message}
-                  width="100%"
+                  autosize
                 />
 
                 <NumberInput
@@ -116,6 +93,7 @@ const EditItemModal = () => {
               <SaveCancelButtons
                 isLoading={isLoading}
                 onEnabledAndCtrlEnter={() => onSubmit(watch())}
+                onCancel={closeModal}
               />
             </FlexVCenter>
           </FlexCol>

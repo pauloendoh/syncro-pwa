@@ -99,7 +99,7 @@ const SearchItemYourSection = (props: Props) => {
             />
           </FlexVCenter>
 
-          <Text>{myInterest && 'Saved'}</Text>
+          <Text>{myInterest ? 'Planned' : 'Plan to'}</Text>
         </FlexVCenter>
       </Box>
     </>

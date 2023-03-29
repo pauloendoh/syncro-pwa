@@ -20,4 +20,8 @@ export const itemToRecommendTabOptions: {
     key: 'manga',
     label: 'Manga',
   },
+  {
+    key: 'book',
+    label: 'Books',
+  },
 ]

@@ -1,6 +1,4 @@
-import LinesEllipsis from 'react-lines-ellipsis'
 import {
-  ActionIcon,
   Box,
   Center,
   Container,
@@ -12,10 +10,12 @@ import {
 } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { useState } from 'react'
-import { MdMoreHoriz, MdStarRate } from 'react-icons/md'
+import { MdStarRate } from 'react-icons/md'
+import LinesEllipsis from 'react-lines-ellipsis'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
+import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { shortNumberFormatter } from '../../utils/math/shortNumberFormatter'
 import SyncroItemIcon from '../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import FlexCol from '../_common/flex/FlexCol'
@@ -23,13 +23,12 @@ import FlexVCenter from '../_common/flex/FlexVCenter'
 import SyncroItemImage from '../_common/image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
+import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
-import useAuthStore from '../../hooks/zustand/useAuthStore'
-import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 
 // PE 1/3 - rename
 const SyncroItemPage = () => {
@@ -147,6 +146,9 @@ const SyncroItemPage = () => {
                     },
                   })}
                 >
+                  {item.plotSummary.length === 0 && (
+                    <Text>No summary available</Text>
+                  )}
                   {item.plotSummary.length > 0 && (
                     <LinesEllipsis
                       text={item.plotSummary}

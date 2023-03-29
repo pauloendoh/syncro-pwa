@@ -7,7 +7,7 @@ interface Props {
   isLoading?: boolean
   disabled?: boolean
   onSave?: () => void
-  onCancel?: () => void
+  onCancel: () => void
   onEnabledAndCtrlEnter?: () => void
   onEnableAndCtrlS?: () => void
   saveText?: string
