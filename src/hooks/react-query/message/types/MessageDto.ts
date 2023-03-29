@@ -8,4 +8,5 @@ export interface MessageDto {
   userId: string
   text: string
   user: UserSimpleDto
+  isRead: boolean
 }

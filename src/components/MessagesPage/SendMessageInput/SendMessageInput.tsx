@@ -45,6 +45,7 @@ const SendMessageInput = (props: Props) => {
             return
           }
           if (e.key === 'Enter') {
+            e.preventDefault()
             handleSubmit()
           }
         }}

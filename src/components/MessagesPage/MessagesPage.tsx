@@ -1,5 +1,5 @@
-import { Box, Container, Text, useMantineTheme } from '@mantine/core'
-import { useMemo } from 'react'
+import { Container, ScrollArea, Text, useMantineTheme } from '@mantine/core'
+import { useEffect, useMemo, useRef } from 'react'
 import { useMessageRoomQuery } from '../../hooks/react-query/message/useMessageRoomQuery'
 import { useMessagesQuery } from '../../hooks/react-query/message/useMessagesQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
@@ -32,7 +32,23 @@ const MessagesPage = (props: Props) => {
 
   const { data: messages } = useMessagesQuery(roomId)
   const theme = useMantineTheme()
+  const viewport = useRef<HTMLDivElement>(null)
+
   useMessageRoomSockets(roomId)
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!viewport.current) {
+        return
+      }
+
+      viewport.current.scrollTo({
+        top: viewport.current.scrollHeight,
+        behavior: 'auto',
+      })
+    }, 100)
+  }, [viewport.current, messages])
+
   return (
     <LoggedLayout>
       <Container size="xs">
@@ -56,21 +72,26 @@ const MessagesPage = (props: Props) => {
                 <Text>{user?.username}</Text>
               </MyNextLink>
             </FlexVCenter>
-            <Box
+
+            <ScrollArea
+              viewportRef={viewport}
+              id="message-scroll-area"
               sx={{
-                padding: 16,
+                padding: 24,
+                height: 'calc(100vh - 300px )',
               }}
             >
-              {messages?.map((message) => (
+              {messages?.map((message, index) => (
                 <MessageItem
                   key={message.id}
                   message={message}
-                  itsMe={message.userId === authUser?.id}
+                  isMyMessage={message.userId === authUser?.id}
+                  isLast={index === messages.length - 1}
                 />
               ))}
+            </ScrollArea>
 
-              <SendMessageInput roomId={roomId} />
-            </Box>
+            <SendMessageInput roomId={roomId} />
           </MyPaper>
         )}
       </Container>

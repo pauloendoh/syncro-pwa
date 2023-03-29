@@ -138,6 +138,9 @@ export const urls = {
     messagesByRoomId: (roomId: string) =>
       API_URL + `/messages?roomId=${roomId}`,
     sendMessage: API_URL + `/message`,
+    unreadMessagesRooms: API_URL + `/unread-messages-rooms`,
+    readAllMessages: (roomId: string) =>
+      API_URL + `/read-all-messages?roomId=${roomId}`,
   },
 
   others: {

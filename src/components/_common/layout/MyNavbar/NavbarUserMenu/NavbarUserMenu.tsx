@@ -52,6 +52,9 @@ const NavbarUserMenu = (props: Props) => {
         >
           <Menu.Item>Profile</Menu.Item>
         </MyNextLink>
+        <MyNextLink href={urls.pages.savedItems('all')}>
+          <Menu.Item>Planned items</Menu.Item>
+        </MyNextLink>
 
         <Menu.Divider />
 
