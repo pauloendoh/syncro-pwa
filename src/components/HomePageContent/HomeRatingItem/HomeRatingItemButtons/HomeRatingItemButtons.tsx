@@ -4,6 +4,7 @@ import { MdBookmark, MdBookmarkBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import PressableMyRating from './PressableMyRating/PressableMyRating'
@@ -43,6 +44,9 @@ const HomeRatingItemButtons = (props: Props) => {
     return 'Add to planned items'
   }, [myInterest, typeMap])
 
+  const { authUser } = useAuthStore()
+
+  if (!authUser) return null
   return (
     <FlexVCenter mt={2}>
       <PressableMyRating itemId={props.syncroItemId!} />

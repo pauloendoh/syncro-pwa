@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useMyFollowingUsersQuery } from '../../../../hooks/react-query/follow/useMyFollowingUsersQuery'
 import useToggleFollowMutation from '../../../../hooks/react-query/follow/useToggleFollowMutation'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import MyLoadingButton from '../../../_common/overrides/MyLoadingButton'
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const FollowUnfollowButton = (props: Props) => {
+  const { authUser } = useAuthStore()
   const { data: myFollowingUsers, isLoading } = useMyFollowingUsersQuery()
 
   const alreadyFollowing = useMemo(() => {
@@ -39,6 +41,8 @@ const FollowUnfollowButton = (props: Props) => {
     }
     submitToggleFollow(props.profileUserId)
   }
+
+  if (!authUser) return null
 
   return (
     <MyLoadingButton

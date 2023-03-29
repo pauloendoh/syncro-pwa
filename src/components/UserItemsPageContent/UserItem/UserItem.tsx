@@ -7,6 +7,7 @@ import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
@@ -51,6 +52,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
   }
 
   const { isSmallScreen } = useMyMediaQuery()
+  const { authUser } = useAuthStore()
 
   return (
     <Box>
@@ -141,9 +143,11 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                 </>
               )}
             </FlexCol>
-            <FlexCol>
-              <SearchItemYourSection itemId={item.id} />
-            </FlexCol>
+            {authUser && (
+              <FlexCol>
+                <SearchItemYourSection itemId={item.id} />
+              </FlexCol>
+            )}
           </Flex>
         </FlexCol>
       </Flex>

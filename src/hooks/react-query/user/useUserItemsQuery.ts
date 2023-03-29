@@ -18,6 +18,9 @@ export const useUserItemsQuery = (userId: string, itemType: SyncroItemType) => {
       if (itemType) return res.data?.filter((d) => d.type === itemType) || []
 
       return res?.data || []
+    },
+    {
+      enabled: !!userId,
     }
   )
 }
