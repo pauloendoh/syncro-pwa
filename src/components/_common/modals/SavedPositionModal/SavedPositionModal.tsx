@@ -73,7 +73,7 @@ const SavedPositionModal = (props: Props) => {
       opened={props.isOpen}
       onClose={props.onClose}
       size="xs"
-      title={<Title order={4}>Change saved position</Title>}
+      title={<Title order={4}>Change plan position</Title>}
     >
       <Box w={80}>
         <Select
@@ -81,6 +81,8 @@ const SavedPositionModal = (props: Props) => {
           data={selectOptions}
           value={props.initialValue?.position?.toString() || ''}
           onChange={(value) => handlePressNewPosition(Number(value))}
+          dropdownPosition="bottom"
+          withinPortal
         />
       </Box>
     </Modal>

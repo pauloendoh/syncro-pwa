@@ -1,9 +1,15 @@
 import { Box, Text, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
-import { MdBookmark, MdStar } from 'react-icons/md'
+import {
+  MdBookmark,
+  MdBookmarkBorder,
+  MdStar,
+  MdStarBorder,
+} from 'react-icons/md'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -36,6 +42,7 @@ const SearchItemYourSection = (props: Props) => {
   )
 
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
+  const { isMobile } = useMyMediaQuery()
 
   return (
     <>
@@ -53,14 +60,11 @@ const SearchItemYourSection = (props: Props) => {
           }}
         >
           <FlexVCenter style={{ width: 24 }}>
-            <MdStar
-              color={
-                myRating && myRating.ratingValue && myRating.ratingValue > 0
-                  ? theme.colors.secondary[9]
-                  : theme.colors.gray[5]
-              }
-              size={18}
-            />
+            {myRating && myRating.ratingValue && myRating.ratingValue > 0 ? (
+              <MdStar color={theme.colors.secondary[9]} size={18} />
+            ) : (
+              <MdStarBorder color={theme.colors.gray[5]} size={18} />
+            )}
           </FlexVCenter>
           <Text>{myRating?.ratingValue || <Text>&nbsp;</Text>}</Text>
         </FlexVCenter>
@@ -91,15 +95,14 @@ const SearchItemYourSection = (props: Props) => {
       >
         <FlexVCenter gap={4}>
           <FlexVCenter style={{ width: 24 }}>
-            <MdBookmark
-              color={
-                myInterest ? theme.colors.secondary[9] : theme.colors.gray[5]
-              }
-              size={18}
-            />
+            {myInterest ? (
+              <MdBookmark color={theme.colors.secondary[9]} size={18} />
+            ) : (
+              <MdBookmarkBorder color={theme.colors.gray[5]} size={18} />
+            )}
           </FlexVCenter>
 
-          <Text>{myInterest ? 'Planned' : 'Plan to'}</Text>
+          <Text>{myInterest ? 'Planned' : 'Plan'}</Text>
         </FlexVCenter>
       </Box>
     </>

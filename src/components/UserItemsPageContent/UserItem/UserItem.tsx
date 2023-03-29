@@ -1,6 +1,6 @@
 import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
-import { MdBookmark, MdStar } from 'react-icons/md'
+import { MdBookmark, MdStar, MdStarBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
@@ -94,17 +94,16 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
 
                   <Flex gap={4}>
                     <FlexVCenter style={{ width: 24 }}>
-                      <MdStar
-                        color={
-                          item.ratings?.[0]?.ratingValue
-                            ? ratingYellow
-                            : theme.colors.gray[5]
-                        }
-                        size={18}
-                      />
+                      {item.ratings?.[0]?.ratingValue ? (
+                        <MdStar color={ratingYellow} size={18} />
+                      ) : (
+                        <MdStarBorder color={theme.colors.gray[5]} size={18} />
+                      )}
                     </FlexVCenter>
-                    {item.ratings?.[0]?.ratingValue && (
+                    {item.ratings?.[0]?.ratingValue ? (
                       <Text>{item.ratings?.[0]?.ratingValue || ''}</Text>
+                    ) : (
+                      <Text>&nbsp;</Text>
                     )}
                     {!!item.ratings?.[0]?.review && (
                       <Text
@@ -136,7 +135,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                         />
                       </FlexCol>
                       <Text>
-                        {item.interests?.[0]?.interestLevel && 'Saved'}
+                        {item.interests?.[0]?.interestLevel && 'Planned'}
                       </Text>
                     </FlexVCenter>
                   )}
