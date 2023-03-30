@@ -22,7 +22,7 @@ export const useSortedItems = ({
         const theyPlannedA = !!a.interests?.[0]
         const theyPlannedB = !!b.interests?.[0]
 
-        const iPlannedA = !!a.myInterest
+        const iPlannedA = !a.myInterest
         const iPlannedB = !!b.myInterest
 
         if (theyPlannedA && !theyPlannedB) return -1

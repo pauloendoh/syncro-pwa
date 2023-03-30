@@ -10,15 +10,13 @@ interface IAuthStore {
 const useAuthStore = create<IAuthStore>((set, get) => ({
   authUser: null,
   setAuthUser: async (authUser) => {
-    const expiresAt = new Date(authUser.expiresAt)
     set({ authUser })
 
-    await nookies.set(null, 'user', JSON.stringify(authUser))
-
-    // Refresh logout timeout
-    setTimeout(() => {
-      return resetAuthStore()
-    }, expiresAt.getTime() - new Date().getTime())
+    nookies.set(null, 'user', JSON.stringify(authUser), {
+      secure: true,
+      path: '/',
+      maxAge: 30 * 24 * 60 * 60, // 1 year
+    })
   },
 }))
 const initialState = useAuthStore.getState()
