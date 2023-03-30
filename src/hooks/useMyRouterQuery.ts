@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { SearchParams } from '../types/domain/search/SearchParams'
 import { recommendItemsToUser } from './zustand/action-sheets/useRecommendUserSheetStore'
 import { useEditItemModal } from './zustand/modals/useEditItemModal'
+import { feedbackModal } from './zustand/modals/useFeedbackModalStore'
 import { ratingDetailsId } from './zustand/modals/useRatingDetailsModalStore'
 import { saveRatingModal } from './zustand/modals/useSaveRatingModalStore'
 
@@ -26,6 +27,7 @@ export const useMyRouterQuery = () => {
     [saveRatingModal]: string
     [mangaPanelQueryKey]: string
     [useEditItemModal]: string
+    [feedbackModal]: string
   }
 }
 

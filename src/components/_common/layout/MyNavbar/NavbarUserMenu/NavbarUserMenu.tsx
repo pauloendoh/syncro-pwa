@@ -1,6 +1,9 @@
 import { Menu } from '@mantine/core'
 import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
+import { buildUserFeedbackDto } from '../../../../../hooks/react-query/feedback/types/UserFeedbackDto'
+import { useMyFeedbackQuery } from '../../../../../hooks/react-query/feedback/useMyFeedbackQuery'
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
+import useFeedbackModalStore from '../../../../../hooks/zustand/modals/useFeedbackModalStore'
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../utils/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
@@ -12,9 +15,12 @@ const NavbarUserMenu = (props: Props) => {
   const logout = useLogout()
 
   const { data: userInfo } = useUserInfoQuery(authUser?.id || '')
+  const { openModal: openFeedbackModal } = useFeedbackModalStore()
   const imageUrl =
     userInfo?.profile?.pictureUrl ||
     'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
+
+  const { data: myFeedback } = useMyFeedbackQuery()
 
   if (!authUser) return null
 
@@ -57,6 +63,14 @@ const NavbarUserMenu = (props: Props) => {
         </MyNextLink>
 
         <Menu.Divider />
+
+        <Menu.Item
+          onClick={() => {
+            openFeedbackModal(myFeedback || buildUserFeedbackDto())
+          }}
+        >
+          Leave a feedback!
+        </Menu.Item>
 
         <a
           href="https://discord.gg/gx3TKUYfrb"
