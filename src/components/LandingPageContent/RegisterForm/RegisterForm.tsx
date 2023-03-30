@@ -1,5 +1,5 @@
 import { classValidatorResolver } from '@hookform/resolvers/class-validator'
-import { Button, Flex } from '@mantine/core'
+import { Button, Text } from '@mantine/core'
 import { IsEmail, IsString } from 'class-validator'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -90,15 +90,26 @@ const RegisterForm = (props: Props) => {
             error={errors.password2?.message}
           />
 
-          <Flex align="center" justify="space-between" mt={16}>
-            <Button type="submit" loading={loading}>
-              Sign up
+          <FlexCol align="center" mt={16} gap={16}>
+            <Button type="submit" loading={loading} fullWidth>
+              CREATE ACCOUNT
             </Button>
 
-            <Button variant="subtle" onClick={props.onToggleForm}>
-              Login
-            </Button>
-          </Flex>
+            <Text component="span" size="sm" align="center">
+              Already have an account? <br />
+              <Text
+                component="span"
+                color="primary"
+                underline
+                onClick={props.onToggleForm}
+                sx={{
+                  cursor: 'pointer',
+                }}
+              >
+                Sign in
+              </Text>
+            </Text>
+          </FlexCol>
         </FlexCol>
       </form>
     </>

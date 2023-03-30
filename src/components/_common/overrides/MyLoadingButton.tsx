@@ -5,7 +5,7 @@ import type { ButtonProps } from '@mantine/core'
 
 type Props = ButtonProps &
   React.HTMLProps<HTMLButtonElement> & {
-    width: number
+    width: number | string
     loading: boolean
   }
 
