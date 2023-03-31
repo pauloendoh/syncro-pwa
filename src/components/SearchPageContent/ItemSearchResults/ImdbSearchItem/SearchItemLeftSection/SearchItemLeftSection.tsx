@@ -1,5 +1,5 @@
 import { Text } from '@mantine/core'
-import { shortNumberFormatter } from 'endoh-utils'
+import { shortNumberFormatter, upToNDecimals } from 'endoh-utils'
 import { useMemo } from 'react'
 import { IoMdEye } from 'react-icons/io'
 import { MdStar } from 'react-icons/md'
@@ -37,7 +37,7 @@ const SearchItemLeftSection = (props: Props) => {
       <FlexCol gap={4}>
         <FlexVCenter gap={8}>
           <MdStar color={'#FFB600'} size={18} />
-          <Text>{props.avgRating}/10</Text>
+          <Text>{upToNDecimals(props.avgRating, 1)}/10</Text>
         </FlexVCenter>
       </FlexCol>
 
