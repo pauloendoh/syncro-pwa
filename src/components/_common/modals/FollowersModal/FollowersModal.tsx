@@ -4,6 +4,7 @@ import { useFollowersQuery } from '../../../../hooks/react-query/follow/useFollo
 import { useFollowingUsersQuery } from '../../../../hooks/react-query/follow/useFollowingUsersQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../../hooks/useMyColors'
+import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useFollowersModalStore from '../../../../hooks/zustand/modals/useFollowersModalStore'
 import UserSearchItem from '../../../SearchPageContent/UserSearchResults/UserSearchItem/UserSearchItem'
 import FlexCol from '../../flex/FlexCol'
@@ -11,7 +12,7 @@ import FlexCol from '../../flex/FlexCol'
 interface Props {}
 
 const FollowersModal = (props: Props) => {
-  const { isOpen, initialValue, closeModal } = useFollowersModalStore()
+  const { initialValue, closeModal } = useFollowersModalStore()
   const { lightBackground } = useMyColors()
 
   const [tabIndex, setTabIndex] = useState(
@@ -21,6 +22,8 @@ const FollowersModal = (props: Props) => {
   useEffect(() => {
     setTabIndex(initialValue?.type === 'followers' ? 0 : 1)
   }, [initialValue?.type])
+
+  const { followModal } = useMyRouterQuery()
 
   const { data: userInfo } = useUserInfoQuery(initialValue?.userId)
 
@@ -47,7 +50,7 @@ const FollowersModal = (props: Props) => {
 
   return (
     <Modal
-      opened={isOpen}
+      opened={!!followModal}
       onClose={closeModal}
       size="sm"
       withCloseButton={false}

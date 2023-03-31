@@ -1,7 +1,7 @@
 import { Box, ScrollArea, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { PhotoProvider, PhotoSlider, PhotoView } from 'react-photo-view'
+import { PhotoSlider } from 'react-photo-view'
 import { useMangaPanelsQuery } from '../../../hooks/react-query/manga/useMangaPanelsQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
@@ -32,7 +32,7 @@ const MangaPanelsSection = (props: Props) => {
 
   useEffect(() => {
     if (index !== null && ~index) {
-      router.query[queryParam] = String(index)
+      router.query[queryParam] = 'true'
       router.push(router, undefined, { scroll: false })
     }
   }, [index])
@@ -43,12 +43,16 @@ const MangaPanelsSection = (props: Props) => {
     router.push(router, undefined, { scroll: false })
   }
 
+  // PE 1/3 - its confusing lmao
   const queryValueRef = useRef(router?.query[queryParam])
   useEffect(() => {
     if (queryValueRef.current && !router?.query[queryParam]) {
       setIndex(null)
+      return
     }
     queryValueRef.current = router?.query[queryParam]
+    if (!router?.query[queryParam]) return
+    setIndex(0)
   }, [router.query[queryParam]])
 
   return (

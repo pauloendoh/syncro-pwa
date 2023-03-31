@@ -1,3 +1,4 @@
+import Router from 'next/router'
 import { create } from 'zustand'
 
 type InitialValue = {
@@ -5,9 +6,10 @@ type InitialValue = {
   type: 'followers' | 'following'
 }
 
+export const followModal = 'followModal'
+
 interface IStore {
   initialValue: InitialValue | null
-  isOpen: boolean
   openModal: (ratingDto: InitialValue) => void
   closeModal: () => void
 }
@@ -16,9 +18,23 @@ const useFollowersModalStore = create<IStore>((set, get) => ({
   initialValue: null,
   isOpen: false,
   openModal: (initialValue) => {
-    set({ initialValue, isOpen: true })
+    set({ initialValue })
+    Router.query[followModal] = 'true'
+    Router.push(Router, undefined, { scroll: false })
   },
-  closeModal: () => set({ isOpen: false }),
+  closeModal: () => {
+    const previousUrl = document.referrer
+
+    if (previousUrl) {
+      const previousDomain = new URL(previousUrl).origin
+      const currentDomain = new URL(window.location.href).origin
+
+      if (previousDomain === currentDomain) Router.back()
+      return
+    }
+    Router.query[followModal] = undefined
+    Router.push(Router, undefined, { scroll: false })
+  },
 }))
 
 export default useFollowersModalStore
