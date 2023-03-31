@@ -16,8 +16,7 @@ interface Props {
   itemId?: string
 }
 
-// PE 1/3 - rename this
-const SearchItemImdbSection = (props: Props) => {
+const SearchItemLeftSection = (props: Props) => {
   const { isSmallScreen } = useMyMediaQuery()
 
   const seeDetails = useMemo(() => {
@@ -55,4 +54,4 @@ const SearchItemImdbSection = (props: Props) => {
   )
 }
 
-export default SearchItemImdbSection
+export default SearchItemLeftSection

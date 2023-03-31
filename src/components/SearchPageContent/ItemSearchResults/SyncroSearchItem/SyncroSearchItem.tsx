@@ -9,7 +9,7 @@ import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
-import SearchItemImdbSection from '../ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection'
+import SearchItemLeftSection from '../ImdbSearchItem/SearchItemLeftSection/SearchItemLeftSection'
 import SearchItemYourSection from '../SearchItemYourSection/SearchItemYourSection'
 
 interface Props {
@@ -61,7 +61,7 @@ const SyncroSearchItem = ({ item }: Props) => {
         <Flex mt={2}>
           <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>
             {item.id ? (
-              <SearchItemImdbSection
+              <SearchItemLeftSection
                 avgRating={item?.avgRating}
                 ratingCount={item?.ratingCount}
                 title={syncroItemMapping[item.type].site}

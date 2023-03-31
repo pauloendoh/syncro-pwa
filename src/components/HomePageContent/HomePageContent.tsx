@@ -34,6 +34,7 @@ const HomePageContent = () => {
               size="xs"
               fluid={isSmallScreen}
               px={isSmallScreen ? 0 : undefined}
+              pt={isSmallScreen ? 24 : undefined}
             >
               <RatingsTimeline />
 

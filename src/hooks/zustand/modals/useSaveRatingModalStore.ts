@@ -1,6 +1,7 @@
 import Router from 'next/router'
 import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
+import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 
 export const saveRatingModal = 'saveRatingModal'
 
@@ -18,20 +19,7 @@ const useSaveRatingModalStore = create<IStore>((set, get) => ({
     Router.push(Router, undefined, { scroll: false })
   },
   closeModal: () => {
-    // PE 1/3 - this will be reused
-    const previousUrl = document.referrer
-
-    if (previousUrl) {
-      const previousDomain = new URL(previousUrl).origin
-      const currentDomain = new URL(window.location.href).origin
-
-      if (previousDomain === currentDomain) {
-        Router.back()
-        return
-      }
-    }
-    Router.query[saveRatingModal] = undefined
-    Router.push(Router, undefined, { scroll: false })
+    routerBackIfSameDomainOrClearQueryParam(saveRatingModal)
   },
 }))
 

@@ -1,4 +1,4 @@
-import { Flex, Text, useMantineTheme } from '@mantine/core'
+import { Flex, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
@@ -9,16 +9,13 @@ import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 import SearchItemYourSection from '../SearchItemYourSection/SearchItemYourSection'
-import SearchItemImdbSection from './SearchItemImdbSection/SearchItemImdbSection'
+import SearchItemLeftSection from './SearchItemLeftSection/SearchItemLeftSection'
 
 interface Props {
   resultItem: IImdbResultItem
 }
 
-// PE 1/3 - unificar no SyncroSearchItem
 const ImdbSearchItem = ({ resultItem }: Props) => {
-  const theme = useMantineTheme()
-
   const { data: myRatings } = useMyRatingsQuery()
   const { data: myInterests } = useMyInterestsQuery()
 
@@ -68,7 +65,7 @@ const ImdbSearchItem = ({ resultItem }: Props) => {
         <Flex mt={2}>
           <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>
             {resultItem.syncroItem ? (
-              <SearchItemImdbSection
+              <SearchItemLeftSection
                 avgRating={resultItem.syncroItem?.avgRating}
                 ratingCount={resultItem.syncroItem?.ratingCount}
               />

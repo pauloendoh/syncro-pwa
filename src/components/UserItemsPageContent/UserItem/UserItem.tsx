@@ -12,7 +12,7 @@ import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
 import { urls } from '../../../utils/urls'
-import SearchItemImdbSection from '../../SearchPageContent/ItemSearchResults/ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection'
+import SearchItemLeftSection from '../../SearchPageContent/ItemSearchResults/ImdbSearchItem/SearchItemLeftSection/SearchItemLeftSection'
 import SearchItemYourSection from '../../SearchPageContent/ItemSearchResults/SearchItemYourSection/SearchItemYourSection'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -82,7 +82,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                 props.isCustomOrdering ? (
                   <></>
                 ) : (
-                  <SearchItemImdbSection
+                  <SearchItemLeftSection
                     avgRating={item.avgRating}
                     ratingCount={item.ratingCount}
                     title={itemTypeMap.site}

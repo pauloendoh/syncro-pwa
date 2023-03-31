@@ -18,8 +18,8 @@ import { urls } from '../../../../utils/urls'
 import { zIndexes } from '../../../../utils/zIndexes'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyNextLink from '../../overrides/MyNextLink'
+import NavbarRightIcons from './NavbarRightIcons/NavbarRightIcons'
 import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'
-import SavedAndNotificationIcons from './SavedNotificationIcons/SavedAndNotificationIcons'
 import SearchBar from './SearchBar/SearchBar'
 
 type Props = {}
@@ -111,7 +111,7 @@ const MyNavbar = (props: Props) => {
                   </div>
                 </Tooltip>
 
-                <SavedAndNotificationIcons />
+                <NavbarRightIcons />
               </FlexVCenter>
             )}
 

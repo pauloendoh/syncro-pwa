@@ -1,6 +1,6 @@
 import { Header, Title } from '@mantine/core'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
-import SavedAndNotificationIcons from '../../_common/layout/MyNavbar/SavedNotificationIcons/SavedAndNotificationIcons'
+import NavbarRightIcons from '../../_common/layout/MyNavbar/NavbarRightIcons/NavbarRightIcons'
 
 type Props = {}
 
@@ -18,7 +18,7 @@ const MobileHomeHeader = (props: Props) => {
     >
       <Title order={2}>Syncro</Title>
       <FlexVCenter gap={16}>
-        <SavedAndNotificationIcons />
+        <NavbarRightIcons />
       </FlexVCenter>
     </Header>
   )

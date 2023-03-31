@@ -44,7 +44,6 @@ const ItemSearchResults = (props: Props) => {
     return `No ${typeMap.getTypeLabelLowerCase(true)} found :(`
   }, [props.type])
 
-  // PE 1/3 - remove imdbItems?
   const imdbItems = useMemo(() => {
     if (props.type !== 'movie' && props.type !== 'tvSeries') return []
 

@@ -1,5 +1,6 @@
 import Router from 'next/router'
 import { create } from 'zustand'
+import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 import { UserFeedbackDto } from '../../react-query/feedback/types/UserFeedbackDto'
 
 export const feedbackModal = 'feedbackModal'
@@ -18,18 +19,7 @@ const useFeedbackModalStore = create<IStore>((set, get) => ({
     Router.push(Router, undefined, { scroll: false })
   },
   closeModal: () => {
-    // PE 1/3 - this will be reused
-    const previousUrl = document.referrer
-
-    if (previousUrl) {
-      const previousDomain = new URL(previousUrl).origin
-      const currentDomain = new URL(window.location.href).origin
-
-      if (previousDomain === currentDomain) Router.back()
-      return
-    }
-    Router.query[feedbackModal] = undefined
-    Router.push(Router, undefined, { scroll: false })
+    routerBackIfSameDomainOrClearQueryParam(feedbackModal)
   },
 }))
 

@@ -1,5 +1,6 @@
 import Router from 'next/router'
 import { create } from 'zustand'
+import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 
 type InitialValue = {
   userId: string
@@ -23,17 +24,7 @@ const useFollowersModalStore = create<IStore>((set, get) => ({
     Router.push(Router, undefined, { scroll: false })
   },
   closeModal: () => {
-    const previousUrl = document.referrer
-
-    if (previousUrl) {
-      const previousDomain = new URL(previousUrl).origin
-      const currentDomain = new URL(window.location.href).origin
-
-      if (previousDomain === currentDomain) Router.back()
-      return
-    }
-    Router.query[followModal] = undefined
-    Router.push(Router, undefined, { scroll: false })
+    routerBackIfSameDomainOrClearQueryParam(followModal)
   },
 }))
 

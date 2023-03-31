@@ -1,8 +1,9 @@
 import Router from 'next/router'
 import { create } from 'zustand'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
+import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 
-export const useEditItemModal = 'editingItem'
+export const editingItem = 'editingItem'
 
 interface IStore {
   initialValue: SyncroItemDto | null
@@ -14,21 +15,10 @@ export const useEditItemModalStore = create<IStore>((set, get) => ({
   initialValue: null,
   openModal: (initialValue) => {
     set({ initialValue })
-    Router.query[useEditItemModal] = initialValue.id
+    Router.query[editingItem] = initialValue.id
     Router.push(Router, undefined, { scroll: false })
   },
   closeModal: () => {
-    // PE 1/3 - this will be reused
-    const previousUrl = document.referrer
-
-    if (previousUrl) {
-      const previousDomain = new URL(previousUrl).origin
-      const currentDomain = new URL(window.location.href).origin
-
-      if (previousDomain === currentDomain) Router.back()
-      return
-    }
-    Router.query[useEditItemModal] = undefined
-    Router.push(Router, undefined, { scroll: false })
+    routerBackIfSameDomainOrClearQueryParam(editingItem)
   },
 }))

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { SearchParams } from '../types/domain/search/SearchParams'
 import { recommendItemsToUser } from './zustand/action-sheets/useRecommendUserSheetStore'
-import { useEditItemModal } from './zustand/modals/useEditItemModal'
+import { editingItem } from './zustand/modals/useEditItemModal'
 import { feedbackModal } from './zustand/modals/useFeedbackModalStore'
 import { followModal } from './zustand/modals/useFollowersModalStore'
 import { ratingDetailsId } from './zustand/modals/useRatingDetailsModalStore'
@@ -24,7 +24,7 @@ export const useMyRouterQuery = () => {
     [recommendItemsToUser]: string
     [ratingDetailsId]: string
     [saveRatingModal]: string
-    [useEditItemModal]: string
+    [editingItem]: string
     [feedbackModal]: string
     [followModal]: string
   }

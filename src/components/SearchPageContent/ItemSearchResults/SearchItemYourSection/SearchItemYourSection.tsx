@@ -1,15 +1,13 @@
 import { Box, Text, useMantineTheme } from '@mantine/core'
-import { useMemo } from 'react'
 import {
   MdBookmark,
   MdBookmarkBorder,
   MdStar,
   MdStarBorder,
 } from 'react-icons/md'
-import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
+import { useMyInterestQueryUtils } from '../../../../hooks/react-query/interest/useMyInterestQueryUtils'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
-import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
-import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
+import { useMyRatingQueryUtils } from '../../../../hooks/react-query/rating/useMyRatingQueryUtils'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -26,23 +24,10 @@ const SearchItemYourSection = (props: Props) => {
 
   const { openModal: openRatingModal } = useSaveRatingModalStore()
 
-  const { data: myRatings } = useMyRatingsQuery()
+  const myRating = useMyRatingQueryUtils(props.itemId)
 
-  const { data: myInterests } = useMyInterestsQuery()
-
-  // PE 1/3 - DRY
-  const myRating = useMemo(
-    () => myRatings?.find((r) => r.syncroItemId === props.itemId) || null,
-    [myRatings, props.itemId]
-  )
-
-  const myInterest = useMemo(
-    () => myInterests?.find((r) => r.syncroItemId === props.itemId) || null,
-    [myInterests, props.itemId]
-  )
-
+  const myInterest = useMyInterestQueryUtils(props.itemId)
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
-  const { isMobile } = useMyMediaQuery()
 
   return (
     <>

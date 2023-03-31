@@ -7,16 +7,12 @@ import {
   IoNotifications,
   IoNotificationsOutline,
 } from 'react-icons/io5'
-import { useUnreadMessageRoomsQuery } from '../../../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { urls } from '../../../../../utils/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
 
-type Props = {}
-
-// PE 1/3 -  rename to navbar right icons?
-const SavedAndNotificationIcons = (props: Props) => {
+const NavbarRightIcons = () => {
   const { data: notifications } = useNotificationsQuery()
 
   const unseenNotifications = useMemo(
@@ -33,13 +29,13 @@ const SavedAndNotificationIcons = (props: Props) => {
     return router.pathname.startsWith('/notifications')
   }, [router.pathname])
 
-  const isMessagesPage = useMemo(() => {
-    return router.pathname.startsWith('/messages')
-  }, [router.pathname])
+  // const isMessagesPage = useMemo(() => {
+  //   return router.pathname.startsWith('/messages')
+  // }, [router.pathname])
 
   const { isMobile } = useMyMediaQuery()
 
-  const { data: unreadMessageRooms } = useUnreadMessageRoomsQuery()
+  // const { data: unreadMessageRooms } = useUnreadMessageRoomsQuery()
 
   return (
     <>
@@ -115,4 +111,4 @@ const SavedAndNotificationIcons = (props: Props) => {
   )
 }
 
-export default SavedAndNotificationIcons
+export default NavbarRightIcons
