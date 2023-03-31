@@ -10,7 +10,16 @@ const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
 export const urls = {
   pages: {
     index: '/',
-    syncroItem: (id: string) => `/item?syncroItemId=${id}`,
+    syncroItem: (
+      syncroItemId: string,
+      extraParams?: {
+        ratingDetailsId?: string
+      }
+    ) =>
+      `/item?${queryString.stringify({
+        syncroItemId,
+        ...extraParams,
+      })}`,
     user: (userId: string) => `/user/${userId}`,
     search: (params: SearchParams) => {
       const query = queryString.stringify(params)
@@ -146,5 +155,10 @@ export const urls = {
 
   others: {
     imdbItem: (id: string) => `https://www.imdb.com${id}`,
+    twitterIntent: (url: string, text: string) =>
+      `https://twitter.com/intent/tweet?${queryString.stringify({
+        url,
+        text,
+      })}`,
   },
 }

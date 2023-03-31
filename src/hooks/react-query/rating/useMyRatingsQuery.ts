@@ -11,6 +11,7 @@ export const useMyRatingsQuery = () => {
   })
 }
 
+// PE 1/3 - remove; use useMyRatingQueryUtils instead
 export const useMyRatingQU = (itemId?: string | null) => {
   const { authUser } = useAuthStore()
   const { data } = useQuery<RatingDto[], Error>([urls.api.myRatings], {

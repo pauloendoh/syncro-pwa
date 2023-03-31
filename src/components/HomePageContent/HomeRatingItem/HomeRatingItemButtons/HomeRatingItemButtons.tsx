@@ -7,6 +7,7 @@ import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/us
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
+import HomeRatingMoreMenu from './HomeRatingMoreMenu/HomeRatingMoreMenu'
 import PressableMyRating from './PressableMyRating/PressableMyRating'
 
 interface Props {
@@ -48,35 +49,38 @@ const HomeRatingItemButtons = (props: Props) => {
 
   if (!authUser) return null
   return (
-    <FlexVCenter mt={2}>
-      <PressableMyRating itemId={props.syncroItemId!} />
-
-      <Tooltip label={bookmarkTooltipLabel} withArrow>
-        <FlexVCenter
-          sx={(theme) => ({
-            color: myInterest
-              ? theme.colors.secondary[9]
-              : theme.colors.dark[0],
-            cursor: 'pointer',
-          })}
-          onClick={() => {
-            if (props.syncroItemId) {
-              submitToggleSave(props.syncroItemId)
-            }
-          }}
-        >
-          <FlexVCenter gap={4}>
-            {myInterest ? (
-              <MdBookmark size={24} />
-            ) : (
-              <MdBookmarkBorder
-                color={myInterest ? theme.colors.secondary[9] : undefined}
-                size={24}
-              />
-            )}
+    <FlexVCenter mt={2} justify="space-between">
+      <FlexVCenter>
+        <PressableMyRating itemId={props.syncroItemId!} />
+        <Tooltip label={bookmarkTooltipLabel} withArrow>
+          <FlexVCenter
+            sx={(theme) => ({
+              color: myInterest
+                ? theme.colors.secondary[9]
+                : theme.colors.dark[0],
+              cursor: 'pointer',
+            })}
+            onClick={() => {
+              if (props.syncroItemId) {
+                submitToggleSave(props.syncroItemId)
+              }
+            }}
+          >
+            <FlexVCenter gap={4}>
+              {myInterest ? (
+                <MdBookmark size={24} />
+              ) : (
+                <MdBookmarkBorder
+                  color={myInterest ? theme.colors.secondary[9] : undefined}
+                  size={24}
+                />
+              )}
+            </FlexVCenter>
           </FlexVCenter>
-        </FlexVCenter>
-      </Tooltip>
+        </Tooltip>
+      </FlexVCenter>
+
+      <HomeRatingMoreMenu itemId={props.syncroItemId} />
     </FlexVCenter>
   )
 }

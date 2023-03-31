@@ -9,6 +9,7 @@ import RecommendItemActionSheet from './RecommendItemActionSheet/RecommendItemAc
 import RecommendItemsToUserModal from './RecommendItemsToUserModal/RecommendItemsToUserModal'
 import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
 import SaveRatingModal from './SaveRatingModal/SaveRatingModal'
+import ShareRatingModal from './ShareRatingModal/ShareRatingModal'
 
 type Props = {}
 
@@ -31,6 +32,7 @@ const GlobalModals = (props: Props) => {
       <FollowersModal />
       <EditItemModal />
       <FeedbackModal />
+      <ShareRatingModal />
     </>
   )
 }

@@ -1,11 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Text,
-  Tooltip,
-  useMantineTheme,
-} from '@mantine/core'
+import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 import { useElementSize, useMediaQuery } from '@mantine/hooks'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -27,6 +20,7 @@ type Props = {
   rating: RatingDto
 }
 
+//
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
@@ -64,13 +58,14 @@ const HomeRatingItem = (props: Props) => {
           />
         </div>
       </MyNextLink>
-      <Flex ml={isSmallScreen ? 20 : 16} justify="space-between">
+      <Flex ml={isSmallScreen ? 20 : 16} justify="space-between" gap={16}>
         <FlexCol
           sx={{
             justifyContent: 'space-between',
+            flexGrow: 1,
           }}
         >
-          <FlexCol>
+          <FlexCol sx={{ flexGrow: 1 }}>
             <Text>
               <MyNextLink
                 href={urls.pages.user(props.rating.userId)}
