@@ -47,11 +47,11 @@ const ShareRatingModal = () => {
   })
 
   const textToShare = useMemo(() => {
-    const text = `Rated ${rating?.ratingValue}/10:\n${item?.title} ${
-      item?.year
-        ? `[${item.year} | ${typeMap.getTypeLabel()}]`
-        : `[${typeMap.getTypeLabel()}]`
-    }\n\n"${rating?.review}"`
+    const text = `Rated a ${typeMap.getTypeLabel()} ${
+      rating?.ratingValue
+    }/10:\n${item?.title} ${item?.year && `[${item.year}]`}\n\n"${
+      rating?.review
+    }"`
 
     const limit = 280 - urlToCopy.length
     if (text.length > limit) {
