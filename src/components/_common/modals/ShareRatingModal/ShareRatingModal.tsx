@@ -47,7 +47,7 @@ const ShareRatingModal = () => {
   })
 
   const textToShare = useMemo(() => {
-    const text = `Rated a ${typeMap.getTypeLabel()} ${
+    const text = `Rated a ${typeMap.getTypeLabelLowerCase()} ${
       rating?.ratingValue
     }/10:\n${item?.title} ${item?.year && `[${item.year}]`}\n\n"${
       rating?.review
