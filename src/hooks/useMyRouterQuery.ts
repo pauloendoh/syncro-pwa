@@ -20,7 +20,7 @@ export const useMyRouterQuery = () => {
     roomId: string
     oauthToken: string
 
-    // dialogs are open
+    // PE 1/3 - use QueryParams
     recommendItemIsOpen: string
     [recommendItemsToUser]: string
     [ratingDetailsId]: string

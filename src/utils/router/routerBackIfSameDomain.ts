@@ -3,7 +3,6 @@ import Router from 'next/router'
 export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
   const previousUrl = document.referrer
 
-  debugger
   if (previousUrl) {
     const previousDomain = new URL(previousUrl).origin
     const currentDomain = new URL(window.location.href).origin

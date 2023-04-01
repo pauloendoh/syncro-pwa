@@ -151,6 +151,9 @@ export const urls = {
     readAllMessages: (roomId: string) =>
       API_URL + `/read-all-messages?roomId=${roomId}`,
     feedback: API_URL + `/feedback`,
+
+    webPushTest: API_URL + `/web-push`,
+    webPushSubscribe: API_URL + `/web-push/subscribe`,
   },
 
   others: {

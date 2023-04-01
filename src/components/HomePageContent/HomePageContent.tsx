@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Text, useMantineTheme } from '@mantine/core'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
@@ -18,6 +18,9 @@ const HomePageContent = () => {
 
   const { isSmallScreen, isMobile: isXsScreen } = useMyMediaQuery()
   const theme = useMantineTheme()
+
+  useEffect(() => {}, [])
+
   return (
     <LoggedLayout>
       {isXsScreen && (
