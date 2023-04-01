@@ -1,7 +1,7 @@
 import { ScrollArea, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useMemo } from 'react'
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
+import { DropResult } from 'react-beautiful-dnd'
 import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import {
@@ -13,7 +13,7 @@ import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
-import PlannedItem from './PlannedItem/PlannedItem'
+import DragDropPlannedItems from './DragDropPlannedItems/DragDropPlannedItems'
 import PlannedItemButton from './PlannedItemButton/PlannedItemButton'
 
 type Props = {}
@@ -87,27 +87,7 @@ const PlannedItemsHomeSection = (props: Props) => {
           <ScrollArea
             sx={{ paddingRight: 16, paddingLeft: 8, paddingBottom: 8 }}
           >
-            <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId="dnd-list" direction="vertical">
-                {(provided) => (
-                  <FlexCol
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    sx={{
-                      maxHeight: `calc(100vh - 300px)`,
-                    }}
-                  >
-                    {sortedPlanned.map((planned, index) => (
-                      <PlannedItem
-                        key={planned.syncroItem?.id}
-                        planned={planned}
-                        index={index}
-                      />
-                    ))}
-                  </FlexCol>
-                )}
-              </Droppable>
-            </DragDropContext>
+            <DragDropPlannedItems itemType={selectedType} />
           </ScrollArea>
         </FlexCol>
       </MyPaper>

@@ -1,4 +1,4 @@
-import { Container, Select } from '@mantine/core'
+import { Container, Flex, Select } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
@@ -9,15 +9,13 @@ import {
   syncroItemTypes,
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../utils/urls'
-import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import SavedItemsByType from './SavedItemsByType/SavedItemsByType'
 
-type Props = {}
-
-const SavedItemsPage = (props: Props) => {
-  const { data: savedItems, refetch, isLoading } = useSavedItemsQuery()
+//  PE 1/3 - rename
+const SavedItemsPage = () => {
+  const { data: savedItems } = useSavedItemsQuery()
 
   const { type } = useMyRouterQuery()
 
@@ -64,11 +62,11 @@ const SavedItemsPage = (props: Props) => {
             }}
           />
         </FlexVCenter>
-        <FlexCol gap={32} mt={24}>
+        <Flex gap={32} mt={24}>
           {groupedSavedItems.map((group) => (
             <SavedItemsByType itemType={group.type} savedItems={group.items} />
           ))}
-        </FlexCol>
+        </Flex>
       </Container>
     </LoggedLayout>
   )
