@@ -154,6 +154,8 @@ export const urls = {
 
     webPushTest: API_URL + `/web-push`,
     webPushSubscribe: API_URL + `/web-push/subscribe`,
+
+    settings: API_URL + `/settings`,
   },
 
   others: {
