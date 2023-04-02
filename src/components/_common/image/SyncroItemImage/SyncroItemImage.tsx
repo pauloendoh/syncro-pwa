@@ -3,6 +3,7 @@ import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDt
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 import SyncroItemIcon from '../../../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
+import MyNextImage300 from '../MyNextImage300/MyNextImage300'
 
 type Props = {
   item?: SyncroItemDto
@@ -15,7 +16,7 @@ const SyncroItemImage = (props: Props) => {
   const theme = useMantineTheme()
   return (
     <Box pos="relative">
-      <img
+      <MyNextImage300
         width={props.width || 100}
         height={props.height || 100}
         src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
