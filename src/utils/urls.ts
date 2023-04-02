@@ -33,6 +33,8 @@ export const urls = {
     notifications: '/notifications',
     editProfile: '/edit-profile',
     messageRoom: (roomId: string) => `/messages/${roomId}`,
+
+    settings: '/settings',
   },
   api: {
     register: (pushToken: string | null) =>
