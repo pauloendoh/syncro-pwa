@@ -8,12 +8,12 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
 import { useState } from 'react'
 import { MdStarRate } from 'react-icons/md'
 import LinesEllipsis from 'react-lines-ellipsis'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { shortNumberFormatter } from '../../utils/math/shortNumberFormatter'
@@ -42,7 +42,7 @@ const SyncroItemPage = () => {
     itemType: item?.type,
   })
 
-  const isSmallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
+  const { isMobile } = useMyMediaQuery()
 
   // PE 1/3 - componentize and move to separate file
   const [canToggleExpand, setCanToggleExpand] = useState(false)
@@ -90,12 +90,12 @@ const SyncroItemPage = () => {
               <Flex mt={16} gap={16}>
                 <SyncroItemImage
                   item={item}
-                  width={isSmallScreen ? 100 : 160}
-                  height={isSmallScreen ? 100 : 160}
+                  width={isMobile ? 100 : 160}
+                  height={isMobile ? 100 : 160}
                 />
 
                 <FlexCol gap={8}>
-                  <Flex gap={isSmallScreen ? 24 : 40}>
+                  <Flex gap={isMobile ? 24 : 40}>
                     <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
                       <MdStarRate color={theme.colors.yellow[5]} size={16} />
                       {item?.avgRating ? (
@@ -110,7 +110,7 @@ const SyncroItemPage = () => {
 
                     <Text>
                       {shortNumberFormatter(item?.ratingCount)} votes{' '}
-                      {!isSmallScreen && `on ${itemTypeMap.site}`}
+                      {!isMobile && `on ${itemTypeMap.site}`}
                     </Text>
                   </Flex>
 
