@@ -39,14 +39,14 @@ const MangaPanelsSection = (props: Props) => {
 
   const handleClose = () => {
     setIndex(null)
-    delete router.query[queryParam]
+    router.query[queryParam] = undefined
     router.push(router, undefined, { scroll: false })
   }
 
   // PE 1/3 - its confusing lmao
   const queryValueRef = useRef(router?.query[queryParam])
   useEffect(() => {
-    if (queryValueRef.current && !router?.query[queryParam]) {
+    if (!router?.query[queryParam]) {
       setIndex(null)
       return
     }
