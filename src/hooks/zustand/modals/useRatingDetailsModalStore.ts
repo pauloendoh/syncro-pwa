@@ -6,12 +6,16 @@ import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/r
 export const ratingDetailsId = 'ratingDetailsId'
 
 interface IStore {
+  isOpen: () => boolean
   initialValue: RatingDto | null
   openModal: (ratingDto: RatingDto) => void
   closeModal: () => void
 }
 
 const useRatingDetailsModalStore = create<IStore>((set, get) => ({
+  isOpen: () => {
+    return !!Router.query[ratingDetailsId]
+  },
   initialValue: null,
   openModal: (initialValue) => {
     set({ initialValue })

@@ -1,11 +1,16 @@
 import { Flex, Paper, Select, Text, useMantineTheme } from '@mantine/core'
-import { useDebouncedValue, useElementSize } from '@mantine/hooks'
+import {
+  useClickOutside,
+  useDebouncedValue,
+  useElementSize,
+} from '@mantine/hooks'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
+import { SearchType } from '../../../../../types/domain/search/SearchParams'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../../utils/urls'
 import { useAxios } from '../../../../../utils/useAxios'
@@ -54,27 +59,37 @@ const SearchBar = (props: Props) => {
   const { ref, width } = useElementSize()
 
   const axios = useAxios()
-  useEffect(() => {
-    if (q === debouncedInput && type === selectedType) {
-      setPreviewedItems([])
-      return
-    }
-    if (debouncedInput.length > 0) {
-      axios
-        .get<SyncroItemDto[]>(
-          urls.api.searchAutocomplete({
-            q: debouncedInput,
-            type: selectedType,
-          })
-        )
-        .then((res) => {
-          setPreviewedItems(res.data)
-        })
-      return
-    }
 
-    setPreviewedItems([])
+  const handlePreviewItems = useCallback(
+    (input: string, selectedType: SearchType) => {
+      if (q === debouncedInput && type === selectedType) {
+        setPreviewedItems([])
+        return
+      }
+      if (input.length > 0) {
+        axios
+          .get<SyncroItemDto[]>(
+            urls.api.searchAutocomplete({
+              q: debouncedInput,
+              type: selectedType,
+            })
+          )
+          .then((res) => {
+            setPreviewedItems(res.data)
+          })
+        return
+      }
+
+      setPreviewedItems([])
+    },
+    [debouncedInput, selectedType]
+  )
+
+  useEffect(() => {
+    handlePreviewItems(debouncedInput, selectedType)
   }, [debouncedInput, selectedType])
+
+  const clickOutsideRef = useClickOutside(() => setPreviewedItems([]))
 
   return (
     <form
@@ -121,7 +136,14 @@ const SearchBar = (props: Props) => {
         }}
       />
       <MyTextInput
-        rightSection={<MdSearch />}
+        rightSection={
+          <MdSearch
+            onClick={() => {
+              handleSubmit()
+              inputRef.current?.blur()
+            }}
+          />
+        }
         placeholder={'Search Syncro'}
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
@@ -143,6 +165,9 @@ const SearchBar = (props: Props) => {
           },
         }}
         ref={inputRef}
+        onFocus={() => {
+          handlePreviewItems(input, selectedType)
+        }}
       />
 
       <button
@@ -153,6 +178,7 @@ const SearchBar = (props: Props) => {
 
       {previewedItems.length > 0 && (
         <Paper
+          ref={clickOutsideRef}
           sx={{
             position: 'absolute',
             top: '100%',
@@ -199,7 +225,13 @@ const SearchBar = (props: Props) => {
               >
                 <SyncroItemImage item={item} height={80} width={80} />
                 <FlexCol>
-                  <Text>{item.title}</Text>
+                  <Text
+                    sx={{
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {item.title}
+                  </Text>
                   {item.year ?? <Text>{item.year}</Text>}
                 </FlexCol>
               </Flex>

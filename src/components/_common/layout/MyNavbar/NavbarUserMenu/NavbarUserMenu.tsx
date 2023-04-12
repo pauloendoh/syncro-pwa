@@ -1,4 +1,8 @@
 import { Menu } from '@mantine/core'
+import { AiOutlineUser } from 'react-icons/ai'
+import { IoBookmarksOutline } from 'react-icons/io5'
+import { MdLogout, MdOutlineFeedback, MdSettings } from 'react-icons/md'
+import { SiDiscord } from 'react-icons/si'
 import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
 import { buildUserFeedbackDto } from '../../../../../hooks/react-query/feedback/types/UserFeedbackDto'
 import { useMyFeedbackQuery } from '../../../../../hooks/react-query/feedback/useMyFeedbackQuery'
@@ -27,7 +31,6 @@ const NavbarUserMenu = (props: Props) => {
   return (
     <Menu
       shadow="md"
-      width={160}
       styles={(theme) => ({
         item: {
           fontSize: 14,
@@ -56,14 +59,14 @@ const NavbarUserMenu = (props: Props) => {
             textDecoration: 'none',
           }}
         >
-          <Menu.Item>Profile</Menu.Item>
+          <Menu.Item icon={<AiOutlineUser />}>Profile</Menu.Item>
         </MyNextLink>
         <MyNextLink href={urls.pages.savedItems('all')}>
-          <Menu.Item>Planned items</Menu.Item>
+          <Menu.Item icon={<IoBookmarksOutline />}>Planned items</Menu.Item>
         </MyNextLink>
 
         <MyNextLink href={urls.pages.settings}>
-          <Menu.Item>Settings</Menu.Item>
+          <Menu.Item icon={<MdSettings />}>Settings</Menu.Item>
         </MyNextLink>
 
         <Menu.Divider />
@@ -72,8 +75,9 @@ const NavbarUserMenu = (props: Props) => {
           onClick={() => {
             openFeedbackModal(myFeedback || buildUserFeedbackDto())
           }}
+          icon={<MdOutlineFeedback />}
         >
-          Leave a feedback!
+          Leave a feedback
         </Menu.Item>
 
         <a
@@ -83,12 +87,20 @@ const NavbarUserMenu = (props: Props) => {
             textDecoration: 'none',
           }}
         >
-          <Menu.Item>Join our Discord!</Menu.Item>
+          <Menu.Item icon={<SiDiscord />}>Join our Discord</Menu.Item>
         </a>
 
         <Menu.Divider />
 
-        <Menu.Item onClick={logout}>Logout</Menu.Item>
+        <Menu.Item
+          onClick={logout}
+          sx={(theme) => ({
+            color: theme.colors.red[5],
+          })}
+          icon={<MdLogout />}
+        >
+          Logout
+        </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   )

@@ -13,6 +13,10 @@ export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
     }
   }
 
-  delete Router.query[queryParam]
-  Router.push(Router, undefined, { scroll: false })
+  // 20230411 - testing Router.back for every scenario
+  Router.back()
+
+  // console.log(Router.route)
+  // delete Router.query[queryParam]
+  // Router.push(Router, undefined, { scroll: false })
 }

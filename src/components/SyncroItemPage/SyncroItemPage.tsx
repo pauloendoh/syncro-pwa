@@ -157,10 +157,11 @@ const SyncroItemPage = () => {
                     />
                   )}
                   {canToggleExpand && (
-                    <Text
-                      sx={{
+                    <Box
+                      style={{
                         cursor: 'pointer',
                         fontWeight: 'bold',
+                        width: 'fit-content',
                         marginTop: 8,
                       }}
                       onClick={() => {
@@ -178,7 +179,7 @@ const SyncroItemPage = () => {
                       {seeMore === null && 'Show more'}
                       {seeMore === true && 'Show more '}
                       {seeMore === false && 'Show less '}
-                    </Text>
+                    </Box>
                   )}
                 </Box>
               </FlexCol>

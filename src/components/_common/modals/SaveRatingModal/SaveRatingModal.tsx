@@ -14,14 +14,21 @@ import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
+import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import { zIndexes } from '../../../../utils/zIndexes'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
 
+// PE 1/3 - rename to EditRatingModal
 const SaveRatingModal = () => {
   const { initialValue, closeModal } = useSaveRatingModalStore()
+  const {
+    closeModal: closeRatingDetailsModal,
+    isOpen: ratingDetailsModalIsOpen,
+  } = useRatingDetailsModalStore()
   const { saveRatingModal } = useMyRouterQuery()
 
   const { mutate: submitSaveRating, isLoading } = useSaveRatingMutation()
@@ -29,7 +36,7 @@ const SaveRatingModal = () => {
 
   const onSubmit = async (data: RatingDto) => {
     submitSaveRating(data, {
-      onSuccess: closeModal,
+      onSuccess: closeBothModals,
     })
   }
 
@@ -64,6 +71,13 @@ const SaveRatingModal = () => {
     [initialValue?.id, rating]
   )
 
+  const closeBothModals = () => {
+    closeModal()
+    if (ratingDetailsModalIsOpen()) {
+      closeRatingDetailsModal()
+    }
+  }
+
   const { mutate: submitDeleteRating } = useDeleteRatingMutation()
   const { openConfirmDialog } = useConfirmationModalStore()
   const handleDelete = () => {
@@ -73,7 +87,7 @@ const SaveRatingModal = () => {
         description: 'Are you sure you want to delete this rating?',
         onConfirm: () => {
           submitDeleteRating(initialValue.id, {
-            onSuccess: closeModal,
+            onSuccess: closeBothModals,
           })
         },
       })
@@ -93,8 +107,12 @@ const SaveRatingModal = () => {
       }
       withCloseButton={false}
       styles={{
+        overlay: {
+          zIndex: zIndexes.editRatingModal,
+        },
         inner: {
           top: isMobile ? 40 : 80,
+          zIndex: zIndexes.editRatingModal,
         },
       }}
     >

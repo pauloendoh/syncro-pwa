@@ -1,5 +1,6 @@
+import { Box, LoadingOverlay } from '@mantine/core'
 import { useMemo } from 'react'
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd'
 import { useSavedItemsQuery } from '../../../../hooks/react-query/interest/useSavedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -12,7 +13,8 @@ type Props = {
 }
 
 const DragDropPlannedItems = (props: Props) => {
-  const { mutate: submitUpdateSavedPosition } = useUpdateSavedPositionMutation()
+  const { mutate: submitUpdateSavedPosition, isLoading } =
+    useUpdateSavedPositionMutation()
 
   const onDragEnd = (result: DropResult) => {
     const interestId = result.draggableId
@@ -35,27 +37,35 @@ const DragDropPlannedItems = (props: Props) => {
   }, [props.itemType, savedItems])
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="dnd-list" direction="vertical">
-        {(provided) => (
-          <FlexCol
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            sx={{
-              maxHeight: props.maxHeight || `calc(100vh - 300px)`,
-            }}
-          >
-            {sortedPlanned.map((planned, index) => (
-              <PlannedItem
-                key={planned.syncroItem?.id}
-                planned={planned}
-                index={index}
-              />
-            ))}
-          </FlexCol>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <Box
+      sx={{
+        position: 'relative',
+      }}
+    >
+      <LoadingOverlay visible={isLoading} overlayBlur={1} />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="dnd-list" direction="vertical">
+          {(provided) => (
+            <FlexCol
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              sx={{
+                maxHeight: props.maxHeight || `calc(100vh - 300px)`,
+                positon: 'relative',
+              }}
+            >
+              {sortedPlanned.map((planned, index) => (
+                <PlannedItem
+                  key={planned.syncroItem?.id}
+                  planned={planned}
+                  index={index}
+                />
+              ))}
+            </FlexCol>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </Box>
   )
 }
 

@@ -97,6 +97,8 @@ const EditProfilePage = (props: Props) => {
                     onChange={(e) => onChange(e.target.value)}
                     value={value}
                     label="Bio"
+                    autosize
+                    minRows={3}
                   />
                 )}
                 name="bio"
