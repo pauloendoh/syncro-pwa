@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDidNotFindMutation from '../../../hooks/react-query/did-not-find/useDidNotFindMutation'
 import { useOverallSearchQuery } from '../../../hooks/react-query/search/useOverallSearchQuery'
-import { IImdbResultItem } from '../../../types/domain/movie/MovieResultResponseDto'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import textContainsWords from '../../../utils/text/textContainsWords'
@@ -14,7 +13,6 @@ import { useAxios } from '../../../utils/useAxios'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
-import ImdbSearchItem from './ImdbSearchItem/ImdbSearchItem'
 import SyncroSearchItem from './SyncroSearchItem/SyncroSearchItem'
 
 type Props = {
@@ -44,24 +42,8 @@ const ItemSearchResults = (props: Props) => {
     return `No ${typeMap.getTypeLabelLowerCase(true)} found :(`
   }, [props.type])
 
-  const imdbItems = useMemo(() => {
-    if (props.type !== 'movie' && props.type !== 'tvSeries') return []
-
-    if (!searchResultItems) return []
-    const items = [...searchResultItems] as IImdbResultItem[]
-    return items
-  }, [searchResultItems, props.type])
-
   const otherSyncroItems = useMemo(() => {
-    if (
-      props.type !== 'game' &&
-      props.type !== 'manga' &&
-      props.type !== 'book'
-    )
-      return []
-
-    if (!searchResultItems) return []
-
+    if (!searchResultItems) return null
     const result = [...searchResultItems] as SyncroItemDto[]
     return result.sort(
       // order the results that contain title first
@@ -160,10 +142,6 @@ const ItemSearchResults = (props: Props) => {
           </Center>
         )}
         {noResults && <Text>{notFoundMessage}</Text>}
-
-        {imdbItems?.map((imdbItem) => (
-          <ImdbSearchItem resultItem={imdbItem} key={imdbItem.id} />
-        ))}
 
         {otherSyncroItems?.map((syncroItem) => (
           <SyncroSearchItem item={syncroItem} key={syncroItem.id} />

@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { IImdbResultItem } from '../../../types/domain/movie/MovieResultResponseDto'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
@@ -13,7 +12,7 @@ export const useOverallSearchQuery = (
     refetchOnWindowFocus?: boolean
   }
 ) => {
-  return useQuery<IImdbResultItem[] | SyncroItemDto[], AxiosError>(
+  return useQuery<SyncroItemDto[], AxiosError>(
     [urls.api.search({ q: query, type })],
     {
       retry: false,
