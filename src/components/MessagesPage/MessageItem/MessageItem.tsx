@@ -43,6 +43,12 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
   const { mutate: submitReadAllMessages } = useReadAllMessagesMutation()
 
   useEffect(() => {
+    // console.log({
+    //   isMyMessage,
+    //   isLast,
+    //   isRead: message.isRead,
+    //   isIntersecting: entry?.isIntersecting,
+    // })
     if (isMyMessage) return
     if (!entry?.isIntersecting) return
     if (!isLast) return

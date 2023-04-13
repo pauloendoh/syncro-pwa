@@ -3,9 +3,9 @@ import { urls } from '../../../utils/urls'
 import useAuthStore from '../../zustand/useAuthStore'
 import { MessageRoomDto } from './types/MessageRoomDto'
 
-export const useUnreadMessageRoomsQuery = () => {
+export const useLastRoomsWithMessagesQuery = () => {
   const { authUser } = useAuthStore()
-  return useQuery<MessageRoomDto[]>([urls.api.unreadMessagesRooms], {
+  return useQuery<MessageRoomDto[]>([urls.api.lastRoomsWithMessages], {
     enabled: !!authUser,
   })
 }

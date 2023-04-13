@@ -7,6 +7,8 @@ import {
   IoNotifications,
   IoNotificationsOutline,
 } from 'react-icons/io5'
+import { MdMail, MdMailOutline } from 'react-icons/md'
+import { useUnreadMessageRoomsQuery } from '../../../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { urls } from '../../../../../utils/urls'
@@ -29,13 +31,13 @@ const NavbarRightIcons = () => {
     return router.pathname.startsWith('/notifications')
   }, [router.pathname])
 
-  // const isMessagesPage = useMemo(() => {
-  //   return router.pathname.startsWith('/messages')
-  // }, [router.pathname])
+  const isMessagesPage = useMemo(() => {
+    return router.pathname.startsWith('/messages')
+  }, [router.pathname])
 
   const { isMobile } = useMyMediaQuery()
 
-  // const { data: unreadMessageRooms } = useUnreadMessageRoomsQuery()
+  const { data: unreadMessageRooms } = useUnreadMessageRoomsQuery()
 
   return (
     <>
@@ -55,7 +57,7 @@ const NavbarRightIcons = () => {
         </Tooltip>
       )}
 
-      {/* <Tooltip
+      <Tooltip
         label={
           unreadMessageRooms && unreadMessageRooms.length > 0
             ? 'Messages'
@@ -83,7 +85,7 @@ const NavbarRightIcons = () => {
             </ActionIcon>
           </MyNextLink>
         </Indicator>
-      </Tooltip> */}
+      </Tooltip>
 
       <Tooltip label="Notifications" withArrow>
         <Indicator

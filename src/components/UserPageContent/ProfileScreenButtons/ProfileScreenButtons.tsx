@@ -1,6 +1,7 @@
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import FollowUnfollowButton from './FollowUnfollowButton/FollowUnfollowButton'
+import MessageButton from './MessageButton/MessageButton'
 import RecommendUserButton from './RecommendUserButton/RecommendUserButton'
 
 interface Props {
@@ -15,7 +16,7 @@ const ProfileScreenButtons = (props: Props) => {
     <FlexVCenter gap={16}>
       <FollowUnfollowButton profileUserId={props.userId} />
       <RecommendUserButton userId={props.userId} />
-      {/* <MessageButton userId={props.userId} /> */}
+      <MessageButton userId={props.userId} />
     </FlexVCenter>
   )
 }
