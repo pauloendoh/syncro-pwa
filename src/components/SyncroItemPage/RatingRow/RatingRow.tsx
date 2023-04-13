@@ -1,5 +1,4 @@
 import { ScrollArea, useMantineTheme } from '@mantine/core'
-import { useRouter } from 'next/router'
 import { IoMdShareAlt } from 'react-icons/io'
 import {
   MdBookmark,
@@ -18,7 +17,6 @@ import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRating
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../types/domain/rating/RatingDto'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
-import { urls } from '../../../utils/urls'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import RatingRowButton from './RatingRowButton/RatingRowButton'
 
@@ -69,7 +67,12 @@ const RatingRow = ({ syncroItem }: Props) => {
       return
     }
 
-    window.open(urls.others.imdbItem(syncroItem.id), '_blank')
+    if (!syncroItem.imdbUrl) {
+      alert('No external link available')
+      return
+    }
+
+    window.open(syncroItem.imdbUrl, '_blank')
   }
 
   const openRecommendItemModal = useRecommendItemActionSheetStore(

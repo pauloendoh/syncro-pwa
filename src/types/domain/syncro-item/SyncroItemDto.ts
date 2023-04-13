@@ -12,6 +12,7 @@ export interface SyncroItemDto {
   ratingCount: number
   plotSummary: string
 
+  imdbUrl: string | null
   igdbUrl: string | null
   mangaMalUrl: string | null
   openLibraryUrl: string | null
@@ -31,6 +32,7 @@ export const buildSyncroItemDto = (
   imageUrl: '',
   year: 0,
 
+  imdbUrl: null,
   igdbUrl: null,
   mangaMalUrl: null,
   openLibraryUrl: null,
