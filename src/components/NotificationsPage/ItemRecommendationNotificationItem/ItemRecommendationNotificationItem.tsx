@@ -3,10 +3,10 @@ import { format } from 'timeago.js'
 import { ItemRecommendationDto } from '../../../hooks/react-query/notification/types/ItemRecommendationDto'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../utils/urls'
+import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyNextLink from '../../_common/overrides/MyNextLink'
-import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 
 interface Props {
   itemRecommendation: ItemRecommendationDto
@@ -43,36 +43,46 @@ const ItemRecommendationNotificationItem = ({
 
         <FlexCol ml={16} pr={40}>
           <span>
-            <b>{itemRecommendation.fromUser?.username}</b> recommended you:
-          </span>
-          <MyNextLink
-            href={urls.pages.syncroItem(itemRecommendation.item?.id!)}
-          >
-            <span style={{ fontWeight: '500' }}>
-              {itemRecommendation.item?.title}{' '}
-              {itemRecommendation.item?.year &&
-                `[${itemRecommendation.item?.year}]`}
-              <span
+            <span>
+              <MyNextLink
+                href={urls.pages.user(itemRecommendation.fromUserId)}
                 style={{
-                  display: 'inline-flex',
+                  fontWeight: 500,
                 }}
               >
-                &nbsp;
-                {props.showDot && (
-                  <div>
-                    <div
-                      style={{
-                        backgroundColor: theme.colors.primary[9],
-                        width: 8,
-                        height: 8,
-                        borderRadius: 8,
-                      }}
-                    />
-                  </div>
-                )}
-              </span>
+                {itemRecommendation.fromUser?.username}
+              </MyNextLink>
+              &nbsp;recommended you:&nbsp;
             </span>
-          </MyNextLink>
+            <MyNextLink
+              href={urls.pages.syncroItem(itemRecommendation.item?.id!)}
+            >
+              <span style={{ fontWeight: '500' }}>
+                {itemRecommendation.item?.title}{' '}
+                {itemRecommendation.item?.year &&
+                  `[${itemRecommendation.item?.year}]`}
+                <span
+                  style={{
+                    display: 'inline-flex',
+                  }}
+                >
+                  &nbsp;
+                  {props.showDot && (
+                    <div>
+                      <div
+                        style={{
+                          backgroundColor: theme.colors.primary[9],
+                          width: 8,
+                          height: 8,
+                          borderRadius: 8,
+                        }}
+                      />
+                    </div>
+                  )}
+                </span>
+              </span>
+            </MyNextLink>
+          </span>
 
           <Text size="sm">{format(itemRecommendation.createdAt)}</Text>
         </FlexCol>

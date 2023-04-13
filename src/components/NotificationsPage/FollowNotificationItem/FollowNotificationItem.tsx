@@ -5,9 +5,9 @@ import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { FollowDto } from '../../../types/domain/follow/FollowDto'
 import { urls } from '../../../utils/urls'
 import FollowUnfollowButton from '../../UserPageContent/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
+import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyNextLink from '../../_common/overrides/MyNextLink'
-import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 
 interface Props {
   follow: FollowDto
@@ -37,8 +37,9 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
 
           <FlexCol ml={16}>
             <Text
+              component="span"
               sx={{
-                display: 'inline-flex',
+                display: 'inline',
               }}
             >
               <MyNextLink
@@ -47,10 +48,12 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
                   color: 'inherit',
                 }}
               >
-                <Text weight={500}>{follow.follower?.username} </Text>
+                <Text component="span" weight={500}>
+                  {follow.follower?.username}{' '}
+                </Text>
               </MyNextLink>
 
-              <Text>&nbsp;is following you.</Text>
+              <Text component="span">&nbsp;is following you.</Text>
 
               {props.showDot && (
                 <Box>
