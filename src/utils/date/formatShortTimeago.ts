@@ -8,6 +8,11 @@ export const formatShortTimeago = (date: Date) => {
   const diffInWeeks = Math.floor(diffInDays / 7)
   const diffInMonths = Math.floor(diffInDays / 30)
   const diffInYears = Math.floor(diffInDays / 365)
+
+  if (diffInMinutes < 1) {
+    return 'now'
+  }
+
   if (diffInMinutes < 60) {
     return `${diffInMinutes}m`
   }
