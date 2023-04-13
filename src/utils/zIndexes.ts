@@ -3,4 +3,5 @@ export const zIndexes = {
   loadingPageOverlay: 1001,
   confirmationModal: 1000,
   editRatingModal: 999,
+  notification: 9999,
 }

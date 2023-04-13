@@ -13,6 +13,7 @@ import { Notifications } from '@mantine/notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import useCheckAuthOrLogout from '../hooks/domains/auth/useCheckAuthUserOrLogout'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
@@ -20,7 +21,6 @@ import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
 import { zIndexes } from '../utils/zIndexes'
-import { useRouter } from 'next/router'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -76,7 +76,10 @@ export default function App(props: AppProps) {
             withNormalizeCSS
             theme={{ ...myTheme, colorScheme }}
           >
-            <Notifications position="bottom-center" />
+            <Notifications
+              position="bottom-center"
+              zIndex={zIndexes.notification}
+            />
             <LoadingOverlay
               visible={loading}
               overlayOpacity={1}
