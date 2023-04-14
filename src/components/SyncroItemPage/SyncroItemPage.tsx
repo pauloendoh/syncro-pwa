@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { MdStarRate } from 'react-icons/md'
 import LinesEllipsis from 'react-lines-ellipsis'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useItemReviewQuery } from '../../hooks/react-query/review/useItemReviewQuery'
 import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
@@ -26,6 +27,7 @@ import MyPaper from '../_common/overrides/MyPaper'
 import GenreChips from './GenreChips/GenreChips'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
+import ItemReviewsSection from './ItemReviewsSection/ItemReviewsSection'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
@@ -69,6 +71,8 @@ const SyncroItemPage = () => {
   }
 
   const { authUser } = useAuthStore()
+
+  const { data: reviews } = useItemReviewQuery(syncroItemId!)
 
   return (
     <LoggedLayout>
@@ -204,7 +208,16 @@ const SyncroItemPage = () => {
           </Box>
         )}
 
-        <Box mt={32}>{item && <UsersAlsoLikedSection itemId={item.id!} />}</Box>
+        {item && (
+          <Box mt={32}>
+            <UsersAlsoLikedSection itemId={item.id!} />
+          </Box>
+        )}
+        {reviews && (
+          <Box mt={32}>
+            <ItemReviewsSection reviews={reviews} />
+          </Box>
+        )}
       </Container>
     </LoggedLayout>
   )

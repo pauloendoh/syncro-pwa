@@ -1,11 +1,15 @@
+import { urls } from '../../../../../utils/urls'
+import MyNextLink from '../../../overrides/MyNextLink'
+
 type Props = {
   username?: string
   pictureUrl?: string
   widthHeight?: number
+  userIdAndLink?: string
 }
 
 const UserImage = (props: Props) => {
-  return (
+  const image = (
     <img
       alt={props.username || 'username'}
       src={props.pictureUrl || '/images/avatars/avatar.png'}
@@ -17,6 +21,15 @@ const UserImage = (props: Props) => {
       }}
     />
   )
+
+  if (props.userIdAndLink)
+    return (
+      <MyNextLink href={urls.pages.user(props.userIdAndLink)}>
+        {image}
+      </MyNextLink>
+    )
+
+  return image
 }
 
 export default UserImage

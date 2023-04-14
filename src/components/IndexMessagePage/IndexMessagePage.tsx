@@ -15,9 +15,10 @@ const IndexMessagePage = (props: Props) => {
       router.push(urls.pages.messageRoom(rooms[0].id))
     }
   }, [rooms])
+
   return (
     <LoggedLayout disableMarginBottom>
-      {isLoading
+      {isLoading || (rooms && rooms.length > 0)
         ? 'Loading...'
         : 'No messages yet. Search user profile and click on "Message"'}
     </LoggedLayout>

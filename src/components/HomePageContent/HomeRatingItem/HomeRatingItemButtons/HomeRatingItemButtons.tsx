@@ -14,6 +14,7 @@ interface Props {
   syncroItemId: string
   gap?: number
   itemType?: SyncroItemType
+  hideMoreMenu?: boolean
 }
 
 const HomeRatingItemButtons = (props: Props) => {
@@ -79,8 +80,9 @@ const HomeRatingItemButtons = (props: Props) => {
           </FlexVCenter>
         </Tooltip>
       </FlexVCenter>
-
-      <HomeRatingMoreMenu itemId={props.syncroItemId} />
+      {!props.hideMoreMenu && (
+        <HomeRatingMoreMenu itemId={props.syncroItemId} />
+      )}
     </FlexVCenter>
   )
 }

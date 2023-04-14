@@ -159,6 +159,8 @@ export const urls = {
     webPushSubscribe: API_URL + `/web-push/subscribe`,
 
     settings: API_URL + `/settings`,
+
+    reviewsByItemId: (itemId: string) => API_URL + `/reviews?itemId=${itemId}`,
   },
 
   others: {

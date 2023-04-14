@@ -54,7 +54,11 @@ const UsersAlsoLikedSection = (props: Props) => {
                 </FlexCol>
 
                 {authUser && (
-                  <HomeRatingItemButtons syncroItemId={item.id} gap={16} />
+                  <HomeRatingItemButtons
+                    syncroItemId={item.id}
+                    gap={16}
+                    hideMoreMenu
+                  />
                 )}
               </FlexCol>
             </MyPaper>

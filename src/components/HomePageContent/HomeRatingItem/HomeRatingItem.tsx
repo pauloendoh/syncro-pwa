@@ -14,6 +14,7 @@ import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 import { default as MyNextLink } from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
 import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons'
+import HomeRatingItemReview from './HomeRatingItemReview/HomeRatingItemReview'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
 
 type Props = {
@@ -109,33 +110,7 @@ const HomeRatingItem = (props: Props) => {
             </Text>
             <Text size={'xs'}>{format(props.rating.createdAt)}</Text>
 
-            <Text
-              sx={{
-                marginBottom: 16,
-                marginTop: 8,
-                fontSize: 14,
-                fontStyle: 'italic',
-                a: {
-                  textDecoration: 'none',
-                },
-                whiteSpace: 'pre-line',
-              }}
-            >
-              <Text lineClamp={3} ref={reviewRef}>
-                {props.rating.review}
-              </Text>
-              {reviewHeight > 64 && (
-                <Text
-                  sx={{
-                    cursor: 'pointer',
-                    fontWeight: 600,
-                  }}
-                  onClick={() => openModal(props.rating)}
-                >
-                  See more
-                </Text>
-              )}
-            </Text>
+            <HomeRatingItemReview rating={props.rating} />
           </FlexCol>
 
           <HomeRatingItemButtons

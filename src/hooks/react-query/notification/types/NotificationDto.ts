@@ -1,6 +1,6 @@
-import { FollowDto } from "../../../../types/domain/follow/FollowDto"
-import { RatingImportRequestDto } from "../../../../types/domain/rating-import-request/RatingImportRequestDto"
-import { ItemRecommendationDto } from "./ItemRecommendationDto"
+import { FollowDto } from '../../../../types/domain/follow/FollowDto'
+import { RatingImportRequestDto } from '../../../../types/domain/rating-import-request/RatingImportRequestDto'
+import { ItemRecommendationDto } from './ItemRecommendationDto'
 
 export interface NotificationDto {
   id: string

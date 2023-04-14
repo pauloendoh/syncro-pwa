@@ -53,7 +53,7 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
                 </Text>
               </MyNextLink>
 
-              <Text component="span">&nbsp;is following you.</Text>
+              <Text component="span">is following you.</Text>
 
               {props.showDot && (
                 <Box>
