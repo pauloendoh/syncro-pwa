@@ -19,7 +19,6 @@ import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../utils/urls'
-import RatingsTimeline from '../HomePageContent/RatingsTimeline/RatingsTimeline'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
@@ -31,6 +30,7 @@ import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
 import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
 import UserMoreMenu from './UserMoreMenu/UserMoreMenu'
+import UserPageRatingsSection from './UserPageRatingsSection/UserPageRatingsSection'
 
 type Props = {}
 
@@ -162,9 +162,9 @@ const UserPageContent = (props: Props) => {
           )}
         </Flex>
 
-        <FlexCol mt={120}>
-          <RatingsTimeline userId={userId} />
-        </FlexCol>
+        <Box mt={120}>
+          <UserPageRatingsSection userId={userId} />
+        </Box>
       </Container>
     </LoggedLayout>
   )

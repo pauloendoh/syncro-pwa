@@ -1,5 +1,12 @@
-import { Box, Container, Grid, Text, useMantineTheme } from '@mantine/core'
-import { useEffect, useMemo } from 'react'
+import {
+  Box,
+  Container,
+  Grid,
+  Text,
+  Title,
+  useMantineTheme,
+} from '@mantine/core'
+import { useMemo } from 'react'
 import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
@@ -19,7 +26,7 @@ const HomePageContent = () => {
   const { isSmallScreen, isMobile: isXsScreen } = useMyMediaQuery()
   const theme = useMantineTheme()
 
-  useEffect(() => {}, [])
+  const { isMobile } = useMyMediaQuery()
 
   return (
     <LoggedLayout>
@@ -39,6 +46,8 @@ const HomePageContent = () => {
               px={isSmallScreen ? 0 : undefined}
               pt={isSmallScreen ? 24 : undefined}
             >
+              {!isMobile && <Title order={4}>Your feed</Title>}
+
               <RatingsTimeline />
 
               {!isLoading && flatRatings.length === 0 && (
