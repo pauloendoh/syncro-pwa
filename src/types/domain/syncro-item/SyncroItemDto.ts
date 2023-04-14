@@ -11,6 +11,7 @@ export interface SyncroItemDto {
   avgRating: number
   ratingCount: number
   plotSummary: string
+  genres: string[]
 
   imdbUrl: string | null
   igdbUrl: string | null
@@ -31,6 +32,7 @@ export const buildSyncroItemDto = (
   type: 'tvSeries',
   imageUrl: '',
   year: 0,
+  genres: [],
 
   imdbUrl: null,
   igdbUrl: null,

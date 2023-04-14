@@ -57,35 +57,37 @@ const NavbarRightIcons = () => {
         </Tooltip>
       )}
 
-      <Tooltip
-        label={
-          unreadMessageRooms && unreadMessageRooms.length > 0
-            ? 'Messages'
-            : 'No messages'
-        }
-        withArrow
-      >
-        <Indicator
-          disabled={unreadMessageRooms?.length === 0}
-          label={unreadMessageRooms?.length || 0}
-          size={16}
-          color="red"
+      {!isMobile && (
+        <Tooltip
+          label={
+            unreadMessageRooms && unreadMessageRooms.length > 0
+              ? 'Messages'
+              : 'No messages'
+          }
+          withArrow
         >
-          <MyNextLink
-            href={urls.pages.messageRoom(
-              unreadMessageRooms?.length ? unreadMessageRooms[0].id : ''
-            )}
+          <Indicator
+            disabled={unreadMessageRooms?.length === 0}
+            label={unreadMessageRooms?.length || 0}
+            size={16}
+            color="red"
           >
-            <ActionIcon>
-              {isMessagesPage ? (
-                <MdMail size={24} />
-              ) : (
-                <MdMailOutline size={24} />
+            <MyNextLink
+              href={urls.pages.messageRoom(
+                unreadMessageRooms?.length ? unreadMessageRooms[0].id : ''
               )}
-            </ActionIcon>
-          </MyNextLink>
-        </Indicator>
-      </Tooltip>
+            >
+              <ActionIcon>
+                {isMessagesPage ? (
+                  <MdMail size={24} />
+                ) : (
+                  <MdMailOutline size={24} />
+                )}
+              </ActionIcon>
+            </MyNextLink>
+          </Indicator>
+        </Tooltip>
+      )}
 
       <Tooltip label="Notifications" withArrow>
         <Indicator

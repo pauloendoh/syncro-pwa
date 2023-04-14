@@ -16,7 +16,7 @@ const MessagesSidebar = (props: Props) => {
     <FlexCol p={16}>
       <Title order={5}>Messages</Title>
 
-      <FlexCol>
+      <FlexCol mt={8}>
         {rooms?.map((room) => (
           <MessagesSidebarItem
             key={room.id}

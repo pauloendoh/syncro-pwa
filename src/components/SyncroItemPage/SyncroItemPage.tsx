@@ -23,6 +23,7 @@ import FlexVCenter from '../_common/flex/FlexVCenter'
 import SyncroItemImage from '../_common/image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
+import GenreChips from './GenreChips/GenreChips'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
@@ -124,6 +125,8 @@ const SyncroItemPage = () => {
                       {itemTypeMap.getTypeLabel()}
                     </Text>
                   </FlexVCenter>
+
+                  <GenreChips genres={item.genres} />
 
                   <ItemRatedBy itemId={syncroItemId!} />
                   <FlexVCenter></FlexVCenter>
