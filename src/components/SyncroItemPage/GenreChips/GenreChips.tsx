@@ -9,7 +9,12 @@ const GenreChips = (props: Props) => {
   const theme = useMantineTheme()
   if (!props.genres || props.genres.length === 0) return null
   return (
-    <Flex gap={8}>
+    <Flex
+      gap={8}
+      sx={{
+        flexWrap: 'wrap',
+      }}
+    >
       {props.genres.map((genre, index) => (
         <Flex
           key={index}
@@ -17,7 +22,6 @@ const GenreChips = (props: Props) => {
             borderRadius: 4,
             padding: '4px 16px',
 
-            marginBottom: 8,
             backgroundColor: theme.colors.dark[8],
           }}
         >
