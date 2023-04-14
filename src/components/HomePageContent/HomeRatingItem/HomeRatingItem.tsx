@@ -78,7 +78,6 @@ const HomeRatingItem = (props: Props) => {
                   {props.rating.user?.username}
                 </Text>{' '}
               </MyNextLink>
-              {!!props.rating.review && 'reviewed and '}
               rated{' '}
               <b
                 style={{

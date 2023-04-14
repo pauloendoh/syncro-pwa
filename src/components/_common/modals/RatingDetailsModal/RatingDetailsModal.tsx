@@ -74,7 +74,6 @@ const RatingDetailsModal = () => {
                       {userInfo?.username}
                     </Text>{' '}
                   </MyNextLink>
-                  {!!rating.review && 'reviewed and '}
                   rated{' '}
                   <b
                     style={{
