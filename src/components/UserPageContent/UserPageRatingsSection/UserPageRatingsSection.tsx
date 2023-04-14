@@ -15,7 +15,7 @@ type Props = {
   userId: string
 }
 
-type FeedView = 'card' | 'list'
+type FeedView = 'card' | 'grid'
 
 const UserPageRatingsSection = (props: Props) => {
   const { isMobile } = useMyMediaQuery()
@@ -38,7 +38,7 @@ const UserPageRatingsSection = (props: Props) => {
               }}
             >
               {feedView === 'card' && <MdOutlineViewStream size={24} />}
-              {feedView === 'list' && <MdOutlineViewModule size={24} />}
+              {feedView === 'grid' && <MdOutlineViewModule size={24} />}
               <MdOutlineKeyboardArrowDown />
             </FlexVCenter>
           </Menu.Target>
@@ -50,17 +50,17 @@ const UserPageRatingsSection = (props: Props) => {
               Card
             </Menu.Item>
             <Menu.Item
-              onClick={() => setFeedView('list')}
+              onClick={() => setFeedView('grid')}
               icon={<MdOutlineViewModule size={24} />}
             >
-              List
+              Grid
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
       </FlexVCenter>
 
       {feedView === 'card' && <RatingsTimeline userId={props.userId} />}
-      {feedView === 'list' && <UserRatingsGridView userId={props.userId} />}
+      {feedView === 'grid' && <UserRatingsGridView userId={props.userId} />}
     </FlexCol>
   )
 }

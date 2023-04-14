@@ -50,4 +50,11 @@ export const myTheme: MantineThemeOverride = {
       '#1B1B1B',
     ],
   },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        openDelay: 500,
+      },
+    },
+  },
 }
