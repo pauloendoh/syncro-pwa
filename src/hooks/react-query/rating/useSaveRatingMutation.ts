@@ -2,12 +2,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteFromArray, upsert } from 'endoh-utils/dist/array'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
+import { queryKeys } from '../../../utils/queryKeys'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
+import { useMyRouterQuery } from '../../useMyRouterQuery'
 
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
+  const { userId } = useMyRouterQuery()
 
   const axios = useAxios()
   return useMutation(
@@ -33,6 +36,30 @@ const useSaveRatingMutation = () => {
         queryClient.setQueryData<RatingDto[]>([urls.api.myRatings], (curr) => {
           return upsert(curr, savedRating, (i) => i.id === savedRating.id)
         })
+
+        // update timeline item
+        queryClient.setQueryData<{ pages: RatingDto[][] }>(
+          queryKeys.timelineItems(userId),
+          (curr) => {
+            if (!curr) return curr
+
+            const pages = curr.pages.map((page) => {
+              return page.map((rating) => {
+                if (rating.id === savedRating.id) {
+                  // update only some fields, for the returned object does not include everything
+                  rating.ratingValue = savedRating.ratingValue
+                  rating.review = savedRating.review
+                  return rating
+                }
+                return rating
+              })
+            })
+            return {
+              ...curr,
+              pages,
+            }
+          }
+        )
 
         myNotifications.success('Rating saved!')
       },
