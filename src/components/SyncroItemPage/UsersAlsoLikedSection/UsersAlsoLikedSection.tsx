@@ -32,9 +32,8 @@ const UsersAlsoLikedSection = (props: Props) => {
           {items?.map((item) => (
             <MyPaper
               sx={{
-                padding: 8,
+                padding: 16,
               }}
-              w={180}
             >
               <FlexCol
                 align="center"
@@ -44,7 +43,7 @@ const UsersAlsoLikedSection = (props: Props) => {
               >
                 <FlexCol align="center" gap={8}>
                   <MyNextLink href={urls.pages.syncroItem(item.id)}>
-                    <SyncroItemImage item={item} height={160} width={160} />
+                    <SyncroItemImage item={item} width={140} />
                   </MyNextLink>
                   <MyNextLink href={urls.pages.syncroItem(item.id)}>
                     <Text align="center" lineClamp={3}>
