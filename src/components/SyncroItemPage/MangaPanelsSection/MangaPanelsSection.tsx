@@ -1,6 +1,6 @@
 import { Box, ScrollArea, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { PhotoSlider } from 'react-photo-view'
 import { useMangaPanelsQuery } from '../../../hooks/react-query/manga/useMangaPanelsQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
@@ -43,15 +43,6 @@ const MangaPanelsSection = (props: Props) => {
     router.push(router, undefined, { scroll: false })
   }
 
-  // PE 1/3 - its confusing lmao
-  const queryValueRef = useRef(router?.query[queryParam])
-  useEffect(() => {
-    if (!router?.query[queryParam]) {
-      setIndex(null)
-      return
-    }
-  }, [router.query[queryParam]])
-
   return (
     <FlexCol gap={8}>
       <Title order={4}>Manga Panels</Title>
@@ -83,12 +74,15 @@ const MangaPanelsSection = (props: Props) => {
             <img
               onClick={() => setIndex(index)}
               src={image.uri}
-              height={100}
+              height={100 * (4 / 3)}
               width={100}
               alt={`${props.syncroItem.title} ${index}`}
               style={{
                 objectFit: 'cover',
                 cursor: 'pointer',
+              }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
               }}
             />
           ))}
