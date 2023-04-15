@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Modal,
   Rating,
   Text,
@@ -18,8 +19,10 @@ import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRati
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { zIndexes } from '../../../../utils/zIndexes'
+import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
+import RecommendItemToUsersList from '../RecommendItemActionSheet/RecommendItemToUsersList/RecommendItemToUsersList'
 import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
 
 const EditRatingModal = () => {
@@ -192,6 +195,15 @@ const EditRatingModal = () => {
           </Button>
         )}
       </FlexVCenter>
+
+      {initialValue?.syncroItemId && rating && rating >= 8 && (
+        <FlexCol mt={40} gap={16}>
+          <Divider />
+          <Title order={4}>Recommend to users</Title>
+
+          <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
+        </FlexCol>
+      )}
     </Modal>
   )
 }

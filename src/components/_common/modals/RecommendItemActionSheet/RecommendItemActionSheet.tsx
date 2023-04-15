@@ -1,13 +1,11 @@
-import { Modal, ScrollArea, Title } from '@mantine/core'
+import { Modal, Title } from '@mantine/core'
 import { useMutualsSavedItemQuery } from '../../../../hooks/react-query/user/useMutualsSavedItemQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemActionSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
-import FlexCol from '../../flex/FlexCol'
-import RecommendMutualItem from './RecommendMutualItem/RecommendMutualItem'
+import RecommendItemToUsersList from './RecommendItemToUsersList/RecommendItemToUsersList'
 
-interface Props {}
-
-const RecommendItemActionSheet = (props: Props) => {
+// PE 1/3 - rename to RecommendItemModal
+const RecommendItemActionSheet = () => {
   const { closeActionSheet, itemId } = useRecommendItemActionSheetStore()
   const { data: mutuals } = useMutualsSavedItemQuery(itemId!)
 
@@ -31,19 +29,10 @@ const RecommendItemActionSheet = (props: Props) => {
         },
       }}
     >
-      <ScrollArea>
-        <FlexCol
-          gap={16}
-          sx={{
-            maxHeight: 'calc(100vh - 200px)',
-            paddingRight: 16,
-          }}
-        >
-          {mutuals?.map((mutual) => (
-            <RecommendMutualItem mutual={mutual} itemId={itemId!} />
-          ))}
-        </FlexCol>
-      </ScrollArea>
+      <RecommendItemToUsersList
+        itemId={itemId!}
+        maxHeight="calc(100vh - 200px)"
+      />
     </Modal>
   )
 }
