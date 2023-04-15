@@ -68,6 +68,7 @@ const ImdbSearchItem = ({ resultItem }: Props) => {
               <SearchItemLeftSection
                 avgRating={resultItem.syncroItem?.avgRating}
                 ratingCount={resultItem.syncroItem?.ratingCount}
+                item={resultItem.syncroItem}
               />
             ) : (
               <MyNextLink href={urls.pages.syncroItem(resultItem.id)}>

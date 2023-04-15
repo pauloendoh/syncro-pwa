@@ -10,6 +10,10 @@ export interface SyncroItemDto {
   year: number
   avgRating: number
   ratingCount: number
+
+  syncroAvgRating: number
+  syncroRatingCount: number
+
   plotSummary: string
   genres: string[]
 
@@ -22,10 +26,6 @@ export interface SyncroItemDto {
 
   updatedAt: string
   createdAt: string
-
-  _count?: {
-    ratings: number
-  }
 }
 
 export const buildSyncroItemDto = (
@@ -45,6 +45,10 @@ export const buildSyncroItemDto = (
 
   avgRating: 0,
   ratingCount: 0,
+
+  syncroAvgRating: 0,
+  syncroRatingCount: 0,
+
   plotSummary: '',
   updatedAt: new Date().toISOString(),
   createdAt: new Date().toISOString(),

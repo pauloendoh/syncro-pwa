@@ -9,7 +9,6 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useState } from 'react'
-import { MdStarRate } from 'react-icons/md'
 import LinesEllipsis from 'react-lines-ellipsis'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemReviewQuery } from '../../hooks/react-query/review/useItemReviewQuery'
@@ -17,13 +16,13 @@ import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/u
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
-import { shortNumberFormatter } from '../../utils/math/shortNumberFormatter'
 import SyncroItemIcon from '../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import SyncroItemImage from '../_common/image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
+import AvgRatingRow from './AvgRatingRow/AvgRatingRow'
 import GenreChips from './GenreChips/GenreChips'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
@@ -100,24 +99,7 @@ const SyncroItemPage = () => {
                 />
 
                 <FlexCol gap={8}>
-                  <Flex gap={isMobile ? 24 : 40}>
-                    <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
-                      <MdStarRate color={theme.colors.yellow[5]} size={16} />
-                      {item?.avgRating ? (
-                        <Text>
-                          {item?.avgRating}
-                          /10
-                        </Text>
-                      ) : (
-                        <Text>?/10</Text>
-                      )}
-                    </FlexVCenter>
-
-                    <Text>
-                      {shortNumberFormatter(item?.ratingCount)} votes{' '}
-                      {!isMobile && `on ${itemTypeMap.site}`}
-                    </Text>
-                  </Flex>
+                  <AvgRatingRow item={item} />
 
                   <FlexVCenter gap={4}>
                     <SyncroItemIcon type={item.type} size={16} />

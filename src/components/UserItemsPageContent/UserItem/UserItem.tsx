@@ -4,7 +4,6 @@ import { MdBookmark, MdStar, MdStarBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
-import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
@@ -51,7 +50,6 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
     }
   }
 
-  const { isSmallScreen } = useMyMediaQuery()
   const { authUser } = useAuthStore()
 
   return (
@@ -86,6 +84,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                     avgRating={item.avgRating}
                     ratingCount={item.ratingCount}
                     title={itemTypeMap.site}
+                    item={item}
                   />
                 )
               ) : (

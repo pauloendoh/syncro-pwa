@@ -66,6 +66,7 @@ const SyncroSearchItem = ({ item }: Props) => {
                 ratingCount={item?.ratingCount}
                 title={syncroItemMapping[item.type].site}
                 itemId={item.id}
+                item={item}
               />
             ) : (
               <MyNextLink href={urls.pages.syncroItem(item.id)}>

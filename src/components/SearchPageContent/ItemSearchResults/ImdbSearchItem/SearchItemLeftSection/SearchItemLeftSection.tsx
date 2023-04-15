@@ -3,8 +3,9 @@ import { shortNumberFormatter, upToNDecimals } from 'endoh-utils'
 import { useMemo } from 'react'
 import { IoMdEye } from 'react-icons/io'
 import { MdStar } from 'react-icons/md'
-import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
+import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../../utils/urls'
+import { useGetFinalRatingCountAvgSite } from '../../../../SyncroItemPage/AvgRatingRow/useGetFinalRatingCountAvgSite/useGetFinalRatingCountAvgSite'
 import FlexCol from '../../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../../_common/flex/FlexVCenter'
 import MyNextLink from '../../../../_common/overrides/MyNextLink'
@@ -14,14 +15,16 @@ interface Props {
   ratingCount: number
   title?: string
   itemId?: string
+  item: SyncroItemDto
 }
 
-const SearchItemLeftSection = (props: Props) => {
-  const { isSmallScreen } = useMyMediaQuery()
+const SearchItemLeftSection = ({ item, ...props }: Props) => {
+  const { avgRating, finalSource, ratingCount } =
+    useGetFinalRatingCountAvgSite(item)
 
   const seeDetails = useMemo(() => {
-    return props.ratingCount === 0 || props.avgRating === 0
-  }, [props.avgRating, props.ratingCount])
+    return ratingCount === 0 || avgRating === 0
+  }, [avgRating, ratingCount])
 
   if (seeDetails && props.itemId)
     return (
@@ -32,24 +35,22 @@ const SearchItemLeftSection = (props: Props) => {
 
   return (
     <FlexCol>
-      <Text>{props.title || 'IMDb'}</Text>
+      <Text>{finalSource}</Text>
 
-      <FlexCol gap={4}>
+      {ratingCount > 0 && (
         <FlexVCenter gap={8}>
           <MdStar color={'#FFB600'} size={18} />
-          <Text>{upToNDecimals(props.avgRating, 1)}/10</Text>
+          <Text>{upToNDecimals(avgRating, 1)}/10</Text>
         </FlexVCenter>
-      </FlexCol>
+      )}
 
-      <FlexCol gap={4}>
-        <FlexVCenter gap={8}>
-          <IoMdEye size={18} />
-          <Text>
-            {shortNumberFormatter(props.ratingCount)}{' '}
-            {!isSmallScreen && 'votes'}
-          </Text>
-        </FlexVCenter>
-      </FlexCol>
+      <FlexVCenter gap={8}>
+        <IoMdEye size={18} />
+        <Text>
+          {shortNumberFormatter(ratingCount)}
+          {ratingCount === 1 ? ' vote' : ' votes'}
+        </Text>
+      </FlexVCenter>
     </FlexCol>
   )
 }

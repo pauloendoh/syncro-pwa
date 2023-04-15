@@ -46,7 +46,7 @@ const UsersAlsoLikedSection = (props: Props) => {
                     <SyncroItemImage item={item} width={140} />
                   </MyNextLink>
                   <MyNextLink href={urls.pages.syncroItem(item.id)}>
-                    <Text align="center" lineClamp={3}>
+                    <Text align="center" lineClamp={3} w={160}>
                       {item.title}
                     </Text>
                   </MyNextLink>
