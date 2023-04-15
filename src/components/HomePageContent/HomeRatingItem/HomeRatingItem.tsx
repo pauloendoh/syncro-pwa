@@ -1,10 +1,9 @@
 import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
-import { useElementSize, useMediaQuery } from '@mantine/hooks'
+import { useMediaQuery } from '@mantine/hooks'
 import { useQueryClient } from '@tanstack/react-query'
 
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
-import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../utils/urls'
@@ -26,8 +25,6 @@ const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
   const isSmallScreen = useMediaQuery('(max-width: 860px)')
-  const { ref: reviewRef, height: reviewHeight } = useElementSize()
-  const { openModal } = useRatingDetailsModalStore()
 
   const queryClient = useQueryClient()
   const handleClick = () => {
@@ -124,8 +121,7 @@ const HomeRatingItem = (props: Props) => {
           <Box pos="relative">
             <SyncroItemImage
               item={props.rating.syncroItem}
-              width={isSmallScreen ? 120 : 160}
-              height={isSmallScreen ? 120 : 160}
+              width={isSmallScreen ? 100 : 120}
             />
 
             <Center

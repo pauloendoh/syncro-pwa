@@ -1,24 +1,37 @@
 import { Box, Center, useMantineTheme } from '@mantine/core'
+import { useMemo } from 'react'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 import SyncroItemIcon from '../../../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
-import MyNextImage300 from '../MyNextImage300/MyNextImage300'
+import MyNextImage300x400 from '../MyNextImage300/MyNextImage300x444'
 
 type Props = {
   item?: SyncroItemDto
   width?: number
+
+  /**
+   * @deprecated
+   */
   height?: number
   showItemType?: SyncroItemType
 }
 
 const SyncroItemImage = (props: Props) => {
   const theme = useMantineTheme()
+
+  const width = props.width || 100
+
+  const height = useMemo(() => {
+    // 300 x 444
+    return (width || 100) * (400 / 300)
+  }, [width])
+
   return (
     <Box pos="relative">
-      <MyNextImage300
+      <MyNextImage300x400
         width={props.width || 100}
-        height={props.height || 100}
+        height={height}
         src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
         alt={props.item?.title || 'syncro-item'}
         style={{
