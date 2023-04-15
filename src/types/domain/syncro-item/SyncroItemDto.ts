@@ -22,6 +22,10 @@ export interface SyncroItemDto {
 
   updatedAt: string
   createdAt: string
+
+  _count?: {
+    ratings: number
+  }
 }
 
 export const buildSyncroItemDto = (

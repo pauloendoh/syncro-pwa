@@ -16,7 +16,7 @@ const RecommendItemToUsersList = (props: Props) => {
       <FlexCol
         gap={16}
         sx={{
-          maxHeight: 'calc(100vh - 200px)',
+          maxHeight: props.maxHeight,
           paddingRight: 16,
         }}
       >
