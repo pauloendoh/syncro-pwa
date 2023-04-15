@@ -6,7 +6,7 @@ import HomeRatingItemReview from '../../HomePageContent/HomeRatingItem/HomeRatin
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
-import { getShortLabelByRatingValue } from '../../_common/modals/SaveRatingModal/getLabelByRatingValue/getLabelByRatingValue'
+import { getShortLabelByRatingValue } from '../../_common/modals/EditRatingModal/getLabelByRatingValue/getLabelByRatingValue'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import SemiBold from '../../_common/text/SemiBold'
 

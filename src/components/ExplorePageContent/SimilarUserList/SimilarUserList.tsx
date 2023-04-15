@@ -1,23 +1,15 @@
-import { Text, useMantineTheme } from '@mantine/core'
+import { Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useMySimilarUsersQuery } from '../../../types/domain/me/useMySimilarUsersQuery'
 import { urls } from '../../../utils/urls'
+import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
-import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 
-interface Props {}
-
-const SimilarUserList = (props: Props) => {
-  const theme = useMantineTheme()
-
-  const {
-    data: ratingSimilarities,
-    isLoading,
-    refetch,
-  } = useMySimilarUsersQuery()
+const SimilarUserList = () => {
+  const { data: ratingSimilarities, isLoading } = useMySimilarUsersQuery()
 
   const sortedRatingSimilarities = useMemo(
     () =>

@@ -11,10 +11,9 @@ import {
 import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import SavedItemsByType from './SavedItemsByType/SavedItemsByType'
+import PlannedItemsByType from './PlannedItemsByType/PlannedItemsByType'
 
-//  PE 1/3 - rename
-const SavedItemsPage = () => {
+const PlannedItemsPage = () => {
   const { data: savedItems } = useSavedItemsQuery()
 
   const { type } = useMyRouterQuery()
@@ -64,7 +63,10 @@ const SavedItemsPage = () => {
         </FlexVCenter>
         <Flex gap={32} mt={24}>
           {groupedSavedItems.map((group) => (
-            <SavedItemsByType itemType={group.type} savedItems={group.items} />
+            <PlannedItemsByType
+              itemType={group.type}
+              savedItems={group.items}
+            />
           ))}
         </Flex>
       </Container>
@@ -72,4 +74,4 @@ const SavedItemsPage = () => {
   )
 }
 
-export default SavedItemsPage
+export default PlannedItemsPage

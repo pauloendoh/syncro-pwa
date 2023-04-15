@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
-import SavedItemsPage from '../../components/SavedItemsPage/SavedItemsPage'
+import PlannedItemsPage from '../../components/PlannedItemsPage/PlannedItemsPage'
 
 const MyNextPage: NextPage = () => {
-  return <SavedItemsPage />
+  return <PlannedItemsPage />
 }
 
 export default MyNextPage

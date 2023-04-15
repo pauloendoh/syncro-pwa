@@ -22,8 +22,7 @@ import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
 
-// PE 1/3 - rename to EditRatingModal
-const SaveRatingModal = () => {
+const EditRatingModal = () => {
   const { initialValue, closeModal } = useSaveRatingModalStore()
   const {
     closeModal: closeRatingDetailsModal,
@@ -197,4 +196,4 @@ const SaveRatingModal = () => {
   )
 }
 
-export default SaveRatingModal
+export default EditRatingModal

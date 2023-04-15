@@ -3,6 +3,7 @@ import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import FlexCol from '../../_common/flex/FlexCol'
+import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import HomeRatingItem from '../HomeRatingItem/HomeRatingItem'
 
 type Props = {
@@ -10,7 +11,6 @@ type Props = {
 }
 
 const RatingsTimeline = (props: Props) => {
-  // PE 1/3 - use isLoading
   const {
     data: homeRatings,
     fetchNextPage,
@@ -37,6 +37,8 @@ const RatingsTimeline = (props: Props) => {
 
   return (
     <>
+      {isLoading && <CenterLoader />}
+
       <FlexCol gap={16} mt={16}>
         {flatRatings.map((rating) => (
           <HomeRatingItem rating={rating} key={rating.id} />

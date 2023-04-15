@@ -5,7 +5,7 @@ import {
   MdOutlineViewModule,
   MdOutlineViewStream,
 } from 'react-icons/md'
-import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
+import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import RatingsTimeline from '../../HomePageContent/RatingsTimeline/RatingsTimeline'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -18,9 +18,11 @@ type Props = {
 type FeedView = 'card' | 'grid'
 
 const UserPageRatingsSection = (props: Props) => {
-  const { isMobile } = useMyMediaQuery()
-
   const [feedView, setFeedView] = useState<FeedView>('card')
+
+  const { data: homeRatings } = useTimelineRatingsQuery(props.userId)
+
+  if (!homeRatings || homeRatings.pages[0].length === 0) return null
 
   return (
     <FlexCol>

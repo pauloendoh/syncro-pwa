@@ -1,6 +1,7 @@
 import useSavedPositionSheetStore from '../../../hooks/zustand/action-sheets/useSavedPositionSheetStore'
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
 import EditItemModal from './EditItemModal/EditItemModal'
+import EditRatingModal from './EditRatingModal/EditRatingModal'
 import FeedbackModal from './FeedbackModal/FeedbackModal'
 import FollowersModal from './FollowersModal/FollowersModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
@@ -8,7 +9,6 @@ import RatingDetailsModal from './RatingDetailsModal/RatingDetailsModal'
 import RecommendItemActionSheet from './RecommendItemActionSheet/RecommendItemActionSheet'
 import RecommendItemsToUserModal from './RecommendItemsToUserModal/RecommendItemsToUserModal'
 import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
-import SaveRatingModal from './SaveRatingModal/SaveRatingModal'
 import ShareRatingModal from './ShareRatingModal/ShareRatingModal'
 
 type Props = {}
@@ -19,7 +19,7 @@ const GlobalModals = (props: Props) => {
   return (
     <>
       <ConfirmationModal />
-      <SaveRatingModal />
+      <EditRatingModal />
       <RecommendItemActionSheet />
       <ItemRatedByModal />
       <SavedPositionModal
