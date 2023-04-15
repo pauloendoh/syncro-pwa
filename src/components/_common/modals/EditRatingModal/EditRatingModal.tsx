@@ -113,8 +113,14 @@ const EditRatingModal = () => {
           zIndex: zIndexes.editRatingModal,
         },
         inner: {
-          top: isMobile ? 40 : 80,
           zIndex: zIndexes.editRatingModal,
+        },
+        header: {
+          zIndex: zIndexes.editRatingModalHeader,
+          background: theme.colors.dark[7],
+        },
+        body: {
+          maxHeight: 'calc(100vh - 200px)',
         },
       }}
     >
