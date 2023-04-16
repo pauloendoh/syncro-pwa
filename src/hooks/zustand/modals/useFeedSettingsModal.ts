@@ -1,0 +1,26 @@
+import Router from 'next/router'
+import { create } from 'zustand'
+import { QueryParams } from '../../../utils/queryParams'
+import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
+
+interface IStore {
+  isOpen: () => boolean
+  openModal: () => void
+  closeModal: () => void
+}
+
+const useFeedSettingsModal = create<IStore>((set, get) => ({
+  isOpen: () => {
+    return !!Router.query[QueryParams.feedSettingsModal]
+  },
+  initialValue: null,
+  openModal: () => {
+    Router.query[QueryParams.feedSettingsModal] = 'open'
+    Router.push(Router, undefined, { scroll: false })
+  },
+  closeModal: () => {
+    routerBackIfSameDomainOrClearQueryParam(QueryParams.feedSettingsModal)
+  },
+}))
+
+export default useFeedSettingsModal

@@ -1,10 +1,10 @@
 import { Header, Title } from '@mantine/core'
+import { zIndexes } from '../../../utils/zIndexes'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import NavbarRightIcons from '../../_common/layout/MyNavbar/NavbarRightIcons/NavbarRightIcons'
 
-type Props = {}
-
-const MobileHomeHeader = (props: Props) => {
+// PE 1/3 - change to Mobile Home Navbar
+const MobileHomeHeader = () => {
   return (
     <Header
       fixed
@@ -14,6 +14,7 @@ const MobileHomeHeader = (props: Props) => {
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 16px',
+        zIndex: zIndexes.navbar,
       }}
     >
       <Title order={2}>Syncro</Title>

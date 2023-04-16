@@ -1,3 +1,5 @@
+import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+
 export const emailFrequencyTypes = [
   'realTime',
   'daily',
@@ -15,4 +17,7 @@ export type UserSettingsDto = {
   emailUserIsFollowingYou: boolean
   emailDirectMessage: boolean
   emailUserRecommendedItem: EmailFrequencyType
+
+  feedMinimumRating: number
+  feedExcludeItemTypes: SyncroItemType[]
 }

@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Box,
   Container,
   Grid,
@@ -7,9 +8,12 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useMemo } from 'react'
+import { MdSettings } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
+import useFeedSettingsModal from '../../hooks/zustand/modals/useFeedSettingsModal'
 import { urls } from '../../utils/urls'
+import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MobileHomeHeader from './MobileHomeHeader/MobileHomeHeader'
@@ -27,6 +31,8 @@ const HomePageContent = () => {
   const theme = useMantineTheme()
 
   const { isMobile } = useMyMediaQuery()
+
+  const { openModal: openFeedSettingsModal } = useFeedSettingsModal()
 
   return (
     <LoggedLayout>
@@ -46,7 +52,12 @@ const HomePageContent = () => {
               px={isSmallScreen ? 0 : undefined}
               pt={isSmallScreen ? 24 : undefined}
             >
-              {!isMobile && <Title order={4}>Your feed</Title>}
+              <FlexVCenter justify={'space-between'}>
+                <Title order={4}>Your feed</Title>
+                <ActionIcon onClick={openFeedSettingsModal}>
+                  <MdSettings />
+                </ActionIcon>
+              </FlexVCenter>
 
               <RatingsTimeline />
 

@@ -30,6 +30,7 @@ export const useMyRouterQuery = () => {
     [feedbackModal]: string
     [followModal]: string
     [QueryParams.shareRatingModal]: string
+    [QueryParams.feedSettingsModal]: string
   }
 }
 
