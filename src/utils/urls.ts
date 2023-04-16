@@ -10,6 +10,7 @@ const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
 export const urls = {
   pages: {
     index: '/',
+    signUp: '/?initialPage=signUp',
     syncroItem: (
       syncroItemId: string,
       extraParams?: {

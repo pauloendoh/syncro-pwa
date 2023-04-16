@@ -11,13 +11,13 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { IoCompass, IoCompassOutline } from 'react-icons/io5'
 import { MdHome } from 'react-icons/md'
-import { useNotificationsQuery } from '../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls'
 import { zIndexes } from '../../../../utils/zIndexes'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyNextLink from '../../overrides/MyNextLink'
+import NavbarSignButtons from '../NavbarSignButtons/NavbarSignButtons'
 import NavbarRightIcons from './NavbarRightIcons/NavbarRightIcons'
 import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'
 import SearchBar from './SearchBar/SearchBar'
@@ -26,13 +26,6 @@ type Props = {}
 
 const MyNavbar = (props: Props) => {
   const { authUser } = useAuthStore()
-
-  const { data: notifications } = useNotificationsQuery()
-
-  const unseenNotifications = useMemo(
-    () => notifications?.filter((n) => n.showDot) || [],
-    [notifications]
-  )
 
   const { isSmallScreen } = useMyMediaQuery()
 
@@ -95,6 +88,7 @@ const MyNavbar = (props: Props) => {
         </Grid.Col>
         <Grid.Col span={6} xs={'auto'} sm={'auto'} md={'auto'}>
           <FlexVCenter gap={isSmallScreen ? 16 : 24} justify="flex-end">
+            {!authUser && <NavbarSignButtons />}
             {authUser && (
               <FlexVCenter gap={isSmallScreen ? 16 : 24}>
                 <Tooltip label="Explore" withArrow>

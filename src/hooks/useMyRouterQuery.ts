@@ -19,6 +19,7 @@ export const useMyRouterQuery = () => {
     exploreSlug: ExploreSlug
     roomId: string
     oauthToken: string
+    initialPage: string
 
     // PE 1/3 - use QueryParams
     recommendItemIsOpen: string
