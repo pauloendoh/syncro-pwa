@@ -56,10 +56,6 @@ const EditRatingModal = () => {
   }, [initialValue])
 
   const handleChangeRating = (newRating: number) => {
-    console.log({
-      newRating,
-      rating,
-    })
     if (newRating === rating) {
       setRating(null)
       return

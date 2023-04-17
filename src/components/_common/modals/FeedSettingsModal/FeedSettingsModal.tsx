@@ -56,7 +56,7 @@ const FeedSettingsModal = () => {
               <Title order={6}>Item types</Title>
               <Grid>
                 {syncroItemTypes.map((itemType) => (
-                  <Grid.Col span={4}>
+                  <Grid.Col span={4} key={itemType}>
                     <Checkbox
                       styles={{
                         input: {

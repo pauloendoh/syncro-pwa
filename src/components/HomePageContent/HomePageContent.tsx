@@ -53,7 +53,7 @@ const HomePageContent = () => {
               pt={isSmallScreen ? 24 : undefined}
             >
               <FlexVCenter justify={'space-between'}>
-                <Title order={4}>Your feed</Title>
+                <Title order={4}>Feed</Title>
                 <ActionIcon onClick={openFeedSettingsModal}>
                   <MdSettings />
                 </ActionIcon>

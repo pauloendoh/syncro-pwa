@@ -111,7 +111,6 @@ const SearchBar = (props: Props) => {
           value: option.key,
         }))}
         onKeyDown={(e) => {
-          console.log('xd')
           if (e.key === 'Enter') {
             e.preventDefault()
             handleSubmit()

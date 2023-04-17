@@ -56,10 +56,6 @@ const SyncroItemPage = () => {
     clamped: boolean
     text: string
   }) => {
-    console.log({
-      clamped,
-      text,
-    })
     if (!item) return
 
     const isClamped = text.length < item.plotSummary.length

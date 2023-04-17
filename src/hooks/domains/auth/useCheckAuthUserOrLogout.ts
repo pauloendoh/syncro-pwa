@@ -18,11 +18,7 @@ const useCheckAuthOrLogout = () => {
 
   const checkAuthOrLogout = () => {
     const userCookieStr = nookies.get(null).user
-    console.log({
-      userCookieStr,
-      oauthToken,
-      userId,
-    })
+
     if (!userCookieStr) {
       if (oauthToken && userId) {
         axios

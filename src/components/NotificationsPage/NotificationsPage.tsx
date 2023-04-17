@@ -7,10 +7,10 @@ import { urls } from '../../utils/urls'
 import { useAxios } from '../../utils/useAxios'
 import FlexCol from '../_common/flex/FlexCol'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import { base64ToUint8Array } from './base64ToUint8Array/base64ToUint8Array'
 import FollowNotificationItem from './FollowNotificationItem/FollowNotificationItem'
 import ItemRecommendationNotificationItem from './ItemRecommendationNotificationItem/ItemRecommendationNotificationItem'
 import RatingImportRequestNotificationItem from './RatingImportRequestNotificationItem/RatingImportRequestNotificationItem'
+import { base64ToUint8Array } from './base64ToUint8Array/base64ToUint8Array'
 
 const NotificationsPage = () => {
   const { data: notifications } = useNotificationsQuery()
@@ -47,9 +47,6 @@ const NotificationsPage = () => {
           }
         })
 
-        console.log({
-          registration: reg,
-        })
         setRegistration(reg)
       })
     }

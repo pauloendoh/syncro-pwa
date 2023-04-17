@@ -8,14 +8,14 @@ type Props = ButtonProps &
     children: React.ReactNode
   }
 
-const RatingRowButton = (props: Props) => {
+const RatingRowButton = ({ isActive, ...props }: Props) => {
   return (
     <Button
       size="sm"
       sx={{
         borderRadius: 8,
       }}
-      color={props.isActive ? 'secondary' : 'dark'}
+      color={isActive ? 'secondary' : 'dark'}
       {...props}
     >
       {props.children}

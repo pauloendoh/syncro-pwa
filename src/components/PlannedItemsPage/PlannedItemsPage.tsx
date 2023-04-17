@@ -57,7 +57,6 @@ const PlannedItemsPage = () => {
               router.push(
                 urls.pages.savedItems(value as SyncroItemType | 'all')
               )
-              console.log(value)
             }}
           />
         </FlexVCenter>

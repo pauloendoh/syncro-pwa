@@ -116,8 +116,6 @@ const ItemSearchResults = (props: Props) => {
             return upsertMany(curr, res.data, (a, b) => a.id === b.id)
           }
         )
-
-        console.log(res.data)
       })
       .finally(() => {
         setIsLoadingSearchMore(false)

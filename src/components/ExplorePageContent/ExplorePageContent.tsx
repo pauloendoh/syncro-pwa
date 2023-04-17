@@ -4,10 +4,10 @@ import { ExploreSlug, useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import { exploreTabOptions } from './exploreTabOptions/exploreTabOptions'
 import NewUsersList from './NewUsersList/NewUsersList'
 import PopularUserList from './PopularUserList/PopularUserList'
 import SimilarUserList from './SimilarUserList/SimilarUserList'
+import { exploreTabOptions } from './exploreTabOptions/exploreTabOptions'
 
 type Props = {}
 
@@ -35,9 +35,6 @@ const ExplorePageContent = (props: Props) => {
           }}
           value={exploreSlug}
           onTabChange={(newTabValue) => {
-            console.log({
-              newTabValue,
-            })
             router.push(urls.pages.explore(newTabValue as ExploreSlug))
           }}
         >

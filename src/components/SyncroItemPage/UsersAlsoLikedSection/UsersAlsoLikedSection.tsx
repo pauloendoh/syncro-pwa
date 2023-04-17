@@ -31,6 +31,7 @@ const UsersAlsoLikedSection = (props: Props) => {
         >
           {items?.map((item) => (
             <MyPaper
+              key={item.id}
               sx={{
                 padding: 16,
               }}

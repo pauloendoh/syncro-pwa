@@ -58,7 +58,6 @@ const RegisterForm = (props: Props) => {
         })
         .finally(() => setLoading(false))
     } catch (err: unknown) {
-      console.log({ err })
       setLoading(false)
     }
   }

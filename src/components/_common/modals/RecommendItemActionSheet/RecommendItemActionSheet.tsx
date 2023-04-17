@@ -19,7 +19,6 @@ const RecommendItemActionSheet = () => {
     <Modal
       opened={!!recommendItemIsOpen}
       onClose={() => {
-        console.log('close')
         handleClose()
       }}
       title={<Title order={4}>Recommend to your mutuals</Title>}
