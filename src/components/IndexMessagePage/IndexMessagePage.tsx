@@ -12,7 +12,7 @@ const IndexMessagePage = (props: Props) => {
 
   useEffect(() => {
     if (!isLoading && rooms && rooms.length > 0) {
-      router.push(urls.pages.messageRoom(rooms[0].id))
+      router.replace(urls.pages.messageRoom(rooms[0].id))
     }
   }, [rooms])
 
