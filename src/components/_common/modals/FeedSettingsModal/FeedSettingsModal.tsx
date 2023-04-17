@@ -105,6 +105,7 @@ const FeedSettingsModal = () => {
               }}
               min={0}
               max={10}
+              w={120}
             />
 
             <Box mt={16}>
