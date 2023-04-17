@@ -1,22 +1,18 @@
 import Router from 'next/router'
+import { sessionStorageKeys } from '../sessionStorageKeys'
 
 export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
-  const previousUrl = document.referrer
+  const previousPath = sessionStorage.getItem(sessionStorageKeys.previousPath)
+  const currentPath = Router.asPath
 
-  if (previousUrl) {
-    const previousDomain = new URL(previousUrl).origin
-    const currentDomain = new URL(window.location.href).origin
-
-    if (previousDomain === currentDomain) {
+  if (previousPath) {
+    if (previousPath !== currentPath) {
       Router.back()
       return
     }
-
-    delete Router.query[queryParam]
-    Router.push(Router, undefined, { scroll: false })
-    return
   }
 
-  // 20230411 - testing Router.back for every scenario
-  Router.back()
+  delete Router.query[queryParam]
+  Router.push(Router, undefined, { scroll: false })
+  return
 }

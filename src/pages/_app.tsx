@@ -17,6 +17,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import useCheckAuthOrLogout from '../hooks/domains/auth/useCheckAuthUserOrLogout'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
+import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlOnSessionStorage'
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
@@ -53,6 +54,8 @@ export default function App(props: AppProps) {
     setScreenHeight(height)
     setScreenWidth(width)
   }, [height, width])
+
+  useSavePreviousUrlOnSessionStorage()
 
   return (
     <>
