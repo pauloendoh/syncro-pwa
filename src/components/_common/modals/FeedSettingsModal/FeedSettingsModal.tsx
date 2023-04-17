@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, Modal, Title } from '@mantine/core'
+import { Box, Checkbox, Grid, Modal, NumberInput, Title } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -93,6 +93,19 @@ const FeedSettingsModal = () => {
                 ))}
               </Grid>
             </FlexCol>
+
+            <NumberInput
+              label="Minimum rating"
+              value={watch('feedMinimumRating')}
+              onChange={(value) => {
+                let num = Number(value)
+                if (num < 0) num = 0
+                if (num > 10) num = 10
+                setValue('feedMinimumRating', num)
+              }}
+              min={0}
+              max={10}
+            />
 
             <Box mt={16}>
               <SaveCancelButtons onCancel={closeModal} />
