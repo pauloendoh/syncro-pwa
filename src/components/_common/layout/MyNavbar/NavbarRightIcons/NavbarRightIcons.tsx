@@ -37,7 +37,7 @@ const NavbarRightIcons = () => {
 
   const { isMobile } = useMyMediaQuery()
 
-  const { data: unreadMessageRooms } = useUnreadMessageRoomsQuery()
+  const { data: unreadMessageRooms, isLoading } = useUnreadMessageRoomsQuery()
 
   return (
     <>
@@ -67,7 +67,7 @@ const NavbarRightIcons = () => {
           withArrow
         >
           <Indicator
-            disabled={unreadMessageRooms?.length === 0}
+            disabled={isLoading || unreadMessageRooms?.length === 0}
             label={unreadMessageRooms?.length || 0}
             size={16}
             color="red"
