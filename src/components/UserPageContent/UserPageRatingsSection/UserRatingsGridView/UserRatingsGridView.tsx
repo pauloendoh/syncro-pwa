@@ -6,9 +6,11 @@ import { useTimelineRatingsQuery } from '../../../../hooks/react-query/feed/useH
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
+import MyNextLink from '../../../_common/overrides/MyNextLink'
 import SemiBold from '../../../_common/text/SemiBold'
 
 type Props = {
@@ -62,22 +64,26 @@ const UserRatingsGridView = (props: Props) => {
               key={rating.id}
               align="center"
               gap={4}
-              onClick={() => openModal(rating)}
               sx={{
                 cursor: 'pointer',
               }}
             >
-              <SyncroItemImage
-                item={rating.syncroItem}
-                width={isMobile ? 80 : 104}
-                height={isMobile ? 80 : 104}
-                showItemType={rating.syncroItem?.type}
-              />
+              <MyNextLink
+                href={urls.pages.syncroItem(rating?.syncroItem?.id || '')}
+              >
+                <SyncroItemImage
+                  item={rating.syncroItem}
+                  width={isMobile ? 80 : 104}
+                  height={isMobile ? 80 : 104}
+                  showItemType={rating.syncroItem?.type}
+                />
+              </MyNextLink>
               <FlexVCenter
                 sx={{
                   color: ratingYellow,
                 }}
                 gap={8}
+                onClick={() => openModal(rating)}
               >
                 <SemiBold>{rating.ratingValue}</SemiBold>
                 {rating.review.length > 0 && <GrTextAlignFull />}

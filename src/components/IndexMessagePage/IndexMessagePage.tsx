@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useLastRoomsWithMessagesQuery } from '../../hooks/react-query/message/useLastRoomsWithMessagesQuery'
 import { urls } from '../../utils/urls'
 import LoggedLayout from '../_common/layout/LoggedLayout'
+import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 
 type Props = {}
 
@@ -18,9 +19,11 @@ const IndexMessagePage = (props: Props) => {
 
   return (
     <LoggedLayout disableMarginBottom>
-      {isLoading || (rooms && rooms.length > 0)
-        ? 'Loading...'
-        : 'No messages yet. Search user profile and click on "Message"'}
+      {isLoading || (rooms && rooms.length > 0) ? (
+        <CenterLoader />
+      ) : (
+        'No messages yet. Search user profile and click on "Message"'
+      )}
     </LoggedLayout>
   )
 }

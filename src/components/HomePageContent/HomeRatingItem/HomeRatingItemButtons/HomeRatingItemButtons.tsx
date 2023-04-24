@@ -50,36 +50,34 @@ const HomeRatingItemButtons = (props: Props) => {
 
   if (!authUser) return null
   return (
-    <FlexVCenter mt={2} justify="space-between">
-      <FlexVCenter>
-        <PressableMyRating itemId={props.syncroItemId!} />
-        <Tooltip label={bookmarkTooltipLabel} withArrow>
-          <FlexVCenter
-            sx={(theme) => ({
-              color: myInterest
-                ? theme.colors.secondary[9]
-                : theme.colors.dark[0],
-              cursor: 'pointer',
-            })}
-            onClick={() => {
-              if (props.syncroItemId) {
-                submitToggleSave(props.syncroItemId)
-              }
-            }}
-          >
-            <FlexVCenter gap={4}>
-              {myInterest ? (
-                <MdBookmark size={24} />
-              ) : (
-                <MdBookmarkBorder
-                  color={myInterest ? theme.colors.secondary[9] : undefined}
-                  size={24}
-                />
-              )}
-            </FlexVCenter>
+    <FlexVCenter mt={2} gap={40}>
+      <PressableMyRating itemId={props.syncroItemId!} />
+      <Tooltip label={bookmarkTooltipLabel} withArrow>
+        <FlexVCenter
+          sx={(theme) => ({
+            color: myInterest
+              ? theme.colors.secondary[9]
+              : theme.colors.dark[0],
+            cursor: 'pointer',
+          })}
+          onClick={() => {
+            if (props.syncroItemId) {
+              submitToggleSave(props.syncroItemId)
+            }
+          }}
+        >
+          <FlexVCenter gap={4}>
+            {myInterest ? (
+              <MdBookmark size={24} />
+            ) : (
+              <MdBookmarkBorder
+                color={myInterest ? theme.colors.secondary[9] : undefined}
+                size={24}
+              />
+            )}
           </FlexVCenter>
-        </Tooltip>
-      </FlexVCenter>
+        </FlexVCenter>
+      </Tooltip>
       {!props.hideMoreMenu && (
         <HomeRatingMoreMenu itemId={props.syncroItemId} />
       )}

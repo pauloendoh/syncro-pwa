@@ -1,16 +1,20 @@
+import { Anchor } from '@mantine/core'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteFromArray, upsert } from 'endoh-utils/dist/array'
+import Span from '../../../components/_common/text/Span'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { queryKeys } from '../../../utils/queryKeys'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { useMyRouterQuery } from '../../useMyRouterQuery'
+import useRatingDetailsModalStore from '../../zustand/modals/useRatingDetailsModalStore'
 
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
   const { userId } = useMyRouterQuery()
+  const { openModal } = useRatingDetailsModalStore()
 
   const axios = useAxios()
   return useMutation(
@@ -61,7 +65,12 @@ const useSaveRatingMutation = () => {
           }
         )
 
-        myNotifications.success('Rating saved!')
+        myNotifications.success(
+          <Span>
+            Rating saved!{' '}
+            <Anchor onClick={() => openModal(savedRating)}>See details</Anchor>
+          </Span>
+        )
       },
     }
   )

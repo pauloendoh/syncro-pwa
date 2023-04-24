@@ -2,9 +2,7 @@ import { Center, Footer, useMantineTheme } from '@mantine/core'
 import MyNextLink from '../../overrides/MyNextLink'
 import { useMobileFooterLinkOptions } from './mobileFooterLinkOptions/mobileFooterLinkOptions'
 
-type Props = {}
-
-const MobileFooter = (props: Props) => {
+const MobileFooter = () => {
   const mobileFooterLinkOptions = useMobileFooterLinkOptions()
 
   const theme = useMantineTheme()
@@ -26,7 +24,7 @@ const MobileFooter = (props: Props) => {
             color: option.selectedIf() ? theme.colors.primary[9] : 'gray',
           }}
         >
-          <Center w={32} h={32}>
+          <Center w={60} h={60}>
             {option.icon}
           </Center>
         </MyNextLink>

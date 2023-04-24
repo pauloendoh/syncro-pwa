@@ -1,8 +1,7 @@
-import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
+import { Box, Flex, Text, Tooltip, useMantineTheme } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
-import { useMessagesQuery } from '../../../hooks/react-query/message/useMessagesQuery'
 import useReadAllMessagesMutation from '../../../hooks/react-query/message/useReadAllMessagesMutation'
 import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 
@@ -14,7 +13,6 @@ type Props = {
 
 const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
   const theme = useMantineTheme()
-  const { data: messages } = useMessagesQuery(message.roomId)
 
   const { data: unreadRooms } = useUnreadMessageRoomsQuery()
   const unreadRoom = useMemo(() => {
@@ -24,14 +22,6 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
 
     return unreadRooms.find((room) => room.id === message.roomId)
   }, [unreadRooms, message.roomId])
-
-  const lastUnreadMessage = useMemo(() => {
-    if (!unreadRoom || !unreadRoom.messages) {
-      return null
-    }
-
-    return unreadRoom.messages[unreadRoom.messages.length - 1]
-  }, [unreadRoom])
 
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -58,21 +48,27 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
         justifyContent: isMyMessage ? 'flex-end' : 'flex-start',
       }}
     >
-      <Box
-        ref={ref}
-        px={16}
-        py={8}
-        sx={{
-          background: isMyMessage
-            ? theme.colors.secondary[9]
-            : theme.colors.dark[4],
-          borderRadius: 16,
-          marginBottom: 8,
-          maxWidth: '80%',
-        }}
+      <Tooltip
+        label={new Date(message.createdAt).toLocaleString()}
+        withArrow
+        position={isMyMessage ? 'left' : 'right'}
       >
-        <Text>{message.text}</Text>
-      </Box>
+        <Box
+          ref={ref}
+          px={16}
+          py={8}
+          sx={{
+            background: isMyMessage
+              ? theme.colors.secondary[9]
+              : theme.colors.dark[4],
+            borderRadius: 16,
+            marginBottom: 8,
+            maxWidth: '80%',
+          }}
+        >
+          <Text>{message.text}</Text>
+        </Box>
+      </Tooltip>
     </Flex>
   )
 }

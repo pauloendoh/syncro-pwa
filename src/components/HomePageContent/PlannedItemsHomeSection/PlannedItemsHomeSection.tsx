@@ -1,7 +1,6 @@
 import { ScrollArea, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useMemo } from 'react'
-import { DropResult } from 'react-beautiful-dnd'
 import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import {
@@ -34,16 +33,6 @@ const PlannedItemsHomeSection = (props: Props) => {
   }, [selectedType, savedItems])
 
   const { mutate: submitUpdateSavedPosition } = useUpdateSavedPositionMutation()
-
-  const onDragEnd = (result: DropResult) => {
-    const interestId = result.draggableId
-    const newPosition =
-      result.destination?.index === undefined
-        ? 1
-        : result.destination?.index + 1
-
-    submitUpdateSavedPosition({ interestId, newPosition })
-  }
 
   if (!savedItems || savedItems.length === 0) return null
 

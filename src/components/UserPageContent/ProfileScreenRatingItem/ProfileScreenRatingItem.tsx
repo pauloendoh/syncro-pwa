@@ -1,8 +1,8 @@
 import { Box, Text, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { useUserItemsQuery } from '../../../hooks/react-query/user/useUserItemsQuery'
-import { syncroItemMapping } from '../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { syncroItemMapping } from '../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
@@ -15,7 +15,10 @@ interface Props {
 }
 
 const ProfileScreenRatingItem = (props: Props) => {
-  const { data: userItems } = useUserItemsQuery(props.userId, props.itemType)
+  const { data: userItems, isLoading } = useUserItemsQuery(
+    props.userId,
+    props.itemType
+  )
 
   const sortedItems = useSortedItems({
     items: userItems,
@@ -52,7 +55,11 @@ const ProfileScreenRatingItem = (props: Props) => {
         <Text style={{ fontWeight: '500' }} mt={8}>
           {label}
         </Text>
-        <Text>{userItems?.length} items</Text>
+
+        <Text>
+          {isLoading && 'Loading...'}
+          {userItems && userItems?.length > 0 && `${userItems.length} items`}
+        </Text>
       </FlexCol>
     </MyNextLink>
   )

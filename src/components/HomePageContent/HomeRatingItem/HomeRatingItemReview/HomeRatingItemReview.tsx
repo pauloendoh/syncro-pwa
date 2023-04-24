@@ -2,6 +2,7 @@ import { Text } from '@mantine/core'
 import { useElementSize } from '@mantine/hooks'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import Span from '../../../_common/text/Span'
 
 type Props = {
   rating: RatingDto
@@ -29,7 +30,7 @@ const HomeRatingItemReview = (props: Props) => {
         {props.rating.review}
       </Text>
       {reviewHeight > 64 && (
-        <Text
+        <Span
           sx={{
             cursor: 'pointer',
             fontWeight: 600,
@@ -37,7 +38,7 @@ const HomeRatingItemReview = (props: Props) => {
           onClick={() => openModal(props.rating)}
         >
           See more
-        </Text>
+        </Span>
       )}
     </Text>
   )

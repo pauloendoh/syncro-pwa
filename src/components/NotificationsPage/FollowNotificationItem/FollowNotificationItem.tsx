@@ -40,6 +40,7 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
               component="span"
               sx={{
                 display: 'inline',
+                position: 'relative',
               }}
             >
               <MyNextLink
@@ -56,17 +57,17 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
               <Text component="span">is following you.</Text>
 
               {props.showDot && (
-                <Box>
-                  <Box
-                    style={{
-                      backgroundColor: theme.colors.primary[9],
-                      minWidth: 8,
-                      minHeight: 8,
-                      borderRadius: 8,
-                      marginLeft: 8,
-                    }}
-                  />
-                </Box>
+                <Box
+                  style={{
+                    position: 'absolute',
+                    backgroundColor: theme.colors.primary[9],
+                    width: 8,
+                    height: 8,
+                    borderRadius: 8,
+                    top: 0,
+                    right: -8,
+                  }}
+                />
               )}
             </Text>
 

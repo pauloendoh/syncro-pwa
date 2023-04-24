@@ -7,15 +7,15 @@ export const getLabelByRatingValue = (ratingValue: number | null) => {
 }
 
 export const getShortLabelByRatingValue = (ratingValue: number | null) => {
-  if (ratingValue === 1) return 'Horrendous'
-  if (ratingValue === 2) return 'Waste of time'
-  if (ratingValue === 3) return 'Ultra bad'
-  if (ratingValue === 4) return 'Super bad'
-  if (ratingValue === 5) return 'Bad'
-  if (ratingValue === 6) return 'So so'
-  if (ratingValue === 7) return 'Ok'
-  if (ratingValue === 8) return 'Good'
-  if (ratingValue === 9) return 'Very good'
-  if (ratingValue === 10) return 'Perfect!'
+  if (ratingValue === 1) return 'Appalling'
+  if (ratingValue === 2) return 'Horrible'
+  if (ratingValue === 3) return 'Very bad'
+  if (ratingValue === 4) return 'Bad'
+  if (ratingValue === 5) return 'Average'
+  if (ratingValue === 6) return 'Fine'
+  if (ratingValue === 7) return 'Good'
+  if (ratingValue === 8) return 'Very good'
+  if (ratingValue === 9) return 'Great'
+  if (ratingValue === 10) return 'Masterpiece!'
   return 'Rate'
 }

@@ -1,4 +1,5 @@
 import { ScrollArea, useMantineTheme } from '@mantine/core'
+import { useMemo } from 'react'
 import { IoMdShareAlt } from 'react-icons/io'
 import {
   MdBookmark,
@@ -34,46 +35,23 @@ const RatingRow = ({ syncroItem }: Props) => {
 
   const openRatingModal = useSaveRatingModalStore((s) => s.openModal)
 
-  const { mutate: submitToggleSave } = useToggleSaveItemMutation()
+  const { mutate: submitToggleSave, isLoading: toggleSaveIsLoading } =
+    useToggleSaveItemMutation()
 
-  const openExternalLink = () => {
-    if (!window) {
-      return
-    }
+  const externalLink = useMemo(() => {
     if (syncroItem.type === 'game') {
-      if (!syncroItem.igdbUrl) {
-        alert('No external link available')
-        return
-      }
-
-      window.open(syncroItem.igdbUrl, '_blank')
-      return
+      return syncroItem.igdbUrl
     }
     if (syncroItem.type === 'manga') {
-      if (!syncroItem.mangaMalUrl) {
-        alert('No external link available')
-        return
-      }
-      window.open(syncroItem.mangaMalUrl, '_blank')
-      return
+      return syncroItem.mangaMalUrl
     }
 
     if (syncroItem.type === 'book') {
-      if (!syncroItem.openLibraryUrl) {
-        alert('No external link available')
-        return
-      }
-      window.open(syncroItem.openLibraryUrl, '_blank')
-      return
+      return syncroItem.openLibraryUrl
     }
 
-    if (!syncroItem.imdbUrl) {
-      alert('No external link available')
-      return
-    }
-
-    window.open(syncroItem.imdbUrl, '_blank')
-  }
+    return syncroItem.imdbUrl
+  }, [syncroItem])
 
   const openRecommendItemModal = useRecommendItemActionSheetStore(
     (s) => s.openActionSheet
@@ -118,6 +96,7 @@ const RatingRow = ({ syncroItem }: Props) => {
                   <MdBookmarkBorder color={theme.colors.dark[0]} size={16} />
                 )
               }
+              loading={toggleSaveIsLoading}
             >
               {myInterest?.interestLevel ? 'Planned' : typeMap.planTo}
             </RatingRowButton>
@@ -134,13 +113,18 @@ const RatingRow = ({ syncroItem }: Props) => {
           </>
         )}
 
-        <RatingRowButton
-          ml={2}
-          onClick={openExternalLink}
-          leftIcon={<MdLink color={theme.colors.dark[0]} size={16} />}
+        <a
+          href={String(externalLink)}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          {typeMap.site}
-        </RatingRowButton>
+          <RatingRowButton
+            ml={2}
+            leftIcon={<MdLink color={theme.colors.dark[0]} size={16} />}
+          >
+            {typeMap.site}
+          </RatingRowButton>
+        </a>
       </FlexVCenter>
     </ScrollArea>
   )

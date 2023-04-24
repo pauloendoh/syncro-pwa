@@ -11,6 +11,8 @@ const SendMessageInput = (props: Props) => {
   const { mutate: submitSendMessage } = useSendMessageMutation()
 
   const handleSubmit = () => {
+    if (message.trim().length === 0) return
+
     submitSendMessage(
       { content: message, roomId: props.roomId },
       {

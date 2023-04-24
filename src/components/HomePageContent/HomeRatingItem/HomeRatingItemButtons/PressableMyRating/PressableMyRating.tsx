@@ -47,9 +47,7 @@ const PressableMyRating = (props: Props) => {
           <MdStarBorder color={color} size={24} />
         )}
 
-        <Text color={myRating && 'secondary'} w={36}>
-          {myRating?.ratingValue}
-        </Text>
+        <Text color={myRating && 'secondary'}>{myRating?.ratingValue}</Text>
       </FlexVCenter>
     </Tooltip>
   )

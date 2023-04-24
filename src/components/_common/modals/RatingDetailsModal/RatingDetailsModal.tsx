@@ -1,4 +1,11 @@
-import { ActionIcon, Flex, Modal, Text, useMantineTheme } from '@mantine/core'
+import {
+  ActionIcon,
+  Flex,
+  Modal,
+  Skeleton,
+  Text,
+  useMantineTheme,
+} from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { MdClose } from 'react-icons/md'
@@ -24,7 +31,9 @@ const RatingDetailsModal = () => {
 
   const theme = useMantineTheme()
 
-  const { data: syncroItem } = useSyncroItemDetailsQuery(rating?.syncroItemId)
+  const { data: syncroItem, isLoading } = useSyncroItemDetailsQuery(
+    rating?.syncroItemId
+  )
 
   const { data: userInfo } = useUserInfoQuery(rating?.userId)
   const { ratingDetailsId } = useMyRouterQuery()
@@ -96,8 +105,13 @@ const RatingDetailsModal = () => {
                         color: theme.colors.gray[0],
                       })}
                     >
-                      {syncroItem?.title}{' '}
-                      {syncroItem?.year && `[${syncroItem.year}]`}
+                      {isLoading && <Skeleton height={8} radius="xl" />}
+                      {syncroItem && (
+                        <>
+                          {syncroItem?.title}{' '}
+                          {syncroItem?.year && `[${syncroItem.year}]`}
+                        </>
+                      )}
                     </Text>
                   </MyNextLink>
                 </Text>

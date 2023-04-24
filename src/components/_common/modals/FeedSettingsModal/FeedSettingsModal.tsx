@@ -33,6 +33,7 @@ const FeedSettingsModal = () => {
   const queryClient = useQueryClient()
 
   const onSubmit = (data: UserSettingsDto) => {
+
     submitSettings(data, {
       onSuccess: () => {
         closeModal()

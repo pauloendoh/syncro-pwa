@@ -11,6 +11,7 @@ import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
+import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MyPaper from '../_common/overrides/MyPaper'
 import MessageItem from './MessageItem/MessageItem'
@@ -32,7 +33,7 @@ const MessagesPage = (props: Props) => {
   }, [messageRoom, authUser])
   const { data: user } = useUserInfoQuery(otherUser?.id)
 
-  const { data: messages } = useMessagesQuery(roomId)
+  const { data: messages, isLoading } = useMessagesQuery(roomId)
   const viewport = useRef<HTMLDivElement>(null)
 
   useMessageRoomSockets(roomId)
@@ -103,6 +104,7 @@ const MessagesPage = (props: Props) => {
                   height: 'calc(100vh - 240px )',
                 }}
               >
+                {isLoading && <CenterLoader />}
                 {messages?.map((message, index) => (
                   <MessageItem
                     key={message.id}

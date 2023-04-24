@@ -5,6 +5,7 @@ import {
   Center,
   Container,
   Flex,
+  List,
   Loader,
   Text,
   Title,
@@ -32,10 +33,8 @@ import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRati
 import UserMoreMenu from './UserMoreMenu/UserMoreMenu'
 import UserPageRatingsSection from './UserPageRatingsSection/UserPageRatingsSection'
 
-type Props = {}
-
 // PE 1/3 - change name to UserProfilePage
-const UserPageContent = (props: Props) => {
+const UserPageContent = () => {
   const { userId } = useMyRouterQuery()
   const { data: userInfo, isLoading } = useUserInfoQuery(userId!)
 
@@ -117,18 +116,25 @@ const UserPageContent = (props: Props) => {
                 <FlexVCenter>
                   <Text component="span" color="yellow" weight={500}>
                     Looking for recommendations:{' '}
-                    {
-                      // split by ","
-                      userInfo.profile.lookingForRecommendationTypes
+                    <List>
+                      {userInfo.profile.lookingForRecommendationTypes
                         .map((type) =>
                           syncroItemOptions
                             .find((o) => o.itemType === type)
                             ?.getTypeLabelLowerCase(true)
                         )
-                        .join(', ')
-                        .replace(/,(?=[^,]*$)/, ' and')
-                    }
-                    .
+                        .map((label) => (
+                          <List.Item
+                            key={label}
+                            sx={(theme) => ({
+                              color: theme.colors.yellow,
+                              fontWeight: 500,
+                            })}
+                          >
+                            {label}
+                          </List.Item>
+                        ))}
+                    </List>
                   </Text>
                 </FlexVCenter>
               )}
