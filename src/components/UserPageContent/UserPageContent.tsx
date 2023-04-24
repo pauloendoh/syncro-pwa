@@ -127,7 +127,7 @@ const UserPageContent = () => {
                           <List.Item
                             key={label}
                             sx={(theme) => ({
-                              color: theme.colors.yellow,
+                              color: theme.colors.yellow[8],
                               fontWeight: 500,
                             })}
                           >
