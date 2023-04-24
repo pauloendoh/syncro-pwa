@@ -105,7 +105,7 @@ const RatingDetailsModal = () => {
                         color: theme.colors.gray[0],
                       })}
                     >
-                      {isLoading && <Skeleton height={8} radius="xl" />}
+                      {isLoading && <Skeleton height={12} radius="xl" />}
                       {syncroItem && (
                         <>
                           {syncroItem?.title}{' '}
