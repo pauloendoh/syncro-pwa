@@ -50,7 +50,7 @@ const HomeRatingItemButtons = (props: Props) => {
 
   if (!authUser) return null
   return (
-    <FlexVCenter mt={2} gap={40}>
+    <FlexVCenter mt={2} gap={24}>
       <PressableMyRating itemId={props.syncroItemId!} />
       <Tooltip label={bookmarkTooltipLabel} withArrow>
         <FlexVCenter
