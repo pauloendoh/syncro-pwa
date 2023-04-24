@@ -2,6 +2,7 @@ import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { useQueryClient } from '@tanstack/react-query'
 
+import { useMemo } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
@@ -40,6 +41,14 @@ const HomeRatingItem = (props: Props) => {
     itemType: props.rating.syncroItem?.type,
   })
 
+  const isLookingForRecommendation = useMemo(() => {
+    if (!props.rating.user?.profile?.lookingForRecommendationTypes) {
+      return false
+    }
+
+    return props.rating.user?.profile?.lookingForRecommendationTypes.length > 0
+  }, [props.rating.user?.profile?.lookingForRecommendationTypes])
+
   return (
     <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
       <MyNextLink href={urls.pages.user(props.rating.userId)}>
@@ -53,6 +62,7 @@ const HomeRatingItem = (props: Props) => {
           <UserImage
             pictureUrl={props.rating.user?.profile?.pictureUrl}
             username={props.rating.user?.username}
+            showLookingForRecommendationIcon={isLookingForRecommendation}
           />
         </div>
       </MyNextLink>

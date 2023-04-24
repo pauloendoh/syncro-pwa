@@ -1,3 +1,5 @@
+import { Box, Tooltip } from '@mantine/core'
+import { MdRemoveRedEye } from 'react-icons/md'
 import { urls } from '../../../../../utils/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
 
@@ -6,20 +8,34 @@ type Props = {
   pictureUrl?: string
   widthHeight?: number
   userIdAndLink?: string
+  showLookingForRecommendationIcon?: boolean
 }
 
 const UserImage = (props: Props) => {
   const image = (
-    <img
-      alt={props.username || 'username'}
-      src={props.pictureUrl || '/images/avatars/avatar.png'}
-      width={props.widthHeight || 40}
-      height={props.widthHeight || 40}
+    <div
       style={{
-        borderRadius: '50%',
-        objectFit: 'cover',
+        position: 'relative',
       }}
-    />
+    >
+      <img
+        alt={props.username || 'username'}
+        src={props.pictureUrl || '/images/avatars/avatar.png'}
+        width={props.widthHeight || 40}
+        height={props.widthHeight || 40}
+        style={{
+          borderRadius: '50%',
+          objectFit: 'cover',
+        }}
+      />
+      {props.showLookingForRecommendationIcon && (
+        <Tooltip label="Looking for recommendations" position="bottom">
+          <Box pos={'absolute'} right={0} bottom={-16}>
+            <MdRemoveRedEye />
+          </Box>
+        </Tooltip>
+      )}
+    </div>
   )
 
   if (props.userIdAndLink)
