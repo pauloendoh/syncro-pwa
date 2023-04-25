@@ -4,10 +4,10 @@ import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-q
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
 import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
 import { urls } from '../../../../../utils/urls'
+import UserProfilePicture from '../../../UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../../flex/FlexCol'
 import FlexVCenter from '../../../flex/FlexVCenter'
 import MyNextLink from '../../../overrides/MyNextLink'
-import UserProfilePicture from '../../../UserProfilePicture/UserProfilePicture'
 
 interface Props {
   mutual: MutualSavedItemDto
@@ -41,7 +41,7 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
           <UserProfilePicture userId={mutual.user.id} widthHeigth={36} />
         </MyNextLink>
 
-        <FlexCol ml={16}>
+        <FlexCol ml={8}>
           <MyNextLink href={urls.pages.user(mutual.user.id)}>
             <Text weight={500}>{mutual.user.username}</Text>
           </MyNextLink>
