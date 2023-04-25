@@ -1,5 +1,5 @@
 import { Menu, Title } from '@mantine/core'
-import { useState } from 'react'
+import { useLocalStorage } from '@mantine/hooks'
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineViewModule,
@@ -18,7 +18,10 @@ type Props = {
 type FeedView = 'card' | 'grid'
 
 const UserPageRatingsSection = (props: Props) => {
-  const [feedView, setFeedView] = useState<FeedView>('card')
+  const [feedView, setFeedView] = useLocalStorage<FeedView>({
+    key: 'feed-view',
+    defaultValue: 'card',
+  })
 
   const { data: homeRatings } = useTimelineRatingsQuery(props.userId)
 

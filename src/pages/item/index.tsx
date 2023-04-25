@@ -21,10 +21,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     if (res.data) item = res.data
   }
 
-  console.log({
-    item,
-  })
-
   return {
     props: {
       item,
