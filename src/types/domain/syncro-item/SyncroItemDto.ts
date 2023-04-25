@@ -1,5 +1,6 @@
 import { InterestDto } from '../interest/InterestDto'
 import { RatingDto } from '../rating/RatingDto'
+import { MangaExtraInfoDto } from './MangaExtraInfoDto/MangaExtraInfoDto'
 import { SyncroItemType } from './SyncroItemType/SyncroItemType'
 
 export interface SyncroItemDto {
@@ -23,6 +24,8 @@ export interface SyncroItemDto {
   openLibraryUrl: string | null
   ratings?: RatingDto[]
   interests?: InterestDto[]
+
+  mangaExtraInfo?: MangaExtraInfoDto
 
   updatedAt: string
   createdAt: string

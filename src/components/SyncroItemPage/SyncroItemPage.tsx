@@ -27,6 +27,7 @@ import GenreChips from './GenreChips/GenreChips'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import ItemReviewsSection from './ItemReviewsSection/ItemReviewsSection'
+import MangaExtraInfoSection from './MangaExtraInfoSection/MangaExtraInfoSection'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
@@ -167,6 +168,12 @@ const SyncroItemPage = () => {
                     </Box>
                   )}
                 </Box>
+
+                {item.mangaExtraInfo && (
+                  <Box mt={24}>
+                    <MangaExtraInfoSection info={item.mangaExtraInfo} />
+                  </Box>
+                )}
               </FlexCol>
 
               <Box mt={16} />
