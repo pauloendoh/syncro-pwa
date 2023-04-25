@@ -7,11 +7,10 @@ import { useTimelineHasNewsQuery } from '../../../../hooks/react-query/feed/useT
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
-import { urls } from '../../../../utils/urls'
+import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
-import MyNextLink from '../../../_common/overrides/MyNextLink'
 import SemiBold from '../../../_common/text/SemiBold'
 
 type Props = {
@@ -96,16 +95,15 @@ const UserRatingsGridView = (props: Props) => {
                     cursor: 'pointer',
                   }}
                 >
-                  <MyNextLink
-                    href={urls.pages.syncroItem(rating?.syncroItem?.id || '')}
-                  >
+                  <SyncroItemLink item={rating.syncroItem!}>
                     <SyncroItemImage
                       item={rating.syncroItem}
                       width={isMobile ? 80 : 104}
                       height={isMobile ? 80 : 104}
                       showItemType={rating.syncroItem?.type}
                     />
-                  </MyNextLink>
+                  </SyncroItemLink>
+
                   <FlexVCenter
                     sx={{
                       color: getVariantRatingYellow(rating.ratingValue || 1),

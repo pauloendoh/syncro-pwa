@@ -13,6 +13,7 @@ import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
 import { urls } from '../../../utils/urls'
 import SearchItemLeftSection from '../../SearchPageContent/ItemSearchResults/ImdbSearchItem/SearchItemLeftSection/SearchItemLeftSection'
 import SearchItemYourSection from '../../SearchPageContent/ItemSearchResults/SearchItemYourSection/SearchItemYourSection'
+import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
@@ -56,12 +57,9 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
     <Box>
       <Flex gap={16}>
         <Box>
-          <MyNextLink
-            href={urls.pages.syncroItem(item.id)}
-            onClick={handleClick}
-          >
+          <SyncroItemLink item={item}>
             <SyncroItemImage height={120} width={120} item={item} />
-          </MyNextLink>
+          </SyncroItemLink>
         </Box>
 
         <FlexCol style={{ flexShrink: 1 }}>

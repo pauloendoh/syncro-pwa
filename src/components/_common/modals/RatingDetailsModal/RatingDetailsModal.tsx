@@ -18,6 +18,7 @@ import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
+import SyncroItemLink from '../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../flex/FlexCol'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import MyNextLink from '../../overrides/MyNextLink'
@@ -93,27 +94,26 @@ const RatingDetailsModal = () => {
                   </b>
                 </Text>
                 <Text>
-                  <MyNextLink
-                    href={urls.pages.syncroItem(
-                      encodeURI(rating.syncroItemId!)
-                    )}
-                  >
-                    <Text
-                      span
-                      weight={600}
-                      sx={(theme) => ({
-                        color: theme.colors.gray[0],
-                      })}
-                    >
-                      {isLoading && <Skeleton height={12} radius="xl" />}
-                      {syncroItem && (
-                        <>
-                          {syncroItem?.title}{' '}
-                          {syncroItem?.year && `[${syncroItem.year}]`}
-                        </>
-                      )}
-                    </Text>
-                  </MyNextLink>
+                  {isLoading && <Skeleton height={12} radius="xl" />}
+
+                  {syncroItem && (
+                    <SyncroItemLink item={syncroItem}>
+                      <Text
+                        span
+                        weight={600}
+                        sx={(theme) => ({
+                          color: theme.colors.gray[0],
+                        })}
+                      >
+                        {syncroItem && (
+                          <>
+                            {syncroItem?.title}{' '}
+                            {syncroItem?.year && `[${syncroItem.year}]`}
+                          </>
+                        )}
+                      </Text>
+                    </SyncroItemLink>
+                  )}
                 </Text>
                 <Text size={'xs'}>{format(rating.createdAt)}</Text>
               </FlexCol>

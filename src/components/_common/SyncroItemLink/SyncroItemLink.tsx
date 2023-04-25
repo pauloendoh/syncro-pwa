@@ -13,7 +13,6 @@ type Props = {
 
 const SyncroItemLink = (props: Props) => {
   const handleClick = () => {
-    debugger
     nookies.set(
       null,
       cookieKeys.prefetchedItem(props.item.id),

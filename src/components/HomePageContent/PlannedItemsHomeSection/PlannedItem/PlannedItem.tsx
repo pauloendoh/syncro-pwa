@@ -11,6 +11,7 @@ import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
+import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 
 type Props = {
   planned: InterestDto
@@ -36,6 +37,8 @@ const PlannedItem = (props: Props) => {
 
   const { mutate: submitToggleSave } = useToggleSaveItemMutation()
 
+  if (!syncroItem) return null
+
   return (
     <Draggable index={props.index} draggableId={props.planned.id}>
       {(provided) => (
@@ -55,12 +58,9 @@ const PlannedItem = (props: Props) => {
               flexGrow: 1,
             }}
           >
-            <MyNextLink
-              href={urls.pages.syncroItem(syncroItem!.id)}
-              onClick={() => handleClick(props.planned)}
-            >
+            <SyncroItemLink item={syncroItem}>
               <SyncroItemImage item={syncroItem} height={64} width={64} />
-            </MyNextLink>
+            </SyncroItemLink>
 
             <FlexCol
               gap={8}

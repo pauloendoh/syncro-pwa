@@ -3,10 +3,9 @@ import { useMemo } from 'react'
 import { ItemToRecommendDto } from '../../../../../hooks/react-query/item-recommendation/types/ItemToRecommendDto'
 import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery'
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
-import { urls } from '../../../../../utils/urls'
+import SyncroItemLink from '../../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../flex/FlexCol'
 import SyncroItemImage from '../../../image/SyncroItemImage/SyncroItemImage'
-import MyNextLink from '../../../overrides/MyNextLink'
 
 interface Props {
   itemToRecommend: ItemToRecommendDto
@@ -35,17 +34,17 @@ const ItemToRecommendOption = ({ itemToRecommend, userId }: Props) => {
 
   return (
     <Flex gap={16} sx={{ flexGrow: 1 }}>
-      <MyNextLink href={urls.pages.syncroItem(item.id)}>
+      <SyncroItemLink item={item}>
         <SyncroItemImage item={item} width={100} height={100} />
-      </MyNextLink>
+      </SyncroItemLink>
 
       <FlexCol justify={'space-between'} sx={{ flexGrow: 1 }}>
         <Flex>
-          <MyNextLink href={urls.pages.syncroItem(item.id)}>
+          <SyncroItemLink item={item}>
             <Text lineClamp={2}>
               {item.title} {item.year && `[${item.year}]`}
             </Text>
-          </MyNextLink>
+          </SyncroItemLink>
         </Flex>
         <Button
           styles={(theme) => ({
