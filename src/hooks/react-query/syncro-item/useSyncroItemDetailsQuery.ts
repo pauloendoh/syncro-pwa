@@ -1,13 +1,18 @@
 import { useQuery } from '@tanstack/react-query'
 import {
-  buildSyncroItemDto,
   SyncroItemDto,
+  buildSyncroItemDto,
 } from '../../../types/domain/syncro-item/SyncroItemDto'
 
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 
-export const useSyncroItemDetailsQuery = (id?: string | null) => {
+export const useSyncroItemDetailsQuery = (
+  id?: string | null,
+  options?: {
+    initialData?: SyncroItemDto
+  }
+) => {
   const axios = useAxios()
   return useQuery<SyncroItemDto, Error>(
     [urls.api.syncroItemDetails(id)],
@@ -19,6 +24,7 @@ export const useSyncroItemDetailsQuery = (id?: string | null) => {
     },
     {
       enabled: !!id,
+      initialData: options?.initialData,
     }
   )
 }

@@ -6,7 +6,6 @@ import {
   Loader,
   Text,
   Title,
-  useMantineTheme,
 } from '@mantine/core'
 import { useState } from 'react'
 import LinesEllipsis from 'react-lines-ellipsis'
@@ -16,6 +15,7 @@ import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/u
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
+import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import SyncroItemIcon from '../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
@@ -33,13 +33,18 @@ import RatingRow from './RatingRow/RatingRow'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
 
+type Props = {
+  initialData: SyncroItemDto | null
+}
+
 // PE 1/3 - rename
-const SyncroItemPage = () => {
+const SyncroItemPage = (props: Props) => {
   const { syncroItemId } = useMyRouterQuery()
-  const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId)
+  const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId, {
+    initialData: props.initialData || undefined,
+  })
   const canHaveTrailers =
     item?.type === 'tvSeries' || item?.type === 'movie' || item?.type === 'game'
-  const theme = useMantineTheme()
 
   const itemTypeMap = useSyncroItemTypeMap({
     itemType: item?.type,

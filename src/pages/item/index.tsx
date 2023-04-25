@@ -64,7 +64,7 @@ const UserItemNextPage: NextPage<Props> = (props) => {
           )}
         </Head>
       )}
-      <SyncroItemPage />
+      <SyncroItemPage initialData={props.item} />
     </>
   )
 }
