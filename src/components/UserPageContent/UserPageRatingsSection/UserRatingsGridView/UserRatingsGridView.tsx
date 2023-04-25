@@ -48,7 +48,7 @@ const UserRatingsGridView = (props: Props) => {
 
   const { isMobile } = useMyMediaQuery()
 
-  const { ratingYellow } = useMyColors()
+  const { ratingYellow, getVariantRatingYellow } = useMyColors()
 
   const { openModal } = useRatingDetailsModalStore()
 
@@ -83,7 +83,7 @@ const UserRatingsGridView = (props: Props) => {
               </MyNextLink>
               <FlexVCenter
                 sx={{
-                  color: ratingYellow,
+                  color: getVariantRatingYellow(rating.ratingValue || 1),
                 }}
                 gap={8}
                 onClick={() => openModal(rating)}
