@@ -8,6 +8,7 @@ import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSync
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../utils/urls'
+import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
@@ -48,6 +49,8 @@ const HomeRatingItem = (props: Props) => {
 
     return props.rating.user?.profile?.lookingForRecommendationTypes.length > 0
   }, [props.rating.user?.profile?.lookingForRecommendationTypes])
+
+  if (!props.rating.syncroItem) return null
 
   return (
     <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
@@ -95,24 +98,21 @@ const HomeRatingItem = (props: Props) => {
               </b>
             </Text>
             <Text>
-              <MyNextLink
-                onClick={handleClick}
-                href={urls.pages.syncroItem(
-                  encodeURI(props.rating.syncroItemId!)
-                )}
-              >
-                <Text
-                  span
-                  weight={600}
-                  sx={(theme) => ({
-                    color: theme.colors.gray[0],
-                  })}
-                >
-                  {props.rating.syncroItem?.title}{' '}
-                  {props.rating.syncroItem?.year &&
-                    `[${props.rating.syncroItem?.year}]`}
-                </Text>
-              </MyNextLink>
+              {props.rating.syncroItem && (
+                <SyncroItemLink item={props.rating.syncroItem!}>
+                  <Text
+                    span
+                    weight={600}
+                    sx={(theme) => ({
+                      color: theme.colors.gray[0],
+                    })}
+                  >
+                    {props.rating.syncroItem?.title}{' '}
+                    {props.rating.syncroItem?.year &&
+                      `[${props.rating.syncroItem?.year}]`}
+                  </Text>
+                </SyncroItemLink>
+              )}
             </Text>
             <Text size={'xs'}>{format(props.rating.createdAt)}</Text>
 
@@ -124,10 +124,8 @@ const HomeRatingItem = (props: Props) => {
             itemType={props.rating.syncroItem?.type}
           />
         </FlexCol>
-        <MyNextLink
-          onClick={handleClick}
-          href={urls.pages.syncroItem(encodeURI(props.rating.syncroItemId!))}
-        >
+
+        <SyncroItemLink item={props.rating.syncroItem}>
           <Box pos="relative">
             <SyncroItemImage
               item={props.rating.syncroItem}
@@ -149,7 +147,7 @@ const HomeRatingItem = (props: Props) => {
               <SyncroItemIcon type={props.rating.syncroItem!.type} size={16} />
             </Center>
           </Box>
-        </MyNextLink>
+        </SyncroItemLink>
       </Flex>
     </MyPaper>
   )

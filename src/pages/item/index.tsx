@@ -3,6 +3,8 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import SyncroItemPage from '../../components/SyncroItemPage/SyncroItemPage'
 import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
+import { cookieKeys } from '../../utils/consts/cookieKeys'
+import nookies from '../../utils/nookies'
 import { urls } from '../../utils/urls'
 
 interface Props {
@@ -13,8 +15,19 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const { syncroItemId } = context.query
-  let item = null
-  if (syncroItemId && typeof syncroItemId === 'string') {
+  let item: SyncroItemDto | null = null
+
+  const cookies = nookies.get(context)
+  const prefetchedStr = cookies[cookieKeys.prefetchedItem(String(syncroItemId))]
+
+  if (prefetchedStr) {
+    item = JSON.parse(prefetchedStr)
+
+    // remove cookie
+    nookies.destroy(context, cookieKeys.prefetchedItem(String(syncroItemId)))
+  }
+
+  if (!item && syncroItemId && typeof syncroItemId === 'string') {
     const res = await axios.get<SyncroItemDto>(
       urls.api.syncroItemDetails(syncroItemId)
     )
