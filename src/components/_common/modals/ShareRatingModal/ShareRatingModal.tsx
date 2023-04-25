@@ -6,12 +6,10 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { FaTwitter } from 'react-icons/fa'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
-import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { myNotifications } from '../../../../utils/mantine/myNotifications'
@@ -24,16 +22,12 @@ const ShareRatingModal = () => {
 
   const theme = useMantineTheme()
 
-  const { data: syncroItem } = useSyncroItemDetailsQuery(rating?.syncroItemId)
-
-  const { data: userInfo } = useUserInfoQuery(rating?.userId)
   const { shareRatingModal } = useMyRouterQuery()
-  const router = useRouter()
 
   const urlToCopy = useMemo(() => {
     if (!rating?.syncroItemId) return ''
     return (
-      window?.location.origin +
+      'https://syncro.vercel.app' +
       urls.pages.syncroItem(rating?.syncroItemId, {
         ratingDetailsId: rating.id,
       })
@@ -49,13 +43,12 @@ const ShareRatingModal = () => {
   const textToShare = useMemo(() => {
     const text = `Rated a ${typeMap.getTypeLabelLowerCase()} ${
       rating?.ratingValue
-    }/10:\n${item?.title} ${item?.year && `[${item.year}]`}\n\n"${
+    }/10:\n${item?.title} ${item?.year && `[${item.year}]`}\n\n${
       rating?.review
-    }"`
+    }\n\n`
 
-    const limit = 280 - urlToCopy.length
-    if (text.length > limit) {
-      return text.slice(0, 280 - limit - 6) + '..."\n\n'
+    if (text.length > 270) {
+      return text.slice(0, 270) + '..."\n\n'
     }
     return text
   }, [rating, item, typeMap, urlToCopy])
