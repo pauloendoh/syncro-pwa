@@ -44,56 +44,83 @@ const UserRatingsGridView = (props: Props) => {
     return homeRatings?.pages.flat() || []
   }, [homeRatings])
 
+  const ratingsByMonth = useMemo(() => {
+    return flatRatings.reduce<Record<string, typeof flatRatings>>(
+      (acc, rating) => {
+        const month = new Date(rating.createdAt).toLocaleString('en-US', {
+          month: 'long',
+        })
+        const year = new Date(rating.createdAt).getFullYear()
+
+        const key = `${month} ${year}`
+
+        if (!acc[key]) {
+          acc[key] = []
+        }
+
+        acc[key].push(rating)
+
+        return acc
+      },
+      {}
+    )
+  }, [flatRatings])
+
   useTimelineHasNewsQuery(props.userId, flatRatings[0]?.createdAt)
 
   const { isMobile } = useMyMediaQuery()
 
-  const { ratingYellow, getVariantRatingYellow } = useMyColors()
+  const { getVariantRatingYellow } = useMyColors()
 
   const { openModal } = useRatingDetailsModalStore()
 
   return (
     <>
       <FlexCol gap={16} mt={16}>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gridRowGap: 16,
-          }}
-        >
-          {flatRatings.map((rating) => (
-            <FlexCol
-              key={rating.id}
-              align="center"
-              gap={4}
+        {Object.entries(ratingsByMonth).map(([month, ratings]) => (
+          <FlexCol key={month} gap={8}>
+            <SemiBold>{month}</SemiBold>
+            <Box
               sx={{
-                cursor: 'pointer',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gridRowGap: 16,
               }}
             >
-              <MyNextLink
-                href={urls.pages.syncroItem(rating?.syncroItem?.id || '')}
-              >
-                <SyncroItemImage
-                  item={rating.syncroItem}
-                  width={isMobile ? 80 : 104}
-                  height={isMobile ? 80 : 104}
-                  showItemType={rating.syncroItem?.type}
-                />
-              </MyNextLink>
-              <FlexVCenter
-                sx={{
-                  color: getVariantRatingYellow(rating.ratingValue || 1),
-                }}
-                gap={8}
-                onClick={() => openModal(rating)}
-              >
-                <SemiBold>{rating.ratingValue}</SemiBold>
-                {rating.review.length > 0 && <GrTextAlignFull />}
-              </FlexVCenter>
-            </FlexCol>
-          ))}
-        </Box>
+              {ratings.map((rating) => (
+                <FlexCol
+                  key={rating.id}
+                  align="center"
+                  gap={4}
+                  sx={{
+                    cursor: 'pointer',
+                  }}
+                >
+                  <MyNextLink
+                    href={urls.pages.syncroItem(rating?.syncroItem?.id || '')}
+                  >
+                    <SyncroItemImage
+                      item={rating.syncroItem}
+                      width={isMobile ? 80 : 104}
+                      height={isMobile ? 80 : 104}
+                      showItemType={rating.syncroItem?.type}
+                    />
+                  </MyNextLink>
+                  <FlexVCenter
+                    sx={{
+                      color: getVariantRatingYellow(rating.ratingValue || 1),
+                    }}
+                    gap={8}
+                    onClick={() => openModal(rating)}
+                  >
+                    <SemiBold>{rating.ratingValue}</SemiBold>
+                    {rating.review.length > 0 && <GrTextAlignFull />}
+                  </FlexVCenter>
+                </FlexCol>
+              ))}
+            </Box>
+          </FlexCol>
+        ))}
 
         {hasNextPage && (
           <Center sx={{ height: 80 }} ref={ref}>
