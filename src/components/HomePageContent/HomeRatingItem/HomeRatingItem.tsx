@@ -1,12 +1,10 @@
 import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
-import { useQueryClient } from '@tanstack/react-query'
 
 import { useMemo } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../utils/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -22,21 +20,10 @@ type Props = {
   rating: RatingDto
 }
 
-//
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
   const isSmallScreen = useMediaQuery('(max-width: 860px)')
-
-  const queryClient = useQueryClient()
-  const handleClick = () => {
-    if (props.rating.syncroItem) {
-      queryClient.setQueryData<SyncroItemDto>(
-        [urls.api.syncroItemDetails(props.rating.syncroItem.id)],
-        props.rating.syncroItem
-      )
-    }
-  }
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.rating.syncroItem?.type,

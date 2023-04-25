@@ -24,7 +24,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     item = JSON.parse(prefetchedStr)
 
     // remove cookie
-    nookies.destroy(context, cookieKeys.prefetchedItem(String(syncroItemId)))
+    nookies.destroy(context, cookieKeys.prefetchedItem(String(syncroItemId)), {
+      path: '/',
+    })
   }
 
   if (!item && syncroItemId && typeof syncroItemId === 'string') {
