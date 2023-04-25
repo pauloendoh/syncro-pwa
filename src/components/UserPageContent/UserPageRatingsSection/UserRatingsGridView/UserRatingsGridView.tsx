@@ -3,6 +3,7 @@ import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
 import { GrTextAlignFull } from 'react-icons/gr'
 import { useTimelineRatingsQuery } from '../../../../hooks/react-query/feed/useHomeRatingsQuery'
+import { useTimelineHasNewsQuery } from '../../../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
@@ -42,6 +43,8 @@ const UserRatingsGridView = (props: Props) => {
   const flatRatings = useMemo(() => {
     return homeRatings?.pages.flat() || []
   }, [homeRatings])
+
+  useTimelineHasNewsQuery(props.userId, flatRatings[0]?.createdAt)
 
   const { isMobile } = useMyMediaQuery()
 

@@ -97,6 +97,9 @@ export const urls = {
         }`
       )
     },
+    timelineHasNews: (userId?: string, lastRatingCreatedAt?: string) =>
+      `/timeline-has-news?userId=${userId}&lastRatingCreatedAt=${lastRatingCreatedAt}`,
+
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
     userItems: (userId: string, itemType: SyncroItemType) =>
       API_URL + `/user/${userId}/items?itemType=${itemType}`,

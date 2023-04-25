@@ -45,7 +45,6 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
           <MyNextLink href={urls.pages.user(mutual.user.id)}>
             <Text weight={500}>{mutual.user.username}</Text>
           </MyNextLink>
-          {/* <Text></Text> */}
         </FlexCol>
       </FlexVCenter>
       <Flex>

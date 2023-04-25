@@ -10,6 +10,7 @@ import {
 import { useMemo } from 'react'
 import { MdSettings } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
+import { useTimelineHasNewsQuery } from '../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import useFeedSettingsModal from '../../hooks/zustand/modals/useFeedSettingsModal'
 import { urls } from '../../utils/urls'
@@ -27,10 +28,10 @@ const HomePageContent = () => {
     return homeRatings?.pages.flat() || []
   }, [homeRatings])
 
+  useTimelineHasNewsQuery(undefined, flatRatings[0]?.createdAt)
+
   const { isSmallScreen, isMobile: isXsScreen } = useMyMediaQuery()
   const theme = useMantineTheme()
-
-  const { isMobile } = useMyMediaQuery()
 
   const { openModal: openFeedSettingsModal } = useFeedSettingsModal()
 
