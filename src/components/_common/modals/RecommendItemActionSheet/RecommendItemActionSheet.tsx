@@ -2,6 +2,7 @@ import { Modal, Title } from '@mantine/core'
 import { useMutualsSavedItemQuery } from '../../../../hooks/react-query/user/useMutualsSavedItemQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemActionSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
+import { zIndexes } from '../../../../utils/zIndexes'
 import RecommendItemToUsersList from './RecommendItemToUsersList/RecommendItemToUsersList'
 
 // PE 1/3 - rename to RecommendItemModal
@@ -25,6 +26,10 @@ const RecommendItemActionSheet = () => {
       styles={{
         inner: {
           top: 40,
+          zIndex: zIndexes.editRatingModal,
+        },
+        overlay: {
+          zIndex: zIndexes.editRatingModal,
         },
       }}
     >

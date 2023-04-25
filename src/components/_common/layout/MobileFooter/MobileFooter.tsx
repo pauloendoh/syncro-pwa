@@ -1,4 +1,5 @@
 import { Center, Footer, useMantineTheme } from '@mantine/core'
+import { zIndexes } from '../../../../utils/zIndexes'
 import MyNextLink from '../../overrides/MyNextLink'
 import { useMobileFooterLinkOptions } from './mobileFooterLinkOptions/mobileFooterLinkOptions'
 
@@ -14,6 +15,7 @@ const MobileFooter = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
+        zIndex: zIndexes.navbarFooter,
       }}
     >
       {mobileFooterLinkOptions.map((option) => (

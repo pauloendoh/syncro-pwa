@@ -14,7 +14,7 @@ const MobileHomeHeader = () => {
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 16px',
-        zIndex: zIndexes.navbar,
+        zIndex: zIndexes.navbarFooter,
       }}
     >
       <Title order={2}>Syncro</Title>

@@ -40,7 +40,7 @@ const MyNavbar = (props: Props) => {
     <Header
       height={60}
       fixed
-      zIndex={zIndexes.navbar}
+      zIndex={zIndexes.navbarFooter}
       sx={{
         display: 'flex',
         alignItems: 'center',
