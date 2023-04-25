@@ -6,7 +6,7 @@ import { queryKeys } from '../../../utils/queryKeys'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 20
 
 export const useTimelineRatingsQuery = (userId?: string) => {
   const axios = useAxios()
