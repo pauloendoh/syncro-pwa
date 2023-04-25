@@ -15,6 +15,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { RouterTransition } from '../components/_common/RouterTransition/RouterTransition'
 import useCheckAuthOrLogout from '../hooks/domains/auth/useCheckAuthUserOrLogout'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
 import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlOnSessionStorage'
@@ -83,6 +84,8 @@ export default function App(props: AppProps) {
               position="bottom-center"
               zIndex={zIndexes.notification}
             />
+            <RouterTransition />
+
             <LoadingOverlay
               visible={loading}
               overlayOpacity={1}

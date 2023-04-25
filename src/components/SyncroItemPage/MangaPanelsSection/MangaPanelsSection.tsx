@@ -72,6 +72,7 @@ const MangaPanelsSection = (props: Props) => {
         >
           {images.map((image, index) => (
             <img
+              key={index}
               onClick={() => setIndex(index)}
               src={image.uri}
               height={100 * (4 / 3)}
