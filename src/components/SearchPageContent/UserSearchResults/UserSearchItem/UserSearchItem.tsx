@@ -4,9 +4,9 @@ import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
 import { urls } from '../../../../utils/urls'
 import FollowUnfollowButton from '../../../UserPageContent/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
+import UserProfilePicture from '../../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../../_common/flex/FlexCol'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
-import UserProfilePicture from '../../../_common/UserProfilePicture/UserProfilePicture'
 
 interface Props {
   user: UserSimpleDto
@@ -15,6 +15,13 @@ interface Props {
 const UserSearchItem = ({ user }: Props) => {
   const authUser = useAuthStore((s) => s.authUser)
   const itsAuthUser = useMemo(() => authUser?.id === user.id, [authUser, user])
+
+  const visibleUsername = useMemo(() => {
+    if (user.username.length > 16) {
+      return user.username.slice(0, 16) + '...'
+    }
+    return user.username
+  }, [user.username])
 
   return (
     <Box>
@@ -36,7 +43,7 @@ const UserSearchItem = ({ user }: Props) => {
                   fontWeight: 500,
                 }}
               >
-                {user.username}
+                {visibleUsername}
               </Text>
             </MyNextLink>
             <Text></Text>

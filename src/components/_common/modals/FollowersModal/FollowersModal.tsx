@@ -9,11 +9,8 @@ import useFollowersModalStore from '../../../../hooks/zustand/modals/useFollower
 import UserSearchItem from '../../../SearchPageContent/UserSearchResults/UserSearchItem/UserSearchItem'
 import FlexCol from '../../flex/FlexCol'
 
-interface Props {}
-
-const FollowersModal = (props: Props) => {
+const FollowersModal = () => {
   const { initialValue, closeModal } = useFollowersModalStore()
-  const { lightBackground } = useMyColors()
 
   const [tabIndex, setTabIndex] = useState(
     initialValue?.type === 'followers' ? 0 : 1
@@ -24,8 +21,6 @@ const FollowersModal = (props: Props) => {
   }, [initialValue?.type])
 
   const { followModal } = useMyRouterQuery()
-
-  const { data: userInfo } = useUserInfoQuery(initialValue?.userId)
 
   const {
     data: followersFollows,

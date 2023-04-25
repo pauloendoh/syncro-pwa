@@ -5,7 +5,6 @@ import {
   Center,
   Container,
   Flex,
-  List,
   Loader,
   Text,
   Title,
@@ -116,25 +115,18 @@ const UserPageContent = () => {
                 <FlexVCenter>
                   <Text component="span" color="yellow" weight={500}>
                     Looking for recommendations:{' '}
-                    <List>
-                      {userInfo.profile.lookingForRecommendationTypes
+                    {
+                      // split by ","
+                      userInfo.profile.lookingForRecommendationTypes
                         .map((type) =>
                           syncroItemOptions
                             .find((o) => o.itemType === type)
                             ?.getTypeLabelLowerCase(true)
                         )
-                        .map((label) => (
-                          <List.Item
-                            key={label}
-                            sx={(theme) => ({
-                              color: theme.colors.yellow[8],
-                              fontWeight: 500,
-                            })}
-                          >
-                            {label}
-                          </List.Item>
-                        ))}
-                    </List>
+                        .join(', ')
+                        .replace(/,(?=[^,]*$)/, ' and')
+                    }
+                    .
                   </Text>
                 </FlexVCenter>
               )}
