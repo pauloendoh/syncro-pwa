@@ -10,6 +10,7 @@ export const syncroItemOptions: {
   getTypeLabelLowerCase: (isPlural?: boolean) => string
   planTo: string
   removeFromPlanTo: string
+  inProgressLabel: string
 }[] = [
   {
     itemType: 'movie',
@@ -21,6 +22,7 @@ export const syncroItemOptions: {
       isPlural ? 'movies' : 'movie',
     planTo: 'Plan to watch',
     removeFromPlanTo: 'Remove from planned movies',
+    inProgressLabel: 'watching',
   },
 
   {
@@ -34,6 +36,7 @@ export const syncroItemOptions: {
       isPlural ? 'TV series' : 'TV series',
     planTo: 'Plan to watch',
     removeFromPlanTo: 'Remove from planned TV series',
+    inProgressLabel: 'watching',
   },
 
   {
@@ -45,6 +48,7 @@ export const syncroItemOptions: {
     getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'games' : 'game'),
     planTo: 'Plan to play',
     removeFromPlanTo: 'Remove from planned games',
+    inProgressLabel: 'playing',
   },
   {
     itemType: 'manga',
@@ -55,6 +59,7 @@ export const syncroItemOptions: {
     getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'manga' : 'manga'),
     planTo: 'Plan to read',
     removeFromPlanTo: 'Remove from planned manga',
+    inProgressLabel: 'reading',
   },
   {
     itemType: 'book',
@@ -65,5 +70,6 @@ export const syncroItemOptions: {
     getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'books' : 'book'),
     planTo: 'Plan to read',
     removeFromPlanTo: 'Remove from planned books',
+    inProgressLabel: 'reading',
   },
 ]

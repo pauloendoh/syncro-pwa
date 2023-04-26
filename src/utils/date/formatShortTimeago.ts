@@ -22,11 +22,9 @@ export const formatShortTimeago = (date: Date) => {
   if (diffInDays < 7) {
     return `${diffInDays}d`
   }
-  if (diffInWeeks < 4) {
-    return `${diffInWeeks}w`
-  }
+
   if (diffInMonths < 12) {
-    return `${diffInMonths}m`
+    return `${diffInWeeks}w`
   }
   return `${diffInYears}y`
 }
