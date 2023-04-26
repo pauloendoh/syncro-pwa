@@ -8,17 +8,21 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
+import { useForm } from 'react-hook-form'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
+import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
-import { RatingDto } from '../../../../types/domain/rating/RatingDto'
-import { RatingStatusType } from '../../../../types/domain/rating/ratingStatus'
+import {
+  RatingDto,
+  buildRatingDto,
+} from '../../../../types/domain/rating/RatingDto'
 import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
@@ -29,14 +33,14 @@ import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingV
 
 const EditRatingModal = () => {
   const { initialValue, closeModal } = useSaveRatingModalStore()
+
   const {
     closeModal: closeRatingDetailsModal,
     isOpen: ratingDetailsModalIsOpen,
   } = useRatingDetailsModalStore()
-  const { saveRatingModal } = useMyRouterQuery()
+  const { saveRatingModal: editRatingModal } = useMyRouterQuery()
 
   const { mutate: submitSaveRating, isLoading } = useSaveRatingMutation()
-  // const { mutate: mutateDeleteTag } = useDeleteTagMutation()
 
   const onSubmit = async (data: RatingDto) => {
     submitSaveRating(data, {
@@ -50,30 +54,54 @@ const EditRatingModal = () => {
     initialValue?.syncroItemId
   )
 
-  // PE 1/3 - useForm
-
-  const [status, setStatus] = useState<RatingStatusType>('COMPLETED')
-  const [rating, setRating] = useState<number | null>(null)
-  const [reviewText, setReviewText] = useState('')
+  const {
+    reset,
+    watch,
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isDirty },
+  } = useForm<RatingDto>()
 
   useEffect(() => {
-    setRating(initialValue?.ratingValue || null)
-    setReviewText(initialValue?.review || '')
-    setStatus(initialValue?.status || 'COMPLETED')
+    reset(
+      initialValue ||
+        buildRatingDto({
+          syncroItemId: syncroItem?.id,
+        })
+    )
   }, [initialValue])
 
-  const handleChangeRating = (newRating: number) => {
-    if (newRating === rating) {
-      setRating(null)
+  useConfirmTabClose(isDirty && !!editRatingModal)
+
+  const handleCloseModal = useCallback(() => {
+    if (isDirty && !!editRatingModal) {
+      openConfirmDialog({
+        title: 'Unsaved changes',
+        description:
+          'Are you sure you want to close this modal? Your changes will not be saved.',
+        onConfirm: () => {
+          closeModal()
+        },
+      })
       return
     }
 
-    setRating(newRating)
+    closeModal()
+  }, [isDirty, !!editRatingModal])
+
+  const handleChangeRating = (newRating: number) => {
+    if (newRating === watch('ratingValue')) {
+      setValue('ratingValue', null, { shouldDirty: true })
+
+      return
+    }
+    setValue('ratingValue', newRating, { shouldDirty: true })
   }
 
   const isDisabled = useMemo(
-    () => !initialValue?.id && rating === null,
-    [initialValue?.id, rating]
+    () => !initialValue?.id && watch('ratingValue') === null,
+    [initialValue?.id, watch('ratingValue')]
   )
 
   const closeBothModals = () => {
@@ -103,8 +131,8 @@ const EditRatingModal = () => {
 
   return (
     <Modal
-      opened={!!saveRatingModal}
-      onClose={closeModal}
+      opened={!!editRatingModal}
+      onClose={handleCloseModal}
       title={
         <FlexVCenter justify="space-between">
           <Title order={4}>How would you rate "{syncroItem?.title}"?</Title>
@@ -127,96 +155,90 @@ const EditRatingModal = () => {
         },
       }}
     >
-      <FlexVCenter
-        mt={24}
-        sx={{
-          justifyContent: 'center',
-        }}
-      >
-        <Rating
-          value={rating || 0}
-          onChange={handleChangeRating}
-          color={'secondary'}
-          size={isMobile ? 'lg' : 'xl'}
-          count={10}
-        />
-      </FlexVCenter>
-
-      <FlexVCenter
-        justify={'center'}
-        mt={8}
-        sx={{
-          height: 24,
-        }}
-      >
-        {!!rating && (
-          <Text
-            sx={{
-              fontWeight: 500,
-              color: theme.colors.yellow[5],
-            }}
-          >
-            {getLabelByRatingValue(rating)}
-          </Text>
-        )}
-      </FlexVCenter>
-
-      <RatingStatusSelector value={status} onChange={setStatus} />
-
-      <Textarea
-        label="Review"
-        value={reviewText}
-        onChange={(e) => setReviewText(e.currentTarget.value)}
-        placeholder="Write a review..."
-        autosize
-        minRows={3}
-        styles={{
-          root: {
-            marginTop: 20,
-          },
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && e.ctrlKey) {
-            if (initialValue)
-              onSubmit({
-                ...initialValue,
-                ratingValue: rating,
-                review: reviewText,
-                status,
-              })
-          }
-        }}
-      />
-      <FlexVCenter mt={32} justify="space-between">
-        <SaveCancelButtons
-          isLoading={isLoading}
-          disabled={isDisabled}
-          onSave={() => {
-            if (initialValue)
-              onSubmit({
-                ...initialValue,
-                ratingValue: rating,
-                review: reviewText,
-                status,
-              })
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FlexVCenter
+          mt={24}
+          sx={{
+            justifyContent: 'center',
           }}
-          onCancel={closeModal}
+        >
+          <Rating
+            value={watch('ratingValue') || 0}
+            onChange={handleChangeRating}
+            color={'secondary'}
+            size={isMobile ? 'lg' : 'xl'}
+            count={10}
+          />
+        </FlexVCenter>
+
+        <FlexVCenter
+          justify={'center'}
+          mt={8}
+          sx={{
+            height: 24,
+          }}
+        >
+          {!!watch('ratingValue') && (
+            <Text
+              sx={{
+                fontWeight: 500,
+                color: theme.colors.yellow[5],
+              }}
+            >
+              {getLabelByRatingValue(watch('ratingValue'))}
+            </Text>
+          )}
+        </FlexVCenter>
+
+        <RatingStatusSelector
+          value={watch('status')}
+          onChange={(value) => setValue('status', value, { shouldDirty: true })}
         />
-        {!!initialValue?.id && (
-          <Button onClick={handleDelete} color="red" variant="outline">
-            Delete
-          </Button>
+
+        <Textarea
+          label="Review"
+          value={watch('review')}
+          onChange={(e) =>
+            setValue('review', e.currentTarget.value, { shouldDirty: true })
+          }
+          placeholder="Write a review..."
+          autosize
+          minRows={3}
+          styles={{
+            root: {
+              marginTop: 20,
+            },
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+              if (initialValue) onSubmit(watch())
+            }
+          }}
+        />
+        <FlexVCenter mt={32} justify="space-between">
+          <SaveCancelButtons
+            isLoading={isLoading}
+            disabled={isDisabled}
+            onCancel={handleCloseModal}
+          />
+          {!!initialValue?.id && (
+            <Button onClick={handleDelete} color="red" variant="outline">
+              Delete
+            </Button>
+          )}
+        </FlexVCenter>
+      </form>
+
+      {initialValue?.syncroItemId &&
+        watch('ratingValue') &&
+        watch('ratingValue')! >= 8 && (
+          <FlexCol mt={40} gap={16}>
+            <Divider />
+            <Title order={4}>Recommend to users</Title>
+
+            <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
+          </FlexCol>
         )}
-      </FlexVCenter>
-
-      {initialValue?.syncroItemId && rating && rating >= 8 && (
-        <FlexCol mt={40} gap={16}>
-          <Divider />
-          <Title order={4}>Recommend to users</Title>
-
-          <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
-        </FlexCol>
-      )}
     </Modal>
   )
 }
