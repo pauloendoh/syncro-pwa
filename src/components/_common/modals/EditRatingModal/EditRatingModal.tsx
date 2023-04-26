@@ -64,6 +64,7 @@ const EditRatingModal = () => {
   } = useForm<RatingDto>()
 
   useEffect(() => {
+    // PE 1/3  create a modalIsOpen = useMemo
     if (!!editRatingModal) {
       reset(
         initialValue ||

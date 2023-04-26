@@ -15,6 +15,7 @@ type Props = {
    */
   height?: number
   showItemType?: SyncroItemType
+  ref?: any
 }
 
 const SyncroItemImage = (props: Props) => {
@@ -28,7 +29,7 @@ const SyncroItemImage = (props: Props) => {
   }, [width])
 
   return (
-    <Box pos="relative">
+    <Box pos="relative" ref={props.ref}>
       <MyNextImage300x400
         width={props.width || 100}
         height={height}

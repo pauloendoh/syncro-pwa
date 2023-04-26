@@ -19,11 +19,11 @@ import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import SyncroItemIcon from '../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import SyncroItemImage from '../_common/image/SyncroItemImage/SyncroItemImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
 import AvgRatingRow from './AvgRatingRow/AvgRatingRow'
 import GenreChips from './GenreChips/GenreChips'
+import ImageSyncroItemPage from './ImageSyncroItemPage/ImageSyncroItemPage'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import ItemReviewsSection from './ItemReviewsSection/ItemReviewsSection'
@@ -94,11 +94,7 @@ const SyncroItemPage = (props: Props) => {
                 {authUser?.isAdmin && <ItemMoreIconAdmin item={item} />}
               </Flex>
               <Flex mt={16} gap={16}>
-                <SyncroItemImage
-                  item={item}
-                  width={isMobile ? 100 : 160}
-                  height={isMobile ? 100 : 160}
-                />
+                <ImageSyncroItemPage isMobile={isMobile} item={item} />
 
                 <FlexCol gap={8}>
                   <AvgRatingRow item={item} />
