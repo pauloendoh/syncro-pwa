@@ -9,6 +9,7 @@ import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatus'
 import { urls } from '../../../utils/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
+import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 import { default as MyNextLink } from '../../_common/overrides/MyNextLink'
@@ -102,14 +103,24 @@ const HomeRatingItem = (props: Props) => {
                 </SyncroItemLink>
               )}
             </Text>
-            <Text size={'xs'}>
-              {format(props.rating.createdAt)} ·{' '}
-              {
-                ratingStatusArrayMap.find(
-                  (s) => s.value === props.rating.status
-                )?.label
-              }
-            </Text>
+
+            <FlexVCenter gap={4}>
+              <Text size={'xs'}>{format(props.rating.createdAt)} </Text>
+
+              <FlexVCenter
+                sx={{
+                  fontSize: 14,
+                  position: 'relative',
+                  top: 1,
+                }}
+              >
+                {
+                  ratingStatusArrayMap.find(
+                    (s) => s.value === props.rating.status
+                  )?.icon
+                }
+              </FlexVCenter>
+            </FlexVCenter>
 
             <HomeRatingItemReview rating={props.rating} />
           </FlexCol>

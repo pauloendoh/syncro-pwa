@@ -1,6 +1,6 @@
 import { CgRadioCheck } from 'react-icons/cg'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
-import { MdAccessTime, MdCheck } from 'react-icons/md'
+import { MdAccessTime, MdCheckCircleOutline } from 'react-icons/md'
 
 export const ratingStatusOptions = [
   'COMPLETED',
@@ -16,22 +16,22 @@ export const ratingStatusArrayMap: {
 }[] = [
   {
     label: 'In Progress',
-    icon: <CgRadioCheck />,
+    icon: <CgRadioCheck title="In Progress" />,
     value: 'IN_PROGRESS',
   },
   {
     label: 'On Hold',
-    icon: <MdAccessTime />,
+    icon: <MdAccessTime title="On Hold" />,
     value: 'ON_HOLD',
   },
   {
     label: 'Dropped',
-    icon: <IoMdCloseCircleOutline />,
+    icon: <IoMdCloseCircleOutline title="Dropped" />,
     value: 'DROPPED',
   },
   {
     label: 'Completed',
-    icon: <MdCheck />,
+    icon: <MdCheckCircleOutline title="Completed" />,
     value: 'COMPLETED',
   },
 ]
