@@ -2,7 +2,7 @@
 import { NavigationProgress, nprogress } from '@mantine/nprogress'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { zIndexes } from '../../../utils/zIndexes'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 
 export function RouterTransition() {
   const router = useRouter()
@@ -23,7 +23,7 @@ export function RouterTransition() {
     }
   }, [router.asPath])
 
-  return (
-    <NavigationProgress zIndex={zIndexes.navigationProgress} autoReset={true} />
-  )
+  const { isMobile } = useMyMediaQuery()
+
+  return <NavigationProgress autoReset={true} size={isMobile ? 6 : undefined} />
 }
