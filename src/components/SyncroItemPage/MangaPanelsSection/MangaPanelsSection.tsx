@@ -48,7 +48,11 @@ const MangaPanelsSection = (props: Props) => {
   }
 
   useEffect(() => {
-    if (router.isReady && router.query[queryParam] === 'true') {
+    if (
+      router.isReady &&
+      router.query[queryParam] === 'true' &&
+      index === null
+    ) {
       setIndex(0)
     }
 
