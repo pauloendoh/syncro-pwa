@@ -1,11 +1,10 @@
 import { Flex, ScrollArea, Text, Title } from '@mantine/core'
 import { useAlsoLikedItemsQuery } from '../../../hooks/react-query/item-recommendation/useAlsoLikedItemsQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
-import { urls } from '../../../utils/urls'
 import HomeRatingItemButtons from '../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
+import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
-import MyNextLink from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
 
 type Props = {
@@ -43,14 +42,14 @@ const UsersAlsoLikedSection = (props: Props) => {
                 gap={24}
               >
                 <FlexCol align="center" gap={8}>
-                  <MyNextLink href={urls.pages.syncroItem(item.id)}>
+                  <SyncroItemLink item={item}>
                     <SyncroItemImage item={item} width={140} />
-                  </MyNextLink>
-                  <MyNextLink href={urls.pages.syncroItem(item.id)}>
+                  </SyncroItemLink>
+                  <SyncroItemLink item={item}>
                     <Text align="center" lineClamp={3} w={140}>
                       {item.title}
                     </Text>
-                  </MyNextLink>
+                  </SyncroItemLink>
                 </FlexCol>
 
                 {authUser && (

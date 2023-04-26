@@ -9,6 +9,7 @@ type Props = {
   item: SyncroItemDto
   linkProps?: React.ComponentPropsWithRef<typeof MyNextLink>
   children: React.ReactNode
+  onClick?: () => void
 }
 
 const SyncroItemLink = (props: Props) => {
@@ -27,9 +28,12 @@ const SyncroItemLink = (props: Props) => {
   }
   return (
     <MyNextLink
-      onClick={handleClick}
       href={urls.pages.syncroItem(encodeURI(props.item.id!))}
       {...props.linkProps}
+      onClick={(e) => {
+        handleClick()
+        if (props.onClick) props.onClick()
+      }}
     >
       {props.children}
     </MyNextLink>

@@ -1,16 +1,11 @@
 import { Draggable } from 'react-beautiful-dnd'
 
 import { createStyles, Flex, Text } from '@mantine/core'
-import { useQueryClient } from '@tanstack/react-query'
 import { MdDragHandle } from 'react-icons/md'
-import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { InterestDto } from '../../../../types/domain/interest/InterestDto'
-import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
-import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
-import MyNextLink from '../../../_common/overrides/MyNextLink'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 
 type Props = {
@@ -24,18 +19,6 @@ const PlannedItem = (props: Props) => {
   } = props
 
   const { classes } = useStyles()
-
-  const queryClient = useQueryClient()
-  const handleClick = (interest: InterestDto) => {
-    if (interest.syncroItem) {
-      queryClient.setQueryData<SyncroItemDto>(
-        [urls.api.syncroItemDetails(interest.syncroItem.id)],
-        interest.syncroItem
-      )
-    }
-  }
-
-  const { mutate: submitToggleSave } = useToggleSaveItemMutation()
 
   if (!syncroItem) return null
 
@@ -73,12 +56,9 @@ const PlannedItem = (props: Props) => {
               })}
             >
               <Flex justify={'space-between'} w="100%">
-                <MyNextLink
-                  href={urls.pages.syncroItem(syncroItem!.id)}
-                  onClick={() => handleClick(props.planned)}
-                >
+                <SyncroItemLink item={syncroItem}>
                   <Text lineClamp={3}>{syncroItem?.title}</Text>
-                </MyNextLink>
+                </SyncroItemLink>
               </Flex>
             </FlexCol>
           </Flex>

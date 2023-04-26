@@ -4,11 +4,10 @@ import { useMemo } from 'react'
 import { IoMdEye } from 'react-icons/io'
 import { MdStar } from 'react-icons/md'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
-import { urls } from '../../../../../utils/urls'
 import { useGetFinalRatingCountAvgSite } from '../../../../SyncroItemPage/AvgRatingRow/useGetFinalRatingCountAvgSite/useGetFinalRatingCountAvgSite'
+import SyncroItemLink from '../../../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../../_common/flex/FlexVCenter'
-import MyNextLink from '../../../../_common/overrides/MyNextLink'
 
 interface Props {
   avgRating: number
@@ -28,9 +27,9 @@ const SearchItemLeftSection = ({ item, ...props }: Props) => {
 
   if (seeDetails && props.itemId)
     return (
-      <MyNextLink href={urls.pages.syncroItem(props.itemId)}>
+      <SyncroItemLink item={item}>
         <Text>See details</Text>
-      </MyNextLink>
+      </SyncroItemLink>
     )
 
   return (

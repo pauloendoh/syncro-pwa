@@ -15,6 +15,7 @@ import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroIte
 import { urls } from '../../../../../utils/urls'
 import { useAxios } from '../../../../../utils/useAxios'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
+import SyncroItemLink from '../../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../flex/FlexCol'
 import SyncroItemImage from '../../../image/SyncroItemImage/SyncroItemImage'
 import MyTextInput from '../../../inputs/MyTextInput'
@@ -211,7 +212,13 @@ const SearchBar = (props: Props) => {
             </Flex>
           </MyNextLink>
           {previewedItems.map((item) => (
-            <MyNextLink key={item.id} href={urls.pages.syncroItem(item.id)}>
+            <SyncroItemLink
+              key={item.id}
+              item={item}
+              onClick={() => {
+                setPreviewedItems([])
+              }}
+            >
               <Flex
                 p={8}
                 gap={8}
@@ -234,7 +241,7 @@ const SearchBar = (props: Props) => {
                   {item.year ?? <Text>{item.year}</Text>}
                 </FlexCol>
               </Flex>
-            </MyNextLink>
+            </SyncroItemLink>
           ))}
         </Paper>
       )}

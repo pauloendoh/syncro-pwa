@@ -5,10 +5,9 @@ import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRat
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { syncroItemMapping } from '../../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
-import { urls } from '../../../../utils/urls'
+import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../_common/flex/FlexCol'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
-import MyNextLink from '../../../_common/overrides/MyNextLink'
 import SearchItemLeftSection from '../ImdbSearchItem/SearchItemLeftSection/SearchItemLeftSection'
 import SearchItemYourSection from '../SearchItemYourSection/SearchItemYourSection'
 
@@ -41,12 +40,12 @@ const SyncroSearchItem = ({ item }: Props) => {
 
   return (
     <Flex gap={16}>
-      <MyNextLink href={urls.pages.syncroItem(item.id)}>
+      <SyncroItemLink item={item}>
         <SyncroItemImage item={item} width={100} height={100} />
-      </MyNextLink>
+      </SyncroItemLink>
 
       <FlexCol>
-        <MyNextLink href={urls.pages.syncroItem(item.id)}>
+        <SyncroItemLink item={item}>
           <Text
             sx={(theme) => ({
               color: theme.colors.dark[0],
@@ -56,7 +55,7 @@ const SyncroSearchItem = ({ item }: Props) => {
           >
             {item.title} {item.year && `[${item.year}]`}
           </Text>
-        </MyNextLink>
+        </SyncroItemLink>
 
         <Flex mt={2}>
           <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>
@@ -69,9 +68,9 @@ const SyncroSearchItem = ({ item }: Props) => {
                 item={item}
               />
             ) : (
-              <MyNextLink href={urls.pages.syncroItem(item.id)}>
+              <SyncroItemLink item={item}>
                 <Text>See details</Text>
-              </MyNextLink>
+              </SyncroItemLink>
             )}
           </FlexCol>
           <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>

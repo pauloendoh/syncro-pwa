@@ -7,16 +7,14 @@ import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
-import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
-import { urls } from '../../../utils/urls'
 import SearchItemLeftSection from '../../SearchPageContent/ItemSearchResults/ImdbSearchItem/SearchItemLeftSection/SearchItemLeftSection'
 import SearchItemYourSection from '../../SearchPageContent/ItemSearchResults/SearchItemYourSection/SearchItemYourSection'
+import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
-import MyNextLink from '../../_common/overrides/MyNextLink'
 
 interface Props {
   item: UserItemDto
@@ -41,14 +39,6 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
 
   const queryClient = useQueryClient()
-  const handleClick = () => {
-    if (item) {
-      queryClient.setQueryData<SyncroItemDto>(
-        [urls.api.syncroItemDetails(item.id)],
-        item
-      )
-    }
-  }
 
   const { authUser } = useAuthStore()
 
@@ -56,23 +46,17 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
     <Box>
       <Flex gap={16}>
         <Box>
-          <MyNextLink
-            href={urls.pages.syncroItem(item.id)}
-            onClick={handleClick}
-          >
+          <SyncroItemLink item={item}>
             <SyncroItemImage height={120} width={120} item={item} />
-          </MyNextLink>
+          </SyncroItemLink>
         </Box>
 
         <FlexCol style={{ flexShrink: 1 }}>
-          <MyNextLink
-            href={urls.pages.syncroItem(item.id)}
-            onClick={handleClick}
-          >
+          <SyncroItemLink item={item}>
             <Text style={{ fontWeight: '500' }} lineClamp={2}>
               {item.title} {item.year && `[${item.year}]`}
             </Text>
-          </MyNextLink>
+          </SyncroItemLink>
 
           <Flex mt={8}>
             <FlexCol w={120}>

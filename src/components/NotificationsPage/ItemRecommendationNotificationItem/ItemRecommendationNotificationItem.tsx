@@ -3,6 +3,7 @@ import { format } from 'timeago.js'
 import { ItemRecommendationDto } from '../../../hooks/react-query/notification/types/ItemRecommendationDto'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../utils/urls'
+import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
@@ -54,9 +55,7 @@ const ItemRecommendationNotificationItem = ({
               </MyNextLink>
               &nbsp;recommended you:&nbsp;
             </span>
-            <MyNextLink
-              href={urls.pages.syncroItem(itemRecommendation.item?.id!)}
-            >
+            <SyncroItemLink item={itemRecommendation.item!}>
               <span style={{ fontWeight: '500' }}>
                 {itemRecommendation.item?.title}{' '}
                 {itemRecommendation.item?.year &&
@@ -81,20 +80,20 @@ const ItemRecommendationNotificationItem = ({
                   )}
                 </span>
               </span>
-            </MyNextLink>
+            </SyncroItemLink>
           </span>
 
           <Text size="sm">{format(itemRecommendation.createdAt)}</Text>
         </FlexCol>
       </Flex>
 
-      <MyNextLink href={urls.pages.syncroItem(itemRecommendation.item?.id!)}>
+      <SyncroItemLink item={itemRecommendation.item!}>
         <SyncroItemImage
           item={itemRecommendation.item}
           width={100}
           height={100}
         />
-      </MyNextLink>
+      </SyncroItemLink>
     </Flex>
   )
 }
