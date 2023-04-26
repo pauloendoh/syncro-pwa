@@ -1,13 +1,7 @@
 import { ScrollArea, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { IoMdShareAlt } from 'react-icons/io'
-import {
-  MdBookmark,
-  MdBookmarkBorder,
-  MdLink,
-  MdStar,
-  MdStarBorder,
-} from 'react-icons/md'
+import { MdBookmark, MdBookmarkBorder, MdLink } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestQU } from '../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../hooks/react-query/interest/useToggleSaveItemMutation'
@@ -17,6 +11,7 @@ import useRecommendItemActionSheetStore from '../../../hooks/zustand/action-shee
 import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../types/domain/rating/RatingDto'
+import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatus'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import RatingRowButton from './RatingRowButton/RatingRowButton'
@@ -75,11 +70,8 @@ const RatingRow = ({ syncroItem }: Props) => {
               }
               isActive={!!myRating?.ratingValue}
               leftIcon={
-                myRating?.ratingValue ? (
-                  <MdStar color={theme.colors.dark[0]} size={16} />
-                ) : (
-                  <MdStarBorder color={theme.colors.dark[0]} size={16} />
-                )
+                ratingStatusArrayMap.find((s) => s.value === myRating?.status)
+                  ?.icon
               }
             >
               {myRating?.ratingValue || 'Rate'}

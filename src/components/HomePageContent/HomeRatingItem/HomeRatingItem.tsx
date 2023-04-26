@@ -5,6 +5,7 @@ import { useMemo } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
+import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatus'
 import { urls } from '../../../utils/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -101,7 +102,14 @@ const HomeRatingItem = (props: Props) => {
                 </SyncroItemLink>
               )}
             </Text>
-            <Text size={'xs'}>{format(props.rating.createdAt)}</Text>
+            <Text size={'xs'}>
+              {format(props.rating.createdAt)} ·{' '}
+              {
+                ratingStatusArrayMap.find(
+                  (s) => s.value === props.rating.status
+                )?.label
+              }
+            </Text>
 
             <HomeRatingItemReview rating={props.rating} />
           </FlexCol>

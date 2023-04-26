@@ -18,11 +18,13 @@ import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfi
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import { RatingStatusType } from '../../../../types/domain/rating/ratingStatus'
 import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import RecommendItemToUsersList from '../RecommendItemActionSheet/RecommendItemToUsersList/RecommendItemToUsersList'
+import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
 import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
 
 const EditRatingModal = () => {
@@ -48,11 +50,16 @@ const EditRatingModal = () => {
     initialValue?.syncroItemId
   )
 
+  // PE 1/3 - useForm
+
+  const [status, setStatus] = useState<RatingStatusType>('COMPLETED')
   const [rating, setRating] = useState<number | null>(null)
   const [reviewText, setReviewText] = useState('')
+
   useEffect(() => {
     setRating(initialValue?.ratingValue || null)
     setReviewText(initialValue?.review || '')
+    setStatus(initialValue?.status || 'COMPLETED')
   }, [initialValue])
 
   const handleChangeRating = (newRating: number) => {
@@ -154,6 +161,8 @@ const EditRatingModal = () => {
         )}
       </FlexVCenter>
 
+      <RatingStatusSelector value={status} onChange={setStatus} />
+
       <Textarea
         label="Review"
         value={reviewText}
@@ -173,6 +182,7 @@ const EditRatingModal = () => {
                 ...initialValue,
                 ratingValue: rating,
                 review: reviewText,
+                status,
               })
           }
         }}
@@ -187,6 +197,7 @@ const EditRatingModal = () => {
                 ...initialValue,
                 ratingValue: rating,
                 review: reviewText,
+                status,
               })
           }}
           onCancel={closeModal}
