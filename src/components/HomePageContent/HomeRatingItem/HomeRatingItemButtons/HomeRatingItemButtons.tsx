@@ -5,6 +5,7 @@ import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useS
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
+import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import HomeRatingMoreMenu from './HomeRatingMoreMenu/HomeRatingMoreMenu'
@@ -15,6 +16,7 @@ interface Props {
   gap?: number
   itemType?: SyncroItemType
   hideMoreMenu?: boolean
+  rating?: RatingDto
 }
 
 const HomeRatingItemButtons = (props: Props) => {
@@ -79,7 +81,7 @@ const HomeRatingItemButtons = (props: Props) => {
         </FlexVCenter>
       </Tooltip>
       {!props.hideMoreMenu && (
-        <HomeRatingMoreMenu itemId={props.syncroItemId} />
+        <HomeRatingMoreMenu rating={props.rating} itemId={props.syncroItemId} />
       )}
     </FlexVCenter>
   )

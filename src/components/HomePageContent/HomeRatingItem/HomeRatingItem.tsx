@@ -5,11 +5,9 @@ import { useMemo } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatus'
 import { urls } from '../../../utils/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
-import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 import { default as MyNextLink } from '../../_common/overrides/MyNextLink'
@@ -104,23 +102,7 @@ const HomeRatingItem = (props: Props) => {
               )}
             </Text>
 
-            <FlexVCenter gap={4}>
-              <Text size={'xs'}>{format(props.rating.createdAt)} </Text>
-
-              <FlexVCenter
-                sx={{
-                  fontSize: 14,
-                  position: 'relative',
-                  top: 1,
-                }}
-              >
-                {
-                  ratingStatusArrayMap.find(
-                    (s) => s.value === props.rating.status
-                  )?.icon
-                }
-              </FlexVCenter>
-            </FlexVCenter>
+            <Text size={'xs'}>{format(props.rating.createdAt)} </Text>
 
             <HomeRatingItemReview rating={props.rating} />
           </FlexCol>
@@ -128,6 +110,7 @@ const HomeRatingItem = (props: Props) => {
           <HomeRatingItemButtons
             syncroItemId={props.rating.syncroItemId!}
             itemType={props.rating.syncroItem?.type}
+            rating={props.rating}
           />
         </FlexCol>
 

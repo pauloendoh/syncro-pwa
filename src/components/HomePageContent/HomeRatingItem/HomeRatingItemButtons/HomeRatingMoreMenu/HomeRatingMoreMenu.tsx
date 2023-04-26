@@ -1,10 +1,13 @@
 import { ActionIcon, Menu } from '@mantine/core'
-import { MdMoreHoriz, MdShare } from 'react-icons/md'
+import { MdMoreHoriz, MdOutlineInfo, MdShare } from 'react-icons/md'
 import { useMyRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyRatingQueryUtils'
+import useRatingDetailsModalStore from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useShareRatingModalStore from '../../../../../hooks/zustand/modals/useShareRatingModalStore'
+import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 
 type Props = {
   itemId: string
+  rating?: RatingDto
 }
 
 const HomeRatingMoreMenu = (props: Props) => {
@@ -12,7 +15,7 @@ const HomeRatingMoreMenu = (props: Props) => {
 
   const { openModal } = useShareRatingModalStore()
 
-  if (!myRating) return null
+  const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
 
   return (
     <Menu shadow="md">
@@ -23,6 +26,16 @@ const HomeRatingMoreMenu = (props: Props) => {
       </Menu.Target>
 
       <Menu.Dropdown>
+        {props.rating && (
+          <Menu.Item
+            icon={<MdOutlineInfo size={14} />}
+            // @ts-ignore
+            onClick={() => openRatingDetailsModal(props.rating)}
+          >
+            Rating details
+          </Menu.Item>
+        )}
+
         {myRating && (
           <Menu.Item
             icon={<MdShare size={14} />}

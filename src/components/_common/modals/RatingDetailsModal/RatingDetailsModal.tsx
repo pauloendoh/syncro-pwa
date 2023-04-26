@@ -118,21 +118,15 @@ const RatingDetailsModal = () => {
                   )}
                 </Text>
                 <FlexVCenter gap={4}>
-                  <Text size={'xs'}>{format(rating.createdAt)} </Text>
-
-                  <FlexVCenter
-                    sx={{
-                      fontSize: 14,
-                      position: 'relative',
-                      top: 1,
-                    }}
-                  >
+                  <Text size={'xs'}>
+                    {format(rating.createdAt)}
+                    {' · '}
                     {
                       ratingStatusArrayMap.find(
                         (s) => s.value === rating.status
-                      )?.icon
-                    }
-                  </FlexVCenter>
+                      )?.label
+                    }{' '}
+                  </Text>
                 </FlexVCenter>
               </FlexCol>
             </Flex>
