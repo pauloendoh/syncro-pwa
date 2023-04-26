@@ -17,6 +17,10 @@ const HomeRatingMoreMenu = (props: Props) => {
 
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
 
+  const containsNothing = !props.rating && !myRating
+
+  if (containsNothing) return null
+
   return (
     <Menu shadow="md">
       <Menu.Target>
