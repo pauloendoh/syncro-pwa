@@ -39,9 +39,19 @@ const MangaPanelsSection = (props: Props) => {
 
   const handleClose = () => {
     setIndex(null)
-    router.query[queryParam] = undefined
+    delete router.query[queryParam]
     router.push(router, undefined, { scroll: false })
   }
+
+  useEffect(() => {
+    if (router.isReady && router.query[queryParam] === 'true') {
+      setIndex(0)
+    }
+
+    if (router.isReady && router.query[queryParam] === undefined) {
+      setIndex(null)
+    }
+  }, [router.query[queryParam]])
 
   return (
     <FlexCol gap={8}>
