@@ -15,11 +15,13 @@ import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfo
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import { ratingStatusArrayMap } from '../../../../types/domain/rating/ratingStatus'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
 import SyncroItemLink from '../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../flex/FlexCol'
+import FlexVCenter from '../../flex/FlexVCenter'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import MyNextLink from '../../overrides/MyNextLink'
 
@@ -115,7 +117,23 @@ const RatingDetailsModal = () => {
                     </SyncroItemLink>
                   )}
                 </Text>
-                <Text size={'xs'}>{format(rating.createdAt)}</Text>
+                <FlexVCenter gap={4}>
+                  <Text size={'xs'}>{format(rating.createdAt)} </Text>
+
+                  <FlexVCenter
+                    sx={{
+                      fontSize: 14,
+                      position: 'relative',
+                      top: 1,
+                    }}
+                  >
+                    {
+                      ratingStatusArrayMap.find(
+                        (s) => s.value === rating.status
+                      )?.icon
+                    }
+                  </FlexVCenter>
+                </FlexVCenter>
               </FlexCol>
             </Flex>
             <ActionIcon onClick={closeModal}>
