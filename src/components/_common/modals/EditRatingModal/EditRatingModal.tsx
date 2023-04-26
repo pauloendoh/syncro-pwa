@@ -64,13 +64,15 @@ const EditRatingModal = () => {
   } = useForm<RatingDto>()
 
   useEffect(() => {
-    reset(
-      initialValue ||
-        buildRatingDto({
-          syncroItemId: syncroItem?.id,
-        })
-    )
-  }, [initialValue])
+    if (!!editRatingModal) {
+      reset(
+        initialValue ||
+          buildRatingDto({
+            syncroItemId: syncroItem?.id,
+          })
+      )
+    }
+  }, [editRatingModal])
 
   useConfirmTabClose(isDirty && !!editRatingModal)
 
