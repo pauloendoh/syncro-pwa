@@ -34,7 +34,7 @@ const UserImage = (props: Props) => {
           position="bottom"
           withArrow
         >
-          <Box pos={'absolute'} right={0} bottom={-16}>
+          <Box pos={'absolute'} right={0} bottom={-8}>
             <MdRemoveRedEye />
           </Box>
         </Tooltip>
