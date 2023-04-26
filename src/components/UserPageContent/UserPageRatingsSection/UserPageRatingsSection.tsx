@@ -1,8 +1,8 @@
 import { Menu, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import {
+  MdCalendarViewMonth,
   MdOutlineKeyboardArrowDown,
-  MdOutlineViewModule,
   MdOutlineViewStream,
 } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
@@ -43,7 +43,7 @@ const UserPageRatingsSection = (props: Props) => {
               }}
             >
               {feedView === 'card' && <MdOutlineViewStream size={24} />}
-              {feedView === 'grid' && <MdOutlineViewModule size={24} />}
+              {feedView === 'grid' && <MdCalendarViewMonth size={24} />}
               <MdOutlineKeyboardArrowDown />
             </FlexVCenter>
           </Menu.Target>
@@ -56,7 +56,7 @@ const UserPageRatingsSection = (props: Props) => {
             </Menu.Item>
             <Menu.Item
               onClick={() => setFeedView('grid')}
-              icon={<MdOutlineViewModule size={24} />}
+              icon={<MdCalendarViewMonth size={24} />}
             >
               Grid
             </Menu.Item>
