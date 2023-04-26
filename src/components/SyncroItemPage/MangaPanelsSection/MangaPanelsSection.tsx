@@ -17,12 +17,16 @@ const MangaPanelsSection = (props: Props) => {
 
   const notFound = useMemo(() => !isLoading && !data?.[0], [isLoading, data])
 
+  const [errorImages, setErrorImages] = useState<string[]>([])
+
   const images = useMemo(
     () =>
-      data?.map((data) => ({
-        uri: data,
-      })) || [],
-    [data]
+      data
+        ?.map((data) => ({
+          uri: data,
+        }))
+        .filter((image) => !errorImages.includes(image.uri)) || [],
+    [data, errorImages]
   )
 
   const {} = useMyRouterQuery()
@@ -82,7 +86,7 @@ const MangaPanelsSection = (props: Props) => {
         >
           {images.map((image, index) => (
             <img
-              key={index}
+              key={image.uri}
               onClick={() => setIndex(index)}
               src={image.uri}
               height={100 * (4 / 3)}
@@ -94,6 +98,7 @@ const MangaPanelsSection = (props: Props) => {
               }}
               onError={(e) => {
                 e.currentTarget.style.display = 'none'
+                setErrorImages((prev) => [...prev, image.uri])
               }}
             />
           ))}
