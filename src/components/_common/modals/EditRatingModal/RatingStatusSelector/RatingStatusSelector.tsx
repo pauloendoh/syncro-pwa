@@ -20,7 +20,14 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
   ({ label, icon, ...others }: ItemProps, ref) => (
     <div ref={ref} {...others}>
       <FlexVCenter gap={4}>
-        {icon}
+        <div
+          style={{
+            position: 'relative',
+            top: 2,
+          }}
+        >
+          {icon}
+        </div>
         <Text>{label}</Text>
       </FlexVCenter>
     </div>
