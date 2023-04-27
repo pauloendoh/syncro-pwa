@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mantine/hooks'
 import { useMemo } from 'react'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatus'
+import { useRatingStatusMap } from '../../../types/domain/rating/useRatingStatusMap'
 import { formatShortTimeToday } from '../../../utils/date/formatShortTimeToday'
 import { urls } from '../../../utils/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
@@ -13,6 +13,7 @@ import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 import { default as MyNextLink } from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
+import Span from '../../_common/text/Span'
 import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons'
 import HomeRatingItemReview from './HomeRatingItemReview/HomeRatingItemReview'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
@@ -37,6 +38,8 @@ const HomeRatingItem = (props: Props) => {
 
     return props.rating.user?.profile?.lookingForRecommendationTypes.length > 0
   }, [props.rating.user?.profile?.lookingForRecommendationTypes])
+
+  const statusMap = useRatingStatusMap(props.rating.status)
 
   if (!props.rating.syncroItem) return null
 
@@ -106,11 +109,13 @@ const HomeRatingItem = (props: Props) => {
             <Text size={'xs'}>
               {formatShortTimeToday(new Date(props.rating.createdAt))}
               {' · '}
-              {
-                ratingStatusArrayMap.find(
-                  (s) => s.value === props.rating.status
-                )?.label
-              }
+              <Span
+                sx={{
+                  color: statusMap?.color,
+                }}
+              >
+                {statusMap?.label}
+              </Span>
             </Text>
 
             <HomeRatingItemReview rating={props.rating} />

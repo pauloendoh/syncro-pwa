@@ -14,7 +14,7 @@ import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfo
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
-import { ratingStatusArrayMap } from '../../../../types/domain/rating/ratingStatus'
+import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
 import { formatShortTimeToday } from '../../../../utils/date/formatShortTimeToday'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
@@ -24,6 +24,7 @@ import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import MyNextLink from '../../overrides/MyNextLink'
+import Span from '../../text/Span'
 
 const RatingDetailsModal = () => {
   const {
@@ -52,6 +53,8 @@ const RatingDetailsModal = () => {
         })
     }
   }, [router.isReady])
+
+  const statusMap = useRatingStatusMap(rating?.status)
 
   return (
     <Modal
@@ -121,11 +124,9 @@ const RatingDetailsModal = () => {
                   <Text size={'xs'}>
                     {formatShortTimeToday(new Date(rating.createdAt))}
                     {' · '}
-                    {
-                      ratingStatusArrayMap.find(
-                        (s) => s.value === rating.status
-                      )?.label
-                    }
+                    <Span sx={{ color: statusMap?.color }}>
+                      {statusMap?.label}
+                    </Span>
                   </Text>
                 </FlexVCenter>
               </FlexCol>
