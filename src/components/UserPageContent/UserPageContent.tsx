@@ -165,7 +165,7 @@ const UserPageContent = () => {
           <FavoritesSection userId={userId!} />
         </Box>
 
-        <Box mt={120}>
+        <Box mt={40}>
           <UserPageRatingsSection userId={userId} />
         </Box>
       </Container>

@@ -16,12 +16,12 @@ const FavoritesSection = ({ userId }: Props) => {
   const groupedAndSortedFavorites = useMemo(() => {
     if (!favorites) return []
 
-    // grouped by type, sorted by position desc
+    // grouped by type, sorted by position asc
     return syncroItemTypes.map((type) => ({
       type,
       items: favorites
         .filter((item: FavoriteItemDto) => item.syncroItem.type === type)
-        .sort((a, b) => b.position - a.position),
+        .sort((a, b) => a.position - b.position),
     }))
   }, [favorites])
 
