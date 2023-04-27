@@ -1,3 +1,4 @@
+import { Title } from '@mantine/core'
 import { useMemo } from 'react'
 import { FavoriteItemDto } from '../../../hooks/react-query/favorite-item/types/FavoriteItemDto'
 import { useFavoriteItemsQuery } from '../../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
@@ -10,7 +11,7 @@ type Props = {
 }
 
 const FavoritesSection = ({ userId }: Props) => {
-  const { data: favorites } = useFavoriteItemsQuery(userId)
+  const { data: favorites } = useFavoriteItemsQuery({ userId })
 
   const groupedAndSortedFavorites = useMemo(() => {
     if (!favorites) return []
@@ -28,6 +29,8 @@ const FavoritesSection = ({ userId }: Props) => {
 
   return (
     <FlexCol gap={8}>
+      <Title order={4}>Favorites</Title>
+
       <FlexCol gap={16}>
         {groupedAndSortedFavorites.map((group) => (
           <FavoritesByType

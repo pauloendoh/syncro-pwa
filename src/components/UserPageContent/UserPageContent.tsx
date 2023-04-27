@@ -12,6 +12,7 @@ import {
 import Head from 'next/head'
 import { useMemo } from 'react'
 import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { useFavoriteItemsQuery } from '../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -50,6 +51,16 @@ const UserPageContent = () => {
   )
 
   const { isSmallScreen, isMobile } = useMyMediaQuery()
+
+  const { data: favorites } = useFavoriteItemsQuery({ userId: authUser?.id })
+  const typesWithoutFavorites = useMemo(() => {
+    return syncroItemTypes.filter((type) => {
+      const typeFavorites = favorites?.filter(
+        (fav) => fav.syncroItem.type === type
+      )
+      return typeFavorites?.length === 0
+    })
+  }, [favorites, syncroItemTypes])
 
   return (
     <LoggedLayout>
@@ -145,25 +156,28 @@ const UserPageContent = () => {
           )}
         </MyPaper>
 
+        <Box mt={32}>
+          <FavoritesSection userId={userId!} />
+        </Box>
+
         <Flex mt={16}>
           {noRatings ? (
             <NoRatingsUserProfile userId={userId!} />
           ) : (
-            <Flex gap={16} wrap="wrap">
-              {syncroItemTypes.map((itemType) => (
-                <ProfileScreenRatingItem
-                  key={itemType}
-                  itemType={itemType}
-                  userId={userId!}
-                />
-              ))}
-            </Flex>
+            <FlexCol gap={16}>
+              <Title order={4}>Others</Title>
+              <Flex gap={16} wrap="wrap">
+                {typesWithoutFavorites.map((itemType) => (
+                  <ProfileScreenRatingItem
+                    key={itemType}
+                    itemType={itemType}
+                    userId={userId!}
+                  />
+                ))}
+              </Flex>
+            </FlexCol>
           )}
         </Flex>
-
-        <Box mt={24}>
-          <FavoritesSection userId={userId!} />
-        </Box>
 
         <Box mt={40}>
           <UserPageRatingsSection userId={userId} />

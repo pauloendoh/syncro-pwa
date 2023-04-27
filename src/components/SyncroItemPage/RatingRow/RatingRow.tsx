@@ -70,7 +70,7 @@ const RatingRow = ({ syncroItem }: Props) => {
   const { mutate: submitToggleFavorite, isLoading: toggleFavoriteIsLoading } =
     useToggleFavoriteItemMutation()
 
-  const { data: favorites } = useFavoriteItemsQuery(authUser?.id)
+  const { data: favorites } = useFavoriteItemsQuery({ userId: authUser?.id })
   const isFavorited = useMemo(() => {
     return !!favorites?.find((f) => f.syncroItemId === syncroItem.id)
   }, [favorites, syncroItem.id])
