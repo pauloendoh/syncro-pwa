@@ -40,6 +40,7 @@ const DragDropPlannedItems = (props: Props) => {
     <Box
       sx={{
         position: 'relative',
+        maxHeight: props.maxHeight || `calc(100vh - 300px)`,
       }}
     >
       <LoadingOverlay visible={isLoading} overlayBlur={1} />
@@ -50,8 +51,7 @@ const DragDropPlannedItems = (props: Props) => {
               {...provided.droppableProps}
               ref={provided.innerRef}
               sx={{
-                maxHeight: props.maxHeight || `calc(100vh - 300px)`,
-                positon: 'relative',
+                position: 'relative',
               }}
             >
               {sortedPlanned.map((planned, index) => (
