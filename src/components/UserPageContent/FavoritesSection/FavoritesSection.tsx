@@ -25,7 +25,7 @@ const FavoritesSection = ({ userId }: Props) => {
     }))
   }, [favorites])
 
-  if (!favorites) return null
+  if (!favorites || favorites.length === 0) return null
 
   return (
     <FlexCol gap={8}>
