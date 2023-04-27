@@ -17,13 +17,13 @@ export const useRatingStatusMap = (status?: RatingStatusType) => {
       label: 'In Progress',
       icon: <CgRadioCheck title="In Progress" />,
       value: 'IN_PROGRESS',
-      color: theme.colors.blue[6],
+      color: 'unset',
     },
     {
       label: 'On Hold',
       icon: <MdAccessTime title="On Hold" />,
       value: 'ON_HOLD',
-      color: theme.colors.yellow[6],
+      color: 'unset',
     },
     {
       label: 'Dropped',
@@ -35,7 +35,7 @@ export const useRatingStatusMap = (status?: RatingStatusType) => {
       label: 'Completed',
       icon: <MdCheckCircleOutline title="Completed" />,
       value: 'COMPLETED',
-      color: theme.colors.green[6],
+      color: 'unset',
     },
   ]
 
