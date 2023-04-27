@@ -164,7 +164,7 @@ const UserPageContent = () => {
           {noRatings ? (
             <NoRatingsUserProfile userId={userId!} />
           ) : (
-            <FlexCol gap={16}>
+            <FlexCol gap={8}>
               <Title order={4}>Others</Title>
               <Flex gap={16} wrap="wrap">
                 {typesWithoutFavorites.map((itemType) => (
