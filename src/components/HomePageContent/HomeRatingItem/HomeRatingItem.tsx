@@ -2,10 +2,10 @@ import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 
 import { useMemo } from 'react'
+import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../types/domain/rating/useRatingStatusMap'
-import { formatShortTimeToday } from '../../../utils/date/formatShortTimeToday'
 import { urls } from '../../../utils/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -107,7 +107,7 @@ const HomeRatingItem = (props: Props) => {
             </Text>
 
             <Text size={'xs'}>
-              {formatShortTimeToday(new Date(props.rating.createdAt))}
+              {format(props.rating.createdAt)}
               {' · '}
               <Span
                 sx={{

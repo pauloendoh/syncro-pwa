@@ -9,13 +9,13 @@ import {
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { MdClose } from 'react-icons/md'
+import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
-import { formatShortTimeToday } from '../../../../utils/date/formatShortTimeToday'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
@@ -122,7 +122,7 @@ const RatingDetailsModal = () => {
                 </Text>
                 <FlexVCenter gap={4}>
                   <Text size={'xs'}>
-                    {formatShortTimeToday(new Date(rating.createdAt))}
+                    {format(rating.createdAt)}
                     {' · '}
                     <Span sx={{ color: statusMap?.color }}>
                       {statusMap?.label}
