@@ -1,4 +1,3 @@
-import { Title } from '@mantine/core'
 import { useMemo } from 'react'
 import { FavoriteItemDto } from '../../../hooks/react-query/favorite-item/types/FavoriteItemDto'
 import { useFavoriteItemsQuery } from '../../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
@@ -29,14 +28,13 @@ const FavoritesSection = ({ userId }: Props) => {
 
   return (
     <FlexCol gap={8}>
-      <Title order={4}>Favorites</Title>
-
       <FlexCol gap={16}>
         {groupedAndSortedFavorites.map((group) => (
           <FavoritesByType
             key={group.type}
             type={group.type}
             favorites={group.items}
+            userId={userId}
           />
         ))}
       </FlexCol>

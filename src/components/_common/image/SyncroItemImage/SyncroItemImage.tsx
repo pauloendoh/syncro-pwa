@@ -1,5 +1,5 @@
 import { Box, Center, useMantineTheme } from '@mantine/core'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
@@ -28,18 +28,36 @@ const SyncroItemImage = (props: Props) => {
     return (width || 100) * (400 / 300)
   }, [width])
 
+  const [isError, setIsError] = useState(false)
+
   return (
     <Box pos="relative" ref={props.ref}>
-      <MyNextImage300x400
-        width={props.width || 100}
-        height={height}
-        src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
-        alt={props.item?.title || 'syncro-item'}
-        style={{
-          objectFit: 'cover',
-          borderRadius: 4,
-        }}
-      />
+      {isError && (
+        <img
+          width={props.width}
+          height={height}
+          src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
+          alt={props.item?.title || 'syncro-item'}
+          style={{
+            objectFit: 'cover',
+            borderRadius: 4,
+          }}
+        />
+      )}
+      {!isError && (
+        <MyNextImage300x400
+          width={props.width || 100}
+          height={height}
+          src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
+          alt={props.item?.title || 'syncro-item'}
+          style={{
+            objectFit: 'cover',
+            borderRadius: 4,
+          }}
+          onError={() => setIsError(true)}
+        />
+      )}
+
       {props.showItemType && (
         <Center
           pos="absolute"
