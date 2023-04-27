@@ -1,7 +1,12 @@
 import { ScrollArea, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { IoMdShareAlt } from 'react-icons/io'
-import { MdBookmark, MdBookmarkBorder, MdLink } from 'react-icons/md'
+import {
+  MdBookmark,
+  MdBookmarkBorder,
+  MdLink,
+  MdStarBorder,
+} from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestQU } from '../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../hooks/react-query/interest/useToggleSaveItemMutation'
@@ -13,7 +18,9 @@ import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../types/domain/rating/RatingDto'
 import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatus'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
+import { urls } from '../../../utils/urls'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import MyNextLink from '../../_common/overrides/MyNextLink'
 import RatingRowButton from './RatingRowButton/RatingRowButton'
 
 interface Props {
@@ -103,6 +110,14 @@ const RatingRow = ({ syncroItem }: Props) => {
               Recommend
             </RatingRowButton>
           </>
+        )}
+
+        {!authUser && (
+          <MyNextLink href={urls.pages.signUp}>
+            <RatingRowButton color="secondary" leftIcon={<MdStarBorder />}>
+              Enter to start rating
+            </RatingRowButton>
+          </MyNextLink>
         )}
 
         <a

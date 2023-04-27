@@ -22,7 +22,8 @@ export const urls = {
         ...extraParams,
       })}`,
     user: (userId: string) => `/user/${userId}`,
-    search: (params: SearchParams) => {
+    search: (params?: SearchParams) => {
+      if (!params) return '/search'
       const query = queryString.stringify(params)
       return `/search?${query}`
     },

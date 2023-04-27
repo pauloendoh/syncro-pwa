@@ -105,7 +105,7 @@ const RegisterForm = (props: Props) => {
                   cursor: 'pointer',
                 }}
               >
-                Sign in
+                Log in
               </Text>
             </Text>
           </FlexCol>

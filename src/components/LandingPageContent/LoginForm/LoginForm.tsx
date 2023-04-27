@@ -82,7 +82,7 @@ const LoginForm = (props: Props) => {
           </FlexVCenter>
           <FlexCol align="center" mt={16} gap={16}>
             <Button type="submit" loading={loading} fullWidth>
-              SIGN IN
+              LOG IN
             </Button>
 
             <Text component="span" size="sm" align="center">

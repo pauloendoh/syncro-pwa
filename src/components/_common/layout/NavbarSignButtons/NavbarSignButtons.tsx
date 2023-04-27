@@ -10,7 +10,7 @@ const NavbarSignButtons = (props: Props) => {
     <FlexVCenter>
       <MyNextLink href={urls.pages.index}>
         <Button variant="subtle" color="dark">
-          Sign In
+          Log In
         </Button>
       </MyNextLink>
       <MyNextLink href={urls.pages.signUp}>

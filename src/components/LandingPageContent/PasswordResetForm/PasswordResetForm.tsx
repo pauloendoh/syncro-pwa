@@ -35,7 +35,7 @@ const PasswordResetForm = (props: Props) => {
 
       <MyTextLink />
       <MyTextLink mt={4} onClick={props.onChangeForm}>
-        Return to sign in
+        Return to log in
       </MyTextLink>
     </FlexCol>
   )
