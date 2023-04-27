@@ -1,5 +1,6 @@
 import { ScrollArea, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { IoMdShareAlt } from 'react-icons/io'
 import {
   MdBookmark,
@@ -8,6 +9,8 @@ import {
   MdStarBorder,
 } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useFavoriteItemsQuery } from '../../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
+import useToggleFavoriteItemMutation from '../../../hooks/react-query/favorite-item/useToggleFavoriteItemMutation'
 import { useMyInterestQU } from '../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyRatingQU } from '../../../hooks/react-query/rating/useMyRatingsQuery'
@@ -64,6 +67,14 @@ const RatingRow = ({ syncroItem }: Props) => {
   })
   const { isSmallScreen } = useMyMediaQuery()
 
+  const { mutate: submitToggleFavorite, isLoading: toggleFavoriteIsLoading } =
+    useToggleFavoriteItemMutation()
+
+  const { data: favorites } = useFavoriteItemsQuery(authUser?.id)
+  const isFavorited = useMemo(() => {
+    return !!favorites?.find((f) => f.syncroItemId === syncroItem.id)
+  }, [favorites, syncroItem.id])
+
   return (
     <ScrollArea>
       <FlexVCenter gap={8} pb={isSmallScreen ? 16 : 0}>
@@ -98,6 +109,22 @@ const RatingRow = ({ syncroItem }: Props) => {
               loading={toggleSaveIsLoading}
             >
               {myInterest?.interestLevel ? 'Planned' : typeMap.planTo}
+            </RatingRowButton>
+
+            <RatingRowButton
+              ml={2}
+              onClick={() => submitToggleFavorite(syncroItem.id)}
+              isActive={!!isFavorited}
+              leftIcon={
+                isFavorited ? (
+                  <AiFillHeart color={theme.colors.dark[0]} size={16} />
+                ) : (
+                  <AiOutlineHeart color={theme.colors.dark[0]} size={16} />
+                )
+              }
+              loading={toggleFavoriteIsLoading}
+            >
+              {isFavorited ? 'Favorited' : 'Favorite'}
             </RatingRowButton>
 
             <RatingRowButton

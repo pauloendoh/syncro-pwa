@@ -166,6 +166,10 @@ export const urls = {
     settings: API_URL + `/settings`,
 
     reviewsByItemId: (itemId: string) => API_URL + `/reviews?itemId=${itemId}`,
+    toggleFavoriteItem: (itemId: string) =>
+      API_URL + `/toggle-favorite-item?itemId=${itemId}`,
+    favoriteItems: (userId: string) =>
+      API_URL + `/favorite-items?userId=${userId}`,
   },
 
   others: {

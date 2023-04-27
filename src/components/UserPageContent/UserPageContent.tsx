@@ -25,6 +25,7 @@ import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MyPaper from '../_common/overrides/MyPaper'
+import FavoritesSection from './FavoritesSection/FavoritesSection'
 import ItemsCountUserProfile from './ItemsCountUserProfile/ItemsCountUserProfile'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
 import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
@@ -159,6 +160,10 @@ const UserPageContent = () => {
             </Flex>
           )}
         </Flex>
+
+        <Box mt={24}>
+          <FavoritesSection userId={userId!} />
+        </Box>
 
         <Box mt={120}>
           <UserPageRatingsSection userId={userId} />
