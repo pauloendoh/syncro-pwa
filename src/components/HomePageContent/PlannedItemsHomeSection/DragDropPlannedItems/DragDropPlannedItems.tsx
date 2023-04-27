@@ -1,4 +1,4 @@
-import { Box, LoadingOverlay } from '@mantine/core'
+import { Box } from '@mantine/core'
 import { useMemo } from 'react'
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd'
 import { useSavedItemsQuery } from '../../../../hooks/react-query/interest/useSavedItemsQuery'
@@ -39,11 +39,9 @@ const DragDropPlannedItems = (props: Props) => {
   return (
     <Box
       sx={{
-        position: 'relative',
         maxHeight: props.maxHeight || `calc(100vh - 300px)`,
       }}
     >
-      <LoadingOverlay visible={isLoading} overlayBlur={1} />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="dnd-list" direction="vertical">
           {(provided) => (
