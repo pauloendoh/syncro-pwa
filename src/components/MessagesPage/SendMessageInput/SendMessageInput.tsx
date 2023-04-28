@@ -1,4 +1,4 @@
-import { Textarea } from '@mantine/core'
+import { Flex, Textarea, useMantineTheme } from '@mantine/core'
 import { useState } from 'react'
 import useSendMessageMutation from '../../../hooks/react-query/message/useSendMessageMutation'
 
@@ -23,6 +23,8 @@ const SendMessageInput = (props: Props) => {
     )
   }
 
+  const theme = useMantineTheme()
+
   return (
     <form
       style={{
@@ -33,25 +35,35 @@ const SendMessageInput = (props: Props) => {
         handleSubmit()
       }}
     >
-      <Textarea
-        value={message}
-        onChange={(e) => setMessage(e.currentTarget.value)}
-        placeholder="Type your message here. Press enter to send."
-        rows={3}
-        sx={{
-          flex: 1,
-        }}
-        autosize
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && e.shiftKey) {
-            return
-          }
-          if (e.key === 'Enter') {
-            e.preventDefault()
-            handleSubmit()
-          }
-        }}
-      />
+      <Flex w="100%" px={24} pb={16}>
+        <Textarea
+          value={message}
+          onChange={(e) => setMessage(e.currentTarget.value)}
+          placeholder="Type your message here. Press enter to send."
+          rows={3}
+          sx={{
+            flex: 1,
+          }}
+          styles={{
+            input: {
+              background: theme.colors.dark[4],
+              '::placeholder': {
+                color: theme.colors.dark[2],
+              },
+            },
+          }}
+          autosize
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && e.shiftKey) {
+              return
+            }
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              handleSubmit()
+            }
+          }}
+        />
+      </Flex>
     </form>
   )
 }
