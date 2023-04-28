@@ -165,16 +165,20 @@ const UserPageContent = () => {
             <NoRatingsUserProfile userId={userId!} />
           ) : (
             <FlexCol gap={8}>
-              <Title order={4}>Others</Title>
-              <Flex gap={16} wrap="wrap">
-                {typesWithoutFavorites.map((itemType) => (
-                  <ProfileScreenRatingItem
-                    key={itemType}
-                    itemType={itemType}
-                    userId={userId!}
-                  />
-                ))}
-              </Flex>
+              {typesWithoutFavorites.length > 0 && (
+                <>
+                  <Title order={4}>Others</Title>
+                  <Flex gap={16} wrap="wrap">
+                    {typesWithoutFavorites.map((itemType) => (
+                      <ProfileScreenRatingItem
+                        key={itemType}
+                        itemType={itemType}
+                        userId={userId!}
+                      />
+                    ))}
+                  </Flex>
+                </>
+              )}
             </FlexCol>
           )}
         </Flex>
