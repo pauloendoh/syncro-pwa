@@ -8,7 +8,7 @@ export const emailFrequencyTypes = [
   'off',
 ] as const
 
-export type EmailFrequencyType = typeof emailFrequencyTypes[number]
+export type EmailFrequencyType = (typeof emailFrequencyTypes)[number]
 
 export type UserSettingsDto = {
   userId?: string
@@ -20,4 +20,5 @@ export type UserSettingsDto = {
 
   feedMinimumRating: number
   feedExcludeItemTypes: SyncroItemType[]
+  feedExcludeRatedOrPlanned: boolean
 }

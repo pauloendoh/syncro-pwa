@@ -33,7 +33,6 @@ const FeedSettingsModal = () => {
   const queryClient = useQueryClient()
 
   const onSubmit = (data: UserSettingsDto) => {
-
     submitSettings(data, {
       onSuccess: () => {
         closeModal()
@@ -107,6 +106,14 @@ const FeedSettingsModal = () => {
               min={0}
               max={10}
               w={120}
+            />
+
+            <Checkbox
+              label="Hide items you rated or planned"
+              checked={watch('feedExcludeRatedOrPlanned')}
+              onChange={(e) => {
+                setValue('feedExcludeRatedOrPlanned', e.target.checked)
+              }}
             />
 
             <Box mt={16}>

@@ -2,11 +2,9 @@ import { Text } from '@mantine/core'
 import { shortNumberFormatter } from 'endoh-utils'
 import { useFollowersQuery } from '../../../hooks/react-query/follow/useFollowersQuery'
 import { useFollowingUsersQuery } from '../../../hooks/react-query/follow/useFollowingUsersQuery'
-import { useUserRatingsQuery } from '../../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserItemsCountQuery } from '../../../hooks/react-query/syncro-item/useUserItemsCountQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import useFollowersModalStore from '../../../hooks/zustand/modals/useFollowersModalStore'
-import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 
@@ -15,8 +13,6 @@ type Props = {
 }
 
 const ItemsCountUserProfile = (props: Props) => {
-  const { data: userRatings } = useUserRatingsQuery(props.userId)
-
   const {
     data: followersFollows,
 
@@ -24,8 +20,6 @@ const ItemsCountUserProfile = (props: Props) => {
   } = useFollowersQuery(props.userId)
   const { data: followingUsersFollows, refetch: refetchFollowing } =
     useFollowingUsersQuery(props.userId)
-
-  const authUser = useAuthStore((s) => s.authUser)
 
   const { data: itemsCount } = useUserItemsCountQuery(props.userId)
 
