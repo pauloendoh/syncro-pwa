@@ -20,7 +20,7 @@ const FavoritesSection = ({ userId }: Props) => {
     return syncroItemTypes.map((type) => ({
       type,
       items: favorites
-        .filter((item: FavoriteItemDto) => item.syncroItem.type === type)
+        .filter((item: FavoriteItemDto) => item.syncroItem?.type === type)
         .sort((a, b) => a.position - b.position),
     }))
   }, [favorites])

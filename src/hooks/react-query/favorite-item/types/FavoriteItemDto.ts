@@ -3,7 +3,7 @@ import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDt
 export interface FavoriteItemDto {
   id: string
   userId: string
-  syncroItem: SyncroItemDto
+  syncroItem?: SyncroItemDto
   syncroItemId: string
   position: number
 }

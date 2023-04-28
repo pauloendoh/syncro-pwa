@@ -56,7 +56,7 @@ const UserPageContent = () => {
   const typesWithoutFavorites = useMemo(() => {
     return syncroItemTypes.filter((type) => {
       const typeFavorites = favorites?.filter(
-        (fav) => fav.syncroItem.type === type
+        (fav) => fav.syncroItem?.type === type
       )
       return typeFavorites?.length === 0
     })

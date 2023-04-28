@@ -43,7 +43,7 @@ const useToggleSaveItemMutation = () => {
           myNotifications.success(
             <Text component="span">
               Added to planned!{' '}
-              <MyNextLink href={urls.pages.savedItems(data.syncroItem.type)}>
+              <MyNextLink href={urls.pages.savedItems(data.syncroItem?.type)}>
                 <Text component="span" color="primary" underline>
                   See list!
                 </Text>

@@ -47,9 +47,12 @@ const FavoritesByType = (props: Props) => {
       </MyNextLink>
       <ScrollArea>
         <Flex pb={16} gap={8}>
-          {props.favorites.map((fav) => (
-            <FavoriteItem key={fav.id} item={fav.syncroItem} />
-          ))}
+          {props.favorites.map(
+            (fav) =>
+              fav.syncroItem && (
+                <FavoriteItem key={fav.id} item={fav.syncroItem} />
+              )
+          )}
         </Flex>
       </ScrollArea>
     </FlexCol>
