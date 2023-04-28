@@ -167,7 +167,7 @@ const UserPageContent = () => {
             <FlexCol gap={8}>
               {typesWithoutFavorites.length > 0 && (
                 <>
-                  <Title order={4}>Others</Title>
+                  <Title order={4}>Other ratings</Title>
                   <Flex gap={16} wrap="wrap">
                     {typesWithoutFavorites.map((itemType) => (
                       <ProfileScreenRatingItem
