@@ -41,7 +41,7 @@ const FavoritesByType = (props: Props) => {
         {typeItems && (
           <Span ml={2} size="sm">
             {' '}
-            {typeItems?.length} items
+            {typeItems?.length} items total
           </Span>
         )}
       </MyNextLink>
