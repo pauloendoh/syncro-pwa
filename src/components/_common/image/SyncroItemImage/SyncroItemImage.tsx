@@ -4,7 +4,6 @@ import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDt
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
 import SyncroItemIcon from '../../../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
-import MyNextImage300x400 from '../MyNextImage300/MyNextImage300x444'
 
 type Props = {
   item?: SyncroItemDto
@@ -32,19 +31,19 @@ const SyncroItemImage = (props: Props) => {
 
   return (
     <Box pos="relative" ref={props.ref}>
-      {isError && (
-        <img
-          width={props.width}
-          height={height}
-          src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
-          alt={props.item?.title || 'syncro-item'}
-          style={{
-            objectFit: 'cover',
-            borderRadius: 4,
-          }}
-        />
-      )}
-      {!isError && (
+      {/* {isError && ( */}
+      <img
+        width={props.width}
+        height={height}
+        src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
+        alt={props.item?.title || 'syncro-item'}
+        style={{
+          objectFit: 'cover',
+          borderRadius: 4,
+        }}
+      />
+      {/* )} */}
+      {/* {!isError && (
         <MyNextImage300x400
           width={props.width || 100}
           height={height}
@@ -56,7 +55,7 @@ const SyncroItemImage = (props: Props) => {
           }}
           onError={() => setIsError(true)}
         />
-      )}
+      )} */}
 
       {props.showItemType && (
         <Center
