@@ -52,7 +52,7 @@ const UserPageContent = () => {
 
   const { isSmallScreen, isMobile } = useMyMediaQuery()
 
-  const { data: favorites } = useFavoriteItemsQuery({ userId: authUser?.id })
+  const { data: favorites } = useFavoriteItemsQuery({ userId })
   const typesWithoutFavorites = useMemo(() => {
     return syncroItemTypes.filter((type) => {
       const typeFavorites = favorites?.filter(
