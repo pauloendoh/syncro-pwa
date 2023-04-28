@@ -1,9 +1,8 @@
 import Router from 'next/router'
 import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
+import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
-
-export const ratingDetailsId = 'ratingDetailsId'
 
 interface IStore {
   isOpen: () => boolean
@@ -14,16 +13,16 @@ interface IStore {
 
 const useRatingDetailsModalStore = create<IStore>((set, get) => ({
   isOpen: () => {
-    return !!Router.query[ratingDetailsId]
+    return !!Router.query[QueryParams.ratingDetailsId]
   },
   initialValue: null,
   openModal: (initialValue) => {
     set({ initialValue })
-    Router.query[ratingDetailsId] = initialValue.id
+    Router.query[QueryParams.ratingDetailsId] = initialValue.id
     Router.push(Router, undefined, { scroll: false })
   },
   closeModal: () => {
-    routerBackIfSameDomainOrClearQueryParam(ratingDetailsId)
+    routerBackIfSameDomainOrClearQueryParam(QueryParams.ratingDetailsId)
   },
 }))
 

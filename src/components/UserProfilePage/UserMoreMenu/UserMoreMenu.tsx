@@ -1,6 +1,5 @@
 import { ActionIcon, Menu } from '@mantine/core'
-import React, { useState } from 'react'
-import { MdLogout, MdMore, MdMoreHoriz } from 'react-icons/md'
+import { MdLogout, MdMoreHoriz } from 'react-icons/md'
 import { useLogout } from '../../../hooks/domains/auth/useLogout'
 
 type Props = {}

@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
-import SyncroItemLink from '../../../../_common/SyncroItemLink/SyncroItemLink'
-import SyncroItemImage from '../../../../_common/image/SyncroItemImage/SyncroItemImage'
-import Span from '../../../../_common/text/Span'
+import { SyncroItemDto } from '../../../../../../types/domain/syncro-item/SyncroItemDto'
+import SyncroItemLink from '../../../../../_common/SyncroItemLink/SyncroItemLink'
+import SyncroItemImage from '../../../../../_common/image/SyncroItemImage/SyncroItemImage'
+import Span from '../../../../../_common/text/Span'
 
 type Props = {
   item: SyncroItemDto

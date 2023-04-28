@@ -3,8 +3,7 @@ import { zIndexes } from '../../../utils/zIndexes'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import NavbarRightIcons from '../../_common/layout/MyNavbar/NavbarRightIcons/NavbarRightIcons'
 
-// PE 1/3 - change to Mobile Home Navbar
-const MobileHomeHeader = () => {
+const MobileHomeNavbar = () => {
   return (
     <Header
       fixed
@@ -25,4 +24,4 @@ const MobileHomeHeader = () => {
   )
 }
 
-export default MobileHomeHeader
+export default MobileHomeNavbar

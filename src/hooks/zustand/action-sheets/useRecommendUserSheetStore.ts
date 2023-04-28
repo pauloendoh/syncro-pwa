@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import { create } from 'zustand'
-
-export const recommendItemsToUser = 'recommendItemsToUser'
+import { QueryParams } from '../../../utils/queryParams'
+import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 
 interface Store {
   userId: string | null
@@ -14,11 +14,11 @@ const useRecommendItemsToUserModalStore = create<Store>((set, get) => ({
   isOpen: false,
   openActionSheet: (userId) => {
     set({ userId })
-    Router.query[recommendItemsToUser] = 'true'
+    Router.query[QueryParams.recommendItemsToUser] = 'true'
     Router.push(Router, undefined, { scroll: false })
   },
   closeActionSheet: () => {
-    Router.back()
+    routerBackIfSameDomainOrClearQueryParam(QueryParams.recommendItemsToUser)
   },
 }))
 

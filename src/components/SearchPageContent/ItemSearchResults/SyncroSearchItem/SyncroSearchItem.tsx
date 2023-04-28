@@ -1,4 +1,4 @@
-import { Flex, Text, useMantineTheme } from '@mantine/core'
+import { Flex, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
@@ -15,10 +15,7 @@ interface Props {
   item: SyncroItemDto
 }
 
-// PE 1/3 - unificar no SyncroSearchItem
 const SyncroSearchItem = ({ item }: Props) => {
-  const theme = useMantineTheme()
-
   const { data: myRatings } = useMyRatingsQuery()
   const { data: myInterests } = useMyInterestsQuery()
 

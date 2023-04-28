@@ -15,7 +15,7 @@ import { useMyInterestQU } from '../../../hooks/react-query/interest/useMyIntere
 import useToggleSaveItemMutation from '../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyRatingQU } from '../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
-import useRecommendItemActionSheetStore from '../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
+import useRecommendItemModalStore from '../../../hooks/zustand/modals/useRecommendItemModalStore'
 import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../types/domain/rating/RatingDto'
@@ -58,9 +58,7 @@ const RatingRow = ({ syncroItem }: Props) => {
     return syncroItem.imdbUrl
   }, [syncroItem])
 
-  const openRecommendItemModal = useRecommendItemActionSheetStore(
-    (s) => s.openActionSheet
-  )
+  const openRecommendItemModal = useRecommendItemModalStore((s) => s.openModal)
 
   const typeMap = useSyncroItemTypeMap({
     itemType: syncroItem.type,

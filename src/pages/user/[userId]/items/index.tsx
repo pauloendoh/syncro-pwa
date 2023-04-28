@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
-import UserItemsPageContent from '../../../../components/UserItemsPageContent/UserItemsPageContent'
+import UserItemsPage from '../../../../components/UserItemsPage/UserItemsPage'
 
 const MyNextPage: NextPage = () => {
-  return <UserItemsPageContent />
+  return <UserItemsPage />
 }
 
 export default MyNextPage

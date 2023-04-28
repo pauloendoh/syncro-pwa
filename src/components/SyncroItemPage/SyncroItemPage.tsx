@@ -7,8 +7,6 @@ import {
   Text,
   Title,
 } from '@mantine/core'
-import { useState } from 'react'
-import LinesEllipsis from 'react-lines-ellipsis'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemReviewQuery } from '../../hooks/react-query/review/useItemReviewQuery'
 import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
@@ -27,9 +25,9 @@ import ImageSyncroItemPage from './ImageSyncroItemPage/ImageSyncroItemPage'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import ItemReviewsSection from './ItemReviewsSection/ItemReviewsSection'
-import MangaExtraInfoSection from './MangaExtraInfoSection/MangaExtraInfoSection'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import RatingRow from './RatingRow/RatingRow'
+import SyncroItemSummarySection from './SyncroItemSummarySection/SyncroItemSummarySection'
 import TrailerSection from './TrailerSection/TrailerSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
 
@@ -37,7 +35,6 @@ type Props = {
   initialData: SyncroItemDto | null
 }
 
-// PE 1/3 - rename
 const SyncroItemPage = (props: Props) => {
   const { syncroItemId } = useMyRouterQuery()
   const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId, {
@@ -51,25 +48,6 @@ const SyncroItemPage = (props: Props) => {
   })
 
   const { isMobile } = useMyMediaQuery()
-
-  // PE 1/3 - componentize and move to separate file
-  const [canToggleExpand, setCanToggleExpand] = useState(false)
-  const [seeMore, setSeeMore] = useState<boolean | null>(null)
-  const handleReflow = ({
-    clamped,
-    text,
-  }: {
-    clamped: boolean
-    text: string
-  }) => {
-    if (!item) return
-
-    const isClamped = text.length < item.plotSummary.length
-
-    if (isClamped) {
-      setCanToggleExpand(true)
-    }
-  }
 
   const { authUser } = useAuthStore()
 
@@ -117,65 +95,9 @@ const SyncroItemPage = (props: Props) => {
                 </FlexCol>
               </Flex>
 
-              <FlexCol mt={24}>
-                <Title order={5} weight={500}>
-                  Summary
-                </Title>
-                <Box
-                  mt={8}
-                  sx={(theme) => ({
-                    a: {
-                      color: theme.colors.primary,
-                    },
-                    '.LinesEllipsis': {
-                      // multiline text
-                      whiteSpace: 'pre-wrap',
-                    },
-                  })}
-                >
-                  {item.plotSummary.length === 0 && (
-                    <Text>No summary available</Text>
-                  )}
-                  {item.plotSummary.length > 0 && (
-                    <LinesEllipsis
-                      text={item.plotSummary}
-                      maxLine={seeMore || seeMore === null ? 3 : 1000}
-                      onReflow={handleReflow}
-                    />
-                  )}
-                  {canToggleExpand && (
-                    <Box
-                      style={{
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        width: 'fit-content',
-                        marginTop: 8,
-                      }}
-                      onClick={() => {
-                        if (seeMore === null) {
-                          setSeeMore(false)
-                        }
-                        if (seeMore === true) {
-                          setSeeMore(false)
-                        }
-                        if (seeMore === false) {
-                          setSeeMore(true)
-                        }
-                      }}
-                    >
-                      {seeMore === null && 'Show more'}
-                      {seeMore === true && 'Show more '}
-                      {seeMore === false && 'Show less '}
-                    </Box>
-                  )}
-                </Box>
-
-                {item.mangaExtraInfo && (
-                  <Box mt={24}>
-                    <MangaExtraInfoSection info={item.mangaExtraInfo} />
-                  </Box>
-                )}
-              </FlexCol>
+              <Box mt={24}>
+                <SyncroItemSummarySection item={item} />
+              </Box>
 
               <Box mt={16} />
               <RatingRow syncroItem={item} />

@@ -27,7 +27,7 @@ import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
-import RecommendItemToUsersList from '../RecommendItemActionSheet/RecommendItemToUsersList/RecommendItemToUsersList'
+import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
 import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
 
@@ -39,6 +39,8 @@ const EditRatingModal = () => {
     isOpen: ratingDetailsModalIsOpen,
   } = useRatingDetailsModalStore()
   const { saveRatingModal: editRatingModal } = useMyRouterQuery()
+
+  const modalIsOpen = useMemo(() => !!editRatingModal, [editRatingModal])
 
   const { mutate: submitSaveRating, isLoading } = useSaveRatingMutation()
 
@@ -64,8 +66,7 @@ const EditRatingModal = () => {
   } = useForm<RatingDto>()
 
   useEffect(() => {
-    // PE 1/3  create a modalIsOpen = useMemo
-    if (!!editRatingModal) {
+    if (!!modalIsOpen) {
       reset(
         initialValue ||
           buildRatingDto({
@@ -73,12 +74,12 @@ const EditRatingModal = () => {
           })
       )
     }
-  }, [editRatingModal])
+  }, [modalIsOpen])
 
-  useConfirmTabClose(isDirty && !!editRatingModal)
+  useConfirmTabClose(isDirty && !!modalIsOpen)
 
   const handleCloseModal = useCallback(() => {
-    if (isDirty && !!editRatingModal) {
+    if (isDirty && !!modalIsOpen) {
       openConfirmDialog({
         title: 'Unsaved changes',
         description:
@@ -91,7 +92,7 @@ const EditRatingModal = () => {
     }
 
     closeModal()
-  }, [isDirty, !!editRatingModal])
+  }, [isDirty, !!modalIsOpen])
 
   const handleChangeRating = (newRating: number) => {
     if (newRating === watch('ratingValue')) {

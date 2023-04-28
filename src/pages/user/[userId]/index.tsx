@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
-import UserPageContent from '../../../components/UserPageContent/UserPageContent'
+import UserProfilePage from '../../../components/UserProfilePage/UserProfilePage'
 
 const Page: NextPage = () => {
-  return <UserPageContent />
+  return <UserProfilePage />
 }
 
 export default Page

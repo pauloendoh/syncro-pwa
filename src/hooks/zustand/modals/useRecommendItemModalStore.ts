@@ -5,23 +5,23 @@ const queryString = 'recommendItemIsOpen'
 
 interface IStore {
   itemId: string | null
-  openActionSheet: (itemId: string) => void
-  closeActionSheet: () => void
+  openModal: (itemId: string) => void
+  closeModal: () => void
 }
 
 // PE 1/3 - rename to modal
-const useRecommendItemActionSheetStore = create<IStore>((set, get) => {
+const useRecommendItemModalStore = create<IStore>((set, get) => {
   return {
     itemId: null,
-    openActionSheet: (itemId) => {
+    openModal: (itemId) => {
       set({ itemId })
       Router.query[queryString] = '1'
       Router.push(Router, undefined, { scroll: false })
     },
-    closeActionSheet: () => {
+    closeModal: () => {
       Router.back()
     },
   }
 })
 
-export default useRecommendItemActionSheetStore
+export default useRecommendItemModalStore

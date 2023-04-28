@@ -17,7 +17,7 @@ import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
-import MobileHomeHeader from './MobileHomeHeader/MobileHomeHeader'
+import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
 import PlannedItemsHomeSection from './PlannedItemsHomeSection/PlannedItemsHomeSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
@@ -39,7 +39,7 @@ const HomePageContent = () => {
     <LoggedLayout>
       {isXsScreen && (
         <>
-          <MobileHomeHeader />
+          <MobileHomeNavbar />
           <Box mt={40} />
         </>
       )}

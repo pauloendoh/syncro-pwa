@@ -18,12 +18,10 @@ type Props = {
 }
 
 const UserRatingsGridView = (props: Props) => {
-  // PE 1/3 - use isLoading
   const {
     data: homeRatings,
     fetchNextPage,
     hasNextPage,
-    isLoading,
   } = useTimelineRatingsQuery(props.userId)
 
   const containerRef = useRef()

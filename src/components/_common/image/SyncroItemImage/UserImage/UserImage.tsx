@@ -18,7 +18,6 @@ const UserImage = (props: Props) => {
         position: 'relative',
       }}
     >
-      {/* PE 1/3 - use next image 300 */}
       <img
         alt={props.username || 'username'}
         src={props.pictureUrl || '/images/avatars/avatar.png'}

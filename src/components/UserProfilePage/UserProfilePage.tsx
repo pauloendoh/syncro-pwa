@@ -34,8 +34,7 @@ import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRati
 import UserMoreMenu from './UserMoreMenu/UserMoreMenu'
 import UserPageRatingsSection from './UserPageRatingsSection/UserPageRatingsSection'
 
-// PE 1/3 - change name to UserProfilePage
-const UserPageContent = () => {
+const UserProfilePage = () => {
   const { userId } = useMyRouterQuery()
   const { data: userInfo, isLoading } = useUserInfoQuery(userId!)
 
@@ -191,4 +190,4 @@ const UserPageContent = () => {
   )
 }
 
-export default UserPageContent
+export default UserProfilePage

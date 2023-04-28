@@ -7,7 +7,7 @@ import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 import Span from '../../../_common/text/Span'
-import FavoriteItem from './FavoriteItem/FavoriteItem'
+import FavoriteItem from './FavoritesByType/FavoriteItem/FavoriteItem'
 
 type Props = {
   type: SyncroItemType

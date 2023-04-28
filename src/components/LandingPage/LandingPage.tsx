@@ -13,8 +13,7 @@ import LoginForm from './LoginForm/LoginForm'
 import PasswordResetForm from './PasswordResetForm/PasswordResetForm'
 import RegisterForm from './RegisterForm/RegisterForm'
 
-// PE 1/3 - rename to LandingPage
-const LandingPageContent = () => {
+const LandingPage = () => {
   const router = useRouter()
   const { initialPage } = useMyRouterQuery()
   const [currentForm, setCurrentForm] = useState<
@@ -116,4 +115,4 @@ const LandingPageContent = () => {
   )
 }
 
-export default LandingPageContent
+export default LandingPage

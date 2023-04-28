@@ -1,9 +1,8 @@
 import Router from 'next/router'
 import { create } from 'zustand'
+import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 import { UserFeedbackDto } from '../../react-query/feedback/types/UserFeedbackDto'
-
-export const feedbackModal = 'feedbackModal'
 
 interface IStore {
   initialValue: UserFeedbackDto | null
@@ -15,11 +14,11 @@ const useFeedbackModalStore = create<IStore>((set, get) => ({
   initialValue: null,
   openModal: (initialValue) => {
     set({ initialValue })
-    Router.query[feedbackModal] = initialValue.id || 'new'
+    Router.query[QueryParams.feedbackModal] = initialValue.id || 'new'
     Router.push(Router, undefined, { scroll: false })
   },
   closeModal: () => {
-    routerBackIfSameDomainOrClearQueryParam(feedbackModal)
+    routerBackIfSameDomainOrClearQueryParam(QueryParams.feedbackModal)
   },
 }))
 

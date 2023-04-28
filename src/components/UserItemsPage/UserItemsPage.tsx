@@ -1,22 +1,17 @@
 import { Container, Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
-import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useUserItemsQuery } from '../../hooks/react-query/user/useUserItemsQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { SortingByType } from '../../types/domain/others/SortingByTypes'
-import { syncroItemMapping } from '../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import { useSortedItems } from '../UserPageContent/ProfileScreenRatingItem/useSortedItems/useSortedItems'
+import { useSortedItems } from '../UserProfilePage/ProfileScreenRatingItem/useSortedItems/useSortedItems'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import SortBySelector from './SortBySelector/SortBySelector'
 import UserItemsList from './UserItemsList/UserItemsList'
 
-type Props = {}
-
-// PE 1/3 - rename to UserItemsPage
-const UserItemsPageContent = (props: Props) => {
+const UserItemsPage = () => {
   const { userId, type } = useMyRouterQuery()
 
   const itemType = type as SyncroItemType
@@ -26,14 +21,6 @@ const UserItemsPageContent = (props: Props) => {
     isLoading,
     refetch,
   } = useUserItemsQuery(userId, itemType as SyncroItemType)
-
-  const { data: userInfo } = useUserInfoQuery(userId)
-
-  const headerTitle = useMemo(() => {
-    if (!userInfo?.username) return 'User items'
-
-    return `${userInfo.username} - ${syncroItemMapping[itemType].labelPlural}`
-  }, [userInfo, itemType])
 
   const authUser = useAuthStore((s) => s.authUser)
 
@@ -69,4 +56,4 @@ const UserItemsPageContent = (props: Props) => {
   )
 }
 
-export default UserItemsPageContent
+export default UserItemsPage

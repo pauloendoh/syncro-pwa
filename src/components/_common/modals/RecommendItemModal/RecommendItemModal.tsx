@@ -1,19 +1,16 @@
 import { Modal, Title } from '@mantine/core'
-import { useMutualsSavedItemQuery } from '../../../../hooks/react-query/user/useMutualsSavedItemQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import useRecommendItemActionSheetStore from '../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore'
+import useRecommendItemModalStore from '../../../../hooks/zustand/modals/useRecommendItemModalStore'
 import { zIndexes } from '../../../../utils/zIndexes'
 import RecommendItemToUsersList from './RecommendItemToUsersList/RecommendItemToUsersList'
 
-// PE 1/3 - rename to RecommendItemModal
-const RecommendItemActionSheet = () => {
-  const { closeActionSheet, itemId } = useRecommendItemActionSheetStore()
-  const { data: mutuals } = useMutualsSavedItemQuery(itemId!)
+const RecommendItemModal = () => {
+  const { closeModal, itemId } = useRecommendItemModalStore()
 
   const { recommendItemIsOpen } = useMyRouterQuery()
 
   const handleClose = () => {
-    closeActionSheet()
+    closeModal()
   }
 
   return (
@@ -41,4 +38,4 @@ const RecommendItemActionSheet = () => {
   )
 }
 
-export default RecommendItemActionSheet
+export default RecommendItemModal

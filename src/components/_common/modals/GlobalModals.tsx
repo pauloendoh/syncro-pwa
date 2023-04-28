@@ -7,7 +7,7 @@ import FeedbackModal from './FeedbackModal/FeedbackModal'
 import FollowersModal from './FollowersModal/FollowersModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
 import RatingDetailsModal from './RatingDetailsModal/RatingDetailsModal'
-import RecommendItemActionSheet from './RecommendItemActionSheet/RecommendItemActionSheet'
+import RecommendItemModal from './RecommendItemModal/RecommendItemModal'
 import RecommendItemsToUserModal from './RecommendItemsToUserModal/RecommendItemsToUserModal'
 import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
 import ShareRatingModal from './ShareRatingModal/ShareRatingModal'
@@ -21,7 +21,7 @@ const GlobalModals = (props: Props) => {
     <>
       <ConfirmationModal />
       <EditRatingModal />
-      <RecommendItemActionSheet />
+      <RecommendItemModal />
       <ItemRatedByModal />
       <SavedPositionModal
         initialValue={savedPosition.initialValue}
