@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { socketEvents } from '../../../../../utils/socketEvents'
 import { urls } from '../../../../../utils/urls'
 import { MessageDto } from '../../../../react-query/message/types/MessageDto'
+import { MessageRoomDto } from '../../../../react-query/message/types/MessageRoomDto'
 import { useMySocketEvent } from '../../../useMySocketEvent'
 
 export const useNewMessageSocket = () => {
@@ -24,6 +25,26 @@ export const useNewMessageSocket = () => {
           lastMessage.message,
           (i) => i.id === lastMessage.message.id
         )
+    )
+
+    queryClient.setQueryData<MessageRoomDto[]>(
+      [urls.api.lastRoomsWithMessages],
+      (curr) => {
+        if (!curr) {
+          queryClient.invalidateQueries([urls.api.lastRoomsWithMessages])
+          return curr
+        }
+
+        const messages = curr.find(
+          (room) => room.id === lastMessage.messageRoomId
+        )?.messages
+        if (!messages) {
+          queryClient.invalidateQueries([urls.api.lastRoomsWithMessages])
+          return curr
+        }
+
+        messages[0] = lastMessage.message
+      }
     )
   }, [lastMessage])
 }

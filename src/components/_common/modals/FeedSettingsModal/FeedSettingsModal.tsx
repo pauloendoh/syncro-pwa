@@ -109,7 +109,7 @@ const FeedSettingsModal = () => {
             />
 
             <Checkbox
-              label="Hide items you rated or planned"
+              label="Hide items you already rated or planned"
               checked={watch('feedExcludeRatedOrPlanned')}
               onChange={(e) => {
                 setValue('feedExcludeRatedOrPlanned', e.target.checked)

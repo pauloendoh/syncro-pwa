@@ -5,9 +5,7 @@ import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import FlexCol from '../../_common/flex/FlexCol'
 import MessagesSidebarItem from './MessagesSidebarItem/MessagesSidebarItem'
 
-type Props = {}
-
-const MessagesSidebar = (props: Props) => {
+const MessagesSidebar = () => {
   const { data: rooms } = useLastRoomsWithMessagesQuery()
   const { roomId } = useMyRouterQuery()
   const { data: unreadRooms } = useUnreadMessageRoomsQuery()
@@ -19,7 +17,7 @@ const MessagesSidebar = (props: Props) => {
       <FlexCol mt={8}>
         {rooms?.map((room) => (
           <MessagesSidebarItem
-            key={room.id}
+            key={room.messages?.[0].id}
             room={room}
             isSelected={room.id === roomId}
             unread={unreadRooms?.some(
