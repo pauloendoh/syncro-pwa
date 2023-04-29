@@ -1,7 +1,7 @@
 import { Flex, ScrollArea } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { FavoriteItemDto } from '../../../../hooks/react-query/favorite-item/types/FavoriteItemDto'
-import { useUserItemsQuery } from '../../../../hooks/react-query/user/useUserItemsQuery'
+import { useUserItemsQuery } from '../../../../hooks/react-query/user-item/useUserItemsQuery'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../../../utils/urls'
 import FlexCol from '../../../_common/flex/FlexCol'

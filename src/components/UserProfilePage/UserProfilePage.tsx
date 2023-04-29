@@ -19,6 +19,7 @@ import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { htmlTitles } from '../../utils/consts/htmlTitles'
 import { urls } from '../../utils/urls'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
@@ -64,7 +65,9 @@ const UserProfilePage = () => {
   return (
     <LoggedLayout>
       <Head>
-        <title>{userInfo?.username} - Syncro</title>
+        <title>
+          {userInfo ? htmlTitles.userPage(userInfo.username) : htmlTitles.index}
+        </title>
       </Head>
       <Container size="xs">
         <MyPaper sx={{ width: '100%' }}>

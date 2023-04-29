@@ -21,6 +21,7 @@ import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
 import PlannedItemsHomeSection from './PlannedItemsHomeSection/PlannedItemsHomeSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
+// PE 1/3 - rename to HomePage
 const HomePageContent = () => {
   const { data: homeRatings, isLoading } = useTimelineRatingsQuery()
 

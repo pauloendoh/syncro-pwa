@@ -1,6 +1,6 @@
 import { Box, Text, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
-import { useUserItemsQuery } from '../../../hooks/react-query/user/useUserItemsQuery'
+import { useUserItemsQuery } from '../../../hooks/react-query/user-item/useUserItemsQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { syncroItemMapping } from '../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
 import { urls } from '../../../utils/urls'
