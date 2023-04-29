@@ -27,9 +27,9 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
 
   return (
     <FlexCol gap={16}>
-      <Title order={4}>Top 10 genres</Title>
+      <Title order={4}>Top 5 genres</Title>
       <FlexCol>
-        {genresCount?.slice(0, 10).map((g, index) => (
+        {genresCount?.slice(0, 5).map((g, index) => (
           <Span key={g.genre}>
             - {g.genre} ({g.count})
           </Span>
