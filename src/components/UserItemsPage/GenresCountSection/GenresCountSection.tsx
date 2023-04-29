@@ -1,5 +1,5 @@
 import { Title, useMantineTheme } from '@mantine/core'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useGenresCountQuery } from '../../../hooks/react-query/user-item/useGenresCountQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -13,28 +13,41 @@ type Props = {
 const GenresCountSection = ({ itemType, userId }: Props) => {
   const { data: genresCount } = useGenresCountQuery(itemType, userId)
 
-  const data = useMemo(() => {
-    if (!genresCount) return []
-    return genresCount.map((g) => ({
-      name: g.genre.includes('RPG') ? 'RPG' : g.genre,
-      value: g.count,
-    }))
-  }, [genresCount])
-
   const theme = useMantineTheme()
+
+  const [showMore, setShowMore] = useState(false)
+
+  const showGenresCount = useMemo(() => {
+    if (!genresCount) return []
+    if (showMore) return genresCount
+    return genresCount.slice(0, 5)
+  }, [showMore, genresCount])
 
   if (!genresCount || genresCount.length === 0) return null
 
   return (
     <FlexCol gap={16}>
-      <Title order={4}>Top 5 genres</Title>
+      <Title order={4}>Most rated genres</Title>
       <FlexCol>
-        {genresCount?.slice(0, 5).map((g, index) => (
+        {showGenresCount.map((g, index) => (
           <Span key={g.genre}>
             ({g.count}) {g.genre}
           </Span>
         ))}
       </FlexCol>
+
+      {genresCount.length > 5 && (
+        <Span
+          onClick={() => setShowMore((prev) => !prev)}
+          variant="link"
+          sx={{
+            cursor: 'pointer',
+            fontWeight: 500,
+          }}
+        >
+          {showMore ? 'Show less' : 'Show more'}
+        </Span>
+      )}
     </FlexCol>
   )
 }
