@@ -23,6 +23,8 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
 
   const theme = useMantineTheme()
 
+  if (!genresCount || genresCount.length === 0) return null
+
   return (
     <FlexCol gap={16}>
       <Title order={4}>Top 10 genres</Title>
