@@ -1,6 +1,5 @@
 import { Container, Grid, Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
-import { useGenresCountQuery } from '../../hooks/react-query/user-item/useGenresCountQuery'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
@@ -35,8 +34,6 @@ const UserItemsPage = () => {
   const [sortingBy, setSortingBy] = useState<SortingByType>('theirRatingDesc')
 
   const sortedItems = useSortedItems({ items, sortingBy })
-
-  const { data: genresCount } = useGenresCountQuery(itemType, userId)
 
   const { isSmallScreen } = useMyMediaQuery()
 

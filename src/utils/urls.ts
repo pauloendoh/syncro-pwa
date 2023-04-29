@@ -105,7 +105,7 @@ export const urls = {
     userItems: (userId: string, itemType: SyncroItemType) =>
       API_URL + `/user/${userId}/items?itemType=${itemType}`,
     genresCount: (userId: string, type: SyncroItemType) =>
-      API_URL + `/rated-genres-count?userId=${userId}&itemType="${type}"`,
+      API_URL + `/rated-genres-count?userId=${userId}&itemType=${type}`,
     mySimilarUsers: API_URL + `/me/similar-users`,
     myFollowingUsers: API_URL + `/me/following-users`,
     userFollowers: (userId: string) => API_URL + `/user/${userId}/followers`,
