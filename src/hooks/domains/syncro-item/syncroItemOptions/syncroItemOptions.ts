@@ -1,7 +1,6 @@
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
-// PE 1/3 - remove ? use useSyncroItemTypeMap ?
-export const syncroItemOptions: {
+export type SyncroItemTypeMapOption = {
   itemType: SyncroItemType
   labelPlural: string
   site: string
@@ -11,7 +10,10 @@ export const syncroItemOptions: {
   planTo: string
   removeFromPlanTo: string
   inProgressLabel: string
-}[] = [
+}
+
+// PE 1/3 - remove ? use useSyncroItemTypeMap ?
+export const syncroItemOptions: SyncroItemTypeMapOption[] = [
   {
     itemType: 'movie',
     labelPlural: 'Movies',

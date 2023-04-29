@@ -1,4 +1,4 @@
-import { IsIn, IsString, MinLength } from 'class-validator'
+import { IsIn, IsString, MaxLength, MinLength } from 'class-validator'
 import {
   SyncroItemType,
   syncroItemTypes,
@@ -10,6 +10,7 @@ export class ProfilePutDto {
 
   @IsString({ message: 'Username is required.' })
   @MinLength(6, { message: 'Username must have at least 6 characters.' })
+  @MaxLength(16, { message: 'Username must have at most 16 characters.' })
   username: string
 
   @IsString()

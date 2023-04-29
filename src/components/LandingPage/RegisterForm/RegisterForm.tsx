@@ -1,6 +1,6 @@
 import { classValidatorResolver } from '@hookform/resolvers/class-validator'
 import { Button, Text } from '@mantine/core'
-import { IsEmail, IsString } from 'class-validator'
+import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
@@ -11,17 +11,21 @@ import { useAxios } from '../../../utils/useAxios'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyTextInput from '../../_common/inputs/MyTextInput'
 
-class ISignUpDto {
-  @IsString()
+class RegisterDto {
+  @IsString({ message: 'Username is required.' })
+  @MinLength(6, { message: 'Username must have at least 6 characters.' })
+  @MaxLength(16, { message: 'Username must have at most 16 characters.' })
   username: string
 
-  @IsEmail()
+  @IsEmail(undefined, { message: 'Email is required.' })
   email: string
 
-  @IsString()
+  @IsString({ message: 'Password is required.' })
+  @MinLength(6, { message: 'Password must have at least 6 characters.' })
   password1: string
 
-  @IsString()
+  @IsString({ message: 'Password2 is required.' })
+  @MinLength(6, { message: 'Password2 must have at least 6 characters.' })
   password2: string
 }
 
@@ -29,14 +33,14 @@ interface Props {
   onToggleForm: () => void
 }
 
-const resolver = classValidatorResolver(ISignUpDto)
+const resolver = classValidatorResolver(RegisterDto)
 
 const RegisterForm = (props: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISignUpDto>({
+  } = useForm<RegisterDto>({
     resolver,
   })
 
@@ -45,7 +49,7 @@ const RegisterForm = (props: Props) => {
 
   const { setAuthUser } = useAuthStore()
 
-  const onSubmit = (data: ISignUpDto) => {
+  const onSubmit = (data: RegisterDto) => {
     // const pushToken = await nookies(null, ) AsyncStorage.getItem(storageKeys.pushToken)
 
     try {
