@@ -66,7 +66,8 @@ const UserProfilePage = () => {
 
   const { data: userItems } = useUserItemsQuery(userId)
 
-  const ratedOtherTypes = useMemo(() => {
+  const showOtherRatingsLabel = useMemo(() => {
+    if (!favoriteItems?.length) return false
     for (const type of typesWithoutFavorites) {
       const typeItems = userItems?.filter((item) => item?.type === type)
       if (!!typeItems?.length) {
@@ -74,7 +75,7 @@ const UserProfilePage = () => {
       }
     }
     return false
-  }, [typesWithoutFavorites, userItems])
+  }, [favoriteItems, typesWithoutFavorites, userItems])
 
   const theme = useMantineTheme()
 
@@ -191,7 +192,9 @@ const UserProfilePage = () => {
             <FlexCol gap={8}>
               {!!typesWithoutFavorites.length && (
                 <>
-                  <Title order={4}>{ratedOtherTypes && 'Other ratings'}</Title>
+                  <Title order={4}>
+                    {showOtherRatingsLabel && 'Other ratings'}
+                  </Title>
                   <Flex gap={16} wrap="wrap">
                     {typesWithoutFavorites.map((itemType) => (
                       <ProfileScreenRatingItem
