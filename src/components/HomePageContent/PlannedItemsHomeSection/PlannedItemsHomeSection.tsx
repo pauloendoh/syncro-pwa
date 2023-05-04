@@ -6,10 +6,8 @@ import {
   syncroItemTypes,
 } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { localStorageKeys } from '../../../utils/consts/localStorageKeys'
-import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
-import MyNextLink from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
 import DragDropPlannedItems from './DragDropPlannedItems/DragDropPlannedItems'
 import PlannedItemButton from './PlannedItemButton/PlannedItemButton'
@@ -32,16 +30,10 @@ const PlannedItemsHomeSection = (props: Props) => {
         justifyContent: 'flex-start',
       }}
     >
-      <FlexVCenter justify={'space-between'}>
+      <FlexVCenter>
         <FlexVCenter gap={4}>
           <Title order={5}>Planned items</Title>
         </FlexVCenter>
-
-        <MyNextLink href={urls.pages.savedItems()}>
-          <Title order={5} underline>
-            See all
-          </Title>
-        </MyNextLink>
       </FlexVCenter>
 
       <MyPaper
