@@ -12,7 +12,9 @@ type Props = {
 const FavoriteItem = (props: Props) => {
   const [isHovering, setIsHovering] = useState(false)
   const { isMobile } = useMyMediaQuery()
+
   const showTitle = isHovering || isMobile
+
   return (
     <SyncroItemLink item={props.item}>
       <div
@@ -28,16 +30,10 @@ const FavoriteItem = (props: Props) => {
               position: 'absolute',
               bottom: 0,
               left: 0,
-
-              backgroundImage:
-                'linear-gradient(rgba(0,0,0,0), rgba(0,0,0, 0.85))',
-
-              // height 50%
-              height: '60%',
-              display: 'flex',
-              alignItems: 'flex-end',
+              backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0))',
             }}
             w="100%"
+            lineClamp={isMobile ? 1 : 2}
             p={4}
           >
             {props.item.title}
