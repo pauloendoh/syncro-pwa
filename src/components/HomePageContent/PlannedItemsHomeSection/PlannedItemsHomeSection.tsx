@@ -1,4 +1,4 @@
-import { ScrollArea, Title } from '@mantine/core'
+import { Box, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
 import {
@@ -53,12 +53,9 @@ const PlannedItemsHomeSection = (props: Props) => {
             ))}
           </FlexVCenter>
 
-          <ScrollArea
-            type="never"
-            sx={{ paddingRight: 16, paddingLeft: 16, paddingBottom: 8 }}
-          >
+          <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
             <DragDropPlannedItems itemType={selectedType} />
-          </ScrollArea>
+          </Box>
         </FlexCol>
       </MyPaper>
     </FlexCol>
