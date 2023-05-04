@@ -20,7 +20,7 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
     const plannedItem = plannedItems[sourceIndex]
     const newPosition = targetIndex + 1
 
-    if (plannedItem.position === newPosition) return
+    if (plannedItem?.position === newPosition) return
 
     props.onDragChange(plannedItem.id, newPosition)
   }
