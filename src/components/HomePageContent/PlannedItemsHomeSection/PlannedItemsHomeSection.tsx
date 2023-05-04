@@ -62,7 +62,7 @@ const PlannedItemsHomeSection = (props: Props) => {
           </FlexVCenter>
 
           <ScrollArea
-            sx={{ paddingRight: 16, paddingLeft: 8, paddingBottom: 8 }}
+            sx={{ paddingRight: 16, paddingLeft: 16, paddingBottom: 8 }}
           >
             <DragDropPlannedItems itemType={selectedType} />
           </ScrollArea>

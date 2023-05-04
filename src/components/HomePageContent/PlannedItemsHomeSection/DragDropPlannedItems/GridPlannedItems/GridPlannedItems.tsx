@@ -12,19 +12,15 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
   const { openSheet } = useSavedPositionSheetStore()
 
   function onChange(
-    sourceId: string,
+    _sourceId: string,
     sourceIndex: number,
     targetIndex: number,
-    targetId?: string | undefined
+    _targetId?: string | undefined
   ) {
     const interestId = plannedItems[sourceIndex].id
     const newPosition = targetIndex + 1
 
     props.onDragChange(interestId, newPosition)
-
-    // const nextState = swap(plannedItems, sourceIndex, targetIndex)
-    // console.log(nextState)
-    // setItems(nextState)
   }
 
   const rowHeight = (100 * 4) / 3 + 16
