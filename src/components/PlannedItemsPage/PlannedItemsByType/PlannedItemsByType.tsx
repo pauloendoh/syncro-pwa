@@ -18,7 +18,7 @@ const PlannedItemsByType = ({ savedItems, ...props }: Props) => {
   if (!savedItems || savedItems.length === 0) return null
 
   return (
-    <FlexCol mb={8} w="100%">
+    <FlexCol mb={8} w={'calc(100% - 24px)'}>
       <Title order={4}>
         {savedItems?.length} {type.getTypeLabel(savedItems.length > 1)}
       </Title>
