@@ -13,7 +13,7 @@ const useUpdateSavedPositionMutation = () => {
 
   const [succededAt, setSuccededAt] = useState('')
 
-  const [debouncedSuccededAt] = useDebouncedValue(succededAt, 2500)
+  const [debouncedSuccededAt] = useDebouncedValue(succededAt, 1000)
 
   useEffect(() => {
     if (debouncedSuccededAt) {
