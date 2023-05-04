@@ -1,6 +1,7 @@
 import { Container, Flex, Select } from '@mantine/core'
+import { useLocalStorage } from '@mantine/hooks'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { useSavedItemsQuery } from '../../hooks/react-query/interest/useSavedItemsQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
@@ -8,6 +9,7 @@ import {
   SyncroItemType,
   syncroItemTypes,
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
@@ -17,6 +19,24 @@ const PlannedItemsPage = () => {
   const { data: savedItems } = useSavedItemsQuery()
 
   const { type } = useMyRouterQuery()
+  const router = useRouter()
+
+  const [localType, setLocalType] = useLocalStorage<SyncroItemType>({
+    key: localStorageKeys.plannedItemsSelectedType,
+  })
+
+  useEffect(() => {
+    if (!type && localType) {
+      router.replace(urls.pages.savedItems(localType))
+      return
+    }
+  }, [localType])
+
+  useEffect(() => {
+    if (type && type !== 'users') {
+      setLocalType(type)
+    }
+  }, [type])
 
   const groupedSavedItems = useMemo(() => {
     if (!savedItems) return []
@@ -34,7 +54,6 @@ const PlannedItemsPage = () => {
 
   const options = useMemo(() => {
     return [
-      { value: 'all', label: 'All' },
       ...syncroItemTypes.map((t) => ({
         value: t,
         label:
@@ -42,8 +61,6 @@ const PlannedItemsPage = () => {
       })),
     ]
   }, [])
-
-  const router = useRouter()
 
   return (
     <LoggedLayout>
@@ -54,9 +71,7 @@ const PlannedItemsPage = () => {
             data={options}
             value={type}
             onChange={(value) => {
-              router.push(
-                urls.pages.savedItems(value as SyncroItemType | 'all')
-              )
+              router.push(urls.pages.savedItems(value as SyncroItemType))
             }}
           />
         </FlexVCenter>

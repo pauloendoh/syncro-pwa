@@ -1,12 +1,11 @@
 import { ScrollArea, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
-import { useMemo } from 'react'
 import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
-import useUpdateSavedPositionMutation from '../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import {
   SyncroItemType,
   syncroItemTypes,
 } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { localStorageKeys } from '../../../utils/consts/localStorageKeys'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -19,20 +18,9 @@ type Props = {}
 
 const PlannedItemsHomeSection = (props: Props) => {
   const [selectedType, setSelectedType] = useLocalStorage<SyncroItemType>({
-    key: 'planned-items-home-section-selected-type',
-    defaultValue: 'movie',
+    key: localStorageKeys.plannedItemsSelectedType,
   })
   const { data: savedItems } = useSavedItemsQuery()
-
-  const sortedPlanned = useMemo(() => {
-    return (
-      savedItems
-        ?.filter((d) => d.syncroItem?.type === selectedType)
-        ?.sort((a, b) => a.position - b.position) || []
-    )
-  }, [selectedType, savedItems])
-
-  const { mutate: submitUpdateSavedPosition } = useUpdateSavedPositionMutation()
 
   if (!savedItems || savedItems.length === 0) return null
 
@@ -49,7 +37,7 @@ const PlannedItemsHomeSection = (props: Props) => {
           <Title order={5}>Planned items</Title>
         </FlexVCenter>
 
-        <MyNextLink href={urls.pages.savedItems('all')}>
+        <MyNextLink href={urls.pages.savedItems()}>
           <Title order={5} underline>
             See all
           </Title>

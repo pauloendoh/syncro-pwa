@@ -61,7 +61,7 @@ const NavbarUserMenu = (props: Props) => {
         >
           <Menu.Item icon={<AiOutlineUser />}>Profile</Menu.Item>
         </MyNextLink>
-        <MyNextLink href={urls.pages.savedItems('all')}>
+        <MyNextLink href={urls.pages.savedItems()}>
           <Menu.Item icon={<IoBookmarksOutline />}>Planned items</Menu.Item>
         </MyNextLink>
 

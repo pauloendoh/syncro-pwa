@@ -44,7 +44,7 @@ const NavbarRightIcons = () => {
       {isMobile && (
         <Tooltip label="Planned items" withArrow>
           <div>
-            <MyNextLink href={urls.pages.savedItems('all')}>
+            <MyNextLink href={urls.pages.savedItems()}>
               <ActionIcon>
                 {isPlannedItemsPage ? (
                   <IoBookmarks size={24} />
