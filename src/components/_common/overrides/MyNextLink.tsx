@@ -12,6 +12,8 @@ const MyNextLink = React.forwardRef<HTMLAnchorElement, Props>((props, ref) => {
       style={{
         textDecoration: 'none',
         color: 'inherit',
+        width: 'fit-content',
+
         ...props.style,
       }}
     >
