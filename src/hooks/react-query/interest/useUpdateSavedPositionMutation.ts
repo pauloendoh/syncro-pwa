@@ -1,4 +1,6 @@
+import { useDebouncedValue } from '@mantine/hooks'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
@@ -9,6 +11,16 @@ const useUpdateSavedPositionMutation = () => {
 
   const axios = useAxios()
 
+  const [succededAt, setSuccededAt] = useState('')
+
+  const [debouncedSuccededAt] = useDebouncedValue(succededAt, 2500)
+
+  useEffect(() => {
+    if (debouncedSuccededAt) {
+      myNotifications.success('Saved!')
+    }
+  }, [debouncedSuccededAt])
+
   return useMutation(
     async (payload: { interestId: string; newPosition: number }) => {
       queryClient.setQueryData<InterestDto[]>(
@@ -16,19 +28,34 @@ const useUpdateSavedPositionMutation = () => {
         (curr) => {
           if (!curr) return []
 
-          const interest = curr.find((x) => x.id === payload.interestId)
-          if (!interest) return curr
+          // reorder using position and splice
+          const interestToMove = curr.find(
+            (interest) => interest.id === payload.interestId
+          )
+          if (!interestToMove) return curr
 
-          const newInterests = curr.map((i) => ({
-            ...i,
-            position:
-              i.position >= payload.newPosition ? i.position + 1 : i.position,
-          }))
+          const itemType = interestToMove.syncroItem?.type
+          const selectedInterests = curr.filter(
+            (interest) => interest.syncroItem?.type === itemType
+          )
 
-          newInterests.find((x) => x.id === payload.interestId)!.position =
-            payload.newPosition
+          const otherInterests = curr.filter(
+            (interest) => interest.syncroItem?.type !== itemType
+          )
 
-          return newInterests
+          const updatedInterests = selectedInterests.filter(
+            (interest) => interest.id !== payload.interestId
+          )
+
+          updatedInterests.splice(payload.newPosition - 1, 0, interestToMove)
+
+          return [
+            ...updatedInterests.map((n, index) => ({
+              ...n,
+              position: index + 1,
+            })),
+            ...otherInterests,
+          ]
         }
       )
       return axios
@@ -38,7 +65,7 @@ const useUpdateSavedPositionMutation = () => {
     {
       onSuccess: async (_) => {
         // await queryClient.invalidateQueries([urls.api.findSavedItems])
-        myNotifications.success('Position changed!')
+        setSuccededAt(new Date().toISOString())
       },
     }
   )
