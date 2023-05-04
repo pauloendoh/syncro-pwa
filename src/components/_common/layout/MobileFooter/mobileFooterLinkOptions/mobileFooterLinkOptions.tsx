@@ -1,8 +1,11 @@
+import { useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 import { MdExplore, MdHome, MdSearch } from 'react-icons/md'
-import { RiUser3Fill } from 'react-icons/ri'
+import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../utils/urls'
+import UserImage from '../../../image/SyncroItemImage/UserImage/UserImage'
 
 type Option = {
   icon: React.ReactNode
@@ -15,6 +18,14 @@ export const useMobileFooterLinkOptions = () => {
   const { authUser } = useAuthStore()
 
   const router = useRouter()
+
+  const { data: userInfo } = useUserInfoQuery(authUser?.id)
+
+  const theme = useMantineTheme()
+
+  const isAuthUserPage = useMemo(() => {
+    return router.asPath.includes(urls.pages.user(authUser?.id!))
+  }, [authUser, router.asPath])
 
   const mobileFooterLinkOptions: Option[] = [
     {
@@ -42,7 +53,22 @@ export const useMobileFooterLinkOptions = () => {
       },
     },
     {
-      icon: <RiUser3Fill size={24} />,
+      icon: (
+        <div
+          style={{
+            borderRadius: '50%',
+            border: isAuthUserPage
+              ? `2px solid ${theme.colors.primary[9]}`
+              : undefined,
+          }}
+        >
+          <UserImage
+            username={authUser?.username}
+            pictureUrl={userInfo?.profile.pictureUrl}
+            widthHeight={24}
+          />
+        </div>
+      ),
       href: urls.pages.user(authUser?.id!),
       label: 'Profile',
       selectedIf: () => {

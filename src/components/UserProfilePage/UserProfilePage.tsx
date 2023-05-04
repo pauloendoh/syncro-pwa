@@ -14,6 +14,7 @@ import { useMemo } from 'react'
 import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { useFavoriteItemsQuery } from '../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
+import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
@@ -52,15 +53,27 @@ const UserProfilePage = () => {
 
   const { isSmallScreen, isMobile } = useMyMediaQuery()
 
-  const { data: favorites } = useFavoriteItemsQuery({ userId })
+  const { data: favoriteItems } = useFavoriteItemsQuery({ userId })
   const typesWithoutFavorites = useMemo(() => {
     return syncroItemTypes.filter((type) => {
-      const typeFavorites = favorites?.filter(
+      const typeFavorites = favoriteItems?.filter(
         (fav) => fav.syncroItem?.type === type
       )
       return typeFavorites?.length === 0
     })
-  }, [favorites, syncroItemTypes])
+  }, [favoriteItems, syncroItemTypes])
+
+  const { data: userItems } = useUserItemsQuery(userId)
+
+  const ratedOtherTypes = useMemo(() => {
+    for (const type of typesWithoutFavorites) {
+      const typeItems = userItems?.filter((item) => item?.type === type)
+      if (!!typeItems?.length) {
+        return true
+      }
+    }
+    return false
+  }, [typesWithoutFavorites, userItems])
 
   return (
     <LoggedLayout>
@@ -167,9 +180,9 @@ const UserProfilePage = () => {
             <NoRatingsUserProfile userId={userId!} />
           ) : (
             <FlexCol gap={8}>
-              {typesWithoutFavorites.length > 0 && (
+              {!!typesWithoutFavorites.length && (
                 <>
-                  <Title order={4}>Other ratings</Title>
+                  <Title order={4}>{ratedOtherTypes && 'Other ratings'}</Title>
                   <Flex gap={16} wrap="wrap">
                     {typesWithoutFavorites.map((itemType) => (
                       <ProfileScreenRatingItem

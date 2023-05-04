@@ -30,7 +30,7 @@ const UserImage = (props: Props) => {
       />
       {props.showLookingForRecommendationIcon && (
         <Tooltip
-          label="Looking for recommendations"
+          label={'Looking for recommendations'}
           position="bottom"
           withArrow
         >

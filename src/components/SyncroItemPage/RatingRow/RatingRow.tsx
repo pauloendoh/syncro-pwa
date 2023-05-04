@@ -87,7 +87,9 @@ const RatingRow = ({ syncroItem }: Props) => {
               isActive={!!myRating?.ratingValue}
               leftIcon={
                 ratingStatusArrayMap.find((s) => s.value === myRating?.status)
-                  ?.icon
+                  ?.icon || (
+                  <MdStarBorder color={theme.colors.dark[0]} size={16} />
+                )
               }
             >
               {myRating?.ratingValue || 'Rate'}

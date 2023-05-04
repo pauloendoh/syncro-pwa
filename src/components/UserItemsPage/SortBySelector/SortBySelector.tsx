@@ -12,7 +12,7 @@ const SortBySelector = (props: Props) => {
       data={[
         {
           value: 'theirRatingDesc' as SortingByType,
-          label: 'Their rating (desc)',
+          label: 'Their rating (highest)',
         },
         {
           value: 'bothPlannedDesc' as SortingByType,

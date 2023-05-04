@@ -1,9 +1,7 @@
-import { Box, Modal, Tabs } from '@mantine/core'
+import { Box, Modal, ScrollArea, Tabs } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
 import { useFollowersQuery } from '../../../../hooks/react-query/follow/useFollowersQuery'
 import { useFollowingUsersQuery } from '../../../../hooks/react-query/follow/useFollowingUsersQuery'
-import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
-import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useFollowersModalStore from '../../../../hooks/zustand/modals/useFollowersModalStore'
 import UserSearchItem from '../../../SearchPageContent/UserSearchResults/UserSearchItem/UserSearchItem'
@@ -69,11 +67,14 @@ const FollowersModal = () => {
             <Tabs.Tab value={'0'}>Followers</Tabs.Tab>
             <Tabs.Tab value={'1'}>Following</Tabs.Tab>
           </Tabs.List>
-          <FlexCol gap={16} mt={16}>
-            {userList.map((user) => (
-              <UserSearchItem key={user.id} user={user} />
-            ))}
-          </FlexCol>
+
+          <ScrollArea>
+            <FlexCol gap={16} pt={24} pr={16} mah={'calc(100vh - 140px)'}>
+              {userList.map((user) => (
+                <UserSearchItem key={user.id} user={user} />
+              ))}
+            </FlexCol>
+          </ScrollArea>
         </Tabs>
       </Box>
     </Modal>

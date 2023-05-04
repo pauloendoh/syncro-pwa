@@ -102,7 +102,7 @@ export const urls = {
       `/timeline-has-news?userId=${userId}&lastRatingCreatedAt=${lastRatingCreatedAt}`,
 
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
-    userItems: (userId: string, itemType: SyncroItemType) =>
+    userItems: (userId: string, itemType?: SyncroItemType) =>
       API_URL + `/user/${userId}/items?itemType=${itemType}`,
     genresCount: (userId: string, type: SyncroItemType) =>
       API_URL + `/rated-genres-count?userId=${userId}&itemType=${type}`,

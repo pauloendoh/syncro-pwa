@@ -1,7 +1,8 @@
 import { ActionIcon, Menu } from '@mantine/core'
-import { MdMoreHoriz, MdOutlineInfo, MdShare } from 'react-icons/md'
+import { MdEdit, MdMoreHoriz, MdOutlineInfo, MdShare } from 'react-icons/md'
 import { useMyRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyRatingQueryUtils'
 import useRatingDetailsModalStore from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useShareRatingModalStore from '../../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 
@@ -16,6 +17,7 @@ const HomeRatingMoreMenu = (props: Props) => {
   const { openModal } = useShareRatingModalStore()
 
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
+  const { openModal: openSaveRatingModal } = useSaveRatingModalStore()
 
   const containsNothing = !props.rating && !myRating
 
@@ -37,6 +39,15 @@ const HomeRatingMoreMenu = (props: Props) => {
             onClick={() => openRatingDetailsModal(props.rating)}
           >
             See details
+          </Menu.Item>
+        )}
+
+        {myRating && (
+          <Menu.Item
+            icon={<MdEdit size={14} />}
+            onClick={() => openSaveRatingModal(myRating)}
+          >
+            Edit your rating
           </Menu.Item>
         )}
 
