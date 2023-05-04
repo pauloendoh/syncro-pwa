@@ -17,10 +17,12 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
     targetIndex: number,
     _targetId?: string | undefined
   ) {
-    const interestId = plannedItems[sourceIndex].id
+    const plannedItem = plannedItems[sourceIndex]
     const newPosition = targetIndex + 1
 
-    props.onDragChange(interestId, newPosition)
+    if (plannedItem.position === newPosition) return
+
+    props.onDragChange(plannedItem.id, newPosition)
   }
 
   const rowHeight = (100 * 4) / 3 + 16
