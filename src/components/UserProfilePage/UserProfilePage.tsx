@@ -6,8 +6,10 @@ import {
   Container,
   Flex,
   Loader,
+  Paper,
   Text,
   Title,
+  useMantineTheme,
 } from '@mantine/core'
 import Head from 'next/head'
 import { useMemo } from 'react'
@@ -27,7 +29,6 @@ import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
-import MyPaper from '../_common/overrides/MyPaper'
 import FavoritesSection from './FavoritesSection/FavoritesSection'
 import ItemsCountUserProfile from './ItemsCountUserProfile/ItemsCountUserProfile'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
@@ -75,6 +76,8 @@ const UserProfilePage = () => {
     return false
   }, [typesWithoutFavorites, userItems])
 
+  const theme = useMantineTheme()
+
   return (
     <LoggedLayout>
       <Head>
@@ -83,7 +86,13 @@ const UserProfilePage = () => {
         </title>
       </Head>
       <Container size="xs">
-        <MyPaper sx={{ width: '100%' }}>
+        <Paper
+          sx={{
+            width: '100%',
+            padding: isMobile ? 0 : 16,
+            background: isMobile ? 'none' : theme.colors.dark[5],
+          }}
+        >
           {isLoading && (
             <Center sx={{ height: 96 }}>
               <Loader />
@@ -169,7 +178,7 @@ const UserProfilePage = () => {
               )}
             </FlexCol>
           )}
-        </MyPaper>
+        </Paper>
 
         <Box mt={32}>
           <FavoritesSection userId={userId!} />
