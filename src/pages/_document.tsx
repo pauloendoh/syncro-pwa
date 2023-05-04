@@ -51,6 +51,7 @@ export default class _Document extends Document {
             title="Syncro"
             href="/opensearch.xml"
           />
+          <meta name="theme-color" content="#151515" />
         </Head>
         <body>
           <Main />
