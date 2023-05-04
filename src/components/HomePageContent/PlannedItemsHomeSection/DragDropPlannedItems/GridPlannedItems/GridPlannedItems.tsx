@@ -28,22 +28,25 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
   const rowHeight = (100 * 4) / 3 + 16
 
   return (
-    <div style={{ width: '100%' }}>
-      <GridContextProvider onChange={onChange}>
-        <GridDropZone
-          id="items"
-          boxesPerRow={3}
-          rowHeight={rowHeight}
-          style={{ height: rowHeight * Math.ceil(plannedItems.length / 3) - 8 }}
-        >
-          {plannedItems.map((plannedItem) => (
-            <GridItem key={plannedItem.id}>
-              <FavoriteItem item={plannedItem.syncroItem!} draggable />
-            </GridItem>
-          ))}
-        </GridDropZone>
-      </GridContextProvider>
-    </div>
+    <GridContextProvider onChange={onChange}>
+      <GridDropZone
+        id="items"
+        boxesPerRow={3}
+        rowHeight={rowHeight}
+        style={{ height: rowHeight * Math.ceil(plannedItems.length / 3) - 8 }}
+      >
+        {plannedItems.map((plannedItem) => (
+          <GridItem
+            key={plannedItem.id}
+            style={{
+              touchAction: 'none',
+            }}
+          >
+            <FavoriteItem item={plannedItem.syncroItem!} draggable />
+          </GridItem>
+        ))}
+      </GridDropZone>
+    </GridContextProvider>
   )
 }
 

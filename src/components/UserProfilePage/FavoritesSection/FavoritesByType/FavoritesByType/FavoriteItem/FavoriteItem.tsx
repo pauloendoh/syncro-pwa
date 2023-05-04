@@ -16,6 +16,8 @@ const FavoriteItem = (props: Props) => {
 
   const showTitle = isHovering || isMobile
 
+  const width = 100
+
   return (
     <SyncroItemLink item={props.item} draggable>
       <div
@@ -23,7 +25,11 @@ const FavoriteItem = (props: Props) => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <SyncroItemImage item={props.item} draggable={props.draggable} />
+        <SyncroItemImage
+          item={props.item}
+          draggable={props.draggable}
+          width={width}
+        />
         {showTitle && (
           <Span
             size="xs"
@@ -33,9 +39,9 @@ const FavoriteItem = (props: Props) => {
               left: 0,
               backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0))',
             }}
-            w="100%"
             lineClamp={isMobile ? 1 : 2}
             p={4}
+            w={width}
           >
             {props.item.title}
           </Span>
