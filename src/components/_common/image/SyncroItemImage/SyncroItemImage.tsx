@@ -16,6 +16,7 @@ type Props = {
   height?: number
   showItemType?: SyncroItemType
   ref?: any
+  draggable?: boolean
 }
 
 const SyncroItemImage = (props: Props) => {
@@ -34,13 +35,18 @@ const SyncroItemImage = (props: Props) => {
     <Box pos="relative" ref={props.ref}>
       {isError && (
         <img
-          width={props.width}
+          width={props.width || 100}
           height={height}
           src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
           alt={props.item?.title || 'syncro-item'}
           style={{
             objectFit: 'cover',
             borderRadius: 4,
+          }}
+          onDragStart={(e) => {
+            if (props.draggable) {
+              e.preventDefault()
+            }
           }}
         />
       )}
@@ -55,6 +61,11 @@ const SyncroItemImage = (props: Props) => {
             borderRadius: 4,
           }}
           onError={() => setIsError(true)}
+          onDragStart={(e) => {
+            if (props.draggable) {
+              e.preventDefault()
+            }
+          }}
         />
       )}
 

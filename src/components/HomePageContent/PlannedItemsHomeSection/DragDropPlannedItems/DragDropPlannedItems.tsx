@@ -1,11 +1,12 @@
 import { Box } from '@mantine/core'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd'
 import { useSavedItemsQuery } from '../../../../hooks/react-query/interest/useSavedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../../_common/flex/FlexCol'
 import PlannedItem from '../PlannedItem/PlannedItem'
+import GridPlannedItems from './GridPlannedItems/GridPlannedItems'
 
 type Props = {
   itemType: SyncroItemType
@@ -35,6 +36,18 @@ const DragDropPlannedItems = (props: Props) => {
         ?.sort((a, b) => a.position - b.position) || []
     )
   }, [props.itemType, savedItems])
+
+  const [view, setView] = useState<'grid' | 'list'>('grid')
+  if (view === 'grid') {
+    return (
+      <GridPlannedItems
+        plannedItems={sortedPlanned}
+        onDragChange={(interestId, newPosition) => {
+          submitUpdateSavedPosition({ interestId, newPosition })
+        }}
+      />
+    )
+  }
 
   return (
     <Box

@@ -7,6 +7,7 @@ import Span from '../../../../../_common/text/Span'
 
 type Props = {
   item: SyncroItemDto
+  draggable?: boolean
 }
 
 const FavoriteItem = (props: Props) => {
@@ -16,13 +17,13 @@ const FavoriteItem = (props: Props) => {
   const showTitle = isHovering || isMobile
 
   return (
-    <SyncroItemLink item={props.item}>
+    <SyncroItemLink item={props.item} draggable>
       <div
         style={{ position: 'relative' }}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <SyncroItemImage item={props.item} />
+        <SyncroItemImage item={props.item} draggable={props.draggable} />
         {showTitle && (
           <Span
             size="xs"

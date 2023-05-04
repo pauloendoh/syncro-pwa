@@ -18,15 +18,13 @@ const PlannedItemsByType = ({ savedItems, ...props }: Props) => {
   if (!savedItems || savedItems.length === 0) return null
 
   return (
-    <div>
-      <FlexCol mb={8}>
-        <Title order={4}>
-          {savedItems?.length} {type.getTypeLabel(savedItems.length > 1)}
-        </Title>
+    <FlexCol mb={8} w="100%">
+      <Title order={4}>
+        {savedItems?.length} {type.getTypeLabel(savedItems.length > 1)}
+      </Title>
 
-        <DragDropPlannedItems itemType={props.itemType} maxHeight={'unset'} />
-      </FlexCol>
-    </div>
+      <DragDropPlannedItems itemType={props.itemType} maxHeight={'unset'} />
+    </FlexCol>
   )
 }
 

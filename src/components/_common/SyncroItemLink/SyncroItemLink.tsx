@@ -10,6 +10,7 @@ type Props = {
   linkProps?: React.ComponentPropsWithRef<typeof MyNextLink>
   children: React.ReactNode
   onClick?: () => void
+  draggable?: boolean
 }
 
 const SyncroItemLink = (props: Props) => {
@@ -26,14 +27,30 @@ const SyncroItemLink = (props: Props) => {
       }
     )
   }
+
+  const [isDragging, setIsDragging] = React.useState(false)
+
   return (
     <MyNextLink
       href={urls.pages.syncroItem(encodeURI(props.item.id!))}
       {...props.linkProps}
       onClick={(e) => {
+        if (isDragging) {
+          e.preventDefault()
+          setIsDragging(false)
+          return
+        }
         handleClick()
         if (props.onClick) props.onClick()
       }}
+      onDragStart={
+        props.draggable
+          ? (e) => {
+              setIsDragging(true)
+              e.preventDefault()
+            }
+          : undefined
+      }
     >
       {props.children}
     </MyNextLink>
