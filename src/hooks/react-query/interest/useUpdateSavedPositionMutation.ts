@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
+import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 
@@ -37,7 +38,7 @@ const useUpdateSavedPositionMutation = () => {
     {
       onSuccess: async (_) => {
         // await queryClient.invalidateQueries([urls.api.findSavedItems])
-        // myNotifications.success('Position changed!')
+        myNotifications.success('Position changed!')
       },
     }
   )
