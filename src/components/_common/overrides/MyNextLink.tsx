@@ -21,12 +21,13 @@ const MyNextLink = React.forwardRef<HTMLAnchorElement, Props>((props, ref) => {
         ...props.style,
       }}
       onClick={(e) => {
-        if (router.asPath !== props.href) {
-          nprogress.start()
-        }
-
         if (props.onClick) {
           props.onClick(e)
+          return
+        }
+
+        if (router.asPath !== props.href) {
+          nprogress.start()
         }
       }}
     >
