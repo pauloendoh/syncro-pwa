@@ -1,4 +1,7 @@
-import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
+import {
+  UserSimpleDto,
+  buildUserSimpleDto,
+} from '../../../../types/domain/user/UserSimpleDto'
 
 export interface MessageDto {
   id: string
@@ -10,3 +13,16 @@ export interface MessageDto {
   user: UserSimpleDto
   isRead: boolean
 }
+
+export const buildMessageDto = (p?: Partial<MessageDto>): MessageDto => ({
+  id: '',
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  roomId: '',
+  userId: '',
+  text: '',
+  user: buildUserSimpleDto(),
+  isRead: false,
+
+  ...p,
+})

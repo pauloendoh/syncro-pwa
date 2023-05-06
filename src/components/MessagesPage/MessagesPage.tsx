@@ -48,7 +48,7 @@ const MessagesPage = (props: Props) => {
         top: viewport.current.scrollHeight,
         behavior: 'auto',
       })
-    }, 100)
+    }, 0)
   }, [viewport.current, messages])
 
   const { isMobile } = useMyMediaQuery()
@@ -98,6 +98,7 @@ const MessagesPage = (props: Props) => {
 
               <ScrollArea
                 viewportRef={viewport}
+                type="hover"
                 id="message-scroll-area"
                 sx={{
                   padding: 24,
@@ -107,7 +108,7 @@ const MessagesPage = (props: Props) => {
                 {isLoading && <CenterLoader />}
                 {messages?.map((message, index) => (
                   <MessageItem
-                    key={message.id}
+                    key={`${message.userId}-${message.createdAt}-${message.id}`}
                     message={message}
                     isMyMessage={message.userId === authUser?.id}
                     isLast={index === messages.length - 1}

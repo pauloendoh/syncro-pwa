@@ -38,7 +38,10 @@ const MessagesSidebarItem = (props: Props) => {
   if (!otherUser) return null
 
   return (
-    <MyNextLink href={urls.pages.messageRoom(props.room.id)}>
+    <MyNextLink
+      href={urls.pages.messageRoom(props.room.id)}
+      style={{ width: '100%' }}
+    >
       <Indicator color={theme.colors.secondary[9]} disabled={!props.unread}>
         <Flex
           p={8}

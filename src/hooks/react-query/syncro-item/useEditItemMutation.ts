@@ -8,7 +8,7 @@ const useEditItemMutation = () => {
   const axios = useAxios()
   const qc = useQueryClient()
   return useMutation(
-    (payload: SyncroItemDto) => {
+    async (payload: SyncroItemDto) => {
       const { mangaExtraInfo, ...cleanPayload } = payload
       return axios
         .put<SyncroItemDto>(urls.api.syncroItem, cleanPayload)

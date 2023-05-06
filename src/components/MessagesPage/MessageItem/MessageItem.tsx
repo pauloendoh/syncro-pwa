@@ -46,6 +46,9 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
       ref={containerRef}
       sx={{
         justifyContent: isMyMessage ? 'flex-end' : 'flex-start',
+
+        // add fade in animation when rendered
+        transition: 'opacity 0.3s ease-in-out',
       }}
     >
       <Tooltip

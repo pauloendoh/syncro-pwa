@@ -13,14 +13,13 @@ const SendMessageInput = (props: Props) => {
   const handleSubmit = () => {
     if (message.trim().length === 0) return
 
-    submitSendMessage(
-      { content: message, roomId: props.roomId },
-      {
-        onSuccess: () => {
-          setMessage('')
-        },
-      }
-    )
+    submitSendMessage({
+      content: message,
+      roomId: props.roomId,
+      createdAt: new Date().toISOString(),
+    })
+
+    setMessage('')
   }
 
   const theme = useMantineTheme()

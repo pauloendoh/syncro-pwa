@@ -2,24 +2,55 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { upsert } from 'endoh-utils'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
-import { MessageDto } from './types/MessageDto'
+import useAuthStore from '../../zustand/useAuthStore'
+import { useUserInfoQuery } from '../user/useUserInfoQuery'
+import { MessageDto, buildMessageDto } from './types/MessageDto'
 import { MessageRoomDto } from './types/MessageRoomDto'
 
 const useSendMessageMutation = () => {
   const queryClient = useQueryClient()
 
+  const { authUser } = useAuthStore()
+  const { data: user } = useUserInfoQuery()
   const axios = useAxios()
   return useMutation(
-    (payload: { content: string; roomId: string }) =>
-      axios
+    async (payload: { content: string; roomId: string; createdAt: string }) => {
+      const message = buildMessageDto({
+        roomId: payload.roomId,
+        userId: authUser?.id,
+        user,
+        text: payload.content,
+        createdAt: payload.createdAt,
+      })
+      queryClient.setQueryData<MessageDto[]>(
+        [urls.api.messagesByRoomId(payload.roomId)],
+        (curr) => {
+          if (!curr) {
+            return [message]
+          }
+
+          return [...curr, message]
+        }
+      )
+
+      return axios
         .post<MessageDto>(urls.api.sendMessage, payload)
-        .then((res) => res.data),
+        .then((res) => res.data)
+    },
     {
       onSuccess: (savedMessage, payload) => {
         queryClient.setQueryData<MessageDto[]>(
           [urls.api.messagesByRoomId(payload.roomId)],
           (curr) => {
-            return upsert(curr, savedMessage, (i) => i.id === savedMessage.id)
+            return upsert(curr, savedMessage, (i) => {
+              const isTrue =
+                i.id === savedMessage.id ||
+                (savedMessage.createdAt === payload.createdAt &&
+                  savedMessage.userId === authUser?.id)
+
+              console.log({ isTrue })
+              return isTrue
+            })
           }
         )
 
