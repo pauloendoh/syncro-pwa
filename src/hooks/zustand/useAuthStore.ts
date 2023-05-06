@@ -21,7 +21,10 @@ const useAuthStore = create<IAuthStore>((set, get) => ({
 }))
 const initialState = useAuthStore.getState()
 export const resetAuthStore = async () => {
-  nookies.destroy(null, 'user')
+  nookies.destroy(null, 'user', {
+    secure: true,
+    path: '/',
+  })
   useAuthStore.setState(initialState, true)
 }
 

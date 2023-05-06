@@ -15,6 +15,7 @@ export const useMyRouterQuery = () => {
     roomId: string
     oauthToken: string
     initialPage: string
+    redirectTo: string
 
     // PE 1/3 - use QueryParams
     recommendItemIsOpen: string

@@ -7,7 +7,7 @@ export const useLogoutAndPushIndex = () => {
 
   const logout = () => {
     resetAuthStore()
-    router.push(urls.pages.index)
+    router.push(urls.pages.indexAndRedirectTo(router.asPath))
   }
   return logout
 }

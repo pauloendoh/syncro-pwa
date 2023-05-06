@@ -9,8 +9,9 @@ export const useLogout = () => {
   const router = useRouter()
   const logout = async () => {
     resetAuthStore()
-    router.push(urls.pages.index)
+    router.push(urls.pages.indexAndRedirectTo(router.asPath))
     // showSuccessToast("Logged out!")
   }
+
   return logout
 }

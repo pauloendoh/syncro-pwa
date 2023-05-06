@@ -1,8 +1,10 @@
 import { classValidatorResolver } from '@hookform/resolvers/class-validator'
 import { Button, Text } from '@mantine/core'
 import { IsString } from 'class-validator'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
@@ -42,6 +44,9 @@ const LoginForm = (props: Props) => {
 
   const { setAuthUser } = useAuthStore()
 
+  const router = useRouter()
+  const { redirectTo } = useMyRouterQuery()
+
   const onSubmit = async (data: LoginDto) => {
     setLoading(true)
 
@@ -51,7 +56,12 @@ const LoginForm = (props: Props) => {
       .post<AuthUserGetDto>(urls.api.login(''), data)
       .then((res) => {
         myNotifications.success('Signed in')
-        // allow decorators
+
+        if (!!redirectTo) {
+          router.push(redirectTo)
+          setAuthUser(res.data)
+          return
+        }
 
         setAuthUser(res.data)
       })
