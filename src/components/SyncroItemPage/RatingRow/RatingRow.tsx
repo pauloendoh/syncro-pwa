@@ -113,16 +113,6 @@ const RatingRow = ({ syncroItem }: Props) => {
 
             <RatingRowButton
               ml={2}
-              onClick={() => {
-                openRecommendItemModal(syncroItem.id)
-              }}
-              leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
-            >
-              Recommend
-            </RatingRowButton>
-
-            <RatingRowButton
-              ml={2}
               onClick={() => submitToggleFavorite(syncroItem.id)}
               isActive={!!isFavorited}
               leftIcon={
@@ -135,6 +125,16 @@ const RatingRow = ({ syncroItem }: Props) => {
               loading={toggleFavoriteIsLoading}
             >
               {isFavorited ? 'Favorited' : 'Favorite'}
+            </RatingRowButton>
+
+            <RatingRowButton
+              ml={2}
+              onClick={() => {
+                openRecommendItemModal(syncroItem.id)
+              }}
+              leftIcon={<IoMdShareAlt color={theme.colors.dark[0]} size={16} />}
+            >
+              Recommend
             </RatingRowButton>
           </>
         )}
