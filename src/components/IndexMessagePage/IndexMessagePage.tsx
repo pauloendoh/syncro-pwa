@@ -1,3 +1,4 @@
+import { Container } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useLastRoomsWithMessagesQuery } from '../../hooks/react-query/message/useLastRoomsWithMessagesQuery'
@@ -22,7 +23,9 @@ const IndexMessagePage = (props: Props) => {
       {isLoading || (rooms && rooms.length > 0) ? (
         <CenterLoader />
       ) : (
-        'No messages yet. Search user profile and click on "Message"'
+        <Container>
+          No messages yet. Search user profile and click on "Message"
+        </Container>
       )}
     </LoggedLayout>
   )
