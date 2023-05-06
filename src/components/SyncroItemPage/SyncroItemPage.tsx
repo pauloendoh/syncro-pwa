@@ -56,7 +56,10 @@ const SyncroItemPage = (props: Props) => {
   return (
     <LoggedLayout>
       <Container size="sm">
-        <MyPaper>
+        <MyPaper
+          p={isMobile ? 0 : undefined}
+          bg={isMobile ? 'transparent' : undefined}
+        >
           {isLoading && (
             <Center sx={{ height: 80 }}>
               <Loader />
