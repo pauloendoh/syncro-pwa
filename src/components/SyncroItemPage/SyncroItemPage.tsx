@@ -94,7 +94,6 @@ const SyncroItemPage = (props: Props) => {
                   <GenreChips genres={item.genres} />
 
                   <ItemRatedBy itemId={syncroItemId!} />
-                  <FlexVCenter></FlexVCenter>
                 </FlexCol>
               </Flex>
 

@@ -1,5 +1,6 @@
 import { InterestDto } from '../interest/InterestDto'
 import { RatingDto } from '../rating/RatingDto'
+import { GameExtraInfoDto } from './GameExtraInfoDto/GameExtraInfoDto'
 import { MangaExtraInfoDto } from './MangaExtraInfoDto/MangaExtraInfoDto'
 import { SyncroItemType } from './SyncroItemType/SyncroItemType'
 
@@ -26,6 +27,7 @@ export interface SyncroItemDto {
   interests?: InterestDto[]
 
   mangaExtraInfo?: MangaExtraInfoDto
+  gameExtraInfo?: GameExtraInfoDto
 
   updatedAt: string
   createdAt: string
