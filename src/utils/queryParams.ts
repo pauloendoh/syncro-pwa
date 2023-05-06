@@ -6,6 +6,7 @@ export enum QueryParams {
   editingItem = 'editingItem',
   saveRatingModal = 'saveRatingModal',
   ratingDetailsId = 'ratingDetailsId',
+  importRatings = 'importRatings',
 
   shareRatingModal = 'shareRatingModal',
   feedSettingsModal = 'feedSettingsModal',

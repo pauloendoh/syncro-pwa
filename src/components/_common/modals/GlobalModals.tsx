@@ -7,6 +7,7 @@ import FeedbackModal from './FeedbackModal/FeedbackModal'
 import FollowersModal from './FollowersModal/FollowersModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
 import RatingDetailsModal from './RatingDetailsModal/RatingDetailsModal'
+import RatingsImportModal from './RatingsImportModal/RatingsImportModal'
 import RecommendItemModal from './RecommendItemModal/RecommendItemModal'
 import RecommendItemsToUserModal from './RecommendItemsToUserModal/RecommendItemsToUserModal'
 import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
@@ -35,6 +36,8 @@ const GlobalModals = (props: Props) => {
       <FeedbackModal />
       <ShareRatingModal />
       <FeedSettingsModal />
+
+      <RatingsImportModal />
     </>
   )
 }

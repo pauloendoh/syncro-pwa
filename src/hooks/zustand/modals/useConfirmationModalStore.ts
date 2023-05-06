@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { create } from 'zustand'
 
 interface IStore {
@@ -18,7 +19,7 @@ const useConfirmationModalStore = create<IStore>((set, get) => ({
 
 interface IConfirmDialog {
   title: string
-  description?: string
+  description?: ReactNode
   confirmText?: string
   onConfirm: () => void
 }

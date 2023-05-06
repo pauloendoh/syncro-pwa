@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { SearchParams } from '../types/domain/search/SearchParams'
 import { QueryParams } from '../utils/queryParams'
+import { ImportRatingsType } from './zustand/modals/useImportRatingsModalStore'
 
 export const useMyRouterQuery = () => {
   const router = useRouter()
@@ -25,6 +26,7 @@ export const useMyRouterQuery = () => {
     [QueryParams.followModal]: string
     [QueryParams.shareRatingModal]: string
     [QueryParams.feedSettingsModal]: string
+    [QueryParams.importRatings]: ImportRatingsType
   }
 }
 

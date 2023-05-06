@@ -79,7 +79,7 @@ const SaveCancelButtons = (props: Props) => {
       </Button>
 
       <Box ml={8}>
-        <Button onClick={props.onCancel} variant="subtle">
+        <Button onClick={props.onCancel} variant="subtle" color="dark">
           Cancel
         </Button>
       </Box>

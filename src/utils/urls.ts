@@ -38,6 +38,7 @@ export const urls = {
     messageRoom: (roomId: string) => `/messages/${roomId}`,
 
     settings: '/settings',
+    importRatings: '/settings/import-ratings',
   },
   api: {
     register: (pushToken: string | null) =>
@@ -173,6 +174,9 @@ export const urls = {
       API_URL + `/toggle-favorite-item?itemId=${itemId}`,
     favoriteItems: (userId: string) =>
       API_URL + `/favorite-items?userId=${userId}`,
+
+    uploadMalAnime: '/upload-mal-anime',
+    confirmUploadMalAnime: '/upload-mal-anime/confirm',
   },
 
   others: {
