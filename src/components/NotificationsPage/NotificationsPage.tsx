@@ -56,6 +56,7 @@ const NotificationsPage = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault()
+    debugger
     if (!registration) {
       console.log('no registration')
       return
@@ -125,7 +126,7 @@ const NotificationsPage = () => {
 
   return (
     <LoggedLayout>
-      {/* <button onClick={subscribeButtonOnClick} disabled={Boolean(subscription)}>
+      <button onClick={subscribeButtonOnClick} disabled={Boolean(subscription)}>
         Subscribe
       </button>
       <button
@@ -139,7 +140,7 @@ const NotificationsPage = () => {
         disabled={!Boolean(subscription)}
       >
         Send Notification
-      </button> */}
+      </button>
 
       <Container size="xs">
         <FlexCol gap={24}>

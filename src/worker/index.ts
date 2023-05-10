@@ -1,3 +1,6 @@
+import { MessageDto } from '../hooks/react-query/message/types/MessageDto'
+import { webPushMessageTypes } from '../utils/consts/webPushMessageTypes'
+import { urls } from '../utils/urls'
 import { util } from './util'
 
 declare let self: ServiceWorkerGlobalScope
@@ -21,16 +24,49 @@ self.addEventListener('message', (event) => {
 
 self.addEventListener('push', (event) => {
   const data = JSON.parse(event?.data.text() || '{}')
+
   event?.waitUntil(
     self.registration.showNotification(data.title, {
-      body: data.message,
-      icon: '/icons/android-chrome-192x192.png',
+      body: data.body,
+      icon: '/icon-192x192.png',
     })
   )
 })
 
 self.addEventListener('notificationclick', (event) => {
   event?.notification.close()
+
+  const data = JSON.parse(event?.notification?.data?.text() || '{}')
+
+  if (data?.type === webPushMessageTypes.newMessage) {
+    const message: MessageDto = data?.data
+    if (!message) return
+
+    const roomId = message.roomId
+
+    // open /messages/[roomId] in new tab if not already open
+    event?.waitUntil(
+      self.clients
+        .matchAll({ type: 'window', includeUncontrolled: true })
+        .then(function (clientList) {
+          if (clientList.length > 0) {
+            let client = clientList[0]
+            for (let i = 0; i < clientList.length; i++) {
+              if (
+                clientList[i].focused &&
+                clientList[i].url === urls.pages.messageRoom(roomId)
+              ) {
+                client = clientList[i]
+              }
+            }
+            return client.focus()
+          }
+          return self.clients.openWindow(urls.pages.messageRoom(roomId))
+        })
+    )
+    return
+  }
+
   event?.waitUntil(
     self.clients
       .matchAll({ type: 'window', includeUncontrolled: true })
