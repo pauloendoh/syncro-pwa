@@ -45,7 +45,7 @@ const useSendMessageMutation = () => {
             return upsert(curr, savedMessage, (i) => {
               const isTrue =
                 i.id === savedMessage.id ||
-                (savedMessage.createdAt === payload.createdAt &&
+                (savedMessage.createdAt === i.createdAt &&
                   savedMessage.userId === authUser?.id)
 
               console.log({ isTrue })
