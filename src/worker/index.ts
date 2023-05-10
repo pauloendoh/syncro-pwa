@@ -22,8 +22,25 @@ self.addEventListener('message', (event) => {
   console.log(event?.data)
 })
 
-self.addEventListener('push', (event) => {
+self.addEventListener('push', async (event) => {
   const data = JSON.parse(event?.data.text() || '{}')
+
+  // don't show notification if tab is opened
+
+  const isTabOpened = await self.clients
+    .matchAll({ type: 'window', includeUncontrolled: true })
+    .then(function (clientList) {
+      if (clientList.length > 0) {
+        for (let i = 0; i < clientList.length; i++) {
+          if (clientList[i].focused) {
+            return true
+          }
+        }
+      }
+      return false
+    })
+
+  if (isTabOpened) return
 
   event?.waitUntil(
     self.registration.showNotification(data.title, {

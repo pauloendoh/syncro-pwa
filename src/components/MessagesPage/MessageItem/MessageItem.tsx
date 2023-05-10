@@ -50,6 +50,11 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
         // add fade in animation when rendered
         transition: 'opacity 0.3s ease-in-out',
       }}
+      onClick={() => {
+        console.log({
+          id: message.id,
+        })
+      }}
     >
       <Tooltip
         label={new Date(message.createdAt).toLocaleString()}

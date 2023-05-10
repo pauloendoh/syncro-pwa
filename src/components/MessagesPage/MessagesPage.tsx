@@ -108,7 +108,7 @@ const MessagesPage = (props: Props) => {
                 {isLoading && <CenterLoader />}
                 {messages?.map((message, index) => (
                   <MessageItem
-                    key={`${message.userId}-${message.createdAt}-${message.id}`}
+                    key={message.id}
                     message={message}
                     isMyMessage={message.userId === authUser?.id}
                     isLast={index === messages.length - 1}
