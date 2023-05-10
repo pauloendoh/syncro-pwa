@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { upsert } from 'endoh-utils'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import useAuthStore from '../../zustand/useAuthStore'
@@ -39,20 +38,20 @@ const useSendMessageMutation = () => {
     },
     {
       onSuccess: (savedMessage, payload) => {
-        queryClient.setQueryData<MessageDto[]>(
-          [urls.api.messagesByRoomId(payload.roomId)],
-          (curr) => {
-            return upsert(curr, savedMessage, (i) => {
-              const isTrue =
-                i.id === savedMessage.id ||
-                (savedMessage.createdAt === i.createdAt &&
-                  savedMessage.userId === authUser?.id)
+        // queryClient.setQueryData<MessageDto[]>(
+        //   [urls.api.messagesByRoomId(payload.roomId)],
+        //   (curr) => {
+        //     return upsert(curr, savedMessage, (i) => {
+        //       const isTrue =
+        //         i.id === savedMessage.id ||
+        //         (savedMessage.createdAt === i.createdAt &&
+        //           savedMessage.userId === authUser?.id)
 
-              console.log({ isTrue })
-              return isTrue
-            })
-          }
-        )
+        //       console.log({ isTrue })
+        //       return isTrue
+        //     })
+        //   }
+        // )
 
         queryClient.setQueryData<MessageRoomDto[]>(
           [urls.api.lastRoomsWithMessages],
