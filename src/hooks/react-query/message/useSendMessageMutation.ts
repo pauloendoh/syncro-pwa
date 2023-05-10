@@ -21,16 +21,16 @@ const useSendMessageMutation = () => {
         text: payload.content,
         createdAt: payload.createdAt,
       })
-      queryClient.setQueryData<MessageDto[]>(
-        [urls.api.messagesByRoomId(payload.roomId)],
-        (curr) => {
-          if (!curr) {
-            return [message]
-          }
+      // queryClient.setQueryData<MessageDto[]>(
+      //   [urls.api.messagesByRoomId(payload.roomId)],
+      //   (curr) => {
+      //     if (!curr) {
+      //       return [message]
+      //     }
 
-          return [...curr, message]
-        }
-      )
+      //     return [...curr, message]
+      //   }
+      // )
 
       return axios
         .post<MessageDto>(urls.api.sendMessage, payload)
@@ -52,6 +52,10 @@ const useSendMessageMutation = () => {
         //     })
         //   }
         // )
+
+        queryClient.invalidateQueries([
+          urls.api.messagesByRoomId(payload.roomId),
+        ])
 
         queryClient.setQueryData<MessageRoomDto[]>(
           [urls.api.lastRoomsWithMessages],
