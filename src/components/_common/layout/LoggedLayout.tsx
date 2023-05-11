@@ -1,5 +1,6 @@
 import { Box } from '@mantine/core'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useMemo } from 'react'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import GlobalModals from '../modals/GlobalModals'
 import MobileFooter from './MobileFooter/MobileFooter'
@@ -13,6 +14,13 @@ type Props = {
 
 const LoggedLayout = (props: Props) => {
   const { isMobile: isXsScreen, isLoading } = useMyMediaQuery()
+
+  const router = useRouter()
+
+  const isMessagePage = useMemo(() => {
+    return router.asPath.includes('/messages')
+  }, [router])
+
   return (
     <div>
       {!isXsScreen && !isLoading && <MyNavbar />}
@@ -23,7 +31,7 @@ const LoggedLayout = (props: Props) => {
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
 
-      {isXsScreen && !isLoading && <MobileFooter />}
+      {isXsScreen && !isLoading && !isMessagePage && <MobileFooter />}
       <GlobalModals />
     </div>
   )

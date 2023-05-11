@@ -14,6 +14,7 @@ import LoggedLayout from '../_common/layout/LoggedLayout'
 import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MyPaper from '../_common/overrides/MyPaper'
+import BackButton from './BackButton/BackButton'
 import MessageItem from './MessageItem/MessageItem'
 import MessagesSidebar from './MessagesSidebar/MessagesSidebar'
 import SendMessageInput from './SendMessageInput/SendMessageInput'
@@ -58,6 +59,7 @@ const MessagesPage = (props: Props) => {
       <Grid
         sx={{
           width: '100%',
+          margin: isMobile ? 0 : undefined,
         }}
       >
         {!isMobile && (
@@ -74,11 +76,19 @@ const MessagesPage = (props: Props) => {
           </Grid.Col>
         )}
 
-        <Grid.Col span={'auto'} xs={6} sm={8} md={6} lg={4}>
+        <Grid.Col
+          span={'auto'}
+          xs={6}
+          sm={8}
+          md={6}
+          lg={4}
+          p={isMobile ? 0 : undefined}
+        >
           {!!user && (
             <MyPaper
               sx={{
                 padding: 0,
+                background: isMobile ? 'transparent' : undefined,
               }}
             >
               <FlexVCenter
@@ -88,6 +98,8 @@ const MessagesPage = (props: Props) => {
                 gap={8}
                 p={8}
               >
+                {isMobile && <BackButton />}
+
                 <MyNextLink href={urls.pages.user(user.id)}>
                   <UserImage pictureUrl={user.profile?.pictureUrl} />
                 </MyNextLink>
@@ -102,7 +114,9 @@ const MessagesPage = (props: Props) => {
                 id="message-scroll-area"
                 sx={{
                   padding: 24,
-                  height: 'calc(100vh - 240px )',
+                  height: isMobile
+                    ? 'calc(100vh - 140px )'
+                    : 'calc(100vh - 240px )',
                 }}
               >
                 {isLoading && <CenterLoader />}

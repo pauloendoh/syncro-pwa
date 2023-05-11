@@ -3,12 +3,14 @@ import { useEffect, useMemo, useState } from 'react'
 import { MdNotifications } from 'react-icons/md'
 import { useLastRoomsWithMessagesQuery } from '../../../hooks/react-query/message/useLastRoomsWithMessagesQuery'
 import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { base64ToUint8Array } from '../../NotificationsPage/base64ToUint8Array/base64ToUint8Array'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import BackButton from '../BackButton/BackButton'
 import MessagesSidebarItem from './MessagesSidebarItem/MessagesSidebarItem'
 
 const MessagesSidebar = () => {
@@ -96,10 +98,16 @@ const MessagesSidebar = () => {
     return false
   }, [subscription, registration])
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <FlexCol p={16}>
       <FlexVCenter justify={'space-between'}>
-        <Title order={5}>Messages</Title>
+        <FlexVCenter gap={4}>
+          {isMobile && <BackButton />}
+
+          <Title order={5}>Messages</Title>
+        </FlexVCenter>
         {
           <Tooltip label="Push notifications">
             <Switch
