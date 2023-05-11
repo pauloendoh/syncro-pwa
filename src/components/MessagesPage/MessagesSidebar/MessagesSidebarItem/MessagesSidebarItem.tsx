@@ -66,9 +66,7 @@ const MessagesSidebarItem = (props: Props) => {
           }}
         />
         <FlexCol>
-          <Indicator color={theme.colors.primary[9]} disabled={!props.unread}>
-            <Title order={6}>{otherUser.username}</Title>
-          </Indicator>
+          <Title order={6}>{otherUser.username}</Title>
 
           <FlexVCenter
             gap={4}
@@ -81,11 +79,14 @@ const MessagesSidebarItem = (props: Props) => {
               {lastMessageIsYours ? 'You: ' : ''}
               {lastMessage?.text}
             </Text>
-            {lastMessage?.createdAt && (
-              <Text miw={'fit-content'}>
-                {' · '} {formatShortTimeago(new Date(lastMessage?.createdAt))}
-              </Text>
-            )}
+
+            <Indicator color={theme.colors.primary[9]} disabled={!props.unread}>
+              {lastMessage?.createdAt && (
+                <Text miw={'fit-content'}>
+                  {' · '} {formatShortTimeago(new Date(lastMessage?.createdAt))}
+                </Text>
+              )}
+            </Indicator>
           </FlexVCenter>
         </FlexCol>
       </Flex>
