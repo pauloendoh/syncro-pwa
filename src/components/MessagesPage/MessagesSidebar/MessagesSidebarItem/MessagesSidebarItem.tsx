@@ -42,55 +42,53 @@ const MessagesSidebarItem = (props: Props) => {
       href={urls.pages.messageRoom(props.room.id)}
       style={{ width: '100%' }}
     >
-      <Indicator color={theme.colors.secondary[9]} disabled={!props.unread}>
-        <Flex
-          p={8}
-          gap={16}
-          sx={{
+      <Flex
+        p={8}
+        gap={16}
+        sx={{
+          backgroundColor: props.isSelected ? theme.colors.dark[4] : undefined,
+
+          ':hover': {
             backgroundColor: props.isSelected
               ? theme.colors.dark[4]
-              : undefined,
-
-            ':hover': {
-              backgroundColor: props.isSelected
-                ? theme.colors.dark[4]
-                : theme.colors.dark[3],
-            },
-            borderRadius: 4,
+              : theme.colors.dark[3],
+          },
+          borderRadius: 4,
+        }}
+      >
+        <MyNextImage300
+          alt={otherUser.username}
+          src={otherUser.profile.pictureUrl}
+          width={40}
+          height={40}
+          style={{
+            borderRadius: '50%',
           }}
-        >
-          <MyNextImage300
-            alt={otherUser.username}
-            src={otherUser.profile.pictureUrl}
-            width={40}
-            height={40}
-            style={{
-              borderRadius: '50%',
-            }}
-          />
-          <FlexCol>
+        />
+        <FlexCol>
+          <Indicator color={theme.colors.red[9]} disabled={!props.unread}>
             <Title order={6}>{otherUser.username}</Title>
+          </Indicator>
 
-            <FlexVCenter
-              gap={4}
-              sx={{
-                color: theme.colors.gray[5],
-                fontSize: 14,
-              }}
-            >
-              <Text lineClamp={1}>
-                {lastMessageIsYours ? 'You: ' : ''}
-                {lastMessage?.text}
+          <FlexVCenter
+            gap={4}
+            sx={{
+              color: theme.colors.gray[5],
+              fontSize: 14,
+            }}
+          >
+            <Text lineClamp={1}>
+              {lastMessageIsYours ? 'You: ' : ''}
+              {lastMessage?.text}
+            </Text>
+            {lastMessage?.createdAt && (
+              <Text miw={'fit-content'}>
+                {' · '} {formatShortTimeago(new Date(lastMessage?.createdAt))}
               </Text>
-              {lastMessage?.createdAt && (
-                <Text miw={'fit-content'}>
-                  {' · '} {formatShortTimeago(new Date(lastMessage?.createdAt))}
-                </Text>
-              )}
-            </FlexVCenter>
-          </FlexCol>
-        </Flex>
-      </Indicator>
+            )}
+          </FlexVCenter>
+        </FlexCol>
+      </Flex>
     </MyNextLink>
   )
 }
