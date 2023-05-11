@@ -71,11 +71,7 @@ const NavbarRightIcons = () => {
           size={16}
           color="red"
         >
-          <MyNextLink
-            href={urls.pages.messageRoom(
-              unreadMessageRooms?.length ? unreadMessageRooms[0].id : ''
-            )}
-          >
+          <MyNextLink href={urls.pages.messagesIndex}>
             <ActionIcon>
               {isMessagesPage ? (
                 <MdMail size={24} />

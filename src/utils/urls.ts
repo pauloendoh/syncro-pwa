@@ -36,6 +36,7 @@ export const urls = {
     explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',
+    messagesIndex: '/messages',
     messageRoom: (roomId: string) => `/messages/${roomId}`,
 
     settings: '/settings',
