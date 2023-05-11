@@ -66,7 +66,12 @@ const MessagesSidebarItem = (props: Props) => {
           }}
         />
         <FlexCol>
-          <Indicator color={theme.colors.primary[9]} disabled={!props.unread}>
+          <Indicator
+            color={theme.colors.primary[9]}
+            disabled={!props.unread}
+            left={8}
+            pos="relative"
+          >
             <Title order={6}>{otherUser.username}</Title>
           </Indicator>
 
