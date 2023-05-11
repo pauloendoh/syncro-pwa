@@ -1,8 +1,9 @@
-import { Switch, Title, Tooltip } from '@mantine/core'
+import { Switch, Title, Tooltip, useMantineTheme } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
 import { MdNotifications } from 'react-icons/md'
 import { useLastRoomsWithMessagesQuery } from '../../../hooks/react-query/message/useLastRoomsWithMessagesQuery'
 import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
+import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import { urls } from '../../../utils/urls'
@@ -23,7 +24,6 @@ const MessagesSidebar = () => {
 
   const axios = useAxios()
   const handleSubscribe = async () => {
-    debugger
     if (!registration) {
       console.log('no registration')
       return
@@ -99,10 +99,24 @@ const MessagesSidebar = () => {
   }, [subscription, registration])
 
   const { isMobile } = useMyMediaQuery()
+  const theme = useMantineTheme()
+  const { mobileHeaderBg } = useMyColors()
 
   return (
-    <FlexCol p={16}>
-      <FlexVCenter justify={'space-between'}>
+    <FlexCol p={isMobile ? 0 : 16}>
+      <FlexVCenter
+        sx={
+          isMobile
+            ? {
+                paddingLeft: 8,
+                paddingRight: 16,
+                paddingBlock: 8,
+              }
+            : undefined
+        }
+        justify={'space-between'}
+        bg={isMobile ? mobileHeaderBg : undefined}
+      >
         <FlexVCenter gap={4}>
           {isMobile && <BackButton />}
 

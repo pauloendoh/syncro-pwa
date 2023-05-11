@@ -56,7 +56,6 @@ const NotificationsPage = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault()
-    debugger
     if (!registration) {
       console.log('no registration')
       return

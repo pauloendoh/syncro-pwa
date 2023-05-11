@@ -6,6 +6,7 @@ export const useMyColors = () => {
   return {
     lightBackground: theme.colors.dark[0],
     ratingYellow: '#FFB600',
+    mobileHeaderBg: theme.colors.dark[8],
     getVariantRatingYellow: (rating: number) => {
       const options = {
         1: '#929292',
