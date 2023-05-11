@@ -137,7 +137,7 @@ const MessagesSidebar = () => {
         }
       </FlexVCenter>
 
-      <FlexCol mt={8}>
+      <FlexCol mt={8} p={isMobile ? 8 : 0}>
         {rooms?.map((room) => (
           <MessagesSidebarItem
             key={room.messages?.[0].id}
