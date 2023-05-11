@@ -80,7 +80,18 @@ const MessagesSidebarItem = (props: Props) => {
               {lastMessage?.text}
             </Text>
 
-            <Indicator color={theme.colors.primary[9]} disabled={!props.unread}>
+            <Indicator
+              color={theme.colors.primary[9]}
+              position="middle-end"
+              size={8}
+              styles={{
+                indicator: {
+                  right: '-16px !important',
+                  position: 'absolute',
+                },
+              }}
+              disabled={!props.unread}
+            >
               {lastMessage?.createdAt && (
                 <Text miw={'fit-content'}>
                   {' · '} {formatShortTimeago(new Date(lastMessage?.createdAt))}
