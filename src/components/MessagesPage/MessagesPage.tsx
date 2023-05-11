@@ -115,7 +115,7 @@ const MessagesPage = (props: Props) => {
                 sx={{
                   padding: 24,
                   height: isMobile
-                    ? 'calc(100vh - 140px )'
+                    ? 'calc(100vh - 120px )'
                     : 'calc(100vh - 240px )',
                 }}
               >
