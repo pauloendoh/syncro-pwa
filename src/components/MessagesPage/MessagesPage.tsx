@@ -55,7 +55,7 @@ const MessagesPage = (props: Props) => {
   const { isMobile } = useMyMediaQuery()
 
   return (
-    <LoggedLayout disableMarginBottom>
+    <LoggedLayout disableMarginBottom disableMarginTop={isMobile}>
       <Grid
         sx={{
           width: '100%',

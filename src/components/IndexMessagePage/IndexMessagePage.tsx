@@ -25,7 +25,7 @@ const IndexMessagePage = (props: Props) => {
   }, [isLoading, rooms, isMobile])
 
   return (
-    <LoggedLayout disableMarginBottom>
+    <LoggedLayout disableMarginBottom disableMarginTop={isMobile}>
       {isLoading || (rooms && rooms.length > 0) ? (
         isMobile ? (
           <MessagesSidebar />
