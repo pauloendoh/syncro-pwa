@@ -7,12 +7,14 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { MdSettings } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../hooks/react-query/feed/useTimelineHasNewsQuery'
+import { useSettingsQuery } from '../../hooks/react-query/user-settings/useSettingsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import useFeedSettingsModal from '../../hooks/zustand/modals/useFeedSettingsModal'
+import useOnboardingModalStore from '../../hooks/zustand/modals/useOnboardingModalStore'
 import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
@@ -35,6 +37,15 @@ const HomePageContent = () => {
   const theme = useMantineTheme()
 
   const { openModal: openFeedSettingsModal } = useFeedSettingsModal()
+
+  const { data: settings } = useSettingsQuery()
+  const { openModal: openOnboardingModal } = useOnboardingModalStore()
+
+  useEffect(() => {
+    if (settings && settings.onboardingStatus !== 'finished') {
+      openOnboardingModal()
+    }
+  }, [settings])
 
   return (
     <LoggedLayout>

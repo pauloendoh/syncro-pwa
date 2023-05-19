@@ -21,4 +21,7 @@ export type UserSettingsDto = {
   feedMinimumRating: number
   feedExcludeItemTypes: SyncroItemType[]
   feedExcludeRatedOrPlanned: boolean
+
+  onboardingStatus: 'started' | 'searching' | 'finished'
+  onboardingFavoriteGenre: SyncroItemType
 }
