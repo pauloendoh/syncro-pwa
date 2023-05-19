@@ -28,6 +28,7 @@ export const useMyRouterQuery = () => {
     [QueryParams.shareRatingModal]: string
     [QueryParams.feedSettingsModal]: string
     [QueryParams.importRatings]: ImportRatingsType
+    [QueryParams.onboardingModal]: string
   }
 }
 

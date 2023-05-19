@@ -2,6 +2,7 @@ import { ActionIcon, Modal, Text, useMantineTheme } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
+import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useOnboardingModalStore from '../../../../hooks/zustand/modals/useOnboardingModalStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import MyIcons from '../../MyIcons/MyIcons'
@@ -10,7 +11,7 @@ import OnboardingStep1 from './OnboardingStep1/OnboardingStep1'
 import OnboardingStep2 from './OnboardingStep2/OnboardingStep2'
 
 const OnboardingModal = () => {
-  const { getQueryValue, closeModal, openModal } = useOnboardingModalStore()
+  const { closeModal } = useOnboardingModalStore()
 
   const [selectedFavorite, setSelectedFavorite] =
     useState<SyncroItemType | null>(null)
@@ -28,9 +29,11 @@ const OnboardingModal = () => {
     itemType: selectedFavorite || undefined,
   })
 
+  const { onboardingModal } = useMyRouterQuery()
+
   return (
     <Modal
-      opened={!!getQueryValue()}
+      opened={!!onboardingModal}
       onClose={closeModal}
       withCloseButton={false}
       title={

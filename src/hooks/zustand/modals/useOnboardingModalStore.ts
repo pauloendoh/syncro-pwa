@@ -4,13 +4,11 @@ import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 
 interface IStore {
-  getQueryValue: () => string | string[] | undefined
   openModal: () => void
   closeModal: () => void
 }
 
 const useOnboardingModalStore = create<IStore>((set, get) => ({
-  getQueryValue: () => Router.query[QueryParams.onboardingModal],
   initialValue: null,
   openModal: () => {
     Router.query[QueryParams.onboardingModal] = 'true'
