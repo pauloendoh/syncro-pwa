@@ -1,10 +1,11 @@
-import { Box, Text, useMantineTheme } from '@mantine/core'
+import { Text, useMantineTheme } from '@mantine/core'
 import { format } from 'timeago.js'
 import useMalImportResultsModalStore from '../../../hooks/zustand/modals/useMalImportResultsModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { RatingImportRequestDto } from '../../../types/domain/rating-import-request/RatingImportRequestDto'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import Span from '../../_common/text/Span'
 
 interface Props {
   importRequest: RatingImportRequestDto
@@ -38,30 +39,28 @@ const RatingImportRequestNotificationItem = ({
         />
 
         <FlexCol ml={16} pr={40}>
-          <Text>
-            <Text>
-              Your MyAnimeList anime ratings import has finished!{' '}
-              <Text
-                color={theme.colors.primary[9]}
-                onClick={() => openModal(importRequest.id)}
-              >
-                Show results
-              </Text>
-            </Text>
-            {props.showDot && (
-              <Box>
-                <Box
-                  style={{
-                    backgroundColor: theme.colors.primary[9],
-                    minWidth: 8,
-                    minHeight: 8,
-                    borderRadius: 8,
-                    marginLeft: 8,
-                  }}
-                />
-              </Box>
-            )}
-          </Text>
+          <Span>
+            <Span>Your MyAnimeList anime ratings import has finished!</Span>
+            <span
+              style={{
+                display: 'inline-flex',
+              }}
+            >
+              &nbsp;
+              {props.showDot && (
+                <div>
+                  <div
+                    style={{
+                      backgroundColor: theme.colors.primary[9],
+                      width: 8,
+                      height: 8,
+                      borderRadius: 8,
+                    }}
+                  />
+                </div>
+              )}
+            </span>
+          </Span>
 
           <Text size="sm">{format(importRequest.createdAt)}</Text>
         </FlexCol>

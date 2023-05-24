@@ -125,7 +125,7 @@ const NotificationsPage = () => {
 
   return (
     <LoggedLayout>
-      <button onClick={subscribeButtonOnClick} disabled={Boolean(subscription)}>
+      {/* <button onClick={subscribeButtonOnClick} disabled={Boolean(subscription)}>
         Subscribe
       </button>
       <button
@@ -139,7 +139,7 @@ const NotificationsPage = () => {
         disabled={!Boolean(subscription)}
       >
         Send Notification
-      </button>
+      </button> */}
 
       <Container size="xs">
         <FlexCol gap={24}>

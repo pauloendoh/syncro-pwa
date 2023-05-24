@@ -8,7 +8,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { MdNotifications } from 'react-icons/md'
+import { MdImportExport, MdNotifications } from 'react-icons/md'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import LoggedLayout from '../../_common/layout/LoggedLayout'
@@ -67,7 +67,7 @@ const SettingsLayout = (props: Props) => {
                   </Button>
                 </MyNextLink>
 
-                {/* <MyNextLink href={urls.pages.importRatings}>
+                <MyNextLink href={urls.pages.importRatings}>
                   <Button
                     variant={
                       router.pathname === urls.pages.importRatings
@@ -80,7 +80,7 @@ const SettingsLayout = (props: Props) => {
                   >
                     Import ratings
                   </Button>
-                </MyNextLink> */}
+                </MyNextLink>
               </FlexCol>
             </FlexCol>
 
