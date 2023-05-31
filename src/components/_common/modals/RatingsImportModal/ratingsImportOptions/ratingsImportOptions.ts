@@ -6,6 +6,6 @@ export const ratingsImportOptions: {
 }[] = [
   {
     type: 'MAL-Anime',
-    title: 'MyAnimeList - Anime',
+    title: 'MyAnimeList - Anime & Manga',
   },
 ]

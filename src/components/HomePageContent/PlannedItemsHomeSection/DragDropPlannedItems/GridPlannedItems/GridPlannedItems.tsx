@@ -39,7 +39,7 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
           <GridItem
             key={plannedItem.id}
             style={{
-              touchAction: 'none',
+              touchAction: 'none', // disable touch scroll
             }}
           >
             <FavoriteItem item={plannedItem.syncroItem!} draggable />

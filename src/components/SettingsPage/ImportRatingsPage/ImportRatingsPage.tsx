@@ -42,7 +42,7 @@ const ImportRatingsPage = (props: Props) => {
             <FlexCol>
               <Box>
                 <MyTextLink onClick={() => openModal('MAL-Anime')}>
-                  MyAnimeList (anime)
+                  MyAnimeList (anime & manga)
                 </MyTextLink>
               </Box>
             </FlexCol>

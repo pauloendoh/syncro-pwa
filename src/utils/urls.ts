@@ -74,8 +74,7 @@ export const urls = {
     toggleSaveItem: (itemId: string) =>
       API_URL + `/toggle-save/item?id=${itemId}`,
     findSavedItems: API_URL + `/saved-items`,
-    findSavedItemsByType: (type: SyncroItemType) =>
-      API_URL + `/saved-items?type=${type}`,
+
     updateSavedPosition: API_URL + `/update-saved-position`,
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,

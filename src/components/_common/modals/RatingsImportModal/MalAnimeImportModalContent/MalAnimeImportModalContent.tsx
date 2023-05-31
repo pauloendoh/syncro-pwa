@@ -40,7 +40,7 @@ const MalAnimeImportModalContent = (props: Props) => {
         })
         .then(({ data }) => {
           openConfirmDialog({
-            title: 'Start importing anime?',
+            title: 'Start importing?',
             description: (
               <Box>
                 <Box>Username: {data.username}</Box>
@@ -87,14 +87,14 @@ const MalAnimeImportModalContent = (props: Props) => {
           Login to your MyAnimeList account and go to the{' '}
           <a href="https://myanimelist.net/panel.php?go=export">export page</a>
         </li>
-        <li>Export your anime list</li>
+        <li>Export your anime or manga list</li>
         <li>Upload the XML file inside the zip file you just downloaded</li>
       </ol>
 
       <FlexCol gap={24}>
         <FileInput
           accept=".xml"
-          label="Upload your MAL anime list XML file"
+          label="Upload your MAL anime or manga list XML file"
           onChange={(value) => {
             if (value) {
               setFile(value)
