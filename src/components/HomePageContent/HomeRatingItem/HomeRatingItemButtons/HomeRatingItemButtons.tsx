@@ -64,7 +64,9 @@ const HomeRatingItemButtons = (props: Props) => {
           })}
           onClick={() => {
             if (props.syncroItemId) {
-              submitToggleSave(props.syncroItemId)
+              submitToggleSave({
+                itemId: props.syncroItemId,
+              })
             }
           }}
         >

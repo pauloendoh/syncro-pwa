@@ -6,6 +6,7 @@ import FavoriteItem from '../../../../UserProfilePage/FavoritesSection/Favorites
 type Props = {
   plannedItems: InterestDto[]
   onDragChange: (interestId: string, newPosition: number) => void
+  disableDrag?: boolean
 }
 
 const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
@@ -30,6 +31,7 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
   return (
     <GridContextProvider onChange={onChange}>
       <GridDropZone
+        disableDrag={props.disableDrag}
         id="items"
         boxesPerRow={3}
         rowHeight={rowHeight}

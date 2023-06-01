@@ -20,7 +20,6 @@ import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
-import PlannedItemsHomeSection from './PlannedItemsHomeSection/PlannedItemsHomeSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
 // PE 1/3 - rename to HomePage
@@ -93,9 +92,7 @@ const HomePageContent = () => {
               )}
             </Container>
           </Grid.Col>
-          <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
-            {!isSmallScreen && <PlannedItemsHomeSection />}
-          </Grid.Col>
+          <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}></Grid.Col>
         </Grid>
       </Container>
     </LoggedLayout>

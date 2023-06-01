@@ -7,25 +7,31 @@ import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
+import useAuthStore from '../../zustand/useAuthStore'
 
 const useToggleSaveItemMutation = () => {
   const queryClient = useQueryClient()
 
   const axios = useAxios()
 
+  const { authUser } = useAuthStore()
+
   return useMutation(
-    (itemId: string) =>
+    (payload: { itemId: string }) =>
       axios
-        .post<InterestDto | string>(urls.api.toggleSaveItem(itemId))
+        .post<InterestDto | string>(urls.api.toggleSaveItem(payload.itemId))
         .then((res) => res.data),
     {
-      onSuccess: (data, itemId) => {
-        queryClient.invalidateQueries([urls.api.findSavedItems])
+      onSuccess: (data, payload) => {
+        if (authUser) {
+          queryClient.invalidateQueries([urls.api.plannedItems(authUser.id)])
+        }
 
         if (typeof data === 'string') {
           queryClient.setQueryData<InterestDto[]>(
             [urls.api.myInterests],
-            (curr) => deleteFromArray(curr, (i) => i.syncroItemId === itemId)
+            (curr) =>
+              deleteFromArray(curr, (i) => i.syncroItemId === payload.itemId)
           )
 
           myNotifications.success('Removed from planned!')

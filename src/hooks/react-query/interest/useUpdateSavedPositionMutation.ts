@@ -5,6 +5,7 @@ import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
+import useAuthStore from '../../zustand/useAuthStore'
 
 const useUpdateSavedPositionMutation = () => {
   const queryClient = useQueryClient()
@@ -21,43 +22,47 @@ const useUpdateSavedPositionMutation = () => {
     }
   }, [debouncedSuccededAt])
 
+  const { authUser } = useAuthStore()
+
   return useMutation(
     async (payload: { interestId: string; newPosition: number }) => {
-      queryClient.setQueryData<InterestDto[]>(
-        [urls.api.findSavedItems],
-        (curr) => {
-          if (!curr) return []
+      if (authUser) {
+        queryClient.setQueryData<InterestDto[]>(
+          [urls.api.plannedItems(authUser?.id)],
+          (curr) => {
+            if (!curr) return []
 
-          // reorder using position and splice
-          const interestToMove = curr.find(
-            (interest) => interest.id === payload.interestId
-          )
-          if (!interestToMove) return curr
+            // reorder using position and splice
+            const interestToMove = curr.find(
+              (interest) => interest.id === payload.interestId
+            )
+            if (!interestToMove) return curr
 
-          const itemType = interestToMove.syncroItem?.type
-          const selectedInterests = curr.filter(
-            (interest) => interest.syncroItem?.type === itemType
-          )
+            const itemType = interestToMove.syncroItem?.type
+            const selectedInterests = curr.filter(
+              (interest) => interest.syncroItem?.type === itemType
+            )
 
-          const otherInterests = curr.filter(
-            (interest) => interest.syncroItem?.type !== itemType
-          )
+            const otherInterests = curr.filter(
+              (interest) => interest.syncroItem?.type !== itemType
+            )
 
-          const updatedInterests = selectedInterests.filter(
-            (interest) => interest.id !== payload.interestId
-          )
+            const updatedInterests = selectedInterests.filter(
+              (interest) => interest.id !== payload.interestId
+            )
 
-          updatedInterests.splice(payload.newPosition - 1, 0, interestToMove)
+            updatedInterests.splice(payload.newPosition - 1, 0, interestToMove)
 
-          return [
-            ...updatedInterests.map((n, index) => ({
-              ...n,
-              position: index + 1,
-            })),
-            ...otherInterests,
-          ]
-        }
-      )
+            return [
+              ...updatedInterests.map((n, index) => ({
+                ...n,
+                position: index + 1,
+              })),
+              ...otherInterests,
+            ]
+          }
+        )
+      }
       return axios
         .post(urls.api.updateSavedPosition, payload)
         .then((res) => res.data)

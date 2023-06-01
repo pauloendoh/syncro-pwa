@@ -1,5 +1,6 @@
 import { Title } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import DragDropPlannedItems from '../../HomePageContent/PlannedItemsHomeSection/DragDropPlannedItems/DragDropPlannedItems'
@@ -15,7 +16,9 @@ const PlannedItemsByType = ({ savedItems, ...props }: Props) => {
     itemType: props.itemType,
   })
 
-  if (!savedItems || savedItems.length === 0) return null
+  const { authUser } = useAuthStore()
+
+  if (!savedItems || savedItems.length === 0 || !authUser) return null
 
   return (
     <FlexCol mb={8} w={'calc(100% - 24px)'}>
@@ -23,7 +26,11 @@ const PlannedItemsByType = ({ savedItems, ...props }: Props) => {
         {savedItems?.length} {type.getTypeLabel(savedItems.length > 1)}
       </Title>
 
-      <DragDropPlannedItems itemType={props.itemType} maxHeight={'unset'} />
+      <DragDropPlannedItems
+        userId={authUser.id}
+        itemType={props.itemType}
+        maxHeight={'unset'}
+      />
     </FlexCol>
   )
 }

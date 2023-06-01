@@ -1,6 +1,9 @@
 import { Box, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
-import { useSavedItemsQuery } from '../../../hooks/react-query/interest/useSavedItemsQuery'
+import { useMemo } from 'react'
+import { usePlannedItemsQuery } from '../../../hooks/react-query/interest/usePlannedItemsQuery'
+import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import {
   SyncroItemType,
   syncroItemTypes,
@@ -12,13 +15,28 @@ import MyPaper from '../../_common/overrides/MyPaper'
 import DragDropPlannedItems from './DragDropPlannedItems/DragDropPlannedItems'
 import PlannedItemButton from './PlannedItemButton/PlannedItemButton'
 
-type Props = {}
+type Props = {
+  userId: string
+}
 
 const PlannedItemsHomeSection = (props: Props) => {
   const [selectedType, setSelectedType] = useLocalStorage<SyncroItemType>({
     key: localStorageKeys.plannedItemsSelectedType,
   })
-  const { data: savedItems } = useSavedItemsQuery()
+
+  const { data: savedItems } = usePlannedItemsQuery(props.userId)
+
+  const { data: userInfo } = useUserInfoQuery(props.userId)
+
+  const { authUser } = useAuthStore()
+
+  const title = useMemo(() => {
+    if (props.userId === authUser?.id) return 'My planned items'
+
+    if (!userInfo?.username) return 'Planned items'
+
+    return `${userInfo.username}'s planned items`
+  }, [userInfo?.username, authUser?.username])
 
   if (!savedItems || savedItems.length === 0) return null
 
@@ -32,7 +50,7 @@ const PlannedItemsHomeSection = (props: Props) => {
     >
       <FlexVCenter>
         <FlexVCenter gap={4}>
-          <Title order={5}>Planned items</Title>
+          <Title order={5}>{title}</Title>
         </FlexVCenter>
       </FlexVCenter>
 
@@ -45,6 +63,7 @@ const PlannedItemsHomeSection = (props: Props) => {
           <FlexVCenter gap={8} wrap="wrap" p={16}>
             {syncroItemTypes.map((type) => (
               <PlannedItemButton
+                userId={props.userId}
                 key={type}
                 type={type}
                 isSelected={type === selectedType}
@@ -54,7 +73,10 @@ const PlannedItemsHomeSection = (props: Props) => {
           </FlexVCenter>
 
           <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
-            <DragDropPlannedItems itemType={selectedType} />
+            <DragDropPlannedItems
+              userId={props.userId}
+              itemType={selectedType}
+            />
           </Box>
         </FlexCol>
       </MyPaper>

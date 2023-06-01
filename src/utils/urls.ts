@@ -73,7 +73,8 @@ export const urls = {
     myInterests: API_URL + `/me/interests`,
     toggleSaveItem: (itemId: string) =>
       API_URL + `/toggle-save/item?id=${itemId}`,
-    findSavedItems: API_URL + `/saved-items`,
+    plannedItems: (userId: string) =>
+      API_URL + `/planned-items?userId=${userId}`,
 
     updateSavedPosition: API_URL + `/update-saved-position`,
 

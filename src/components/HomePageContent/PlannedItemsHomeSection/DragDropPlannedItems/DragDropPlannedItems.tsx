@@ -1,19 +1,23 @@
 import { Box } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd'
-import { useSavedItemsQuery } from '../../../../hooks/react-query/interest/useSavedItemsQuery'
+import { usePlannedItemsQuery } from '../../../../hooks/react-query/interest/usePlannedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../../_common/flex/FlexCol'
 import PlannedItem from '../PlannedItem/PlannedItem'
 import GridPlannedItems from './GridPlannedItems/GridPlannedItems'
 
 type Props = {
+  userId: string
   itemType: SyncroItemType
   maxHeight?: string
 }
 
 const DragDropPlannedItems = (props: Props) => {
+  const { authUser } = useAuthStore()
+
   const { mutate: submitUpdateSavedPosition, isLoading } =
     useUpdateSavedPositionMutation()
 
@@ -24,10 +28,13 @@ const DragDropPlannedItems = (props: Props) => {
         ? 1
         : result.destination?.index + 1
 
-    submitUpdateSavedPosition({ interestId, newPosition })
+    submitUpdateSavedPosition({
+      interestId,
+      newPosition,
+    })
   }
 
-  const { data: savedItems } = useSavedItemsQuery()
+  const { data: savedItems } = usePlannedItemsQuery(props.userId)
 
   const sortedPlanned = useMemo(() => {
     return (
@@ -41,6 +48,7 @@ const DragDropPlannedItems = (props: Props) => {
   if (view === 'grid') {
     return (
       <GridPlannedItems
+        disableDrag={props.userId !== authUser?.id}
         plannedItems={sortedPlanned}
         onDragChange={(interestId, newPosition) => {
           submitUpdateSavedPosition({ interestId, newPosition })

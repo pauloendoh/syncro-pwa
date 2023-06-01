@@ -10,6 +10,7 @@ import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/us
 import { useMyRatingQueryUtils } from '../../../../hooks/react-query/rating/useMyRatingQueryUtils'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 
@@ -28,6 +29,8 @@ const SearchItemYourSection = (props: Props) => {
 
   const myInterest = useMyInterestQueryUtils(props.itemId)
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
+
+  const { authUser } = useAuthStore()
 
   return (
     <>
@@ -75,7 +78,9 @@ const SearchItemYourSection = (props: Props) => {
           cursor: 'pointer',
         }}
         onClick={() => {
-          submitToggleSave(props.itemId)
+          submitToggleSave({
+            itemId: props.itemId,
+          })
         }}
       >
         <FlexVCenter gap={4}>

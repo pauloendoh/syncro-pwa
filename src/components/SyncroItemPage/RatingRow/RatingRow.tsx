@@ -97,7 +97,11 @@ const RatingRow = ({ syncroItem }: Props) => {
 
             <RatingRowButton
               ml={2}
-              onClick={() => submitToggleSave(syncroItem.id)}
+              onClick={() =>
+                submitToggleSave({
+                  itemId: syncroItem.id,
+                })
+              }
               isActive={!!myInterest?.interestLevel}
               leftIcon={
                 myInterest?.interestLevel ? (

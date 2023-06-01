@@ -1,9 +1,10 @@
 import { Box, Modal, Select, Title } from '@mantine/core'
 import { useEffect, useMemo, useRef } from 'react'
-import { useSavedItemsQuery } from '../../../../hooks/react-query/interest/useSavedItemsQuery'
+import { usePlannedItemsQuery } from '../../../../hooks/react-query/interest/usePlannedItemsQuery'
 import useUpdateSavedPositionMutation from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import useLoadingModalStore from '../../../../hooks/zustand/modals/useLoadingModalStore'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { InterestDto } from '../../../../types/domain/interest/InterestDto'
 
 type Props = {
@@ -17,7 +18,9 @@ const SavedPositionModal = (props: Props) => {
     props.initialValue?.syncroItemId
   )
 
-  const { data: savedItems } = useSavedItemsQuery()
+  const { authUser } = useAuthStore()
+
+  const { data: savedItems } = usePlannedItemsQuery(authUser?.id)
 
   const positionOptions = useMemo(() => {
     if (!savedItems) return []

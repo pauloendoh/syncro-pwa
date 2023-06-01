@@ -1,17 +1,18 @@
 import { Button } from '@mantine/core'
 import { useMemo } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
-import { useSavedItemsQuery } from '../../../../hooks/react-query/interest/useSavedItemsQuery'
+import { usePlannedItemsQuery } from '../../../../hooks/react-query/interest/usePlannedItemsQuery'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 type Props = {
+  userId: string
   isSelected: boolean
   type: SyncroItemType
   onClick: () => void
 }
 
 const PlannedItemButton = (props: Props) => {
-  const { data } = useSavedItemsQuery()
+  const { data } = usePlannedItemsQuery(props.userId)
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.type,

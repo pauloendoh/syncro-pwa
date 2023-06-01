@@ -23,7 +23,11 @@ const PlannedItem = (props: Props) => {
   if (!syncroItem) return null
 
   return (
-    <Draggable index={props.index} draggableId={props.planned.id}>
+    <Draggable
+      isDragDisabled
+      index={props.index}
+      draggableId={props.planned.id}
+    >
       {(provided) => (
         <FlexVCenter
           py={8}
