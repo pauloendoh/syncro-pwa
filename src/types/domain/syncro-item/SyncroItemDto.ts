@@ -1,6 +1,7 @@
 import { InterestDto } from '../interest/InterestDto'
 import { RatingDto } from '../rating/RatingDto'
 import { GameExtraInfoDto } from './GameExtraInfoDto/GameExtraInfoDto'
+import { ImdbExtraInfoDto } from './ImdbExtraInfoDto/ImdbExtraInfoDto'
 import { MangaExtraInfoDto } from './MangaExtraInfoDto/MangaExtraInfoDto'
 import { SyncroItemType } from './SyncroItemType/SyncroItemType'
 
@@ -28,6 +29,7 @@ export interface SyncroItemDto {
 
   mangaExtraInfo?: MangaExtraInfoDto
   gameExtraInfo?: GameExtraInfoDto
+  imdbExtraInfo?: ImdbExtraInfoDto
 
   updatedAt: string
   createdAt: string

@@ -22,6 +22,7 @@ import MyPaper from '../_common/overrides/MyPaper'
 import AvgRatingRow from './AvgRatingRow/AvgRatingRow'
 import GenreChips from './GenreChips/GenreChips'
 import ImageSyncroItemPage from './ImageSyncroItemPage/ImageSyncroItemPage'
+import ImdbExtraInfoSection from './ImdbExtraInfoSection/ImdbExtraInfoSection'
 import ItemMoreIconAdmin from './ItemMoreIconAdmin/ItemMoreIconAdmin'
 import ItemRatedBy from './ItemRatedBy/ItemRatedBy'
 import ItemReviewsSection from './ItemReviewsSection/ItemReviewsSection'
@@ -100,6 +101,12 @@ const SyncroItemPage = (props: Props) => {
               <Box mt={24}>
                 <SyncroItemSummarySection item={item} />
               </Box>
+
+              {item.imdbExtraInfo && (
+                <Box mt={24}>
+                  <ImdbExtraInfoSection item={item} />
+                </Box>
+              )}
 
               <Box mt={16} />
               <RatingRow syncroItem={item} />

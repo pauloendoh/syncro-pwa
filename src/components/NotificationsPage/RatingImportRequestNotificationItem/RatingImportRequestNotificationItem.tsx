@@ -40,7 +40,7 @@ const RatingImportRequestNotificationItem = ({
 
         <FlexCol ml={16} pr={40}>
           <Span>
-            <Span>Your MyAnimeList anime ratings import has finished!</Span>
+            <Span>Your MyAnimeList ratings import has finished!</Span>
             <span
               style={{
                 display: 'inline-flex',
