@@ -31,7 +31,7 @@ const AvgRatingRow = ({ item }: Props) => {
         )}
       </FlexVCenter>
 
-      <Text size="sm">
+      <Text size={isMobile ? 'sm' : undefined}>
         {shortNumberFormatter(ratingCount)}{' '}
         {ratingCount === 1 ? 'vote' : 'votes'} {`on ${finalSource}`}
       </Text>
