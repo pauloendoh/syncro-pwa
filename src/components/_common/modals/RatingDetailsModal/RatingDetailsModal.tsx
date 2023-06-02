@@ -16,6 +16,7 @@ import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
+import { getItemTitleAndYear } from '../../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
@@ -110,12 +111,7 @@ const RatingDetailsModal = () => {
                           color: theme.colors.gray[0],
                         })}
                       >
-                        {syncroItem && (
-                          <>
-                            {syncroItem?.title}{' '}
-                            {syncroItem?.year && `[${syncroItem.year}]`}
-                          </>
-                        )}
+                        {syncroItem && <>{getItemTitleAndYear(syncroItem)}</>}
                       </Text>
                     </SyncroItemLink>
                   )}

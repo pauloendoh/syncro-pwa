@@ -4,6 +4,7 @@ import Head from 'next/head'
 import SyncroItemPage from '../../components/SyncroItemPage/SyncroItemPage'
 import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import { cookieKeys } from '../../utils/consts/cookieKeys'
+import { getItemTitleAndYear } from '../../utils/domains/syncro-item/getItemTitleAndYear'
 import nookies from '../../utils/nookies'
 import { urls } from '../../utils/urls'
 
@@ -51,7 +52,7 @@ const UserItemNextPage: NextPage<Props> = (props) => {
           <title>
             {props.item.title} - {props.item.year} - Syncro
           </title>
-          <meta property="og:title" content={props.item?.title || 'Syncro'} />
+          <meta property="og:title" content={getItemTitleAndYear(props.item)} />
           <meta
             property="og:description"
             content={props.item?.plotSummary || 'Syncro - Review everything'}
@@ -66,7 +67,10 @@ const UserItemNextPage: NextPage<Props> = (props) => {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@syncroapp" />
           <meta name="twitter:creator" content="@syncroapp" />
-          <meta name="twitter:title" content={props.item?.title || 'Syncro'} />
+          <meta
+            name="twitter:title"
+            content={getItemTitleAndYear(props.item)}
+          />
           <meta
             name="twitter:description"
             content={props.item?.plotSummary || 'Syncro - Review everything'}
