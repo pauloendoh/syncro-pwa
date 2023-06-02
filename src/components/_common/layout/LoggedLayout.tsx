@@ -1,7 +1,9 @@
 import { Box } from '@mantine/core'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
+import { useMessageRoomSockets } from '../../../hooks/socket/domain/message-room/useMessageRoomSockets'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
+import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import GlobalModals from '../modals/GlobalModals'
 import MobileFooter from './MobileFooter/MobileFooter'
 import MyNavbar from './MyNavbar/MyNavbar'
@@ -20,6 +22,10 @@ const LoggedLayout = (props: Props) => {
   const isMessagePage = useMemo(() => {
     return router.asPath.includes('/messages')
   }, [router])
+
+  const { roomId: roomId } = useMyRouterQuery()
+
+  useMessageRoomSockets(roomId)
 
   return (
     <div>

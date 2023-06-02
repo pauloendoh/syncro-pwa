@@ -4,9 +4,7 @@ import { QueryParams } from '../utils/queryParams'
 import { ImportRatingsType } from './zustand/modals/useImportRatingsModalStore'
 
 export const useMyRouterQuery = () => {
-  const router = useRouter()
-  const query = router.query
-  return query as {
+  const query = useRouter().query as {
     syncroItemId: string
     userId: string
     q: string
@@ -29,6 +27,8 @@ export const useMyRouterQuery = () => {
     [QueryParams.importRatings]: ImportRatingsType
     [QueryParams.onboardingModal]: string
   }
+
+  return query
 }
 
 export type ExploreSlug = 'popular-users' | 'rating-similarity' | 'new-users'

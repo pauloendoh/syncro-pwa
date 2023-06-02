@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef } from 'react'
 import { useMessageRoomQuery } from '../../hooks/react-query/message/useMessageRoomQuery'
 import { useMessagesQuery } from '../../hooks/react-query/message/useMessagesQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
-import { useMessageRoomSockets } from '../../hooks/socket/domain/message-room/useMessageRoomSockets'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
@@ -37,8 +36,6 @@ const MessagesPage = (props: Props) => {
 
   const { data: messages, isLoading } = useMessagesQuery(roomId)
   const viewport = useRef<HTMLDivElement>(null)
-
-  useMessageRoomSockets(roomId)
 
   useEffect(() => {
     setTimeout(() => {

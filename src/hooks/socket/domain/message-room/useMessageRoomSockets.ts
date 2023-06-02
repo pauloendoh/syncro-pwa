@@ -6,19 +6,22 @@ import { useNewMessageSocket } from './useNewMessageSocket/useNewMessageSocket'
 
 // PE 1/3
 export const useMessageRoomSockets = (messageRoomId: string | undefined) => {
-  const { sendMessage: sendJoinRoomMessage, socket } =
-    useMySocketEvent<boolean>(socketEvents.joinMessageRoom)
+  const {
+    sendMessage: sendJoinRoomMessage,
+    connected,
+    mainSocket,
+  } = useMySocketEvent<boolean>(socketEvents.joinMessageRoom)
 
   const { authUser } = useAuthStore()
 
   useEffect(() => {
-    if (messageRoomId && authUser) {
+    if (messageRoomId && authUser && connected) {
       sendJoinRoomMessage({
         messageRoomId: messageRoomId,
         userId: authUser.id,
       })
     }
-  }, [messageRoomId, authUser])
+  }, [messageRoomId, authUser, mainSocket])
 
   useNewMessageSocket()
 }
