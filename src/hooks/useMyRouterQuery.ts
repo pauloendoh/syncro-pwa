@@ -17,7 +17,6 @@ export const useMyRouterQuery = () => {
     initialPage: string
     redirectTo: string
 
-    // PE 1/3 - use QueryParams
     recommendItemIsOpen: string
     [QueryParams.recommendItemsToUser]: string
     [QueryParams.ratingDetailsId]: string

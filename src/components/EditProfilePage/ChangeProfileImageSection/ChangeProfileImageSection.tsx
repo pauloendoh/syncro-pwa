@@ -12,8 +12,7 @@ interface Props {
   imageIsPressable?: boolean
 }
 
-// PE 1/3 - ChangeProfileImageSection
-const ChangeProfileImage = (props: Props) => {
+const ChangeProfileImageSection = (props: Props) => {
   const { data: userInfo, refetch } = useUserInfoQuery(props.userId)
 
   const handleFileSelection = (event: ChangeEvent<HTMLInputElement>) => {
@@ -85,4 +84,4 @@ const ChangeProfileImage = (props: Props) => {
   )
 }
 
-export default ChangeProfileImage
+export default ChangeProfileImageSection

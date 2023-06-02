@@ -22,8 +22,7 @@ import MyNextLink from '../_common/overrides/MyNextLink'
 import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
-// PE 1/3 - rename to HomePage
-const HomePageContent = () => {
+const HomePage = () => {
   const { data: homeRatings, isLoading } = useTimelineRatingsQuery()
 
   const flatRatings = useMemo(() => {
@@ -102,4 +101,4 @@ const HomePageContent = () => {
   )
 }
 
-export default HomePageContent
+export default HomePage

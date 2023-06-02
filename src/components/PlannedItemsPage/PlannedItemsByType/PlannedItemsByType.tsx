@@ -3,7 +3,7 @@ import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSync
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import DragDropPlannedItems from '../../HomePageContent/PlannedItemsHomeSection/DragDropPlannedItems/DragDropPlannedItems'
+import DragDropPlannedItems from '../../HomePage/PlannedItemsHomeSection/DragDropPlannedItems/DragDropPlannedItems'
 import FlexCol from '../../_common/flex/FlexCol'
 
 interface Props {

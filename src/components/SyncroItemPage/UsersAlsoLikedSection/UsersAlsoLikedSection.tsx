@@ -1,7 +1,7 @@
 import { Flex, ScrollArea, Text, Title } from '@mantine/core'
 import { useAlsoLikedItemsQuery } from '../../../hooks/react-query/item-recommendation/useAlsoLikedItemsQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
-import HomeRatingItemButtons from '../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
+import HomeRatingItemButtons from '../../HomePage/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'

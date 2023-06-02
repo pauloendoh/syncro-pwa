@@ -6,7 +6,7 @@ import {
   MdOutlineViewStream,
 } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
-import RatingsTimeline from '../../HomePageContent/RatingsTimeline/RatingsTimeline'
+import RatingsTimeline from '../../HomePage/RatingsTimeline/RatingsTimeline'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import UserRatingsGridView from './UserRatingsGridView/UserRatingsGridView'

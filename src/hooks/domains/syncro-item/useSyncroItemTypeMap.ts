@@ -2,7 +2,9 @@ import { useMemo } from 'react'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { syncroItemOptions } from './syncroItemOptions/syncroItemOptions'
 
-// PE 1/3 -  ?
+/**
+ * Get syncro item type map by item type
+ */
 export const useSyncroItemTypeMap = (by: {
   tabIndex?: number
   itemType?: SyncroItemType

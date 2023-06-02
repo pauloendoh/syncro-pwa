@@ -19,7 +19,7 @@ import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingSta
 import { getItemTitleAndYear } from '../../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
-import HomeRatingItemButtons from '../../../HomePageContent/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
+import HomeRatingItemButtons from '../../../HomePage/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
 import SyncroItemLink from '../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'

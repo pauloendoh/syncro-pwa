@@ -15,7 +15,6 @@ export type SyncroItemTypeMapOption = {
   onboardingSearchQuestion: string
 }
 
-// PE 1/3 - remove ? use useSyncroItemTypeMap ?
 export const syncroItemOptions: SyncroItemTypeMapOption[] = [
   {
     itemType: 'movie',

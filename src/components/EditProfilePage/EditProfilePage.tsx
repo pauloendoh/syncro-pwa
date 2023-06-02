@@ -11,7 +11,7 @@ import MyTextInput from '../_common/inputs/MyTextInput'
 import SaveCancelButtons from '../_common/inputs/SaveCancelButtons'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
-import ChangeProfileImage from './ChangeProfileImage/ChangeProfileImage'
+import ChangeProfileImageSection from './ChangeProfileImageSection/ChangeProfileImageSection'
 import EditLookingForRecommendations from './EditLookingForRecommendations/EditLookingForRecommendations'
 
 type Props = {}
@@ -58,7 +58,7 @@ const EditProfilePage = (props: Props) => {
               }}
             >
               <FlexCol align="center" gap={8}>
-                {authUser && <ChangeProfileImage userId={authUser.id} />}
+                {authUser && <ChangeProfileImageSection userId={authUser.id} />}
               </FlexCol>
             </Box>
 

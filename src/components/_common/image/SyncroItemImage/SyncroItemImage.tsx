@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
-import SyncroItemIcon from '../../../HomePageContent/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
+import SyncroItemIcon from '../../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import MyNextImage300x400 from '../MyNextImage300/MyNextImage300x444'
 
 type Props = {
