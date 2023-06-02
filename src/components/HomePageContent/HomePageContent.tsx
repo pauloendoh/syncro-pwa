@@ -59,19 +59,22 @@ const HomePageContent = () => {
           {/* <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} />
           <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}> */}
           <Container
+            w="100%"
             size="xs"
             fluid={isSmallScreen}
             px={isSmallScreen ? 0 : undefined}
-            pt={isSmallScreen ? 24 : undefined}
+            pt={isSmallScreen ? 40 : undefined}
           >
-            <FlexVCenter justify={'space-between'}>
+            <FlexVCenter justify={'space-between'} w="100%">
               <Title order={4}>Feed</Title>
               <ActionIcon onClick={openFeedSettingsModal}>
                 <MdSettings />
               </ActionIcon>
             </FlexVCenter>
 
-            <RatingsTimeline />
+            <Box pl={isSmallScreen ? 8 : undefined}>
+              <RatingsTimeline />
+            </Box>
 
             {!isLoading && flatRatings.length === 0 && (
               <Box sx={{ height: 400 }}>

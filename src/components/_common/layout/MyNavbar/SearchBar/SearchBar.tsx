@@ -142,6 +142,9 @@ const SearchBar = (props: Props) => {
               handleSubmit()
               inputRef.current?.blur()
             }}
+            style={{
+              cursor: 'pointer',
+            }}
           />
         }
         placeholder={'Search Syncro'}
