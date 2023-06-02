@@ -6,6 +6,7 @@ import FeedSettingsModal from './FeedSettingsModal/FeedSettingsModal'
 import FeedbackModal from './FeedbackModal/FeedbackModal'
 import FollowersModal from './FollowersModal/FollowersModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
+import LoadingModal from './LoadingModal/LoadingModal'
 import OnboardingModal from './OnboardingModal/OnboardingModal'
 import RatingDetailsModal from './RatingDetailsModal/RatingDetailsModal'
 import RatingsImportModal from './RatingsImportModal/RatingsImportModal'
@@ -40,6 +41,8 @@ const GlobalModals = (props: Props) => {
 
       <RatingsImportModal />
       <OnboardingModal />
+
+      <LoadingModal />
     </>
   )
 }

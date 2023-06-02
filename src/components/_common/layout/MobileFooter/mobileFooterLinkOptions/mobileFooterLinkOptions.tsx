@@ -71,9 +71,7 @@ export const useMobileFooterLinkOptions = () => {
       ),
       href: urls.pages.user(authUser?.id!),
       label: 'Profile',
-      selectedIf: () => {
-        return router.pathname.startsWith('/user')
-      },
+      selectedIf: () => router.pathname.startsWith('/user'),
     },
   ]
   return mobileFooterLinkOptions

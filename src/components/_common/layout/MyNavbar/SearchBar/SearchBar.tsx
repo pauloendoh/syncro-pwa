@@ -22,9 +22,7 @@ import MyTextInput from '../../../inputs/MyTextInput'
 import MyNextLink from '../../../overrides/MyNextLink'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
-type Props = {
-  autofocus?: boolean
-}
+type Props = {}
 
 const SearchBar = (props: Props) => {
   const theme = useMantineTheme()
@@ -150,7 +148,6 @@ const SearchBar = (props: Props) => {
         placeholder={'Search Syncro'}
         value={input}
         onChange={(e) => setInput(e.currentTarget.value)}
-        autoFocus={props.autofocus}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             handleSubmit()

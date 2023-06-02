@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDidNotFindMutation from '../../../hooks/react-query/did-not-find/useDidNotFindMutation'
 import { useOverallSearchQuery } from '../../../hooks/react-query/search/useOverallSearchQuery'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import textContainsWords from '../../../utils/text/textContainsWords'
@@ -123,8 +124,10 @@ const ItemSearchResults = (props: Props) => {
       })
   }, [props.query, props.type])
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
-    <MyPaper>
+    <MyPaper removePaper={isMobile}>
       <FlexCol gap={16}>
         <Text size="lg" weight={500}>
           {typeMap.getTypeLabel(true)}

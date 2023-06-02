@@ -19,7 +19,7 @@ const SearchPageContent = (props: Props) => {
       <Container size="xs">
         {isXsScreen && (
           <FlexVCenter w="100%" mb={24}>
-            <SearchBar autofocus />
+            <SearchBar />
           </FlexVCenter>
         )}
 

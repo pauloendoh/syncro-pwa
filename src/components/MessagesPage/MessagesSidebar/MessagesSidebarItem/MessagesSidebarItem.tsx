@@ -81,7 +81,7 @@ const MessagesSidebarItem = (props: Props) => {
             </Text>
 
             <Indicator
-              color={theme.colors.primary[9]}
+              color={theme.colors.secondary[9]}
               position="middle-end"
               size={8}
               styles={{

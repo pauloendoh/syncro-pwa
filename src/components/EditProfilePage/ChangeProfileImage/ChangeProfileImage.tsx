@@ -1,5 +1,5 @@
-import { Box, Text } from '@mantine/core'
-import { ChangeEvent, createRef } from 'react'
+import { Box, LoadingOverlay, Text } from '@mantine/core'
+import { ChangeEvent, createRef, useState } from 'react'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
@@ -12,6 +12,7 @@ interface Props {
   imageIsPressable?: boolean
 }
 
+// PE 1/3 - ChangeProfileImageSection
 const ChangeProfileImage = (props: Props) => {
   const { data: userInfo, refetch } = useUserInfoQuery(props.userId)
 
@@ -24,15 +25,21 @@ const ChangeProfileImage = (props: Props) => {
 
   const axios = useAxios()
 
+  const [loading, setLoading] = useState(false)
   const handleFileUpload = (file: File) => {
+    setLoading(true)
     const formData = new FormData()
     formData.append('file', file, file.name)
+    axios
+      .put<AuthUserGetDto>(urls.api.profilePicture, formData)
+      .then((res) => {
+        myNotifications.success('Image uploaded!')
 
-    axios.put<AuthUserGetDto>(urls.api.profilePicture, formData).then((res) => {
-      myNotifications.success('Image uploaded!')
-
-      refetch()
-    })
+        refetch()
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const fileInput = createRef<HTMLInputElement>()
@@ -45,20 +52,24 @@ const ChangeProfileImage = (props: Props) => {
         }
       }}
       align="center"
+      gap={4}
       sx={{
         cursor: 'pointer',
       }}
     >
-      <img
-        alt="profile-picture"
-        src={
-          userInfo?.profile?.pictureUrl ||
-          'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
-        }
-        height={80}
-        width={80}
-        style={{ borderRadius: 100, objectFit: 'cover' }}
-      />
+      <Box pos="relative">
+        <LoadingOverlay visible={loading} />
+        <img
+          alt="profile-picture"
+          src={
+            userInfo?.profile?.pictureUrl ||
+            'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
+          }
+          height={80}
+          width={80}
+          style={{ borderRadius: 100, objectFit: 'cover' }}
+        />
+      </Box>
 
       <Text>Change profile image</Text>
 

@@ -137,6 +137,7 @@ const RatingDetailsModal = () => {
               marginBottom: 16,
               marginTop: 24,
               whiteSpace: 'pre-line',
+              fontStyle: 'italic',
             }}
           >
             {rating.review}

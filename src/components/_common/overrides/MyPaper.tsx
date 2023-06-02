@@ -6,7 +6,9 @@ import {
 } from '@mantine/core'
 import React, { useMemo } from 'react'
 
-type Props = PaperProps
+type Props = PaperProps & {
+  removePaper?: boolean
+}
 
 const MyPaper = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { colorScheme } = useMantineColorScheme()
@@ -18,6 +20,11 @@ const MyPaper = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     }
     return 'white'
   }, [colorScheme])
+
+  if (props.removePaper) {
+    return <div {...props} ref={ref} />
+  }
+
   return (
     <Paper
       {...props}

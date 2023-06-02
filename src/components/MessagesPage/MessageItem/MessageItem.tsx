@@ -41,6 +41,17 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
     submitReadAllMessages({ roomId: message.roomId })
   }, [entry?.isIntersecting, message, isLast, isMyMessage])
 
+  const tooltipLabel = useMemo(() => {
+    // locale date string + HH:mm
+    return `${new Date(message.createdAt).toLocaleDateString()}
+    ${new Date(message.createdAt).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    })}
+    
+    `
+  }, [message.createdAt])
+
   return (
     <Flex
       ref={containerRef}
@@ -50,16 +61,12 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
         // add fade in animation when rendered
         transition: 'opacity 0.3s ease-in-out',
       }}
-      onClick={() => {
-        console.log({
-          id: message.id,
-        })
-      }}
     >
       <Tooltip
-        label={new Date(message.createdAt).toLocaleString()}
+        label={tooltipLabel}
         withArrow
         position={isMyMessage ? 'left' : 'right'}
+        withinPortal
       >
         <Box
           ref={ref}

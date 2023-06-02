@@ -32,7 +32,8 @@ const MessagesPage = (props: Props) => {
     }
     return messageRoom.users.find((user) => user.id !== authUser?.id)
   }, [messageRoom, authUser])
-  const { data: user } = useUserInfoQuery(otherUser?.id)
+  const { data: otherUserInfo, isLoading: loadingOtherUserInfo } =
+    useUserInfoQuery(otherUser?.id)
 
   const { data: messages, isLoading } = useMessagesQuery(roomId)
   const viewport = useRef<HTMLDivElement>(null)
@@ -84,7 +85,8 @@ const MessagesPage = (props: Props) => {
           lg={4}
           p={isMobile ? 0 : undefined}
         >
-          {!!user && (
+          {loadingOtherUserInfo && <CenterLoader />}
+          {!!otherUserInfo && (
             <MyPaper
               sx={{
                 padding: 0,
@@ -100,11 +102,11 @@ const MessagesPage = (props: Props) => {
               >
                 {isMobile && <BackButton />}
 
-                <MyNextLink href={urls.pages.user(user.id)}>
-                  <UserImage pictureUrl={user.profile?.pictureUrl} />
+                <MyNextLink href={urls.pages.user(otherUserInfo.id)}>
+                  <UserImage pictureUrl={otherUserInfo.profile?.pictureUrl} />
                 </MyNextLink>
-                <MyNextLink href={urls.pages.user(user.id)}>
-                  <Text>{user?.username}</Text>
+                <MyNextLink href={urls.pages.user(otherUserInfo.id)}>
+                  <Text>{otherUserInfo?.username}</Text>
                 </MyNextLink>
               </FlexVCenter>
 
