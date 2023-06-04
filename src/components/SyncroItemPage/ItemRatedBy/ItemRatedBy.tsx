@@ -1,4 +1,4 @@
-import { Box, Text } from '@mantine/core'
+import { Box, Skeleton, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRatedByQuery'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
@@ -10,7 +10,7 @@ type Props = {
 }
 
 const ItemRatedBy = (props: Props) => {
-  const { data } = useItemRatedByQuery(props.itemId)
+  const { data, isLoading } = useItemRatedByQuery(props.itemId)
 
   const label = useMemo(() => {
     if (!data || data.length === 0) {
@@ -36,6 +36,10 @@ const ItemRatedBy = (props: Props) => {
 
   if (!data || data.length === 0) {
     return null
+  }
+
+  if (isLoading) {
+    return <Skeleton height={24} />
   }
 
   return (
