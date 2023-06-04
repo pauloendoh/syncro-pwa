@@ -19,7 +19,7 @@ const FavoriteItem = (props: Props) => {
   const width = 100
 
   return (
-    <SyncroItemLink item={props.item} draggable>
+    <SyncroItemLink item={props.item} disablePreview>
       <div
         style={{ position: 'relative' }}
         onMouseEnter={() => setIsHovering(true)}

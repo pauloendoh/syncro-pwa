@@ -74,7 +74,7 @@ const RatingRow = ({ syncroItem }: Props) => {
   }, [favorites, syncroItem.id])
 
   return (
-    <ScrollArea>
+    <ScrollArea pb={8}>
       <FlexVCenter gap={isSmallScreen ? 4 : 8} pb={isSmallScreen ? 16 : 0}>
         {authUser && (
           <>

@@ -1,8 +1,11 @@
+import { HoverCard } from '@mantine/core'
 import React from 'react'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { cookieKeys } from '../../../utils/consts/cookieKeys'
 import nookies from '../../../utils/nookies'
 import { urls } from '../../../utils/urls'
+import SyncroItemPaperContent from '../../SyncroItemPage/SyncroItemPaperContent/SyncroItemPaperContent'
 import MyNextLink from '../overrides/MyNextLink'
 
 type Props = {
@@ -11,6 +14,7 @@ type Props = {
   children: React.ReactNode
   onClick?: () => void
   draggable?: boolean
+  disablePreview?: boolean
 }
 
 const SyncroItemLink = (props: Props) => {
@@ -30,30 +34,51 @@ const SyncroItemLink = (props: Props) => {
 
   const [isDragging, setIsDragging] = React.useState(false)
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
-    <MyNextLink
-      href={urls.pages.syncroItem(encodeURI(props.item.id!))}
-      {...props.linkProps}
-      onClick={(e) => {
-        if (isDragging) {
-          e.preventDefault()
-          setIsDragging(false)
-          return
-        }
-        handleClick()
-        if (props.onClick) props.onClick()
-      }}
-      onDragStart={
-        props.draggable
-          ? (e) => {
-              setIsDragging(true)
-              e.preventDefault()
-            }
-          : undefined
-      }
+    <HoverCard
+      openDelay={500}
+      closeDelay={250}
+      width={400}
+      disabled={isMobile || props.disablePreview}
+      withArrow
     >
-      {props.children}
-    </MyNextLink>
+      <HoverCard.Target>
+        <span>
+          <MyNextLink
+            href={urls.pages.syncroItem(encodeURI(props.item.id!))}
+            {...props.linkProps}
+            onClick={(e) => {
+              if (isDragging) {
+                e.preventDefault()
+                setIsDragging(false)
+                return
+              }
+              handleClick()
+              if (props.onClick) props.onClick()
+            }}
+            onDragStart={
+              props.draggable
+                ? (e) => {
+                    setIsDragging(true)
+                    e.preventDefault()
+                  }
+                : undefined
+            }
+          >
+            {props.children}
+          </MyNextLink>
+        </span>
+      </HoverCard.Target>
+      <HoverCard.Dropdown pb={16}>
+        <SyncroItemPaperContent
+          initialData={null}
+          syncroItemId={props.item.id!}
+          titleIsLink
+        />
+      </HoverCard.Dropdown>
+    </HoverCard>
   )
 }
 
