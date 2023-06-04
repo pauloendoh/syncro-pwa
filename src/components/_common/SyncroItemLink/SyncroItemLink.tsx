@@ -15,6 +15,7 @@ type Props = {
   onClick?: () => void
   draggable?: boolean
   disablePreview?: boolean
+  previewWithinPortal?: boolean
 }
 
 const SyncroItemLink = (props: Props) => {
@@ -43,6 +44,7 @@ const SyncroItemLink = (props: Props) => {
       width={400}
       disabled={isMobile || props.disablePreview}
       withArrow
+      withinPortal={props.previewWithinPortal}
     >
       <HoverCard.Target>
         <span>

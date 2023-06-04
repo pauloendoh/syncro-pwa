@@ -1,13 +1,23 @@
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
+import { urls } from '../../../utils/urls'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
+import MyNextLink from '../../_common/overrides/MyNextLink'
 
 type Props = {
   isMobile: boolean
   item: SyncroItemDto
+  isLinkInstead?: boolean
 }
 
-const ImageSyncroItemPage = ({ isMobile, item }: Props) => {
+const ImageSyncroItemPage = ({ isMobile, item, ...props }: Props) => {
+  if (props.isLinkInstead)
+    return (
+      <MyNextLink href={urls.pages.syncroItem(encodeURI(item.id!))}>
+        <SyncroItemImage item={item} width={isMobile ? 100 : 160} />
+      </MyNextLink>
+    )
+
   return (
     <PhotoProvider>
       <PhotoView src={item.imageUrl}>

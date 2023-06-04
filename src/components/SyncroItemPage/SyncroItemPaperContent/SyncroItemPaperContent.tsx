@@ -70,7 +70,11 @@ const SyncroItemPaperContent = (props: Props) => {
             {authUser?.isAdmin && <ItemMoreIconAdmin item={item} />}
           </Flex>
           <Flex mt={16} gap={16}>
-            <ImageSyncroItemPage isMobile={isMobile} item={item} />
+            <ImageSyncroItemPage
+              isMobile={isMobile}
+              item={item}
+              isLinkInstead={props.titleIsLink}
+            />
 
             <FlexCol gap={8}>
               <AvgRatingRow item={item} />
