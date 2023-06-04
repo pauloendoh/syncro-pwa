@@ -75,9 +75,9 @@ const SyncroItemLink = (props: Props) => {
       </HoverCard.Target>
       <HoverCard.Dropdown pb={16}>
         <SyncroItemPaperContent
-          initialData={null}
+          initialData={props.item}
           syncroItemId={props.item.id!}
-          titleIsLink
+          isPreview
         />
       </HoverCard.Dropdown>
     </HoverCard>

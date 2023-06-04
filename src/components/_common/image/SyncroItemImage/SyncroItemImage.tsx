@@ -29,7 +29,7 @@ const SyncroItemImage = (props: Props) => {
     return (width || 100) * (400 / 300)
   }, [width])
 
-  const [isError, setIsError] = useState(true)
+  const [isError, setIsError] = useState(false)
 
   return (
     <Box pos="relative" ref={props.ref}>

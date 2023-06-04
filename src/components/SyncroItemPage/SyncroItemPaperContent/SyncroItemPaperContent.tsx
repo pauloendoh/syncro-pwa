@@ -23,7 +23,7 @@ import SyncroItemSummarySection from '../SyncroItemSummarySection/SyncroItemSumm
 type Props = {
   initialData: SyncroItemDto | null
   syncroItemId: string
-  titleIsLink?: boolean
+  isPreview?: boolean
 }
 
 const SyncroItemPaperContent = (props: Props) => {
@@ -47,7 +47,7 @@ const SyncroItemPaperContent = (props: Props) => {
       {item && (
         <>
           <Flex justify={'space-between'}>
-            {props.titleIsLink ? (
+            {props.isPreview ? (
               <MyNextLink href={urls.pages.syncroItem(encodeURI(item.id!))}>
                 <Title
                   order={3}
@@ -73,11 +73,11 @@ const SyncroItemPaperContent = (props: Props) => {
             <ImageSyncroItemPage
               isMobile={isMobile}
               item={item}
-              isLinkInstead={props.titleIsLink}
+              isLinkInstead={props.isPreview}
             />
 
             <FlexCol gap={8}>
-              <AvgRatingRow item={item} />
+              <AvgRatingRow item={item} isPreview={props.isPreview} />
 
               <FlexVCenter gap={4}>
                 <SyncroItemIcon type={item.type} size={16} />

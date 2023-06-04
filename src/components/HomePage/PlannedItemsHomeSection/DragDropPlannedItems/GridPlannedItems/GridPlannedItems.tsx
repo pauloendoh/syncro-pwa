@@ -44,7 +44,10 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
               touchAction: 'none', // disable touch scroll
             }}
           >
-            <FavoriteItem item={plannedItem.syncroItem!} draggable />
+            <FavoriteItem
+              item={plannedItem.syncroItem!}
+              draggable={!props.disableDrag}
+            />
           </GridItem>
         ))}
       </GridDropZone>
