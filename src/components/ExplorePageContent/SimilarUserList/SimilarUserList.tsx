@@ -42,8 +42,7 @@ const SimilarUserList = () => {
             <Text>
               {item.ratedSameItemsCount}{' '}
               {item.ratedSameItemsCount <= 1 ? 'item' : 'items'} ·{' '}
-              {Math.floor(item.ratingsSimilarityAvgPercentage * 100)}% rating
-              similarity
+              {Math.floor(item.overallPercentage * 100)}% rating similarity
             </Text>
           </FlexCol>
         </FlexVCenter>
