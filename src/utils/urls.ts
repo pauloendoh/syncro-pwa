@@ -111,6 +111,7 @@ export const urls = {
     genresCount: (userId: string, type: SyncroItemType) =>
       API_URL + `/rated-genres-count?userId=${userId}&itemType=${type}`,
     mySimilarUsers: API_URL + `/me/similar-users`,
+    userSimilarity: (userId: string) => API_URL + `/user/${userId}/similarity`,
     myFollowingUsers: API_URL + `/me/following-users`,
     userFollowers: (userId: string) => API_URL + `/user/${userId}/followers`,
     userFollowingUsers: (userId: string) =>

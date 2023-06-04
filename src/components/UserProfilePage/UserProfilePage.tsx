@@ -38,6 +38,7 @@ import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
 import UserMoreMenu from './UserMoreMenu/UserMoreMenu'
 import UserPageRatingsSection from './UserPageRatingsSection/UserPageRatingsSection'
+import UserSimilaritySection from './UserSimilaritySection/UserSimilaritySection'
 
 const UserProfilePage = () => {
   const { userId } = useMyRouterQuery()
@@ -194,7 +195,10 @@ const UserProfilePage = () => {
                       </Button>
                     </MyNextLink>
                   ) : (
-                    <ProfileScreenButtons userId={userId!} />
+                    <FlexCol gap={16}>
+                      <UserSimilaritySection userId={userId!} />
+                      <ProfileScreenButtons userId={userId!} />
+                    </FlexCol>
                   )}
                 </FlexCol>
               )}

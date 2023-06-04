@@ -26,6 +26,7 @@ export const useMyRouterQuery = () => {
     [QueryParams.feedSettingsModal]: string
     [QueryParams.importRatings]: ImportRatingsType
     [QueryParams.onboardingModal]: string
+    [QueryParams.userSimilarity]: string
   }
 
   return query

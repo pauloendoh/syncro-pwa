@@ -14,6 +14,7 @@ import RecommendItemModal from './RecommendItemModal/RecommendItemModal'
 import RecommendItemsToUserModal from './RecommendItemsToUserModal/RecommendItemsToUserModal'
 import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
 import ShareRatingModal from './ShareRatingModal/ShareRatingModal'
+import UserSimilarityModal from './UserSimilarityModal/UserSimilarityModal'
 
 type Props = {}
 
@@ -41,6 +42,7 @@ const GlobalModals = (props: Props) => {
 
       <RatingsImportModal />
       <OnboardingModal />
+      <UserSimilarityModal />
 
       <LoadingModal />
     </>
