@@ -63,6 +63,8 @@ export const urls = {
       API_URL + `/syncro-item?id=${id}`,
     updateItemAvgRating: (itemId: string) =>
       API_URL + `/syncro-item/rating?id=${itemId}`,
+    syncroItemImage: (itemId: string) =>
+      API_URL + `/syncro-item/${itemId}/image`,
 
     ratingId: (id: string) => API_URL + `/ratings?id=${id}`,
     myRatings: API_URL + `/me/ratings`,

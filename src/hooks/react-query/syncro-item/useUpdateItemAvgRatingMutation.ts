@@ -4,6 +4,7 @@ import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 
+// PE 1/3 - does not use the type anymore
 const useUpdateItemAvgRatingMutation = () => {
   const queryClient = useQueryClient()
 

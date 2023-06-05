@@ -7,8 +7,8 @@ import { useEditItemModalStore } from '../../../../hooks/zustand/modals/useEditI
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
-import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
+import EditItemImageSection from './EditItemImageSection/EditItemImageSection'
 
 const EditItemModal = () => {
   const { initialValue: initialItem, closeModal } = useEditItemModalStore()
@@ -51,7 +51,12 @@ const EditItemModal = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FlexCol>
             <Flex gap={16}>
-              <SyncroItemImage item={initialItem} height={120} width={120} />
+              <EditItemImageSection
+                item={watch()}
+                onChangeImage={(newImageSrc) => {
+                  setValue('imageUrl', newImageSrc)
+                }}
+              />
 
               <FlexCol sx={{ flexGrow: 1 }} gap={8}>
                 <Textarea
