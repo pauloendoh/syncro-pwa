@@ -70,7 +70,7 @@ const EditItemModal = () => {
 
                 <NumberInput
                   label="Year"
-                  value={watch('year')}
+                  value={watch('year') || 0}
                   onChange={(value) => {
                     setValue('year', value || 1900)
                   }}
