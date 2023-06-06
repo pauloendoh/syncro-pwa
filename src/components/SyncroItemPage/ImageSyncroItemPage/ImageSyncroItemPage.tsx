@@ -7,14 +7,14 @@ import MyNextLink from '../../_common/overrides/MyNextLink'
 type Props = {
   isMobile: boolean
   item: SyncroItemDto
-  isLinkInstead?: boolean
+  isPreview?: boolean
 }
 
 const ImageSyncroItemPage = ({ isMobile, item, ...props }: Props) => {
-  if (props.isLinkInstead)
+  if (props.isPreview)
     return (
       <MyNextLink href={urls.pages.syncroItem(encodeURI(item.id!))}>
-        <SyncroItemImage item={item} width={isMobile ? 100 : 160} />
+        <SyncroItemImage item={item} width={120} />
       </MyNextLink>
     )
 

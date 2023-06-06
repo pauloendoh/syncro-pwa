@@ -73,7 +73,7 @@ const SyncroItemPaperContent = (props: Props) => {
             <ImageSyncroItemPage
               isMobile={isMobile}
               item={item}
-              isLinkInstead={props.isPreview}
+              isPreview={props.isPreview}
             />
 
             <FlexCol gap={8}>
