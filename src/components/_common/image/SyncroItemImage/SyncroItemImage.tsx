@@ -22,16 +22,21 @@ type Props = {
 const SyncroItemImage = (props: Props) => {
   const theme = useMantineTheme()
 
-  const width = props.width || 100
+  const finalWidth = useMemo(() => {
+    if (props.item?.type === 'book') {
+      return props?.width || 89
+    }
+    return props?.width || 100
+  }, [props.width])
 
   const height = useMemo(() => {
     if (props.item?.type === 'book') {
-      return (width || 100) * (3 / 2)
+      return (finalWidth || 100) * (3 / 2)
     }
 
     // 300 x 400
-    return (width || 100) * (400 / 300)
-  }, [width])
+    return (finalWidth || 100) * (400 / 300)
+  }, [finalWidth])
 
   const [isError, setIsError] = useState(false)
 
@@ -39,7 +44,7 @@ const SyncroItemImage = (props: Props) => {
     <Box pos="relative" ref={props.ref}>
       {isError && (
         <img
-          width={props.width || 100}
+          width={finalWidth}
           height={height}
           src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
           alt={props.item?.title || 'syncro-item'}
@@ -56,7 +61,7 @@ const SyncroItemImage = (props: Props) => {
       )}
       {!isError && (
         <MyNextImage300x400
-          width={props.width || 100}
+          width={finalWidth}
           height={height}
           src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
           alt={props.item?.title || 'syncro-item'}
