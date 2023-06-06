@@ -1,4 +1,5 @@
 import { HoverCard } from '@mantine/core'
+import { FloatingPosition } from '@mantine/core/lib/Floating'
 import React from 'react'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
@@ -16,6 +17,7 @@ type Props = {
   draggable?: boolean
   disablePreview?: boolean
   previewWithinPortal?: boolean
+  previewPosition?: FloatingPosition
 }
 
 const SyncroItemLink = (props: Props) => {
@@ -50,6 +52,7 @@ const SyncroItemLink = (props: Props) => {
         shift: false,
         inline: false,
       }}
+      position={props.previewPosition || undefined}
     >
       <HoverCard.Target>
         <span>

@@ -1,3 +1,4 @@
+import { FloatingPosition } from '@mantine/core/lib/Floating'
 import { useState } from 'react'
 import { useMyMediaQuery } from '../../../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../../../types/domain/syncro-item/SyncroItemDto'
@@ -8,6 +9,7 @@ import Span from '../../../../../_common/text/Span'
 type Props = {
   item: SyncroItemDto
   draggable?: boolean
+  previewPosition?: FloatingPosition
 }
 
 const FavoriteItem = (props: Props) => {
@@ -24,6 +26,7 @@ const FavoriteItem = (props: Props) => {
       draggable
       previewWithinPortal
       disablePreview={props.draggable}
+      previewPosition={props.previewPosition}
     >
       <div
         style={{ position: 'relative' }}

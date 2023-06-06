@@ -47,6 +47,7 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
             <FavoriteItem
               item={plannedItem.syncroItem!}
               draggable={!props.disableDrag}
+              previewPosition="left"
             />
           </GridItem>
         ))}

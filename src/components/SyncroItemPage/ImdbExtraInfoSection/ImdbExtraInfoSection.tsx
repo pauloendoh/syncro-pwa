@@ -11,11 +11,14 @@ const ImdbExtraInfoSection = ({ item }: Props) => {
     if (!item.imdbExtraInfo) return null
 
     // if runningTimeInMinutes 96 -> 1h 36min
-    const duration = item.imdbExtraInfo?.runningTimeInMinutes
-      ? `${Math.floor(item.imdbExtraInfo?.runningTimeInMinutes / 60)}h ${
-          item.imdbExtraInfo?.runningTimeInMinutes % 60
-        }min`
-      : ''
+    // if runningTimeInMinutes 60 -> 1h
+    // if runningTimeInMinutes 30 -> 30min
+    const hours = Math.floor(item.imdbExtraInfo?.runningTimeInMinutes / 60)
+    const minutes = item.imdbExtraInfo?.runningTimeInMinutes % 60
+
+    const duration = `${hours ? `${hours}h` : ''} ${
+      minutes ? `${minutes}min` : ''
+    }`.trim()
 
     if (item.type === 'movie' && duration) return duration
 
