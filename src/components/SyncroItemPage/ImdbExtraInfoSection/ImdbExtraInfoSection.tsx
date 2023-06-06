@@ -10,15 +10,18 @@ const ImdbExtraInfoSection = ({ item }: Props) => {
   const text = useMemo(() => {
     if (!item.imdbExtraInfo) return null
 
-    if (item.type === 'movie' && item.imdbExtraInfo?.runningTimeInMinutes)
-      return `${item.imdbExtraInfo?.runningTimeInMinutes} min`
+    // if runningTimeInMinutes 96 -> 1h 36min
+    const duration = item.imdbExtraInfo?.runningTimeInMinutes
+      ? `${Math.floor(item.imdbExtraInfo?.runningTimeInMinutes / 60)}h ${
+          item.imdbExtraInfo?.runningTimeInMinutes % 60
+        }min`
+      : ''
+
+    if (item.type === 'movie' && duration) return duration
 
     if (item.type === 'tvSeries') {
-      if (
-        item.imdbExtraInfo?.episodesCount &&
-        item.imdbExtraInfo?.runningTimeInMinutes
-      ) {
-        return `${item.imdbExtraInfo?.episodesCount} episodes · ${item.imdbExtraInfo?.runningTimeInMinutes} min`
+      if (item.imdbExtraInfo?.episodesCount && duration) {
+        return `${item.imdbExtraInfo?.episodesCount} episodes · ${duration}`
       }
 
       if (item.imdbExtraInfo?.episodesCount) {
