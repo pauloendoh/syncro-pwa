@@ -34,13 +34,13 @@ const ItemToRecommendOption = ({ itemToRecommend, userId }: Props) => {
 
   return (
     <Flex gap={16} sx={{ flexGrow: 1 }}>
-      <SyncroItemLink item={item}>
+      <SyncroItemLink item={item} disablePreview>
         <SyncroItemImage item={item} width={100} height={100} />
       </SyncroItemLink>
 
       <FlexCol justify={'space-between'} sx={{ flexGrow: 1 }}>
         <Flex>
-          <SyncroItemLink item={item}>
+          <SyncroItemLink item={item} disablePreview>
             <Text lineClamp={2}>
               {item.title} {item.year && `[${item.year}]`}
             </Text>
