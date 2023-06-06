@@ -39,8 +39,8 @@ const SyncroItemLink = (props: Props) => {
 
   return (
     <HoverCard
-      openDelay={500}
-      closeDelay={250}
+      openDelay={1000}
+      closeDelay={500}
       width={400}
       disabled={isMobile || props.disablePreview}
       withArrow
