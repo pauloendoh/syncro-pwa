@@ -20,16 +20,16 @@ const ImdbExtraInfoSection = ({ item }: Props) => {
       minutes ? `${minutes}min` : ''
     }`.trim()
 
-    if (item.type === 'movie' && duration) return duration
-
-    if (item.type === 'tvSeries') {
-      if (item.imdbExtraInfo?.episodesCount && duration) {
+    if (item.imdbExtraInfo?.episodesCount) {
+      if (duration) {
         return `${item.imdbExtraInfo?.episodesCount} episodes · ${duration}`
       }
 
-      if (item.imdbExtraInfo?.episodesCount) {
-        return `${item.imdbExtraInfo?.episodesCount} episodes`
-      }
+      return `${item.imdbExtraInfo?.episodesCount} episodes`
+    }
+
+    if (duration) {
+      return duration
     }
 
     return ''
