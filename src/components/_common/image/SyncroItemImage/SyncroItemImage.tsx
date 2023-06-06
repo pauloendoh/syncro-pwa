@@ -25,7 +25,11 @@ const SyncroItemImage = (props: Props) => {
   const width = props.width || 100
 
   const height = useMemo(() => {
-    // 300 x 444
+    if (props.item?.type === 'book') {
+      return (width || 100) * (3 / 2)
+    }
+
+    // 300 x 400
     return (width || 100) * (400 / 300)
   }, [width])
 
