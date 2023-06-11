@@ -60,7 +60,7 @@ const RecommendItemsToUserModal = () => {
           </Tabs.List>
 
           <ScrollArea h={'calc(100vh - 240px)'}>
-            <FlexCol gap={16} mt={16}>
+            <FlexCol gap={16} mt={16} pr={16}>
               {sortedItemsToRecommend?.map((item) => (
                 <ItemToRecommendOption
                   itemToRecommend={item}
