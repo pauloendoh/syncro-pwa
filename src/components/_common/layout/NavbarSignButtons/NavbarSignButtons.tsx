@@ -14,7 +14,9 @@ const NavbarSignButtons = (props: Props) => {
         </Button>
       </MyNextLink>
       <MyNextLink href={urls.pages.signUp}>
-        <Button color="secondary">Sign Up</Button>
+        <Button color="secondary" variant="outline">
+          Sign Up
+        </Button>
       </MyNextLink>
     </FlexVCenter>
   )

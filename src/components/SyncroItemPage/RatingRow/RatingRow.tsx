@@ -145,7 +145,11 @@ const RatingRow = ({ syncroItem }: Props) => {
 
         {!authUser && (
           <MyNextLink href={urls.pages.signUp}>
-            <RatingRowButton color="secondary" leftIcon={<MdStarBorder />}>
+            <RatingRowButton
+              variant="outline"
+              color="secondary"
+              leftIcon={<MdStarBorder />}
+            >
               Enter to start rating
             </RatingRowButton>
           </MyNextLink>
