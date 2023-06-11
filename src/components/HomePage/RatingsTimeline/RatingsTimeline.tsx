@@ -3,6 +3,7 @@ import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../../hooks/react-query/feed/useTimelineHasNewsQuery'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import HomeRatingItem from '../HomeRatingItem/HomeRatingItem'
@@ -38,11 +39,13 @@ const RatingsTimeline = (props: Props) => {
 
   useTimelineHasNewsQuery(props.userId, flatRatings[0]?.createdAt)
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <>
       {isLoading && <CenterLoader />}
 
-      <FlexCol gap={16} mt={16}>
+      <FlexCol gap={16} mt={16} ml={isMobile ? 0 : 16}>
         {flatRatings.map((rating) => (
           <HomeRatingItem rating={rating} key={rating.id} />
         ))}
