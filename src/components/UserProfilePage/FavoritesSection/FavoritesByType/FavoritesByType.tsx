@@ -48,9 +48,15 @@ const FavoritesByType = (props: Props) => {
       <ScrollArea>
         <Flex pb={16} gap={8}>
           {props.favorites.map(
-            (fav) =>
+            (fav, index) =>
               fav.syncroItem && (
-                <FavoriteItem key={fav.id} item={fav.syncroItem} />
+                <FavoriteItem
+                  key={fav.id}
+                  item={fav.syncroItem}
+                  previewPosition={
+                    index === 0 || index === 1 ? 'bottom-end' : 'bottom'
+                  }
+                />
               )
           )}
         </Flex>
