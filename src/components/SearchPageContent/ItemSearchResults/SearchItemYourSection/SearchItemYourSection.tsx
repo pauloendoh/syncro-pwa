@@ -54,7 +54,7 @@ const SearchItemYourSection = (props: Props) => {
               <MdStarBorder color={theme.colors.gray[5]} size={18} />
             )}
           </FlexVCenter>
-          <Text>{myRating?.ratingValue || <Text>&nbsp;</Text>}</Text>
+          <Text>{myRating?.ratingValue || <Text>Rate</Text>}</Text>
         </FlexVCenter>
 
         {!!myRating?.review && (
