@@ -218,6 +218,7 @@ const SearchBar = (props: Props) => {
               onClick={() => {
                 setPreviewedItems([])
               }}
+              disablePreview
             >
               <Flex
                 p={8}
