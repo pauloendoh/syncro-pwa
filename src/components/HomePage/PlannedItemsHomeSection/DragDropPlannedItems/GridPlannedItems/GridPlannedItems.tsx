@@ -1,5 +1,5 @@
+import { useMemo } from 'react'
 import { GridContextProvider, GridDropZone, GridItem } from 'react-grid-dnd'
-import useSavedPositionSheetStore from '../../../../../hooks/zustand/action-sheets/useSavedPositionSheetStore'
 import { InterestDto } from '../../../../../types/domain/interest/InterestDto'
 import FavoriteItem from '../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 
@@ -10,8 +10,6 @@ type Props = {
 }
 
 const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
-  const { openSheet } = useSavedPositionSheetStore()
-
   function onChange(
     _sourceId: string,
     sourceIndex: number,
@@ -26,7 +24,15 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
     props.onDragChange(plannedItem.id, newPosition)
   }
 
-  const rowHeight = (100 * 4) / 3 + 16
+  const isBook = useMemo(
+    () => plannedItems[0]?.syncroItem?.type === 'book',
+    [plannedItems]
+  )
+
+  const rowHeight = useMemo(
+    () => (isBook ? (100 * 3) / 2 + 16 : (100 * 4) / 3 + 16),
+    [isBook]
+  )
 
   return (
     <GridContextProvider onChange={onChange}>
