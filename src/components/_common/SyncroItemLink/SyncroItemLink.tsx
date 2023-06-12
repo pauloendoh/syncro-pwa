@@ -41,14 +41,14 @@ const SyncroItemLink = (props: Props) => {
 
   return (
     <HoverCard
-      openDelay={1000}
+      openDelay={500}
       closeDelay={500}
       width={400}
       disabled={isMobile || props.disablePreview}
       withArrow
       withinPortal={props.previewWithinPortal}
       middlewares={{
-        flip: true,
+        flip: false,
         shift: true,
       }}
       position={props.previewPosition || 'bottom'}
