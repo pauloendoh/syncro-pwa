@@ -106,7 +106,7 @@ const HomeRatingItem = (props: Props) => {
                     style={{
                       marginLeft: 8,
                       position: 'relative',
-                      top: 2,
+                      top: 3,
                     }}
                     title={typeMap?.getTypeLabel()}
                   >
