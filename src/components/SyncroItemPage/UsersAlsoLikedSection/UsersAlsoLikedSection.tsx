@@ -42,7 +42,7 @@ const UsersAlsoLikedSection = (props: Props) => {
                 gap={24}
               >
                 <FlexCol align="center" gap={8}>
-                  <SyncroItemLink item={item}>
+                  <SyncroItemLink item={item} previewWithinPortal>
                     <SyncroItemImage item={item} width={140} />
                   </SyncroItemLink>
                   <SyncroItemLink item={item}>

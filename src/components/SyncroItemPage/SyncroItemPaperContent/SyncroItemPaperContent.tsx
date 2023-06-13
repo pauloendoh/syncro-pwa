@@ -28,11 +28,7 @@ type Props = {
 
 const SyncroItemPaperContent = (props: Props) => {
   const { syncroItemId } = props
-  const {
-    data: item,
-    isLoading,
-    isFetching,
-  } = useSyncroItemDetailsQuery(syncroItemId, {
+  const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId, {
     initialData: props.initialData || undefined,
   })
 
@@ -104,11 +100,12 @@ const SyncroItemPaperContent = (props: Props) => {
             <SyncroItemSummarySection item={item} />
           </Box>
 
-          {isFetching && (
-            <Box mt={24}>
-              <Skeleton h={24} />
-            </Box>
-          )}
+          {(item.type === 'tvSeries' || item.type === 'movie') &&
+            !item.imdbExtraInfo && (
+              <Box mt={24}>
+                <Skeleton h={24} />
+              </Box>
+            )}
 
           {item.imdbExtraInfo && (
             <Box mt={24}>
