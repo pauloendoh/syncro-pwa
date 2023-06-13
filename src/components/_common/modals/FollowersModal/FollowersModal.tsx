@@ -68,13 +68,15 @@ const FollowersModal = () => {
             <Tabs.Tab value={'1'}>Following</Tabs.Tab>
           </Tabs.List>
 
-          <ScrollArea>
-            <FlexCol gap={16} pt={24} pr={16} mah={'calc(100vh - 168px)'}>
-              {userList.map((user) => (
-                <UserSearchItem key={user.id} user={user} />
-              ))}
-            </FlexCol>
-          </ScrollArea>
+          {userList.length!! && (
+            <ScrollArea.Autosize mah={'calc(100vh - 168px)'}>
+              <FlexCol gap={16} pt={24} pr={16}>
+                {userList.map((user) => (
+                  <UserSearchItem key={user.id} user={user} />
+                ))}
+              </FlexCol>
+            </ScrollArea.Autosize>
+          )}
         </Tabs>
       </Box>
     </Modal>
