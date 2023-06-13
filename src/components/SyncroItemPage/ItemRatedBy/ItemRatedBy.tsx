@@ -35,11 +35,12 @@ const ItemRatedBy = (props: Props) => {
   const { openModal } = useItemRatedByModalStore()
 
   if (!data || isLoading) {
-    return <Skeleton height={24} />
+    return <Skeleton height={40} />
   }
 
   return (
     <FlexVCenter
+      h={40}
       onClick={() => {
         openModal(props.itemId)
       }}
