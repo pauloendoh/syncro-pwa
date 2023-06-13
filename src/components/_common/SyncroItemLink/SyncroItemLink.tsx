@@ -1,6 +1,7 @@
 import { HoverCard } from '@mantine/core'
 import { FloatingPosition } from '@mantine/core/lib/Floating'
-import React from 'react'
+import { useMouse } from '@mantine/hooks'
+import React, { useMemo, useState } from 'react'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { cookieKeys } from '../../../utils/consts/cookieKeys'
@@ -39,10 +40,22 @@ const SyncroItemLink = (props: Props) => {
 
   const { isMobile } = useMyMediaQuery()
 
+  const { x, y } = useMouse()
+
+  const initialPosition = useMemo(() => {
+    if (props.previewPosition) return props.previewPosition
+
+    // only if y is on the last 300px of the bottom of the screen
+    if (y > window.innerHeight - 300) return 'top'
+
+    return 'bottom'
+  }, [y, props.previewPosition])
+
+  const [keepPosition, setKeepPosition] = useState(initialPosition)
+
   return (
     <HoverCard
       openDelay={500}
-      closeDelay={500}
       width={400}
       disabled={isMobile || props.disablePreview}
       withArrow
@@ -51,7 +64,10 @@ const SyncroItemLink = (props: Props) => {
         flip: false, // https://floating-ui.com/docs/flip
         shift: true, //  https://floating-ui.com/docs/shift
       }}
-      position={props.previewPosition || 'bottom'}
+      position={keepPosition}
+      onOpen={() => {
+        setKeepPosition(initialPosition)
+      }}
     >
       <HoverCard.Target>
         <span>
