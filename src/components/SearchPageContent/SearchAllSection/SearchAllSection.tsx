@@ -15,7 +15,7 @@ const SearchAllSection = (props: Props) => {
   if (isLoading || !data) return <CenterLoader />
 
   return (
-    <FlexCol gap={24}>
+    <FlexCol gap={40}>
       {
         // for each key value
         // render a section
