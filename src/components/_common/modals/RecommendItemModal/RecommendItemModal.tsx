@@ -1,4 +1,5 @@
 import { Modal, Title } from '@mantine/core'
+import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemModalStore from '../../../../hooks/zustand/modals/useRecommendItemModalStore'
 import { zIndexes } from '../../../../utils/zIndexes'
@@ -6,6 +7,8 @@ import RecommendItemToUsersList from './RecommendItemToUsersList/RecommendItemTo
 
 const RecommendItemModal = () => {
   const { closeModal, itemId } = useRecommendItemModalStore()
+
+  const { data: itemDetails } = useSyncroItemDetailsQuery(itemId)
 
   const { recommendItemIsOpen } = useMyRouterQuery()
 
@@ -19,7 +22,7 @@ const RecommendItemModal = () => {
       onClose={() => {
         handleClose()
       }}
-      title={<Title order={4}>Recommend to your mutuals</Title>}
+      title={<Title order={4}>Recommend to users you follow</Title>}
       styles={{
         inner: {
           top: 40,

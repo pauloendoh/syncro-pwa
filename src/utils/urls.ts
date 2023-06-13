@@ -132,8 +132,8 @@ export const urls = {
     notifications: API_URL + `/notifications`,
     hideNotificationDots: API_URL + `/notifications/hide-dots`,
 
-    mutualsSavedItem: (itemId: string) =>
-      API_URL + `/me/mutuals/saved-item?itemId=${itemId}`,
+    usersToRecommend: (itemId: string) =>
+      API_URL + `/users-to-recommend?itemId=${itemId}`,
 
     usersAlsoLiked: (itemId: string) =>
       API_URL + `/users-also-liked?itemId=${itemId}`,
