@@ -47,31 +47,30 @@ const SyncroItemSummarySection = ({ item }: Props) => {
             onReflow={handleReflow}
           />
         )}
-        {canToggleExpand && (
-          <Box
-            style={{
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              width: 'fit-content',
-              marginTop: 8,
-            }}
-            onClick={() => {
-              if (seeMore === null) {
-                setSeeMore(false)
-              }
-              if (seeMore === true) {
-                setSeeMore(false)
-              }
-              if (seeMore === false) {
-                setSeeMore(true)
-              }
-            }}
-          >
-            {seeMore === null && 'Show more'}
-            {seeMore === true && 'Show more '}
-            {seeMore === false && 'Show less '}
-          </Box>
-        )}
+        <Box
+          style={{
+            visibility: canToggleExpand ? 'visible' : 'hidden',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            width: 'fit-content',
+            marginTop: 8,
+          }}
+          onClick={() => {
+            if (seeMore === null) {
+              setSeeMore(false)
+            }
+            if (seeMore === true) {
+              setSeeMore(false)
+            }
+            if (seeMore === false) {
+              setSeeMore(true)
+            }
+          }}
+        >
+          {seeMore === null && 'Show more'}
+          {seeMore === true && 'Show more '}
+          {seeMore === false && 'Show less '}
+        </Box>
       </Box>
 
       {item.mangaExtraInfo && (
