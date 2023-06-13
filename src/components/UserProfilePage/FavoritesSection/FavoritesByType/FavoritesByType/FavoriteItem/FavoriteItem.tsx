@@ -28,7 +28,6 @@ const FavoriteItem = (props: Props) => {
       item={props.item}
       draggable
       previewWithinPortal
-      disablePreview={props.draggable}
       previewPosition={props.previewPosition}
     >
       <div
