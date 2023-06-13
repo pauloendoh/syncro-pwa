@@ -1,5 +1,5 @@
-import { Box, Text, Title } from '@mantine/core'
-import { useState } from 'react'
+import { Box, Skeleton, Text, Title } from '@mantine/core'
+import { useMemo, useState } from 'react'
 import LinesEllipsis from 'react-lines-ellipsis'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -22,6 +22,13 @@ const SyncroItemSummarySection = ({ item }: Props) => {
       setCanToggleExpand(true)
     }
   }
+
+  const showSkeleton = useMemo(
+    () =>
+      (item.type === 'manga' && !item.mangaExtraInfo) ||
+      (item.type === 'game' && !item.gameExtraInfo),
+    [item]
+  )
 
   return (
     <FlexCol>
@@ -72,6 +79,12 @@ const SyncroItemSummarySection = ({ item }: Props) => {
           {seeMore === false && 'Show less '}
         </Box>
       </Box>
+
+      {showSkeleton && (
+        <Box mt={24}>
+          <Skeleton h={item.type === 'manga' ? 46.5 : 23.5} w={280} />
+        </Box>
+      )}
 
       {item.mangaExtraInfo && (
         <Box mt={24}>
