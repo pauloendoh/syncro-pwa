@@ -118,7 +118,12 @@ const SearchAllSectionTypeItem = (props: Props) => {
           }}
         >
           {props.items.slice(0, 8).map((item) => (
-            <FavoriteItem key={item.id} item={item} alwaysShowTitle />
+            <FavoriteItem
+              key={item.id}
+              item={item}
+              width={116}
+              alwaysShowTitle
+            />
           ))}
         </Flex>
       )}
