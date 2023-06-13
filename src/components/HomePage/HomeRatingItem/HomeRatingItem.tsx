@@ -104,7 +104,7 @@ const HomeRatingItem = (props: Props) => {
 
                   <span
                     style={{
-                      marginLeft: 8,
+                      marginLeft: 4,
                       position: 'relative',
                       top: 3,
                     }}
