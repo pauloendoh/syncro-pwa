@@ -34,6 +34,7 @@ const ImdbExtraInfoSection = ({ item }: Props) => {
 
     return ''
   }, [item])
+
   if (!item.imdbExtraInfo) return null
 
   return <Text>{text}</Text>

@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Title } from '@mantine/core'
+import { Box, Flex, Skeleton, Text, Title } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -99,6 +99,12 @@ const SyncroItemPaperContent = (props: Props) => {
           <Box mt={24}>
             <SyncroItemSummarySection item={item} />
           </Box>
+
+          {isLoading && (
+            <Box mt={24}>
+              <Skeleton h={24} />
+            </Box>
+          )}
 
           {item.imdbExtraInfo && (
             <Box mt={24}>
