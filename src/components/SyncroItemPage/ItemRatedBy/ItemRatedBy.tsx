@@ -34,11 +34,7 @@ const ItemRatedBy = (props: Props) => {
 
   const { openModal } = useItemRatedByModalStore()
 
-  if (!data || data.length === 0) {
-    return null
-  }
-
-  if (isLoading) {
+  if (!data || isLoading) {
     return <Skeleton height={24} />
   }
 
