@@ -107,19 +107,21 @@ const SearchAllSectionTypeItem = (props: Props) => {
           </Carousel.Slide>
         ))}
       </Carousel> */}
-      <Flex
-        gap={8}
-        wrap="wrap"
-        p={8}
-        sx={{
-          border: '1px solid ' + theme.colors.dark[5],
-          borderRadius: 4,
-        }}
-      >
-        {props.items.slice(0, 8).map((item) => (
-          <FavoriteItem key={item.id} item={item} alwaysShowTitle />
-        ))}
-      </Flex>
+      {!!props.items.length && (
+        <Flex
+          gap={8}
+          wrap="wrap"
+          p={8}
+          sx={{
+            border: '1px solid ' + theme.colors.dark[5],
+            borderRadius: 4,
+          }}
+        >
+          {props.items.slice(0, 8).map((item) => (
+            <FavoriteItem key={item.id} item={item} alwaysShowTitle />
+          ))}
+        </Flex>
+      )}
     </FlexCol>
   )
 }
