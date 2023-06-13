@@ -50,24 +50,7 @@ const SyncroItemImage = (props: Props) => {
 
   return (
     <Box pos="relative" ref={props.ref}>
-      {!showNextImage && (
-        <img
-          width={finalWidth}
-          height={height}
-          src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
-          alt={props.item?.title || 'syncro-item'}
-          style={{
-            objectFit: 'cover',
-            borderRadius: 4,
-          }}
-          onDragStart={(e) => {
-            if (props.draggable) {
-              e.preventDefault()
-            }
-          }}
-        />
-      )}
-      {showNextImage && (
+      {!!showNextImage ? (
         <MyNextImage300x400
           width={finalWidth}
           height={height}
@@ -78,6 +61,22 @@ const SyncroItemImage = (props: Props) => {
             borderRadius: 4,
           }}
           onError={() => setIsError(true)}
+          onDragStart={(e) => {
+            if (props.draggable) {
+              e.preventDefault()
+            }
+          }}
+        />
+      ) : (
+        <img
+          width={finalWidth}
+          height={height}
+          src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
+          alt={props.item?.title || 'syncro-item'}
+          style={{
+            objectFit: 'cover',
+            borderRadius: 4,
+          }}
           onDragStart={(e) => {
             if (props.draggable) {
               e.preventDefault()
