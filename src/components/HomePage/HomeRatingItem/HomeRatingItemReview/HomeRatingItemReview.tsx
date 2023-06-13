@@ -29,17 +29,17 @@ const HomeRatingItemReview = (props: Props) => {
       <Text lineClamp={3} ref={reviewRef}>
         {props.rating.review}
       </Text>
-      {reviewHeight > 64 && (
-        <Span
-          sx={{
-            cursor: 'pointer',
-            fontWeight: 600,
-          }}
-          onClick={() => openModal(props.rating)}
-        >
-          See more
-        </Span>
-      )}
+
+      <Span
+        sx={{
+          visibility: reviewHeight > 64 ? 'visible' : 'hidden',
+          cursor: 'pointer',
+          fontWeight: 600,
+        }}
+        onClick={() => openModal(props.rating)}
+      >
+        See more
+      </Span>
     </Text>
   )
 }

@@ -48,10 +48,10 @@ const SyncroItemLink = (props: Props) => {
       withArrow
       withinPortal={props.previewWithinPortal}
       middlewares={{
-        flip: true, // https://floating-ui.com/docs/flip
+        flip: false, // https://floating-ui.com/docs/flip
         shift: true, //  https://floating-ui.com/docs/shift
       }}
-      position={props.previewPosition}
+      position={props.previewPosition || 'bottom'}
     >
       <HoverCard.Target>
         <span>
