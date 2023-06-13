@@ -28,7 +28,11 @@ type Props = {
 
 const SyncroItemPaperContent = (props: Props) => {
   const { syncroItemId } = props
-  const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId, {
+  const {
+    data: item,
+    isLoading,
+    isFetching,
+  } = useSyncroItemDetailsQuery(syncroItemId, {
     initialData: props.initialData || undefined,
   })
 
@@ -100,7 +104,7 @@ const SyncroItemPaperContent = (props: Props) => {
             <SyncroItemSummarySection item={item} />
           </Box>
 
-          {isLoading && (
+          {isFetching && (
             <Box mt={24}>
               <Skeleton h={24} />
             </Box>
