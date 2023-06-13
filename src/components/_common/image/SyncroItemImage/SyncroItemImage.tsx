@@ -38,11 +38,19 @@ const SyncroItemImage = (props: Props) => {
     return (finalWidth || 100) * (400 / 300)
   }, [finalWidth])
 
-  const [isError, setIsError] = useState(true)
+  const [isError, setIsError] = useState(false)
+
+  const showNextImage = useMemo(() => {
+    return (
+      !isError &&
+      props.item?.syncroRatingCount &&
+      props.item?.syncroRatingCount > 0
+    )
+  }, [isError])
 
   return (
     <Box pos="relative" ref={props.ref}>
-      {isError && (
+      {!showNextImage && (
         <img
           width={finalWidth}
           height={height}
@@ -59,7 +67,7 @@ const SyncroItemImage = (props: Props) => {
           }}
         />
       )}
-      {!isError && (
+      {showNextImage && (
         <MyNextImage300x400
           width={finalWidth}
           height={height}
