@@ -46,18 +46,21 @@ const SyncroItemLink = (props: Props) => {
     if (props.previewPosition) return props.previewPosition
 
     // only if y is on the last 300px of the bottom of the screen
-    if (y > window.innerHeight - 300) return 'top'
+    if (y > window.innerHeight / 2) return 'top'
 
     return 'bottom'
   }, [y, props.previewPosition])
 
   const [keepPosition, setKeepPosition] = useState(initialPosition)
 
+  const [forceDisabled, setForceDisabled] = useState(false)
+
   return (
     <HoverCard
       openDelay={500}
+      closeDelay={250}
       width={400}
-      disabled={isMobile || props.disablePreview}
+      disabled={isMobile || props.disablePreview || forceDisabled}
       withArrow
       withinPortal={props.previewWithinPortal}
       middlewares={{
@@ -67,6 +70,14 @@ const SyncroItemLink = (props: Props) => {
       position={keepPosition}
       onOpen={() => {
         setKeepPosition(initialPosition)
+      }}
+      onClose={() => {
+        setTimeout(() => {
+          setForceDisabled(true)
+        }, 250)
+        setTimeout(() => {
+          setForceDisabled(false)
+        }, 2000)
       }}
     >
       <HoverCard.Target>
