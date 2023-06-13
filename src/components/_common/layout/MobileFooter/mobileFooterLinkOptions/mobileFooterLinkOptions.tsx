@@ -62,11 +62,13 @@ export const useMobileFooterLinkOptions = () => {
               : undefined,
           }}
         >
-          <UserImage
-            username={authUser?.username}
-            pictureUrl={userInfo?.profile.pictureUrl}
-            widthHeight={24}
-          />
+          {userInfo && authUser && (
+            <UserImage
+              username={authUser.username}
+              pictureUrl={userInfo.profile.pictureUrl}
+              widthHeight={24}
+            />
+          )}
         </div>
       ),
       href: urls.pages.user(authUser?.id!),
