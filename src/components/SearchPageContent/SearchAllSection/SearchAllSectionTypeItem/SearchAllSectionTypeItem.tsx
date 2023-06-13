@@ -32,7 +32,7 @@ const SearchAllSectionTypeItem = (props: Props) => {
               width: 4,
               borderRadius: 1,
               height: 24,
-              background: theme.colors.secondary[6],
+              background: theme.colors.secondary[9],
             }}
           />
           <Title order={4}>
