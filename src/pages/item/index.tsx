@@ -16,13 +16,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const { syncroItemId } = context.query
-  let item: SyncroItemDto | null = null
+  let foundItem: SyncroItemDto | null = null
 
   const cookies = nookies.get(context)
   const prefetchedStr = cookies[cookieKeys.prefetchedItem(String(syncroItemId))]
 
   if (prefetchedStr) {
-    item = JSON.parse(prefetchedStr)
+    foundItem = JSON.parse(prefetchedStr)
 
     // remove cookie
     nookies.destroy(context, cookieKeys.prefetchedItem(String(syncroItemId)), {
@@ -30,16 +30,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     })
   }
 
-  if (!item && syncroItemId && typeof syncroItemId === 'string') {
+  if (!foundItem && syncroItemId && typeof syncroItemId === 'string') {
     const res = await axios.get<SyncroItemDto>(
       urls.api.syncroItemDetails(syncroItemId)
     )
-    if (res.data) item = res.data
+    if (res.data) foundItem = res.data
   }
 
   return {
     props: {
-      item,
+      item: foundItem,
     },
   }
 }

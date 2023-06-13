@@ -46,7 +46,7 @@ const SyncroItemLink = (props: Props) => {
     if (props.previewPosition) return props.previewPosition
 
     // only if y is on the last 300px of the bottom of the screen
-    if (y > window.innerHeight / 2) return 'top'
+    if (window && y > window.innerHeight / 2) return 'top'
 
     return 'bottom'
   }, [y, props.previewPosition])
