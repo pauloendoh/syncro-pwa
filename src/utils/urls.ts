@@ -54,6 +54,7 @@ export const urls = {
 
     search: (params: SearchParams) =>
       API_URL + '/search?' + queryString.stringify(params),
+    searchAll: (q: string) => API_URL + '/search-all?q=' + q,
     searchMore: (params: SearchParams) =>
       API_URL + '/search-more?' + queryString.stringify(params),
     searchAutocomplete: (params: SearchParams) =>

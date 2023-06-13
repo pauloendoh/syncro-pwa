@@ -6,7 +6,7 @@ export class SearchParams {
   q: string
 
   @IsString()
-  type: SyncroItemType | 'users'
+  type: SyncroItemType | 'users' | 'all'
 }
 
-export type SearchType = SyncroItemType | 'users'
+export type SearchType = SyncroItemType | 'users' | 'all'

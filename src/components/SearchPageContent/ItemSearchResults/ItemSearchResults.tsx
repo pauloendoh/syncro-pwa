@@ -4,7 +4,7 @@ import { upsertMany } from 'endoh-utils'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDidNotFindMutation from '../../../hooks/react-query/did-not-find/useDidNotFindMutation'
-import { useOverallSearchQuery } from '../../../hooks/react-query/search/useOverallSearchQuery'
+import { useSearchByTypeQuery } from '../../../hooks/react-query/search/useSearchByTypeQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -30,7 +30,7 @@ const ItemSearchResults = (props: Props) => {
     data: searchResultItems,
     isLoading,
     isError,
-  } = useOverallSearchQuery(props.query, props.type, {
+  } = useSearchByTypeQuery(props.query, props.type, {
     refetchOnWindowFocus: false,
   })
 

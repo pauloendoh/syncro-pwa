@@ -14,6 +14,7 @@ import { SearchType } from '../../../../../types/domain/search/SearchParams'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../../utils/urls'
 import { useAxios } from '../../../../../utils/useAxios'
+import { isSyncroItemType } from '../../../../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
 import SyncroItemLink from '../../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../flex/FlexCol'
@@ -65,6 +66,12 @@ const SearchBar = (props: Props) => {
         setPreviewedItems([])
         return
       }
+
+      if (!isSyncroItemType(selectedType)) {
+        setPreviewedItems([])
+        return
+      }
+
       if (input.length > 0) {
         axios
           .get<SyncroItemDto[]>(

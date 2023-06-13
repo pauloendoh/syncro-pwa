@@ -13,9 +13,10 @@ import SearchItemYourSection from '../SearchItemYourSection/SearchItemYourSectio
 
 interface Props {
   item: SyncroItemDto
+  previewWithinPortal?: boolean
 }
 
-const SyncroSearchItem = ({ item }: Props) => {
+const SyncroSearchItem = ({ item, ...props }: Props) => {
   const { data: myRatings } = useMyRatingsQuery()
   const { data: myInterests } = useMyInterestsQuery()
 
@@ -37,12 +38,18 @@ const SyncroSearchItem = ({ item }: Props) => {
 
   return (
     <Flex gap={16}>
-      <SyncroItemLink item={item}>
+      <SyncroItemLink
+        item={item}
+        previewWithinPortal={props.previewWithinPortal}
+      >
         <SyncroItemImage item={item} width={100} height={100} />
       </SyncroItemLink>
 
       <FlexCol>
-        <SyncroItemLink item={item}>
+        <SyncroItemLink
+          item={item}
+          previewWithinPortal={props.previewWithinPortal}
+        >
           <Text
             sx={(theme) => ({
               color: theme.colors.dark[0],

@@ -12,6 +12,7 @@ import {
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { urls } from '../../utils/urls'
+import { isSyncroItemType } from '../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import PlannedItemsByType from './PlannedItemsByType/PlannedItemsByType'
@@ -35,7 +36,7 @@ const PlannedItemsPage = () => {
   }, [localType])
 
   useEffect(() => {
-    if (type && type !== 'users') {
+    if (isSyncroItemType(type)) {
       setLocalType(type)
     }
   }, [type])

@@ -5,6 +5,10 @@ export const searchTabOptions: {
   label: string
 }[] = [
   {
+    key: 'all',
+    label: 'All',
+  },
+  {
     key: 'movie',
     label: 'Movies',
   },

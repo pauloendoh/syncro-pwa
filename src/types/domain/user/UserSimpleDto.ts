@@ -19,3 +19,16 @@ export const buildUserSimpleDto = (
 
   ...p,
 })
+
+export function isUserSimpleDto(obj: object): obj is UserSimpleDto {
+  const result = obj as UserSimpleDto
+
+  return (
+    result !== undefined &&
+    result.id !== undefined &&
+    result.username !== undefined &&
+    result.email !== undefined &&
+    result.profile !== undefined &&
+    result.isAdmin !== undefined
+  )
+}

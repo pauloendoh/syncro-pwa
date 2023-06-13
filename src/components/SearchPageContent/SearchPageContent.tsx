@@ -5,7 +5,9 @@ import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import SearchBar from '../_common/layout/MyNavbar/SearchBar/SearchBar'
 import ItemSearchResults from './ItemSearchResults/ItemSearchResults'
+import SearchAllSection from './SearchAllSection/SearchAllSection'
 import UserSearchResults from './UserSearchResults/UserSearchResults'
+import { isSyncroItemType } from './isSyncroItemType/isSyncroItemType'
 
 type Props = {}
 
@@ -24,13 +26,14 @@ const SearchPageContent = (props: Props) => {
         )}
 
         <Box mt={16} />
-        {type !== 'users' && !!q && !!type && (
+        {!!q && isSyncroItemType(type) && (
           <ItemSearchResults query={q} type={type} />
         )}
 
         {type === 'users' && (
           <UserSearchResults onClickUser={() => {}} query={q} />
         )}
+        {type === 'all' && <SearchAllSection q={q} />}
       </Container>
     </LoggedLayout>
   )

@@ -2,6 +2,7 @@ import { FloatingPosition } from '@mantine/core/lib/Floating'
 import { useState } from 'react'
 import { useMyMediaQuery } from '../../../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../../../types/domain/syncro-item/SyncroItemDto'
+import { getItemTitleAndYear } from '../../../../../../utils/domains/syncro-item/getItemTitleAndYear'
 import SyncroItemLink from '../../../../../_common/SyncroItemLink/SyncroItemLink'
 import SyncroItemImage from '../../../../../_common/image/SyncroItemImage/SyncroItemImage'
 import Span from '../../../../../_common/text/Span'
@@ -10,15 +11,17 @@ type Props = {
   item: SyncroItemDto
   draggable?: boolean
   previewPosition?: FloatingPosition
+  width?: number
+  alwaysShowTitle?: boolean
 }
 
 const FavoriteItem = (props: Props) => {
   const [isHovering, setIsHovering] = useState(false)
   const { isMobile } = useMyMediaQuery()
 
-  const showTitle = isHovering || isMobile
+  const showTitle = isHovering || isMobile || props.alwaysShowTitle
 
-  const width = 100
+  const width = props.width || 100
 
   return (
     <SyncroItemLink
@@ -51,7 +54,7 @@ const FavoriteItem = (props: Props) => {
             p={4}
             w={width}
           >
-            {props.item.title}
+            {getItemTitleAndYear(props.item)}
           </Span>
         )}
       </div>

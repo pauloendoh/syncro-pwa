@@ -47,10 +47,6 @@ const SyncroItemLink = (props: Props) => {
       disabled={isMobile || props.disablePreview}
       withArrow
       withinPortal={props.previewWithinPortal}
-      middlewares={{
-        flip: false,
-        shift: true,
-      }}
       position={props.previewPosition || 'bottom'}
     >
       <HoverCard.Target>
