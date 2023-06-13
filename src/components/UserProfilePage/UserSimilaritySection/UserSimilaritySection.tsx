@@ -1,19 +1,28 @@
-import { Button, Text } from '@mantine/core'
+import { Button, Skeleton, Text } from '@mantine/core'
 import { useUserSimilarityQuery } from '../../../hooks/react-query/rating/user-similarity/useUserSimilarityQuery'
 import useUserSimilarityModalStore from '../../../hooks/zustand/modals/useUserSimilarityModalStore'
 import FlexCol from '../../_common/flex/FlexCol'
+import FlexVCenter from '../../_common/flex/FlexVCenter'
 
 type Props = {
   userId: string
 }
 
 const UserSimilaritySection = (props: Props) => {
-  const { data } = useUserSimilarityQuery(props.userId)
+  const { data, isLoading } = useUserSimilarityQuery(props.userId)
   const { openModal } = useUserSimilarityModalStore()
 
-  if (!data) return null
+  if (!data || isLoading)
+    return (
+      <FlexVCenter gap={8}>
+        <Skeleton h={64} w={160} />
+        {/* <Skeleton h={64} />
+        <Skeleton h={64} /> */}
+      </FlexVCenter>
+    )
+
   return (
-    <>
+    <FlexVCenter h={64}>
       <Button
         variant="subtle"
         styles={{
@@ -22,6 +31,7 @@ const UserSimilaritySection = (props: Props) => {
             height: 'fit-content',
           },
         }}
+        py={4}
         color="dark"
         onClick={() => openModal(props.userId)}
       >
@@ -39,7 +49,7 @@ const UserSimilaritySection = (props: Props) => {
           </Text>
         </FlexCol>
       </Button>
-    </>
+    </FlexVCenter>
   )
 }
 

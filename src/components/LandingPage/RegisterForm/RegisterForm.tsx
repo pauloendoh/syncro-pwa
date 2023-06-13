@@ -13,7 +13,7 @@ import MyTextInput from '../../_common/inputs/MyTextInput'
 
 class RegisterDto {
   @IsString({ message: 'Username is required.' })
-  @MinLength(6, { message: 'Username must have at least 6 characters.' })
+  @MinLength(3, { message: 'Username must have at least 3 characters.' })
   @MaxLength(16, { message: 'Username must have at most 16 characters.' })
   username: string
 

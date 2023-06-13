@@ -1,4 +1,4 @@
-import { ActionIcon, Indicator, Tooltip } from '@mantine/core'
+import { ActionIcon, Indicator, Tooltip, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import {
@@ -39,6 +39,8 @@ const NavbarRightIcons = () => {
 
   const { data: unreadMessageRooms, isLoading } = useUnreadMessageRoomsQuery()
 
+  const theme = useMantineTheme()
+
   return (
     <>
       {isMobile && (
@@ -47,7 +49,7 @@ const NavbarRightIcons = () => {
             <MyNextLink href={urls.pages.savedItems()}>
               <ActionIcon>
                 {isPlannedItemsPage ? (
-                  <IoBookmarks size={24} />
+                  <IoBookmarks size={24} color={theme.colors.primary[9]} />
                 ) : (
                   <IoBookmarksOutline size={24} />
                 )}
@@ -74,7 +76,7 @@ const NavbarRightIcons = () => {
           <MyNextLink href={urls.pages.messagesIndex}>
             <ActionIcon>
               {isMessagesPage ? (
-                <MdMail size={24} />
+                <MdMail size={24} color={theme.colors.primary[9]} />
               ) : (
                 <MdMailOutline size={24} />
               )}
@@ -97,7 +99,7 @@ const NavbarRightIcons = () => {
           <MyNextLink href={urls.pages.notifications}>
             <ActionIcon>
               {isNotificationPage ? (
-                <IoNotifications size={24} />
+                <IoNotifications size={24} color={theme.colors.primary[9]} />
               ) : (
                 <IoNotificationsOutline size={24} />
               )}

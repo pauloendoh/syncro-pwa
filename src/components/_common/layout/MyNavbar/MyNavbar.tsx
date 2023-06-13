@@ -10,7 +10,7 @@ import {
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { IoCompass, IoCompassOutline } from 'react-icons/io5'
-import { MdHome } from 'react-icons/md'
+import { MdHome, MdOutlineHome } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls'
@@ -63,21 +63,32 @@ const MyNavbar = (props: Props) => {
               sx={{
                 paddingLeft: isSmallScreen ? 16 : 32,
               }}
+              gap={4}
             >
-              {isSmallScreen ? (
-                <ActionIcon>
-                  <MdHome size={24} />
-                </ActionIcon>
-              ) : (
-                <Title
-                  sx={(theme) => ({
-                    color: theme.colors.dark[0],
-                  })}
-                  order={2}
-                >
-                  Syncro
-                </Title>
-              )}
+              {/* <MyNextImage300
+                alt="Syncro logo"
+                src="/syncro-logo.svg"
+                style={{
+                  width: 24,
+                  height: 24,
+                }}
+              /> */}
+              <Title
+                sx={(theme) => ({
+                  color: theme.colors.dark[0],
+                })}
+                order={2}
+              >
+                Syncro
+              </Title>
+
+              <ActionIcon ml={8}>
+                {router.pathname === urls.pages.index ? (
+                  <MdHome size={24} color={theme.colors.primary[9]} />
+                ) : (
+                  <MdOutlineHome size={24} />
+                )}
+              </ActionIcon>
             </FlexVCenter>
           </MyNextLink>
         </Grid.Col>
@@ -96,7 +107,10 @@ const MyNavbar = (props: Props) => {
                     <MyNextLink href={urls.pages.explore('popular-users')}>
                       <ActionIcon>
                         {currentlyOnExplore ? (
-                          <IoCompass size={24} />
+                          <IoCompass
+                            size={24}
+                            color={theme.colors.primary[9]}
+                          />
                         ) : (
                           <IoCompassOutline size={24} />
                         )}

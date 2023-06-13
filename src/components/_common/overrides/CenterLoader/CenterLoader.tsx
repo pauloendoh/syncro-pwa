@@ -1,12 +1,14 @@
 import { Center, Loader } from '@mantine/core'
 
-type Props = {}
+type Props = {
+  height?: number
+}
 
 const CenterLoader = (props: Props) => {
   return (
     <Center
       sx={{
-        height: 80,
+        height: props.height || 80,
       }}
     >
       <Loader />

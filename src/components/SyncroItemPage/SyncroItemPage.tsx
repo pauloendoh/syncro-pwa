@@ -4,7 +4,6 @@ import { useItemReviewQuery } from '../../hooks/react-query/review/useItemReview
 import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
-import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
@@ -31,8 +30,6 @@ const SyncroItemPage = (props: Props) => {
   })
 
   const { isMobile } = useMyMediaQuery()
-
-  const { authUser } = useAuthStore()
 
   const { data: reviews } = useItemReviewQuery(syncroItemId!)
 

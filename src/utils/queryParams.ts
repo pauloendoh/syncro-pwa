@@ -12,4 +12,5 @@ export enum QueryParams {
   shareRatingModal = 'shareRatingModal',
   feedSettingsModal = 'feedSettingsModal',
   onboardingModal = 'onboardingModal',
+  itemImageOpen = 'itemImageOpen',
 }

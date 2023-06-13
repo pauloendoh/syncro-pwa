@@ -49,7 +49,7 @@ const OnboardingModal = () => {
           </FlexVCenter>
         )
       }
-      size="xs"
+      size="sm"
     >
       {selectedFavorite === null && (
         <OnboardingStep1 onSelectType={setSelectedFavorite} />

@@ -69,7 +69,7 @@ const FollowersModal = () => {
           </Tabs.List>
 
           <ScrollArea>
-            <FlexCol gap={16} pt={24} pr={16} mah={'calc(100vh - 140px)'}>
+            <FlexCol gap={16} pt={24} pr={16} mah={'calc(100vh - 168px)'}>
               {userList.map((user) => (
                 <UserSearchItem key={user.id} user={user} />
               ))}

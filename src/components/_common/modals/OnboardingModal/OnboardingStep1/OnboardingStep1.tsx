@@ -16,7 +16,7 @@ const OnboardingStep1 = (props: Props) => {
   const width = 124
   return (
     <FlexCol gap={16}>
-      <Flex wrap="wrap" gap={16}>
+      <Flex wrap="wrap" gap={16} justify={'center'}>
         {syncroItemOptions.map((o) => (
           <div
             key={o.itemType}
