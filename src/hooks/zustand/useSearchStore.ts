@@ -7,7 +7,7 @@ interface IStore {
 }
 
 const useSearchStore = create<IStore>((set, get) => ({
-  selectedType: 'movie',
+  selectedType: 'all',
   setSelectedType: (type) => set({ selectedType: type }),
 }))
 
