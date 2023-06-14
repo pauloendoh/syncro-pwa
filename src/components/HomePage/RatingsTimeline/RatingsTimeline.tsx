@@ -45,7 +45,7 @@ const RatingsTimeline = (props: Props) => {
     <>
       {isLoading && <CenterLoader />}
 
-      <FlexCol gap={16} mt={16} ml={isMobile ? 0 : 16}>
+      <FlexCol gap={16} mt={16}>
         {flatRatings.map((rating) => (
           <HomeRatingItem rating={rating} key={rating.id} />
         ))}

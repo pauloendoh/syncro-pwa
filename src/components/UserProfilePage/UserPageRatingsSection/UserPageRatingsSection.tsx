@@ -1,4 +1,4 @@
-import { Menu, Title } from '@mantine/core'
+import { Box, Menu, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import {
   MdCalendarViewMonth,
@@ -6,6 +6,7 @@ import {
   MdOutlineViewStream,
 } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import RatingsTimeline from '../../HomePage/RatingsTimeline/RatingsTimeline'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -24,6 +25,8 @@ const UserPageRatingsSection = (props: Props) => {
   })
 
   const { data: homeRatings } = useTimelineRatingsQuery(props.userId)
+
+  const { isMobile } = useMyMediaQuery()
 
   if (!homeRatings || homeRatings.pages[0].length === 0) return null
 
@@ -64,7 +67,12 @@ const UserPageRatingsSection = (props: Props) => {
         </Menu>
       </FlexVCenter>
 
-      {feedView === 'card' && <RatingsTimeline userId={props.userId} />}
+      {feedView === 'card' && (
+        <Box ml={isMobile ? 0 : 16}>
+          <RatingsTimeline userId={props.userId} />
+        </Box>
+      )}
+
       {feedView === 'grid' && <UserRatingsGridView userId={props.userId} />}
     </FlexCol>
   )
