@@ -33,4 +33,9 @@ export const syncroItemMapping: {
     site: 'MAL',
     tabIndex: 4,
   },
+  music: {
+    labelPlural: 'Music',
+    site: 'Youtube',
+    tabIndex: 5,
+  },
 }

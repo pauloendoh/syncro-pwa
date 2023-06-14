@@ -24,6 +24,8 @@ export interface SyncroItemDto {
   igdbUrl: string | null
   mangaMalUrl: string | null
   openLibraryUrl: string | null
+  youtubeMusicUrl: string | null
+
   ratings?: RatingDto[]
   interests?: InterestDto[]
 
@@ -49,6 +51,7 @@ export const buildSyncroItemDto = (
   igdbUrl: null,
   mangaMalUrl: null,
   openLibraryUrl: null,
+  youtubeMusicUrl: null,
 
   avgRating: 0,
   ratingCount: 0,

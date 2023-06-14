@@ -34,6 +34,10 @@ const SyncroItemImage = (props: Props) => {
       return (finalWidth || 100) * (3 / 2)
     }
 
+    if (props.item?.type === 'music') {
+      return (finalWidth || 100) * (1 / 1)
+    }
+
     // 300 x 400
     return (finalWidth || 100) * (400 / 300)
   }, [finalWidth])

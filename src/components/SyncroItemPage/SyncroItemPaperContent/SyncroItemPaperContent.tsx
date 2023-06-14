@@ -1,4 +1,5 @@
 import { Box, Flex, Skeleton, Text, Title } from '@mantine/core'
+import ReactPlayer from 'react-player'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -97,7 +98,11 @@ const SyncroItemPaperContent = (props: Props) => {
           </Flex>
 
           <Box mt={24}>
-            <SyncroItemSummarySection item={item} />
+            {item.type !== 'music' ? (
+              <SyncroItemSummarySection item={item} />
+            ) : (
+              <ReactPlayer url={item?.youtubeMusicUrl!} />
+            )}
           </Box>
 
           {(item.type === 'tvSeries' || item.type === 'movie') &&

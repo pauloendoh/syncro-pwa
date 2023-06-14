@@ -4,6 +4,7 @@ export const syncroItemTypes = [
   'game',
   'manga',
   'book',
+  'music',
 ] as const
 
-export type SyncroItemType = typeof syncroItemTypes[number]
+export type SyncroItemType = (typeof syncroItemTypes)[number]

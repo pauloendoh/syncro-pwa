@@ -1,6 +1,7 @@
 import { useMantineTheme } from '@mantine/core'
 import { FiFilm, FiTv } from 'react-icons/fi'
 import { IoLogoGameControllerA, IoMdBook } from 'react-icons/io'
+import { IoMusicalNotesSharp } from 'react-icons/io5'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 interface Props {
   type: SyncroItemType
@@ -19,6 +20,8 @@ const SyncroItemIcon = (props: Props) => {
     return <IoLogoGameControllerA size={size} color={color} />
 
   if (type === 'movie') return <FiFilm size={size} color={color} />
+
+  if (type === 'music') return <IoMusicalNotesSharp size={size} color={color} />
 
   return <IoMdBook size={size} color={color} />
 }

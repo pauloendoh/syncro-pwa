@@ -96,4 +96,22 @@ export const syncroItemOptions: SyncroItemTypeMapOption[] = [
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMQV-HY00kL5Zu_FokWEcmvPz04WkOgH-IfVcXoQ4tcE1cY2TQ6MzrailPUYcNPmywGCo&usqp=CAU',
     onboardingSearchQuestion: 'What is one of your favorite books?',
   },
+  {
+    itemType: 'music',
+    labelPlural: 'Music',
+    site: 'Youtube',
+    tabIndex: 5,
+    getTypeLabel: (isPlural?: boolean) => {
+      return 'Music'
+    },
+    getTypeLabelLowerCase: (isPlural?: boolean) => {
+      return 'music'
+    },
+    planTo: 'Plan to listen',
+    removeFromPlanTo: 'Remove from planned music',
+    inProgressLabel: 'listening',
+
+    onboardingImageUrl: 'https://i.ytimg.com/vi/5qap5aO4i9A/maxresdefault.jpg',
+    onboardingSearchQuestion: 'What is one of your favorite songs?',
+  },
 ]

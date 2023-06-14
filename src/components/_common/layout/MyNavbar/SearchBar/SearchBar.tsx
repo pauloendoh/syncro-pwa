@@ -127,6 +127,7 @@ const SearchBar = (props: Props) => {
           position: 'relative',
           left: 0,
         }}
+        maxDropdownHeight={300}
         styles={(theme) => ({
           input: {
             borderRadius: '4px 0 0 4px',

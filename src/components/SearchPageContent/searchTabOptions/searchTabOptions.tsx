@@ -29,6 +29,10 @@ export const searchTabOptions: {
     key: 'book',
     label: 'Books',
   },
+  {
+    key: 'music',
+    label: 'Music',
+  },
 
   {
     key: 'users',
