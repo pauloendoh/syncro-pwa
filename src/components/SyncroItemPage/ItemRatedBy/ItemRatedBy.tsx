@@ -38,6 +38,10 @@ const ItemRatedBy = (props: Props) => {
     return <Skeleton height={40} />
   }
 
+  if (data.length === 0) {
+    return <></>
+  }
+
   return (
     <FlexVCenter
       h={40}
