@@ -1,4 +1,5 @@
 import { Box, Container } from '@mantine/core'
+import ReactPlayer from 'react-player'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemReviewQuery } from '../../hooks/react-query/review/useItemReviewQuery'
 import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
@@ -49,6 +50,11 @@ const SyncroItemPage = (props: Props) => {
         {canHaveTrailers && (
           <Box mt={24}>
             <TrailerSection itemId={syncroItemId!} />
+          </Box>
+        )}
+        {item?.youtubeMusicUrl && (
+          <Box mt={24}>
+            <ReactPlayer url={item?.youtubeMusicUrl!} controls width={'100%'} />
           </Box>
         )}
         {item?.type === 'manga' && (

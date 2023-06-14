@@ -55,6 +55,10 @@ const RatingRow = ({ syncroItem }: Props) => {
       return syncroItem.openLibraryUrl
     }
 
+    if (syncroItem.type === 'music') {
+      return syncroItem.youtubeMusicUrl
+    }
+
     return syncroItem.imdbUrl
   }, [syncroItem])
 
