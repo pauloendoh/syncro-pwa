@@ -101,7 +101,11 @@ const SyncroItemPaperContent = (props: Props) => {
             {item.type !== 'music' ? (
               <SyncroItemSummarySection item={item} />
             ) : (
-              <ReactPlayer url={item?.youtubeMusicUrl!} />
+              <ReactPlayer
+                url={item?.youtubeMusicUrl!}
+                controls
+                width={'100%'}
+              />
             )}
           </Box>
 
