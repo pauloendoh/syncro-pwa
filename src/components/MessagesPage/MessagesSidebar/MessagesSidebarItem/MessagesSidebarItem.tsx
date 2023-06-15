@@ -93,7 +93,7 @@ const MessagesSidebarItem = (props: Props) => {
               disabled={!props.unread}
             >
               {lastMessage?.createdAt && (
-                <Text w={32}>
+                <Text w={40}>
                   {' · '} {formatShortTimeago(new Date(lastMessage?.createdAt))}
                 </Text>
               )}

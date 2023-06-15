@@ -1,3 +1,4 @@
+import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import {
   UserSimpleDto,
   buildUserSimpleDto,
@@ -12,6 +13,9 @@ export interface MessageDto {
   text: string
   user: UserSimpleDto
   isRead: boolean
+
+  repliedToRating?: RatingDto
+  repliedToRatingId: string | null
 }
 
 export const buildMessageDto = (p?: Partial<MessageDto>): MessageDto => ({
@@ -23,6 +27,8 @@ export const buildMessageDto = (p?: Partial<MessageDto>): MessageDto => ({
   text: '',
   user: buildUserSimpleDto(),
   isRead: false,
+
+  repliedToRatingId: null,
 
   ...p,
 })

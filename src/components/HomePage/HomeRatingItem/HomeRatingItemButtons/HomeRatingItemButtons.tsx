@@ -10,6 +10,7 @@ import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemT
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import HomeRatingMoreMenu from './HomeRatingMoreMenu/HomeRatingMoreMenu'
 import PressableMyRating from './PressableMyRating/PressableMyRating'
+import ReplyToRatingSection from './ReplyToRatingSection/ReplyToRatingSection'
 
 interface Props {
   syncroItemId: string
@@ -82,6 +83,9 @@ const HomeRatingItemButtons = (props: Props) => {
           </FlexVCenter>
         </FlexVCenter>
       </Tooltip>
+
+      <ReplyToRatingSection rating={props.rating!} />
+
       {!props.hideMoreMenu && (
         <HomeRatingMoreMenu rating={props.rating} itemId={props.syncroItemId} />
       )}

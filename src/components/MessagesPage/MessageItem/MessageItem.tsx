@@ -4,6 +4,9 @@ import { useEffect, useMemo, useRef } from 'react'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
 import useReadAllMessagesMutation from '../../../hooks/react-query/message/useReadAllMessagesMutation'
 import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
+import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import FlexCol from '../../_common/flex/FlexCol'
+import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 
 type Props = {
   message: MessageDto
@@ -52,39 +55,69 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
     `
   }, [message.createdAt])
 
-  return (
-    <Flex
-      ref={containerRef}
-      sx={{
-        justifyContent: isMyMessage ? 'flex-end' : 'flex-start',
+  const { openModal } = useRatingDetailsModalStore()
 
-        // add fade in animation when rendered
-        transition: 'opacity 0.3s ease-in-out',
-      }}
-    >
-      <Tooltip
-        label={tooltipLabel}
-        withArrow
-        position={isMyMessage ? 'left' : 'right'}
-        withinPortal
+  return (
+    <FlexCol gap={4}>
+      {message.repliedToRating && (
+        <Flex justify={isMyMessage ? 'flex-end' : 'flex-start'}>
+          <FlexCol gap={4} align={isMyMessage ? 'flex-end' : 'flex-start'}>
+            <Text size="xs" color={theme.colors.dark[2]}>
+              {isMyMessage
+                ? 'You replied to their rating'
+                : 'Replied to your rating'}
+            </Text>
+            {message.repliedToRating.syncroItem && (
+              <div
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  if (message.repliedToRating) {
+                    openModal(message.repliedToRating)
+                  }
+                }}
+              >
+                <SyncroItemImage
+                  item={message.repliedToRating.syncroItem}
+                  width={80}
+                />
+              </div>
+            )}
+          </FlexCol>
+        </Flex>
+      )}
+      <Flex
+        ref={containerRef}
+        sx={{
+          justifyContent: isMyMessage ? 'flex-end' : 'flex-start',
+
+          // add fade in animation when rendered
+          transition: 'opacity 0.3s ease-in-out',
+        }}
       >
-        <Box
-          ref={ref}
-          px={16}
-          py={8}
-          sx={{
-            background: isMyMessage
-              ? theme.colors.secondary[9]
-              : theme.colors.dark[4],
-            borderRadius: 16,
-            marginBottom: 8,
-            maxWidth: '80%',
-          }}
+        <Tooltip
+          label={tooltipLabel}
+          withArrow
+          position={isMyMessage ? 'left' : 'right'}
+          withinPortal
         >
-          <Text>{message.text}</Text>
-        </Box>
-      </Tooltip>
-    </Flex>
+          <Box
+            ref={ref}
+            px={16}
+            py={8}
+            sx={{
+              background: isMyMessage
+                ? theme.colors.secondary[9]
+                : theme.colors.dark[4],
+              borderRadius: 16,
+              marginBottom: 8,
+              maxWidth: '80%',
+            }}
+          >
+            <Text>{message.text}</Text>
+          </Box>
+        </Tooltip>
+      </Flex>
+    </FlexCol>
   )
 }
 
