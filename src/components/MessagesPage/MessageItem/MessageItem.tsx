@@ -63,9 +63,7 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
         <Flex justify={isMyMessage ? 'flex-end' : 'flex-start'}>
           <FlexCol gap={4} align={isMyMessage ? 'flex-end' : 'flex-start'}>
             <Text size="xs" color={theme.colors.dark[2]}>
-              {isMyMessage
-                ? 'You replied to their rating'
-                : 'Replied to your rating'}
+              {isMyMessage ? 'You replied' : 'Replied to your rating'}
             </Text>
             {message.repliedToRating.syncroItem && (
               <div
