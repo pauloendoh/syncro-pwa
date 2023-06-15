@@ -69,7 +69,7 @@ const ReplyToRatingSection = (props: Props) => {
             fontWeight: 500,
           },
         }}
-        title={'React to rating!'}
+        title={'React to rating'}
         withCloseButton={false}
       >
         <FlexVCenter justify={'center'} gap={4}>
