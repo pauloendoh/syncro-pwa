@@ -41,11 +41,11 @@ const SyncroItemPaperContent = (props: Props) => {
   })
 
   return (
-    <>
+    <Box>
       {isLoading && <CenterLoader />}
 
       {item && (
-        <>
+        <Box>
           <Flex justify={'space-between'}>
             {props.isPreview ? (
               <MyNextLink href={urls.pages.syncroItem(encodeURI(item.id!))}>
@@ -114,10 +114,10 @@ const SyncroItemPaperContent = (props: Props) => {
           )}
 
           <Box mt={16} />
-          <RatingRow syncroItem={item} />
-        </>
+          <RatingRow syncroItem={item} isPreview={props.isPreview} />
+        </Box>
       )}
-    </>
+    </Box>
   )
 }
 

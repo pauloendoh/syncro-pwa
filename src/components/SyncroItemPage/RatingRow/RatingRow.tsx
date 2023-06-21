@@ -28,9 +28,10 @@ import RatingRowButton from './RatingRowButton/RatingRowButton'
 
 interface Props {
   syncroItem: SyncroItemDto
+  isPreview?: boolean
 }
 
-const RatingRow = ({ syncroItem }: Props) => {
+const RatingRow = ({ syncroItem, ...props }: Props) => {
   const { authUser } = useAuthStore()
   const myRating = useMyRatingQU(syncroItem.id)
 
@@ -78,7 +79,7 @@ const RatingRow = ({ syncroItem }: Props) => {
   }, [favorites, syncroItem.id])
 
   return (
-    <ScrollArea pb={8}>
+    <ScrollArea pb={props.isPreview ? 16 : 8}>
       <FlexVCenter gap={isSmallScreen ? 4 : 8} pb={isSmallScreen ? 16 : 0}>
         {authUser && (
           <>
