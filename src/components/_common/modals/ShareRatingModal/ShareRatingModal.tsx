@@ -43,8 +43,8 @@ const ShareRatingModal = () => {
   const textToShare = useMemo(() => {
     const text = `Rated a ${typeMap.getTypeLabelLowerCase()} ${
       rating?.ratingValue
-    }/10\n${item?.title} ${item?.year && `[${item.year}]`}\n\n${
-      rating?.review
+    }/10\n${item?.title} ${item?.year && `[${item.year}]`}${
+      rating?.review ? `\n\n${rating.review}` : ''
     }\n\n`
 
     const limit = 280 - 31
