@@ -98,7 +98,11 @@ const ReplyToRatingSection = (props: Props) => {
 
         <FlexCol mt={16} gap={8}>
           <Textarea
-            placeholder={'Reply to ' + props.rating?.user?.username || '...'}
+            placeholder={
+              props.rating?.user?.username
+                ? `Reply to ${props.rating?.user?.username}`
+                : 'Reply'
+            }
             value={message}
             onChange={(e) => setMessage(e.currentTarget.value)}
             minRows={1}

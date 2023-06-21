@@ -20,11 +20,11 @@ const ImageSyncroItemPage = ({ isMobile, item, ...props }: Props) => {
   const { itemImageOpen } = useMyRouterQuery()
 
   useEffect(() => {
-    if (!itemImageOpen) {
+    if (!itemImageOpen && !props.isPreview) {
       delete router.query[QueryParams.itemImageOpen]
       router.push(router, undefined, { scroll: false })
     }
-  }, [itemImageOpen])
+  }, [itemImageOpen, props.isPreview])
 
   if (props.isPreview)
     return (
