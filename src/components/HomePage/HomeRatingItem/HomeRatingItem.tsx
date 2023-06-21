@@ -6,7 +6,7 @@ import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../types/domain/rating/useRatingStatusMap'
-import { getItemTitleAndYear } from '../../../utils/domains/syncro-item/getItemTitleAndYear'
+import ItemTitleAndYear from '../../../utils/domains/syncro-item/ItemTitleAndYear'
 import { urls } from '../../../utils/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -99,19 +99,11 @@ const HomeRatingItem = (props: Props) => {
                       color: theme.colors.gray[0],
                     })}
                   >
-                    {getItemTitleAndYear(props.rating.syncroItem)}
+                    <ItemTitleAndYear
+                      item={props.rating.syncroItem}
+                      showIcon={true}
+                    />
                   </Text>
-
-                  <span
-                    style={{
-                      marginLeft: 4,
-                      position: 'relative',
-                      top: 3,
-                    }}
-                    title={typeMap?.getTypeLabel()}
-                  >
-                    <SyncroItemIcon type={props.rating.syncroItem?.type} />
-                  </span>
                 </SyncroItemLink>
               )}
             </Text>
