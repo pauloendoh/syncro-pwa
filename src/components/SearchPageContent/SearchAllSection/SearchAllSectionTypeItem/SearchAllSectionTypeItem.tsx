@@ -1,6 +1,7 @@
 import { Box, Flex, Title, useMantineTheme } from '@mantine/core'
 import { MdArrowRight } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../../../utils/urls'
@@ -23,6 +24,7 @@ const SearchAllSectionTypeItem = (props: Props) => {
 
   const theme = useMantineTheme()
 
+  const { isMobile } = useMyMediaQuery()
   return (
     <FlexCol key={props.type} gap={8}>
       <FlexVCenter justify={'space-between'}>
@@ -111,17 +113,17 @@ const SearchAllSectionTypeItem = (props: Props) => {
         <Flex
           gap={8}
           wrap="wrap"
-          p={8}
           sx={{
-            border: '1px solid ' + theme.colors.dark[5],
+            border: isMobile ? 'none' : '1px solid ' + theme.colors.dark[5],
             borderRadius: 4,
+            padding: isMobile ? 0 : 8,
           }}
         >
           {props.items.slice(0, 8).map((item) => (
             <FavoriteItem
               key={item.id}
               item={item}
-              width={116}
+              width={isMobile ? 104 : 116}
               alwaysShowTitle
             />
           ))}
