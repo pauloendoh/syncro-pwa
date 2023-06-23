@@ -31,7 +31,7 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
       <FlexCol>
         {showGenresCount.map((g, index) => (
           <Span key={g.genre}>
-            ({g.count}) {g.genre}
+            {g.genre}: {g.count} ratings | {g.avgRating} average
           </Span>
         ))}
       </FlexCol>
