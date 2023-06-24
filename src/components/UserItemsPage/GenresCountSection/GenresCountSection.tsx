@@ -1,4 +1,4 @@
-import { Table, Title, useMantineTheme } from '@mantine/core'
+import { Table, useMantineTheme } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useGenresCountQuery } from '../../../hooks/react-query/user-item/useGenresCountQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -27,7 +27,6 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
 
   return (
     <FlexCol gap={16}>
-      <Title order={4}>Most rated genres</Title>
       <FlexCol>
         <Table
           w={240}

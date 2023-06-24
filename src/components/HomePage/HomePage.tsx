@@ -97,7 +97,7 @@ const HomePage = () => {
           </Container>
         </Grid.Col>
         <Grid.Col span={0} xs={0} sm={4} md={3} lg={4} xl={4}>
-          {!isSmallScreen && 'Hello'}
+          {!isSmallScreen && ''}
         </Grid.Col>
       </Grid>
     </LoggedLayout>
