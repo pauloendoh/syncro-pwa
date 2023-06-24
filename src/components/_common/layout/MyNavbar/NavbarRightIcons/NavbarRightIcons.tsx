@@ -1,12 +1,7 @@
 import { ActionIcon, Indicator, Tooltip, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import {
-  IoBookmarks,
-  IoBookmarksOutline,
-  IoNotifications,
-  IoNotificationsOutline,
-} from 'react-icons/io5'
+import { IoNotifications, IoNotificationsOutline } from 'react-icons/io5'
 import { MdMail, MdMailOutline } from 'react-icons/md'
 import { useUnreadMessageRoomsQuery } from '../../../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
@@ -43,22 +38,6 @@ const NavbarRightIcons = () => {
 
   return (
     <>
-      {isMobile && (
-        <Tooltip label="Planned items" withArrow>
-          <div>
-            <MyNextLink href={urls.pages.savedItems()}>
-              <ActionIcon>
-                {isPlannedItemsPage ? (
-                  <IoBookmarks size={24} color={theme.colors.primary[9]} />
-                ) : (
-                  <IoBookmarksOutline size={24} />
-                )}
-              </ActionIcon>
-            </MyNextLink>
-          </div>
-        </Tooltip>
-      )}
-
       <Tooltip
         label={
           unreadMessageRooms && unreadMessageRooms.length > 0

@@ -34,7 +34,9 @@ const MobileFooter = () => {
             }}
           >
             <Center w={60} h={60}>
-              {option.icon}
+              {option.selectedIf() && option.selectedIcon
+                ? option.selectedIcon
+                : option.icon}
             </Center>
           </MyNextLink>
         ))}
