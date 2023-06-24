@@ -7,9 +7,10 @@ import { getItemTitleAndYear } from './getItemTitleAndYear'
 type Props = {
   item: SyncroItemDto
   showIcon?: boolean
+  yearIconWidth?: number
 }
 
-const ItemTitleAndYear = ({ item, showIcon }: Props) => {
+const ItemTitleAndYear = ({ item, showIcon, ...props }: Props) => {
   const typeMap = useSyncroItemTypeMap({
     itemType: item.type,
   })
@@ -18,7 +19,11 @@ const ItemTitleAndYear = ({ item, showIcon }: Props) => {
     return (
       <span>
         {item?.title}{' '}
-        <Span miw={80} maw={80} display="inline-block">
+        <Span
+          miw={props.yearIconWidth || 80}
+          maw={props.yearIconWidth || 80}
+          display="inline-block"
+        >
           [{item.year}]
           <Span
             display={'inline'}

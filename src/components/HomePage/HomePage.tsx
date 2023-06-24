@@ -20,6 +20,7 @@ import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
+import PlanUpdatesSection from './PlanUpdatesSection/PlanUpdatesSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
 const HomePage = () => {
@@ -97,7 +98,7 @@ const HomePage = () => {
           </Container>
         </Grid.Col>
         <Grid.Col span={0} xs={0} sm={4} md={3} lg={4} xl={4}>
-          {!isSmallScreen && ''}
+          {!isSmallScreen && <PlanUpdatesSection />}
         </Grid.Col>
       </Grid>
     </LoggedLayout>

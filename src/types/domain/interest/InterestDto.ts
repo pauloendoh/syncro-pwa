@@ -1,4 +1,5 @@
-import { SyncroItemDto } from "../syncro-item/SyncroItemDto"
+import { SyncroItemDto } from '../syncro-item/SyncroItemDto'
+import { UserSimpleDto } from '../user/UserSimpleDto'
 
 export type InterestDto = {
   id: string
@@ -11,15 +12,13 @@ export type InterestDto = {
   updatedAt: string
 
   syncroItem?: SyncroItemDto
-  user?: {
-    username: string
-  }
+  user?: UserSimpleDto
 }
 
 export const buildInterestDto = (p?: Partial<InterestDto>): InterestDto => ({
-  id: "",
-  syncroItemId: "",
-  userId: "",
+  id: '',
+  syncroItemId: '',
+  userId: '',
   interestLevel: null,
   position: 1,
 
