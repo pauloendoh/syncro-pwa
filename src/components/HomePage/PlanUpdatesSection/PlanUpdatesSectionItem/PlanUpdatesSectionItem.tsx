@@ -3,7 +3,6 @@ import { useHover } from '@mantine/hooks'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { InterestDto } from '../../../../types/domain/interest/InterestDto'
 import { formatShortTimeago } from '../../../../utils/date/formatShortTimeago'
-import ItemTitleAndYear from '../../../../utils/domains/syncro-item/ItemTitleAndYear'
 import { urls } from '../../../../utils/urls'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 import UserProfilePicture from '../../../_common/UserProfilePicture/UserProfilePicture'
@@ -51,11 +50,7 @@ const PlanUpdatesSectionItem = ({ item, ...props }: Props) => {
         {item.syncroItem && (
           <Span size="sm">
             <SyncroItemLink item={item.syncroItem} previewWithinPortal>
-              <ItemTitleAndYear
-                item={item.syncroItem}
-                showIcon={true}
-                yearIconWidth={64}
-              />
+              {item.syncroItem.title}
             </SyncroItemLink>
           </Span>
         )}
