@@ -30,7 +30,7 @@ const PlanUpdatesSectionItem = ({ item, ...props }: Props) => {
 
       <FlexCol w="100%" pr={16}>
         <FlexVCenter w="100%" justify={'space-between'}>
-          <Span size="sm" weight={'bold'}>
+          <Span size="sm" weight={600}>
             <MyNextLink href={urls.pages.user(item.userId)}>
               {item.user?.username}
             </MyNextLink>
