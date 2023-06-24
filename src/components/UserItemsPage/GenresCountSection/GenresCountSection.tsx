@@ -1,4 +1,4 @@
-import { Title, useMantineTheme } from '@mantine/core'
+import { Table, Title, useMantineTheme } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useGenresCountQuery } from '../../../hooks/react-query/user-item/useGenresCountQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -29,11 +29,34 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
     <FlexCol gap={16}>
       <Title order={4}>Most rated genres</Title>
       <FlexCol>
-        {showGenresCount.map((g, index) => (
-          <Span key={g.genre}>
-            {g.genre}: {g.count} ratings | {g.avgRating} average
-          </Span>
-        ))}
+        <Table
+          w={240}
+          sx={{
+            // second and third column td and th
+            '& td:nth-of-type(2), & th:nth-of-type(2), & td:nth-of-type(3), & th:nth-of-type(3)':
+              {
+                width: 80,
+                textAlign: 'center',
+              },
+          }}
+        >
+          <thead>
+            <tr>
+              <th>Genre</th>
+              <th>Items</th>
+              <th>Avg</th>
+            </tr>
+          </thead>
+          <tbody>
+            {showGenresCount.map((g, index) => (
+              <tr key={g.genre}>
+                <td>{g.genre}</td>
+                <td>{g.count}</td>
+                <td>{g.avgRating}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </FlexCol>
 
       {genresCount.length > 5 && (

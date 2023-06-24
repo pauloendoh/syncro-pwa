@@ -31,7 +31,7 @@ const HomePage = () => {
 
   useTimelineHasNewsQuery(undefined, flatRatings[0]?.createdAt)
 
-  const { isSmallScreen, isMobile: isXsScreen } = useMyMediaQuery()
+  const { isSmallScreen, isMobile } = useMyMediaQuery()
   const theme = useMantineTheme()
 
   const { openModal: openFeedSettingsModal } = useFeedSettingsModal()
@@ -47,25 +47,27 @@ const HomePage = () => {
 
   return (
     <LoggedLayout>
-      {isXsScreen && (
+      {isMobile && (
         <>
           <MobileHomeNavbar />
           <Box mt={40} />
         </>
       )}
-      <Container fluid>
-        <Grid>
-          {/* <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} />
-          <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}> */}
+      <Grid w="100%" mr={isMobile ? 0 : undefined}>
+        <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} />
+        <Grid.Col span={12} xs={12} sm={8} md={8} lg={6} xl={4}>
           <Container
             w="100%"
             size="xs"
             fluid={isSmallScreen}
             px={isSmallScreen ? 0 : undefined}
             pt={isSmallScreen ? 40 : undefined}
+            ml={isMobile ? 8 : undefined}
           >
             <FlexVCenter justify={'space-between'} w="100%">
-              <Title order={4}>Feed</Title>
+              <Title order={4} ml={isSmallScreen ? 8 : undefined}>
+                Feed
+              </Title>
               <ActionIcon onClick={openFeedSettingsModal}>
                 <MdSettings />
               </ActionIcon>
@@ -93,10 +95,11 @@ const HomePage = () => {
               </Box>
             )}
           </Container>
-          {/* </Grid.Col>
-          <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}></Grid.Col> */}
-        </Grid>
-      </Container>
+        </Grid.Col>
+        <Grid.Col span={0} xs={0} sm={4} md={3} lg={4} xl={4}>
+          {!isSmallScreen && 'Hello'}
+        </Grid.Col>
+      </Grid>
     </LoggedLayout>
   )
 }

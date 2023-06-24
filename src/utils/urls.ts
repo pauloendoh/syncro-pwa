@@ -184,6 +184,7 @@ export const urls = {
 
     uploadMalAnime: '/upload-mal-anime',
     confirmUploadMalAnime: '/upload-mal-anime/confirm',
+    planUpdates: '/plan-updates',
   },
 
   others: {
