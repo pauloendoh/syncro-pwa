@@ -48,7 +48,7 @@ const PlanUpdatesSectionItem = ({ item, ...props }: Props) => {
         </FlexVCenter>
 
         {item.syncroItem && (
-          <Span size="sm" weight={'bold'}>
+          <Span size="sm" weight={600}>
             <SyncroItemLink item={item.syncroItem} previewWithinPortal>
               {item.syncroItem.title}
             </SyncroItemLink>
