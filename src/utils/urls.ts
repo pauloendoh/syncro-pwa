@@ -3,6 +3,7 @@ import { ExploreSlug } from '../hooks/useMyRouterQuery'
 import { SearchParams } from '../types/domain/search/SearchParams'
 import { SyncroItemType } from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
+import { MostRatedItemsQueryParams } from '../hooks/react-query/rating/types/MostRatedItemsQueryParams'
 import { myEnvs } from './myEnvs'
 
 const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
@@ -33,7 +34,8 @@ export const urls = {
 
     savedItems: (type?: SyncroItemType) =>
       '/saved?' + queryString.stringify({ type }),
-    explore: (exploreSlug: ExploreSlug) => `/explore/${exploreSlug}`,
+    explore: (exploreSlug: ExploreSlug = 'most-rated') =>
+      `/explore/${exploreSlug}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',
     messagesIndex: '/messages',
@@ -185,6 +187,8 @@ export const urls = {
     uploadMalAnime: '/upload-mal-anime',
     confirmUploadMalAnime: '/upload-mal-anime/confirm',
     planUpdates: '/plan-updates',
+    mostRatedItems: (params: MostRatedItemsQueryParams) =>
+      '/most-rated-items?' + queryString.stringify(params),
   },
 
   others: {

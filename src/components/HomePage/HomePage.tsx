@@ -83,7 +83,7 @@ const HomePage = () => {
                 <Text>
                   Your feed is empty. Check some
                   <MyNextLink
-                    href={urls.pages.explore('popular-users')}
+                    href={urls.pages.explore()}
                     style={{
                       color: theme.colors.primary[9],
                     }}

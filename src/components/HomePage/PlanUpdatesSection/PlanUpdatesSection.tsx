@@ -14,7 +14,7 @@ const PlanUpdatesSection = (props: Props) => {
   return (
     <FlexCol gap={16}>
       <Title order={4}>Plan updates</Title>
-      <MyPaper>
+      <MyPaper maw={360}>
         {isLoading && <CenterLoader />}
 
         <ScrollArea.Autosize mah={300}>

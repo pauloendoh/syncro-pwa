@@ -4,6 +4,7 @@ import { ExploreSlug, useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
+import MostRatedExploreSection from './MostRatedExploreSection/MostRatedExploreSection'
 import NewUsersList from './NewUsersList/NewUsersList'
 import PopularUserList from './PopularUserList/PopularUserList'
 import SimilarUserList from './SimilarUserList/SimilarUserList'
@@ -11,6 +12,7 @@ import { exploreTabOptions } from './exploreTabOptions/exploreTabOptions'
 
 type Props = {}
 
+// PE 1/3 - ExplorePage
 const ExplorePageContent = (props: Props) => {
   const { q, exploreSlug } = useMyRouterQuery()
 
@@ -47,6 +49,7 @@ const ExplorePageContent = (props: Props) => {
           </Tabs.List>
 
           <Box mt={16} />
+          {exploreSlug === 'most-rated' && <MostRatedExploreSection />}
           {exploreSlug === 'popular-users' && <PopularUserList />}
           {exploreSlug === 'rating-similarity' && <SimilarUserList />}
           {exploreSlug === 'new-users' && <NewUsersList />}

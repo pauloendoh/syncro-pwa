@@ -33,4 +33,8 @@ export const useMyRouterQuery = () => {
   return query
 }
 
-export type ExploreSlug = 'popular-users' | 'rating-similarity' | 'new-users'
+export type ExploreSlug =
+  | 'popular-users'
+  | 'rating-similarity'
+  | 'new-users'
+  | 'most-rated'

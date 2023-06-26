@@ -57,7 +57,7 @@ export const useMobileFooterLinkOptions = () => {
     {
       icon: <MdOutlineExplore size={24} />,
       selectedIcon: <MdExplore size={24} />,
-      href: urls.pages.explore('popular-users'),
+      href: urls.pages.explore(),
       label: 'Explore',
       selectedIf: () => {
         return router.pathname.startsWith('/explore')
