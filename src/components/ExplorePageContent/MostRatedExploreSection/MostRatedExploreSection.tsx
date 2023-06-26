@@ -2,10 +2,10 @@ import { Flex, Select } from '@mantine/core'
 import { useState } from 'react'
 import { useMostRatedItemsQuery } from '../../../hooks/react-query/rating/useMostRatedItemsQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import FavoriteItem from '../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
-import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import ItemTypeSelector from './ItemTypeSelector/ItemTypeSelector'
 
 type Props = {}
@@ -65,7 +65,7 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
       <Flex wrap="wrap" gap={16}>
         {items?.map((item) => (
           <SyncroItemLink item={item}>
-            <SyncroItemImage item={item} width={140} />
+            <FavoriteItem item={item} alwaysShowTitle width={140} />
           </SyncroItemLink>
         ))}
       </Flex>
