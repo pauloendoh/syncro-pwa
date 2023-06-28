@@ -19,7 +19,7 @@ const ReplyToRatingSection = (props: Props) => {
 
   const { mutate: submitReply, isLoading } = useReplyToRatingMutation()
 
-  const emotes = useMemo(() => ['👏', '❤️', '😂', '😮', '😢', '😡'], [])
+  const emotes = useMemo(() => ['👍', '❤️', '😂', '😮', '😢', '😡'], [])
 
   const handleClose = () => {
     setIsOpen(false)
