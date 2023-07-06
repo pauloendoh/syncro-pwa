@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
+import { useQueryParams } from '../../hooks/useQueryParams'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { SortingByType } from '../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -37,6 +38,8 @@ const UserItemsPage = () => {
 
   const { isSmallScreen } = useMyMediaQuery()
 
+  const [selectedGenre] = useQueryParams().genre
+
   return (
     <LoggedLayout>
       <Container fluid>
@@ -63,6 +66,7 @@ const UserItemsPage = () => {
                 sortedItems={sortedItems}
                 sortingBy={sortingBy}
                 thisIsYourList={thisIsYourList}
+                filterByGenre={selectedGenre}
               />
             </Container>
           </Grid.Col>

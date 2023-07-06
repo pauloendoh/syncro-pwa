@@ -1,4 +1,5 @@
 import { Text } from '@mantine/core'
+import { useMemo } from 'react'
 import { SortingByType } from '../../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
@@ -12,6 +13,7 @@ interface Props {
   thisIsYourList: boolean
   itemType: SyncroItemType
   onRefresh: () => void
+  filterByGenre?: string | null
 }
 
 const UserItemsList = ({
@@ -20,10 +22,20 @@ const UserItemsList = ({
   sortedItems,
   ...props
 }: Props) => {
+  const finalItems = useMemo(() => {
+    if (props.filterByGenre) {
+      return sortedItems.filter((item) =>
+        item.genres.includes(props.filterByGenre as string)
+      )
+    }
+
+    return sortedItems
+  }, [props.filterByGenre, sortedItems])
+
   return (
     <FlexCol gap={16} mt={16} style={{ flex: 1 }}>
       {sortingBy === 'customOrdering' && <Text>Min interest: 3</Text>}
-      {sortedItems.map((item) => {
+      {finalItems.map((item) => {
         return (
           <UserItem
             item={item}

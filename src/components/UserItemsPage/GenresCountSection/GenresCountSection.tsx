@@ -1,6 +1,7 @@
 import { Table, useMantineTheme } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useGenresCountQuery } from '../../../hooks/react-query/user-item/useGenresCountQuery'
+import { useQueryParams } from '../../../hooks/useQueryParams'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../_common/flex/FlexCol'
 import Span from '../../_common/text/Span'
@@ -22,6 +23,8 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
     if (showMore) return genresCount
     return genresCount.slice(0, 5)
   }, [showMore, genresCount])
+
+  const [selectedGenre, setSelectedGenre] = useQueryParams().genre
 
   if (!genresCount || genresCount.length === 0) return null
 
@@ -48,7 +51,23 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
           </thead>
           <tbody>
             {showGenresCount.map((g, index) => (
-              <tr key={g.genre}>
+              <tr
+                key={g.genre}
+                onClick={() => {
+                  if (selectedGenre === g.genre) {
+                    setSelectedGenre(null)
+                    return
+                  }
+                  setSelectedGenre(g.genre)
+                }}
+                style={{
+                  backgroundColor:
+                    selectedGenre === g.genre
+                      ? theme.colors.dark[4]
+                      : 'transparent',
+                  cursor: 'pointer',
+                }}
+              >
                 <td>{g.genre}</td>
                 <td>{g.count}</td>
                 <td>{g.avgRating}</td>
