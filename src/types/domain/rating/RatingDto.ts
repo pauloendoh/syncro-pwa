@@ -1,5 +1,6 @@
 import { ProfileDto } from '../profile/ProfileDto'
 import { SyncroItemDto } from '../syncro-item/SyncroItemDto'
+import { RatingProgressDto, buildRatingProgressDto } from './RatingProgressDto'
 import { RatingStatusType } from './ratingStatus'
 
 export type RatingDto = {
@@ -17,6 +18,8 @@ export type RatingDto = {
     username: string
     profile?: ProfileDto
   }
+
+  ratingProgress?: RatingProgressDto
 }
 
 export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
@@ -28,5 +31,6 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   status: 'COMPLETED',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
+  ratingProgress: buildRatingProgressDto(),
   ...p,
 })

@@ -28,8 +28,11 @@ import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
+import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
 import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
+
+const cn = (...classNames: string[]) => classNames.filter(Boolean).join(' ')
 
 const EditRatingModal = () => {
   const { initialValue, closeModal } = useSaveRatingModalStore()
@@ -59,11 +62,14 @@ const EditRatingModal = () => {
   const {
     reset,
     watch,
+    getValues,
     register,
     handleSubmit,
     setValue,
     formState: { isDirty },
-  } = useForm<RatingDto>()
+  } = useForm<RatingDto>({
+    defaultValues: initialValue || buildRatingDto(),
+  })
 
   useEffect(() => {
     if (!!modalIsOpen) {
@@ -105,7 +111,7 @@ const EditRatingModal = () => {
 
   const isDisabled = useMemo(
     () => !initialValue?.id && watch('ratingValue') === null,
-    [initialValue?.id, watch('ratingValue')]
+    [initialValue?.id, getValues('ratingValue')]
   )
 
   const closeBothModals = () => {
@@ -194,10 +200,25 @@ const EditRatingModal = () => {
           )}
         </FlexVCenter>
 
-        <RatingStatusSelector
-          value={watch('status')}
-          onChange={(value) => setValue('status', value, { shouldDirty: true })}
-        />
+        <FlexVCenter gap={16} mt={24}>
+          <RatingStatusSelector
+            value={watch('status')}
+            onChange={(value) =>
+              setValue('status', value, { shouldDirty: true })
+            }
+          />
+
+          {syncroItem && watch('ratingProgress') && (
+            <RatingProgressFields
+              value={watch('ratingProgress')!}
+              onChange={(value) =>
+                setValue('ratingProgress', value, { shouldDirty: true })
+              }
+              item={syncroItem}
+              status={watch('status')}
+            />
+          )}
+        </FlexVCenter>
 
         <Textarea
           label="Review"

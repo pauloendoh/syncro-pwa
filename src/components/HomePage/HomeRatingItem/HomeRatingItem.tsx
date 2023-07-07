@@ -42,6 +42,40 @@ const HomeRatingItem = (props: Props) => {
 
   const statusMap = useRatingStatusMap(props.rating.status)
 
+  const progressLabel = useMemo(() => {
+    if (!props.rating.syncroItem) return ''
+    if (!props.rating.ratingProgress) return ''
+    if (props.rating.status === 'COMPLETED') return ''
+
+    if (
+      props.rating.syncroItem.type === 'manga' &&
+      props.rating.ratingProgress.currentChapter > 0
+    ) {
+      return `Ch${props.rating.ratingProgress.currentChapter}`
+    }
+
+    if (props.rating.syncroItem.type === 'tvSeries') {
+      const season = props.rating.ratingProgress.currentSeason
+      const episode = props.rating.ratingProgress.currentEpisode
+
+      if (season > 0 && episode > 0) {
+        return `S${season}E${episode}`
+      }
+      if (season > 0) {
+        return `S${season}`
+      }
+      if (episode > 0) {
+        return `E${episode}`
+      }
+    }
+
+    return ''
+  }, [
+    props.rating.syncroItem?.type,
+    props.rating.status,
+    props.rating.ratingProgress,
+  ])
+
   if (!props.rating.syncroItem) return null
 
   return (
@@ -117,6 +151,7 @@ const HomeRatingItem = (props: Props) => {
                 }}
               >
                 {statusMap?.label}
+                {progressLabel && ` (${progressLabel})`}
               </Span>
             </Text>
 

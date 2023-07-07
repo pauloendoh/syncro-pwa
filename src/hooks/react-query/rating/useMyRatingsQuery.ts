@@ -18,5 +18,6 @@ export const useMyRatingQU = (itemId?: string | null) => {
     enabled: !!authUser,
   })
 
-  return data?.find((rating) => rating.syncroItemId === itemId)
+  const found = data?.find((rating) => rating.syncroItemId === itemId)
+  return found
 }

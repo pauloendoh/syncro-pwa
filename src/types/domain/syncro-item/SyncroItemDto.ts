@@ -26,8 +26,8 @@ export interface SyncroItemDto {
   openLibraryUrl: string | null
   youtubeMusicUrl: string | null
 
-  ratings?: RatingDto[]
-  interests?: InterestDto[]
+  ratings?: Omit<RatingDto, 'syncroItem'>[]
+  interests?: Omit<InterestDto, 'syncroItem'>[]
 
   mangaExtraInfo?: MangaExtraInfoDto
   gameExtraInfo?: GameExtraInfoDto
