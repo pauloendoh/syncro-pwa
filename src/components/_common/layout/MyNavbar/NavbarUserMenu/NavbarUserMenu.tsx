@@ -1,6 +1,5 @@
 import { Menu } from '@mantine/core'
 import { AiOutlineUser } from 'react-icons/ai'
-import { IoBookmarksOutline } from 'react-icons/io5'
 import { MdLogout, MdOutlineFeedback, MdSettings } from 'react-icons/md'
 import { SiDiscord } from 'react-icons/si'
 import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
@@ -61,9 +60,9 @@ const NavbarUserMenu = (props: Props) => {
         >
           <Menu.Item icon={<AiOutlineUser />}>Profile</Menu.Item>
         </MyNextLink>
-        <MyNextLink href={urls.pages.savedItems()}>
+        {/* <MyNextLink href={urls.pages.savedItems()}>
           <Menu.Item icon={<IoBookmarksOutline />}>Planned items</Menu.Item>
-        </MyNextLink>
+        </MyNextLink> */}
 
         <MyNextLink href={urls.pages.settings}>
           <Menu.Item icon={<MdSettings />}>Settings</Menu.Item>
