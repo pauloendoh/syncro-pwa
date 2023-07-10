@@ -18,6 +18,7 @@ import Span from '../../_common/text/Span'
 import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons'
 import HomeRatingItemReview from './HomeRatingItemReview/HomeRatingItemReview'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
+import { useRatingStatusLabel } from './getRatingStatusLabel/getRatingStatusLabel'
 
 type Props = {
   rating: RatingDto
@@ -76,6 +77,12 @@ const HomeRatingItem = (props: Props) => {
     props.rating.ratingProgress,
   ])
 
+  const statusLabel = useRatingStatusLabel({
+    status: props.rating.status,
+    type: props.rating.syncroItem?.type!,
+    hasRated: !!props.rating.ratingValue,
+  })
+
   if (!props.rating.syncroItem) return null
 
   return (
@@ -114,7 +121,7 @@ const HomeRatingItem = (props: Props) => {
                   {props.rating.user?.username}
                 </Text>{' '}
               </MyNextLink>
-              rated{' '}
+              {statusLabel}{' '}
               <b
                 style={{
                   color: theme.colors.yellow[5],
@@ -144,15 +151,19 @@ const HomeRatingItem = (props: Props) => {
 
             <Text size={'xs'}>
               {format(props.rating.createdAt)}
-              {' · '}
-              <Span
-                sx={{
-                  color: statusMap?.color,
-                }}
-              >
-                {statusMap?.label}
-                {progressLabel && ` (${progressLabel})`}
-              </Span>
+              {!!props.rating.ratingValue && (
+                <>
+                  {' · '}
+                  <Span
+                    sx={{
+                      color: statusMap?.color,
+                    }}
+                  >
+                    {statusMap?.label}
+                    {progressLabel && ` (${progressLabel})`}
+                  </Span>
+                </>
+              )}
             </Text>
 
             <HomeRatingItemReview rating={props.rating} />

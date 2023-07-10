@@ -103,16 +103,11 @@ const EditRatingModal = () => {
   const handleChangeRating = (newRating: number) => {
     if (newRating === watch('ratingValue')) {
       setValue('ratingValue', null, { shouldDirty: true })
-
       return
     }
+
     setValue('ratingValue', newRating, { shouldDirty: true })
   }
-
-  const isDisabled = useMemo(
-    () => !initialValue?.id && watch('ratingValue') === null,
-    [initialValue?.id, getValues('ratingValue')]
-  )
 
   const closeBothModals = () => {
     closeModal()
@@ -173,9 +168,9 @@ const EditRatingModal = () => {
           }}
         >
           <Rating
-            value={watch('ratingValue') || 0}
+            value={watch('ratingValue') || undefined}
             onChange={handleChangeRating}
-            color={'secondary'}
+            color={watch('ratingValue') === null ? '#343a40' : 'secondary'}
             size={isMobile ? 'lg' : 'xl'}
             count={10}
           />
@@ -243,7 +238,6 @@ const EditRatingModal = () => {
         <FlexVCenter mt={32} justify="space-between">
           <SaveCancelButtons
             isLoading={isLoading}
-            disabled={isDisabled}
             onCancel={handleCloseModal}
           />
           {!!initialValue?.id && (

@@ -1,31 +1,31 @@
-import { syncroItemOptions } from '../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { RatingStatusType } from '../../../../types/domain/rating/ratingStatus'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
-export const getRatingStatusLabel = (params: {
+export const useRatingStatusLabel = (params: {
   status: RatingStatusType
   type: SyncroItemType
+  hasRated?: boolean
 }) => {
-  const { status, type } = params
+  const typeMap = useSyncroItemTypeMap({
+    itemType: params.type,
+  })
 
-  if (status === 'COMPLETED') {
-    return `completed and rated`
+  if (params.hasRated) {
+    return 'rated'
   }
 
-  if (status === 'DROPPED') {
-    return `dropped and rated`
-  }
+  switch (params.status) {
+    case 'COMPLETED':
+      return 'completed:'
 
-  if (status === 'ON_HOLD') {
-    // user is holding the item
-    return `holding and rated`
-  }
+    case 'IN_PROGRESS':
+      return 'is ' + typeMap.getVerb() + 'ing:'
 
-  if (status === 'IN_PROGRESS') {
-    return (
-      syncroItemOptions.find((o) => o.itemType === type)?.inProgressLabel || ''
-    )
-  }
+    case 'DROPPED':
+      return 'dropped:'
 
-  return ''
+    case 'ON_HOLD':
+      return 'paused:'
+  }
 }

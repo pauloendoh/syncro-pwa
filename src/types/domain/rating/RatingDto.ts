@@ -2,6 +2,7 @@ import { ProfileDto } from '../profile/ProfileDto'
 import { SyncroItemDto } from '../syncro-item/SyncroItemDto'
 import { RatingProgressDto, buildRatingProgressDto } from './RatingProgressDto'
 import { RatingStatusType } from './ratingStatus'
+import { RatingChangeType } from './types/RatingChangeType'
 
 export type RatingDto = {
   id: string
@@ -12,6 +13,7 @@ export type RatingDto = {
   createdAt: string
   updatedAt: string
   status: RatingStatusType
+  changeType: RatingChangeType
 
   syncroItem?: SyncroItemDto
   user?: {
@@ -32,5 +34,6 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   ratingProgress: buildRatingProgressDto(),
+  changeType: 'RATED',
   ...p,
 })

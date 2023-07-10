@@ -1,6 +1,12 @@
 import { Text, Tooltip, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
-import { MdStar, MdStarBorder } from 'react-icons/md'
+import { CgRadioCheck } from 'react-icons/cg'
+import { IoMdCloseCircleOutline } from 'react-icons/io'
+import {
+  MdAccessTime,
+  MdCheckCircleOutline,
+  MdStarBorder,
+} from 'react-icons/md'
 import { useMyRatingQU } from '../../../../../hooks/react-query/rating/useMyRatingsQuery'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../../types/domain/rating/RatingDto'
@@ -10,16 +16,14 @@ interface Props {
   itemId: string
 }
 
+// PE 1/3 - change name?
 const PressableMyRating = (props: Props) => {
   const { openModal: openRatingModal } = useSaveRatingModalStore()
   const myRating = useMyRatingQU(props.itemId)
 
   const theme = useMantineTheme()
 
-  const color =
-    myRating && myRating.ratingValue && myRating.ratingValue > 0
-      ? theme.colors.secondary[9]
-      : theme.colors.dark[0]
+  const color = myRating ? theme.colors.secondary[9] : theme.colors.dark[0]
 
   const tooltipLabel = useMemo(() => {
     if (!myRating || myRating.ratingValue === null) return 'Rate this item'
@@ -27,6 +31,24 @@ const PressableMyRating = (props: Props) => {
       return `You rated ${myRating.ratingValue} out of 10`
     }
   }, [myRating])
+
+  const icon = useMemo(() => {
+    if (!myRating) return <MdStarBorder color={color} size={24} />
+
+    if (myRating.status === 'IN_PROGRESS')
+      return <CgRadioCheck color={color} size={24} />
+
+    if (myRating.status === 'ON_HOLD')
+      return <MdAccessTime color={color} size={24} />
+
+    if (myRating.status === 'DROPPED')
+      return <IoMdCloseCircleOutline color={color} size={24} />
+
+    if (myRating.status === 'COMPLETED')
+      return <MdCheckCircleOutline color={color} size={24} />
+
+    return <MdStarBorder color={color} size={24} />
+  }, [myRating?.ratingValue, myRating?.status])
 
   return (
     <Tooltip label={tooltipLabel}>
@@ -41,12 +63,7 @@ const PressableMyRating = (props: Props) => {
           )
         }}
       >
-        {myRating ? (
-          <MdStar color={color} size={24} />
-        ) : (
-          <MdStarBorder color={color} size={24} />
-        )}
-
+        {icon}
         <Text color={myRating && 'secondary'}>{myRating?.ratingValue}</Text>
       </FlexVCenter>
     </Tooltip>
