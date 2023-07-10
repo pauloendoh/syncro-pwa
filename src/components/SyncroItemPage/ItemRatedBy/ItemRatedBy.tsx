@@ -2,6 +2,7 @@ import { Box, Skeleton, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRatedByQuery'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 
@@ -11,6 +12,8 @@ type Props = {
 
 const ItemRatedBy = (props: Props) => {
   const { data, isLoading } = useItemRatedByQuery(props.itemId)
+
+  const { authUser } = useAuthStore()
 
   const label = useMemo(() => {
     if (!data || data.length === 0) {
@@ -33,6 +36,8 @@ const ItemRatedBy = (props: Props) => {
   const sliced = useMemo(() => data?.slice(0, 3) || [], [data])
 
   const { openModal } = useItemRatedByModalStore()
+
+  if (!authUser) return null
 
   if (!data || isLoading) {
     return <Skeleton height={40} />

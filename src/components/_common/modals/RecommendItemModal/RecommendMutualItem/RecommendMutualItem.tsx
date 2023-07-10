@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery'
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
 import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
+import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { urls } from '../../../../../utils/urls'
 import UserProfilePicture from '../../../UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../../flex/FlexCol'
@@ -34,6 +35,8 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
     return [false, 'Recommend']
   }, [mutual, isAlreadyRecommended])
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <Flex justify="space-between">
       <FlexVCenter>
@@ -43,7 +46,9 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
 
         <FlexCol ml={8}>
           <MyNextLink href={urls.pages.user(mutual.user.id)}>
-            <Text weight={500}>{mutual.user.username}</Text>
+            <Text weight={500} maw={120} truncate>
+              {mutual.user.username}
+            </Text>
           </MyNextLink>
         </FlexCol>
       </FlexVCenter>
@@ -51,7 +56,7 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
         <Button
           styles={(theme) => ({
             root: {
-              width: 140,
+              width: isMobile ? 120 : 140,
             },
             label: {
               color: isDisabled ? theme.colors.dark[2] : theme.colors.dark[0],

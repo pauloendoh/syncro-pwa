@@ -6,6 +6,7 @@ import FavoriteItem from '../../UserProfilePage/FavoritesSection/FavoritesByType
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import ItemTypeSelector from './ItemTypeSelector/ItemTypeSelector'
 
 type Props = {}
@@ -35,7 +36,7 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
 
   const [period, setPeriod] = useState<Period>('week')
 
-  const { data: items } = useMostRatedItemsQuery({
+  const { data: items, isLoading } = useMostRatedItemsQuery({
     itemType,
     period,
   })
@@ -52,7 +53,7 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
         />
 
         <Select
-          w={120}
+          w={128}
           data={periods}
           maxDropdownHeight={400}
           value={period}
@@ -61,6 +62,10 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
           }}
         />
       </FlexVCenter>
+
+      {isLoading && <CenterLoader />}
+
+      {!isLoading && items?.length === 0 && <div>No items found</div>}
 
       <Flex wrap="wrap" gap={16}>
         {items?.map((item) => (

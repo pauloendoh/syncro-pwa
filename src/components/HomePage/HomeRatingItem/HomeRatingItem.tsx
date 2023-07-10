@@ -51,7 +51,7 @@ const HomeRatingItem = (props: Props) => {
       props.rating.syncroItem.type === 'manga' &&
       props.rating.ratingProgress.currentChapter > 0
     ) {
-      return `Ch${props.rating.ratingProgress.currentChapter}`
+      return `ch. ${props.rating.ratingProgress.currentChapter}`
     }
 
     if (props.rating.syncroItem.type === 'tvSeries') {

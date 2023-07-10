@@ -84,7 +84,7 @@ const HomeRatingItemButtons = (props: Props) => {
         </FlexVCenter>
       </Tooltip>
 
-      <ReplyToRatingSection rating={props.rating!} />
+      {props.rating && <ReplyToRatingSection rating={props.rating} />}
 
       {!props.hideMoreMenu && (
         <HomeRatingMoreMenu rating={props.rating} itemId={props.syncroItemId} />
