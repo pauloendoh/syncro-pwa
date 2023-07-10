@@ -1,4 +1,3 @@
-import { Title } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
@@ -22,9 +21,9 @@ const PlannedItemsByType = ({ savedItems, ...props }: Props) => {
 
   return (
     <FlexCol mb={8} w={'calc(100% - 24px)'}>
-      <Title order={4}>
+      {/* <Title order={4}>
         {savedItems?.length} {type.getTypeLabel(savedItems.length > 1)}
-      </Title>
+      </Title> */}
 
       <DragDropPlannedItems
         userId={authUser.id}

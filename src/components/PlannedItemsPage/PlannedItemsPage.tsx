@@ -19,7 +19,7 @@ import PlannedItemsByType from './PlannedItemsByType/PlannedItemsByType'
 
 const PlannedItemsPage = () => {
   const { authUser } = useAuthStore()
-  const { data: savedItems } = usePlannedItemsQuery(authUser?.id)
+  const { data: plannedItems } = usePlannedItemsQuery(authUser?.id)
 
   const { type } = useMyRouterQuery()
   const router = useRouter()
@@ -42,28 +42,33 @@ const PlannedItemsPage = () => {
   }, [type])
 
   const groupedSavedItems = useMemo(() => {
-    if (!savedItems) return []
+    if (!plannedItems) return []
 
     return syncroItemTypes
       .map((t) => ({
         type: t,
-        items: savedItems.filter((i) => i.syncroItem?.type === t),
+        items: plannedItems.filter((i) => i.syncroItem?.type === t),
       }))
       .filter((t) => {
         if (String(type) === 'all') return true
         return type === t.type
       })
-  }, [savedItems, type])
+  }, [plannedItems, type])
 
   const options = useMemo(() => {
     return [
       ...syncroItemTypes.map((t) => ({
         value: t,
-        label:
-          syncroItemOptions.find((o) => o.itemType === t)?.getTypeLabel() || '',
+        label: `${
+          plannedItems?.filter((i) => i.syncroItem?.type === t).length || 0
+        } ${
+          syncroItemOptions
+            .find((o) => o.itemType === t)
+            ?.getTypeLabelLowerCase() || ''
+        }`,
       })),
     ]
-  }, [])
+  }, [plannedItems])
 
   return (
     <LoggedLayout>
@@ -76,6 +81,7 @@ const PlannedItemsPage = () => {
             onChange={(value) => {
               router.push(urls.pages.savedItems(value as SyncroItemType))
             }}
+            maxDropdownHeight={400}
           />
         </FlexVCenter>
         <Flex gap={32} mt={24}>
