@@ -5,10 +5,12 @@ import useEditItemMutation from '../../../../hooks/react-query/syncro-item/useEd
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import { useEditItemModalStore } from '../../../../hooks/zustand/modals/useEditItemModal'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
+import ItemTypeSelector from '../../../ExplorePageContent/MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import EditItemImageSection from './EditItemImageSection/EditItemImageSection'
+import ExternalUrlInput from './ExternalUrlInput/ExternalUrlInput'
 
 const EditItemModal = () => {
   const { initialValue: initialItem, closeModal } = useEditItemModalStore()
@@ -67,6 +69,25 @@ const EditItemModal = () => {
                   error={errors.title?.message}
                   autosize
                 />
+
+                <FlexVCenter gap={8}>
+                  <ItemTypeSelector
+                    required
+                    onChange={(newItemType) => {
+                      setValue('type', newItemType)
+                    }}
+                    value={watch('type')}
+                    label="Type"
+                    width={120}
+                  />
+
+                  <ExternalUrlInput
+                    syncroItem={watch()}
+                    onChange={(newSyncroItem) => {
+                      reset(newSyncroItem)
+                    }}
+                  />
+                </FlexVCenter>
 
                 <NumberInput
                   label="Year"

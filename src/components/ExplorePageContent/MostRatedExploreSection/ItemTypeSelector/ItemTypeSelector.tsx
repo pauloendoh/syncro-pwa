@@ -6,11 +6,14 @@ type Props = {
   value: SyncroItemType
   onChange: (newItemType: SyncroItemType) => void
   width?: number
+  label?: string
+  required?: boolean
 }
 
 const ItemTypeSelector = ({ ...props }: Props) => {
   return (
     <Select
+      label={props.label}
       w={props.width}
       data={syncroItemOptions.map((option) => ({
         value: option.itemType,
@@ -21,6 +24,7 @@ const ItemTypeSelector = ({ ...props }: Props) => {
         props.onChange(newItemType)
       }}
       maxDropdownHeight={400}
+      required={props.required}
     />
   )
 }
