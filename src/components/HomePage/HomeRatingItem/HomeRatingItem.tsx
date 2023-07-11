@@ -151,19 +151,16 @@ const HomeRatingItem = (props: Props) => {
 
             <Text size={'xs'}>
               {format(props.rating.createdAt)}
-              {!!props.rating.ratingValue && (
-                <>
-                  {' · '}
-                  <Span
-                    sx={{
-                      color: statusMap?.color,
-                    }}
-                  >
-                    {statusMap?.label}
-                    {progressLabel && ` (${progressLabel})`}
-                  </Span>
-                </>
-              )}
+
+              {' · '}
+              <Span
+                sx={{
+                  color: statusMap?.color,
+                }}
+              >
+                {!!props.rating.ratingValue && statusMap?.label}
+                {progressLabel && ` (${progressLabel})`}
+              </Span>
             </Text>
 
             <HomeRatingItemReview rating={props.rating} />
