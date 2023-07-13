@@ -33,11 +33,15 @@ const RecommendItemToUsersList = (props: Props) => {
   }, [data, search])
 
   const filteredMutualsOver10 = useMemo(() => {
-    return filteredMutuals.filter((m) => m.similarity.ratedSameItemsCount >= 10)
+    return filteredMutuals.filter(
+      (m) => m.similarity && m.similarity.ratedSameItemsCount >= 10
+    )
   }, [filteredMutuals])
 
   const filteredMutualsUnder10 = useMemo(() => {
-    return filteredMutuals.filter((m) => m.similarity.ratedSameItemsCount < 10)
+    return filteredMutuals.filter(
+      (m) => m.similarity && m.similarity.ratedSameItemsCount < 10
+    )
   }, [filteredMutuals])
 
   const visibleMutuals = useMemo(() => {

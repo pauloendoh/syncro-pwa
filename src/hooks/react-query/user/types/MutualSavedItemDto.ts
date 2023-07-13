@@ -5,5 +5,5 @@ export type MutualSavedItemDto = {
   user: UserSimpleDto
   isSaved: boolean
   theirRating: number
-  similarity: RatingSimilarityDto
+  similarity?: RatingSimilarityDto
 }
