@@ -5,16 +5,18 @@ export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
   const previousPath = sessionStorage.getItem(sessionStorageKeys.previousPath)
   const currentPath = Router.asPath
 
-  const cameFromSomewhere = !!document.referrer
+  const canGoBack = window.history.length > 2
 
   console.log({
     previousPath,
     currentPath,
-    cameFromSomewhere,
+    canGoBack,
+    cameFromSomewhere: document.referrer,
+    history: window.history.length,
   })
 
   if (previousPath) {
-    if (previousPath !== currentPath && cameFromSomewhere) {
+    if (previousPath !== currentPath && canGoBack) {
       Router.back()
       return
     }
