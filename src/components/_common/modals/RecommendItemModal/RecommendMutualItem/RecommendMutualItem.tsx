@@ -4,18 +4,22 @@ import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-q
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
 import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
+import { SyncroItemType } from '../../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../../../../utils/urls'
+import { getRatingSimilarityLabel } from '../../../../ExplorePageContent/SimilarUserList/getRatingSimilarityLabel/getRatingSimilarityLabel'
 import UserProfilePicture from '../../../UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../../flex/FlexCol'
 import FlexVCenter from '../../../flex/FlexVCenter'
 import MyNextLink from '../../../overrides/MyNextLink'
+import Span from '../../../text/Span'
 
 interface Props {
   mutual: MutualSavedItemDto
   itemId: string
+  itemType: SyncroItemType
 }
 
-const RecommendMutualItem = ({ mutual, itemId }: Props) => {
+const RecommendMutualItem = ({ mutual, itemId, ...props }: Props) => {
   const { mutate: submitRecommendItem, isLoading } = useRecommendItemMutation()
 
   const { data: itemsRecommended } = useItemsRecommendationsFromMeQuery()
@@ -50,6 +54,18 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
               {mutual.user.username}
             </Text>
           </MyNextLink>
+          {mutual.similarity && (
+            <Span size="xs">
+              {isMobile
+                ? `${Math.floor(
+                    mutual.similarity.overallPercentage * 100
+                  )}% similarity`
+                : getRatingSimilarityLabel({
+                    similarityDto: mutual.similarity,
+                    sharedItemType: props.itemType,
+                  })}
+            </Span>
+          )}
         </FlexCol>
       </FlexVCenter>
       <Button

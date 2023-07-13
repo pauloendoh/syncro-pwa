@@ -33,10 +33,12 @@ const RecommendItemModal = () => {
         },
       }}
     >
-      <RecommendItemToUsersList
-        itemId={itemId!}
-        maxHeight="calc(100vh - 240px)"
-      />
+      {itemId && itemDetails && (
+        <RecommendItemToUsersList
+          itemId={itemId!}
+          maxHeight="calc(100vh - 240px)"
+        />
+      )}
     </Modal>
   )
 }

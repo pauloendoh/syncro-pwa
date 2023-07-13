@@ -1,5 +1,6 @@
 import { ScrollArea } from '@mantine/core'
 import { useMemo, useState } from 'react'
+import { useSyncroItemDetailsQuery } from '../../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUsersToRecommendQuery } from '../../../../../hooks/react-query/user/useMutualsSavedItemQuery'
 import textContainsWords from '../../../../../utils/text/textContainsWords'
 import FlexCol from '../../../flex/FlexCol'
@@ -13,6 +14,7 @@ type Props = {
 
 const RecommendItemToUsersList = (props: Props) => {
   const { data } = useUsersToRecommendQuery(props.itemId)
+  const { data: itemInfo } = useSyncroItemDetailsQuery(props.itemId)
 
   const [search, setSearch] = useState('')
 
@@ -38,18 +40,24 @@ const RecommendItemToUsersList = (props: Props) => {
         placeholder="Search"
       />
 
-      <ScrollArea>
-        <FlexCol
-          gap={16}
-          sx={{
-            maxHeight: props.maxHeight,
-          }}
-        >
-          {filteredMutuals.map((mutual) => (
-            <RecommendMutualItem mutual={mutual} itemId={props.itemId} />
-          ))}
-        </FlexCol>
-      </ScrollArea>
+      {itemInfo && (
+        <ScrollArea>
+          <FlexCol
+            gap={16}
+            sx={{
+              maxHeight: props.maxHeight,
+            }}
+          >
+            {filteredMutuals.map((mutual) => (
+              <RecommendMutualItem
+                mutual={mutual}
+                itemId={props.itemId}
+                itemType={itemInfo.type}
+              />
+            ))}
+          </FlexCol>
+        </ScrollArea>
+      )}
     </FlexCol>
   )
 }

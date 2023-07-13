@@ -5,8 +5,8 @@ import { urls } from '../../../utils/urls'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
-import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
+import { getRatingSimilarityLabel } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
 
 const SimilarUserList = () => {
   const { data: ratingSimilarities, isLoading } = useMySimilarUsersQuery()
@@ -19,8 +19,6 @@ const SimilarUserList = () => {
       }) || [],
     [ratingSimilarities]
   )
-
-  if (isLoading) return <CenterLoader />
 
   return (
     <FlexCol gap={16}>
@@ -39,11 +37,7 @@ const SimilarUserList = () => {
             >
               <Text weight={500}>{item.userB.username}</Text>
             </MyNextLink>
-            <Text>
-              {item.ratedSameItemsCount}{' '}
-              {item.ratedSameItemsCount <= 1 ? 'item' : 'items'} ·{' '}
-              {Math.floor(item.overallPercentage * 100)}% rating similarity
-            </Text>
+            <Text>{getRatingSimilarityLabel({ similarityDto: item })}</Text>
           </FlexCol>
         </FlexVCenter>
       ))}
