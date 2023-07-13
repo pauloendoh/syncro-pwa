@@ -1,16 +1,16 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { sessionStorageKeys } from '../utils/sessionStorageKeys'
+import { sessionKeys } from '../utils/sessionStorageKeys'
 
 export const useSavePreviousUrlOnSessionStorage = () => {
   const router = useRouter()
 
   useEffect(() => {
-    const currentUrl = sessionStorage.getItem(sessionStorageKeys.currentPath)
+    const currentUrl = sessionStorage.getItem(sessionKeys.currentPath)
     if (currentUrl) {
-      sessionStorage.setItem(sessionStorageKeys.previousPath, currentUrl)
+      sessionStorage.setItem(sessionKeys.previousPath, currentUrl)
     }
 
-    sessionStorage.setItem(sessionStorageKeys.currentPath, router.asPath)
+    sessionStorage.setItem(sessionKeys.currentPath, router.asPath)
   }, [router.asPath])
 }

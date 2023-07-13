@@ -22,6 +22,7 @@ import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlO
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
+import { sessionKeys } from '../utils/sessionStorageKeys'
 import { zIndexes } from '../utils/zIndexes'
 
 export default function App(props: AppProps) {
@@ -41,7 +42,10 @@ export default function App(props: AppProps) {
 
   const router = useRouter()
   useEffect(() => {
-    if (router.isReady) checkAuthOrLogout()
+    if (router.isReady) {
+      checkAuthOrLogout()
+      sessionStorage.setItem(sessionKeys.cameFromDomain, document.referrer)
+    }
   }, [router.isReady])
 
   usePreserveScroll()
