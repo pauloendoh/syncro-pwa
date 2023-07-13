@@ -41,7 +41,7 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
     <Flex justify="space-between">
       <FlexVCenter>
         <MyNextLink href={urls.pages.user(mutual.user.id)}>
-          <UserProfilePicture userId={mutual.user.id} widthHeigth={36} />
+          <UserProfilePicture userId={mutual.user.id} widthHeigth={32} />
         </MyNextLink>
 
         <FlexCol ml={8}>
@@ -52,31 +52,27 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
           </MyNextLink>
         </FlexCol>
       </FlexVCenter>
-      <Flex>
-        <Button
-          styles={(theme) => ({
-            root: {
-              width: isMobile ? 120 : 140,
-            },
-            label: {
-              color: isDisabled ? theme.colors.dark[2] : theme.colors.dark[0],
-            },
-          })}
-          disabled={isDisabled}
-          loading={isLoading}
-          color={isDisabled ? 'gray' : 'primary'}
-          onClick={() => {
-            submitRecommendItem({
-              userId: mutual.user.id,
-              itemId: itemId!,
-            })
-          }}
-        >
-          {buttonLabel}
-        </Button>
-
-        {/* {!itsAuthUser && <FollowUnfollowButton profileUserId={user.id} />} */}
-      </Flex>
+      <Button
+        styles={(theme) => ({
+          root: {
+            width: 140,
+          },
+          label: {
+            color: isDisabled ? theme.colors.dark[2] : theme.colors.dark[0],
+          },
+        })}
+        disabled={isDisabled}
+        loading={isLoading}
+        color={isDisabled ? 'gray' : 'primary'}
+        onClick={() => {
+          submitRecommendItem({
+            userId: mutual.user.id,
+            itemId: itemId!,
+          })
+        }}
+      >
+        {buttonLabel}
+      </Button>
     </Flex>
   )
 }

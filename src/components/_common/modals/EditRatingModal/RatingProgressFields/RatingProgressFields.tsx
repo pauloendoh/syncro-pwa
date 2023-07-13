@@ -53,7 +53,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
             props.onChange({ ...props.value, currentSeason: numValue })
           }}
           min={0}
-          w={100}
+          w={72}
           styles={{
             root: {
               opacity: props.value.currentSeason === 0 ? 0.5 : 1,
@@ -71,7 +71,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
             props.onChange({ ...props.value, currentEpisode: numValue })
           }}
           min={0}
-          w={100}
+          w={72}
           styles={{
             root: {
               opacity: props.value.currentEpisode === 0 ? 0.5 : 1,

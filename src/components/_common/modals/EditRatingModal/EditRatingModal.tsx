@@ -251,7 +251,7 @@ const EditRatingModal = () => {
       {initialValue?.syncroItemId &&
         watch('ratingValue') &&
         watch('ratingValue')! >= 8 && (
-          <FlexCol mt={40} gap={16}>
+          <FlexCol mt={40} gap={16} pb={16}>
             <Divider />
             <Title order={4}>Recommend to users</Title>
 

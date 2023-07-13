@@ -22,21 +22,22 @@ const AvgRatingRow = ({ item, ...props }: Props) => {
     <Flex gap={isMobile || props.isPreview ? 24 : 40}>
       <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
         <MdStarRate color={theme.colors.yellow[5]} size={16} />
-        {avgRating ? (
+        {ratingCount === 0 && <Text>No ratings yet</Text>}
+        {ratingCount > 0 && (
           <Text>
             {upToNDecimals(avgRating, 1)}
             /10
           </Text>
-        ) : (
-          <Text>?/10</Text>
         )}
       </FlexVCenter>
 
-      <Text size={isMobile ? 'sm' : undefined}>
-        {shortNumberFormatter(ratingCount)}{' '}
-        {ratingCount === 1 ? 'vote' : 'votes'}
-        {` on ${finalSource}`}
-      </Text>
+      {ratingCount > 0 && (
+        <Text size={isMobile ? 'sm' : undefined}>
+          {shortNumberFormatter(ratingCount)}{' '}
+          {ratingCount === 1 ? 'vote' : 'votes'}
+          {` on ${finalSource}`}
+        </Text>
+      )}
     </Flex>
   )
 }

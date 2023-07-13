@@ -78,6 +78,21 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
     return !!favorites?.find((f) => f.syncroItemId === syncroItem.id)
   }, [favorites, syncroItem.id])
 
+  const ratingButtonLabel = useMemo(() => {
+    if (!myRating) return 'Rate'
+    if (myRating?.ratingValue) {
+      return myRating?.ratingValue
+    }
+
+    const status = ratingStatusArrayMap.find(
+      (s) => s.value === myRating?.status
+    )
+    if (status) {
+      return status.label
+    }
+    return 'Rate'
+  }, [myRating?.ratingValue])
+
   return (
     <ScrollArea pb={props.isPreview ? 16 : 8}>
       <FlexVCenter gap={isSmallScreen ? 4 : 8} pb={isSmallScreen ? 16 : 0}>
@@ -89,7 +104,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
                   myRating || buildRatingDto({ syncroItemId: syncroItem.id })
                 )
               }
-              isActive={!!myRating?.ratingValue}
+              isActive={!!myRating}
               leftIcon={
                 ratingStatusArrayMap.find((s) => s.value === myRating?.status)
                   ?.icon || (
@@ -97,7 +112,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
                 )
               }
             >
-              {myRating?.ratingValue || 'Rate'}
+              {ratingButtonLabel}
             </RatingRowButton>
 
             <RatingRowButton

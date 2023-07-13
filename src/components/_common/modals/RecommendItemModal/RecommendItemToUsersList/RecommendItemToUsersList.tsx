@@ -43,7 +43,6 @@ const RecommendItemToUsersList = (props: Props) => {
           gap={16}
           sx={{
             maxHeight: props.maxHeight,
-            paddingRight: 16,
           }}
         >
           {filteredMutuals.map((mutual) => (
