@@ -32,6 +32,18 @@ const RecommendItemToUsersList = (props: Props) => {
     )
   }, [data, search])
 
+  const filteredMutualsOver10 = useMemo(() => {
+    return filteredMutuals.filter((m) => m.similarity.ratedSameItemsCount >= 10)
+  }, [filteredMutuals])
+
+  const filteredMutualsUnder10 = useMemo(() => {
+    return filteredMutuals.filter((m) => m.similarity.ratedSameItemsCount < 10)
+  }, [filteredMutuals])
+
+  const visibleMutuals = useMemo(() => {
+    return [...filteredMutualsOver10, ...filteredMutualsUnder10]
+  }, [filteredMutualsOver10, filteredMutualsUnder10])
+
   return (
     <FlexCol gap={16}>
       <MyTextInput
@@ -48,7 +60,7 @@ const RecommendItemToUsersList = (props: Props) => {
               maxHeight: props.maxHeight,
             }}
           >
-            {filteredMutuals.map((mutual) => (
+            {visibleMutuals.map((mutual) => (
               <RecommendMutualItem
                 mutual={mutual}
                 itemId={props.itemId}
