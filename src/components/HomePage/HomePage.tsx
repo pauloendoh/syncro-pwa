@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Box,
   Container,
   Grid,
@@ -8,7 +7,6 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useEffect, useMemo } from 'react'
-import { MdSettings } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useSettingsQuery } from '../../hooks/react-query/user-settings/useSettingsQuery'
@@ -19,6 +17,7 @@ import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
+import FeedSettingsIcon from './FeedSettingsIconButton/FeedSettingsIconButton'
 import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
 import PlanUpdatesSection from './PlanUpdatesSection/PlanUpdatesSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
@@ -69,9 +68,7 @@ const HomePage = () => {
               <Title order={4} ml={isSmallScreen ? 8 : undefined}>
                 Feed
               </Title>
-              <ActionIcon onClick={openFeedSettingsModal}>
-                <MdSettings />
-              </ActionIcon>
+              <FeedSettingsIcon />
             </FlexVCenter>
 
             <Box pl={isSmallScreen ? 8 : undefined}>

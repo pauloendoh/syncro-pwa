@@ -7,6 +7,7 @@ import {
 } from 'react-icons/md'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
+import FeedSettingsIcon from '../../HomePage/FeedSettingsIconButton/FeedSettingsIconButton'
 import RatingsTimeline from '../../HomePage/RatingsTimeline/RatingsTimeline'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -35,36 +36,39 @@ const UserPageRatingsSection = (props: Props) => {
       <FlexVCenter justify="space-between">
         <Title order={4}>Last ratings</Title>
 
-        <Menu position="bottom-end">
-          <Menu.Target>
-            <FlexVCenter
-              px={8}
-              py={4}
-              gap={4}
-              sx={{
-                cursor: 'pointer',
-              }}
-            >
-              {feedView === 'card' && <MdOutlineViewStream size={24} />}
-              {feedView === 'grid' && <MdCalendarViewMonth size={24} />}
-              <MdOutlineKeyboardArrowDown />
-            </FlexVCenter>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Item
-              onClick={() => setFeedView('card')}
-              icon={<MdOutlineViewStream size={24} />}
-            >
-              Card
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => setFeedView('grid')}
-              icon={<MdCalendarViewMonth size={24} />}
-            >
-              Grid
-            </Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
+        <FlexVCenter gap={8}>
+          <FeedSettingsIcon />
+          <Menu position="bottom-end">
+            <Menu.Target>
+              <FlexVCenter
+                px={8}
+                py={4}
+                gap={4}
+                sx={{
+                  cursor: 'pointer',
+                }}
+              >
+                {feedView === 'card' && <MdOutlineViewStream size={24} />}
+                {feedView === 'grid' && <MdCalendarViewMonth size={24} />}
+                <MdOutlineKeyboardArrowDown />
+              </FlexVCenter>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item
+                onClick={() => setFeedView('card')}
+                icon={<MdOutlineViewStream size={24} />}
+              >
+                Card
+              </Menu.Item>
+              <Menu.Item
+                onClick={() => setFeedView('grid')}
+                icon={<MdCalendarViewMonth size={24} />}
+              >
+                Grid
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        </FlexVCenter>
       </FlexVCenter>
 
       {feedView === 'card' && (

@@ -13,7 +13,6 @@ const useFeedSettingsModal = create<IStore>((set, get) => ({
   isOpen: () => {
     return !!Router.query[QueryParams.feedSettingsModal]
   },
-  initialValue: null,
   openModal: () => {
     Router.query[QueryParams.feedSettingsModal] = 'open'
     Router.push(Router, undefined, { scroll: false })
