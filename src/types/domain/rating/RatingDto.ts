@@ -1,7 +1,7 @@
 import { ProfileDto } from '../profile/ProfileDto'
 import { SyncroItemDto } from '../syncro-item/SyncroItemDto'
 import { RatingProgressDto, buildRatingProgressDto } from './RatingProgressDto'
-import { RatingStatusType } from './ratingStatus'
+import { RatingStatusType } from './ratingStatusMap'
 import { RatingChangeType } from './types/RatingChangeType'
 
 export type RatingDto = {

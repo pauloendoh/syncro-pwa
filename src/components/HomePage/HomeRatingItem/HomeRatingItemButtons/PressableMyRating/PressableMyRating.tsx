@@ -1,15 +1,10 @@
 import { Text, Tooltip, useMantineTheme } from '@mantine/core'
-import { useMemo } from 'react'
-import { CgRadioCheck } from 'react-icons/cg'
-import { IoMdCloseCircleOutline } from 'react-icons/io'
-import {
-  MdAccessTime,
-  MdCheckCircleOutline,
-  MdStarBorder,
-} from 'react-icons/md'
+import { useCallback, useMemo } from 'react'
+import { MdStarBorder } from 'react-icons/md'
 import { useMyRatingQU } from '../../../../../hooks/react-query/rating/useMyRatingsQuery'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../../types/domain/rating/RatingDto'
+import { ratingStatusArrayMap } from '../../../../../types/domain/rating/ratingStatusMap'
 import FlexVCenter from '../../../../_common/flex/FlexVCenter'
 
 interface Props {
@@ -32,20 +27,15 @@ const PressableMyRating = (props: Props) => {
     }
   }, [myRating])
 
-  const icon = useMemo(() => {
+  const Icon = useCallback(() => {
     if (!myRating) return <MdStarBorder color={color} size={24} />
 
-    if (myRating.status === 'IN_PROGRESS')
-      return <CgRadioCheck color={color} size={24} />
-
-    if (myRating.status === 'ON_HOLD')
-      return <MdAccessTime color={color} size={24} />
-
-    if (myRating.status === 'DROPPED')
-      return <IoMdCloseCircleOutline color={color} size={24} />
-
-    if (myRating.status === 'COMPLETED')
-      return <MdCheckCircleOutline color={color} size={24} />
+    if (myRating.status) {
+      const IconWithProps = ratingStatusArrayMap.find(
+        (r) => r.value === myRating.status
+      )?.IconWithProps
+      if (IconWithProps) return <IconWithProps color={color} size={24} />
+    }
 
     return <MdStarBorder color={color} size={24} />
   }, [myRating?.ratingValue, myRating?.status])
@@ -63,7 +53,7 @@ const PressableMyRating = (props: Props) => {
           )
         }}
       >
-        {icon}
+        <Icon />
         <Text color={myRating && 'secondary'}>{myRating?.ratingValue}</Text>
       </FlexVCenter>
     </Tooltip>

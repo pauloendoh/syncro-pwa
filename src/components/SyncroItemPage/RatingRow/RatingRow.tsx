@@ -19,7 +19,7 @@ import useRecommendItemModalStore from '../../../hooks/zustand/modals/useRecomme
 import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../types/domain/rating/RatingDto'
-import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatus'
+import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatusMap'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../utils/urls'
 import FlexVCenter from '../../_common/flex/FlexVCenter'

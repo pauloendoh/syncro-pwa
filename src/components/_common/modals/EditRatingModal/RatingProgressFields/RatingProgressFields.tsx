@@ -1,6 +1,6 @@
 import { NumberInput } from '@mantine/core'
 import { RatingProgressDto } from '../../../../../types/domain/rating/RatingProgressDto'
-import { RatingStatusType } from '../../../../../types/domain/rating/ratingStatus'
+import { RatingStatusType } from '../../../../../types/domain/rating/ratingStatusMap'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import FlexVCenter from '../../../flex/FlexVCenter'
 

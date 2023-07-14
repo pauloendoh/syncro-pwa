@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 import {
   RatingStatusType,
   ratingStatusArrayMap,
-} from '../../../../../types/domain/rating/ratingStatus'
+} from '../../../../../types/domain/rating/ratingStatusMap'
 import FlexVCenter from '../../../flex/FlexVCenter'
 
 type Props = {

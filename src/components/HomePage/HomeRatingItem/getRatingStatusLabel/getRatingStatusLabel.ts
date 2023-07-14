@@ -1,5 +1,5 @@
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
-import { RatingStatusType } from '../../../../types/domain/rating/ratingStatus'
+import { RatingStatusType } from '../../../../types/domain/rating/ratingStatusMap'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 export const useRatingStatusLabel = (params: {
