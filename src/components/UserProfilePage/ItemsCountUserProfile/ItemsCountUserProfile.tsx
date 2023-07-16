@@ -1,5 +1,6 @@
 import { Text } from '@mantine/core'
 import { shortNumberFormatter } from 'endoh-utils'
+import { useMemo } from 'react'
 import { useFollowersQuery } from '../../../hooks/react-query/follow/useFollowersQuery'
 import { useFollowingUsersQuery } from '../../../hooks/react-query/follow/useFollowingUsersQuery'
 import { useUserItemsCountQuery } from '../../../hooks/react-query/syncro-item/useUserItemsCountQuery'
@@ -7,24 +8,32 @@ import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import useFollowersModalStore from '../../../hooks/zustand/modals/useFollowersModalStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 
 type Props = {
   userId: string
 }
 
+// PE 1/3 - rename? To FollowersCountRowUserProfile
 const ItemsCountUserProfile = (props: Props) => {
-  const {
-    data: followersFollows,
-
-    refetch: refetchFollowers,
-  } = useFollowersQuery(props.userId)
-  const { data: followingUsersFollows, refetch: refetchFollowing } =
+  const { data: followersFollows, isLoading: isLoadingFollowers } =
+    useFollowersQuery(props.userId)
+  const { data: followingUsersFollows, isLoading: isLoadingFollowingUsers } =
     useFollowingUsersQuery(props.userId)
 
-  const { data: itemsCount } = useUserItemsCountQuery(props.userId)
+  const { data: itemsCount, isLoading: isLoadingItemsCount } =
+    useUserItemsCountQuery(props.userId)
 
   const { isSmallScreen } = useMyMediaQuery()
   const { openModal } = useFollowersModalStore()
+
+  const isLoading = useMemo(() => {
+    return isLoadingFollowers || isLoadingFollowingUsers || isLoadingItemsCount
+  }, [isLoadingFollowers, isLoadingFollowingUsers, isLoadingItemsCount])
+
+  if (isLoading) {
+    return <CenterLoader height={46.5} />
+  }
 
   return (
     <FlexVCenter gap={isSmallScreen ? 16 : 32}>
@@ -38,10 +47,6 @@ const ItemsCountUserProfile = (props: Props) => {
             type: 'followers',
             userId: props.userId,
           })
-          // navigation.push("FollowersScreen", {
-          //   type: "followers",
-          //   userId: props.userId,
-          // })
         }}
       >
         <Text weight={500}>
@@ -60,11 +65,6 @@ const ItemsCountUserProfile = (props: Props) => {
             type: 'following',
             userId: props.userId,
           })
-
-          // navigation.push("FollowersScreen", {
-          //   type: "following-users",
-          //   userId: props.userId,
-          // })
         }}
       >
         <Text weight={500}>
