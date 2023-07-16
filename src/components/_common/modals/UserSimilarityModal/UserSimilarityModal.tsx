@@ -1,16 +1,21 @@
 import { Modal, Table } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useUserHighSimilarityTypesQueryUtils } from '../../../../hooks/react-query/rating/user-similarity/useUserHighSimilarityTypesQueryUtils'
 import { useUserSimilarityQuery } from '../../../../hooks/react-query/rating/user-similarity/useUserSimilarityQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useUserSimilarityModalStore from '../../../../hooks/zustand/modals/useUserSimilarityModalStore'
 import { syncroItemTypes } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import FlexVCenter from '../../flex/FlexVCenter'
+import Span from '../../text/Span'
 
 const UserSimilarityModal = () => {
   const { userId, closeModal } = useUserSimilarityModalStore()
 
   const { data: userInfo } = useUserInfoQuery(userId)
+
+  const highSimilarityTypes = useUserHighSimilarityTypesQueryUtils(userId)
 
   const { data } = useUserSimilarityQuery(userId)
 
@@ -39,7 +44,7 @@ const UserSimilarityModal = () => {
       >
         <thead>
           <tr>
-            <th>Type</th>
+            <th>Item type</th>
             <th
               style={{
                 width: 80,
@@ -54,7 +59,7 @@ const UserSimilarityModal = () => {
                 textAlign: 'center',
               }}
             >
-              Count
+              Shared
             </th>
           </tr>
         </thead>
@@ -81,7 +86,24 @@ const UserSimilarityModal = () => {
 
             return (
               <tr key={type}>
-                <td>{x.getTypeLabel()}</td>
+                <td>
+                  <FlexVCenter gap={8}>
+                    {x.getTypeLabel()}{' '}
+                    {highSimilarityTypes.includes(type) && (
+                      <Span
+                        size="xs"
+                        sx={(theme) => ({
+                          background: theme.colors.dark[4],
+                          paddingBlock: 2,
+                          paddingInline: 4,
+                          borderRadius: 4,
+                        })}
+                      >
+                        High similarity
+                      </Span>
+                    )}
+                  </FlexVCenter>
+                </td>
                 <td align="center">
                   {(info?.overallPercentage! * 100).toFixed(0)}%
                 </td>
