@@ -1,4 +1,4 @@
-import { Modal, Table } from '@mantine/core'
+import { Modal, Table, Tooltip } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserHighSimilarityTypesQueryUtils } from '../../../../hooks/react-query/rating/user-similarity/useUserHighSimilarityTypesQueryUtils'
 import { useUserSimilarityQuery } from '../../../../hooks/react-query/rating/user-similarity/useUserSimilarityQuery'
@@ -32,11 +32,9 @@ const UserSimilarityModal = () => {
     >
       <Table
         sx={{
-          // thead tr th no border bottom
           '& thead tr th': {
             borderBottom: 'none',
           },
-          // tbody tr td no border bottom
           '& tbody tr td': {
             borderTop: 'none',
           },
@@ -90,17 +88,20 @@ const UserSimilarityModal = () => {
                   <FlexVCenter gap={8}>
                     {x.getTypeLabel()}{' '}
                     {highSimilarityTypes.includes(type) && (
-                      <Span
-                        size="xs"
-                        sx={(theme) => ({
-                          background: theme.colors.dark[4],
-                          paddingBlock: 2,
-                          paddingInline: 4,
-                          borderRadius: 4,
-                        })}
-                      >
-                        High similarity
-                      </Span>
+                      <Tooltip label="Over 50% similarity and over 10 shared items">
+                        <Span
+                          size="xs"
+                          sx={(theme) => ({
+                            background: theme.colors.dark[4],
+                            paddingBlock: 2,
+                            paddingInline: 4,
+                            borderRadius: 4,
+                            cursor: 'help',
+                          })}
+                        >
+                          High similarity
+                        </Span>
+                      </Tooltip>
                     )}
                   </FlexVCenter>
                 </td>
