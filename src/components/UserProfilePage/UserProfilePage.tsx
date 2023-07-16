@@ -216,7 +216,7 @@ const UserProfilePage = () => {
                   {!!typesWithoutFavorites.length && (
                     <>
                       <Title order={4}>
-                        {showOtherRatingsLabel && 'Other ratings'}
+                        {showOtherRatingsLabel && 'Other items'}
                       </Title>
                       <Flex gap={16} wrap="wrap">
                         {typesWithoutFavorites.map((itemType) => (

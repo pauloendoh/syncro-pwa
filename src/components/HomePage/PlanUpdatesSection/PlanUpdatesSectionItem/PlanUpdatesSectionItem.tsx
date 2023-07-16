@@ -25,7 +25,9 @@ const PlanUpdatesSectionItem = ({ item, ...props }: Props) => {
   return (
     <Flex key={item.id} gap={8} ref={ref}>
       <Box mt={4}>
-        <UserProfilePicture userId={item.userId} widthHeigth={32} />
+        <MyNextLink href={urls.pages.user(item.userId)}>
+          <UserProfilePicture userId={item.userId} widthHeigth={32} />
+        </MyNextLink>
       </Box>
 
       <FlexCol w="100%" pr={16}>

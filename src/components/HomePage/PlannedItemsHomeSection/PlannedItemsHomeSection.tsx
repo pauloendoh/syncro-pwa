@@ -48,18 +48,15 @@ const PlannedItemsHomeSection = (props: Props) => {
         justifyContent: 'flex-start',
       }}
     >
-      <FlexVCenter>
-        <FlexVCenter gap={4}>
-          <Title order={5}>{title}</Title>
-        </FlexVCenter>
-      </FlexVCenter>
-
       <MyPaper
         sx={{
           padding: 0,
         }}
       >
-        <FlexCol>
+        <FlexCol pb={4}>
+          <Title order={5} p={16} pb={0}>
+            {title}
+          </Title>
           <FlexVCenter gap={8} wrap="wrap" p={16}>
             {syncroItemTypes.map((type) => (
               <PlannedItemButton

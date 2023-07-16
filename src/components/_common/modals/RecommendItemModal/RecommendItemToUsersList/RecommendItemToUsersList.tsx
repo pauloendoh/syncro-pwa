@@ -2,6 +2,7 @@ import { ScrollArea } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useSyncroItemDetailsQuery } from '../../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUsersToRecommendQuery } from '../../../../../hooks/react-query/user/useMutualsSavedItemQuery'
+import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import textContainsWords from '../../../../../utils/text/textContainsWords'
 import FlexCol from '../../../flex/FlexCol'
 import MyTextInput from '../../../inputs/MyTextInput'
@@ -48,6 +49,8 @@ const RecommendItemToUsersList = (props: Props) => {
     return [...filteredMutualsOver10, ...filteredMutualsUnder10]
   }, [filteredMutualsOver10, filteredMutualsUnder10])
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <FlexCol gap={16}>
       <MyTextInput
@@ -57,7 +60,7 @@ const RecommendItemToUsersList = (props: Props) => {
       />
 
       {itemInfo && (
-        <ScrollArea>
+        <ScrollArea pr={isMobile ? undefined : 8}>
           <FlexCol
             gap={16}
             sx={{

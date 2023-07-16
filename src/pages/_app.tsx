@@ -17,6 +17,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { RouterTransition } from '../components/_common/RouterTransition/RouterTransition'
 import useCheckAuthOrLogout from '../hooks/domains/auth/useCheckAuthUserOrLogout'
+import { useMyMediaQuery } from '../hooks/useMyMediaQuery'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
 import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlOnSessionStorage'
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
@@ -61,6 +62,7 @@ export default function App(props: AppProps) {
   }, [height, width])
 
   useSavePreviousUrlOnSessionStorage()
+  const { isMobile } = useMyMediaQuery()
 
   return (
     <>
