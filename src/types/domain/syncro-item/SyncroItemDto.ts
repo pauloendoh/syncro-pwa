@@ -26,6 +26,8 @@ export interface SyncroItemDto {
   openLibraryUrl: string | null
   youtubeMusicUrl: string | null
 
+  youtubeVideoUrl: string | null
+
   ratings?: Omit<RatingDto, 'syncroItem'>[]
   interests?: Omit<InterestDto, 'syncroItem'>[]
 
@@ -52,6 +54,8 @@ export const buildSyncroItemDto = (
   mangaMalUrl: null,
   openLibraryUrl: null,
   youtubeMusicUrl: null,
+
+  youtubeVideoUrl: null,
 
   avgRating: 0,
   ratingCount: 0,

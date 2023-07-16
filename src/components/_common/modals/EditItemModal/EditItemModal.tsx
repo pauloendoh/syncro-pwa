@@ -1,13 +1,15 @@
 import { Flex, Modal, NumberInput, Textarea } from '@mantine/core'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import useEditItemMutation from '../../../../hooks/react-query/syncro-item/useEditItemMutation'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import { useEditItemModalStore } from '../../../../hooks/zustand/modals/useEditItemModal'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
+import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import ItemTypeSelector from '../../../ExplorePageContent/MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
+import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import EditItemImageSection from './EditItemImageSection/EditItemImageSection'
 import ExternalUrlInput from './ExternalUrlInput/ExternalUrlInput'
@@ -24,6 +26,7 @@ const EditItemModal = () => {
     formState: { errors },
     setValue,
     watch,
+    getValues,
   } = useForm<SyncroItemDto>({})
 
   useEffect(() => {
@@ -41,6 +44,11 @@ const EditItemModal = () => {
       },
     })
   }
+
+  const hasTrailer = useMemo(() => {
+    const validTypes: SyncroItemType[] = ['game', 'movie', 'tvSeries']
+    return validTypes.includes(getValues('type'))
+  }, [getValues('type')])
 
   return (
     <Modal
@@ -105,15 +113,22 @@ const EditItemModal = () => {
               </FlexCol>
             </Flex>
 
-            <Textarea
-              mt={16}
-              autosize
-              minRows={3}
-              maxRows={10}
-              label="Plot summary"
-              {...register('plotSummary')}
-              error={errors.plotSummary?.message}
-            />
+            <FlexCol gap={8}>
+              <Textarea
+                {...register('plotSummary')}
+                label="Plot summary"
+                mt={16}
+                autosize
+                error={errors.plotSummary?.message}
+              />
+
+              {hasTrailer && (
+                <MyTextInput
+                  {...register('youtubeVideoUrl')}
+                  label="Youtube trailer URL"
+                />
+              )}
+            </FlexCol>
 
             <FlexVCenter mt={40}>
               <SaveCancelButtons
