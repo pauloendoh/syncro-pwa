@@ -6,6 +6,7 @@ import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/u
 import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
+import useLoadingModalStore from '../../../hooks/zustand/modals/useLoadingModalStore'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { base64ToUint8Array } from '../../NotificationsPage/base64ToUint8Array/base64ToUint8Array'
@@ -24,38 +25,47 @@ const MessagesSidebar = () => {
 
   const axios = useAxios()
 
+  const { openModal: openLoadingModal, closeModal: closeLoadingModal } =
+    useLoadingModalStore()
+
   const handleSubscribe = async () => {
-    console.log({
-      registration,
-      permission: Notification.permission,
-    })
-    if (!registration) {
-      console.log('no registration')
-      return
+    try {
+      openLoadingModal()
+
+      console.log({
+        registration,
+        permission: Notification.permission,
+      })
+      if (!registration) {
+        console.log('no registration')
+        return
+      }
+
+      const sub = await registration.pushManager
+        .subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: base64ToUint8Array(
+            String(process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY)
+          ),
+        })
+        .catch((e) => {
+          if (Notification.permission !== 'granted') {
+            alert('Please enable push notifications in your browser settings')
+          }
+          console.log('Error while subscribing: ', e)
+          throw e
+        })
+
+      // TODO: you should call your API to save subscription data on server in order to send web push notification from server
+      setSubscription(sub)
+      await axios.post(urls.api.webPushSubscribe, {
+        subscription: sub,
+      })
+      console.log('web push subscribed!')
+      console.log(sub)
+    } finally {
+      closeLoadingModal()
     }
-
-    const sub = await registration.pushManager
-      .subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: base64ToUint8Array(
-          String(process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY)
-        ),
-      })
-      .catch((e) => {
-        if (Notification.permission !== 'granted') {
-          alert('Please enable push notifications in your browser settings')
-        }
-        console.log('Error while subscribing: ', e)
-        throw e
-      })
-
-    // TODO: you should call your API to save subscription data on server in order to send web push notification from server
-    setSubscription(sub)
-    await axios.post(urls.api.webPushSubscribe, {
-      subscription: sub,
-    })
-    console.log('web push subscribed!')
-    console.log(sub)
   }
 
   const handleUnsubscribe = async () => {
