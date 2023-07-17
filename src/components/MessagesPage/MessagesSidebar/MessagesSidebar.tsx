@@ -42,6 +42,9 @@ const MessagesSidebar = () => {
         ),
       })
       .catch((e) => {
+        if (Notification.permission !== 'granted') {
+          alert('Please enable push notifications in your browser settings')
+        }
         console.log('Error while subscribing: ', e)
         throw e
       })
