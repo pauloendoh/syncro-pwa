@@ -43,13 +43,19 @@ self.addEventListener('push', async (event) => {
   if (isTabOpened) return
 
   event?.waitUntil(
-    self.registration.showNotification(data.title, {
-      body: data.body,
-      icon: '/icon-192x192.png',
-      badge: '/icon-192x192.png',
-      tag: data.type,
-      vibrate: [200, 100, 200, 100, 200, 100, 200],
-    })
+    self.registration
+      .showNotification(data.title, {
+        body: data.body,
+        icon: '/icon-192x192.png',
+        badge: '/icon-192x192.png',
+        tag: data.type,
+        // looks like this does not work anymore
+        // https://stackoverflow.com/questions/62261805/how-to-play-sound-in-service-worker-or-even-vibrate-in-chrome
+        // vibrate: [200, 100, 200, 100, 200, 100, 200],
+      })
+      .then(() => {
+        navigator.vibrate([200, 100, 200, 100, 200, 100, 200])
+      })
   )
 })
 
