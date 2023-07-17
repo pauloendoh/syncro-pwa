@@ -1,4 +1,4 @@
-import { Switch, Title, Tooltip, useMantineTheme } from '@mantine/core'
+import { Switch, Title, Tooltip } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
 import { MdNotifications } from 'react-icons/md'
 import { useSidebarMessageRoomsQuery } from '../../../hooks/react-query/message/useSidebarMessageRoomsQuery'
@@ -23,6 +23,7 @@ const MessagesSidebar = () => {
   const [registration, setRegistration] = useState<ServiceWorkerRegistration>()
 
   const axios = useAxios()
+
   const handleSubscribe = async () => {
     if (!registration) {
       console.log('no registration')
@@ -106,7 +107,6 @@ const MessagesSidebar = () => {
   }, [subscription, registration])
 
   const { isMobile } = useMyMediaQuery()
-  const theme = useMantineTheme()
   const { mobileHeaderBg } = useMyColors()
 
   return (
