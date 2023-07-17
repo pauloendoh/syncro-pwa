@@ -1,7 +1,7 @@
 import { Text, Tooltip, useMantineTheme } from '@mantine/core'
 import { useCallback, useMemo } from 'react'
 import { MdStarBorder } from 'react-icons/md'
-import { useMyRatingQU } from '../../../../../hooks/react-query/rating/useMyRatingsQuery'
+import { useMyItemRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../../types/domain/rating/RatingDto'
 import { ratingStatusArrayMap } from '../../../../../types/domain/rating/ratingStatusMap'
@@ -11,10 +11,9 @@ interface Props {
   itemId: string
 }
 
-// PE 1/3 - change name?
-const PressableMyRating = (props: Props) => {
+const MyRatingButton = (props: Props) => {
   const { openModal: openRatingModal } = useSaveRatingModalStore()
-  const myRating = useMyRatingQU(props.itemId)
+  const myRating = useMyItemRatingQueryUtils(props.itemId)
 
   const theme = useMantineTheme()
 
@@ -54,10 +53,12 @@ const PressableMyRating = (props: Props) => {
         }}
       >
         <Icon />
-        <Text color={myRating && 'secondary'}>{myRating?.ratingValue}</Text>
+        <Text color={myRating ? 'secondary' : undefined}>
+          {myRating?.ratingValue}
+        </Text>
       </FlexVCenter>
     </Tooltip>
   )
 }
 
-export default PressableMyRating
+export default MyRatingButton

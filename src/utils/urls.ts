@@ -34,7 +34,7 @@ export const urls = {
 
     savedItems: (type?: SyncroItemType) =>
       '/saved?' + queryString.stringify({ type }),
-    explore: (exploreSlug: ExploreSlug = 'most-rated') =>
+    explore: (exploreSlug: ExploreSlug = 'for-you') =>
       `/explore/${exploreSlug}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',
@@ -189,6 +189,8 @@ export const urls = {
     planUpdates: '/plan-updates',
     mostRatedItems: (params: MostRatedItemsQueryParams) =>
       '/most-rated-items?' + queryString.stringify(params),
+    itemRecommendationsForMe: (itemType: SyncroItemType) =>
+      '/item-recommendations-for-me?' + queryString.stringify({ itemType }),
   },
 
   others: {

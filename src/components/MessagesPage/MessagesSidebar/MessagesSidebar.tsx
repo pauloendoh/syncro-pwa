@@ -1,7 +1,7 @@
 import { Switch, Title, Tooltip, useMantineTheme } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
 import { MdNotifications } from 'react-icons/md'
-import { useLastRoomsWithMessagesQuery } from '../../../hooks/react-query/message/useLastRoomsWithMessagesQuery'
+import { useSidebarMessageRoomsQuery } from '../../../hooks/react-query/message/useSidebarMessageRoomsQuery'
 import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -15,7 +15,7 @@ import BackButton from '../BackButton/BackButton'
 import MessagesSidebarItem from './MessagesSidebarItem/MessagesSidebarItem'
 
 const MessagesSidebar = () => {
-  const { data: rooms } = useLastRoomsWithMessagesQuery()
+  const { data: rooms } = useSidebarMessageRoomsQuery()
   const { roomId } = useMyRouterQuery()
   const { data: unreadRooms } = useUnreadMessageRoomsQuery()
 

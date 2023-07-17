@@ -1,6 +1,6 @@
 import { UserSimpleDto } from '../user/UserSimpleDto'
 
-export interface RatingSimilarityDto {
+export interface RatingSimilarityByTypeDto {
   userB: UserSimpleDto
   ratedSameItemsCount: number
   overallPercentage: number

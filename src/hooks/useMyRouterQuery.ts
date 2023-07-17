@@ -38,3 +38,4 @@ export type ExploreSlug =
   | 'rating-similarity'
   | 'new-users'
   | 'most-rated'
+  | 'for-you'

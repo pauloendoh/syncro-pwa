@@ -1,7 +1,7 @@
 import { Container } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { useLastRoomsWithMessagesQuery } from '../../hooks/react-query/message/useLastRoomsWithMessagesQuery'
+import { useSidebarMessageRoomsQuery } from '../../hooks/react-query/message/useSidebarMessageRoomsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
 import MessagesSidebar from '../MessagesPage/MessagesSidebar/MessagesSidebar'
@@ -11,7 +11,7 @@ import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 type Props = {}
 
 const IndexMessagePage = (props: Props) => {
-  const { data: rooms, isLoading } = useLastRoomsWithMessagesQuery()
+  const { data: rooms, isLoading } = useSidebarMessageRoomsQuery()
   const router = useRouter()
 
   const { isMobile } = useMyMediaQuery()

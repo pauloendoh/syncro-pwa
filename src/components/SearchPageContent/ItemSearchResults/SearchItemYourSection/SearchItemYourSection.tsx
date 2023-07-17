@@ -7,7 +7,7 @@ import {
 } from 'react-icons/md'
 import { useMyInterestQueryUtils } from '../../../../hooks/react-query/interest/useMyInterestQueryUtils'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
-import { useMyRatingQueryUtils } from '../../../../hooks/react-query/rating/useMyRatingQueryUtils'
+import { useMyItemRatingQueryUtils } from '../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
@@ -25,7 +25,7 @@ const SearchItemYourSection = (props: Props) => {
 
   const { openModal: openRatingModal } = useSaveRatingModalStore()
 
-  const myRating = useMyRatingQueryUtils(props.itemId)
+  const myRating = useMyItemRatingQueryUtils(props.itemId)
 
   const myInterest = useMyInterestQueryUtils(props.itemId)
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()

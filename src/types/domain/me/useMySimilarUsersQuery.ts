@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query"
-import { urls } from "../../../utils/urls"
-import { RatingSimilarityDto } from "../rating/RatingSimilarityDto"
+import { useQuery } from '@tanstack/react-query'
+import { urls } from '../../../utils/urls'
+import { RatingSimilarityByTypeDto } from '../rating/RatingSimilarityByTypeDto'
 
 export const useMySimilarUsersQuery = () => {
-  return useQuery<RatingSimilarityDto[]>([urls.api.mySimilarUsers])
+  return useQuery<RatingSimilarityByTypeDto[]>([urls.api.mySimilarUsers])
 }

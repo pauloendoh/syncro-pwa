@@ -1,4 +1,4 @@
-import { Box, Container, Tabs, Title } from '@mantine/core'
+import { Box, Container, ScrollArea, Tabs, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { ExploreSlug, useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { urls } from '../../utils/urls'
@@ -7,12 +7,12 @@ import LoggedLayout from '../_common/layout/LoggedLayout'
 import MostRatedExploreSection from './MostRatedExploreSection/MostRatedExploreSection'
 import NewUsersList from './NewUsersList/NewUsersList'
 import PopularUserList from './PopularUserList/PopularUserList'
+import RecommendedForYouSection from './RecommendedForYouSection/RecommendedForYouSection'
 import SimilarUserList from './SimilarUserList/SimilarUserList'
 import { exploreTabOptions } from './exploreTabOptions/exploreTabOptions'
 
 type Props = {}
 
-// PE 1/3 - ExplorePage
 const ExplorePageContent = (props: Props) => {
   const { q, exploreSlug } = useMyRouterQuery()
 
@@ -40,15 +40,18 @@ const ExplorePageContent = (props: Props) => {
             router.push(urls.pages.explore(newTabValue as ExploreSlug))
           }}
         >
-          <Tabs.List>
-            {exploreTabOptions.map((option) => (
-              <Tabs.Tab key={option.key} value={option.key}>
-                {option.label}
-              </Tabs.Tab>
-            ))}
-          </Tabs.List>
+          <ScrollArea pb={8}>
+            <Tabs.List>
+              {exploreTabOptions.map((option) => (
+                <Tabs.Tab key={option.key} value={option.key}>
+                  {option.label}
+                </Tabs.Tab>
+              ))}
+            </Tabs.List>
+          </ScrollArea>
 
           <Box mt={16} />
+          {exploreSlug === 'for-you' && <RecommendedForYouSection />}
           {exploreSlug === 'most-rated' && <MostRatedExploreSection />}
           {exploreSlug === 'popular-users' && <PopularUserList />}
           {exploreSlug === 'rating-similarity' && <SimilarUserList />}

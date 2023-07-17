@@ -5,6 +5,10 @@ export const exploreTabOptions: {
   label: string
 }[] = [
   {
+    key: 'for-you',
+    label: 'Recommended for you',
+  },
+  {
     key: 'most-rated',
     label: 'Most Rated',
   },

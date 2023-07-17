@@ -1,14 +1,14 @@
-import { RatingSimilarityDto } from '../../../../../types/domain/rating/RatingSimilarityDto'
+import { RatingSimilarityByTypeDto } from '../../../../../types/domain/rating/RatingSimilarityByTypeDto'
 import { UserSimpleDto } from '../../../../../types/domain/user/UserSimpleDto'
 
 // PE 1/3 - what's the difference with RatingsSimilarityDto?
-export interface UserSimilarityDto {
+export interface OverallUserSimilarityDto {
   userB: UserSimpleDto
-  allSimilarity: RatingSimilarityDto
+  allSimilarity: RatingSimilarityByTypeDto
   typeSimilarity: TypeSimilarity[]
 }
 
 interface TypeSimilarity {
   itemType: string
-  similarityInfo: RatingSimilarityDto
+  similarityInfo: RatingSimilarityByTypeDto
 }

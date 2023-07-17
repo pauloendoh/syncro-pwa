@@ -32,7 +32,7 @@ import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import FavoritesSection from './FavoritesSection/FavoritesSection'
-import ItemsCountUserProfile from './ItemsCountUserProfile/ItemsCountUserProfile'
+import FollowersCountRowProfile from './FollowersCountRowProfile/FollowersCountRowProfile'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
 import ProfileScreenButtons from './ProfileScreenButtons/ProfileScreenButtons'
 import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRatingItem'
@@ -131,7 +131,7 @@ const UserProfilePage = () => {
                       </FlexVCenter>
 
                       <Box mt={16}>
-                        <ItemsCountUserProfile userId={userId} />
+                        <FollowersCountRowProfile userId={userId} />
                       </Box>
                     </FlexCol>
                   </Flex>

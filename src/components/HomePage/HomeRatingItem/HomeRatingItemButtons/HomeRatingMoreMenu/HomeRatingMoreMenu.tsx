@@ -1,6 +1,6 @@
 import { ActionIcon, Menu } from '@mantine/core'
 import { MdEdit, MdMoreHoriz, MdOutlineInfo, MdShare } from 'react-icons/md'
-import { useMyRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyRatingQueryUtils'
+import { useMyItemRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
 import useRatingDetailsModalStore from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useShareRatingModalStore from '../../../../../hooks/zustand/modals/useShareRatingModalStore'
@@ -12,7 +12,7 @@ type Props = {
 }
 
 const HomeRatingMoreMenu = (props: Props) => {
-  const myRating = useMyRatingQueryUtils(props.itemId)
+  const myRating = useMyItemRatingQueryUtils(props.itemId)
 
   const { openModal } = useShareRatingModalStore()
 

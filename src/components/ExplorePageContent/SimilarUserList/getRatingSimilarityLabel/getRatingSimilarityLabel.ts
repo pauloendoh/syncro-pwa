@@ -1,9 +1,9 @@
 import { syncroItemOptions } from '../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
-import { RatingSimilarityDto } from '../../../../types/domain/rating/RatingSimilarityDto'
+import { RatingSimilarityByTypeDto } from '../../../../types/domain/rating/RatingSimilarityByTypeDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 export function getRatingSimilarityLabel(params: {
-  similarityDto: RatingSimilarityDto
+  similarityDto: RatingSimilarityByTypeDto
   sharedItemType?: SyncroItemType
 }) {
   const { similarityDto, sharedItemType } = params

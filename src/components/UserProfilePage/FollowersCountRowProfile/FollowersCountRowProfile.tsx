@@ -14,8 +14,7 @@ type Props = {
   userId: string
 }
 
-// PE 1/3 - rename? To FollowersCountRowUserProfile
-const ItemsCountUserProfile = (props: Props) => {
+const FollowersCountRowProfile = (props: Props) => {
   const { data: followersFollows, isLoading: isLoadingFollowers } =
     useFollowersQuery(props.userId)
   const { data: followingUsersFollows, isLoading: isLoadingFollowingUsers } =
@@ -81,4 +80,4 @@ const ItemsCountUserProfile = (props: Props) => {
   )
 }
 
-export default ItemsCountUserProfile
+export default FollowersCountRowProfile

@@ -9,7 +9,7 @@ import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import HomeRatingMoreMenu from './HomeRatingMoreMenu/HomeRatingMoreMenu'
-import PressableMyRating from './PressableMyRating/PressableMyRating'
+import MyRatingButton from './MyRatingButton/MyRatingButton'
 import ReplyToRatingSection from './ReplyToRatingSection/ReplyToRatingSection'
 
 interface Props {
@@ -54,7 +54,7 @@ const HomeRatingItemButtons = (props: Props) => {
   if (!authUser) return null
   return (
     <FlexVCenter mt={2} gap={24}>
-      <PressableMyRating itemId={props.syncroItemId!} />
+      <MyRatingButton itemId={props.syncroItemId!} />
       <Tooltip label={bookmarkTooltipLabel} withArrow>
         <FlexVCenter
           sx={(theme) => ({

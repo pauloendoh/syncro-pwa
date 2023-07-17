@@ -13,7 +13,7 @@ import { useFavoriteItemsQuery } from '../../../hooks/react-query/favorite-item/
 import useToggleFavoriteItemMutation from '../../../hooks/react-query/favorite-item/useToggleFavoriteItemMutation'
 import { useMyInterestQU } from '../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../hooks/react-query/interest/useToggleSaveItemMutation'
-import { useMyRatingQU } from '../../../hooks/react-query/rating/useMyRatingsQuery'
+import { useMyItemRatingQueryUtils } from '../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import useRecommendItemModalStore from '../../../hooks/zustand/modals/useRecommendItemModalStore'
 import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRatingModalStore'
@@ -33,7 +33,7 @@ interface Props {
 
 const RatingRow = ({ syncroItem, ...props }: Props) => {
   const { authUser } = useAuthStore()
-  const myRating = useMyRatingQU(syncroItem.id)
+  const myRating = useMyItemRatingQueryUtils(syncroItem.id)
 
   const myInterest = useMyInterestQU(syncroItem.id)
 

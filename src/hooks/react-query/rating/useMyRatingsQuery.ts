@@ -10,14 +10,3 @@ export const useMyRatingsQuery = () => {
     enabled: !!authUser,
   })
 }
-
-// PE 1/3 - remove; use useMyRatingQueryUtils instead
-export const useMyRatingQU = (itemId?: string | null) => {
-  const { authUser } = useAuthStore()
-  const { data } = useQuery<RatingDto[], Error>([urls.api.myRatings], {
-    enabled: !!authUser,
-  })
-
-  const found = data?.find((rating) => rating.syncroItemId === itemId)
-  return found
-}
