@@ -64,26 +64,28 @@ const MessagesSidebar = () => {
       // @ts-expect-error
       window.workbox !== undefined
     ) {
-      // run only in browser
-      navigator.serviceWorker.ready.then((reg) => {
-        reg.pushManager.getSubscription().then(async (sub) => {
-          if (
-            sub &&
-            !(
-              sub.expirationTime &&
-              Date.now() > sub.expirationTime - 5 * 60 * 1000
-            )
-          ) {
-            setSubscription(sub)
+      navigator.serviceWorker.ready
+        .then((reg) => {
+          reg.pushManager.getSubscription().then(async (sub) => {
+            if (sub?.expirationTime) {
+              const willExpireSoon =
+                Date.now() > sub.expirationTime - 5 * 60 * 1000
 
-            await axios.post(urls.api.webPushSubscribe, {
-              subscription: sub,
-            })
-          }
+              if (willExpireSoon) {
+                setSubscription(sub)
+
+                await axios.post(urls.api.webPushSubscribe, {
+                  subscription: sub,
+                })
+              }
+            }
+          })
+
+          setRegistration(reg)
         })
-
-        setRegistration(reg)
-      })
+        .catch((e) => {
+          console.log('Error while getting service worker registration: ', e)
+        })
     }
   }
 
