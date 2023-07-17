@@ -13,10 +13,6 @@ export const exploreTabOptions: {
     label: 'Most Rated',
   },
   {
-    key: 'popular-users',
-    label: 'Popular Users',
-  },
-  {
     key: 'rating-similarity',
     label: 'Rating Similarity',
   },
