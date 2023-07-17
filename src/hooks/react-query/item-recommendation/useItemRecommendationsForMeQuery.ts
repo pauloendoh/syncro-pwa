@@ -13,6 +13,7 @@ export const useItemRecommendationsForMeQuery = (itemType: SyncroItemType) => {
     {
       enabled: !!authUser,
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
     }
   )
 }
