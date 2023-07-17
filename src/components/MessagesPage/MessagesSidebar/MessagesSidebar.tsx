@@ -66,20 +66,25 @@ const MessagesSidebar = () => {
     ) {
       navigator.serviceWorker.ready
         .then((reg) => {
-          reg.pushManager.getSubscription().then(async (sub) => {
-            if (sub?.expirationTime) {
-              const willExpireSoon =
-                Date.now() > sub.expirationTime - 5 * 60 * 1000
+          reg.pushManager
+            .getSubscription()
+            .then(async (sub) => {
+              if (sub?.expirationTime) {
+                const willExpireSoon =
+                  Date.now() > sub.expirationTime - 5 * 60 * 1000
 
-              if (willExpireSoon) {
-                setSubscription(sub)
+                if (willExpireSoon) {
+                  setSubscription(sub)
 
-                await axios.post(urls.api.webPushSubscribe, {
-                  subscription: sub,
-                })
+                  await axios.post(urls.api.webPushSubscribe, {
+                    subscription: sub,
+                  })
+                }
               }
-            }
-          })
+            })
+            .catch((e) => {
+              console.log('Error while getting subscription: ', e)
+            })
 
           setRegistration(reg)
         })
