@@ -56,7 +56,7 @@ const SyncroItemSummarySection = ({ item }: Props) => {
         )}
         <Box
           style={{
-            visibility: canToggleExpand ? 'visible' : 'hidden',
+            display: canToggleExpand ? 'block' : 'none',
             cursor: 'pointer',
             fontWeight: 'bold',
             width: 'fit-content',
