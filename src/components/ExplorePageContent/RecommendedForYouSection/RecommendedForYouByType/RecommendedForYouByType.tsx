@@ -23,7 +23,7 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
       <Title order={5}>{typeMap.getTypeLabel(true)}</Title>
       <ScrollArea pb={16}>
         <Flex gap={8}>
-          {isLoading && <CenterLoader height={133} />}
+          {isLoading && <CenterLoader height={133} width="100%" />}
           {data?.map((item) => (
             <FavoriteItem key={item.id} item={item} alwaysShowTitle />
           ))}
