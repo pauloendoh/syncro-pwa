@@ -20,7 +20,7 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
 
   return (
     <FlexCol className="RecommendedForYouByType" gap={16}>
-      <Title order={5}>{typeMap.getTypeLabel()}</Title>
+      <Title order={5}>{typeMap.getTypeLabel(true)}</Title>
       <ScrollArea pb={16}>
         <Flex gap={8}>
           {isLoading && <CenterLoader height={133} />}
