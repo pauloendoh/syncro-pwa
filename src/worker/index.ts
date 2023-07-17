@@ -46,6 +46,7 @@ self.addEventListener('push', async (event) => {
     self.registration.showNotification(data.title, {
       body: data.body,
       icon: '/icon-192x192.png',
+      badge: '/icon-192x192.png',
       tag: data.type,
       vibrate: [200, 100, 200, 100, 200, 100, 200],
     })
