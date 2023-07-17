@@ -54,7 +54,8 @@ self.addEventListener('push', async (event) => {
         // vibrate: [200, 100, 200, 100, 200, 100, 200],
       })
       .then(() => {
-        navigator.vibrate([200, 100, 200, 100, 200, 100, 200])
+        // does not work after chrome 60.. we are at 110+ lol
+        // navigator.vibrate([200, 100, 200, 100, 200, 100, 200])
       })
   )
 })

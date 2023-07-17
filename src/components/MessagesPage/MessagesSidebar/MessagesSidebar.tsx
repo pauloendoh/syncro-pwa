@@ -25,17 +25,27 @@ const MessagesSidebar = () => {
   const axios = useAxios()
 
   const handleSubscribe = async () => {
+    console.log({
+      registration,
+      permission: Notification.permission,
+    })
     if (!registration) {
       console.log('no registration')
       return
     }
 
-    const sub = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: base64ToUint8Array(
-        String(process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY)
-      ),
-    })
+    const sub = await registration.pushManager
+      .subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: base64ToUint8Array(
+          String(process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY)
+        ),
+      })
+      .catch((e) => {
+        console.log('Error while subscribing: ', e)
+        throw e
+      })
+
     // TODO: you should call your API to save subscription data on server in order to send web push notification from server
     setSubscription(sub)
     await axios.post(urls.api.webPushSubscribe, {
