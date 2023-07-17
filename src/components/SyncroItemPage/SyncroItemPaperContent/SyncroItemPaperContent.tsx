@@ -96,9 +96,11 @@ const SyncroItemPaperContent = (props: Props) => {
             </FlexCol>
           </Flex>
 
-          <Box mt={24}>
-            {item.type !== 'music' && <SyncroItemSummarySection item={item} />}
-          </Box>
+          {!props.isPreview && item.type === 'music' && (
+            <Box mt={24}>
+              <SyncroItemSummarySection item={item} />
+            </Box>
+          )}
 
           {(item.type === 'tvSeries' || item.type === 'movie') &&
             !item.imdbExtraInfo && (

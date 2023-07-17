@@ -21,7 +21,7 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
   return (
     <FlexCol className="RecommendedForYouByType" gap={16}>
       <Title order={5}>{typeMap.getTypeLabel()}</Title>
-      <ScrollArea pb={8}>
+      <ScrollArea pb={16}>
         <Flex gap={8}>
           {isLoading && <CenterLoader height={133} />}
           {data?.map((item) => (
