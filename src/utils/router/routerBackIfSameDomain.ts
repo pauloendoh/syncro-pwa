@@ -8,7 +8,7 @@ import Router from 'next/router'
 export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
   const closeRedirect = () => {
     delete Router.query[queryParam]
-    Router.replace(Router, undefined, { scroll: false })
+    Router.replace(Router, undefined, { scroll: false, shallow: true })
   }
 
   closeRedirect()

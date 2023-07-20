@@ -19,7 +19,7 @@ const useSaveRatingModalStore = create<IStore>((set, get) => ({
     }
     set({ initialValue })
     Router.query[QueryParams.saveRatingModal] = 'open'
-    Router.push(Router, undefined, { scroll: false })
+    Router.push(Router, undefined, { scroll: false, shallow: true })
   },
   closeModal: () => {
     routerBackIfSameDomainOrClearQueryParam(QueryParams.saveRatingModal)
