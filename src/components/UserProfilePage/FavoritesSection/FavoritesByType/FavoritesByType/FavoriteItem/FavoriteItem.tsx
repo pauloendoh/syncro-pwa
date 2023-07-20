@@ -1,9 +1,16 @@
+import { useMantineTheme } from '@mantine/core'
 import { FloatingPosition } from '@mantine/core/lib/Floating'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { MdStar } from 'react-icons/md'
+import { useMyRatingsQuery } from '../../../../../../hooks/react-query/rating/useMyRatingsQuery'
+import { useMyColors } from '../../../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../../../types/domain/syncro-item/SyncroItemDto'
 import { getItemTitleAndYear } from '../../../../../../utils/domains/syncro-item/getItemTitleAndYear'
+import { useGetFinalRatingCountAvgSite } from '../../../../../SyncroItemPage/AvgRatingRow/useGetFinalRatingCountAvgSite/useGetFinalRatingCountAvgSite'
 import SyncroItemLink from '../../../../../_common/SyncroItemLink/SyncroItemLink'
+import FlexCol from '../../../../../_common/flex/FlexCol'
+import FlexVCenter from '../../../../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../../../../_common/image/SyncroItemImage/SyncroItemImage'
 import Span from '../../../../../_common/text/Span'
 
@@ -13,6 +20,7 @@ type Props = {
   previewPosition?: FloatingPosition
   width?: number
   alwaysShowTitle?: boolean
+  showAvgRating?: boolean
 }
 
 const FavoriteItem = (props: Props) => {
@@ -22,6 +30,16 @@ const FavoriteItem = (props: Props) => {
   const showTitle = isHovering || isMobile || props.alwaysShowTitle
 
   const width = props.width || 100
+  const { ratingYellow } = useMyColors()
+  const theme = useMantineTheme()
+
+  const itemFinalRating = useGetFinalRatingCountAvgSite(props.item)
+
+  const { data: myRatings } = useMyRatingsQuery()
+
+  const myRatingValue = useMemo(() => {
+    return myRatings?.find((r) => r.syncroItemId === props.item.id)?.ratingValue
+  }, [myRatings, props.item.id])
 
   return (
     <SyncroItemLink
@@ -55,6 +73,43 @@ const FavoriteItem = (props: Props) => {
           >
             {getItemTitleAndYear(props.item)}
           </Span>
+        )}
+
+        {props.showAvgRating && !!itemFinalRating.avgRating && (
+          <FlexCol
+            gap={2}
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              background: `#151515cc`,
+              width: 'fit-content',
+              padding: 4,
+              paddingTop: 2,
+
+              borderRadius: '0 0 0 8px',
+            }}
+          >
+            <FlexVCenter>
+              <MdStar color={ratingYellow} />
+              <Span color={ratingYellow} size="xs" align="center" w={15}>
+                {itemFinalRating.avgRating}
+              </Span>
+            </FlexVCenter>
+            {!!myRatingValue && (
+              <FlexVCenter>
+                <MdStar color={theme.colors.secondary[9]} />
+                <Span
+                  color={theme.colors.secondary[9]}
+                  size="xs"
+                  align="center"
+                  w={15}
+                >
+                  {myRatingValue}
+                </Span>
+              </FlexVCenter>
+            )}
+          </FlexCol>
         )}
       </div>
     </SyncroItemLink>

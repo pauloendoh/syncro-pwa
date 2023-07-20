@@ -8,19 +8,22 @@ type Props = ButtonProps &
     children: React.ReactNode
   }
 
-const RatingRowButton = ({ isActive, ...props }: Props) => {
-  return (
-    <Button
-      size="sm"
-      sx={{
-        borderRadius: 8,
-      }}
-      color={isActive ? 'secondary' : 'dark'}
-      {...props}
-    >
-      {props.children}
-    </Button>
-  )
-}
+const RatingRowButton = React.forwardRef<HTMLButtonElement, Props>(
+  ({ isActive, ...props }, ref) => {
+    return (
+      <Button
+        ref={ref}
+        size="sm"
+        sx={{
+          borderRadius: 8,
+        }}
+        color={isActive ? 'secondary' : 'dark'}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    )
+  }
+)
 
 export default RatingRowButton

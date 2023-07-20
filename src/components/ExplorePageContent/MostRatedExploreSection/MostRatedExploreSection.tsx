@@ -70,7 +70,12 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
       <Flex wrap="wrap" gap={16}>
         {items?.map((item) => (
           <SyncroItemLink item={item}>
-            <FavoriteItem item={item} alwaysShowTitle width={140} />
+            <FavoriteItem
+              item={item}
+              alwaysShowTitle
+              width={140}
+              showAvgRating
+            />
           </SyncroItemLink>
         ))}
       </Flex>

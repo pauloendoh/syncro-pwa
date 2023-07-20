@@ -25,7 +25,12 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
         <Flex gap={8}>
           {isLoading && <CenterLoader height={133} width="100%" />}
           {data?.map((item) => (
-            <FavoriteItem key={item.id} item={item} alwaysShowTitle />
+            <FavoriteItem
+              key={item.id}
+              item={item}
+              alwaysShowTitle
+              showAvgRating
+            />
           ))}
           {data?.length === 0 && <Span>No recommendations for you yet</Span>}
         </Flex>
