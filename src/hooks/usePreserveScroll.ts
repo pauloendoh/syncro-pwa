@@ -1,32 +1,35 @@
 import { useRouter } from 'next/router'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const usePreserveScroll = () => {
   const router = useRouter()
 
-  const scrollPositions = useRef<{ [url: string]: number }>({})
-  const isBack = useRef(false)
+  const [scrollPositions, setScrollPositions] = useState<{
+    [url: string]: number
+  }>({})
+  useRef<{ [url: string]: number }>({})
+  const [isBack, setIsBack] = useState(false)
 
   useEffect(() => {
     router.beforePopState(() => {
-      isBack.current = true
+      setIsBack(true)
       return true
     })
 
     const onRouteChangeStart = () => {
       const url = router.asPath
-      scrollPositions.current[url] = window.scrollY
+      setScrollPositions((prev) => ({ ...prev, [url]: window.scrollY }))
     }
 
     const onRouteChangeComplete = (url: any) => {
-      if (isBack.current && scrollPositions.current[url]) {
+      if (isBack && scrollPositions[url]) {
         window.scroll({
-          top: scrollPositions.current[url],
+          top: scrollPositions[url],
           behavior: 'auto',
         })
       }
 
-      isBack.current = false
+      setIsBack(false)
     }
 
     router.events.on('routeChangeStart', onRouteChangeStart)
