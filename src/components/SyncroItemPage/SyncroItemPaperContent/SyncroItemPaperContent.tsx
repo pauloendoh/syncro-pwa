@@ -16,7 +16,7 @@ import AvgRatingRow from '../AvgRatingRow/AvgRatingRow'
 import GenreChips from '../GenreChips/GenreChips'
 import ImageSyncroItemPage from '../ImageSyncroItemPage/ImageSyncroItemPage'
 import ImdbExtraInfoSection from '../ImdbExtraInfoSection/ImdbExtraInfoSection'
-import ItemMoreIconAdmin from '../ItemMoreIconAdmin/ItemMoreIconAdmin'
+import ItemMoreIcon from '../ItemMoreIcon/ItemMoreIcon'
 import ItemRatedBy from '../ItemRatedBy/ItemRatedBy'
 import RatingRow from '../RatingRow/RatingRow'
 import SyncroItemSummarySection from '../SyncroItemSummarySection/SyncroItemSummarySection'
@@ -68,7 +68,7 @@ const SyncroItemPaperContent = (props: Props) => {
               </Title>
             )}
 
-            {authUser?.isAdmin && <ItemMoreIconAdmin item={item} />}
+            <ItemMoreIcon item={item} />
           </Flex>
           <Flex mt={16} gap={16}>
             <ImageSyncroItemPage

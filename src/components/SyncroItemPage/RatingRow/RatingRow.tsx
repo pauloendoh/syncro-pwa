@@ -94,7 +94,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
   }, [myRating?.ratingValue])
 
   return (
-    <ScrollArea pb={props.isPreview ? 16 : 8}>
+    <ScrollArea pb={16}>
       <FlexVCenter gap={isSmallScreen ? 4 : 8} pb={isSmallScreen ? 16 : 0}>
         {authUser && (
           <>
