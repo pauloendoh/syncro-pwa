@@ -83,6 +83,11 @@ const HomeRatingItem = (props: Props) => {
     hasRated: !!props.rating.ratingValue,
   })
 
+  const showMiddleDot = useMemo(() => {
+    if (!props.rating.ratingValue && !progressLabel) return false
+    return true
+  }, [props.rating.ratingValue, progressLabel])
+
   if (!props.rating.syncroItem) return null
 
   return (
@@ -152,7 +157,7 @@ const HomeRatingItem = (props: Props) => {
             <Text size={'xs'}>
               {format(props.rating.createdAt)}
 
-              {' · '}
+              {showMiddleDot && ' · '}
               <Span
                 sx={{
                   color: statusMap?.color,

@@ -6,7 +6,7 @@ const LoadingModal = () => {
   const { isOpen, closeModal } = useLoadingModalStore()
 
   return (
-    <Modal opened={!!isOpen} onClose={closeModal}>
+    <Modal opened={!!isOpen} onClose={closeModal} withCloseButton={false}>
       <CenterLoader />
     </Modal>
   )

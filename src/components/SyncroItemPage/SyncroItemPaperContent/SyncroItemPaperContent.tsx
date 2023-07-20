@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton, Text, Title } from '@mantine/core'
+import { Box, Flex, Skeleton, Title } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -11,6 +11,7 @@ import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
+import Span from '../../_common/text/Span'
 import AvgRatingRow from '../AvgRatingRow/AvgRatingRow'
 import GenreChips from '../GenreChips/GenreChips'
 import ImageSyncroItemPage from '../ImageSyncroItemPage/ImageSyncroItemPage'
@@ -81,13 +82,21 @@ const SyncroItemPaperContent = (props: Props) => {
 
               <FlexVCenter gap={4}>
                 <SyncroItemIcon type={item.type} size={16} />
-                <Text
-                  sx={{
-                    position: 'relative',
-                  }}
+                <MyNextLink
+                  href={urls.pages.explore('most-rated', {
+                    type: item.type,
+                  })}
                 >
-                  {itemTypeMap.getTypeLabel()}
-                </Text>
+                  <Span
+                    sx={{
+                      ':hover': {
+                        textDecoration: 'underline',
+                      },
+                    }}
+                  >
+                    {itemTypeMap.getTypeLabel()}
+                  </Span>
+                </MyNextLink>
               </FlexVCenter>
 
               <GenreChips genres={item.genres} />

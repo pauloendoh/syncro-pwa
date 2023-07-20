@@ -34,8 +34,8 @@ export const urls = {
 
     savedItems: (type?: SyncroItemType) =>
       '/saved?' + queryString.stringify({ type }),
-    explore: (exploreSlug: ExploreSlug = 'for-you') =>
-      `/explore/${exploreSlug}`,
+    explore: (exploreSlug: ExploreSlug = 'for-you', queryObj?: Object) =>
+      `/explore/${exploreSlug}?${queryString.stringify(queryObj || {})}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',
     messagesIndex: '/messages',

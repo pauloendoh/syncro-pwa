@@ -1,5 +1,6 @@
 import { Button, Flex, Text } from '@mantine/core'
 import { useMemo } from 'react'
+import { useSyncroItemTypeMap } from '../../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery'
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
 import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
@@ -41,6 +42,8 @@ const RecommendMutualItem = ({ mutual, itemId, ...props }: Props) => {
 
   const { isMobile } = useMyMediaQuery()
 
+  const typeMap = useSyncroItemTypeMap({ itemType: props.itemType })
+
   return (
     <Flex justify="space-between">
       <FlexVCenter>
@@ -59,7 +62,7 @@ const RecommendMutualItem = ({ mutual, itemId, ...props }: Props) => {
               {isMobile
                 ? `${Math.floor(
                     mutual.similarity.overallPercentage * 100
-                  )}% similarity`
+                  )}% ${typeMap.getTypeLabelLowerCase()} similarity`
                 : getRatingSimilarityLabel({
                     similarityDto: mutual.similarity,
                     sharedItemType: props.itemType,

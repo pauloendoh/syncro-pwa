@@ -4,6 +4,7 @@ import { syncroItemOptions } from '../../../hooks/domains/syncro-item/syncroItem
 import { useUserHighSimilarityTypesQueryUtils } from '../../../hooks/react-query/rating/user-similarity/useUserHighSimilarityTypesQueryUtils'
 import { useUserSimilarityQuery } from '../../../hooks/react-query/rating/user-similarity/useUserSimilarityQuery'
 import useUserSimilarityModalStore from '../../../hooks/zustand/modals/useUserSimilarityModalStore'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 
@@ -12,6 +13,7 @@ type Props = {
 }
 
 const UserSimilaritySection = (props: Props) => {
+  const { authUser } = useAuthStore()
   const { data, isLoading } = useUserSimilarityQuery(props.userId)
   const { openModal } = useUserSimilarityModalStore()
 
@@ -34,6 +36,10 @@ const UserSimilaritySection = (props: Props) => {
 
     return label
   }, [highSimilarityTypes])
+
+  if (!authUser) {
+    return null
+  }
 
   if (!data || isLoading)
     return (
