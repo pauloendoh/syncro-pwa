@@ -1,7 +1,6 @@
-import { Box, Center, Loader } from '@mantine/core'
+import { Center, Loader } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
-import { Virtuoso } from 'react-virtuoso'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -21,7 +20,7 @@ const RatingsTimeline = (props: Props) => {
     isLoading,
   } = useTimelineRatingsQuery(props.userId)
 
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef()
 
   const { ref, entry } = useIntersection({
     root: containerRef.current,
@@ -46,26 +45,16 @@ const RatingsTimeline = (props: Props) => {
     <>
       {isLoading && <CenterLoader />}
 
-      <FlexCol gap={16} mt={16} ref={containerRef}>
-        <Virtuoso
-          totalCount={flatRatings.length}
-          itemContent={(index) => (
-            <Box mb={16}>
-              <HomeRatingItem rating={flatRatings[index]} />
-            </Box>
-          )}
-          useWindowScroll
-          components={{
-            Footer: () => {
-              if (!hasNextPage) return null
-              return (
-                <Center sx={{ height: 80 }} ref={ref}>
-                  <Loader />
-                </Center>
-              )
-            },
-          }}
-        />
+      <FlexCol gap={16} mt={16}>
+        {flatRatings.map((rating) => (
+          <HomeRatingItem rating={rating} key={rating.id} />
+        ))}
+
+        {hasNextPage && (
+          <Center sx={{ height: 80 }} ref={ref}>
+            <Loader />
+          </Center>
+        )}
       </FlexCol>
     </>
   )
