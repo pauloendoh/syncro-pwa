@@ -38,7 +38,7 @@ const HomeRatingMoreMenu = (props: Props) => {
             // @ts-ignore
             onClick={() => openRatingDetailsModal(props.rating)}
           >
-            See details
+            See rating details
           </Menu.Item>
         )}
 
