@@ -8,7 +8,7 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation'
@@ -35,15 +35,19 @@ import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingV
 const cn = (...classNames: string[]) => classNames.filter(Boolean).join(' ')
 
 const EditRatingModal = () => {
-  const { initialValue, closeModal } = useSaveRatingModalStore()
+  const {
+    initialValue,
+    closeModal,
+    isOpen: modalIsOpen,
+    openModal,
+  } = useSaveRatingModalStore()
 
   const {
     closeModal: closeRatingDetailsModal,
     isOpen: ratingDetailsModalIsOpen,
   } = useRatingDetailsModalStore()
-  const { saveRatingModal: editRatingModal } = useMyRouterQuery()
 
-  const modalIsOpen = useMemo(() => !!editRatingModal, [editRatingModal])
+  const query = useMyRouterQuery()
 
   const { mutate: submitSaveRating, isLoading } = useSaveRatingMutation()
 
@@ -59,33 +63,36 @@ const EditRatingModal = () => {
     initialValue?.syncroItemId
   )
 
-  const {
-    reset,
-    watch,
-    getValues,
-    register,
-    handleSubmit,
-    setValue,
-    formState: { isDirty },
-  } = useForm<RatingDto>({
+  const form = useForm<RatingDto>({
     defaultValues: initialValue || buildRatingDto(),
   })
 
   useEffect(() => {
-    if (!!modalIsOpen) {
-      reset(
-        initialValue ||
-          buildRatingDto({
-            syncroItemId: syncroItem?.id,
-          })
-      )
+    if (modalIsOpen) {
+      const newRating = buildRatingDto({
+        syncroItemId: syncroItem?.id,
+      })
+      form.reset(initialValue || newRating)
     }
   }, [modalIsOpen])
 
-  useConfirmTabClose(isDirty && !!modalIsOpen)
+  useEffect(() => {
+    if (!query.saveRatingModal && modalIsOpen) {
+      closeModal()
+      return
+    }
+    if (query.saveRatingModal && !modalIsOpen) {
+      const newRating = buildRatingDto({
+        syncroItemId: syncroItem?.id,
+      })
+      openModal(initialValue || newRating)
+    }
+  }, [query.saveRatingModal])
+
+  useConfirmTabClose(form.formState.isDirty && !!modalIsOpen)
 
   const handleCloseModal = useCallback(() => {
-    if (isDirty && !!modalIsOpen) {
+    if (form.formState.isDirty && !!modalIsOpen) {
       openConfirmDialog({
         title: 'Unsaved changes',
         description:
@@ -98,15 +105,15 @@ const EditRatingModal = () => {
     }
 
     closeModal()
-  }, [isDirty, !!modalIsOpen])
+  }, [form.formState.isDirty, !!modalIsOpen])
 
   const handleChangeRating = (newRating: number) => {
-    if (newRating === watch('ratingValue')) {
-      setValue('ratingValue', null, { shouldDirty: true })
+    if (newRating === form.watch('ratingValue')) {
+      form.setValue('ratingValue', null, { shouldDirty: true })
       return
     }
 
-    setValue('ratingValue', newRating, { shouldDirty: true })
+    form.setValue('ratingValue', newRating, { shouldDirty: true })
   }
 
   const closeBothModals = () => {
@@ -136,7 +143,7 @@ const EditRatingModal = () => {
 
   return (
     <Modal
-      opened={!!editRatingModal}
+      opened={!!modalIsOpen}
       onClose={handleCloseModal}
       title={
         <FlexVCenter justify="space-between">
@@ -160,7 +167,7 @@ const EditRatingModal = () => {
         },
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FlexVCenter
           mt={24}
           sx={{
@@ -168,9 +175,9 @@ const EditRatingModal = () => {
           }}
         >
           <Rating
-            value={watch('ratingValue') || undefined}
+            value={form.watch('ratingValue') || undefined}
             onChange={handleChangeRating}
-            color={watch('ratingValue') === null ? '#343a40' : 'secondary'}
+            color={form.watch('ratingValue') === null ? '#343a40' : 'secondary'}
             size={isMobile ? 'lg' : 'xl'}
             count={10}
           />
@@ -183,43 +190,45 @@ const EditRatingModal = () => {
             height: 24,
           }}
         >
-          {!!watch('ratingValue') && (
+          {!!form.watch('ratingValue') && (
             <Text
               sx={{
                 fontWeight: 500,
                 color: theme.colors.yellow[5],
               }}
             >
-              {getLabelByRatingValue(watch('ratingValue'))}
+              {getLabelByRatingValue(form.watch('ratingValue'))}
             </Text>
           )}
         </FlexVCenter>
 
         <FlexVCenter gap={16} mt={24}>
           <RatingStatusSelector
-            value={watch('status')}
+            value={form.watch('status')}
             onChange={(value) =>
-              setValue('status', value, { shouldDirty: true })
+              form.setValue('status', value, { shouldDirty: true })
             }
           />
 
-          {syncroItem && watch('ratingProgress') && (
+          {syncroItem && form.watch('ratingProgress') && (
             <RatingProgressFields
-              value={watch('ratingProgress')!}
+              value={form.watch('ratingProgress')!}
               onChange={(value) =>
-                setValue('ratingProgress', value, { shouldDirty: true })
+                form.setValue('ratingProgress', value, { shouldDirty: true })
               }
               item={syncroItem}
-              status={watch('status')}
+              status={form.watch('status')}
             />
           )}
         </FlexVCenter>
 
         <Textarea
           label="Review"
-          value={watch('review')}
+          value={form.watch('review')}
           onChange={(e) =>
-            setValue('review', e.currentTarget.value, { shouldDirty: true })
+            form.setValue('review', e.currentTarget.value, {
+              shouldDirty: true,
+            })
           }
           placeholder="Write a review..."
           autosize
@@ -231,7 +240,7 @@ const EditRatingModal = () => {
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && e.ctrlKey) {
-              if (initialValue) onSubmit(watch())
+              if (initialValue) onSubmit(form.watch())
             }
           }}
         />
@@ -249,8 +258,8 @@ const EditRatingModal = () => {
       </form>
 
       {initialValue?.syncroItemId &&
-        watch('ratingValue') &&
-        watch('ratingValue')! >= 8 && (
+        form.watch('ratingValue') &&
+        form.watch('ratingValue')! >= 8 && (
           <FlexCol mt={40} gap={16} pb={16}>
             <Divider />
             <Title order={4}>Recommend to users</Title>
