@@ -149,7 +149,7 @@ const EditRatingModal = () => {
       title={
         <FlexVCenter justify="space-between">
           {isLoadingItemInfo ? (
-            <Skeleton width={200} height={24} />
+            <Skeleton height={24} />
           ) : (
             <Title order={4}>
               <Title order={4}>How would you rate "{syncroItem?.title}"?</Title>
