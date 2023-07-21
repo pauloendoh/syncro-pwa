@@ -9,9 +9,11 @@ import { myEnvs } from '../../utils/myEnvs'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import MyPaper from '../_common/overrides/MyPaper'
+import Span from '../_common/text/Span'
 import LoginForm from './LoginForm/LoginForm'
 import PasswordResetForm from './PasswordResetForm/PasswordResetForm'
 import RegisterForm from './RegisterForm/RegisterForm'
+import TempUserButton from './TempUserButton/TempUserButton'
 
 const LandingPage = () => {
   const router = useRouter()
@@ -79,7 +81,9 @@ const LandingPage = () => {
               <Box mt={16} />
               <Divider label="Or" labelPosition="center" />
 
-              <Box mt={16}>
+              <FlexCol mt={16} gap={8}>
+                <TempUserButton />
+
                 <Button
                   leftIcon={<AiOutlineGoogle size={24} />}
                   fullWidth
@@ -87,9 +91,11 @@ const LandingPage = () => {
                   size="lg"
                   onClick={handleGoogleSignIn}
                 >
-                  Enter with Google
+                  <Span size="0.8rem" w={160} align="center">
+                    Enter with Google
+                  </Span>
                 </Button>
-              </Box>
+              </FlexCol>
               <Box mt={16} />
 
               <Center>
