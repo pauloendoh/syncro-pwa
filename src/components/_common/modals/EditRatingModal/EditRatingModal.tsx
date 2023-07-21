@@ -3,6 +3,7 @@ import {
   Divider,
   Modal,
   Rating,
+  Skeleton,
   Text,
   Textarea,
   Title,
@@ -49,7 +50,8 @@ const EditRatingModal = () => {
 
   const query = useMyRouterQuery()
 
-  const { mutate: submitSaveRating, isLoading } = useSaveRatingMutation()
+  const { mutate: submitSaveRating, isLoading: isLoadingMutation } =
+    useSaveRatingMutation()
 
   const onSubmit = async (data: RatingDto) => {
     submitSaveRating(data, {
@@ -59,9 +61,8 @@ const EditRatingModal = () => {
 
   const theme = useMantineTheme()
 
-  const { data: syncroItem } = useSyncroItemDetailsQuery(
-    initialValue?.syncroItemId
-  )
+  const { data: syncroItem, isLoading: isLoadingItemInfo } =
+    useSyncroItemDetailsQuery(initialValue?.syncroItemId)
 
   const form = useForm<RatingDto>({
     defaultValues: initialValue || buildRatingDto(),
@@ -147,7 +148,13 @@ const EditRatingModal = () => {
       onClose={handleCloseModal}
       title={
         <FlexVCenter justify="space-between">
-          <Title order={4}>How would you rate "{syncroItem?.title}"?</Title>
+          {isLoadingItemInfo ? (
+            <Skeleton width={200} height={24} />
+          ) : (
+            <Title order={4}>
+              <Title order={4}>How would you rate "{syncroItem?.title}"?</Title>
+            </Title>
+          )}
         </FlexVCenter>
       }
       withCloseButton={false}
@@ -246,7 +253,7 @@ const EditRatingModal = () => {
         />
         <FlexVCenter mt={32} justify="space-between">
           <SaveCancelButtons
-            isLoading={isLoading}
+            isLoading={isLoadingMutation}
             onCancel={handleCloseModal}
           />
           {!!initialValue?.id && (
