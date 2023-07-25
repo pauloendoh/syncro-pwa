@@ -41,8 +41,9 @@ export const urls = {
     messagesIndex: '/messages',
     messageRoom: (roomId: string) => `/messages/${roomId}`,
 
-    settings: '/settings',
-    importRatings: '/settings/import-ratings',
+    settings: (
+      page: 'import-ratings' | 'account' | 'notifications' = 'account'
+    ) => `/settings/${page}`,
   },
   api: {
     register: (pushToken: string | null) =>

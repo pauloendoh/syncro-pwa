@@ -2,9 +2,7 @@ import {
   Button,
   Divider,
   Modal,
-  Rating,
   Skeleton,
-  Text,
   Textarea,
   Title,
   useMantineTheme,
@@ -30,8 +28,8 @@ import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
+import RatingSection from './RatingSection/RatingSection'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
-import { getLabelByRatingValue } from './getLabelByRatingValue/getLabelByRatingValue'
 
 const cn = (...classNames: string[]) => classNames.filter(Boolean).join(' ')
 
@@ -184,35 +182,13 @@ const EditRatingModal = () => {
             justifyContent: 'center',
           }}
         >
-          <Rating
-            value={form.watch('ratingValue') || undefined}
+          <RatingSection
+            value={form.watch('ratingValue')}
             onChange={handleChangeRating}
-            color={form.watch('ratingValue') === null ? '#343a40' : 'secondary'}
-            size={isMobile ? 'lg' : 'xl'}
-            count={10}
           />
         </FlexVCenter>
 
-        <FlexVCenter
-          justify={'center'}
-          mt={8}
-          sx={{
-            height: 24,
-          }}
-        >
-          {!!form.watch('ratingValue') && (
-            <Text
-              sx={{
-                fontWeight: 500,
-                color: theme.colors.yellow[5],
-              }}
-            >
-              {getLabelByRatingValue(form.watch('ratingValue'))}
-            </Text>
-          )}
-        </FlexVCenter>
-
-        <FlexVCenter gap={16} mt={24}>
+        <FlexVCenter gap={16} mt={16}>
           <RatingStatusSelector
             value={form.watch('status')}
             onChange={(value) =>

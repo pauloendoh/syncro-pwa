@@ -1,5 +1,4 @@
 import { Box } from '@mantine/core'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import { useMessageRoomSockets } from '../../../hooks/socket/domain/message-room/useMessageRoomSockets'
@@ -34,19 +33,7 @@ const LoggedLayout = (props: Props) => {
 
       {props.disableMarginTop ? null : <Box mt={isXsScreen ? 24 : 96} />}
 
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-        }}
-        exit={{
-          opacity: 0,
-        }}
-      >
-        {props.children}
-      </motion.div>
+      {props.children}
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
 

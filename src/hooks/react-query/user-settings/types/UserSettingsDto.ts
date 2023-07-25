@@ -1,3 +1,4 @@
+import { ScoringSystem } from '../../../../types/domain/rating/ScoringSystem'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 export const emailFrequencyTypes = [
@@ -24,4 +25,6 @@ export type UserSettingsDto = {
 
   onboardingStatus: 'started' | 'searching' | 'finished'
   onboardingFavoriteGenre: SyncroItemType
+
+  scoringSystem: ScoringSystem
 }

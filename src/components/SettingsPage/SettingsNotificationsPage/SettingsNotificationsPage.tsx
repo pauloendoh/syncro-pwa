@@ -2,14 +2,14 @@ import { Box, Checkbox, Table, Title, useMantineTheme } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { MdEmail } from 'react-icons/md'
-import { useSettingsQuery } from '../../hooks/react-query/user-settings/useSettingsQuery'
-import useUpdateSettingsMutation from '../../hooks/react-query/user-settings/useUpdateSettingsMutation'
-import FlexVCenter from '../_common/flex/FlexVCenter'
-import SettingsLayout from './SettingsLayout/SettingsLayout'
+import { useSettingsQuery } from '../../../hooks/react-query/user-settings/useSettingsQuery'
+import useUpdateSettingsMutation from '../../../hooks/react-query/user-settings/useUpdateSettingsMutation'
+import FlexVCenter from '../../_common/flex/FlexVCenter'
+import SettingsLayout from '../SettingsLayout/SettingsLayout'
 
 type Props = {}
 
-const SettingsPage = (props: Props) => {
+const SettingsNotificationsPage = (props: Props) => {
   const { data: settings } = useSettingsQuery()
 
   const [localSettings, setLocalSettings] = useState(settings)
@@ -162,4 +162,4 @@ const SettingsPage = (props: Props) => {
   )
 }
 
-export default SettingsPage
+export default SettingsNotificationsPage

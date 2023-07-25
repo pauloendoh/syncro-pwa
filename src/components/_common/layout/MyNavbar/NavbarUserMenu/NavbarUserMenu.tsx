@@ -64,7 +64,7 @@ const NavbarUserMenu = (props: Props) => {
           <Menu.Item icon={<IoBookmarksOutline />}>Planned items</Menu.Item>
         </MyNextLink> */}
 
-        <MyNextLink href={urls.pages.settings}>
+        <MyNextLink href={urls.pages.settings()}>
           <Menu.Item icon={<MdSettings />}>Settings</Menu.Item>
         </MyNextLink>
 

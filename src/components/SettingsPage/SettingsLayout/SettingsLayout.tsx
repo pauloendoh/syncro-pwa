@@ -9,6 +9,7 @@ import {
 } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { MdImportExport, MdNotifications } from 'react-icons/md'
+import { RiAccountCircleLine } from 'react-icons/ri'
 import { urls } from '../../../utils/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import LoggedLayout from '../../_common/layout/LoggedLayout'
@@ -52,13 +53,28 @@ const SettingsLayout = (props: Props) => {
                   },
                 }}
               >
-                <MyNextLink href={urls.pages.settings}>
+                <MyNextLink href={urls.pages.settings('account')}>
+                  <Button
+                    variant={
+                      router.pathname === urls.pages.settings('account')
+                        ? 'filled'
+                        : 'subtle'
+                    }
+                    color="dark"
+                    leftIcon={<RiAccountCircleLine />}
+                    fullWidth
+                  >
+                    Account
+                  </Button>
+                </MyNextLink>
+
+                <MyNextLink href={urls.pages.settings('notifications')}>
                   <Button
                     color={'dark'}
                     leftIcon={<MdNotifications />}
                     fullWidth
                     variant={
-                      router.pathname === urls.pages.settings
+                      router.pathname === urls.pages.settings('notifications')
                         ? 'filled'
                         : 'subtle'
                     }
@@ -67,10 +83,10 @@ const SettingsLayout = (props: Props) => {
                   </Button>
                 </MyNextLink>
 
-                <MyNextLink href={urls.pages.importRatings}>
+                <MyNextLink href={urls.pages.settings('import-ratings')}>
                   <Button
                     variant={
-                      router.pathname === urls.pages.importRatings
+                      router.pathname === urls.pages.settings('import-ratings')
                         ? 'filled'
                         : 'subtle'
                     }
