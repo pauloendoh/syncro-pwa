@@ -13,10 +13,12 @@ const HomeRatingItemReview = (props: Props) => {
 
   const { openModal } = useRatingDetailsModalStore()
 
+  const isShowingSeeMore = reviewHeight > 64
+
   return (
     <Text
       sx={{
-        marginBottom: 16,
+        marginBottom: isShowingSeeMore ? 16 : 0,
         marginTop: 8,
         fontSize: 14,
         fontStyle: 'italic',
@@ -32,7 +34,7 @@ const HomeRatingItemReview = (props: Props) => {
 
       <Span
         sx={{
-          visibility: reviewHeight > 64 ? 'visible' : 'hidden',
+          visibility: isShowingSeeMore ? 'visible' : 'hidden',
           cursor: 'pointer',
           fontWeight: 600,
         }}

@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Divider,
   Modal,
@@ -31,6 +32,7 @@ import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsers
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
 import RatingSection from './RatingSection/RatingSection'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
+import ShareFavoriteScenesSection from './ShareFavoriteScenesSection/ShareFavoriteScenesSection'
 
 const cn = (...classNames: string[]) => classNames.filter(Boolean).join(' ')
 
@@ -231,6 +233,14 @@ const EditRatingModal = () => {
             }
           }}
         />
+
+        <Box mt={16}>
+          <ShareFavoriteScenesSection
+            values={form.watch('scenes') || []}
+            onChange={(values) => form.setValue('scenes', values)}
+          />
+        </Box>
+
         <FlexVCenter mt={32} justify="space-between">
           <SaveCancelButtons
             isLoading={isLoadingMutation}

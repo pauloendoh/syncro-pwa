@@ -75,6 +75,7 @@ export const urls = {
     myRatingId: (id: string) => API_URL + `/me/ratings/` + id,
     ratingByItemAndFollowingUsers: (itemId: string) =>
       API_URL + `/ratings-by-following-users?itemId=${itemId}`,
+    uploadFavoriteScene: API_URL + `/upload-favorite-scene`,
 
     myInterests: API_URL + `/me/interests`,
     toggleSaveItem: (itemId: string) =>

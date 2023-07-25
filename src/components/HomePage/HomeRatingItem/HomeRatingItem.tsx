@@ -15,6 +15,7 @@ import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 import { default as MyNextLink } from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
 import Span from '../../_common/text/Span'
+import FavoriteScenesSection from './FavoriteScenesSection/FavoriteScenesSection'
 import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons'
 import HomeRatingItemReview from './HomeRatingItemReview/HomeRatingItemReview'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
@@ -168,7 +169,11 @@ const HomeRatingItem = (props: Props) => {
               </Span>
             </Text>
 
-            <HomeRatingItemReview rating={props.rating} />
+            {!!props.rating.review.length && (
+              <HomeRatingItemReview rating={props.rating} />
+            )}
+
+            <FavoriteScenesSection scenes={props.rating.scenes} />
           </FlexCol>
 
           <HomeRatingItemButtons
