@@ -173,6 +173,7 @@ const HomeRatingItem = (props: Props) => {
               <HomeRatingItemReview rating={props.rating} />
             )}
 
+            {!props.rating.review && <Box mt={8} />}
             <FavoriteScenesSection scenes={props.rating.scenes} />
           </FlexCol>
 
