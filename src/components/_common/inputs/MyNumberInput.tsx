@@ -1,5 +1,5 @@
 import { NumberInput } from '@mantine/core'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 type Props = Omit<
   React.ComponentProps<typeof NumberInput>,
@@ -12,6 +12,10 @@ type Props = Omit<
 
 const MyNumberInput = React.forwardRef<HTMLInputElement, Props>(
   ({ ...props }, ref) => {
+    const value = useMemo(() => {
+      if (props.value === undefined) return ''
+      return Number(props.value)
+    }, [props.value])
     return (
       <NumberInput
         autoComplete="off"
@@ -21,7 +25,7 @@ const MyNumberInput = React.forwardRef<HTMLInputElement, Props>(
         ref={ref}
         {...props}
         precision={props.precision}
-        value={Number(props.value)}
+        value={value}
         onChange={(val) => {
           if (val === '') {
             props.onChange(0)

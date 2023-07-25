@@ -243,8 +243,8 @@ const EditRatingModal = () => {
         </FlexVCenter>
       </form>
 
-      {initialValue?.syncroItemId &&
-        form.watch('ratingValue') &&
+      {!!initialValue?.syncroItemId &&
+        !!form.watch('ratingValue') &&
         form.watch('ratingValue')! >= 8 && (
           <FlexCol mt={40} gap={16} pb={16}>
             <Divider />
