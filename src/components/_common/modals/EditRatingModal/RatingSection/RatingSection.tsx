@@ -27,6 +27,14 @@ const RatingSection = ({ ...props }: Props) => {
   if (settings.scoringSystem === 'tenPointsDecimal') {
     return (
       <Flex justify={'flex-start'} w="100%">
+        {/* had to add this because number input was getting focused */}
+        <input
+          style={{
+            visibility: 'hidden',
+
+            position: 'absolute',
+          }}
+        />
         <MyNumberInput
           label="Your rating"
           onChange={props.onChange}
@@ -35,6 +43,7 @@ const RatingSection = ({ ...props }: Props) => {
           w={100}
           max={10}
           min={1}
+          autoFocus={false}
         />
       </Flex>
     )
