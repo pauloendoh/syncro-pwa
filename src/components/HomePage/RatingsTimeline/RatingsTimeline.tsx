@@ -48,7 +48,6 @@ const RatingsTimeline = (props: Props) => {
 
       <Virtuoso
         useWindowScroll
-        data={flatRatings}
         totalCount={flatRatings.length}
         ref={virtuosoRef}
         restoreStateFrom={virtuosoState}
