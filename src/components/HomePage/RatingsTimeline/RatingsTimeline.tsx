@@ -1,5 +1,6 @@
 import { Box, Center, Loader } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
+import { motion } from 'framer-motion'
 import { useEffect, useMemo, useRef } from 'react'
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
@@ -58,13 +59,17 @@ const RatingsTimeline = (props: Props) => {
           }
         }}
         itemContent={(index) => (
-          <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             <HomeRatingItem
               rating={flatRatings[index]}
               key={flatRatings[index].id}
             />
             <Box mt={16} />
-          </div>
+          </motion.div>
         )}
       />
 
