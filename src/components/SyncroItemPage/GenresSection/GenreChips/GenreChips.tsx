@@ -1,5 +1,5 @@
 import { Flex, useMantineTheme } from '@mantine/core'
-import Span from '../../_common/text/Span'
+import Span from '../../../_common/text/Span'
 
 type Props = {
   genres: string[]

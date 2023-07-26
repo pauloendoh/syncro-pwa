@@ -8,9 +8,10 @@ import GameExtraInfoSection from './GameExtraInfoSection/GameExtraInfoSection'
 
 type Props = {
   item: SyncroItemDto
+  isPreview?: boolean
 }
 
-const SyncroItemSummarySection = ({ item }: Props) => {
+const SyncroItemSummarySection = ({ item, ...props }: Props) => {
   const [canToggleExpand, setCanToggleExpand] = useState(false)
   const [seeMore, setSeeMore] = useState<boolean | null>(null)
   const handleReflow = ({ text }: { clamped: boolean; text: string }) => {
@@ -32,11 +33,13 @@ const SyncroItemSummarySection = ({ item }: Props) => {
 
   return (
     <FlexCol>
-      <Title order={5} weight={500}>
-        Summary
-      </Title>
+      {!props.isPreview && (
+        <Title order={5} weight={500} mb={8}>
+          Summary
+        </Title>
+      )}
+
       <Box
-        mt={8}
         sx={(theme) => ({
           a: {
             color: theme.colors.primary,

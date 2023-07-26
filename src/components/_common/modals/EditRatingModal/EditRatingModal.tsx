@@ -8,7 +8,6 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
-import { motion } from 'framer-motion'
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
@@ -257,19 +256,12 @@ const EditRatingModal = () => {
       {!!initialValue?.syncroItemId &&
         !!form.watch('ratingValue') &&
         form.watch('ratingValue')! >= 8 && (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: 'auto' }}
-            exit={{ height: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <FlexCol mt={40} gap={16} pb={16}>
-              <Divider />
-              <Title order={4}>Recommend to users</Title>
+          <FlexCol mt={40} gap={16} pb={16}>
+            <Divider />
+            <Title order={4}>Recommend to users</Title>
 
-              <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
-            </FlexCol>
-          </motion.div>
+            <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
+          </FlexCol>
         )}
     </Modal>
   )

@@ -13,7 +13,7 @@ import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import Span from '../../_common/text/Span'
 import AvgRatingRow from '../AvgRatingRow/AvgRatingRow'
-import GenreChips from '../GenreChips/GenreChips'
+import GenresSection from '../GenresSection/GenresSection'
 import ImageSyncroItemPage from '../ImageSyncroItemPage/ImageSyncroItemPage'
 import ImdbExtraInfoSection from '../ImdbExtraInfoSection/ImdbExtraInfoSection'
 import ItemMoreIcon from '../ItemMoreIcon/ItemMoreIcon'
@@ -99,14 +99,19 @@ const SyncroItemPaperContent = (props: Props) => {
                 </MyNextLink>
               </FlexVCenter>
 
-              <GenreChips genres={item.genres} />
+              <GenresSection genres={item.genres} isPreview={props.isPreview} />
 
               <ItemRatedBy itemId={syncroItemId!} />
             </FlexCol>
           </Flex>
 
           <Box mt={24}>
-            {item.type !== 'music' && <SyncroItemSummarySection item={item} />}
+            {item.type !== 'music' && (
+              <SyncroItemSummarySection
+                isPreview={props.isPreview}
+                item={item}
+              />
+            )}
           </Box>
 
           {(item.type === 'tvSeries' || item.type === 'movie') &&

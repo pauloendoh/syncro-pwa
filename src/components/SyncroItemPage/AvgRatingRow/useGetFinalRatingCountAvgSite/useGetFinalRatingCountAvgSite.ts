@@ -1,3 +1,4 @@
+import { upToNDecimals } from 'endoh-utils'
 import { useMemo } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
@@ -25,7 +26,7 @@ export const useGetFinalRatingCountAvgSite = (item: SyncroItemDto) => {
 
   return {
     ratingCount,
-    avgRating,
+    avgRating: upToNDecimals(avgRating, 1),
     finalSource: site,
   }
 }

@@ -21,6 +21,7 @@ import FlexCol from '../../../flex/FlexCol'
 import SyncroItemImage from '../../../image/SyncroItemImage/SyncroItemImage'
 import MyTextInput from '../../../inputs/MyTextInput'
 import MyNextLink from '../../../overrides/MyNextLink'
+import SearchBarSelectItem from './SearchBarSelectItem/SearchBarSelectItem'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
 type Props = {}
@@ -115,6 +116,7 @@ const SearchBar = (props: Props) => {
         data={searchTabOptions.map((option) => ({
           label: option.label,
           value: option.key,
+          Icon: option.Icon,
         }))}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
@@ -140,7 +142,9 @@ const SearchBar = (props: Props) => {
         onChange={(value) => {
           setSelectedType(value as any)
         }}
+        itemComponent={SearchBarSelectItem}
       />
+
       <MyTextInput
         rightSection={
           <MdSearch

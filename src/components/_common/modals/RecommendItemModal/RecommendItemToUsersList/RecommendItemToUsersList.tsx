@@ -6,6 +6,7 @@ import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import textContainsWords from '../../../../../utils/text/textContainsWords'
 import FlexCol from '../../../flex/FlexCol'
 import MyTextInput from '../../../inputs/MyTextInput'
+import CenterLoader from '../../../overrides/CenterLoader/CenterLoader'
 import RecommendMutualItem from '../RecommendMutualItem/RecommendMutualItem'
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 }
 
 const RecommendItemToUsersList = (props: Props) => {
-  const { data } = useUsersToRecommendQuery(props.itemId)
+  const { data, isLoading } = useUsersToRecommendQuery(props.itemId)
   const { data: itemInfo } = useSyncroItemDetailsQuery(props.itemId)
 
   const [search, setSearch] = useState('')
@@ -58,6 +59,8 @@ const RecommendItemToUsersList = (props: Props) => {
         onChange={(e) => setSearch(e.currentTarget.value)}
         placeholder="Search"
       />
+
+      {isLoading && <CenterLoader />}
 
       {itemInfo && (
         <ScrollArea pr={isMobile ? undefined : 8}>

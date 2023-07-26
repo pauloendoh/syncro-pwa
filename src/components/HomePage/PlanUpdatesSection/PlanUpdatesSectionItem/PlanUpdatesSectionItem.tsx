@@ -42,11 +42,14 @@ const PlanUpdatesSectionItem = ({ item, ...props }: Props) => {
             </Span>
           </Span>
 
-          {hovered && (
-            <Span size="xs">
-              {formatShortTimeago(new Date(item.createdAt))}
-            </Span>
-          )}
+          <Span
+            size="xs"
+            sx={{
+              visibility: hovered ? 'visible' : 'hidden',
+            }}
+          >
+            {formatShortTimeago(new Date(item.createdAt))}
+          </Span>
         </FlexVCenter>
 
         {item.syncroItem && (

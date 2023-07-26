@@ -1,4 +1,5 @@
 import { useMantineTheme } from '@mantine/core'
+import { IconBaseProps } from 'react-icons'
 import { FiFilm, FiTv } from 'react-icons/fi'
 import { IoLogoGameControllerA, IoMdBook } from 'react-icons/io'
 import { IoMusicalNotesSharp } from 'react-icons/io5'
@@ -9,21 +10,25 @@ interface Props {
   size?: number
 }
 
+export const SyncroItemBaseIcon: {
+  [key in SyncroItemType]: React.ComponentType<IconBaseProps>
+} = {
+  book: IoMdBook,
+  game: IoLogoGameControllerA,
+  manga: IoMdBook,
+  movie: FiFilm,
+  music: IoMusicalNotesSharp,
+  tvSeries: FiTv,
+}
+
 const SyncroItemIcon = (props: Props) => {
   const { colors } = useMantineTheme()
 
   const { type, color = colors.dark[0], size = 16 } = props
 
-  if (type === 'tvSeries') return <FiTv size={size} color={color} />
+  const Component = SyncroItemBaseIcon[type]
 
-  if (type === 'game')
-    return <IoLogoGameControllerA size={size} color={color} />
-
-  if (type === 'movie') return <FiFilm size={size} color={color} />
-
-  if (type === 'music') return <IoMusicalNotesSharp size={size} color={color} />
-
-  return <IoMdBook size={size} color={color} />
+  return <Component size={size} color={color} />
 }
 
 export default SyncroItemIcon
