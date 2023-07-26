@@ -2,7 +2,6 @@ import { Box, Flex, Skeleton, Title } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
-import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { getItemTitleAndYear } from '../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { urls } from '../../../utils/urls'
@@ -32,8 +31,6 @@ const SyncroItemPaperContent = (props: Props) => {
   const { data: item, isLoading } = useSyncroItemDetailsQuery(syncroItemId, {
     initialData: props.initialData || undefined,
   })
-
-  const { authUser } = useAuthStore()
 
   const { isMobile } = useMyMediaQuery()
 

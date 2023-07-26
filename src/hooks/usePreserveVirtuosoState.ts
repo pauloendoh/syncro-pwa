@@ -13,7 +13,6 @@ export const usePreserveVirtuosoState = (ref: RefObject<VirtuosoHandle>) => {
     const onRouteChangeStart = () => {
       const url = router.asPath
       if (ref.current) {
-        console.log(virtuosoStates[url])
         ref.current.getState((state) => {
           setVirtuosoState(url, state)
         })
@@ -28,7 +27,6 @@ export const usePreserveVirtuosoState = (ref: RefObject<VirtuosoHandle>) => {
   }, [router])
 
   const state = useMemo(() => {
-    console.log('state', virtuosoStates[router.asPath])
     return virtuosoStates[router.asPath]
   }, [router.asPath])
 

@@ -24,7 +24,7 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
     return genresCount.slice(0, 5)
   }, [showMore, genresCount])
 
-  const [selectedGenre, setSelectedGenre] = useQueryParams().genre
+  const { queryValue, setQuery, removeQuery } = useQueryParams().genre
 
   if (!genresCount || genresCount.length === 0) return null
 
@@ -54,15 +54,15 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
               <tr
                 key={g.genre}
                 onClick={() => {
-                  if (selectedGenre === g.genre) {
-                    setSelectedGenre(null)
+                  if (queryValue === g.genre) {
+                    removeQuery()
                     return
                   }
-                  setSelectedGenre(g.genre)
+                  setQuery(g.genre)
                 }}
                 style={{
                   backgroundColor:
-                    selectedGenre === g.genre
+                    queryValue === g.genre
                       ? theme.colors.dark[4]
                       : 'transparent',
                   cursor: 'pointer',

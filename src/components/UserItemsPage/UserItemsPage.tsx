@@ -38,7 +38,7 @@ const UserItemsPage = () => {
 
   const { isSmallScreen } = useMyMediaQuery()
 
-  const [selectedGenre] = useQueryParams().genre
+  const { queryValue: selectedGenre } = useQueryParams().genre
 
   return (
     <LoggedLayout>

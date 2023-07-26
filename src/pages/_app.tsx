@@ -23,7 +23,7 @@ import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlO
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { useMyQueryClient } from '../utils/myQueryClient'
-import { sessionKeys } from '../utils/sessionStorageKeys'
+import { sessionKeys, setSessionStorage } from '../utils/sessionStorageKeys'
 import { zIndexes } from '../utils/zIndexes'
 
 export default function App(props: AppProps) {
@@ -42,6 +42,11 @@ export default function App(props: AppProps) {
   const { checkAuthOrLogout, loading } = useCheckAuthOrLogout()
 
   const router = useRouter()
+
+  useEffect(() => {
+    setSessionStorage('initialHistoryLength', String(window.history.length))
+  }, [])
+
   useEffect(() => {
     if (router.isReady) {
       checkAuthOrLogout()

@@ -1,11 +1,13 @@
-import { queryTypes, useQueryState } from 'next-usequerystate'
+import { useMyQueryState } from './useMyQueryState'
 
 export function useQueryParams() {
-  const genre = useQueryState('genre', queryTypes.string)
-  const favoriteScene = useQueryState('favoriteScene', queryTypes.string)
+  const genre = useMyQueryState('genre')
+  const favoriteScene = useMyQueryState('favoriteScene')
+  const itemImageOpen = useMyQueryState<'true'>('itemImageOpen')
 
   return {
     genre,
     favoriteScene,
+    itemImageOpen,
   }
 }

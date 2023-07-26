@@ -71,10 +71,8 @@ const ShareFavoriteScenesSection = ({ ...props }: Props) => {
       <Dropzone
         multiple={false}
         onDrop={(files) => {
-          console.log('dropped files', files)
           handleUpload(files[0])
         }}
-        onReject={(files) => console.log('rejected files', files)}
         maxSize={3 * 1024 ** 2}
         accept={IMAGE_MIME_TYPE}
         w={100}

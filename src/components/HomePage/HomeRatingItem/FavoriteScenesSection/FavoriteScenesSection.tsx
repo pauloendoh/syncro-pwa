@@ -18,18 +18,15 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
     [props.scenes]
   )
 
-  const [favoriteSceneId, setFavoriteSceneId] = useQueryParams().favoriteScene
+  const { setQuery, queryValue, removeQuery } = useQueryParams().favoriteScene
 
   const handleClose = () => {
-    setFavoriteSceneId(null, {
-      scroll: false,
-    })
+    removeQuery()
   }
 
-  const index = useMemo(
-    () => props.scenes.findIndex((scene) => scene.id === favoriteSceneId),
-    [favoriteSceneId, props.scenes]
-  )
+  const index = useMemo(() => {
+    return props.scenes.findIndex((scene) => scene.id === queryValue)
+  }, [queryValue, props.scenes])
 
   if (props.scenes.length === 0) {
     return null
@@ -45,9 +42,10 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
         visible={index >= 0}
         onClose={handleClose}
         index={index >= 0 ? index : 0}
-        onIndexChange={(index) =>
-          setFavoriteSceneId(props.scenes[index].id, { scroll: false })
-        }
+        onIndexChange={(index) => {
+          console.log('changing index')
+          setQuery(props.scenes[index].id!, { replace: true })
+        }}
         loop={false}
       />
 
@@ -63,7 +61,7 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
             borderRadius: 4,
             cursor: 'pointer',
           }}
-          onClick={() => setFavoriteSceneId(scene.id, { scroll: false })}
+          onClick={() => setQuery(scene.id!, { scroll: false })}
         />
       ))}
     </Flex>
