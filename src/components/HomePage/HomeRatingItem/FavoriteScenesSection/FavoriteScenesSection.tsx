@@ -10,9 +10,13 @@ type Props = {
 }
 
 const FavoriteScenesSection = ({ ...props }: Props) => {
-  const images = props.scenes.map((scene) => ({
-    uri: scene.imageUrl,
-  }))
+  const images = useMemo(
+    () =>
+      props.scenes.map((scene) => ({
+        uri: scene.imageUrl,
+      })),
+    [props.scenes]
+  )
 
   const [favoriteSceneId, setFavoriteSceneId] = useQueryParams().favoriteScene
 
@@ -24,7 +28,7 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
 
   const index = useMemo(
     () => props.scenes.findIndex((scene) => scene.id === favoriteSceneId),
-    [favoriteSceneId]
+    [favoriteSceneId, props.scenes]
   )
 
   if (props.scenes.length === 0) {
@@ -38,9 +42,9 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
           src: image.uri,
           key: image.uri,
         }))}
-        visible={!!favoriteSceneId}
+        visible={index >= 0}
         onClose={handleClose}
-        index={index || 0}
+        index={index >= 0 ? index : 0}
         onIndexChange={(index) =>
           setFavoriteSceneId(props.scenes[index].id, { scroll: false })
         }
