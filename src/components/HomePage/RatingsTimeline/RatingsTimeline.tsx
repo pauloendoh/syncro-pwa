@@ -5,7 +5,6 @@ import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { usePreserveVirtuosoState } from '../../../hooks/usePreserveVirtuosoState'
-import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import HomeRatingItem from '../HomeRatingItem/HomeRatingItem'
 
@@ -47,35 +46,33 @@ const RatingsTimeline = (props: Props) => {
     <>
       {isLoading && <CenterLoader />}
 
-      <FlexCol>
-        <Virtuoso
-          useWindowScroll
-          totalCount={flatRatings.length}
-          ref={virtuosoRef}
-          restoreStateFrom={virtuosoState}
-          overscan={1000}
-          endReached={() => {
-            if (hasNextPage) {
-              fetchNextPage()
-            }
-          }}
-          itemContent={(index) => (
-            <div>
-              <HomeRatingItem
-                rating={flatRatings[index]}
-                key={flatRatings[index].id}
-              />
-              <Box mt={16} />
-            </div>
-          )}
-        />
-
-        {hasNextPage && (
-          <Center mt={40} sx={{ height: 80 }}>
-            <Loader />
-          </Center>
+      <Virtuoso
+        useWindowScroll
+        totalCount={flatRatings.length}
+        ref={virtuosoRef}
+        restoreStateFrom={virtuosoState}
+        overscan={1000}
+        endReached={() => {
+          if (hasNextPage) {
+            fetchNextPage()
+          }
+        }}
+        itemContent={(index) => (
+          <div>
+            <HomeRatingItem
+              rating={flatRatings[index]}
+              key={flatRatings[index].id}
+            />
+            <Box mt={16} />
+          </div>
         )}
-      </FlexCol>
+      />
+
+      {hasNextPage && (
+        <Center mt={40} sx={{ height: 80 }}>
+          <Loader />
+        </Center>
+      )}
 
       {/* <FlexCol gap={16} mt={16}>
         {flatRatings.map((rating) => (

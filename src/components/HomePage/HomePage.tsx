@@ -61,7 +61,6 @@ const HomePage = () => {
             size="xs"
             fluid={isSmallScreen}
             px={isSmallScreen ? 0 : undefined}
-            pt={isSmallScreen ? 40 : undefined}
             ml={isMobile ? 8 : undefined}
           >
             <FlexVCenter justify={'space-between'} w="100%">

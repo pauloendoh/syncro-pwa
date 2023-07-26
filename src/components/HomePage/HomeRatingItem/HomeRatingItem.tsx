@@ -1,9 +1,9 @@
 import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 
+import { useMediaQuery } from '@mantine/hooks'
 import { useMemo } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
-import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../types/domain/rating/useRatingStatusMap'
 import ItemTitleAndYear from '../../../utils/domains/syncro-item/ItemTitleAndYear'
@@ -28,7 +28,7 @@ type Props = {
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
-  const { isMobile } = useMyMediaQuery()
+  const isSmallScreen = useMediaQuery('(max-width: 860px)')
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.rating.syncroItem?.type,
@@ -97,7 +97,7 @@ const HomeRatingItem = (props: Props) => {
         <div
           style={{
             position: 'absolute',
-            left: isMobile ? -12 : -24,
+            left: isSmallScreen ? -12 : -24,
             top: 24,
           }}
         >
@@ -108,11 +108,12 @@ const HomeRatingItem = (props: Props) => {
           />
         </div>
       </MyNextLink>
-      <Flex ml={isMobile ? 20 : 16} justify="space-between" gap={16}>
+      <Flex ml={isSmallScreen ? 20 : 16} justify="space-between" gap={16}>
         <FlexCol
           sx={{
             justifyContent: 'space-between',
             flexGrow: 1,
+            width: 'fill-available',
           }}
         >
           <FlexCol sx={{ flexGrow: 1 }}>
@@ -188,7 +189,7 @@ const HomeRatingItem = (props: Props) => {
           <Box pos="relative">
             <SyncroItemImage
               item={props.rating.syncroItem}
-              width={isMobile ? 100 : 120}
+              width={isSmallScreen ? 100 : 120}
             />
 
             <Center

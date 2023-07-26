@@ -100,7 +100,11 @@ const UserProfilePage = () => {
           xl={4}
           pr={isMobile ? 0 : undefined}
         >
-          <Container size="xs" fluid>
+          <Container
+            size="xs"
+            fluid={isSmallScreen}
+            pr={isSmallScreen ? 0 : undefined}
+          >
             <Paper
               sx={{
                 width: '100%',

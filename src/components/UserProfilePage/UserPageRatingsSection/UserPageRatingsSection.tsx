@@ -32,7 +32,7 @@ const UserPageRatingsSection = (props: Props) => {
   if (!homeRatings || homeRatings.pages[0].length === 0) return null
 
   return (
-    <FlexCol>
+    <FlexCol gap={16}>
       <FlexVCenter justify="space-between">
         <Title order={4}>Last ratings</Title>
 

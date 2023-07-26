@@ -8,6 +8,7 @@ export const useMyMediaQuery = () => {
   const isLoading = useMemo(() => screenWidth === 0, [screenWidth])
 
   return {
+    screenWidth,
     isSmallScreen,
     isMobile,
     isLoading,

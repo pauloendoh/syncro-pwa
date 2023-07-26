@@ -4,6 +4,7 @@ import { MdBookmark, MdBookmarkBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -51,9 +52,11 @@ const HomeRatingItemButtons = (props: Props) => {
 
   const { authUser } = useAuthStore()
 
+  const { isMobile } = useMyMediaQuery()
+
   if (!authUser) return null
   return (
-    <FlexVCenter mt={2} gap={24}>
+    <FlexVCenter mt={2} gap={props.gap || (isMobile ? 18 : 24)}>
       <MyRatingButton itemId={props.syncroItemId!} />
       <Tooltip label={bookmarkTooltipLabel} withArrow>
         <FlexVCenter
