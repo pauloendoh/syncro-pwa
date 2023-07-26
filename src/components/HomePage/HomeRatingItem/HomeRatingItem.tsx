@@ -1,9 +1,9 @@
 import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 
-import { useMediaQuery } from '@mantine/hooks'
 import { useMemo } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../types/domain/rating/useRatingStatusMap'
 import ItemTitleAndYear from '../../../utils/domains/syncro-item/ItemTitleAndYear'
@@ -28,7 +28,7 @@ type Props = {
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
-  const isSmallScreen = useMediaQuery('(max-width: 860px)')
+  const { isSmallScreen } = useMyMediaQuery()
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.rating.syncroItem?.type,
