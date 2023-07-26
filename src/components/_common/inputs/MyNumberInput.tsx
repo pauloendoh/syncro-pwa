@@ -23,6 +23,7 @@ const MyNumberInput = React.forwardRef<HTMLInputElement, Props>(
         stepHoldInterval={100}
         removeTrailingZeros
         ref={ref}
+        autoFocus={false}
         {...props}
         precision={props.precision}
         value={value}
