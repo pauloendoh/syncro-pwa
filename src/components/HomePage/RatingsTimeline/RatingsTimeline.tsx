@@ -1,9 +1,10 @@
-import { Center, Loader } from '@mantine/core'
+import { Box, Center, Loader } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
+import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../../hooks/react-query/feed/useTimelineHasNewsQuery'
-import FlexCol from '../../_common/flex/FlexCol'
+import { usePreserveVirtuosoState } from '../../../hooks/usePreserveVirtuosoState'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import HomeRatingItem from '../HomeRatingItem/HomeRatingItem'
 
@@ -38,21 +39,49 @@ const RatingsTimeline = (props: Props) => {
 
   useTimelineHasNewsQuery(props.userId, flatRatings[0]?.createdAt)
 
+  const virtuosoRef = useRef<VirtuosoHandle>(null)
+  const virtuosoState = usePreserveVirtuosoState(virtuosoRef)
+
   return (
     <>
       {isLoading && <CenterLoader />}
 
-      <FlexCol gap={16} mt={16}>
+      <Virtuoso
+        useWindowScroll
+        data={flatRatings}
+        totalCount={flatRatings.length}
+        ref={virtuosoRef}
+        restoreStateFrom={virtuosoState}
+        overscan={1000}
+        endReached={() => {
+          if (hasNextPage) {
+            fetchNextPage()
+          }
+        }}
+        itemContent={(index) => (
+          <div>
+            <HomeRatingItem
+              rating={flatRatings[index]}
+              key={flatRatings[index].id}
+            />
+            <Box mt={16} />
+          </div>
+        )}
+      />
+
+      {hasNextPage && (
+        <Center sx={{ height: 80 }}>
+          <Loader />
+        </Center>
+      )}
+
+      {/* <FlexCol gap={16} mt={16}>
         {flatRatings.map((rating) => (
           <HomeRatingItem rating={rating} key={rating.id} />
         ))}
 
-        {hasNextPage && (
-          <Center sx={{ height: 80 }} ref={ref}>
-            <Loader />
-          </Center>
-        )}
-      </FlexCol>
+        
+      </FlexCol> */}
     </>
   )
 }
