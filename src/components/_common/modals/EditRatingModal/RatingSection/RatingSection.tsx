@@ -39,6 +39,7 @@ const RatingSection = ({ ...props }: Props) => {
           label="Your rating"
           onChange={props.onChange}
           precision={1}
+          step={0.1}
           value={props.value || undefined}
           w={100}
           max={10}
