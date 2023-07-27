@@ -1,15 +1,23 @@
 import { Text } from '@mantine/core'
 import { useMemo } from 'react'
+import { useQueryParams } from '../../../hooks/useQueryParams'
 import { useMySimilarUsersQuery } from '../../../types/domain/me/useMySimilarUsersQuery'
 import { urls } from '../../../utils/urls'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
+import Span from '../../_common/text/Span'
+import ItemTypeSelector from '../MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { getRatingSimilarityLabel } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
 
 const SimilarUserList = () => {
-  const { data: ratingSimilarities, isLoading } = useMySimilarUsersQuery()
+  const { queryValue, setQuery } = useQueryParams().itemType
+
+  const { data: ratingSimilarities, isLoading } = useMySimilarUsersQuery(
+    queryValue || 'all'
+  )
 
   const sortedRatingSimilarities = useMemo(
     () =>
@@ -22,6 +30,22 @@ const SimilarUserList = () => {
 
   return (
     <FlexCol gap={16}>
+      <ItemTypeSelector
+        includeAll
+        value={queryValue || 'all'}
+        onChange={(value) => {
+          setQuery(value, { replace: true })
+        }}
+        label="Item type"
+        width={120}
+      />
+
+      {isLoading && <CenterLoader />}
+
+      {sortedRatingSimilarities.length === 0 && (
+        <Span>No similar users found</Span>
+      )}
+
       {sortedRatingSimilarities.map((item) => (
         <FlexVCenter>
           <MyNextLink href={urls.pages.user(item.userB.id)}>

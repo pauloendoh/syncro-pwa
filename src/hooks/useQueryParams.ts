@@ -1,3 +1,4 @@
+import { SyncroItemType } from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { useMyQueryState } from './useMyQueryState'
 
 export function useQueryParams() {
@@ -9,5 +10,6 @@ export function useQueryParams() {
     genre,
     favoriteScene,
     itemImageOpen,
+    itemType: useMyQueryState<SyncroItemType | 'all'>('itemType'),
   }
 }

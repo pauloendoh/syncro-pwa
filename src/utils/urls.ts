@@ -1,7 +1,10 @@
-import queryString from 'query-string'
+import qs from 'query-string'
 import { ExploreSlug } from '../hooks/useMyRouterQuery'
 import { SearchParams } from '../types/domain/search/SearchParams'
-import { SyncroItemType } from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import {
+  SyncroItemType,
+  SyncroItemTypeAll,
+} from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 import { MostRatedItemsQueryParams } from '../hooks/react-query/rating/types/MostRatedItemsQueryParams'
 import { myEnvs } from './myEnvs'
@@ -19,23 +22,22 @@ export const urls = {
         ratingDetailsId?: string
       }
     ) =>
-      `/item?${queryString.stringify({
+      `/item?${qs.stringify({
         syncroItemId,
         ...extraParams,
       })}`,
     user: (userId: string) => `/user/${userId}`,
     search: (params?: SearchParams) => {
       if (!params) return '/search'
-      const query = queryString.stringify(params)
+      const query = qs.stringify(params)
       return `/search?${query}`
     },
     userItems: (userId: string, type: SyncroItemType) =>
       `/user/${userId}/items?type=${type}`, // PE 1/3 - does not use the type anymore
 
-    savedItems: (type?: SyncroItemType) =>
-      '/saved?' + queryString.stringify({ type }),
+    savedItems: (type?: SyncroItemType) => '/saved?' + qs.stringify({ type }),
     explore: (exploreSlug: ExploreSlug = 'for-you', queryObj?: Object) =>
-      `/explore/${exploreSlug}?${queryString.stringify(queryObj || {})}`,
+      `/explore/${exploreSlug}?${qs.stringify(queryObj || {})}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',
     messagesIndex: '/messages',
@@ -56,12 +58,12 @@ export const urls = {
     me: API_URL + '/auth/me',
 
     search: (params: SearchParams) =>
-      API_URL + '/search?' + queryString.stringify(params),
+      API_URL + '/search?' + qs.stringify(params),
     searchAll: (q: string) => API_URL + '/search-all?q=' + q,
     searchMore: (params: SearchParams) =>
-      API_URL + '/search-more?' + queryString.stringify(params),
+      API_URL + '/search-more?' + qs.stringify(params),
     searchAutocomplete: (params: SearchParams) =>
-      API_URL + '/search-autocomplete?' + queryString.stringify(params),
+      API_URL + '/search-autocomplete?' + qs.stringify(params),
     syncroItem: API_URL + `/syncro-item`,
     syncroItemDetails: (id?: string | null) =>
       API_URL + `/syncro-item?id=${id}`,
@@ -117,7 +119,8 @@ export const urls = {
       API_URL + `/user/${userId}/items?itemType=${itemType}`,
     genresCount: (userId: string, type: SyncroItemType) =>
       API_URL + `/rated-genres-count?userId=${userId}&itemType=${type}`,
-    mySimilarUsers: API_URL + `/me/similar-users`,
+    mySimilarUsers: (itemType?: SyncroItemTypeAll) =>
+      API_URL + `/me/similar-users?${qs.stringify({ itemType })}`,
     userSimilarity: (userId: string) => API_URL + `/user/${userId}/similarity`,
     myFollowingUsers: API_URL + `/me/following-users`,
     userFollowers: (userId: string) => API_URL + `/user/${userId}/followers`,
@@ -190,15 +193,15 @@ export const urls = {
     confirmUploadMalAnime: '/upload-mal-anime/confirm',
     planUpdates: '/plan-updates',
     mostRatedItems: (params: MostRatedItemsQueryParams) =>
-      '/most-rated-items?' + queryString.stringify(params),
+      '/most-rated-items?' + qs.stringify(params),
     itemRecommendationsForMe: (itemType: SyncroItemType) =>
-      '/item-recommendations-for-me?' + queryString.stringify({ itemType }),
+      '/item-recommendations-for-me?' + qs.stringify({ itemType }),
   },
 
   others: {
     imdbItem: (id: string) => `https://www.imdb.com${id}`,
     twitterIntent: (url: string, text: string) =>
-      `https://twitter.com/intent/tweet?${queryString.stringify({
+      `https://twitter.com/intent/tweet?${qs.stringify({
         url,
         text,
       })}`,

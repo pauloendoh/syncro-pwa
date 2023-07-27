@@ -43,14 +43,22 @@ const ExplorePageContent = (props: Props) => {
           <ScrollArea pb={8}>
             <Tabs.List>
               {exploreTabOptions.map((option) => (
-                <Tabs.Tab key={option.key} value={option.key}>
+                <Tabs.Tab
+                  key={option.key}
+                  value={option.key}
+                  sx={{
+                    '&:first-child': {
+                      paddingLeft: 0,
+                    },
+                  }}
+                >
                   {option.label}
                 </Tabs.Tab>
               ))}
             </Tabs.List>
           </ScrollArea>
 
-          <Box mt={16} />
+          <Box mt={8} />
           {exploreSlug === 'for-you' && <RecommendedForYouSection />}
           {exploreSlug === 'most-rated' && <MostRatedExploreSection />}
           {exploreSlug === 'popular-users' && <PopularUserList />}

@@ -1,7 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { urls } from '../../../utils/urls'
 import { RatingSimilarityByTypeDto } from '../rating/RatingSimilarityByTypeDto'
+import { SyncroItemTypeAll } from '../syncro-item/SyncroItemType/SyncroItemType'
 
-export const useMySimilarUsersQuery = () => {
-  return useQuery<RatingSimilarityByTypeDto[]>([urls.api.mySimilarUsers])
+export const useMySimilarUsersQuery = (itemType?: SyncroItemTypeAll) => {
+  return useQuery<RatingSimilarityByTypeDto[]>([
+    urls.api.mySimilarUsers(itemType),
+  ])
 }

@@ -8,3 +8,5 @@ export const syncroItemTypes = [
 ] as const
 
 export type SyncroItemType = (typeof syncroItemTypes)[number]
+
+export type SyncroItemTypeAll = SyncroItemType | 'all'
