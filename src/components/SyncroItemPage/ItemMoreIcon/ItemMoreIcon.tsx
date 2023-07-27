@@ -1,7 +1,9 @@
-import { ActionIcon, Menu } from '@mantine/core'
+import { ActionIcon, Menu, Tooltip } from '@mantine/core'
 import { useMemo } from 'react'
 import { MdEdit, MdMoreHoriz, MdShare, MdStarOutline } from 'react-icons/md'
+import { RxUpdate } from 'react-icons/rx'
 import { useMyRatingsQuery } from '../../../hooks/react-query/rating/useMyRatingsQuery'
+import useUpdateItemAvgRatingMutation from '../../../hooks/react-query/syncro-item/useUpdateItemAvgRatingMutation'
 import { useEditItemModalStore } from '../../../hooks/zustand/modals/useEditItemModal'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
 import useShareRatingModalStore from '../../../hooks/zustand/modals/useShareRatingModalStore'
@@ -25,6 +27,30 @@ const ItemMoreIcon = (props: Props) => {
   const { openModal: openShareRatingModal } = useShareRatingModalStore()
 
   const { openModal: openItemRatedByModal } = useItemRatedByModalStore()
+
+  const { mutate: submitRefreshAvgRating } = useUpdateItemAvgRatingMutation()
+
+  const canRefreshRating = useMemo(() => {
+    const isMovieOrSeries =
+      props.item.type === 'movie' || props.item.type === 'tvSeries'
+    if (!isMovieOrSeries)
+      return {
+        ok: false,
+        message: 'Only movies and series can be updated for now',
+      }
+
+    const isOver7days =
+      Date.now() - new Date(props.item.ratingUpdatedAt).getTime() > 604800000
+    if (!isOver7days)
+      return {
+        ok: false,
+        message: 'The rating for this item was updated less than 7 days ago',
+      }
+
+    return {
+      ok: true,
+    }
+  }, [props.item.ratingUpdatedAt])
 
   return (
     <Menu shadow="md" position="bottom-end">
@@ -72,6 +98,20 @@ const ItemMoreIcon = (props: Props) => {
         >
           Syncro ratings
         </Menu.Item>
+
+        <Tooltip label={canRefreshRating.message} withArrow position="bottom">
+          <div>
+            <Menu.Item
+              icon={<RxUpdate />}
+              disabled={!canRefreshRating.ok}
+              onClick={() => {
+                submitRefreshAvgRating(props.item.id!)
+              }}
+            >
+              Update rating
+            </Menu.Item>
+          </div>
+        </Tooltip>
       </Menu.Dropdown>
     </Menu>
   )

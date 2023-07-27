@@ -11,8 +11,10 @@ export interface SyncroItemDto {
   type: SyncroItemType
   imageUrl: string
   year: number
+
   avgRating: number
   ratingCount: number
+  ratingUpdatedAt: string
 
   syncroAvgRating: number
   syncroRatingCount: number
@@ -59,6 +61,7 @@ export const buildSyncroItemDto = (
 
   avgRating: 0,
   ratingCount: 0,
+  ratingUpdatedAt: new Date().toISOString(),
 
   syncroAvgRating: 0,
   syncroRatingCount: 0,
