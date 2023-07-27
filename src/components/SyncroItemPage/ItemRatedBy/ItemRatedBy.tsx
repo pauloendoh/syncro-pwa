@@ -10,8 +10,9 @@ type Props = {
   itemId: string
 }
 
+// PE 1/3 - rename
 const ItemRatedBy = (props: Props) => {
-  const { data, isLoading } = useItemRatedByQuery(props.itemId)
+  const { data, isLoading } = useItemRatedByQuery(props.itemId, 'you-follow')
 
   const { authUser } = useAuthStore()
 
@@ -51,7 +52,7 @@ const ItemRatedBy = (props: Props) => {
     <FlexVCenter
       h={40}
       onClick={() => {
-        openModal(props.itemId)
+        openModal(props.itemId, 'you-follow')
       }}
       sx={{
         cursor: 'pointer',

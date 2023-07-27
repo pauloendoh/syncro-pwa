@@ -1,8 +1,9 @@
 import { ActionIcon, Menu } from '@mantine/core'
 import { useMemo } from 'react'
-import { MdEdit, MdMoreHoriz, MdShare } from 'react-icons/md'
+import { MdEdit, MdMoreHoriz, MdShare, MdStarOutline } from 'react-icons/md'
 import { useMyRatingsQuery } from '../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useEditItemModalStore } from '../../../hooks/zustand/modals/useEditItemModal'
+import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
 import useShareRatingModalStore from '../../../hooks/zustand/modals/useShareRatingModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
@@ -22,6 +23,8 @@ const ItemMoreIcon = (props: Props) => {
   }, [myRatings])
 
   const { openModal: openShareRatingModal } = useShareRatingModalStore()
+
+  const { openModal: openItemRatedByModal } = useItemRatedByModalStore()
 
   return (
     <Menu shadow="md" position="bottom-end">
@@ -61,6 +64,14 @@ const ItemMoreIcon = (props: Props) => {
             Share your rating
           </Menu.Item>
         )}
+        <Menu.Item
+          icon={<MdStarOutline />}
+          onClick={() => {
+            openItemRatedByModal(props.item.id!, 'all-users')
+          }}
+        >
+          Syncro ratings
+        </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   )

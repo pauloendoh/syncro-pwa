@@ -7,6 +7,7 @@ import {
 } from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 import { MostRatedItemsQueryParams } from '../hooks/react-query/rating/types/MostRatedItemsQueryParams'
+import { ItemRatedByModalType } from '../hooks/zustand/modals/useItemRatedByModalStore'
 import { myEnvs } from './myEnvs'
 
 const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
@@ -75,8 +76,8 @@ export const urls = {
     ratingId: (id: string) => API_URL + `/ratings?id=${id}`,
     myRatings: API_URL + `/me/ratings`,
     myRatingId: (id: string) => API_URL + `/me/ratings/` + id,
-    ratingByItemAndFollowingUsers: (itemId: string) =>
-      API_URL + `/ratings-by-following-users?itemId=${itemId}`,
+    ratingsByItem: (itemId: string, type: ItemRatedByModalType) =>
+      API_URL + `/ratings-by-following-users?${qs.stringify({ itemId, type })}`,
     uploadFavoriteScene: API_URL + `/upload-favorite-scene`,
 
     myInterests: API_URL + `/me/interests`,

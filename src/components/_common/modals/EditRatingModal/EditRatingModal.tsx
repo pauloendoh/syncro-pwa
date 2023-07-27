@@ -168,6 +168,7 @@ const EditRatingModal = () => {
         header: {
           zIndex: zIndexes.editRatingModalHeader,
           background: theme.colors.dark[7],
+          paddingBottom: 0,
         },
         title: {
           width: '100%',

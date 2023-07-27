@@ -10,9 +10,9 @@ import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import MyNextLink from '../../overrides/MyNextLink'
 
 const ItemRatedByModal = () => {
-  const { isOpen, itemId, closeModal } = useItemRatedByModalStore()
+  const { isOpen, itemId, closeModal, type } = useItemRatedByModalStore()
 
-  const { data } = useItemRatedByQuery(itemId!)
+  const { data } = useItemRatedByQuery(itemId!, type)
 
   // newest first
   const sortedRatings = useMemo(
@@ -31,7 +31,13 @@ const ItemRatedByModal = () => {
     <Modal
       opened={isOpen}
       onClose={closeModal}
-      title={<Title order={4}>Rated by users you follow</Title>}
+      title={
+        <Title order={4}>
+          {type === 'you-follow'
+            ? 'Rated by users you follow'
+            : 'Rated by Syncro users'}
+        </Title>
+      }
       withCloseButton={false}
       styles={{
         root: {
