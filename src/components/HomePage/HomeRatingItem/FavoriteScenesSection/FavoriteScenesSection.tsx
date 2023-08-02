@@ -7,6 +7,7 @@ import MyNextImage300 from '../../../_common/image/MyNextImage300/MyNextImage300
 
 type Props = {
   scenes: FavoriteSceneDto[]
+  widthHeight?: number
 }
 
 const FavoriteScenesSection = ({ ...props }: Props) => {
@@ -55,8 +56,8 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
           key={index}
           src={scene.imageUrl}
           style={{
-            width: 64,
-            height: 64,
+            width: props.widthHeight ?? 64,
+            height: props.widthHeight ?? 64,
             objectFit: 'cover',
             borderRadius: 4,
             cursor: 'pointer',
