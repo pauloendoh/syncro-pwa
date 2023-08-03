@@ -12,6 +12,7 @@ import { MdClose } from 'react-icons/md'
 import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -56,12 +57,14 @@ const RatingDetailsModal = () => {
   }, [router.isReady])
 
   const statusMap = useRatingStatusMap(rating?.status)
+  const { isMobile } = useMyMediaQuery()
 
   return (
     <Modal
       opened={!!ratingDetailsId}
       onClose={closeModal}
       withCloseButton={false}
+      fullScreen={isMobile}
     >
       {!!rating && (
         <FlexCol>
