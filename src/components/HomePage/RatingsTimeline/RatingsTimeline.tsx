@@ -73,6 +73,7 @@ const RatingsTimeline = (props: Props) => {
           totalCount={flatRatings.length}
           ref={virtuosoRef}
           restoreStateFrom={virtuosoState}
+          overscan={1000}
           endReached={() => {
             if (hasNextPage) {
               fetchNextPage()
