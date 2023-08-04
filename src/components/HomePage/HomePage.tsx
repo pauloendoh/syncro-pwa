@@ -50,7 +50,7 @@ const HomePage = () => {
       {isMobile && (
         <>
           <MobileHomeNavbar />
-          <Box mt={24} />
+          <Box mt={64} />
         </>
       )}
       <Grid w="100%" mr={isMobile ? 0 : undefined}>

@@ -12,6 +12,7 @@ import Span from '../../_common/text/Span'
 import ItemTypeSelector from '../MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { getRatingSimilarityLabel } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
 
+// PE 1/3 - rename to RatingSimilarityList
 const SimilarUserList = () => {
   const { queryValue, setQuery } = useQueryParams().itemType
 
@@ -42,7 +43,7 @@ const SimilarUserList = () => {
 
       {isLoading && <CenterLoader />}
 
-      {sortedRatingSimilarities.length === 0 && (
+      {!isLoading && sortedRatingSimilarities.length === 0 && (
         <Span>No similar users found</Span>
       )}
 

@@ -20,7 +20,10 @@ const FavoritesByType = (props: Props) => {
     itemType: props.type,
   })
 
-  const { data: typeItems } = useUserItemsQuery(props.userId, props.type)
+  const { data: typeItems, isLoading } = useUserItemsQuery(
+    props.userId,
+    props.type
+  )
 
   if (props.favorites.length === 0) return null
 
@@ -41,7 +44,7 @@ const FavoritesByType = (props: Props) => {
         {typeItems && (
           <Span ml={2} size="sm">
             {' '}
-            {typeItems?.length} items
+            {isLoading ? 'Loading...' : `${typeItems?.length} items`}
           </Span>
         )}
       </MyNextLink>

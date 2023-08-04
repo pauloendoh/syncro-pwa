@@ -63,7 +63,7 @@ const RecommendItemToUsersList = (props: Props) => {
       {isLoading && <CenterLoader />}
 
       {itemInfo && (
-        <ScrollArea pr={isMobile ? undefined : 8}>
+        <ScrollArea pr={isMobile ? undefined : 12}>
           <FlexCol
             gap={16}
             sx={{
