@@ -5,20 +5,14 @@ import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { getItemTitleAndYear } from '../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { urls } from '../../../utils/urls'
-import SyncroItemIcon from '../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
-import FlexCol from '../../_common/flex/FlexCol'
-import FlexVCenter from '../../_common/flex/FlexVCenter'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
-import Span from '../../_common/text/Span'
-import AvgRatingRow from '../AvgRatingRow/AvgRatingRow'
-import GenresSection from '../GenresSection/GenresSection'
 import ImageSyncroItemPage from '../ImageSyncroItemPage/ImageSyncroItemPage'
 import ImdbExtraInfoSection from '../ImdbExtraInfoSection/ImdbExtraInfoSection'
 import ItemMoreIcon from '../ItemMoreIcon/ItemMoreIcon'
-import ItemRatedBy from '../ItemRatedBy/ItemRatedBy'
 import RatingRow from '../RatingRow/RatingRow'
 import SyncroItemSummarySection from '../SyncroItemSummarySection/SyncroItemSummarySection'
+import SyncroItemMainInfosSection from './SyncroItemMainInfosSection/SyncroItemMainInfosSection'
 
 type Props = {
   initialData: SyncroItemDto | null
@@ -74,32 +68,10 @@ const SyncroItemPaperContent = (props: Props) => {
               isPreview={props.isPreview}
             />
 
-            <FlexCol gap={8}>
-              <AvgRatingRow item={item} isPreview={props.isPreview} />
-
-              <FlexVCenter gap={4}>
-                <SyncroItemIcon type={item.type} size={16} />
-                <MyNextLink
-                  href={urls.pages.explore('most-rated', {
-                    type: item.type,
-                  })}
-                >
-                  <Span
-                    sx={{
-                      ':hover': {
-                        textDecoration: 'underline',
-                      },
-                    }}
-                  >
-                    {itemTypeMap.getTypeLabel()}
-                  </Span>
-                </MyNextLink>
-              </FlexVCenter>
-
-              <GenresSection genres={item.genres} isPreview={props.isPreview} />
-
-              <ItemRatedBy itemId={syncroItemId!} />
-            </FlexCol>
+            <SyncroItemMainInfosSection
+              isPreview={props.isPreview}
+              item={item}
+            />
           </Flex>
 
           <Box mt={24}>

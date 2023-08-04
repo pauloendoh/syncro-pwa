@@ -1,14 +1,6 @@
-import {
-  ActionIcon,
-  Flex,
-  Modal,
-  Skeleton,
-  Text,
-  useMantineTheme,
-} from '@mantine/core'
+import { Box, Flex, Modal, Text, Title, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { MdClose } from 'react-icons/md'
 import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
@@ -20,10 +12,12 @@ import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingSta
 import { getItemTitleAndYear } from '../../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
-import HomeRatingItemButtons from '../../../HomePage/HomeRatingItem/HomeRatingItemButtons/HomeRatingItemButtons'
+import FavoriteScenesSection from '../../../HomePage/HomeRatingItem/FavoriteScenesSection/FavoriteScenesSection'
+import SyncroItemMainInfosSection from '../../../SyncroItemPage/SyncroItemPaperContent/SyncroItemMainInfosSection/SyncroItemMainInfosSection'
 import SyncroItemLink from '../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
+import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import MyNextLink from '../../overrides/MyNextLink'
 import Span from '../../text/Span'
@@ -63,82 +57,74 @@ const RatingDetailsModal = () => {
     <Modal
       opened={!!ratingDetailsId}
       onClose={closeModal}
-      withCloseButton={false}
       fullScreen={isMobile}
+      title={
+        syncroItem && <Title order={4}>{getItemTitleAndYear(syncroItem)}</Title>
+      }
     >
-      {!!rating && (
+      {!!rating && syncroItem && (
         <FlexCol>
-          <Flex justify={'space-between'}>
-            <Flex gap={8}>
-              <MyNextLink href={urls.pages.user(rating.userId)}>
-                <UserImage
-                  pictureUrl={userInfo?.profile.pictureUrl}
-                  username={userInfo?.username}
-                  widthHeight={64}
-                />
-              </MyNextLink>
-              <FlexCol
-                sx={{
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text>
-                  <MyNextLink
-                    href={urls.pages.user(rating.userId)}
-                    style={{
-                      color: 'unset',
-                    }}
-                  >
-                    <Text weight={600} span>
-                      {userInfo?.username}
-                    </Text>{' '}
-                  </MyNextLink>
-                  rated{' '}
-                  <b
-                    style={{
-                      color: theme.colors.yellow[5],
-                    }}
-                  >
-                    {rating.ratingValue}
-                  </b>
-                </Text>
-                <Text>
-                  {isLoading && <Skeleton height={12} radius="xl" />}
+          <Flex gap={16}>
+            <SyncroItemLink item={syncroItem}>
+              <SyncroItemImage item={syncroItem} width={100} />
+            </SyncroItemLink>
+            <SyncroItemMainInfosSection
+              item={syncroItem}
+              isPreview
+              hideRatedBySection
+            />
+          </Flex>
 
-                  {syncroItem && (
-                    <SyncroItemLink item={syncroItem}>
-                      <Text
-                        span
-                        weight={600}
-                        sx={(theme) => ({
-                          color: theme.colors.gray[0],
-                        })}
-                      >
-                        {syncroItem && <>{getItemTitleAndYear(syncroItem)}</>}
-                      </Text>
-                    </SyncroItemLink>
-                  )}
+          <Flex mt={16} gap={8}>
+            <MyNextLink href={urls.pages.user(rating.userId)}>
+              <UserImage
+                pictureUrl={userInfo?.profile.pictureUrl}
+                username={userInfo?.username}
+                widthHeight={40}
+              />
+            </MyNextLink>
+            <FlexCol
+              sx={{
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text>
+                <MyNextLink
+                  href={urls.pages.user(rating.userId)}
+                  style={{
+                    color: 'unset',
+                  }}
+                >
+                  <Text weight={600} span>
+                    {userInfo?.username}
+                  </Text>{' '}
+                </MyNextLink>
+                rated{' '}
+                <b
+                  style={{
+                    color: theme.colors.yellow[5],
+                  }}
+                >
+                  {rating.ratingValue}
+                </b>
+              </Text>
+              <Text></Text>
+              <FlexVCenter gap={4}>
+                <Text size={'xs'}>
+                  {format(rating.createdAt)}
+                  {' · '}
+                  <Span sx={{ color: statusMap?.color }}>
+                    {statusMap?.label}
+                  </Span>
                 </Text>
-                <FlexVCenter gap={4}>
-                  <Text size={'xs'}>
-                    {format(rating.createdAt)}
-                    {' · '}
-                    <Span sx={{ color: statusMap?.color }}>
-                      {statusMap?.label}
-                    </Span>
-                  </Text>
-                </FlexVCenter>
-              </FlexCol>
-            </Flex>
-            <ActionIcon onClick={closeModal}>
-              <MdClose />
-            </ActionIcon>
+              </FlexVCenter>
+            </FlexCol>
           </Flex>
 
           <Text
             sx={{
               marginBottom: 16,
-              marginTop: 24,
+              marginTop: 16,
               whiteSpace: 'pre-line',
               fontStyle: 'italic',
             }}
@@ -146,7 +132,13 @@ const RatingDetailsModal = () => {
             {rating.review}
           </Text>
 
-          <HomeRatingItemButtons syncroItemId={rating.syncroItemId!} />
+          {rating.scenes && (
+            <Box mt={24}>
+              <FavoriteScenesSection scenes={rating.scenes} widthHeight={96} />
+            </Box>
+          )}
+
+          {/* <HomeRatingItemButtons syncroItemId={rating.syncroItemId!} /> */}
         </FlexCol>
       )}
     </Modal>
