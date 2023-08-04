@@ -9,7 +9,7 @@ export function useMyQueryState<T extends string>(param: string) {
 
   const myRouterBack = useMyRouterBack(param)
 
-  const updateUrlValue = useCallback(
+  const setQuery = useCallback(
     (
       newValue: T,
       options?: {
@@ -36,7 +36,7 @@ export function useMyQueryState<T extends string>(param: string) {
     []
   )
 
-  const removeUrlValue = useCallback((options?: { backTwice?: boolean }) => {
+  const removeQuery = useCallback((options?: { backTwice?: boolean }) => {
     setLocalValue(undefined)
     myRouterBack()
 
@@ -52,7 +52,7 @@ export function useMyQueryState<T extends string>(param: string) {
 
   useEffect(() => {
     if (!router.query[param] && !!localValue) {
-      removeUrlValue()
+      removeQuery()
       return
     }
 
@@ -63,7 +63,7 @@ export function useMyQueryState<T extends string>(param: string) {
 
   return {
     queryValue: localValue,
-    setQuery: updateUrlValue,
-    removeQuery: removeUrlValue,
+    setQuery,
+    removeQuery,
   }
 }
