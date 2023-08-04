@@ -1,7 +1,7 @@
 import { Box, Center, Loader } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../../hooks/react-query/feed/useTimelineHasNewsQuery'
@@ -43,34 +43,56 @@ const RatingsTimeline = (props: Props) => {
   const virtuosoRef = useRef<VirtuosoHandle>(null)
   const virtuosoState = usePreserveVirtuosoState(virtuosoRef)
 
+  const [isVisible, setIsVisible] = useState(false)
+  const [hasPreviousState, setHasPreviousState] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!!virtuosoState) {
+        setHasPreviousState(true)
+      }
+      setIsVisible(true)
+    }, 100)
+  }, [])
+
   return (
     <>
       {isLoading && <CenterLoader />}
 
-      <Virtuoso
-        useWindowScroll
-        totalCount={flatRatings.length}
-        ref={virtuosoRef}
-        restoreStateFrom={virtuosoState}
-        endReached={() => {
-          if (hasNextPage) {
-            fetchNextPage()
-          }
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          visibility: isVisible ? 'visible' : 'hidden',
         }}
-        itemContent={(index) => (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <HomeRatingItem
-              rating={flatRatings[index]}
-              key={flatRatings[index].id}
-            />
-            <Box mt={16} />
-          </motion.div>
-        )}
-      />
+      >
+        <Virtuoso
+          key={hasPreviousState ? 'with-state' : 'without-state'}
+          useWindowScroll
+          totalCount={flatRatings.length}
+          ref={virtuosoRef}
+          restoreStateFrom={virtuosoState}
+          endReached={() => {
+            if (hasNextPage) {
+              fetchNextPage()
+            }
+          }}
+          itemContent={(index) => (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <HomeRatingItem
+                rating={flatRatings[index]}
+                key={flatRatings[index].id}
+              />
+              <Box mt={16} />
+            </motion.div>
+          )}
+        />
+      </motion.div>
 
       {hasNextPage && (
         <Center mt={40} sx={{ height: 80 }}>

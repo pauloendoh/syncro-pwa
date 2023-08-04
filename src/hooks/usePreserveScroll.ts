@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
+import useVirtuosoStore from './useVirtuosoStore'
 
 export const usePreserveScroll = () => {
   const router = useRouter()
@@ -8,28 +9,40 @@ export const usePreserveScroll = () => {
     [url: string]: number
   }>({})
   useRef<{ [url: string]: number }>({})
-  const [isBack, setIsBack] = useState(false)
+
+  const isBack = useRef(false)
+
+  const { virtuosoStates, clearVirtuosoState } = useVirtuosoStore()
 
   useEffect(() => {
     router.beforePopState(() => {
-      setIsBack(true)
+      isBack.current = true
       return true
     })
 
-    const onRouteChangeStart = () => {
-      const url = router.asPath
-      setScrollPositions((prev) => ({ ...prev, [url]: window.scrollY }))
+    const onRouteChangeStart = (nextUrl: string) => {
+      console.log('router change scroll')
+      const prevUrl = router.asPath
+      setScrollPositions((prev) => ({ ...prev, [prevUrl]: window.scrollY }))
+
+      if (virtuosoStates[nextUrl] && !isBack.current) {
+        console.log({
+          isBack: isBack.current,
+        })
+        console.log('clearing virtuoso state: ' + nextUrl)
+        clearVirtuosoState(nextUrl)
+      }
     }
 
     const onRouteChangeComplete = (url: any) => {
-      if (isBack && scrollPositions[url]) {
+      if (isBack.current && scrollPositions[url]) {
         window.scroll({
           top: scrollPositions[url],
           behavior: 'auto',
         })
       }
 
-      setIsBack(false)
+      isBack.current = false
     }
 
     router.events.on('routeChangeStart', onRouteChangeStart)

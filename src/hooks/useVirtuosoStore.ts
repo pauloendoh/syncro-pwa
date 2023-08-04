@@ -6,6 +6,7 @@ interface IStore {
     [url: string]: StateSnapshot
   }
   setVirtuosoState: (url: string, state: StateSnapshot) => void
+  clearVirtuosoState: (url: string) => void
 }
 
 const useVirtuosoStore = create<IStore>((set, get) => ({
@@ -17,6 +18,15 @@ const useVirtuosoStore = create<IStore>((set, get) => ({
           ...prev.virtuosoStates,
           [url]: state,
         },
+      }
+    })
+  },
+  clearVirtuosoState: (url) => {
+    set((prev) => {
+      const virtuosoStates = { ...prev.virtuosoStates }
+      delete virtuosoStates[url]
+      return {
+        virtuosoStates,
       }
     })
   },
