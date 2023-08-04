@@ -16,8 +16,8 @@ import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
+import { useQueryParams } from '../../../../hooks/useQueryParams'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
-import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import {
   RatingDto,
@@ -43,10 +43,9 @@ const EditRatingModal = () => {
     openModal,
   } = useSaveRatingModalStore()
 
-  const {
-    closeModal: closeRatingDetailsModal,
-    isOpen: ratingDetailsModalIsOpen,
-  } = useRatingDetailsModalStore()
+  const { queryValue: ratingDetailsId, removeQuery: closeRatingDetailsModal } =
+    useQueryParams().ratingDetailsId
+  const ratingDetailsModalIsOpen = !!ratingDetailsId
 
   const query = useMyRouterQuery()
 
@@ -119,7 +118,7 @@ const EditRatingModal = () => {
 
   const closeBothModals = () => {
     closeModal()
-    if (ratingDetailsModalIsOpen()) {
+    if (ratingDetailsModalIsOpen) {
       closeRatingDetailsModal()
     }
   }

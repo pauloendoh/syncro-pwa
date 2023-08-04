@@ -1,29 +1,41 @@
-import Router from 'next/router'
+import { useCallback, useMemo } from 'react'
 import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { QueryParams } from '../../../utils/queryParams'
-import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
+import { useQueryParams } from '../../useQueryParams'
 
 interface IStore {
-  isOpen: () => boolean
   initialValue: RatingDto | null
-  openModal: (ratingDto: RatingDto) => void
-  closeModal: () => void
+  setInitialValue: (ratingDto: RatingDto) => void
 }
 
-const useRatingDetailsModalStore = create<IStore>((set, get) => ({
-  isOpen: () => {
-    return !!Router.query[QueryParams.ratingDetailsId]
-  },
+const useActualStore = create<IStore>((set, get) => ({
   initialValue: null,
-  openModal: (initialValue) => {
+  setInitialValue: (initialValue) => {
     set({ initialValue })
-    Router.query[QueryParams.ratingDetailsId] = initialValue.id
-    Router.push(Router, undefined, { scroll: false })
-  },
-  closeModal: () => {
-    routerBackIfSameDomainOrClearQueryParam(QueryParams.ratingDetailsId)
   },
 }))
 
-export default useRatingDetailsModalStore
+export const useRatingDetailsModalStore = () => {
+  const { initialValue, setInitialValue } = useActualStore()
+  const { queryValue, removeQuery, setQuery } = useQueryParams().ratingDetailsId
+
+  const openModal = useCallback((ratingDto: RatingDto) => {
+    setInitialValue(ratingDto)
+    setQuery(ratingDto.id)
+  }, [])
+
+  const isOpen = useMemo(() => {
+    return !!queryValue
+  }, [queryValue])
+
+  const closeModal = useCallback(() => {
+    removeQuery()
+  }, [])
+
+  return {
+    initialValue,
+    closeModal,
+    openModal,
+    isOpen,
+  }
+}

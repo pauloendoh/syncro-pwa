@@ -5,8 +5,8 @@ import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { useQueryParams } from '../../../../hooks/useQueryParams'
+import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
 import { getItemTitleAndYear } from '../../../../utils/domains/syncro-item/getItemTitleAndYear'
@@ -26,7 +26,7 @@ const RatingDetailsModal = () => {
   const {
     initialValue: rating,
     closeModal,
-    openModal,
+    openModal: openModal,
   } = useRatingDetailsModalStore()
 
   const theme = useMantineTheme()
@@ -36,7 +36,8 @@ const RatingDetailsModal = () => {
   )
 
   const { data: userInfo } = useUserInfoQuery(rating?.userId)
-  const { ratingDetailsId } = useMyRouterQuery()
+
+  const { queryValue: ratingDetailsId } = useQueryParams().ratingDetailsId
 
   const router = useRouter()
   const axios = useAxios()
@@ -121,16 +122,18 @@ const RatingDetailsModal = () => {
             </FlexCol>
           </Flex>
 
-          <Text
-            sx={{
-              marginBottom: 16,
-              marginTop: 16,
-              whiteSpace: 'pre-line',
-              fontStyle: 'italic',
-            }}
-          >
-            {rating.review}
-          </Text>
+          {!!rating.review && (
+            <Text
+              sx={{
+                marginBottom: 16,
+                marginTop: 16,
+                whiteSpace: 'pre-line',
+                fontStyle: 'italic',
+              }}
+            >
+              {rating.review}
+            </Text>
+          )}
 
           {rating.scenes && (
             <Box mt={24}>

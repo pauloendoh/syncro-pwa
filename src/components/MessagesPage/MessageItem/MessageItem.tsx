@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
 import useReadAllMessagesMutation from '../../../hooks/react-query/message/useReadAllMessagesMutation'
 import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
-import useRatingDetailsModalStore from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 
@@ -55,7 +55,7 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
     `
   }, [message.createdAt])
 
-  const { openModal } = useRatingDetailsModalStore()
+  const { openModal: openModal } = useRatingDetailsModalStore()
 
   return (
     <FlexCol gap={4}>

@@ -17,7 +17,6 @@ export const useMyRouterQuery = () => {
 
     recommendItemIsOpen: string
     [QueryParams.recommendItemsToUser]: string
-    [QueryParams.ratingDetailsId]: string
     [QueryParams.saveRatingModal]: string
     [QueryParams.editingItem]: string
     [QueryParams.feedbackModal]: string

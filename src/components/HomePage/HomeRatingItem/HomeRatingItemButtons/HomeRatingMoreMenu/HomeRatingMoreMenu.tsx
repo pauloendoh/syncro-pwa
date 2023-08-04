@@ -1,7 +1,7 @@
 import { ActionIcon, Menu } from '@mantine/core'
 import { MdEdit, MdMoreHoriz, MdOutlineInfo, MdShare } from 'react-icons/md'
 import { useMyItemRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
-import useRatingDetailsModalStore from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { useRatingDetailsModalStore } from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useShareRatingModalStore from '../../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { RatingDto } from '../../../../../types/domain/rating/RatingDto'

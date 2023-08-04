@@ -5,7 +5,6 @@ export enum QueryParams {
   feedbackModal = 'feedbackModal',
   editingItem = 'editingItem',
   saveRatingModal = 'saveRatingModal',
-  ratingDetailsId = 'ratingDetailsId',
   importRatings = 'importRatings',
   userSimilarity = 'userSimilarity',
 

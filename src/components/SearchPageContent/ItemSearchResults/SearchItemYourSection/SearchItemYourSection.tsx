@@ -8,7 +8,7 @@ import {
 import { useMyInterestQueryUtils } from '../../../../hooks/react-query/interest/useMyInterestQueryUtils'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyItemRatingQueryUtils } from '../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
-import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'

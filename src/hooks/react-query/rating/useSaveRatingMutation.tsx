@@ -8,13 +8,13 @@ import { queryKeys } from '../../../utils/queryKeys'
 import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { useMyRouterQuery } from '../../useMyRouterQuery'
-import useRatingDetailsModalStore from '../../zustand/modals/useRatingDetailsModalStore'
+import { useRatingDetailsModalStore } from '../../zustand/modals/useRatingDetailsModalStore'
 
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
   const { userId } = useMyRouterQuery()
-  const { openModal } = useRatingDetailsModalStore()
+  const { openModal: openModal } = useRatingDetailsModalStore()
 
   const axios = useAxios()
   return useMutation(

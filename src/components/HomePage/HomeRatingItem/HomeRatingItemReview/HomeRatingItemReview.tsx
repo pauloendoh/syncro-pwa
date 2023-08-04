@@ -1,6 +1,6 @@
 import { Text } from '@mantine/core'
 import { useElementSize } from '@mantine/hooks'
-import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import Span from '../../../_common/text/Span'
 
@@ -11,7 +11,7 @@ type Props = {
 const HomeRatingItemReview = (props: Props) => {
   const { ref: reviewRef, height: reviewHeight } = useElementSize()
 
-  const { openModal } = useRatingDetailsModalStore()
+  const { openModal: openModal } = useRatingDetailsModalStore()
 
   const isShowingSeeMore = reviewHeight > 64
 

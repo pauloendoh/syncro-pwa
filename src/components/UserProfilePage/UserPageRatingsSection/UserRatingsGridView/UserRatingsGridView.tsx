@@ -6,7 +6,7 @@ import { useTimelineRatingsQuery } from '../../../../hooks/react-query/feed/useH
 import { useTimelineHasNewsQuery } from '../../../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import useRatingDetailsModalStore from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
@@ -69,7 +69,7 @@ const UserRatingsGridView = (props: Props) => {
 
   const { getVariantRatingYellow } = useMyColors()
 
-  const { openModal } = useRatingDetailsModalStore()
+  const { openModal: openModal } = useRatingDetailsModalStore()
 
   return (
     <>

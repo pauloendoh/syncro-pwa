@@ -11,5 +11,6 @@ export function useQueryParams() {
     favoriteScene,
     itemImageOpen,
     itemType: useMyQueryState<SyncroItemType | 'all'>('itemType'),
+    ratingDetailsId: useMyQueryState<string>('ratingDetailsId'),
   }
 }
