@@ -17,7 +17,8 @@ export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
 export const useMyRouterBack = (queryParam: string) => {
   const router = useRouter()
   const closeRedirect = () => {
-    delete router.query[queryParam]
+    router.query[queryParam] = undefined
+
     router.replace(router, undefined, { scroll: false, shallow: true })
   }
 

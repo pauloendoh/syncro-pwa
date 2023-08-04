@@ -1,13 +1,10 @@
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import { useMyRouterBack } from '../utils/router/routerBackIfSameDomain'
+import { routerBackIfSameDomainOrClearQueryParam } from '../utils/router/routerBackIfSameDomain'
 import { getSessionStorage } from '../utils/sessionStorageKeys'
 
 export function useMyQueryState<T extends string>(param: string) {
   const [localValue, setLocalValue] = useState<T | undefined>(undefined)
-  const router = useRouter()
-
-  const myRouterBack = useMyRouterBack(param)
 
   const setQuery = useCallback(
     (
@@ -21,14 +18,14 @@ export function useMyQueryState<T extends string>(param: string) {
       const { replace = false, scroll = false, shallow = false } = options || {}
 
       setLocalValue(newValue)
-      router.query[param] = newValue
+      Router.query[param] = newValue
 
       if (replace) {
-        router.replace(router, undefined, { scroll, shallow })
+        Router.replace(Router, undefined, { scroll, shallow })
         return
       }
 
-      router.push(router, undefined, {
+      Router.push(Router, undefined, {
         scroll,
         shallow,
       })
@@ -38,7 +35,7 @@ export function useMyQueryState<T extends string>(param: string) {
 
   const removeQuery = useCallback((options?: { backTwice?: boolean }) => {
     setLocalValue(undefined)
-    myRouterBack()
+    routerBackIfSameDomainOrClearQueryParam(param)
 
     const historyLength = window.history.length
     const initialHistoryLength = Number(
@@ -46,20 +43,20 @@ export function useMyQueryState<T extends string>(param: string) {
     )
 
     if (options?.backTwice && historyLength > initialHistoryLength) {
-      router.back()
+      Router.back()
     }
   }, [])
 
   useEffect(() => {
-    if (!router.query[param] && !!localValue) {
+    if (!Router.query[param] && !!localValue) {
       removeQuery()
       return
     }
 
-    if (router.query[param] && !localValue) {
-      setLocalValue(router.query[param] as T)
+    if (Router.query[param] && !localValue) {
+      setLocalValue(Router.query[param] as T)
     }
-  }, [router.query[param]])
+  }, [Router.query[param]])
 
   return {
     queryValue: localValue,
