@@ -28,7 +28,6 @@ import { urls } from '../../utils/urls'
 import PlannedItemsHomeSection from '../HomePage/PlannedItemsHomeSection/PlannedItemsHomeSection'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import FavoritesSection from './FavoritesSection/FavoritesSection'
@@ -39,6 +38,7 @@ import ProfileScreenRatingItem from './ProfileScreenRatingItem/ProfileScreenRati
 import UserMoreMenu from './UserMoreMenu/UserMoreMenu'
 import UserPageRatingsSection from './UserPageRatingsSection/UserPageRatingsSection'
 import UserSimilaritySection from './UserSimilaritySection/UserSimilaritySection'
+import ZoomableUserImage from './ZoomableUserImage/ZoomableUserImage'
 
 const UserProfilePage = () => {
   const { userId } = useMyRouterQuery()
@@ -120,11 +120,7 @@ const UserProfilePage = () => {
               {userInfo && (
                 <FlexCol gap={16}>
                   <Flex gap={24}>
-                    <UserImage
-                      pictureUrl={userInfo.profile.pictureUrl}
-                      username={userInfo.username}
-                      widthHeight={isSmallScreen ? 80 : 96}
-                    />
+                    <ZoomableUserImage userInfo={userInfo} />
 
                     <FlexCol sx={{ flexGrow: 1 }}>
                       <FlexVCenter justify={'space-between'}>
