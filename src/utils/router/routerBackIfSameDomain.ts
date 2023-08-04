@@ -1,4 +1,4 @@
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 /**
  * This solution is still not perfect.
@@ -12,4 +12,14 @@ export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
   }
 
   closeRedirect()
+}
+
+export const useMyRouterBack = (queryParam: string) => {
+  const router = useRouter()
+  const closeRedirect = () => {
+    delete router.query[queryParam]
+    router.replace(router, undefined, { scroll: false, shallow: true })
+  }
+
+  return closeRedirect
 }
