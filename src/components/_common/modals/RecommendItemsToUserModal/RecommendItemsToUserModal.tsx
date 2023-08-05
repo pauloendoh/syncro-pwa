@@ -2,6 +2,7 @@ import { Box, Flex, Modal, ScrollArea, Tabs, Title } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsToRecommendQuery } from '../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemsToUserModalStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -28,11 +29,14 @@ const RecommendItemsToUserModal = () => {
     [itemsToRecommend]
   )
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <Modal
       opened={!!recommendItemsToUser}
       onClose={closeActionSheet}
       title={<Title order={4}>Recommend</Title>}
+      fullScreen={isMobile}
       size="md"
     >
       <Box mt={4}>
@@ -59,7 +63,7 @@ const RecommendItemsToUserModal = () => {
           </Tabs.List>
 
           <ScrollArea h={'calc(100vh - 240px)'}>
-            <Flex gap={16} mt={16} pr={16} wrap={'wrap'} justify={'center'}>
+            <Flex gap={isMobile ? 8 : 16} mt={16} pr={16} wrap={'wrap'}>
               {sortedItemsToRecommend?.map((item) => (
                 <ItemToRecommendOption
                   itemToRecommend={item}

@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { ItemToRecommendDto } from '../../../../../hooks/react-query/item-recommendation/types/ItemToRecommendDto'
 import { useItemsRecommendationsFromMeQuery } from '../../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery'
 import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-item/useRecommendItemMutation'
+import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import FavoriteItem from '../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import FlexCol from '../../../flex/FlexCol'
 
@@ -30,14 +31,17 @@ const ItemToRecommendOption = ({ itemToRecommend, userId }: Props) => {
   }, [myRecommendations, theySaved])
 
   const { mutate: submitRecommendItem, isLoading } = useRecommendItemMutation()
+  const { isMobile } = useMyMediaQuery()
+
+  const width = useMemo(() => (isMobile ? 100 : 120), [isMobile])
 
   return (
     <FlexCol gap={4} mt={8}>
-      <FavoriteItem item={item} alwaysShowTitle width={120} disablePreview />
+      <FavoriteItem item={item} alwaysShowTitle width={width} disablePreview />
       <Button
         styles={(theme) => ({
           root: {
-            width: 120,
+            width: width,
             paddingInline: 0,
           },
           label: {
