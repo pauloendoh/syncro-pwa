@@ -21,6 +21,7 @@ type Props = {
   width?: number
   alwaysShowTitle?: boolean
   showAvgRating?: boolean
+  disablePreview?: boolean
 }
 
 const FavoriteItem = (props: Props) => {
@@ -45,6 +46,7 @@ const FavoriteItem = (props: Props) => {
     <SyncroItemLink
       item={props.item}
       draggable
+      disablePreview={props.disablePreview}
       previewWithinPortal
       previewPosition={props.previewPosition}
     >

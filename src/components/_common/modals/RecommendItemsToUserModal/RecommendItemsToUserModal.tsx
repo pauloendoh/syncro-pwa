@@ -1,11 +1,10 @@
-import { Box, Modal, ScrollArea, Tabs, Title } from '@mantine/core'
+import { Box, Flex, Modal, ScrollArea, Tabs, Title } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsToRecommendQuery } from '../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemsToUserModalStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import FlexCol from '../../flex/FlexCol'
 import ItemToRecommendOption from './ItemToRecommendOption/ItemToRecommendOption'
 import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
 
@@ -60,7 +59,7 @@ const RecommendItemsToUserModal = () => {
           </Tabs.List>
 
           <ScrollArea h={'calc(100vh - 240px)'}>
-            <FlexCol gap={16} mt={16} pr={16}>
+            <Flex gap={16} mt={16} pr={16} wrap={'wrap'} justify={'center'}>
               {sortedItemsToRecommend?.map((item) => (
                 <ItemToRecommendOption
                   itemToRecommend={item}
@@ -68,7 +67,7 @@ const RecommendItemsToUserModal = () => {
                   key={item.item.id}
                 />
               ))}
-            </FlexCol>
+            </Flex>
           </ScrollArea>
         </Tabs>
       </Box>
