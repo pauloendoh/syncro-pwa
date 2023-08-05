@@ -1,24 +1,39 @@
-import { Text } from '@mantine/core'
-import { useElementSize } from '@mantine/hooks'
+import { Spoiler, Text, useMantineTheme } from '@mantine/core'
+import { useEffect, useRef } from 'react'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
-import Span from '../../../_common/text/Span'
 
 type Props = {
   rating: RatingDto
 }
 
 const HomeRatingItemReview = (props: Props) => {
-  const { ref: reviewRef, height: reviewHeight } = useElementSize()
-
   const { openModal: openModal } = useRatingDetailsModalStore()
 
-  const isShowingSeeMore = reviewHeight > 64
+  const theme = useMantineTheme()
+
+  const controlRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      e.preventDefault()
+      e.stopPropagation()
+      openModal(props.rating)
+    }
+
+    if (controlRef.current) {
+      controlRef.current.addEventListener('click', handleClick)
+    }
+
+    return () => {
+      if (controlRef.current) {
+        controlRef.current.removeEventListener('click', handleClick)
+      }
+    }
+  }, [controlRef.current])
 
   return (
     <Text
       sx={{
-        marginBottom: isShowingSeeMore ? 16 : 0,
         marginTop: 8,
         fontSize: 14,
         fontStyle: 'italic',
@@ -28,20 +43,21 @@ const HomeRatingItemReview = (props: Props) => {
         whiteSpace: 'pre-line',
       }}
     >
-      <Text lineClamp={3} ref={reviewRef}>
-        {props.rating.review}
-      </Text>
-
-      <Span
-        sx={{
-          visibility: isShowingSeeMore ? 'visible' : 'hidden',
-          cursor: 'pointer',
-          fontWeight: 600,
+      <Spoiler
+        maxHeight={66}
+        hideLabel="Hide"
+        showLabel="See more"
+        styles={{
+          control: {
+            fontWeight: 600,
+            color: theme.colors.dark[0],
+          },
         }}
-        onClick={() => openModal(props.rating)}
+        controlRef={controlRef}
+        mb={16}
       >
-        See more
-      </Span>
+        {props.rating.review}
+      </Spoiler>
     </Text>
   )
 }
