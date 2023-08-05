@@ -1,10 +1,11 @@
-import Router from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { routerBackIfSameDomainOrClearQueryParam } from '../utils/router/routerBackIfSameDomain'
 import { getSessionStorage } from '../utils/sessionStorageKeys'
+import { useMyRouter } from './useMyRouter'
 
 export function useMyQueryState<T extends string>(param: string) {
   const [localValue, setLocalValue] = useState<T | undefined>(undefined)
+  const router = useMyRouter()
 
   const setQuery = useCallback(
     (
@@ -18,14 +19,16 @@ export function useMyQueryState<T extends string>(param: string) {
       const { replace = false, scroll = false, shallow = false } = options || {}
 
       setLocalValue(newValue)
-      Router.query[param] = newValue
+      if (router) {
+        router.query[param] = newValue
+      }
 
       if (replace) {
-        Router.replace(Router, undefined, { scroll, shallow })
+        router?.replace(router, undefined, { scroll, shallow })
         return
       }
 
-      Router.push(Router, undefined, {
+      router?.push(router, undefined, {
         scroll,
         shallow,
       })
@@ -43,20 +46,20 @@ export function useMyQueryState<T extends string>(param: string) {
     )
 
     if (options?.backTwice && historyLength > initialHistoryLength) {
-      Router.back()
+      router?.back()
     }
   }, [])
 
   useEffect(() => {
-    if (!Router.query[param] && !!localValue) {
+    if (!router?.query[param] && !!localValue) {
       removeQuery()
       return
     }
 
-    if (Router.query[param] && !localValue) {
-      setLocalValue(Router.query[param] as T)
+    if (router?.query[param] && !localValue) {
+      setLocalValue(router?.query[param] as T)
     }
-  }, [Router.query[param]])
+  }, [router?.query[param]])
 
   return {
     queryValue: localValue,
