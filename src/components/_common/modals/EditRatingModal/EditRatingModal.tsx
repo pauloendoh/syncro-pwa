@@ -191,12 +191,15 @@ const EditRatingModal = () => {
         </FlexVCenter>
 
         <FlexVCenter gap={16} mt={16}>
-          <RatingStatusSelector
-            value={form.watch('status')}
-            onChange={(value) =>
-              form.setValue('status', value, { shouldDirty: true })
-            }
-          />
+          {syncroItem && (
+            <RatingStatusSelector
+              itemType={syncroItem.type}
+              value={form.watch('status')}
+              onChange={(value) =>
+                form.setValue('status', value, { shouldDirty: true })
+              }
+            />
+          )}
 
           {syncroItem && form.watch('ratingProgress') && (
             <RatingProgressFields

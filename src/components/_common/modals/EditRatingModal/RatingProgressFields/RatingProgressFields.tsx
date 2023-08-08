@@ -1,6 +1,6 @@
 import { NumberInput } from '@mantine/core'
 import { RatingProgressDto } from '../../../../../types/domain/rating/RatingProgressDto'
-import { RatingStatusType } from '../../../../../types/domain/rating/ratingStatusMap'
+import { RatingStatusType } from '../../../../../types/domain/rating/ratingStatusArray'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import FlexVCenter from '../../../flex/FlexVCenter'
 
@@ -12,7 +12,7 @@ type Props = {
 }
 
 const RatingProgressFields = ({ ...props }: Props) => {
-  if (props.status === 'COMPLETED') {
+  if (props.status === 'COMPLETED' || props.status === 'PLANNED') {
     return null
   }
   if (props.item.type === 'manga')

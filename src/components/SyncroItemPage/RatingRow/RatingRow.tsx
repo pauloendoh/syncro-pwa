@@ -2,12 +2,7 @@ import { ScrollArea, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { IoMdShareAlt } from 'react-icons/io'
-import {
-  MdBookmark,
-  MdBookmarkBorder,
-  MdLink,
-  MdStarBorder,
-} from 'react-icons/md'
+import { MdLink, MdStarBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useFavoriteItemsQuery } from '../../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
 import useToggleFavoriteItemMutation from '../../../hooks/react-query/favorite-item/useToggleFavoriteItemMutation'
@@ -19,7 +14,7 @@ import useRecommendItemModalStore from '../../../hooks/zustand/modals/useRecomme
 import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../types/domain/rating/RatingDto'
-import { ratingStatusArrayMap } from '../../../types/domain/rating/ratingStatusMap'
+import { ratingStatusArray } from '../../../types/domain/rating/ratingStatusArray'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../utils/urls'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -84,9 +79,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
       return myRating?.ratingValue
     }
 
-    const status = ratingStatusArrayMap.find(
-      (s) => s.value === myRating?.status
-    )
+    const status = ratingStatusArray.find((s) => s.value === myRating?.status)
     if (status) {
       return status.label
     }
@@ -106,33 +99,13 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
               }
               isActive={!!myRating}
               leftIcon={
-                ratingStatusArrayMap.find((s) => s.value === myRating?.status)
+                ratingStatusArray.find((s) => s.value === myRating?.status)
                   ?.icon || (
                   <MdStarBorder color={theme.colors.dark[0]} size={16} />
                 )
               }
             >
               {ratingButtonLabel}
-            </RatingRowButton>
-
-            <RatingRowButton
-              ml={2}
-              onClick={() =>
-                submitToggleSave({
-                  itemId: syncroItem.id,
-                })
-              }
-              isActive={!!myInterest?.interestLevel}
-              leftIcon={
-                myInterest?.interestLevel ? (
-                  <MdBookmark color={theme.colors.dark[0]} size={16} />
-                ) : (
-                  <MdBookmarkBorder color={theme.colors.dark[0]} size={16} />
-                )
-              }
-              loading={toggleSaveIsLoading}
-            >
-              {myInterest?.interestLevel ? 'Planned' : typeMap.planTo}
             </RatingRowButton>
 
             <RatingRowButton

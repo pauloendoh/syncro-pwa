@@ -1,15 +1,15 @@
 import { useMemo } from 'react'
 import { GridContextProvider, GridDropZone, GridItem } from 'react-grid-dnd'
-import { InterestDto } from '../../../../../types/domain/interest/InterestDto'
+import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 import FavoriteItem from '../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 
 type Props = {
-  plannedItems: InterestDto[]
+  items: RatingDto[]
   onDragChange: (interestId: string, newPosition: number) => void
   disableDrag?: boolean
 }
 
-const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
+const GridPlannedItems = ({ items: plannedItems, ...props }: Props) => {
   function onChange(
     _sourceId: string,
     sourceIndex: number,
@@ -19,7 +19,7 @@ const GridPlannedItems = ({ plannedItems, ...props }: Props) => {
     const plannedItem = plannedItems[sourceIndex]
     const newPosition = targetIndex + 1
 
-    if (plannedItem?.position === newPosition) return
+    if (plannedItem?.plannedPosition === newPosition) return
 
     props.onDragChange(plannedItem.id, newPosition)
   }

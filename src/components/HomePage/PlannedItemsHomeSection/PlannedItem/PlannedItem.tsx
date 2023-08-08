@@ -2,20 +2,20 @@ import { Draggable } from 'react-beautiful-dnd'
 
 import { createStyles, Flex, Text } from '@mantine/core'
 import { MdDragHandle } from 'react-icons/md'
-import { InterestDto } from '../../../../types/domain/interest/InterestDto'
+import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 
 type Props = {
-  planned: InterestDto
+  item: RatingDto
   index: number
 }
 
 const PlannedItem = (props: Props) => {
   const {
-    planned: { syncroItem },
+    item: { syncroItem },
   } = props
 
   const { classes } = useStyles()
@@ -23,11 +23,7 @@ const PlannedItem = (props: Props) => {
   if (!syncroItem) return null
 
   return (
-    <Draggable
-      isDragDisabled
-      index={props.index}
-      draggableId={props.planned.id}
-    >
+    <Draggable isDragDisabled index={props.index} draggableId={props.item.id}>
       {(provided) => (
         <FlexVCenter
           py={8}

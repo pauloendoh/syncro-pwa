@@ -1,6 +1,5 @@
-import { Tooltip, useMantineTheme } from '@mantine/core'
+import { useMantineTheme } from '@mantine/core'
 import { memo, useMemo } from 'react'
-import { MdBookmark, MdBookmarkBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
@@ -58,7 +57,7 @@ const HomeRatingItemButtons = (props: Props) => {
   return (
     <FlexVCenter mt={2} gap={props.gap || (isMobile ? 18 : 24)}>
       <MyRatingButton itemId={props.syncroItemId!} />
-      <Tooltip label={bookmarkTooltipLabel} withArrow>
+      {/* <Tooltip label={bookmarkTooltipLabel} withArrow>
         <FlexVCenter
           sx={(theme) => ({
             color: myInterest
@@ -85,7 +84,7 @@ const HomeRatingItemButtons = (props: Props) => {
             )}
           </FlexVCenter>
         </FlexVCenter>
-      </Tooltip>
+      </Tooltip> */}
 
       {props.rating && <ReplyToRatingSection rating={props.rating} />}
 

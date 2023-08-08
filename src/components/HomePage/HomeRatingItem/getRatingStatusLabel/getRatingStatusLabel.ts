@@ -1,5 +1,5 @@
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
-import { RatingStatusType } from '../../../../types/domain/rating/ratingStatusMap'
+import { RatingStatusType } from '../../../../types/domain/rating/ratingStatusArray'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 export const useRatingStatusLabel = (params: {
@@ -27,5 +27,7 @@ export const useRatingStatusLabel = (params: {
 
     case 'ON_HOLD':
       return 'paused:'
+    case 'PLANNED':
+      return typeMap.plansTo + ':'
   }
 }

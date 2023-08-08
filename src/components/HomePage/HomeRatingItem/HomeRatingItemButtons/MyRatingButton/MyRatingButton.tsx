@@ -4,7 +4,7 @@ import { MdStarBorder } from 'react-icons/md'
 import { useMyItemRatingQueryUtils } from '../../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { buildRatingDto } from '../../../../../types/domain/rating/RatingDto'
-import { ratingStatusArrayMap } from '../../../../../types/domain/rating/ratingStatusMap'
+import { ratingStatusArray } from '../../../../../types/domain/rating/ratingStatusArray'
 import FlexVCenter from '../../../../_common/flex/FlexVCenter'
 
 interface Props {
@@ -30,7 +30,7 @@ const MyRatingButton = (props: Props) => {
     if (!myRating) return <MdStarBorder color={color} size={24} />
 
     if (myRating.status) {
-      const IconWithProps = ratingStatusArrayMap.find(
+      const IconWithProps = ratingStatusArray.find(
         (r) => r.value === myRating.status
       )?.IconWithProps
       if (IconWithProps) return <IconWithProps color={color} size={24} />

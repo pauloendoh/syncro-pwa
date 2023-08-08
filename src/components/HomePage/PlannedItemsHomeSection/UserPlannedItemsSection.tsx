@@ -1,7 +1,7 @@
 import { Box, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useMemo } from 'react'
-import { usePlannedItemsQuery } from '../../../hooks/react-query/interest/usePlannedItemsQuery'
+import { usePlannedItemsQueryV2 } from '../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import {
@@ -13,18 +13,18 @@ import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
 import DragDropPlannedItems from './DragDropPlannedItems/DragDropPlannedItems'
-import PlannedItemButton from './PlannedItemButton/PlannedItemButton'
+import PlannedItemTypeButton from './PlannedItemTypeButton/PlannedItemTypeButton'
 
 type Props = {
   userId: string
 }
 
-const PlannedItemsHomeSection = (props: Props) => {
+const UserPlannedItemsSection = (props: Props) => {
   const [selectedType, setSelectedType] = useLocalStorage<SyncroItemType>({
     key: localStorageKeys.plannedItemsSelectedType,
   })
 
-  const { data: savedItems } = usePlannedItemsQuery(props.userId)
+  const { data: ratings } = usePlannedItemsQueryV2(props.userId)
 
   const { data: userInfo } = useUserInfoQuery(props.userId)
 
@@ -38,7 +38,7 @@ const PlannedItemsHomeSection = (props: Props) => {
     return `${userInfo.username}'s planned items`
   }, [userInfo?.username, authUser?.username])
 
-  if (!savedItems || savedItems.length === 0) return null
+  if (!ratings || ratings.length === 0) return null
 
   return (
     <FlexCol
@@ -59,7 +59,7 @@ const PlannedItemsHomeSection = (props: Props) => {
           </Title>
           <FlexVCenter gap={8} wrap="wrap" p={16}>
             {syncroItemTypes.map((type) => (
-              <PlannedItemButton
+              <PlannedItemTypeButton
                 userId={props.userId}
                 key={type}
                 type={type}
@@ -81,4 +81,4 @@ const PlannedItemsHomeSection = (props: Props) => {
   )
 }
 
-export default PlannedItemsHomeSection
+export default UserPlannedItemsSection

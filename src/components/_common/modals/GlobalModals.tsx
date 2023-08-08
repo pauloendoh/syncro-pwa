@@ -12,7 +12,6 @@ import RatingDetailsModal from './RatingDetailsModal/RatingDetailsModal'
 import RatingsImportModal from './RatingsImportModal/RatingsImportModal'
 import RecommendItemModal from './RecommendItemModal/RecommendItemModal'
 import RecommendItemsToUserModal from './RecommendItemsToUserModal/RecommendItemsToUserModal'
-import SavedPositionModal from './SavedPositionModal/SavedPositionModal'
 import ShareRatingModal from './ShareRatingModal/ShareRatingModal'
 import UserSimilarityModal from './UserSimilarityModal/UserSimilarityModal'
 
@@ -27,11 +26,7 @@ const GlobalModals = (props: Props) => {
       <EditRatingModal />
       <RecommendItemModal />
       <ItemRatedByModal />
-      <SavedPositionModal
-        initialValue={savedPosition.initialValue}
-        isOpen={savedPosition.isOpen}
-        onClose={savedPosition.closeSheet}
-      />
+
       <RatingDetailsModal />
       <RecommendItemsToUserModal />
       <FollowersModal />

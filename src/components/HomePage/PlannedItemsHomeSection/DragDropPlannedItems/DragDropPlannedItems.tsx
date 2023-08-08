@@ -1,8 +1,8 @@
 import { Box } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd'
-import { usePlannedItemsQuery } from '../../../../hooks/react-query/interest/usePlannedItemsQuery'
-import useUpdateSavedPositionMutation from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutation'
+import { usePlannedItemsQueryV2 } from '../../../../hooks/react-query/interest/usePlannedItemsQueryV2'
+import useUpdateSavedPositionMutationV2 from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutationV2'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../../_common/flex/FlexCol'
@@ -19,28 +19,28 @@ const DragDropPlannedItems = (props: Props) => {
   const { authUser } = useAuthStore()
 
   const { mutate: submitUpdateSavedPosition, isLoading } =
-    useUpdateSavedPositionMutation()
+    useUpdateSavedPositionMutationV2()
 
   const onDragEnd = (result: DropResult) => {
-    const interestId = result.draggableId
+    const ratingId = result.draggableId
     const newPosition =
       result.destination?.index === undefined
         ? 1
         : result.destination?.index + 1
 
     submitUpdateSavedPosition({
-      interestId,
+      ratingId: ratingId,
       newPosition,
     })
   }
 
-  const { data: savedItems } = usePlannedItemsQuery(props.userId)
+  const { data: savedItems } = usePlannedItemsQueryV2(props.userId)
 
   const sortedPlanned = useMemo(() => {
     return (
       savedItems
         ?.filter((d) => d.syncroItem?.type === props.itemType)
-        ?.sort((a, b) => a.position - b.position) || []
+        ?.sort((a, b) => a.plannedPosition - b.plannedPosition) || []
     )
   }, [props.itemType, savedItems])
 
@@ -49,9 +49,9 @@ const DragDropPlannedItems = (props: Props) => {
     return (
       <GridPlannedItems
         disableDrag={props.userId !== authUser?.id}
-        plannedItems={sortedPlanned}
-        onDragChange={(interestId, newPosition) => {
-          submitUpdateSavedPosition({ interestId, newPosition })
+        items={sortedPlanned}
+        onDragChange={(ratingId, newPosition) => {
+          submitUpdateSavedPosition({ ratingId, newPosition })
         }}
       />
     )
@@ -76,7 +76,7 @@ const DragDropPlannedItems = (props: Props) => {
               {sortedPlanned.map((planned, index) => (
                 <PlannedItem
                   key={planned.syncroItem?.id}
-                  planned={planned}
+                  item={planned}
                   index={index}
                 />
               ))}

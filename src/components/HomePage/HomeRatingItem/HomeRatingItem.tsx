@@ -47,7 +47,11 @@ const HomeRatingItem = (props: Props) => {
   const progressLabel = useMemo(() => {
     if (!props.rating.syncroItem) return ''
     if (!props.rating.ratingProgress) return ''
-    if (props.rating.status === 'COMPLETED') return ''
+    if (
+      props.rating.status === 'COMPLETED' ||
+      props.rating.status === 'PLANNED'
+    )
+      return ''
 
     if (
       props.rating.syncroItem.type === 'manga' &&

@@ -1,7 +1,7 @@
 import { ScrollArea } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useSyncroItemDetailsQuery } from '../../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
-import { useUsersToRecommendQuery } from '../../../../../hooks/react-query/user/useMutualsSavedItemQuery'
+import { useUsersToRecommendQueryV2 } from '../../../../../hooks/react-query/user/useMutualsSavedItemQueryV2'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import textContainsWords from '../../../../../utils/text/textContainsWords'
 import FlexCol from '../../../flex/FlexCol'
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const RecommendItemToUsersList = (props: Props) => {
-  const { data, isLoading } = useUsersToRecommendQuery(props.itemId)
+  const { data, isLoading } = useUsersToRecommendQueryV2(props.itemId)
   const { data: itemInfo } = useSyncroItemDetailsQuery(props.itemId)
 
   const [search, setSearch] = useState('')

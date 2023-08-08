@@ -85,8 +85,11 @@ export const urls = {
       API_URL + `/toggle-save/item?id=${itemId}`,
     plannedItems: (userId: string) =>
       API_URL + `/planned-items?userId=${userId}`,
+    plannedItemsV2: (userId: string) =>
+      API_URL + `/v2/planned-items?userId=${userId}`,
 
     updateSavedPosition: API_URL + `/update-saved-position`,
+    updateSavedPositionV2: API_URL + `/v2/update-saved-position`,
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
     checkMalUser: (username: string) => API_URL + `/check-mal/${username}`,
@@ -142,6 +145,8 @@ export const urls = {
 
     usersToRecommend: (itemId: string) =>
       API_URL + `/users-to-recommend?itemId=${itemId}`,
+    usersToRecommendV2: (itemId: string) =>
+      API_URL + `/v2/users-to-recommend?itemId=${itemId}`,
 
     usersAlsoLiked: (itemId: string) =>
       API_URL + `/users-also-liked?itemId=${itemId}`,

@@ -1,10 +1,5 @@
-import { Box, Text, useMantineTheme } from '@mantine/core'
-import {
-  MdBookmark,
-  MdBookmarkBorder,
-  MdStar,
-  MdStarBorder,
-} from 'react-icons/md'
+import { Text, useMantineTheme } from '@mantine/core'
+import { MdStar, MdStarBorder } from 'react-icons/md'
 import { useMyInterestQueryUtils } from '../../../../hooks/react-query/interest/useMyInterestQueryUtils'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyItemRatingQueryUtils } from '../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
@@ -73,7 +68,7 @@ const SearchItemYourSection = (props: Props) => {
         )}
       </FlexVCenter>
 
-      <Box
+      {/* <Box
         sx={{
           cursor: 'pointer',
         }}
@@ -94,7 +89,7 @@ const SearchItemYourSection = (props: Props) => {
 
           <Text>{myInterest ? 'Planned' : 'Plan'}</Text>
         </FlexVCenter>
-      </Box>
+      </Box> */}
     </>
   )
 }

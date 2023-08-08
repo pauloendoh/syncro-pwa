@@ -2,7 +2,7 @@ import { useMantineTheme } from '@mantine/core'
 import { CgRadioCheck } from 'react-icons/cg'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
 import { MdAccessTime, MdCheckCircleOutline } from 'react-icons/md'
-import { RatingStatusType } from './ratingStatusMap'
+import { RatingStatusType } from './ratingStatusArray'
 
 export const useRatingStatusMap = (status?: RatingStatusType) => {
   const theme = useMantineTheme()

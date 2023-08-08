@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import { useMemo } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
-import { usePlannedItemsQuery } from '../../../../hooks/react-query/interest/usePlannedItemsQuery'
+import { usePlannedItemsQueryV2 } from '../../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 type Props = {
@@ -11,8 +11,8 @@ type Props = {
   onClick: () => void
 }
 
-const PlannedItemButton = (props: Props) => {
-  const { data } = usePlannedItemsQuery(props.userId)
+const PlannedItemTypeButton = (props: Props) => {
+  const { data } = usePlannedItemsQueryV2(props.userId)
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.type,
@@ -36,4 +36,4 @@ const PlannedItemButton = (props: Props) => {
   )
 }
 
-export default PlannedItemButton
+export default PlannedItemTypeButton

@@ -1,7 +1,7 @@
 import { ProfileDto } from '../profile/ProfileDto'
 import { SyncroItemDto } from '../syncro-item/SyncroItemDto'
 import { RatingProgressDto, buildRatingProgressDto } from './RatingProgressDto'
-import { RatingStatusType } from './ratingStatusMap'
+import { RatingStatusType } from './ratingStatusArray'
 import { FavoriteSceneDto } from './types/FavoriteSceneDto'
 import { RatingChangeType } from './types/RatingChangeType'
 
@@ -24,6 +24,8 @@ export type RatingDto = {
 
   ratingProgress?: RatingProgressDto
   scenes: FavoriteSceneDto[]
+
+  plannedPosition: number
 }
 
 export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
@@ -38,5 +40,6 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   ratingProgress: buildRatingProgressDto(),
   changeType: 'RATED',
   scenes: [],
+  plannedPosition: 9999,
   ...p,
 })

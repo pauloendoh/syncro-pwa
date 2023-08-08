@@ -3,7 +3,7 @@ import { useLocalStorage } from '@mantine/hooks'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
 import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
-import { usePlannedItemsQuery } from '../../hooks/react-query/interest/usePlannedItemsQuery'
+import { usePlannedItemsQueryV2 } from '../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import {
@@ -19,7 +19,7 @@ import PlannedItemsByType from './PlannedItemsByType/PlannedItemsByType'
 
 const PlannedItemsPage = () => {
   const { authUser } = useAuthStore()
-  const { data: plannedItems } = usePlannedItemsQuery(authUser?.id)
+  const { data: plannedItems } = usePlannedItemsQueryV2(authUser?.id)
 
   const { type } = useMyRouterQuery()
   const router = useRouter()

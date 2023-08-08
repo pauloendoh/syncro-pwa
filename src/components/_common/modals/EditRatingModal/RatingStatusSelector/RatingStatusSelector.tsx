@@ -1,14 +1,16 @@
 import { Select, Text } from '@mantine/core'
-import { forwardRef } from 'react'
+import { forwardRef, useMemo } from 'react'
 import {
   RatingStatusType,
-  ratingStatusArrayMap,
-} from '../../../../../types/domain/rating/ratingStatusMap'
+  useRatingStatusMap,
+} from '../../../../../types/domain/rating/ratingStatusArray'
+import { SyncroItemType } from '../../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexVCenter from '../../../flex/FlexVCenter'
 
 type Props = {
   value: RatingStatusType
   onChange: (value: RatingStatusType) => void
+  itemType: SyncroItemType
 }
 
 interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -35,6 +37,16 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
 )
 
 const RatingStatusSelector = (props: Props) => {
+  const statusMap = useRatingStatusMap(props.itemType)
+
+  const data = useMemo(() => {
+    return Object.entries(statusMap).map(([key, value]) => ({
+      value: key,
+      label: value.label,
+      icon: value.icon,
+    }))
+  }, [statusMap])
+
   return (
     <Select
       w={140}
@@ -46,7 +58,7 @@ const RatingStatusSelector = (props: Props) => {
         }
       }}
       itemComponent={SelectItem}
-      data={ratingStatusArrayMap}
+      data={data}
     />
   )
 }

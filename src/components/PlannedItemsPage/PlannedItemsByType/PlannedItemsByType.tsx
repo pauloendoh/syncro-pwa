@@ -1,13 +1,13 @@
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
-import { InterestDto } from '../../../types/domain/interest/InterestDto'
+import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import DragDropPlannedItems from '../../HomePage/PlannedItemsHomeSection/DragDropPlannedItems/DragDropPlannedItems'
 import FlexCol from '../../_common/flex/FlexCol'
 
 interface Props {
   itemType: SyncroItemType
-  savedItems: InterestDto[]
+  savedItems: RatingDto[]
 }
 
 const PlannedItemsByType = ({ savedItems, ...props }: Props) => {
