@@ -120,7 +120,7 @@ const EditRatingModal = () => {
   const closeBothModals = () => {
     closeModal()
     if (ratingDetailsModalIsOpen) {
-      setRatingDetailsId(null)
+      setRatingDetailsId(null, { scroll: false })
     }
   }
 

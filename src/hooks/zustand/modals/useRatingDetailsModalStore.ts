@@ -21,7 +21,7 @@ export const useRatingDetailsModalStore = () => {
 
   const openModal = useCallback((ratingDto: RatingDto) => {
     setInitialValue(ratingDto)
-    setQuery(ratingDto.id)
+    setQuery(ratingDto.id, { scroll: false })
   }, [])
 
   const isOpen = useMemo(() => {
@@ -29,7 +29,7 @@ export const useRatingDetailsModalStore = () => {
   }, [queryValue])
 
   const closeModal = useCallback(() => {
-    setQuery(null)
+    setQuery(null, { scroll: false })
   }, [])
 
   return {
