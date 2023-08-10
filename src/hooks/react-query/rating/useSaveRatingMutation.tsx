@@ -18,10 +18,15 @@ const useSaveRatingMutation = () => {
 
   const axios = useAxios()
   return useMutation(
-    (payload: RatingDto) =>
-      axios
+    async (payload: RatingDto) => {
+      if (!payload.ratingValue) {
+        payload.ratingValue = null
+      }
+
+      return axios
         .post<RatingDto | null>(urls.api.myRatings, payload)
-        .then((res) => res.data),
+        .then((res) => res.data)
+    },
     {
       onSuccess: (savedRating, payload) => {
         if (!savedRating) {
