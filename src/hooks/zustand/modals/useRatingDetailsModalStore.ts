@@ -1,7 +1,7 @@
+import { useQueryState } from 'next-usequerystate'
 import { useCallback, useMemo } from 'react'
 import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { useQueryParams } from '../../useQueryParams'
 
 interface IStore {
   initialValue: RatingDto | null
@@ -17,7 +17,7 @@ const useActualStore = create<IStore>((set, get) => ({
 
 export const useRatingDetailsModalStore = () => {
   const { initialValue, setInitialValue } = useActualStore()
-  const { queryValue, removeQuery, setQuery } = useQueryParams().ratingDetailsId
+  const [queryValue, setQuery] = useQueryState('ratingDetailsId')
 
   const openModal = useCallback((ratingDto: RatingDto) => {
     setInitialValue(ratingDto)
@@ -29,7 +29,7 @@ export const useRatingDetailsModalStore = () => {
   }, [queryValue])
 
   const closeModal = useCallback(() => {
-    removeQuery()
+    setQuery(null)
   }, [])
 
   return {

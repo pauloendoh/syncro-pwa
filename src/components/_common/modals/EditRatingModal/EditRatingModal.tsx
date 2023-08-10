@@ -9,6 +9,7 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
+import { useQueryState } from 'next-usequerystate'
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
@@ -17,7 +18,6 @@ import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import { useQueryParams } from '../../../../hooks/useQueryParams'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import {
@@ -44,8 +44,8 @@ const EditRatingModal = () => {
     openModal,
   } = useSaveRatingModalStore()
 
-  const { queryValue: ratingDetailsId, removeQuery: closeRatingDetailsModal } =
-    useQueryParams().ratingDetailsId
+  const [ratingDetailsId, setRatingDetailsId] = useQueryState('ratingDetailsId')
+
   const ratingDetailsModalIsOpen = !!ratingDetailsId
 
   const query = useMyRouterQuery()
@@ -120,7 +120,7 @@ const EditRatingModal = () => {
   const closeBothModals = () => {
     closeModal()
     if (ratingDetailsModalIsOpen) {
-      closeRatingDetailsModal()
+      setRatingDetailsId(null)
     }
   }
 

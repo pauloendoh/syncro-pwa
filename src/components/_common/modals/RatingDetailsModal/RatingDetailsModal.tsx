@@ -1,3 +1,5 @@
+import { useQueryState } from 'next-usequerystate'
+
 import { Box, Flex, Modal, Text, Title, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -5,7 +7,6 @@ import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { useQueryParams } from '../../../../hooks/useQueryParams'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
@@ -38,7 +39,7 @@ const RatingDetailsModal = () => {
 
   const { data: userInfo } = useUserInfoQuery(rating?.userId)
 
-  const { queryValue: ratingDetailsId } = useQueryParams().ratingDetailsId
+  const [ratingDetailsId] = useQueryState('ratingDetailsId')
 
   const router = useRouter()
   const axios = useAxios()
