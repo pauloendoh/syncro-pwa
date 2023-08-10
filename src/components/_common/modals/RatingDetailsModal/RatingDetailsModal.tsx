@@ -19,6 +19,7 @@ import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
+import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../overrides/MyNextLink'
 import Span from '../../text/Span'
 
@@ -63,6 +64,7 @@ const RatingDetailsModal = () => {
         syncroItem && <Title order={4}>{getItemTitleAndYear(syncroItem)}</Title>
       }
     >
+      {isLoading && <CenterLoader />}
       {!!rating && syncroItem && (
         <FlexCol>
           <Flex gap={16}>

@@ -4,6 +4,7 @@ import { useUserHighSimilarityTypesQueryUtils } from '../../../../hooks/react-qu
 import { useUserSimilarityQuery } from '../../../../hooks/react-query/rating/user-similarity/useUserSimilarityQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyColors } from '../../../../hooks/useMyColors'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useUserSimilarityModalStore from '../../../../hooks/zustand/modals/useUserSimilarityModalStore'
 import { syncroItemTypes } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -23,12 +24,15 @@ const UserSimilarityModal = () => {
 
   const { border } = useMyColors()
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <Modal
       size="sm"
       opened={!!isOpen}
       onClose={closeModal}
       title={`User similarity - ${userInfo?.username}`}
+      fullScreen={isMobile}
     >
       <Table
         sx={{

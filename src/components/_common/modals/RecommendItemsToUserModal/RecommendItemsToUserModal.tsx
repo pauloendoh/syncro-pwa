@@ -6,6 +6,7 @@ import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemsToUserModalStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
 import ItemToRecommendOption from './ItemToRecommendOption/ItemToRecommendOption'
 import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
 
@@ -19,7 +20,7 @@ const RecommendItemsToUserModal = () => {
     itemType: currentType,
   })
 
-  const { data: itemsToRecommend } = useItemsToRecommendQuery(
+  const { data: itemsToRecommend, isLoading } = useItemsToRecommendQuery(
     userId!,
     itemType.itemType
   )
@@ -62,8 +63,12 @@ const RecommendItemsToUserModal = () => {
             ))}
           </Tabs.List>
 
-          <ScrollArea h={'calc(100vh - 240px)'}>
-            <Flex gap={isMobile ? 8 : 16} mt={16} pr={16} wrap={'wrap'}>
+          <ScrollArea.Autosize
+            mt={16}
+            mah={isMobile ? 'calc(100vh - 120px)' : 'calc(100vh - 240px)'}
+          >
+            <Flex gap={isMobile ? 8 : 16} pr={16} wrap={'wrap'}>
+              {isLoading && <CenterLoader width={'100%'} />}
               {sortedItemsToRecommend?.map((item) => (
                 <ItemToRecommendOption
                   itemToRecommend={item}
@@ -72,7 +77,7 @@ const RecommendItemsToUserModal = () => {
                 />
               ))}
             </Flex>
-          </ScrollArea>
+          </ScrollArea.Autosize>
         </Tabs>
       </Box>
     </Modal>

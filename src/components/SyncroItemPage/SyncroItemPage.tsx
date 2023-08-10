@@ -8,10 +8,10 @@ import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
-import ItemReviewsSection from './ItemReviewsSection/ItemReviewsSection'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import SyncroItemPaperContent from './SyncroItemPaperContent/SyncroItemPaperContent'
 import TrailerSection from './TrailerSection/TrailerSection'
+import UserReviewsSection from './UserReviewsSection/UserReviewsSection'
 import UsersAlsoLikedSection from './UsersAlsoLikedSection/UsersAlsoLikedSection'
 
 type Props = {
@@ -70,7 +70,7 @@ const SyncroItemPage = (props: Props) => {
         )}
         {reviews && (
           <Box mt={32}>
-            <ItemReviewsSection reviews={reviews} />
+            <UserReviewsSection reviews={reviews} />
           </Box>
         )}
       </Container>

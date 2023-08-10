@@ -3,6 +3,7 @@ import {
   Button,
   Divider,
   Modal,
+  ScrollArea,
   Skeleton,
   Textarea,
   Title,
@@ -156,7 +157,7 @@ const EditRatingModal = () => {
           )}
         </FlexVCenter>
       }
-      withCloseButton={false}
+      withCloseButton={isMobile}
       styles={{
         overlay: {
           zIndex: zIndexes.editRatingModal,
@@ -170,102 +171,106 @@ const EditRatingModal = () => {
           paddingBottom: 0,
         },
         title: {
-          width: '100%',
-        },
-        body: {
-          maxHeight: 'calc(100vh - 200px)',
+          paddingBottom: 8,
         },
       }}
+      fullScreen={isMobile}
     >
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FlexVCenter
-          mt={24}
-          sx={{
-            justifyContent: 'center',
-          }}
-        >
-          <RatingSection
-            value={form.watch('ratingValue')}
-            onChange={handleChangeRating}
-          />
-        </FlexVCenter>
+      <ScrollArea.Autosize mah={'calc(100vh - 150px)'}>
+        <FlexCol pr={12}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FlexVCenter
+              mt={24}
+              sx={{
+                justifyContent: 'center',
+              }}
+            >
+              <RatingSection
+                value={form.watch('ratingValue')}
+                onChange={handleChangeRating}
+              />
+            </FlexVCenter>
 
-        <FlexVCenter gap={16} mt={16}>
-          {syncroItem && (
-            <RatingStatusSelector
-              itemType={syncroItem.type}
-              value={form.watch('status')}
-              onChange={(value) =>
-                form.setValue('status', value, { shouldDirty: true })
+            <FlexVCenter gap={16} mt={16}>
+              {syncroItem && (
+                <RatingStatusSelector
+                  itemType={syncroItem.type}
+                  value={form.watch('status')}
+                  onChange={(value) =>
+                    form.setValue('status', value, { shouldDirty: true })
+                  }
+                />
+              )}
+
+              {syncroItem && form.watch('ratingProgress') && (
+                <RatingProgressFields
+                  value={form.watch('ratingProgress')!}
+                  onChange={(value) =>
+                    form.setValue('ratingProgress', value, {
+                      shouldDirty: true,
+                    })
+                  }
+                  item={syncroItem}
+                  status={form.watch('status')}
+                />
+              )}
+            </FlexVCenter>
+
+            <Textarea
+              label="Review"
+              value={form.watch('review')}
+              onChange={(e) =>
+                form.setValue('review', e.currentTarget.value, {
+                  shouldDirty: true,
+                })
               }
+              placeholder="Write a review..."
+              autosize
+              minRows={3}
+              styles={{
+                root: {
+                  marginTop: 20,
+                },
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                  if (initialValue) onSubmit(form.watch())
+                }
+              }}
             />
-          )}
 
-          {syncroItem && form.watch('ratingProgress') && (
-            <RatingProgressFields
-              value={form.watch('ratingProgress')!}
-              onChange={(value) =>
-                form.setValue('ratingProgress', value, { shouldDirty: true })
-              }
-              item={syncroItem}
-              status={form.watch('status')}
-            />
-          )}
-        </FlexVCenter>
+            <Box mt={16}>
+              <ShareFavoriteScenesSection
+                values={form.watch('scenes') || []}
+                onChange={(values) => form.setValue('scenes', values)}
+              />
+            </Box>
 
-        <Textarea
-          label="Review"
-          value={form.watch('review')}
-          onChange={(e) =>
-            form.setValue('review', e.currentTarget.value, {
-              shouldDirty: true,
-            })
-          }
-          placeholder="Write a review..."
-          autosize
-          minRows={3}
-          styles={{
-            root: {
-              marginTop: 20,
-            },
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && e.ctrlKey) {
-              if (initialValue) onSubmit(form.watch())
-            }
-          }}
-        />
+            <FlexVCenter mt={32} justify="space-between">
+              <SaveCancelButtons
+                isLoading={isLoadingMutation}
+                onCancel={handleCloseModal}
+              />
+              {!!initialValue?.id && (
+                <Button onClick={handleDelete} color="red" variant="outline">
+                  Delete
+                </Button>
+              )}
+            </FlexVCenter>
+          </form>
 
-        <Box mt={16}>
-          <ShareFavoriteScenesSection
-            values={form.watch('scenes') || []}
-            onChange={(values) => form.setValue('scenes', values)}
-          />
-        </Box>
+          {!!initialValue?.syncroItemId &&
+            !!form.watch('ratingValue') &&
+            form.watch('ratingValue')! >= 8 && (
+              <FlexCol mt={40} gap={16} pb={16}>
+                <Divider />
+                <Title order={4}>Recommend to users</Title>
 
-        <FlexVCenter mt={32} justify="space-between">
-          <SaveCancelButtons
-            isLoading={isLoadingMutation}
-            onCancel={handleCloseModal}
-          />
-          {!!initialValue?.id && (
-            <Button onClick={handleDelete} color="red" variant="outline">
-              Delete
-            </Button>
-          )}
-        </FlexVCenter>
-      </form>
-
-      {!!initialValue?.syncroItemId &&
-        !!form.watch('ratingValue') &&
-        form.watch('ratingValue')! >= 8 && (
-          <FlexCol mt={40} gap={16} pb={16}>
-            <Divider />
-            <Title order={4}>Recommend to users</Title>
-
-            <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
-          </FlexCol>
-        )}
+                <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
+              </FlexCol>
+            )}
+        </FlexCol>
+      </ScrollArea.Autosize>
     </Modal>
   )
 }

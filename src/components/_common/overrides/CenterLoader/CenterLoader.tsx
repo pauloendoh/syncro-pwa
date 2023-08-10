@@ -10,7 +10,7 @@ const CenterLoader = (props: Props) => {
     <Center
       sx={{
         height: props.height || 80,
-        width: props.width,
+        width: props.width || '100%',
       }}
     >
       <Loader />

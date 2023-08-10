@@ -14,7 +14,7 @@ export const exploreTabOptions: {
   },
   {
     key: 'rating-similarity',
-    label: 'Rating Similarity',
+    label: 'Similar Users',
   },
   {
     key: 'new-users',

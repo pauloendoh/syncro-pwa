@@ -17,6 +17,7 @@ import PlannedItemTypeButton from './PlannedItemTypeButton/PlannedItemTypeButton
 
 type Props = {
   userId: string
+  titleIsOutside?: boolean
 }
 
 const UserPlannedItemsSection = (props: Props) => {
@@ -42,21 +43,26 @@ const UserPlannedItemsSection = (props: Props) => {
 
   return (
     <FlexCol
-      gap={16}
+      gap={8}
       sx={{
         maxWidth: 400,
         justifyContent: 'flex-start',
       }}
     >
+      {props.titleIsOutside && <Title order={4}>{title}</Title>}
+
       <MyPaper
         sx={{
           padding: 0,
         }}
       >
         <FlexCol pb={4}>
-          <Title order={5} p={16} pb={0}>
-            {title}
-          </Title>
+          {!props.titleIsOutside && (
+            <Title order={5} p={16} pb={0}>
+              {title}
+            </Title>
+          )}
+
           <FlexVCenter gap={8} wrap="wrap" p={16}>
             {syncroItemTypes.map((type) => (
               <PlannedItemTypeButton

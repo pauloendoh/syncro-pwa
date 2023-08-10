@@ -2,6 +2,7 @@ import { Flex, Title } from '@mantine/core'
 import { useMyColors } from '../../../hooks/useMyColors'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { urls } from '../../../utils/urls'
+import FavoriteScenesSection from '../../HomePage/HomeRatingItem/FavoriteScenesSection/FavoriteScenesSection'
 import HomeRatingItemReview from '../../HomePage/HomeRatingItem/HomeRatingItemReview/HomeRatingItemReview'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -14,7 +15,7 @@ type Props = {
   reviews: RatingDto[]
 }
 
-const ItemReviewsSection = (props: Props) => {
+const UserReviewsSection = (props: Props) => {
   const { ratingYellow } = useMyColors()
   return (
     <FlexCol gap={16}>
@@ -34,24 +35,26 @@ const ItemReviewsSection = (props: Props) => {
             )}
 
             <FlexCol>
-              <FlexCol>
-                <MyNextLink href={urls.pages.user(rating.userId)}>
-                  <SemiBold sx={{ fontWeight: 'bold' }}>
-                    {rating.user?.username}
-                  </SemiBold>
-                </MyNextLink>
-
-                <SemiBold
-                  sx={{
-                    color: ratingYellow,
-                  }}
-                >
-                  {rating.ratingValue} -{' '}
-                  {getShortLabelByRatingValue(rating.ratingValue)}
+              <MyNextLink href={urls.pages.user(rating.userId)}>
+                <SemiBold sx={{ fontWeight: 'bold' }}>
+                  {rating.user?.username}
                 </SemiBold>
+              </MyNextLink>
 
-                <HomeRatingItemReview rating={rating} />
-              </FlexCol>
+              <SemiBold
+                sx={{
+                  color: ratingYellow,
+                }}
+              >
+                {rating.ratingValue} -{' '}
+                {getShortLabelByRatingValue(rating.ratingValue)}
+              </SemiBold>
+
+              <HomeRatingItemReview rating={rating} />
+
+              {rating.scenes && (
+                <FavoriteScenesSection scenes={rating.scenes} />
+              )}
             </FlexCol>
           </Flex>
         ))}
@@ -60,4 +63,4 @@ const ItemReviewsSection = (props: Props) => {
   )
 }
 
-export default ItemReviewsSection
+export default UserReviewsSection

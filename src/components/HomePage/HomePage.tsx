@@ -13,13 +13,15 @@ import { useSettingsQuery } from '../../hooks/react-query/user-settings/useSetti
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import useFeedSettingsModal from '../../hooks/zustand/modals/useFeedSettingsModal'
 import useOnboardingModalStore from '../../hooks/zustand/modals/useOnboardingModalStore'
+import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { urls } from '../../utils/urls'
+import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import FeedSettingsIcon from './FeedSettingsIconButton/FeedSettingsIconButton'
 import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
-import PlanUpdatesSection from './PlanUpdatesSection/PlanUpdatesSection'
+import UserPlannedItemsSection from './PlannedItemsHomeSection/UserPlannedItemsSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
 
 const HomePage = () => {
@@ -45,6 +47,8 @@ const HomePage = () => {
     }
   }, [settings])
 
+  const { authUser } = useAuthStore()
+
   return (
     <LoggedLayout>
       {isMobile && (
@@ -55,7 +59,7 @@ const HomePage = () => {
       )}
       <Grid w="100%" mr={isMobile ? 0 : undefined}>
         <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} />
-        <Grid.Col span={12} xs={12} sm={8} md={8} lg={6} xl={4}>
+        <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}>
           <Container
             w="100%"
             size="xs"
@@ -63,16 +67,18 @@ const HomePage = () => {
             px={isSmallScreen ? 0 : undefined}
             ml={isMobile ? 8 : undefined}
           >
-            <FlexVCenter justify={'space-between'} w="100%">
-              <Title order={4} ml={isSmallScreen ? 8 : undefined}>
-                Feed
-              </Title>
-              <FeedSettingsIcon />
-            </FlexVCenter>
+            <FlexCol gap={8}>
+              <FlexVCenter justify={'space-between'} w="100%">
+                <Title order={4} ml={isSmallScreen ? 8 : undefined}>
+                  Feed
+                </Title>
+                <FeedSettingsIcon />
+              </FlexVCenter>
 
-            <Box pl={isSmallScreen ? 8 : undefined}>
-              <RatingsTimeline />
-            </Box>
+              <Box pl={isSmallScreen ? 8 : undefined}>
+                <RatingsTimeline />
+              </Box>
+            </FlexCol>
 
             {!isLoading && flatRatings.length === 0 && (
               <Box sx={{ height: 400 }}>
@@ -93,9 +99,15 @@ const HomePage = () => {
             )}
           </Container>
         </Grid.Col>
-        <Grid.Col span={0} xs={0} sm={4} md={3} lg={4} xl={4}>
-          {!isSmallScreen && <PlanUpdatesSection />}
+        <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
+          {!isSmallScreen && authUser && (
+            <UserPlannedItemsSection userId={authUser.id} titleIsOutside />
+          )}
         </Grid.Col>
+
+        {/* <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
+          {!isSmallScreen && <PlanUpdatesSection />}
+        </Grid.Col> */}
       </Grid>
     </LoggedLayout>
   )
