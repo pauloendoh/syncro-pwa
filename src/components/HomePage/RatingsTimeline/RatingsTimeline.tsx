@@ -1,11 +1,11 @@
-import { Box, Center, Loader } from '@mantine/core'
+import { Center, Loader } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { motion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
+import { VirtuosoHandle } from 'react-virtuoso'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../../hooks/react-query/feed/useTimelineHasNewsQuery'
-import { usePreserveVirtuosoState } from '../../../hooks/usePreserveVirtuosoState'
+import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import HomeRatingItem from '../HomeRatingItem/HomeRatingItem'
 
@@ -41,25 +41,25 @@ const RatingsTimeline = (props: Props) => {
   useTimelineHasNewsQuery(props.userId, flatRatings[0]?.createdAt)
 
   const virtuosoRef = useRef<VirtuosoHandle>(null)
-  const virtuosoState = usePreserveVirtuosoState(virtuosoRef)
+  // const virtuosoState = usePreserveVirtuosoState(virtuosoRef)
 
   const [isVisible, setIsVisible] = useState(false)
   const [hasPreviousState, setHasPreviousState] = useState(false)
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (!!virtuosoState) {
-        setHasPreviousState(true)
-      }
-      setIsVisible(true)
-    }, 100)
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (!!virtuosoState) {
+  //       setHasPreviousState(true)
+  //     }
+  //     setIsVisible(true)
+  //   }, 100)
+  // }, [])
 
   return (
     <>
       {isLoading && <CenterLoader />}
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -93,10 +93,23 @@ const RatingsTimeline = (props: Props) => {
             </motion.div>
           )}
         />
-      </motion.div>
+      </motion.div> */}
+
+      <FlexCol gap={16}>
+        {flatRatings.map((rating) => (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            key={rating.id}
+          >
+            <HomeRatingItem rating={rating} key={rating.id} />
+          </motion.div>
+        ))}
+      </FlexCol>
 
       {hasNextPage && (
-        <Center mt={40} sx={{ height: 80 }}>
+        <Center ref={ref} mt={40} sx={{ height: 80 }}>
           <Loader />
         </Center>
       )}
