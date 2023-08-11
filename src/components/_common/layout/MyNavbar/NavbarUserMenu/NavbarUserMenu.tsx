@@ -1,4 +1,4 @@
-import { Menu } from '@mantine/core'
+import { Menu, useMantineTheme } from '@mantine/core'
 import { AiOutlineUser } from 'react-icons/ai'
 import { MdLogout, MdOutlineFeedback, MdSettings } from 'react-icons/md'
 import { SiDiscord } from 'react-icons/si'
@@ -24,11 +24,13 @@ const NavbarUserMenu = (props: Props) => {
     'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
 
   const { data: myFeedback } = useMyFeedbackQuery()
+  const theme = useMantineTheme()
 
   if (!authUser) return null
 
   return (
     <Menu
+      withArrow
       shadow="md"
       styles={(theme) => ({
         item: {
@@ -64,9 +66,22 @@ const NavbarUserMenu = (props: Props) => {
           <Menu.Item icon={<IoBookmarksOutline />}>Planned items</Menu.Item>
         </MyNextLink> */}
 
-        <MyNextLink href={urls.pages.settings()}>
-          <Menu.Item icon={<MdSettings />}>Settings</Menu.Item>
-        </MyNextLink>
+        {!!authUser.userExpiresAt ? (
+          <MyNextLink href={urls.pages.settings()}>
+            <Menu.Item
+              icon={<MdSettings />}
+              sx={{
+                color: theme.colors.primary[9],
+              }}
+            >
+              Keep account
+            </Menu.Item>
+          </MyNextLink>
+        ) : (
+          <MyNextLink href={urls.pages.settings()}>
+            <Menu.Item icon={<MdSettings />}>Settings</Menu.Item>
+          </MyNextLink>
+        )}
 
         <Menu.Divider />
 

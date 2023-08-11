@@ -2,7 +2,9 @@ export interface AuthUserGetDto {
   id: string
   username: string
   email: string
-  token: string
+  userExpiresAt: string | null
   isAdmin: boolean
-  expiresAt: string
+
+  token: string
+  tokenExpiresAt: string
 }

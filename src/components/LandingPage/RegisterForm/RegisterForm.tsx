@@ -11,7 +11,7 @@ import { useAxios } from '../../../utils/useAxios'
 import FlexCol from '../../_common/flex/FlexCol'
 import MyTextInput from '../../_common/inputs/MyTextInput'
 
-class RegisterDto {
+export class RegisterDto {
   @IsString({ message: 'Username is required.' })
   @MinLength(3, { message: 'Username must have at least 3 characters.' })
   @MaxLength(16, { message: 'Username must have at most 16 characters.' })

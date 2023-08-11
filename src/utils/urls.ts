@@ -55,6 +55,7 @@ export const urls = {
       API_URL + `/auth/login?pushToken=${pushToken}`,
     tempUser: API_URL + '/auth/temp-user',
     authGoogleLogin: API_URL + '/auth/google/login',
+    keepTempUser: API_URL + '/auth/keep-temp-user',
 
     me: API_URL + '/auth/me',
 

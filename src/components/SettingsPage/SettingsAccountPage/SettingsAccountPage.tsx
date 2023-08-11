@@ -1,48 +1,15 @@
 import { Box, Title, useMantineTheme } from '@mantine/core'
-import { useEffect, useState } from 'react'
-import { useSettingsQuery } from '../../../hooks/react-query/user-settings/useSettingsQuery'
-import useUpdateSettingsMutation from '../../../hooks/react-query/user-settings/useUpdateSettingsMutation'
-import { ScoringSystem } from '../../../types/domain/rating/ScoringSystem'
-import { myNotifications } from '../../../utils/mantine/myNotifications'
-import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import SettingsLayout from '../SettingsLayout/SettingsLayout'
-import ScoringSystemSelector from './ScoringSystemSelector/ScoringSystemSelector'
+import ChangeScoringSystemSection from './ChangeScoringSystemSection/ChangeScoringSystemSection'
+import KeepUserForm from './KeepUserForm/KeepUserForm'
 
 type Props = {}
 
 const SettingsAccountPage = (props: Props) => {
-  const { data: settings } = useSettingsQuery()
-
-  const [localScoringSystem, setLocalScoringSystem] = useState<ScoringSystem>()
-
-  useEffect(() => {
-    if (settings && !localScoringSystem) {
-      setLocalScoringSystem(settings.scoringSystem)
-    }
-  }, [settings])
-
   const theme = useMantineTheme()
 
-  const { mutate: submitNewSettings } = useUpdateSettingsMutation()
-  useEffect(() => {
-    if (
-      localScoringSystem &&
-      settings &&
-      settings.scoringSystem !== localScoringSystem
-    ) {
-      submitNewSettings(
-        {
-          ...settings,
-          scoringSystem: localScoringSystem,
-        },
-        {
-          onSuccess: () => {
-            myNotifications.success('Scoring system updated successfully')
-          },
-        }
-      )
-    }
-  }, [localScoringSystem])
+  const { authUser } = useAuthStore()
 
   return (
     <SettingsLayout
@@ -56,15 +23,10 @@ const SettingsAccountPage = (props: Props) => {
         >
           <Title order={4}>Account</Title>
           <Box mt={24}>
-            {!localScoringSystem ? (
-              <CenterLoader height={60} />
+            {!!authUser?.userExpiresAt ? (
+              <KeepUserForm />
             ) : (
-              <ScoringSystemSelector
-                value={localScoringSystem}
-                onChange={(newScoringSystem) => {
-                  setLocalScoringSystem(newScoringSystem)
-                }}
-              />
+              <ChangeScoringSystemSection />
             )}
           </Box>
         </Box>

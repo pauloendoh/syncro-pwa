@@ -36,7 +36,7 @@ const useCheckAuthOrLogout = () => {
 
     // Regular login
     const user: AuthUserGetDto = JSON.parse(userCookieStr)
-    if (new Date(user.expiresAt) <= new Date()) {
+    if (new Date(user.tokenExpiresAt) <= new Date()) {
       logout()
       return setLoading(false)
     }

@@ -1,7 +1,6 @@
 import {
   Anchor,
   Box,
-  Button,
   Center,
   Container,
   Flex,
@@ -24,12 +23,11 @@ import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { htmlTitles } from '../../utils/consts/htmlTitles'
-import { urls } from '../../utils/urls'
 import UserPlannedItemsSection from '../HomePage/PlannedItemsHomeSection/UserPlannedItemsSection'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import MyNextLink from '../_common/overrides/MyNextLink'
+import EditProfileButton from './EditProfileButton/EditProfileButton'
 import FavoritesSection from './FavoritesSection/FavoritesSection'
 import FollowersCountRowProfile from './FollowersCountRowProfile/FollowersCountRowProfile'
 import NoRatingsUserProfile from './NoRatingsUserProfile/NoRatingsUserProfile'
@@ -184,16 +182,7 @@ const UserProfilePage = () => {
                   )}
 
                   {thisIsMyProfile ? (
-                    <MyNextLink
-                      href={urls.pages.editProfile}
-                      style={{
-                        width: '100%',
-                      }}
-                    >
-                      <Button color="gray" fullWidth>
-                        Edit profile
-                      </Button>
-                    </MyNextLink>
+                    <EditProfileButton />
                   ) : (
                     <FlexCol gap={16}>
                       <UserSimilaritySection userId={userId!} />
