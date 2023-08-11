@@ -82,6 +82,7 @@ const LandingPageItemsSection = ({ ...props }: Props) => {
             alwaysShowTitle
             width={isMobile ? 108 : 200}
             showAvgRating
+            disablePreview
           />
         ))}
       </Flex>
