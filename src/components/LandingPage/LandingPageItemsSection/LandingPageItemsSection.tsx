@@ -53,7 +53,7 @@ const LandingPageItemsSection = ({ ...props }: Props) => {
                 paddingInline: isMobile ? 10 : undefined,
               }}
             >
-              {t.getTypeLabel()}
+              {t.getTypeLabel(true)}
             </Tabs.Tab>
           ))}
         </Tabs.List>
