@@ -1,6 +1,6 @@
 import { Button, Flex, useMantineTheme } from '@mantine/core'
 import { useState } from 'react'
-import { syncroItemOptions } from '../../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from '../../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { SyncroItemType } from '../../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../../flex/FlexCol'
 import Span from '../../../text/Span'
@@ -17,7 +17,7 @@ const OnboardingStep1 = (props: Props) => {
   return (
     <FlexCol gap={16}>
       <Flex wrap="wrap" gap={16} justify={'center'}>
-        {syncroItemOptions.map((o) => (
+        {syncroItemTypeOptions.map((o) => (
           <div
             key={o.itemType}
             style={{

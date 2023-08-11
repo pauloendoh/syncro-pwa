@@ -1,123 +1,107 @@
-import { Box, Button, Center, Divider, Text, Title } from '@mantine/core'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { AiOutlineGoogle } from 'react-icons/ai'
-import { SiDiscord } from 'react-icons/si'
-import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
-import { myEnvs } from '../../utils/myEnvs'
-import FlexCol from '../_common/flex/FlexCol'
+import { Box, Button, Center, Container, Divider } from '@mantine/core'
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
+import { urls } from '../../utils/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import MyPaper from '../_common/overrides/MyPaper'
+import MyNextLink from '../_common/overrides/MyNextLink'
 import Span from '../_common/text/Span'
-import LoginForm from './LoginForm/LoginForm'
-import PasswordResetForm from './PasswordResetForm/PasswordResetForm'
-import RegisterForm from './RegisterForm/RegisterForm'
-import TempUserButton from './TempUserButton/TempUserButton'
+import LandingPageItemsSection from './LandingPageItemsSection/LandingPageItemsSection'
 
-const LandingPage = () => {
-  const router = useRouter()
-  const { initialPage } = useMyRouterQuery()
-  const [currentForm, setCurrentForm] = useState<
-    'loginForm' | 'registerForm' | 'resetPassword'
-  >()
+type Props = {}
 
-  useEffect(() => {
-    if (router.isReady && initialPage === 'signUp') {
-      setCurrentForm('registerForm')
-      return
-    }
-    setCurrentForm('loginForm')
-  }, [router.isReady])
-
-  const handleGoogleSignIn = () => {
-    window.open(myEnvs.NEXT_PUBLIC_API_URL + '/auth/google', '_self')
-  }
-
+const LandingPage = ({ ...props }: Props) => {
+  const { isMobile } = useMyMediaQuery()
   return (
-    <Box>
+    <div className="LandingPage">
+      {/* fixed header */}
+      <header
+        style={{
+          height: '64px',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+        }}
+      >
+        <FlexVCenter w="100%" justify={'space-between'} px={16}>
+          <Span></Span>
+          <FlexVCenter gap={8}>
+            <MyNextLink href={urls.pages.signIn}>
+              <Button variant="subtle" color="dark">
+                Sign In
+              </Button>
+            </MyNextLink>
+            <MyNextLink href={urls.pages.signUp}>
+              <Button color="secondary">Sign Up</Button>
+            </MyNextLink>
+          </FlexVCenter>
+        </FlexVCenter>
+      </header>
+
       <Center>
-        <MyPaper p={24} mt={40} w={300}>
-          <FlexCol align={'center'} gap={16}>
-            <Title>Syncro</Title>
-
-            {currentForm !== 'resetPassword' && (
-              <Text align="center">
-                Plan and review movies, TV shows, games, books and mangas. All
-                in one place
-              </Text>
-            )}
-          </FlexCol>
-
-          <Box mt={24} />
-
-          {currentForm === 'loginForm' && (
-            <LoginForm
-              onToggleForm={() => {
-                setCurrentForm('registerForm')
-              }}
-              onClickResetPassword={() => {
-                setCurrentForm('resetPassword')
-              }}
-            />
-          )}
-          {currentForm === 'registerForm' && (
-            <RegisterForm
-              onToggleForm={() => {
-                setCurrentForm('loginForm')
-              }}
-            />
-          )}
-          {currentForm === 'resetPassword' && (
-            <PasswordResetForm
-              onChangeForm={() => {
-                setCurrentForm('loginForm')
-              }}
-            />
-          )}
-
-          {currentForm !== 'resetPassword' && (
-            <>
-              <Box mt={16} />
-              <Divider label="Or" labelPosition="center" />
-
-              <FlexCol mt={16} gap={8}>
-                <TempUserButton />
-
-                <Button
-                  leftIcon={<AiOutlineGoogle size={24} />}
-                  fullWidth
-                  color="dark"
-                  size="lg"
-                  onClick={handleGoogleSignIn}
-                >
-                  <Span size="0.8rem" w={160} align="center">
-                    Enter with Google
-                  </Span>
-                </Button>
-              </FlexCol>
-              <Box mt={16} />
-
-              <Center>
-                <FlexVCenter gap={8}>
-                  <SiDiscord />
-                  <Link
-                    href={'https://discord.gg/gx3TKUYfrb'}
-                    target="_blank"
-                    style={{
-                      textDecoration: 'none',
-                      color: 'inherit',
-                    }}
-                  >
-                    Join our Discord server!
-                  </Link>
-                </FlexVCenter>
-              </Center>
-            </>
-          )}
-        </MyPaper>
+        <img
+          src="/landing-page-cover.png"
+          alt="Landing Page Cover"
+          style={{
+            width: 'clamp(300px,100%,1200px)',
+          }}
+        />
       </Center>
-    </Box>
+      <Box
+        sx={{
+          position: 'relative',
+          top: isMobile ? -64 : -120,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Container
+          size="md"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Span
+            size={isMobile ? '1.5rem' : '2.5rem'}
+            weight={700}
+            align="center"
+          >
+            Review everything.
+            <br />
+            Find recommendations.
+            <br /> Share with your friends.
+          </Span>
+          <Span size="1.25rem" mt={16}>
+            All in one place.
+          </Span>
+          <MyNextLink href={urls.pages.signUp}>
+            <Button color="secondary" size="lg" mt={24}>
+              JOIN SYNCRO FOR FREE
+            </Button>
+          </MyNextLink>
+
+          <Divider
+            mt={80}
+            w="100%"
+            label="Most rated this month"
+            labelPosition="center"
+            styles={{
+              label: {
+                fontSize: '1rem',
+              },
+            }}
+          />
+
+          <Box mt={24}>
+            <LandingPageItemsSection />
+          </Box>
+        </Container>
+      </Box>
+    </div>
   )
 }
 

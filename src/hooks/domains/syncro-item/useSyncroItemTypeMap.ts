@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import { syncroItemOptions } from './syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from './syncroItemOptions/syncroItemOptions'
 
 /**
  * Get syncro item type map by item type
@@ -10,12 +10,12 @@ export const useSyncroItemTypeMap = (by: {
   itemType?: SyncroItemType
 }) => {
   const item = useMemo(() => {
-    let result = syncroItemOptions
+    let result = syncroItemTypeOptions
     if (by.itemType) result = result.filter((r) => r.itemType === by.itemType)
     if (by.tabIndex) result = result.filter((r) => r.tabIndex === by.tabIndex)
 
     return result[0]
-  }, [syncroItemOptions, by])
+  }, [syncroItemTypeOptions, by])
 
   return item
 }

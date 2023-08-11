@@ -18,7 +18,7 @@ export type SyncroItemTypeMapOption = {
   getVerb: () => string
 }
 
-export const syncroItemOptions: SyncroItemTypeMapOption[] = [
+export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
   {
     itemType: 'movie',
     labelPlural: 'Movies',

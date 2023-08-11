@@ -2,7 +2,7 @@ import { Container, Flex, Select } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
-import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { usePlannedItemsQueryV2 } from '../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
@@ -62,7 +62,7 @@ const PlannedItemsPage = () => {
         label: `${
           plannedItems?.filter((i) => i.syncroItem?.type === t).length || 0
         } ${
-          syncroItemOptions
+          syncroItemTypeOptions
             .find((o) => o.itemType === t)
             ?.getTypeLabelLowerCase() || ''
         }`,

@@ -13,7 +13,7 @@ import {
 } from '@mantine/core'
 import Head from 'next/head'
 import { useMemo } from 'react'
-import { syncroItemOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { useFavoriteItemsQuery } from '../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
@@ -169,7 +169,7 @@ const UserProfilePage = () => {
                           // split by ","
                           userInfo.profile.lookingForRecommendationTypes
                             .map((type) =>
-                              syncroItemOptions
+                              syncroItemTypeOptions
                                 .find((o) => o.itemType === type)
                                 ?.getTypeLabelLowerCase(true)
                             )

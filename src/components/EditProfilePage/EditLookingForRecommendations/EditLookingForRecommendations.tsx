@@ -1,6 +1,6 @@
 import { Box, Checkbox, Flex, Text } from '@mantine/core'
 import { pushOrRemove } from 'endoh-utils'
-import { syncroItemOptions } from '../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from '../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import {
   SyncroItemType,
   syncroItemTypes,
@@ -39,7 +39,7 @@ const EditLookingForRecommendations = (props: Props) => {
               const newCurr = pushOrRemove(curr, type)
               props.onChange(newCurr)
             }}
-            label={syncroItemOptions
+            label={syncroItemTypeOptions
               .find((option) => option.itemType === type)
               ?.getTypeLabel()}
           />

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { RegisterDto } from '../../../components/LandingPage/RegisterForm/RegisterForm'
+import { RegisterDto } from '../../../components/AuthPage/RegisterForm/RegisterForm'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'

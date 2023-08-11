@@ -2,7 +2,7 @@ import { Box, Checkbox, Grid, Modal, NumberInput, Title } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { syncroItemOptions } from '../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from '../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { UserSettingsDto } from '../../../../hooks/react-query/user-settings/types/UserSettingsDto'
 import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
 import useUpdateSettingsMutation from '../../../../hooks/react-query/user-settings/useUpdateSettingsMutation'
@@ -66,7 +66,7 @@ const FeedSettingsModal = () => {
                           cursor: 'pointer',
                         },
                       }}
-                      label={syncroItemOptions
+                      label={syncroItemTypeOptions
                         .find((option) => option.itemType === itemType)
                         ?.getTypeLabel()}
                       checked={

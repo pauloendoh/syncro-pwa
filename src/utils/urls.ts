@@ -15,8 +15,9 @@ const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
 export const urls = {
   pages: {
     index: '/',
+    signIn: '/auth',
     indexAndRedirectTo: (url: string) => `/?redirectTo=${url}`,
-    signUp: '/?initialPage=signUp',
+    signUp: '/auth?initialPage=signUp',
     syncroItem: (
       syncroItemId: string,
       extraParams?: {

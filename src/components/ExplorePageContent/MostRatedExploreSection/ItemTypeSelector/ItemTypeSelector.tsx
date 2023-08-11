@@ -1,6 +1,6 @@
 import { Select } from '@mantine/core'
 import { useMemo } from 'react'
-import { syncroItemOptions } from '../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from '../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 type Props = {
@@ -25,14 +25,14 @@ const ItemTypeSelector = ({ ...props }: Props) => {
     if (props.includeAll) {
       return [
         { value: 'all', label: 'All' },
-        ...syncroItemOptions.map((option) => ({
+        ...syncroItemTypeOptions.map((option) => ({
           value: option.itemType,
           label: option.getTypeLabel(),
         })),
       ]
     }
 
-    return syncroItemOptions.map((option) => ({
+    return syncroItemTypeOptions.map((option) => ({
       value: option.itemType,
       label: option.getTypeLabel(),
     }))

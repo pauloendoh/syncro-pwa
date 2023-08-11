@@ -1,6 +1,6 @@
 import { Button, Skeleton, Text } from '@mantine/core'
 import { useMemo } from 'react'
-import { syncroItemOptions } from '../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { syncroItemTypeOptions } from '../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { useUserHighSimilarityTypesQueryUtils } from '../../../hooks/react-query/rating/user-similarity/useUserHighSimilarityTypesQueryUtils'
 import { useUserSimilarityQuery } from '../../../hooks/react-query/rating/user-similarity/useUserSimilarityQuery'
 import useUserSimilarityModalStore from '../../../hooks/zustand/modals/useUserSimilarityModalStore'
@@ -23,12 +23,12 @@ const UserSimilaritySection = (props: Props) => {
     if (highSimilarityTypes.length === 0) return ''
 
     let label =
-      syncroItemOptions
+      syncroItemTypeOptions
         .find((o) => o.itemType === highSimilarityTypes[0])
         ?.getTypeLabel() || ''
     for (let i = 1; i < highSimilarityTypes.length; i++) {
       label += `, ${
-        syncroItemOptions
+        syncroItemTypeOptions
           .find((o) => o.itemType === highSimilarityTypes[i])
           ?.getTypeLabelLowerCase() || ''
       }`
