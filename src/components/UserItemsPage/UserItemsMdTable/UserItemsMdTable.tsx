@@ -53,14 +53,12 @@ const UserItemsMdTable = ({ ...props }: Props) => {
                 />
               </th>
             )}
-            {!props.thisIsYourList && (
-              <th>
-                <UserImage
-                  widthHeight={32}
-                  pictureUrl={authUserInfo?.profile.pictureUrl}
-                />
-              </th>
-            )}
+            <th>
+              <UserImage
+                widthHeight={32}
+                pictureUrl={authUserInfo?.profile.pictureUrl}
+              />
+            </th>
           </tr>
         </thead>
         <tbody>
