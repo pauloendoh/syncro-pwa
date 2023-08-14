@@ -10,6 +10,7 @@ import MyNextImage300x400 from '../MyNextImage300/MyNextImage300x444'
 type Props = {
   item?: SyncroItemDto
   width?: number
+  forceHeight?: number
 
   /**
    * @deprecated
@@ -31,6 +32,9 @@ const SyncroItemImage = (props: Props) => {
   }, [props.width])
 
   const height = useMemo(() => {
+    if (props.forceHeight) {
+      return props.forceHeight
+    }
     if (props.item?.type === 'book') {
       return (finalWidth || 100) * (3 / 2)
     }
@@ -41,7 +45,7 @@ const SyncroItemImage = (props: Props) => {
 
     // 300 x 400
     return (finalWidth || 100) * (400 / 300)
-  }, [finalWidth])
+  }, [props.forceHeight, finalWidth])
 
   const [isError, setIsError] = useState(false)
 

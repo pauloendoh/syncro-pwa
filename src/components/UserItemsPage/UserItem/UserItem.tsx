@@ -1,5 +1,4 @@
 import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
-import { useQueryClient } from '@tanstack/react-query'
 import { MdBookmark, MdStar, MdStarBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
@@ -37,8 +36,6 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
   const { data: userInfo } = useUserInfoQuery(userId)
 
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
-
-  const queryClient = useQueryClient()
 
   const { authUser } = useAuthStore()
 

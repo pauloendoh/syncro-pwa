@@ -1,4 +1,4 @@
-import { Container, Grid, Text } from '@mantine/core'
+import { Box, Container, Grid, Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -13,6 +13,8 @@ import LoggedLayout from '../_common/layout/LoggedLayout'
 import GenresCountSection from './GenresCountSection/GenresCountSection'
 import SortBySelector from './SortBySelector/SortBySelector'
 import UserItemsList from './UserItemsList/UserItemsList'
+import UserItemsMdTable from './UserItemsMdTable/UserItemsMdTable'
+import UserItemsViewSelector from './UserItemsViewSelector/UserItemsViewSelector'
 
 const UserItemsPage = () => {
   const { userId, type } = useMyRouterQuery()
@@ -40,6 +42,16 @@ const UserItemsPage = () => {
 
   const { queryValue: selectedGenre } = useQueryParams().genre
 
+  const [view, setView] = useState<'md' | 'lg'>('md')
+
+  const finalItems = useMemo(() => {
+    if (selectedGenre) {
+      return sortedItems.filter((item) => item.genres.includes(selectedGenre))
+    }
+
+    return sortedItems
+  }, [selectedGenre, sortedItems])
+
   return (
     <LoggedLayout>
       <Container fluid>
@@ -53,21 +65,38 @@ const UserItemsPage = () => {
               pt={isSmallScreen ? 24 : undefined}
             >
               <FlexVCenter justify={'space-between'}>
-                <Text size="lg">{items?.length} items</Text>
-                {!thisIsYourList && (
-                  <SortBySelector onChange={setSortingBy} value={sortingBy} />
-                )}
+                <div>
+                  {!thisIsYourList && (
+                    <SortBySelector onChange={setSortingBy} value={sortingBy} />
+                  )}
+                </div>
+                <UserItemsViewSelector value={view} onChange={setView} />
               </FlexVCenter>
 
-              <UserItemsList
-                onRefresh={refetch}
-                isLoading={isLoading}
-                itemType={itemType}
-                sortedItems={sortedItems}
-                sortingBy={sortingBy}
-                thisIsYourList={thisIsYourList}
-                filterByGenre={selectedGenre}
-              />
+              <Text size="lg" mt={24}>
+                {items?.length} items
+              </Text>
+
+              {view === 'md' && (
+                <Box mt={24}>
+                  <UserItemsMdTable
+                    items={finalItems}
+                    thisIsYourList={thisIsYourList}
+                  />
+                </Box>
+              )}
+
+              {view === 'lg' && (
+                <UserItemsList
+                  onRefresh={refetch}
+                  isLoading={isLoading}
+                  itemType={itemType}
+                  sortedItems={finalItems}
+                  sortingBy={sortingBy}
+                  thisIsYourList={thisIsYourList}
+                  filterByGenre={selectedGenre}
+                />
+              )}
             </Container>
           </Grid.Col>
           <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
