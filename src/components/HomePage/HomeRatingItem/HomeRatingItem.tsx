@@ -161,7 +161,8 @@ const HomeRatingItem = (props: Props) => {
             </Text>
 
             <Text size={'xs'}>
-              {format(props.rating.createdAt)}
+              {format(props.rating.timelineDate)}
+              {props.rating.consumedOn && ` on ${props.rating.consumedOn}`}
 
               {showMiddleDot && ' · '}
               <Span

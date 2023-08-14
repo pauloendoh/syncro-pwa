@@ -12,6 +12,8 @@ export type RatingDto = {
   ratingValue: number | null
   review: string
   createdAt: string
+  timelineDate: string
+
   updatedAt: string
   status: RatingStatusType
   changeType: RatingChangeType
@@ -24,6 +26,7 @@ export type RatingDto = {
 
   ratingProgress?: RatingProgressDto
   scenes: FavoriteSceneDto[]
+  consumedOn: string
 
   plannedPosition: number
 }
@@ -37,9 +40,11 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   status: 'COMPLETED',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
+  timelineDate: new Date().toISOString(),
   ratingProgress: buildRatingProgressDto(),
   changeType: 'RATED',
   scenes: [],
+  consumedOn: '',
   plannedPosition: 9999,
   ...p,
 })

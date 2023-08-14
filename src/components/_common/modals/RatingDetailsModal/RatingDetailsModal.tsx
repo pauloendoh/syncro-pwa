@@ -115,7 +115,8 @@ const RatingDetailsModal = () => {
               <Text></Text>
               <FlexVCenter gap={4}>
                 <Text size={'xs'}>
-                  {format(rating.createdAt)}
+                  {format(rating.timelineDate)}
+                  {rating.consumedOn && ` on ${rating.consumedOn}`}
                   {' · '}
                   <Span sx={{ color: statusMap?.color }}>
                     {statusMap?.label}

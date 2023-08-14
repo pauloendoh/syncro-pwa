@@ -12,6 +12,7 @@ import {
 import { useQueryState } from 'next-usequerystate'
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
@@ -27,6 +28,7 @@ import {
 import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
+import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
@@ -67,6 +69,8 @@ const EditRatingModal = () => {
   const form = useForm<RatingDto>({
     defaultValues: initialValue || buildRatingDto(),
   })
+
+  const typeMap = useSyncroItemTypeMap({ itemType: syncroItem?.type })
 
   useEffect(() => {
     if (modalIsOpen) {
@@ -243,6 +247,14 @@ const EditRatingModal = () => {
               <ShareFavoriteScenesSection
                 values={form.watch('scenes') || []}
                 onChange={(values) => form.setValue('scenes', values)}
+              />
+            </Box>
+
+            <Box mt={16}>
+              <MyTextInput
+                {...form.register('consumedOn')}
+                label={typeMap?.consumedOn}
+                placeholder={typeMap?.consumedOnExamples}
               />
             </Box>
 
