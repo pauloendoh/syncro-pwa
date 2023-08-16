@@ -25,7 +25,7 @@ const ItemPageRightSection = ({ ...props }: Props) => {
                   >
                     <Span>{authorConnection.author.name}</Span>
                   </Anchor>
-                  <Span color="lightgray">{authorConnection.role}</Span>
+                  <Span color="dimmed">{authorConnection.role}</Span>
                 </FlexCol>
               </Flex>
             ))}
