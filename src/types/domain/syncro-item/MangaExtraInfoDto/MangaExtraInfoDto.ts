@@ -6,4 +6,24 @@ export interface MangaExtraInfoDto {
   syncroItemId: string
   updatedAt: string
   mangaMalUrl: string
+
+  alreadyCheckedAuthors: boolean
+  authors: MangaAuthorConnection[]
+}
+
+interface MangaAuthorConnection {
+  createdAt: string
+  updatedAt: string
+  mangaExtraInfoId: string
+  authorId: string
+  role: string
+  author: MangaAuthor
+}
+
+interface MangaAuthor {
+  id: string
+  malUrl: string
+  name: string
+  createdAt: string
+  updatedAt: string
 }
