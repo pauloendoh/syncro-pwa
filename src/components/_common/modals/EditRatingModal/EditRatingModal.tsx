@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   Divider,
   Modal,
   ScrollArea,
@@ -255,6 +256,15 @@ const EditRatingModal = () => {
                 {...form.register('consumedOn')}
                 label={typeMap?.consumedOn}
                 placeholder={typeMap?.consumedOnExamples}
+              />
+            </Box>
+            <Box mt={16}>
+              <Checkbox
+                label="Private (Beta)"
+                checked={form.watch('isPrivate')}
+                onChange={(e) => {
+                  form.setValue('isPrivate', e.target.checked)
+                }}
               />
             </Box>
 

@@ -1,6 +1,14 @@
-import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
+import {
+  Box,
+  Center,
+  Flex,
+  Text,
+  Tooltip,
+  useMantineTheme,
+} from '@mantine/core'
 
 import { useMemo } from 'react'
+import { MdLock } from 'react-icons/md'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -140,6 +148,19 @@ const HomeRatingItem = (props: Props) => {
               >
                 {props.rating.ratingValue}
               </b>
+              {props.rating.isPrivate && (
+                // PE 1/3 - MyTooltip with arrow
+                <Tooltip label="This rating is private" withArrow>
+                  <span
+                    style={{
+                      position: 'relative',
+                      top: 1,
+                    }}
+                  >
+                    <MdLock style={{ fontSize: 16 }} />
+                  </span>
+                </Tooltip>
+              )}
             </Text>
             <Text>
               {props.rating.syncroItem && (

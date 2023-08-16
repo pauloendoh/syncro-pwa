@@ -27,6 +27,7 @@ export type RatingDto = {
   ratingProgress?: RatingProgressDto
   scenes: FavoriteSceneDto[]
   consumedOn: string
+  isPrivate: boolean
 
   plannedPosition: number
 }
@@ -45,6 +46,8 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   changeType: 'RATED',
   scenes: [],
   consumedOn: '',
+  isPrivate: false,
+
   plannedPosition: 9999,
   ...p,
 })
