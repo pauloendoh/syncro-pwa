@@ -24,7 +24,7 @@ const HomeRatingMoreMenu = (props: Props) => {
   if (containsNothing) return null
 
   return (
-    <Menu shadow="md">
+    <Menu shadow="md" withArrow>
       <Menu.Target>
         <ActionIcon>
           <MdMoreHoriz />
