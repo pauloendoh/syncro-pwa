@@ -19,7 +19,7 @@ const ItemPageRightSection = ({ ...props }: Props) => {
   }, [props.item])
 
   return (
-    <FlexCol className="ItemPageRightSection" gap={24}>
+    <FlexCol className="ItemPageRightSection" gap={24} maw={300}>
       {hasAuthors && (
         <MyPaper>
           <FlexCol gap={16}>
