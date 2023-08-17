@@ -23,6 +23,7 @@ const ItemNewsSection = ({ ...props }: Props) => {
       <FlexCol gap={32} mt={8}>
         {data?.slice(0, 3).map((news) => (
           <a
+            key={news.url}
             href={news.url}
             target="_blank"
             rel="noreferrer"
