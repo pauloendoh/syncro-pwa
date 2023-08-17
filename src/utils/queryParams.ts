@@ -12,4 +12,5 @@ export enum QueryParams {
   feedSettingsModal = 'feedSettingsModal',
   onboardingModal = 'onboardingModal',
   itemImageOpen = 'itemImageOpen',
+  ratingDetailsId = 'ratingDetailsId',
 }

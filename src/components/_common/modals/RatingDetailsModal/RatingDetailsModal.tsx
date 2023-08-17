@@ -8,9 +8,13 @@ import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
-import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import {
+  RatingDto,
+  buildRatingDto,
+} from '../../../../types/domain/rating/RatingDto'
 import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
 import { getItemTitleAndYear } from '../../../../utils/domains/syncro-item/getItemTitleAndYear'
+import { QueryParams } from '../../../../utils/queryParams'
 import { urls } from '../../../../utils/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import FavoriteScenesSection from '../../../HomePage/HomeRatingItem/FavoriteScenesSection/FavoriteScenesSection'
@@ -26,25 +30,26 @@ import Span from '../../text/Span'
 
 const RatingDetailsModal = () => {
   const {
-    initialValue: rating,
+    initialValue,
     closeModal,
     openModal: openModal,
+    isOpen: modalIsOpen,
   } = useRatingDetailsModalStore()
 
   const theme = useMantineTheme()
 
   const { data: syncroItem, isLoading } = useSyncroItemDetailsQuery(
-    rating?.syncroItemId
+    initialValue?.syncroItemId
   )
 
-  const { data: userInfo } = useUserInfoQuery(rating?.userId)
+  const { data: userInfo } = useUserInfoQuery(initialValue?.userId)
 
   const [ratingDetailsId] = useQueryState('ratingDetailsId')
 
   const router = useRouter()
   const axios = useAxios()
   useEffect(() => {
-    if (router.isReady && !!ratingDetailsId) {
+    if (router.isReady && !!ratingDetailsId && !initialValue) {
       axios
         .get<RatingDto>(urls.api.ratingId(ratingDetailsId))
         .then(({ data }) => {
@@ -53,12 +58,27 @@ const RatingDetailsModal = () => {
     }
   }, [router.isReady])
 
-  const statusMap = useRatingStatusMap(rating?.status)
+  const [queryParam] = useQueryState(QueryParams.ratingDetailsId)
+
+  useEffect(() => {
+    if (!queryParam && modalIsOpen) {
+      closeModal()
+      return
+    }
+    if (queryParam && !modalIsOpen) {
+      const newRating = buildRatingDto({
+        syncroItemId: syncroItem?.id,
+      })
+      openModal(initialValue || newRating)
+    }
+  }, [queryParam])
+
+  const statusMap = useRatingStatusMap(initialValue?.status)
   const { isMobile } = useMyMediaQuery()
 
   return (
     <Modal
-      opened={!!ratingDetailsId}
+      opened={!!modalIsOpen}
       onClose={closeModal}
       fullScreen={isMobile}
       title={
@@ -66,7 +86,7 @@ const RatingDetailsModal = () => {
       }
     >
       {isLoading && <CenterLoader />}
-      {!!rating && syncroItem && (
+      {!!initialValue && syncroItem && (
         <FlexCol>
           <Flex gap={16}>
             <SyncroItemLink item={syncroItem}>
@@ -80,7 +100,7 @@ const RatingDetailsModal = () => {
           </Flex>
 
           <Flex mt={16} gap={8}>
-            <MyNextLink href={urls.pages.user(rating.userId)}>
+            <MyNextLink href={urls.pages.user(initialValue.userId)}>
               <UserImage
                 pictureUrl={userInfo?.profile.pictureUrl}
                 username={userInfo?.username}
@@ -94,7 +114,7 @@ const RatingDetailsModal = () => {
             >
               <Text>
                 <MyNextLink
-                  href={urls.pages.user(rating.userId)}
+                  href={urls.pages.user(initialValue.userId)}
                   style={{
                     color: 'unset',
                   }}
@@ -109,14 +129,14 @@ const RatingDetailsModal = () => {
                     color: theme.colors.yellow[5],
                   }}
                 >
-                  {rating.ratingValue}
+                  {initialValue.ratingValue}
                 </b>
               </Text>
               <Text></Text>
               <FlexVCenter gap={4}>
                 <Text size={'xs'}>
-                  {format(rating.timelineDate)}
-                  {rating.consumedOn && ` on ${rating.consumedOn}`}
+                  {format(initialValue.timelineDate)}
+                  {initialValue.consumedOn && ` on ${initialValue.consumedOn}`}
                   {' · '}
                   <Span sx={{ color: statusMap?.color }}>
                     {statusMap?.label}
@@ -126,7 +146,7 @@ const RatingDetailsModal = () => {
             </FlexCol>
           </Flex>
 
-          {!!rating.review && (
+          {!!initialValue.review && (
             <Text
               sx={{
                 marginBottom: 16,
@@ -135,13 +155,16 @@ const RatingDetailsModal = () => {
                 fontStyle: 'italic',
               }}
             >
-              {rating.review}
+              {initialValue.review}
             </Text>
           )}
 
-          {rating.scenes && (
+          {initialValue.scenes && (
             <Box mt={24}>
-              <FavoriteScenesSection scenes={rating.scenes} widthHeight={96} />
+              <FavoriteScenesSection
+                scenes={initialValue.scenes}
+                widthHeight={96}
+              />
             </Box>
           )}
 

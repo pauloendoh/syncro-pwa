@@ -1,7 +1,6 @@
 import Router from 'next/router'
 import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { buildRatingProgressDto } from '../../../types/domain/rating/RatingProgressDto'
 import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 
@@ -17,11 +16,7 @@ const useSaveRatingModalStore = create<IStore>((set, get) => ({
   initialValue: null,
   isOpen: false,
   openModal: (initialValue) => {
-    if (!initialValue.ratingProgress) {
-      initialValue.ratingProgress = buildRatingProgressDto()
-    }
     set({ initialValue, isOpen: true })
-
     Router.query[QueryParams.saveRatingModal] = 'open'
     Router.push(Router, undefined, { scroll: false, shallow: true })
   },

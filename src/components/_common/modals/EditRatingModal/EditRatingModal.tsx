@@ -19,13 +19,13 @@ import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveR
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import {
   RatingDto,
   buildRatingDto,
 } from '../../../../types/domain/rating/RatingDto'
+import { QueryParams } from '../../../../utils/queryParams'
 import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
@@ -51,7 +51,7 @@ const EditRatingModal = () => {
 
   const ratingDetailsModalIsOpen = !!ratingDetailsId
 
-  const query = useMyRouterQuery()
+  const [queryParam] = useQueryState(QueryParams.saveRatingModal)
 
   const { mutate: submitSaveRating, isLoading: isLoadingMutation } =
     useSaveRatingMutation()
@@ -83,17 +83,17 @@ const EditRatingModal = () => {
   }, [modalIsOpen])
 
   useEffect(() => {
-    if (!query.saveRatingModal && modalIsOpen) {
+    if (!queryParam && modalIsOpen) {
       closeModal()
       return
     }
-    if (query.saveRatingModal && !modalIsOpen) {
+    if (queryParam && !modalIsOpen) {
       const newRating = buildRatingDto({
         syncroItemId: syncroItem?.id,
       })
       openModal(initialValue || newRating)
     }
-  }, [query.saveRatingModal])
+  }, [queryParam])
 
   useConfirmTabClose(form.formState.isDirty && !!modalIsOpen)
 
