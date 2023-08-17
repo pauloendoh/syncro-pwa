@@ -92,7 +92,7 @@ const SyncroItemPage = (props: Props) => {
         </Grid.Col>
 
         <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
-          {hasRightColumnInfo && item && <ItemPageRightSection item={item!} />}
+          {item && <ItemPageRightSection item={item} />}
         </Grid.Col>
       </Grid>
     </LoggedLayout>
