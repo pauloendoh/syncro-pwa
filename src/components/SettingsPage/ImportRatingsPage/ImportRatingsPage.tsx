@@ -47,6 +47,8 @@ const ImportRatingsPage = (props: Props) => {
               </Box>
             </FlexCol>
           </Box>
+
+          <Box mt={32}>{/* <ConnectorsSection /> */}</Box>
         </Box>
       }
     />

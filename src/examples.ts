@@ -1,10 +1,10 @@
 import { useMyFeedbackQuery } from './hooks/react-query/feedback/useMyFeedbackQuery'
 import useSaveFeedbackMutation from './hooks/react-query/feedback/useSaveFeedbackMutation'
-import useUserSimilarityModalStore from './hooks/zustand/modals/useUserSimilarityModalStore'
+import useConnectorsModalStore from './hooks/zustand/modals/useConnectorsModalStore'
 
 export {}
 
-useUserSimilarityModalStore
+useConnectorsModalStore
 
 useSaveFeedbackMutation
 useMyFeedbackQuery
