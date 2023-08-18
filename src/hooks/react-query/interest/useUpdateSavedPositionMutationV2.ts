@@ -1,6 +1,4 @@
-import { useDebouncedValue } from '@mantine/hooks'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls'
@@ -11,16 +9,6 @@ const useUpdateSavedPositionMutationV2 = () => {
   const queryClient = useQueryClient()
 
   const axios = useAxios()
-
-  const [succededAt, setSuccededAt] = useState('')
-
-  const [debouncedSuccededAt] = useDebouncedValue(succededAt, 1000)
-
-  useEffect(() => {
-    if (debouncedSuccededAt) {
-      myNotifications.success('Saved!')
-    }
-  }, [debouncedSuccededAt])
 
   const { authUser } = useAuthStore()
 
@@ -72,7 +60,8 @@ const useUpdateSavedPositionMutationV2 = () => {
         await queryClient.invalidateQueries([
           urls.api.plannedItemsV2(authUser!.id),
         ])
-        setSuccededAt(new Date().toISOString())
+
+        myNotifications.success('Position updated!')
       },
     }
   )

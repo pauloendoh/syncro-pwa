@@ -1,4 +1,4 @@
-import { Container, Flex, Select } from '@mantine/core'
+import { Container, Flex } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
@@ -12,10 +12,11 @@ import {
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { urls } from '../../utils/urls'
+import GridPlannedItemsV2 from '../HomePage/PlannedItemsHomeSection/GridPlannedItemsV2/GridPlannedItemsV2'
+import PlannedItemTypeButton from '../HomePage/PlannedItemsHomeSection/PlannedItemTypeButton/PlannedItemTypeButton'
 import { isSyncroItemType } from '../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import PlannedItemsByType from './PlannedItemsByType/PlannedItemsByType'
 
 const PlannedItemsPage = () => {
   const { authUser } = useAuthStore()
@@ -74,23 +75,33 @@ const PlannedItemsPage = () => {
     <LoggedLayout>
       <Container size="sm">
         <FlexVCenter>
-          <Select
-            label={'Planned items'}
-            data={options}
-            value={type}
-            onChange={(value) => {
-              router.push(urls.pages.savedItems(value as SyncroItemType))
-            }}
-            maxDropdownHeight={400}
-          />
+          {authUser && (
+            <FlexVCenter gap={8} wrap="wrap">
+              {syncroItemTypes.map((t) => (
+                <PlannedItemTypeButton
+                  userId={authUser.id}
+                  key={t}
+                  type={t}
+                  isSelected={t === type}
+                  onClick={() => {
+                    router.push(urls.pages.savedItems(t))
+                  }}
+                />
+              ))}
+            </FlexVCenter>
+          )}
         </FlexVCenter>
         <Flex gap={32} mt={24}>
-          {groupedSavedItems.map((group) => (
+          <GridPlannedItemsV2
+            ratings={plannedItems || []}
+            selectedType={localType}
+          />
+          {/* {groupedSavedItems.map((group) => (
             <PlannedItemsByType
               itemType={group.type}
               savedItems={group.items}
             />
-          ))}
+          ))} */}
         </Flex>
       </Container>
     </LoggedLayout>

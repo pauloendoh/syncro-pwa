@@ -12,7 +12,7 @@ import { localStorageKeys } from '../../../utils/consts/localStorageKeys'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
-import DragDropPlannedItems from './DragDropPlannedItems/DragDropPlannedItems'
+import GridPlannedItemsV2 from './GridPlannedItemsV2/GridPlannedItemsV2'
 import PlannedItemTypeButton from './PlannedItemTypeButton/PlannedItemTypeButton'
 
 type Props = {
@@ -54,6 +54,7 @@ const UserPlannedItemsSection = (props: Props) => {
       <MyPaper
         sx={{
           padding: 0,
+          paddingBottom: 16,
         }}
       >
         <FlexCol pb={4}>
@@ -76,10 +77,12 @@ const UserPlannedItemsSection = (props: Props) => {
           </FlexVCenter>
 
           <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
-            <DragDropPlannedItems
+            <GridPlannedItemsV2 ratings={ratings} selectedType={selectedType} />
+
+            {/* <DragDropPlannedItems
               userId={props.userId}
               itemType={selectedType}
-            />
+            /> */}
           </Box>
         </FlexCol>
       </MyPaper>
