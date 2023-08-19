@@ -42,10 +42,16 @@ const RecommendItemToUsersList = (props: Props) => {
   }, [filteredUsers])
 
   const filteredMutualsUnder10 = useMemo(() => {
-    return filteredUsers.filter((m) => {
-      const ratedSameItemsCount = m.similarity?.ratedSameItemsCount || 0
-      return ratedSameItemsCount < 10
-    })
+    return filteredUsers
+      .filter((m) => {
+        const ratedSameItemsCount = m.similarity?.ratedSameItemsCount || 0
+        return ratedSameItemsCount < 10
+      })
+      .sort((a, b) => {
+        const aRatedSameItemsCount = a.similarity?.ratedSameItemsCount || 0
+        const bRatedSameItemsCount = b.similarity?.ratedSameItemsCount || 0
+        return bRatedSameItemsCount - aRatedSameItemsCount
+      })
   }, [filteredUsers])
 
   const visibleMutuals = useMemo(() => {
