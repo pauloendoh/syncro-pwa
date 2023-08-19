@@ -18,7 +18,14 @@ const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
   const filteredRatings = useMemo(() => {
     if (!ratings) return []
 
-    return ratings.filter((rating) => rating.syncroItem?.type === selectedType)
+    return ratings
+      .filter((rating) => rating.syncroItem?.type === selectedType)
+      .sort((a, b) => {
+        if (a.plannedPosition === b.plannedPosition) return 0
+        if (a.plannedPosition === null) return 1
+        if (b.plannedPosition === null) return -1
+        return a.plannedPosition - b.plannedPosition
+      })
   }, [ratings, selectedType])
 
   const handleMoveToFirst = (ratingId: string) => {
