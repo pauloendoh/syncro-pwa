@@ -20,7 +20,7 @@ const RecommendItemToUsersList = (props: Props) => {
 
   const [search, setSearch] = useState('')
 
-  const filteredMutuals = useMemo(() => {
+  const filteredUsers = useMemo(() => {
     return (
       data?.filter((d) => {
         if (textContainsWords(d.user.username, search)) return true
@@ -35,16 +35,18 @@ const RecommendItemToUsersList = (props: Props) => {
   }, [data, search])
 
   const filteredMutualsOver10 = useMemo(() => {
-    return filteredMutuals.filter(
-      (m) => m.similarity && m.similarity.ratedSameItemsCount >= 10
+    return filteredUsers.filter(
+      (m) =>
+        m.similarity !== undefined && m.similarity.ratedSameItemsCount >= 10
     )
-  }, [filteredMutuals])
+  }, [filteredUsers])
 
   const filteredMutualsUnder10 = useMemo(() => {
-    return filteredMutuals.filter(
-      (m) => m.similarity && m.similarity.ratedSameItemsCount < 10
-    )
-  }, [filteredMutuals])
+    return filteredUsers.filter((m) => {
+      const ratedSameItemsCount = m.similarity?.ratedSameItemsCount || 0
+      return ratedSameItemsCount < 10
+    })
+  }, [filteredUsers])
 
   const visibleMutuals = useMemo(() => {
     return [...filteredMutualsOver10, ...filteredMutualsUnder10]
