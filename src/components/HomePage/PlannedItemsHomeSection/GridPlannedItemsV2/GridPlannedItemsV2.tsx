@@ -10,6 +10,7 @@ type Props = {
   selectedType: SyncroItemType
 }
 
+// PE 1/3 - clear V1
 const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
   const { mutate: submitUpdateSavedPosition } =
     useUpdateSavedPositionMutationV2()
