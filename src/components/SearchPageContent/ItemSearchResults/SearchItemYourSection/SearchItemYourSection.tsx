@@ -1,5 +1,5 @@
 import { Text, useMantineTheme } from '@mantine/core'
-import { MdStar, MdStarBorder } from 'react-icons/md'
+import { MdStarBorder } from 'react-icons/md'
 import { useMyInterestQueryUtils } from '../../../../hooks/react-query/interest/useMyInterestQueryUtils'
 import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyItemRatingQueryUtils } from '../../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
@@ -7,6 +7,7 @@ import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/use
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../../types/domain/rating/RatingDto'
+import { ratingStatusArray } from '../../../../types/domain/rating/ratingStatusArray'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 
 interface Props {
@@ -27,6 +28,12 @@ const SearchItemYourSection = (props: Props) => {
 
   const { authUser } = useAuthStore()
 
+  const ratingIconOption = ratingStatusArray.find(
+    (r) => r.value === myRating?.status
+  )
+
+  const RatingIcon = ratingIconOption?.IconWithProps
+
   return (
     <>
       <Text>You</Text>
@@ -42,11 +49,15 @@ const SearchItemYourSection = (props: Props) => {
             )
           }}
         >
-          <FlexVCenter style={{ width: 24 }}>
-            {myRating && myRating.ratingValue && myRating.ratingValue > 0 ? (
-              <MdStar color={theme.colors.secondary[9]} size={18} />
+          <FlexVCenter>
+            {myRating ? (
+              <>
+                {RatingIcon && <RatingIcon color={theme.colors.secondary[9]} />}
+              </>
             ) : (
-              <MdStarBorder color={theme.colors.gray[5]} size={18} />
+              <>
+                <MdStarBorder color={theme.colors.gray[5]} size={18} />
+              </>
             )}
           </FlexVCenter>
           <Text>{myRating?.ratingValue || <Text>Rate</Text>}</Text>
