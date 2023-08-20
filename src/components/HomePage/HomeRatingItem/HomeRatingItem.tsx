@@ -211,29 +211,34 @@ const HomeRatingItem = (props: Props) => {
           />
         </FlexCol>
 
-        <SyncroItemLink item={props.rating.syncroItem}>
-          <Box pos="relative">
-            <SyncroItemImage
-              item={props.rating.syncroItem}
-              width={isSmallScreen ? 100 : 120}
-            />
+        <div>
+          <SyncroItemLink item={props.rating.syncroItem}>
+            <Box pos="relative">
+              <SyncroItemImage
+                item={props.rating.syncroItem}
+                width={isSmallScreen ? 100 : 120}
+              />
 
-            <Center
-              pos="absolute"
-              right={2}
-              bottom={2}
-              title={typeMap?.getTypeLabel() || 'Unknown type'}
-              sx={{
-                backgroundColor: theme.colors.gray[9],
-                width: 32,
-                height: 32,
-                borderRadius: '50%',
-              }}
-            >
-              <SyncroItemIcon type={props.rating.syncroItem!.type} size={16} />
-            </Center>
-          </Box>
-        </SyncroItemLink>
+              <Center
+                pos="absolute"
+                right={2}
+                bottom={2}
+                title={typeMap?.getTypeLabel() || 'Unknown type'}
+                sx={{
+                  backgroundColor: theme.colors.gray[9],
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                }}
+              >
+                <SyncroItemIcon
+                  type={props.rating.syncroItem!.type}
+                  size={16}
+                />
+              </Center>
+            </Box>
+          </SyncroItemLink>
+        </div>
       </Flex>
     </MyPaper>
   )
