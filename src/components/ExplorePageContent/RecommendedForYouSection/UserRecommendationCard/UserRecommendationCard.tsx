@@ -1,13 +1,15 @@
 import { Box } from '@mantine/core'
 import { useMyColors } from '../../../../hooks/useMyColors'
-import { RatingSimilarityByTypeDto } from '../../../../types/domain/rating/RatingSimilarityByTypeDto'
+import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
+import { urls } from '../../../../utils/urls'
 import FollowUnfollowButton from '../../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
 import FlexCol from '../../../_common/flex/FlexCol'
 import UserImage from '../../../_common/image/SyncroItemImage/UserImage/UserImage'
+import MyNextLink from '../../../_common/overrides/MyNextLink'
 import Span from '../../../_common/text/Span'
 
 type Props = {
-  item: RatingSimilarityByTypeDto
+  user: UserSimpleDto
 }
 
 const UserRecommendationCard = ({ ...props }: Props) => {
@@ -24,17 +26,24 @@ const UserRecommendationCard = ({ ...props }: Props) => {
       }}
     >
       <FlexCol align={'center'} justify={'space-between'}>
-        <UserImage pictureUrl={props.item.userB.profile.pictureUrl} />
-        <Span align="center" size="sm" weight={500} lineClamp={2}>
-          Paulo Ricardo Endoh
-        </Span>
-        {/* <span>{props.item.userB.profile.fullName}</span> */}
-        <Span color="dimmed" align="center" size="sm">
-          @{props.item.userB.username}
-        </Span>
+        <UserImage
+          pictureUrl={props.user.profile.pictureUrl}
+          userIdAndLink={props.user.id}
+        />
+        <MyNextLink href={urls.pages.user(props.user.id)}>
+          <Span align="center" size="sm" weight={500} lineClamp={2}>
+            Paulo Ricardo Endoh
+          </Span>
+        </MyNextLink>
+
+        <MyNextLink href={urls.pages.user(props.user.id)}>
+          <Span color="dimmed" align="center" size="sm">
+            @{props.user.username}
+          </Span>
+        </MyNextLink>
 
         <Box mt={16}>
-          <FollowUnfollowButton profileUserId={props.item.userB.id} />
+          <FollowUnfollowButton profileUserId={props.user.id} />
         </Box>
       </FlexCol>
     </Box>

@@ -28,7 +28,7 @@ const RecommendedForYouSection = ({ ...props }: Props) => {
           <Flex gap={8}>
             {isLoading && <CenterLoader height={133} width="100%" />}
             {data?.map((item) => (
-              <UserRecommendationCard item={item} key={item.userB.id} />
+              <UserRecommendationCard user={item.userB} key={item.userB.id} />
             ))}
             {data?.length === 0 && <Span>No recommendations for you yet</Span>}
           </Flex>

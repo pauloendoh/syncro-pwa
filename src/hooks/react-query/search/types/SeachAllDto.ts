@@ -7,5 +7,5 @@ export interface SearchAllDto {
   game: SyncroItemDto[]
   manga: SyncroItemDto[]
   book: SyncroItemDto[]
-  users: UserSimpleDto
+  users: UserSimpleDto[]
 }

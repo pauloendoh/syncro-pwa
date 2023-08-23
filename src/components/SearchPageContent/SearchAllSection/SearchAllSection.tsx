@@ -4,6 +4,7 @@ import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType
 import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import SearchAllSectionTypeItem from './SearchAllSectionTypeItem/SearchAllSectionTypeItem'
+import SearchAllUsersSection from './SearchAllUsersSection/SearchAllUsersSection'
 
 type Props = {
   q: string
@@ -16,6 +17,10 @@ const SearchAllSection = (props: Props) => {
 
   return (
     <FlexCol gap={40}>
+      {!!data.users.length && (
+        <SearchAllUsersSection users={data.users} query={props.q} />
+      )}
+
       {
         // for each key value
         // render a section
