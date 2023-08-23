@@ -27,6 +27,7 @@ export interface SyncroItemDto {
   mangaMalUrl: string | null
   openLibraryUrl: string | null
   youtubeMusicUrl: string | null
+  tmdbUrl: string | null
 
   youtubeVideoUrl: string | null
 
@@ -56,8 +57,8 @@ export const buildSyncroItemDto = (
   mangaMalUrl: null,
   openLibraryUrl: null,
   youtubeMusicUrl: null,
-
   youtubeVideoUrl: null,
+  tmdbUrl: null,
 
   avgRating: 0,
   ratingCount: 0,

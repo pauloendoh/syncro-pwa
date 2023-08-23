@@ -14,22 +14,27 @@ type Props = {}
 const SearchPageContent = (props: Props) => {
   const { q, type } = useMyRouterQuery()
 
-  const { isMobile: isXsScreen } = useMyMediaQuery()
+  const { isMobile } = useMyMediaQuery()
 
   return (
     <LoggedLayout>
       <Container size="xs">
-        {isXsScreen && (
+        {isMobile && (
           <FlexVCenter w="100%" mb={24}>
             <SearchBar />
           </FlexVCenter>
         )}
-
         <Box mt={16} />
         {!!q && isSyncroItemType(type) && (
           <ItemSearchResults query={q} type={type} />
         )}
 
+        {!q && isSyncroItemType(type) && isMobile && (
+          <>
+            {/* <MobileSearchMostRated /> */}
+            hello
+          </>
+        )}
         {type === 'users' && (
           <UserSearchResults onClickUser={() => {}} query={q} />
         )}
