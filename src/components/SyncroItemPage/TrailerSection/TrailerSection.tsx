@@ -3,13 +3,16 @@ import { useViewportSize } from '@mantine/hooks'
 import { useMemo } from 'react'
 import ReactPlayer from 'react-player'
 import { useYoutubeTrailersQuery } from '../../../hooks/react-query/youtube/useYoutubeTrailersQuery'
+import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 
 type Props = {
-  itemId: string
+  item: SyncroItemDto
 }
 
 const TrailerSection = (props: Props) => {
-  const { data, isLoading } = useYoutubeTrailersQuery(props.itemId)
+  const { data, isLoading } = useYoutubeTrailersQuery(props.item.id, {
+    enabled: !!props.item.year,
+  })
   const { width } = useViewportSize()
 
   const firstTrailer = useMemo(() => data?.[0], [data])

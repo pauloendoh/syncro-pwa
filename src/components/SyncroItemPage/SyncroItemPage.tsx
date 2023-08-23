@@ -60,7 +60,7 @@ const SyncroItemPage = (props: Props) => {
 
             {canHaveTrailers && (
               <Box mt={24}>
-                <TrailerSection itemId={syncroItemId!} />
+                <TrailerSection item={item} />
               </Box>
             )}
             {item?.youtubeMusicUrl && (
