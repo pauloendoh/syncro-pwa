@@ -17,6 +17,7 @@ import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useS
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
+import { useUsersToRecommendQueryV2 } from '../../../../hooks/react-query/user/useMutualsSavedItemQueryV2'
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
@@ -146,6 +147,10 @@ const EditRatingModal = () => {
   }
 
   const { isMobile } = useMyMediaQuery()
+
+  const { data: usersToRecommend } = useUsersToRecommendQueryV2(
+    initialValue?.syncroItemId || undefined
+  )
 
   return (
     <Modal
@@ -283,7 +288,8 @@ const EditRatingModal = () => {
 
           {!!initialValue?.syncroItemId &&
             !!form.watch('ratingValue') &&
-            form.watch('ratingValue')! >= 8 && (
+            form.watch('ratingValue')! >= 8 &&
+            !!usersToRecommend?.length && (
               <FlexCol mt={40} gap={16} pb={16}>
                 <Divider />
                 <Title order={4}>Recommend to users</Title>
