@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.syncro.twa",
+      "sha256_cert_fingerprints": [
+        "5E:AE:DC:4F:41:1C:2E:B0:58:68:65:A8:C5:94:C6:38:0B:0C:54:81:3B:00:53:7B:14:78:05:1A:F0:23:3D:C7"
+      ]
+    }
+  }
+]
