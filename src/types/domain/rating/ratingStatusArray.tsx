@@ -67,7 +67,7 @@ export const ratingStatusArray: {
 
 // PE 1/3 - PE 1/3 - kinda weird  using this.. I expect a ratingStatus instead of itemType
 export function useRatingStatusMap(itemType: SyncroItemType) {
-  const typeMap = useSyncroItemTypeMap({ itemType: itemType })
+  const typeMap = useSyncroItemTypeMap({ itemType })
   const map: {
     [key in RatingStatusType]: {
       label: string
