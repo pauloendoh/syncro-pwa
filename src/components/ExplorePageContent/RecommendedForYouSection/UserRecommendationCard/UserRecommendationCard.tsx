@@ -32,7 +32,7 @@ const UserRecommendationCard = ({ ...props }: Props) => {
         />
         <MyNextLink href={urls.pages.user(props.user.id)}>
           <Span align="center" size="sm" weight={500} lineClamp={2}>
-            Paulo Ricardo Endoh
+            {props.user.profile.fullName}
           </Span>
         </MyNextLink>
 
