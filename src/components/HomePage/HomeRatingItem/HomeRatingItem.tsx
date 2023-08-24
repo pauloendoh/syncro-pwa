@@ -105,7 +105,7 @@ const HomeRatingItem = (props: Props) => {
 
   return (
     <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
-      <MyNextLink href={urls.pages.user(props.rating.userId)}>
+      <MyNextLink href={urls.pages.userProfile(props.rating.userId)}>
         <div
           style={{
             position: 'absolute',
@@ -131,7 +131,7 @@ const HomeRatingItem = (props: Props) => {
           <FlexCol sx={{ flexGrow: 1 }}>
             <Text>
               <MyNextLink
-                href={urls.pages.user(props.rating.userId)}
+                href={urls.pages.userProfile(props.rating.userId)}
                 style={{
                   color: 'unset',
                 }}

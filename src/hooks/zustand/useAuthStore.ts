@@ -5,6 +5,7 @@ import nookies from '../../utils/nookies'
 interface IAuthStore {
   authUser: AuthUserGetDto | null
   setAuthUser: (authUser: AuthUserGetDto) => void
+  getAuthUserId: () => string
 }
 
 const useAuthStore = create<IAuthStore>((set, get) => ({
@@ -17,6 +18,10 @@ const useAuthStore = create<IAuthStore>((set, get) => ({
       path: '/',
       maxAge: 30 * 24 * 60 * 60, // 1 year
     })
+  },
+  getAuthUserId: () => {
+    const { authUser } = get()
+    return authUser?.id || ''
   },
 }))
 const initialState = useAuthStore.getState()

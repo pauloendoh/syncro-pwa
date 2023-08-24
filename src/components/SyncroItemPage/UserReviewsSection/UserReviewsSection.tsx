@@ -35,7 +35,7 @@ const UserReviewsSection = (props: Props) => {
             )}
 
             <FlexCol>
-              <MyNextLink href={urls.pages.user(rating.userId)}>
+              <MyNextLink href={urls.pages.userProfile(rating.userId)}>
                 <SemiBold sx={{ fontWeight: 'bold' }}>
                   {rating.user?.username}
                 </SemiBold>

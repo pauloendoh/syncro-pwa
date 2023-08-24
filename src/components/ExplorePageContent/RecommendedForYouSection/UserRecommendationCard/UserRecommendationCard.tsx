@@ -30,13 +30,13 @@ const UserRecommendationCard = ({ ...props }: Props) => {
           pictureUrl={props.user.profile.pictureUrl}
           userIdAndLink={props.user.id}
         />
-        <MyNextLink href={urls.pages.user(props.user.id)}>
+        <MyNextLink href={urls.pages.userProfile(props.user.id)}>
           <Span align="center" size="sm" weight={500} lineClamp={2}>
             {props.user.profile.fullName}
           </Span>
         </MyNextLink>
 
-        <MyNextLink href={urls.pages.user(props.user.id)}>
+        <MyNextLink href={urls.pages.userProfile(props.user.id)}>
           <Span color="dimmed" align="center" size="sm">
             @{props.user.username}
           </Span>

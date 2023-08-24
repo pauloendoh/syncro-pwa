@@ -59,7 +59,9 @@ const EditRatingModal = () => {
 
   const onSubmit = async (data: RatingDto) => {
     submitSaveRating(data, {
-      onSuccess: closeBothModals,
+      onSuccess: () => {
+        closeBothModals()
+      },
     })
   }
 

@@ -1,6 +1,7 @@
 import { Anchor } from '@mantine/core'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteFromArray, upsert } from 'endoh-utils/dist/array'
+import { useRouter } from 'next/router'
 import Span from '../../../components/_common/text/Span'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
@@ -9,12 +10,19 @@ import { urls } from '../../../utils/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { useMyRouterQuery } from '../../useMyRouterQuery'
 import { useRatingDetailsModalStore } from '../../zustand/modals/useRatingDetailsModalStore'
+import useAuthStore from '../../zustand/useAuthStore'
+import { useMyRatingsQuery } from './useMyRatingsQuery'
 
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
   const { userId } = useMyRouterQuery()
   const { openModal: openModal } = useRatingDetailsModalStore()
+  const { data: ratings } = useMyRatingsQuery()
+
+  const router = useRouter()
+
+  const { getAuthUserId } = useAuthStore()
 
   const axios = useAxios()
   return useMutation(
@@ -42,9 +50,25 @@ const useSaveRatingMutation = () => {
           return
         }
 
+        const prev = queryClient.getQueryData<RatingDto[]>([urls.api.myRatings])
         queryClient.setQueryData<RatingDto[]>([urls.api.myRatings], (curr) => {
           return upsert(curr, savedRating, (i) => i.id === savedRating.id)
         })
+        if (prev?.length === 0) {
+          router.push(urls.pages.userProfile(getAuthUserId()))
+          myNotifications.success(
+            '🎉 Your first rating was saved! Moving to profile...'
+          )
+        } else {
+          myNotifications.success(
+            <Span>
+              Rating saved!{' '}
+              <Anchor onClick={() => openModal(savedRating)}>
+                See details
+              </Anchor>
+            </Span>
+          )
+        }
 
         // update timeline item
         queryClient.setQueryData<{ pages: RatingDto[][] }>(
@@ -68,13 +92,6 @@ const useSaveRatingMutation = () => {
               pages,
             }
           }
-        )
-
-        myNotifications.success(
-          <Span>
-            Rating saved!{' '}
-            <Anchor onClick={() => openModal(savedRating)}>See details</Anchor>
-          </Span>
         )
       },
     }

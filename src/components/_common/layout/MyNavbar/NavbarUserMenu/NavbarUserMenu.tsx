@@ -55,7 +55,7 @@ const NavbarUserMenu = (props: Props) => {
 
       <Menu.Dropdown>
         <MyNextLink
-          href={urls.pages.user(authUser?.id || '')}
+          href={urls.pages.userProfile(authUser?.id || '')}
           style={{
             textDecoration: 'none',
           }}

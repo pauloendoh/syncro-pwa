@@ -34,7 +34,9 @@ const ItemRecommendationNotificationItem = ({
             // })
           }}
         >
-          <MyNextLink href={urls.pages.user(itemRecommendation.fromUserId)}>
+          <MyNextLink
+            href={urls.pages.userProfile(itemRecommendation.fromUserId)}
+          >
             <UserProfilePicture
               userId={itemRecommendation.fromUserId}
               widthHeigth={36}
@@ -46,7 +48,7 @@ const ItemRecommendationNotificationItem = ({
           <span>
             <span>
               <MyNextLink
-                href={urls.pages.user(itemRecommendation.fromUserId)}
+                href={urls.pages.userProfile(itemRecommendation.fromUserId)}
                 style={{
                   fontWeight: 500,
                 }}

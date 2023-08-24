@@ -25,7 +25,7 @@ const PlanUpdatesSectionItem = ({ item, ...props }: Props) => {
   return (
     <Flex key={item.id} gap={8} ref={ref}>
       <Box mt={4}>
-        <MyNextLink href={urls.pages.user(item.userId)}>
+        <MyNextLink href={urls.pages.userProfile(item.userId)}>
           <UserProfilePicture userId={item.userId} widthHeigth={32} />
         </MyNextLink>
       </Box>
@@ -33,7 +33,7 @@ const PlanUpdatesSectionItem = ({ item, ...props }: Props) => {
       <FlexCol w="100%" pr={16}>
         <FlexVCenter w="100%" justify={'space-between'}>
           <Span size="sm" weight={600}>
-            <MyNextLink href={urls.pages.user(item.userId)}>
+            <MyNextLink href={urls.pages.userProfile(item.userId)}>
               {item.user?.username}
             </MyNextLink>
             <Span size="sm" weight="initial">

@@ -32,7 +32,7 @@ export const useMobileFooterLinkOptions = () => {
   const theme = useMantineTheme()
 
   const isAuthUserPage = useMemo(() => {
-    return router.asPath.includes(urls.pages.user(authUser?.id!))
+    return router.asPath.includes(urls.pages.userProfile(authUser?.id!))
   }, [authUser, router.asPath])
 
   const mobileFooterLinkOptions: Option[] = [
@@ -92,7 +92,7 @@ export const useMobileFooterLinkOptions = () => {
         </div>
       ),
       selectedIcon: null,
-      href: urls.pages.user(authUser?.id!),
+      href: urls.pages.userProfile(authUser?.id!),
       label: 'Profile',
       selectedIf: () => router.pathname.startsWith('/user'),
     },

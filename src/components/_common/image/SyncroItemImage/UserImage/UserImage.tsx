@@ -44,7 +44,7 @@ const UserImage = (props: Props) => {
 
   if (props.userIdAndLink)
     return (
-      <MyNextLink href={urls.pages.user(props.userIdAndLink)}>
+      <MyNextLink href={urls.pages.userProfile(props.userIdAndLink)}>
         {image}
       </MyNextLink>
     )

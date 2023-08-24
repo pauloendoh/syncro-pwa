@@ -100,7 +100,7 @@ const RatingDetailsModal = () => {
           </Flex>
 
           <Flex mt={16} gap={8}>
-            <MyNextLink href={urls.pages.user(initialValue.userId)}>
+            <MyNextLink href={urls.pages.userProfile(initialValue.userId)}>
               <UserImage
                 pictureUrl={userInfo?.profile.pictureUrl}
                 username={userInfo?.username}
@@ -114,7 +114,7 @@ const RatingDetailsModal = () => {
             >
               <Text>
                 <MyNextLink
-                  href={urls.pages.user(initialValue.userId)}
+                  href={urls.pages.userProfile(initialValue.userId)}
                   style={{
                     color: 'unset',
                   }}

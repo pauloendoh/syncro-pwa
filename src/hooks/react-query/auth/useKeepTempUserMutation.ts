@@ -25,7 +25,7 @@ const useKeepTempUserMutation = () => {
         setAuthUser(newUser)
         myNotifications.success('User created!')
 
-        router.push(urls.pages.user(newUser.id))
+        router.push(urls.pages.userProfile(newUser.id))
       },
     }
   )

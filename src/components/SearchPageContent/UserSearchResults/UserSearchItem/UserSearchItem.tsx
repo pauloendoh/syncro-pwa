@@ -27,13 +27,13 @@ const UserSearchItem = ({ user }: Props) => {
     <Box>
       <Flex justify={'space-between'}>
         <Flex gap={8}>
-          <MyNextLink href={urls.pages.user(user.id)}>
+          <MyNextLink href={urls.pages.userProfile(user.id)}>
             <UserProfilePicture userId={user.id} widthHeigth={36} />
           </MyNextLink>
 
           <FlexCol ml={4}>
             <MyNextLink
-              href={urls.pages.user(user.id)}
+              href={urls.pages.userProfile(user.id)}
               style={{
                 color: 'inherit',
               }}

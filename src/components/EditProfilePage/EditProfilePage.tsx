@@ -47,7 +47,7 @@ const EditProfilePage = (props: Props) => {
             onSubmit={handleSubmit((data) => {
               submitUpdateProfile(data, {
                 onSuccess: () => {
-                  router.push(urls.pages.user(authUser!.id))
+                  router.push(urls.pages.userProfile(authUser!.id))
                 },
               })
             })}
@@ -129,7 +129,7 @@ const EditProfilePage = (props: Props) => {
               <SaveCancelButtons
                 isLoading={isLoading}
                 onCancel={() => {
-                  router.push(urls.pages.user(authUser!.id))
+                  router.push(urls.pages.userProfile(authUser!.id))
                 }}
               />
             </Box>

@@ -31,7 +31,7 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
     >
       <Flex justify="space-between" p={4}>
         <Flex>
-          <MyNextLink href={urls.pages.user(follow.follower?.id!)}>
+          <MyNextLink href={urls.pages.userProfile(follow.follower?.id!)}>
             <UserProfilePicture userId={follow.followerId} widthHeigth={36} />
           </MyNextLink>
 
@@ -44,7 +44,7 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
               }}
             >
               <MyNextLink
-                href={urls.pages.user(follow.follower?.id!)}
+                href={urls.pages.userProfile(follow.follower?.id!)}
                 style={{
                   color: 'inherit',
                 }}

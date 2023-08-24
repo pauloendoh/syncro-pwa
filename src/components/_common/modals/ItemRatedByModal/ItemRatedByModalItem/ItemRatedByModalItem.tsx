@@ -18,7 +18,7 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
 
   return (
     <Flex key={rating.id} gap={16}>
-      <MyNextLink href={urls.pages.user(rating.userId)}>
+      <MyNextLink href={urls.pages.userProfile(rating.userId)}>
         <UserImage
           widthHeight={40}
           pictureUrl={rating.user?.profile?.pictureUrl}
@@ -30,7 +30,7 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
         <FlexCol>
           <MyText>
             <MyNextLink
-              href={urls.pages.user(rating.userId)}
+              href={urls.pages.userProfile(rating.userId)}
               style={{
                 fontWeight: 500,
               }}

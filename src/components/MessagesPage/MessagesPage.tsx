@@ -99,10 +99,10 @@ const MessagesPage = (props: Props) => {
               >
                 {isMobile && <BackButton />}
 
-                <MyNextLink href={urls.pages.user(otherUserInfo.id)}>
+                <MyNextLink href={urls.pages.userProfile(otherUserInfo.id)}>
                   <UserImage pictureUrl={otherUserInfo.profile?.pictureUrl} />
                 </MyNextLink>
-                <MyNextLink href={urls.pages.user(otherUserInfo.id)}>
+                <MyNextLink href={urls.pages.userProfile(otherUserInfo.id)}>
                   <Text>{otherUserInfo?.username}</Text>
                 </MyNextLink>
               </FlexVCenter>

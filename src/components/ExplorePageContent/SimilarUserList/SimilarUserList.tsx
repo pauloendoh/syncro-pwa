@@ -49,13 +49,13 @@ const SimilarUserList = () => {
 
       {sortedRatingSimilarities.map((item) => (
         <FlexVCenter>
-          <MyNextLink href={urls.pages.user(item.userB.id)}>
+          <MyNextLink href={urls.pages.userProfile(item.userB.id)}>
             <UserProfilePicture userId={item.userB.id} widthHeigth={36} />
           </MyNextLink>
 
           <FlexCol ml={16}>
             <MyNextLink
-              href={urls.pages.user(item.userB.id)}
+              href={urls.pages.userProfile(item.userB.id)}
               style={{
                 color: 'inherit',
               }}

@@ -28,7 +28,7 @@ export const urls = {
         syncroItemId,
         ...extraParams,
       })}`,
-    user: (userId: string) => `/user/${userId}`,
+    userProfile: (userId: string) => `/user/${userId}`,
     search: (params?: SearchParams) => {
       if (!params) return '/search'
       const query = qs.stringify(params)
