@@ -261,6 +261,9 @@ const EditRatingModal = () => {
                 {...form.register('consumedOn')}
                 label={typeMap?.consumedOn}
                 placeholder={typeMap?.consumedOnExamples}
+                error={
+                  form.watch('consumedOn').length > 16 && 'Max 16 characters'
+                }
               />
             </Box>
             <Box mt={16}>

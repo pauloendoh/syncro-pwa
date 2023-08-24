@@ -82,7 +82,7 @@ const AuthPage = () => {
               <Divider label="Or" labelPosition="center" />
 
               <FlexCol mt={16} gap={8}>
-                <TempUserButton />
+                {currentForm === 'registerForm' && <TempUserButton />}
 
                 <Button
                   leftIcon={<AiOutlineGoogle size={24} />}

@@ -22,7 +22,7 @@ const TempUserButton = ({ ...props }: Props) => {
     <Button
       leftIcon={<AiOutlineClockCircle size={24} />}
       fullWidth
-      color="dark"
+      color="secondary"
       size="lg"
       onClick={handleClick}
     >
