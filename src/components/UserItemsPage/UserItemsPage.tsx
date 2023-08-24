@@ -1,12 +1,13 @@
 import { Box, Container, Grid, Text } from '@mantine/core'
+import { useQueryState } from 'next-usequerystate'
 import { useMemo, useState } from 'react'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
-import { useQueryParams } from '../../hooks/useQueryParams'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { SortingByType } from '../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { QueryParams } from '../../utils/queryParams'
 import { useSortedItems } from '../UserProfilePage/ProfileScreenRatingItem/useSortedItems/useSortedItems'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
@@ -40,7 +41,7 @@ const UserItemsPage = () => {
 
   const { isSmallScreen } = useMyMediaQuery()
 
-  const { queryValue: selectedGenre } = useQueryParams().genre
+  const [selectedGenre] = useQueryState(QueryParams.genre)
 
   const [view, setView] = useState<'md' | 'lg'>('md')
 

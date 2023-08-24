@@ -14,4 +14,5 @@ export enum QueryParams {
   onboardingModal = 'onboardingModal',
   itemImageOpen = 'itemImageOpen',
   ratingDetailsId = 'ratingDetailsId',
+  genre = 'genre',
 }

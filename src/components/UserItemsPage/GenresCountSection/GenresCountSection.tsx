@@ -1,8 +1,9 @@
 import { Table, useMantineTheme } from '@mantine/core'
+import { useQueryState } from 'next-usequerystate'
 import { useMemo, useState } from 'react'
 import { useGenresCountQuery } from '../../../hooks/react-query/user-item/useGenresCountQuery'
-import { useQueryParams } from '../../../hooks/useQueryParams'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { QueryParams } from '../../../utils/queryParams'
 import FlexCol from '../../_common/flex/FlexCol'
 import Span from '../../_common/text/Span'
 
@@ -24,7 +25,7 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
     return genresCount.slice(0, 5)
   }, [showMore, genresCount])
 
-  const { queryValue, setQuery, removeQuery } = useQueryParams().genre
+  const [queryValue, setQuery] = useQueryState(QueryParams.genre)
 
   if (!genresCount || genresCount.length === 0) return null
 
@@ -55,7 +56,7 @@ const GenresCountSection = ({ itemType, userId }: Props) => {
                 key={g.genre}
                 onClick={() => {
                   if (queryValue === g.genre) {
-                    removeQuery()
+                    setQuery(null)
                     return
                   }
                   setQuery(g.genre)
