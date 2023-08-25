@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { SiDiscord } from 'react-icons/si'
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { myEnvs } from '../../utils/myEnvs'
 import FlexCol from '../_common/flex/FlexCol'
@@ -34,10 +35,17 @@ const AuthPage = () => {
     window.open(myEnvs.NEXT_PUBLIC_API_URL + '/auth/google', '_self')
   }
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <Box>
       <Center>
-        <MyPaper p={24} mt={40} w={300}>
+        <MyPaper
+          p={24}
+          mt={isMobile ? 0 : 40}
+          w={isMobile ? '100%' : 300}
+          mb={isMobile ? 0 : 40}
+        >
           <FlexCol align={'center'} gap={16}>
             <Title>Syncro</Title>
 
