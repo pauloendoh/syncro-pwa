@@ -86,7 +86,7 @@ const LandingPage = ({ ...props }: Props) => {
             </Button>
           </MyNextLink>
 
-          <FlexCol mt={64} align="center" gap={16}>
+          <FlexCol mt={isMobile ? 40 : 64} align="center" gap={16}>
             <Span size={isMobile ? '1.25rem' : '1.5rem'}>Get it on</Span>
             <a
               href={
