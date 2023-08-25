@@ -1,6 +1,8 @@
 import { Box, Button, Center, Container, Divider } from '@mantine/core'
+import { FaGooglePlay } from 'react-icons/fa'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls'
+import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import Span from '../_common/text/Span'
@@ -84,8 +86,26 @@ const LandingPage = ({ ...props }: Props) => {
             </Button>
           </MyNextLink>
 
+          <FlexCol mt={64} align="center" gap={16}>
+            <Span size={isMobile ? '1.25rem' : '1.5rem'}>Get it on</Span>
+            <a
+              href={
+                'https://play.google.com/store/apps/details?id=app.vercel.syncro.twa'
+              }
+              style={{
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              <FlexCol align="center" gap={8}>
+                <FaGooglePlay fontSize={isMobile ? '1.5rem' : '2rem'} />
+                <Span size={'sm'}>Google Play</Span>
+              </FlexCol>
+            </a>
+          </FlexCol>
+
           <Divider
-            mt={80}
+            mt={40}
             w="100%"
             label="Most rated this month"
             labelPosition="center"
