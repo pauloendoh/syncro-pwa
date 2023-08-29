@@ -75,7 +75,7 @@ const LandingPageItemsSection = ({ ...props }: Props) => {
             Nothing here yet. Be the first to rate something!
           </i>
         )}
-        {data?.map((item) => (
+        {data?.slice(0, 16).map((item) => (
           <FavoriteItem
             key={item.id}
             item={item}
