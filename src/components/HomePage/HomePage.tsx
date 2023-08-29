@@ -75,7 +75,7 @@ const HomePage = () => {
                 <FeedSettingsIcon />
               </FlexVCenter>
 
-              <Box pl={isSmallScreen ? 8 : undefined}>
+              <Box pl={8}>
                 <RatingsTimeline />
               </Box>
             </FlexCol>
