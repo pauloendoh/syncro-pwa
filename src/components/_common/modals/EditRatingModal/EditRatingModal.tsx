@@ -188,7 +188,7 @@ const EditRatingModal = () => {
       }}
       fullScreen={isMobile}
     >
-      <ScrollArea.Autosize mah={'calc(100vh - 150px)'}>
+      <ScrollArea.Autosize mah={isMobile ? 'unset' : 'calc(100vh - 150px)'}>
         <FlexCol pr={12}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FlexVCenter
