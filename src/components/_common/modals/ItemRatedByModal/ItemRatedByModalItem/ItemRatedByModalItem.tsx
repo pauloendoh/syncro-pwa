@@ -48,6 +48,7 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
             <b
               style={{
                 color: theme.colors.yellow[5],
+                marginLeft: 2,
               }}
             >
               {rating.ratingValue}
