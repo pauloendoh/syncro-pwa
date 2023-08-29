@@ -26,6 +26,11 @@ const UserItemsMdTable = ({ ...props }: Props) => {
             {
               textAlign: 'center',
             },
+          // first column right align
+          '& td:nth-child(1), & th:nth-child(1)': {
+            textAlign: 'right',
+          },
+
           '& td, & th': {
             borderTop: 'none !important',
           },
@@ -37,7 +42,6 @@ const UserItemsMdTable = ({ ...props }: Props) => {
       >
         <thead>
           <tr>
-            <th />
             <th
               style={{
                 width: '100%',
@@ -45,6 +49,7 @@ const UserItemsMdTable = ({ ...props }: Props) => {
             >
               Title
             </th>
+            <th />
             {!props.thisIsYourList && (
               <th>
                 <UserImage
