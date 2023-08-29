@@ -36,7 +36,7 @@ type Props = {
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
-  const { isSmallScreen } = useMyMediaQuery()
+  const { isSmallScreen, isMobile } = useMyMediaQuery()
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.rating.syncroItem?.type,
@@ -94,6 +94,7 @@ const HomeRatingItem = (props: Props) => {
     status: props.rating.status,
     type: props.rating.syncroItem?.type!,
     hasRated: !!props.rating.ratingValue,
+    isMobile,
   })
 
   const showMiddleDot = useMemo(() => {

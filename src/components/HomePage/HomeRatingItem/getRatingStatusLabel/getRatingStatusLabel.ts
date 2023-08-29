@@ -6,6 +6,7 @@ export const useRatingStatusLabel = (params: {
   status: RatingStatusType
   type: SyncroItemType
   hasRated?: boolean
+  isMobile?: boolean
 }) => {
   const typeMap = useSyncroItemTypeMap({
     itemType: params.type,
@@ -28,6 +29,6 @@ export const useRatingStatusLabel = (params: {
     case 'ON_HOLD':
       return 'paused:'
     case 'PLANNED':
-      return typeMap.plansTo + ':'
+      return params.isMobile ? 'planned:' : typeMap.plansTo + ':'
   }
 }
