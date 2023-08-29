@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { SearchAllDto } from './types/SeachAllDto'
 
 export const useSearchAllQuery = (

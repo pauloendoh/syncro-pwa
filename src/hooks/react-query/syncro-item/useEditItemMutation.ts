@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 const useEditItemMutation = () => {

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { GenreCountDto } from './types/GenreCountDto'
 
 export const useGenresCountQuery = (

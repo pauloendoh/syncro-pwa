@@ -15,7 +15,7 @@ import {
 import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
 import { getItemTitleAndYear } from '../../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { QueryParams } from '../../../../utils/queryParams'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import FavoriteScenesSection from '../../../HomePage/HomeRatingItem/FavoriteScenesSection/FavoriteScenesSection'
 import SyncroItemMainInfosSection from '../../../SyncroItemPage/SyncroItemPaperContent/SyncroItemMainInfosSection/SyncroItemMainInfosSection'

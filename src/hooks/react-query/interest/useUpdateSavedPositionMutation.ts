@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import useAuthStore from '../../zustand/useAuthStore'
 

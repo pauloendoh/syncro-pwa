@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteFromArray, upsert } from 'endoh-utils'
 import { FollowDto } from '../../../types/domain/follow/FollowDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 const useToggleFollowMutation = () => {

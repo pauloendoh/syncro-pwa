@@ -3,7 +3,7 @@ import { AxiosError } from 'axios'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { queryKeys } from '../../../utils/queryKeys'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 const PAGE_SIZE = 10

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { MutualSavedItemDto } from './types/MutualSavedItemDto'
 
 // PE 1/3 keep only this one

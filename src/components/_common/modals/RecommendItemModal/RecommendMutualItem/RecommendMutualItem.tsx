@@ -6,7 +6,7 @@ import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-it
 import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { SyncroItemType } from '../../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import { urls } from '../../../../../utils/urls'
+import { urls } from '../../../../../utils/urls/urls'
 import { getRatingSimilarityLabel } from '../../../../ExplorePageContent/SimilarUserList/getRatingSimilarityLabel/getRatingSimilarityLabel'
 import UserProfilePicture from '../../../UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../../flex/FlexCol'

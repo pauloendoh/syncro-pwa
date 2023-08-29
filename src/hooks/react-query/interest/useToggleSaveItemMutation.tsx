@@ -5,7 +5,7 @@ import { deleteFromArray } from 'endoh-utils/dist/array'
 import MyNextLink from '../../../components/_common/overrides/MyNextLink'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import useAuthStore from '../../zustand/useAuthStore'
 

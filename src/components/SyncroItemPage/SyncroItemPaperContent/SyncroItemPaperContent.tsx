@@ -4,7 +4,7 @@ import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-ite
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { getItemTitleAndYear } from '../../../utils/domains/syncro-item/getItemTitleAndYear'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import ImageSyncroItemPage from '../ImageSyncroItemPage/ImageSyncroItemPage'

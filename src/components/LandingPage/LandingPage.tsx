@@ -1,7 +1,7 @@
 import { Box, Button, Center, Container, Divider } from '@mantine/core'
 import { FaGooglePlay } from 'react-icons/fa'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
-import { urls } from '../../utils/urls'
+import { urls } from '../../utils/urls/urls'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import MyNextLink from '../_common/overrides/MyNextLink'

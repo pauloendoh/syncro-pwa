@@ -8,7 +8,7 @@ import { useMyFeedbackQuery } from '../../../../../hooks/react-query/feedback/us
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
 import useFeedbackModalStore from '../../../../../hooks/zustand/modals/useFeedbackModalStore'
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
-import { urls } from '../../../../../utils/urls'
+import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
 
 type Props = {}

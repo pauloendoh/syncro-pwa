@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
 import { RatingSimilarityByTypeDto } from '../../../types/domain/rating/RatingSimilarityByTypeDto'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import useAuthStore from '../../zustand/useAuthStore'
 
 export const useUserRecommendationsForMeQuery = () => {

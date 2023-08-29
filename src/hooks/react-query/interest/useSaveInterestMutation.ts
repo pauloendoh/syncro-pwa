@@ -3,7 +3,7 @@ import { upsert } from 'endoh-utils'
 import { deleteFromArray } from 'endoh-utils/dist/array'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 const useSaveInterestMutation = () => {

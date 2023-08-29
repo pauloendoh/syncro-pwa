@@ -2,7 +2,7 @@ import { Button } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { MessageRoomDto } from '../../../../hooks/react-query/message/types/MessageRoomDto'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
 
 type Props = {

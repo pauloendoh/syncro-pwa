@@ -13,7 +13,7 @@ import useUpdateConnectorsMutation from '../../../../hooks/react-query/connector
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useConnectorsModalStore from '../../../../hooks/zustand/modals/useConnectorsModalStore'
 import { QueryParams } from '../../../../utils/queryParams'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import { connectorOptions } from '../../../SettingsPage/ImportRatingsPage/ConnectorsSection/connectorOptions/connectorOptions'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ProfileDto } from '../../../types/domain/profile/ProfileDto'
 import { ProfilePutDto } from '../../../types/domain/profile/ProfilePutDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import useAuthStore from '../../zustand/useAuthStore'
 

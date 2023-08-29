@@ -1,7 +1,7 @@
 import { Box } from '@mantine/core'
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import FollowUnfollowButton from '../../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
 import FlexCol from '../../../_common/flex/FlexCol'
 import UserImage from '../../../_common/image/SyncroItemImage/UserImage/UserImage'

@@ -11,7 +11,7 @@ import {
   syncroItemTypes,
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { localStorageKeys } from '../../utils/consts/localStorageKeys'
-import { urls } from '../../utils/urls'
+import { urls } from '../../utils/urls/urls'
 import GridPlannedItemsV2 from '../HomePage/PlannedItemsHomeSection/GridPlannedItemsV2/GridPlannedItemsV2'
 import PlannedItemTypeButton from '../HomePage/PlannedItemsHomeSection/PlannedItemTypeButton/PlannedItemTypeButton'
 import { isSyncroItemType } from '../SearchPageContent/isSyncroItemType/isSyncroItemType'

@@ -1,7 +1,7 @@
 import { Flex, Title } from '@mantine/core'
 import { useMyColors } from '../../../hooks/useMyColors'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import FavoriteScenesSection from '../../HomePage/HomeRatingItem/FavoriteScenesSection/FavoriteScenesSection'
 import HomeRatingItemReview from '../../HomePage/HomeRatingItem/HomeRatingItemReview/HomeRatingItemReview'
 import FlexCol from '../../_common/flex/FlexCol'

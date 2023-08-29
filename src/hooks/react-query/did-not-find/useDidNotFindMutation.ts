@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 const useDidNotFindMutation = () => {

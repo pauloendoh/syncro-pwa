@@ -1,5 +1,5 @@
 import { Button } from '@mantine/core'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyNextLink from '../../overrides/MyNextLink'
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import nookies from '../../../utils/nookies'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { useMyRouterQuery } from '../../useMyRouterQuery'
 import useAuthStore from '../../zustand/useAuthStore'

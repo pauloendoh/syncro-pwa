@@ -3,7 +3,7 @@ import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useS
 import { FavoriteItemDto } from '../../../../hooks/react-query/favorite-item/types/FavoriteItemDto'
 import { useUserItemsQuery } from '../../../../hooks/react-query/user-item/useUserItemsQuery'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import FlexCol from '../../../_common/flex/FlexCol'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 import Span from '../../../_common/text/Span'

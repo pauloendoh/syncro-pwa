@@ -1,7 +1,7 @@
 import { Box, Container, ScrollArea, Tabs, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { ExploreSlug, useMyRouterQuery } from '../../hooks/useMyRouterQuery'
-import { urls } from '../../utils/urls'
+import { urls } from '../../utils/urls/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MostRatedExploreSection from './MostRatedExploreSection/MostRatedExploreSection'

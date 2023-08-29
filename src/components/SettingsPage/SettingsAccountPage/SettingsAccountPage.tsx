@@ -1,6 +1,7 @@
-import { Box, Title, useMantineTheme } from '@mantine/core'
+import { Box, useMantineTheme } from '@mantine/core'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import SettingsLayout from '../SettingsLayout/SettingsLayout'
+import SettingsTitle from '../SettingsTitle/SettingsTitle'
 import ChangeScoringSystemSection from './ChangeScoringSystemSection/ChangeScoringSystemSection'
 import KeepUserForm from './KeepUserForm/KeepUserForm'
 
@@ -17,11 +18,10 @@ const SettingsAccountPage = (props: Props) => {
         <Box
           p={16}
           sx={{
-            background: theme.colors.dark[9],
             flexGrow: 1,
           }}
         >
-          <Title order={4}>Account</Title>
+          <SettingsTitle page="account" />
           <Box mt={24}>
             {!!authUser?.userExpiresAt ? (
               <KeepUserForm />

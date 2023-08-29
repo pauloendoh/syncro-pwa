@@ -4,7 +4,7 @@ import {
   buildSyncroItemDto,
 } from '../../../types/domain/syncro-item/SyncroItemDto'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 export const useSyncroItemDetailsQuery = (

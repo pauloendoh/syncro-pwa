@@ -1,6 +1,6 @@
 import { MessageDto } from '../hooks/react-query/message/types/MessageDto'
 import { webPushMessageTypes } from '../utils/consts/webPushMessageTypes'
-import { urls } from '../utils/urls'
+import { urls } from '../utils/urls/urls'
 import { util } from './util'
 
 declare let self: ServiceWorkerGlobalScope

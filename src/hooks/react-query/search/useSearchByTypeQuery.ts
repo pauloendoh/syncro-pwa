@@ -4,7 +4,7 @@ import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 import { isSyncroItemType } from '../../../components/SearchPageContent/isSyncroItemType/isSyncroItemType'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 
 export const useSearchByTypeQuery = (
   query: string,

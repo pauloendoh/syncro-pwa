@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { FollowDto } from '../../../types/domain/follow/FollowDto'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 
 export const useFollowingUsersQuery = (userId: string) => {
   return useQuery<FollowDto[], AxiosError>(

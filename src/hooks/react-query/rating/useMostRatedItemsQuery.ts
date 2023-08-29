@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Period } from '../../../components/ExplorePageContent/MostRatedExploreSection/MostRatedExploreSection'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 
 export function useMostRatedItemsQuery(params: {
   period: Period

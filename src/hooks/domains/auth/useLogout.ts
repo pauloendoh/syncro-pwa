@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import useConfirmationModalStore from '../../zustand/modals/useConfirmationModalStore'
 import useAuthStore, { resetAuthStore } from '../../zustand/useAuthStore'
 

@@ -6,7 +6,7 @@ import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import { cookieKeys } from '../../utils/consts/cookieKeys'
 import { getItemTitleAndYear } from '../../utils/domains/syncro-item/getItemTitleAndYear'
 import nookies from '../../utils/nookies'
-import { urls } from '../../utils/urls'
+import { urls } from '../../utils/urls/urls'
 
 interface Props {
   item: SyncroItemDto | null

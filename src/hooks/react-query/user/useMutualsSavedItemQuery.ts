@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { MutualSavedItemDto } from './types/MutualSavedItemDto'
 
 export const useUsersToRecommendQuery = (itemId?: string) => {

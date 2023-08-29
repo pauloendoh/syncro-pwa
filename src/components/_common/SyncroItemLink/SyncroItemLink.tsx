@@ -6,7 +6,7 @@ import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { cookieKeys } from '../../../utils/consts/cookieKeys'
 import nookies from '../../../utils/nookies'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import SyncroItemPaperContent from '../../SyncroItemPage/SyncroItemPaperContent/SyncroItemPaperContent'
 import MyNextLink from '../overrides/MyNextLink'
 

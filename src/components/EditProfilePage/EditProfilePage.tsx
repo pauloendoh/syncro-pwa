@@ -5,7 +5,7 @@ import useUpdateProfileMutation from '../../hooks/react-query/profile/useUpdateP
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { ProfilePutDto } from '../../types/domain/profile/ProfilePutDto'
-import { urls } from '../../utils/urls'
+import { urls } from '../../utils/urls/urls'
 import FlexCol from '../_common/flex/FlexCol'
 import MyTextInput from '../_common/inputs/MyTextInput'
 import SaveCancelButtons from '../_common/inputs/SaveCancelButtons'

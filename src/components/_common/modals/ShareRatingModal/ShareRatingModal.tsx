@@ -13,7 +13,7 @@ import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { myNotifications } from '../../../../utils/mantine/myNotifications'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 

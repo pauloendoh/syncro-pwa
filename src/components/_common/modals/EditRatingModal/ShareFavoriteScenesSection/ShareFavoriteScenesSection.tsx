@@ -4,7 +4,7 @@ import { Flex, Text } from '@mantine/core'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
 import { MdImage } from 'react-icons/md'
 import { FavoriteSceneDto } from '../../../../../types/domain/rating/types/FavoriteSceneDto'
-import { urls } from '../../../../../utils/urls'
+import { urls } from '../../../../../utils/urls/urls'
 import { useAxios } from '../../../../../utils/useAxios'
 import FlexCol from '../../../flex/FlexCol'
 

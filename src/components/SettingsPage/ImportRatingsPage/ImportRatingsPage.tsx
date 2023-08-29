@@ -1,4 +1,4 @@
-import { Box, Title, useMantineTheme } from '@mantine/core'
+import { Box, useMantineTheme } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { useSettingsQuery } from '../../../hooks/react-query/user-settings/useSettingsQuery'
@@ -7,6 +7,7 @@ import useImportRatingsModalStore from '../../../hooks/zustand/modals/useImportR
 import FlexCol from '../../_common/flex/FlexCol'
 import MyTextLink from '../../_common/text/MyTextLink/MyTextLink'
 import SettingsLayout from '../SettingsLayout/SettingsLayout'
+import SettingsTitle from '../SettingsTitle/SettingsTitle'
 
 type Props = {}
 
@@ -37,7 +38,7 @@ const ImportRatingsPage = (props: Props) => {
     <SettingsLayout
       rightContent={
         <Box>
-          <Title order={4}>Import ratings</Title>
+          <SettingsTitle page="import-ratings" />
           <Box mt={16}>
             <FlexCol>
               <Box>

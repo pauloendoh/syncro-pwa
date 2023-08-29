@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { SetStateAction } from 'react'
 import useSearchStore from '../../../../../../hooks/zustand/useSearchStore'
-import { urls } from '../../../../../../utils/urls'
+import { urls } from '../../../../../../utils/urls/urls'
 
 export const useSubmitSearchBar = (params: {
   input: string

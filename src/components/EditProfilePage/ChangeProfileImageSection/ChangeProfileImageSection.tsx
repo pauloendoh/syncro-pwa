@@ -3,7 +3,7 @@ import { ChangeEvent, createRef, useState } from 'react'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import FlexCol from '../../_common/flex/FlexCol'
 

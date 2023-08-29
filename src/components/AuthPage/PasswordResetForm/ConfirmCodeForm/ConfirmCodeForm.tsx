@@ -1,7 +1,7 @@
 import { Text } from '@mantine/core'
 import { useState } from 'react'
 import usePasswordResetStore from '../../../../hooks/zustand/usePasswordResetStore'
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import FlexCol from '../../../_common/flex/FlexCol'
 import MyTextInput from '../../../_common/inputs/MyTextInput'

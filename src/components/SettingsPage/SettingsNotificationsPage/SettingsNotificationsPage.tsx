@@ -1,4 +1,4 @@
-import { Box, Checkbox, Table, Title, useMantineTheme } from '@mantine/core'
+import { Box, Checkbox, Table, useMantineTheme } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { MdEmail } from 'react-icons/md'
@@ -6,6 +6,7 @@ import { useSettingsQuery } from '../../../hooks/react-query/user-settings/useSe
 import useUpdateSettingsMutation from '../../../hooks/react-query/user-settings/useUpdateSettingsMutation'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SettingsLayout from '../SettingsLayout/SettingsLayout'
+import SettingsTitle from '../SettingsTitle/SettingsTitle'
 
 type Props = {}
 
@@ -38,11 +39,10 @@ const SettingsNotificationsPage = (props: Props) => {
         <Box
           p={16}
           sx={{
-            background: theme.colors.dark[9],
             flexGrow: 1,
           }}
         >
-          <Title order={4}>Notifications</Title>
+          <SettingsTitle page="notifications" />
 
           <Table
             sx={{

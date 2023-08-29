@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { urls } from '../../../../utils/urls'
+import { urls } from '../../../../utils/urls/urls'
 import useAuthStore from '../../../zustand/useAuthStore'
 import { OverallUserSimilarityDto } from './types/UserSimilarityDto'
 

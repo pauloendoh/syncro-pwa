@@ -2,7 +2,7 @@ import { Button } from '@mantine/core'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import Span from '../../_common/text/Span'
 

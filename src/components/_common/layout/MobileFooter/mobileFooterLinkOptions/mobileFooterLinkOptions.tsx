@@ -11,7 +11,7 @@ import {
 } from 'react-icons/md'
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
-import { urls } from '../../../../../utils/urls'
+import { urls } from '../../../../../utils/urls/urls'
 import UserImage from '../../../image/SyncroItemImage/UserImage/UserImage'
 
 type Option = {

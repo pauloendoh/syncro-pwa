@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { FavoriteItemDto } from './types/FavoriteItemDto'
 
 export const useFavoriteItemsQuery = (params: { userId?: string } = {}) => {

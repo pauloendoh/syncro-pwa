@@ -1,6 +1,6 @@
 import { Box, Tooltip } from '@mantine/core'
 import { MdRemoveRedEye } from 'react-icons/md'
-import { urls } from '../../../../../utils/urls'
+import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
 
 type Props = {

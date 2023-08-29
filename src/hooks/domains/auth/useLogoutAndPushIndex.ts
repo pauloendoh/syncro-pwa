@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { resetAuthStore } from '../../zustand/useAuthStore'
 
 export const useLogoutAndPushIndex = () => {

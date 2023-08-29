@@ -1,7 +1,7 @@
 import { PhotoSlider } from 'react-photo-view'
 import { useQueryParams } from '../../../hooks/useQueryParams'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 

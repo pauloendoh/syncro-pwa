@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteFromArray } from 'endoh-utils/dist/array'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
 const useDeleteRatingMutation = () => {

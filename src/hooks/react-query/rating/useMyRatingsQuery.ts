@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 import useAuthStore from '../../zustand/useAuthStore'
 
 export const useMyRatingsQuery = () => {

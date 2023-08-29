@@ -1,14 +1,15 @@
 import qs from 'query-string'
-import { ExploreSlug } from '../hooks/useMyRouterQuery'
-import { SearchParams } from '../types/domain/search/SearchParams'
+import { ExploreSlug } from '../../hooks/useMyRouterQuery'
+import { SearchParams } from '../../types/domain/search/SearchParams'
 import {
   SyncroItemType,
   SyncroItemTypeAll,
-} from '../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+} from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
-import { MostRatedItemsQueryParams } from '../hooks/react-query/rating/types/MostRatedItemsQueryParams'
-import { ItemRatedByModalType } from '../hooks/zustand/modals/useItemRatedByModalStore'
-import { myEnvs } from './myEnvs'
+import { MostRatedItemsQueryParams } from '../../hooks/react-query/rating/types/MostRatedItemsQueryParams'
+import { ItemRatedByModalType } from '../../hooks/zustand/modals/useItemRatedByModalStore'
+import { myEnvs } from '../myEnvs'
+import { SettingsPageType } from './types/SettingsPageType'
 
 const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
 
@@ -45,9 +46,7 @@ export const urls = {
     messagesIndex: '/messages',
     messageRoom: (roomId: string) => `/messages/${roomId}`,
 
-    settings: (
-      page: 'import-ratings' | 'account' | 'notifications' = 'account'
-    ) => `/settings/${page}`,
+    settings: (page: SettingsPageType = 'account') => `/settings/${page}`,
   },
   api: {
     register: (pushToken: string | null) =>

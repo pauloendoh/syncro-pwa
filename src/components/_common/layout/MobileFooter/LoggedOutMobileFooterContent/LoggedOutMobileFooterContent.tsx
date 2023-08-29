@@ -1,7 +1,7 @@
 import { Center, Title, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { MdSearch } from 'react-icons/md'
-import { urls } from '../../../../../utils/urls'
+import { urls } from '../../../../../utils/urls/urls'
 import FlexVCenter from '../../../flex/FlexVCenter'
 import MyNextLink from '../../../overrides/MyNextLink'
 import NavbarSignButtons from '../../NavbarSignButtons/NavbarSignButtons'

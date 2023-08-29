@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { queryKeys } from '../../../utils/queryKeys'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 
 export const useTimelineHasNewsQuery = (
   userId?: string,

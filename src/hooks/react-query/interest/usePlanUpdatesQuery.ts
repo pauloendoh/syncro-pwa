@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
 
-import { urls } from '../../../utils/urls'
+import { urls } from '../../../utils/urls/urls'
 
 export const usePlanUpdatesQuery = (userId?: string) => {
   return useQuery<InterestDto[], Error>([urls.api.planUpdates], {

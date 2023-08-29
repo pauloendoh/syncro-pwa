@@ -6,7 +6,7 @@ import { MdMail, MdMailOutline } from 'react-icons/md'
 import { useUnreadMessageRoomsQuery } from '../../../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
-import { urls } from '../../../../../utils/urls'
+import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
 
 const NavbarRightIcons = () => {
