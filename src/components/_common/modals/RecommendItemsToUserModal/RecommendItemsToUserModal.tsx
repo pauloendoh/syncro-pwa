@@ -1,4 +1,5 @@
 import { Box, Flex, Modal, ScrollArea, Tabs, Title } from '@mantine/core'
+import { useDebouncedState } from '@mantine/hooks'
 import { useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsToRecommendQuery } from '../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
@@ -6,6 +7,8 @@ import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemsToUserModalStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import textContainsWords from '../../../../utils/text/textContainsWords'
+import MyTextInput from '../../inputs/MyTextInput'
 import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
 import ItemToRecommendOption from './ItemToRecommendOption/ItemToRecommendOption'
 import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
@@ -25,9 +28,13 @@ const RecommendItemsToUserModal = () => {
     itemType.itemType
   )
 
+  const [debouncedText, setDebouncedText] = useDebouncedState('', 250)
   const sortedItemsToRecommend = useMemo(
-    () => itemsToRecommend?.sort((a, b) => b.myRating - a.myRating) || [],
-    [itemsToRecommend]
+    () =>
+      itemsToRecommend
+        ?.filter((item) => textContainsWords(item.item.title, debouncedText))
+        .sort((a, b) => b.myRating - a.myRating) || [],
+    [itemsToRecommend, debouncedText]
   )
 
   const { isMobile } = useMyMediaQuery()
@@ -63,11 +70,18 @@ const RecommendItemsToUserModal = () => {
             ))}
           </Tabs.List>
 
+          <MyTextInput
+            mt={8}
+            onChange={(e) => setDebouncedText(e.currentTarget.value)}
+            placeholder={'Search for a title'}
+            pb={4}
+          />
+
           <ScrollArea.Autosize
-            mt={16}
-            mah={isMobile ? 'calc(100vh - 120px)' : 'calc(100vh - 240px)'}
+            mt={4}
+            mah={isMobile ? 'calc(100vh - 176px)' : 'calc(100vh - 260px)'}
           >
-            <Flex gap={isMobile ? 8 : 16} pr={16} wrap={'wrap'}>
+            <Flex gap={8} pr={16} wrap={'wrap'}>
               {isLoading && <CenterLoader width={'100%'} />}
               {sortedItemsToRecommend?.map((item) => (
                 <ItemToRecommendOption
