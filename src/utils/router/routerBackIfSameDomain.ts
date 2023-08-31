@@ -5,13 +5,22 @@ import Router, { useRouter } from 'next/router'
  * If I go from twitter -> syncro modal -> close modal (should work ok) -> back to last page (opens modal) -> close modal goes to twitter
  * I want to replicate https://twitter.com/compose/tweet
  */
-export const routerBackIfSameDomainOrClearQueryParam = (queryParam: string) => {
+export const routerBackIfSameDomainOrClearQueryParam = (
+  queryParam: string,
+  options?: {
+    backTwice: boolean
+  }
+) => {
   const closeRedirect = () => {
     delete Router.query[queryParam]
     Router.replace(Router, undefined, { scroll: false, shallow: true })
   }
 
   closeRedirect()
+
+  // if (options?.backTwice) {
+  Router.back()
+  // }
 }
 
 export const useMyRouterBack = (queryParam: string) => {

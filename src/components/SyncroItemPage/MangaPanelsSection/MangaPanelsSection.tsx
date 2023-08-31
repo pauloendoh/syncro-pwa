@@ -5,6 +5,7 @@ import { PhotoSlider } from 'react-photo-view'
 import { useMangaPanelsQuery } from '../../../hooks/react-query/manga/useMangaPanelsQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
+import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 
@@ -43,8 +44,7 @@ const MangaPanelsSection = (props: Props) => {
 
   const handleClose = () => {
     setIndex(null)
-    delete router.query[queryParam]
-    router.push(router, undefined, { scroll: false })
+    routerBackIfSameDomainOrClearQueryParam(queryParam)
   }
 
   useEffect(() => {
