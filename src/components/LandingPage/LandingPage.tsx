@@ -1,4 +1,13 @@
-import { Box, Button, Center, Container, Divider } from '@mantine/core'
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  Divider,
+  useMantineTheme,
+} from '@mantine/core'
+import { useWindowScroll } from '@mantine/hooks'
+import { useMemo } from 'react'
 import { FaGooglePlay } from 'react-icons/fa'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls/urls'
@@ -12,8 +21,24 @@ type Props = {}
 
 const LandingPage = ({ ...props }: Props) => {
   const { isMobile } = useMyMediaQuery()
+
+  const [scroll] = useWindowScroll()
+
+  const headerBgColor = useMemo(() => {
+    return `rgb(27 27 27 / ${scroll.y / 2}%) `
+  }, [scroll.y])
+
+  const theme = useMantineTheme()
+
   return (
-    <div className="LandingPage">
+    <Box
+      className="LandingPage"
+      sx={{
+        header: {
+          backgroundColor: headerBgColor,
+        },
+      }}
+    >
       {/* fixed header */}
       <header
         style={{
@@ -121,7 +146,7 @@ const LandingPage = ({ ...props }: Props) => {
           </Box>
         </Container>
       </Box>
-    </div>
+    </Box>
   )
 }
 

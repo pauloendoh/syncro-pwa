@@ -18,8 +18,9 @@ export const routerBackIfSameDomainOrClearQueryParam = (
 
   closeRedirect()
 
+  // make an array of urls for useHistory ... beforeHistoryChange
   // if (options?.backTwice) {
-  Router.back()
+  // Router.back()
   // }
 }
 
