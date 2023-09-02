@@ -42,6 +42,12 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
     <tr key={item.id}>
       <td>
         <SyncroItemLink item={item}>
+          <SyncroItemImage item={item} width={48} forceHeight={48} />
+        </SyncroItemLink>
+      </td>
+
+      <td>
+        <SyncroItemLink item={item}>
           {item.title}
           {item.ratings?.[0]?.isPrivate && (
             <Tooltip label="This rating is private" withArrow>
@@ -55,11 +61,6 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
               </span>
             </Tooltip>
           )}
-        </SyncroItemLink>
-      </td>
-      <td>
-        <SyncroItemLink item={item}>
-          <SyncroItemImage item={item} width={48} forceHeight={48} />
         </SyncroItemLink>
       </td>
 
