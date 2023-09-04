@@ -52,7 +52,11 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
         </SyncroItemLink>
       </td>
 
-      <td>
+      <td
+        style={{
+          width: '100%',
+        }}
+      >
         <SyncroItemLink item={item}>
           <Text size="sm">
             {item.title}
