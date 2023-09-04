@@ -30,6 +30,7 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
             <FavoriteItem
               key={item.id}
               item={item}
+              width={133}
               alwaysShowTitle
               onClose={() =>
                 submitIgnore({
