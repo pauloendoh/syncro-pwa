@@ -41,6 +41,9 @@ const UserItemsMdTable = ({ ...props }: Props) => {
         'td, th': {
           padding: '0.4375rem 0.625rem',
         },
+        th: {
+          backgroundColor: theme.colors.dark[6],
+        },
       }}
     >
       <TableVirtuoso
