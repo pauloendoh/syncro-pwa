@@ -1,7 +1,7 @@
-import { useMantineTheme } from '@mantine/core'
+import { ActionIcon, Tooltip, useMantineTheme } from '@mantine/core'
 import { FloatingPosition } from '@mantine/core/lib/Floating'
 import { useMemo, useState } from 'react'
-import { MdStar } from 'react-icons/md'
+import { MdClose, MdStar } from 'react-icons/md'
 import { useMyRatingsQuery } from '../../../../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyColors } from '../../../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../../../hooks/useMyMediaQuery'
@@ -22,6 +22,8 @@ type Props = {
   alwaysShowTitle?: boolean
   showAvgRating?: boolean
   disablePreview?: boolean
+  onClose?: () => void
+  onCloseTooltip?: string
 }
 
 const FavoriteItem = (props: Props) => {
@@ -41,6 +43,10 @@ const FavoriteItem = (props: Props) => {
   const myRatingValue = useMemo(() => {
     return myRatings?.find((r) => r.syncroItemId === props.item.id)?.ratingValue
   }, [myRatings, props.item.id])
+
+  const hasCornerInfo = useMemo(() => {
+    return !!myRatingValue || !!props.showAvgRating || !!props.onClose
+  }, [])
 
   return (
     <SyncroItemLink
@@ -77,7 +83,7 @@ const FavoriteItem = (props: Props) => {
           </Span>
         )}
 
-        {props.showAvgRating && !!itemFinalRating.avgRating && (
+        {hasCornerInfo && (
           <FlexCol
             gap={2}
             sx={{
@@ -88,29 +94,55 @@ const FavoriteItem = (props: Props) => {
               width: 'fit-content',
               padding: 4,
               paddingTop: 2,
-
               borderRadius: '0 0 0 8px',
             }}
           >
-            <FlexVCenter>
-              <MdStar color={ratingYellow} />
-              <Span color={ratingYellow} size="xs" align="center" w={15}>
-                {itemFinalRating.avgRating}
-              </Span>
-            </FlexVCenter>
-            {!!myRatingValue && (
-              <FlexVCenter>
-                <MdStar color={theme.colors.secondary[9]} />
-                <Span
-                  color={theme.colors.secondary[9]}
-                  size="xs"
-                  align="center"
-                  w={15}
-                >
-                  {myRatingValue}
-                </Span>
-              </FlexVCenter>
-            )}
+            {
+              <>
+                {props.showAvgRating && (
+                  <FlexVCenter>
+                    <MdStar color={ratingYellow} />
+                    <Span color={ratingYellow} size="xs" align="center" w={15}>
+                      {itemFinalRating.avgRating}
+                    </Span>
+                  </FlexVCenter>
+                )}
+
+                {!!myRatingValue && (
+                  <FlexVCenter>
+                    <MdStar color={theme.colors.secondary[9]} />
+                    <Span
+                      color={theme.colors.secondary[9]}
+                      size="xs"
+                      align="center"
+                      w={15}
+                    >
+                      {myRatingValue}
+                    </Span>
+                  </FlexVCenter>
+                )}
+                {props.onClose && (
+                  <Tooltip
+                    label={props.onCloseTooltip}
+                    disabled={!props.onCloseTooltip}
+                    withArrow
+                  >
+                    <ActionIcon
+                      sx={{
+                        paddingLeft: 4,
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        props.onClose?.()
+                      }}
+                    >
+                      <MdClose />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+              </>
+            }
           </FlexCol>
         )}
       </div>

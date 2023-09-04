@@ -207,6 +207,7 @@ export const urls = {
     itemRecommendationsForMe: (itemType: SyncroItemType) =>
       '/item-recommendations-for-me?' + qs.stringify({ itemType }),
     userRecommendationsForMe: '/user-recommendations-for-me',
+    ignoreItemRecommendation: '/ignore-recommendation',
     importConnectors: '/import-connectors',
     importConnectorsValidate: (params: { connector: string; url: string }) =>
       `/import-connectors/validate?${qs.stringify(params)}`,

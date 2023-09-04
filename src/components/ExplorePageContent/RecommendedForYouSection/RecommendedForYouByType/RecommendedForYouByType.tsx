@@ -1,5 +1,6 @@
 import { Flex, ScrollArea, Title } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import useIgnoreItemRecommendationMutation from '../../../../hooks/react-query/item-recommendation/useIgnoreItemRecommendationMutation'
 import { useItemRecommendationsForMeQuery } from '../../../../hooks/react-query/item-recommendation/useItemRecommendationsForMeQuery'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FavoriteItem from '../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
@@ -17,6 +18,7 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
   })
 
   const { data, isLoading } = useItemRecommendationsForMeQuery(props.type)
+  const { mutate: submitIgnore } = useIgnoreItemRecommendationMutation()
 
   return (
     <FlexCol className="RecommendedForYouByType" gap={16}>
@@ -29,7 +31,13 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
               key={item.id}
               item={item}
               alwaysShowTitle
-              showAvgRating
+              onClose={() =>
+                submitIgnore({
+                  itemId: item.id,
+                  itemType: props.type,
+                })
+              }
+              onCloseTooltip="Ignore this recommendation"
             />
           ))}
           {data?.length === 0 && <Span>No recommendations for you yet</Span>}
