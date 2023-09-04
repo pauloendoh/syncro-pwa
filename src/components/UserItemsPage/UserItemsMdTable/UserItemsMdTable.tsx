@@ -28,16 +28,14 @@ const UserItemsMdTable = ({ ...props }: Props) => {
           {
             textAlign: 'center',
           },
+        table: {
+          border: '1px solid #444 !important',
+        },
 
-        '& td, & th': {
-          borderTop: 'none !important',
+        '& td': {
+          borderTop: '1px solid #444 !important',
         },
-        '& th': {
-          borderBottom: 'none !important',
-        },
-        'tbody > tr:nth-child(odd)': {
-          backgroundColor: theme.colors.dark[5],
-        },
+
         'td, th': {
           padding: '0.4375rem 0.625rem',
         },
