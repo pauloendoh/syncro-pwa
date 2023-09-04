@@ -24,6 +24,7 @@ type Props = {
   disablePreview?: boolean
   onClose?: () => void
   onCloseTooltip?: string
+  showMyRating?: boolean
 }
 
 const FavoriteItem = (props: Props) => {
@@ -45,7 +46,7 @@ const FavoriteItem = (props: Props) => {
   }, [myRatings, props.item.id])
 
   const hasCornerInfo = useMemo(() => {
-    return !!myRatingValue || !!props.showAvgRating || !!props.onClose
+    return !!props.showMyRating || !!props.showAvgRating || !!props.onClose
   }, [])
 
   return (
@@ -108,7 +109,7 @@ const FavoriteItem = (props: Props) => {
                   </FlexVCenter>
                 )}
 
-                {!!myRatingValue && (
+                {!!myRatingValue && props.showMyRating && (
                   <FlexVCenter>
                     <MdStar color={theme.colors.secondary[9]} />
                     <Span

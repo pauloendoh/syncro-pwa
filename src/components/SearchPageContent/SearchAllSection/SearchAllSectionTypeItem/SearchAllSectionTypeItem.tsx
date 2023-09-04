@@ -99,6 +99,7 @@ const SearchAllSectionTypeItem = (props: Props) => {
               width={isMobile ? 104 : 116}
               alwaysShowTitle
               showAvgRating
+              showMyRating
             />
           ))}
         </Flex>
