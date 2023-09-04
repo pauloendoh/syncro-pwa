@@ -74,12 +74,12 @@ const UserItemsPage = () => {
                 <UserItemsViewSelector value={view} onChange={setView} />
               </FlexVCenter>
 
-              <Text size="lg" mt={24}>
+              <Text size="lg" mt={8}>
                 {items?.length} items
               </Text>
 
               {view === 'md' && (
-                <Box mt={24}>
+                <Box mt={8}>
                   <UserItemsMdTable
                     items={finalItems}
                     thisIsYourList={thisIsYourList}

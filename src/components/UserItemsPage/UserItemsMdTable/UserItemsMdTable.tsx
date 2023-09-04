@@ -39,6 +39,9 @@ const UserItemsMdTable = ({ ...props }: Props) => {
         'td, th': {
           padding: '0.4375rem 0.625rem',
         },
+        '& td:nth-child(2), & th:nth-child(2)': {
+          paddingLeft: '0.3125rem',
+        },
         th: {
           backgroundColor: theme.colors.dark[6],
         },
