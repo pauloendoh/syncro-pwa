@@ -32,6 +32,7 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
               item={item}
               width={133}
               alwaysShowTitle
+              showAvgRating
               onClose={() =>
                 submitIgnore({
                   itemId: item.id,
