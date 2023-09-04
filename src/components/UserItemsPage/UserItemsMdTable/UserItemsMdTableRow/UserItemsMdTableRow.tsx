@@ -1,4 +1,10 @@
-import { ActionIcon, Center, Tooltip, useMantineTheme } from '@mantine/core'
+import {
+  ActionIcon,
+  Center,
+  Text,
+  Tooltip,
+  useMantineTheme,
+} from '@mantine/core'
 import { useMemo } from 'react'
 import { MdLock, MdRateReview, MdStar } from 'react-icons/md'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
@@ -39,7 +45,7 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
   const theme = useMantineTheme()
 
   return (
-    <tr key={item.id}>
+    <>
       <td>
         <SyncroItemLink item={item}>
           <SyncroItemImage item={item} width={48} forceHeight={48} />
@@ -48,19 +54,21 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
 
       <td>
         <SyncroItemLink item={item}>
-          {item.title}
-          {item.ratings?.[0]?.isPrivate && (
-            <Tooltip label="This rating is private" withArrow>
-              <span
-                style={{
-                  position: 'relative',
-                  top: 2,
-                }}
-              >
-                <MdLock style={{ fontSize: 16 }} />
-              </span>
-            </Tooltip>
-          )}
+          <Text size="sm">
+            {item.title}
+            {item.ratings?.[0]?.isPrivate && (
+              <Tooltip label="This rating is private" withArrow>
+                <span
+                  style={{
+                    position: 'relative',
+                    top: 2,
+                  }}
+                >
+                  <MdLock style={{ fontSize: 16 }} />
+                </span>
+              </Tooltip>
+            )}
+          </Text>
         </SyncroItemLink>
       </td>
 
@@ -79,7 +87,7 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
         thisIsYourRating
         itemId={item.id}
       />
-    </tr>
+    </>
   )
 }
 

@@ -1,4 +1,5 @@
-import { Table } from '@mantine/core'
+import { Box, useMantineTheme } from '@mantine/core'
+import { TableVirtuoso } from 'react-virtuoso'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
@@ -17,29 +18,52 @@ const UserItemsMdTable = ({ ...props }: Props) => {
 
   const { authUser } = useAuthStore()
   const { data: authUserInfo } = useUserInfoQuery(authUser?.id)
+  const theme = useMantineTheme()
 
   return (
-    <div className="UserItemsMdTable">
-      <Table
-        sx={{
-          '& td:nth-child(3), & td:nth-child(4), & th:nth-child(3), & th:nth-child(4)':
-            {
-              textAlign: 'center',
-            },
+    <Box
+      className="UserItemsMdTable"
+      sx={{
+        '& td:nth-child(3), & td:nth-child(4), & th:nth-child(3), & th:nth-child(4)':
+          {
+            textAlign: 'center',
+          },
 
-          '& td, & th': {
-            borderTop: 'none !important',
-          },
-          '& th': {
-            borderBottom: 'none !important',
-          },
-        }}
-        striped
-      >
-        <thead>
+        '& td, & th': {
+          borderTop: 'none !important',
+        },
+        '& th': {
+          borderBottom: 'none !important',
+        },
+        'tbody > tr:nth-child(odd)': {
+          backgroundColor: theme.colors.dark[5],
+        },
+        'td, th': {
+          padding: '0.4375rem 0.625rem',
+        },
+      }}
+    >
+      <TableVirtuoso
+        // sx={{
+        //   '& td:nth-child(3), & td:nth-child(4), & th:nth-child(3), & th:nth-child(4)':
+        //     {
+        //       textAlign: 'center',
+        //     },
+
+        //   '& td, & th': {
+        //     borderTop: 'none !important',
+        //   },
+        //   '& th': {
+        //     borderBottom: 'none !important',
+        //   },
+        // }}
+        // striped
+        data={props.items}
+        useWindowScroll
+        fixedHeaderContent={() => (
           <tr>
             <th />
-            <th>Title</th>
+            <th align="left">Title</th>
             {!props.thisIsYourList && (
               <th>
                 <UserImage
@@ -55,18 +79,16 @@ const UserItemsMdTable = ({ ...props }: Props) => {
               />
             </th>
           </tr>
-        </thead>
-        <tbody>
-          {props.items.map((item) => (
-            <UserItemsMdTableRow
-              item={item}
-              key={item.id}
-              thisIsYourList={props.thisIsYourList}
-            />
-          ))}
-        </tbody>
-      </Table>
-    </div>
+        )}
+        itemContent={(index, item) => (
+          <UserItemsMdTableRow
+            item={item}
+            key={item.id}
+            thisIsYourList={props.thisIsYourList}
+          />
+        )}
+      />
+    </Box>
   )
 }
 

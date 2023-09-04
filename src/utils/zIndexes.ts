@@ -1,5 +1,5 @@
 export const zIndexes = {
-  navbarFooter: 1,
+  navbarFooter: 10,
   loadingPageOverlay: 1001,
   confirmationModal: 1000,
   editRatingModal: 999,
