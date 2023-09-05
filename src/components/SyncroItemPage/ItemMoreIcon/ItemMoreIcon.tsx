@@ -1,11 +1,18 @@
 import { ActionIcon, Menu, Tooltip } from '@mantine/core'
 import { useMemo } from 'react'
-import { MdEdit, MdMoreHoriz, MdShare, MdStarOutline } from 'react-icons/md'
+import {
+  MdEdit,
+  MdMoreHoriz,
+  MdOutlineInfo,
+  MdShare,
+  MdStarOutline,
+} from 'react-icons/md'
 import { RxUpdate } from 'react-icons/rx'
 import { useMyRatingsQuery } from '../../../hooks/react-query/rating/useMyRatingsQuery'
 import useUpdateItemAvgRatingMutation from '../../../hooks/react-query/syncro-item/useUpdateItemAvgRatingMutation'
 import { useEditItemModalStore } from '../../../hooks/zustand/modals/useEditItemModal'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
+import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useShareRatingModalStore from '../../../hooks/zustand/modals/useShareRatingModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
@@ -29,7 +36,7 @@ const ItemMoreIcon = (props: Props) => {
   const { openModal: openItemRatedByModal } = useItemRatedByModalStore()
 
   const { mutate: submitRefreshAvgRating } = useUpdateItemAvgRatingMutation()
-
+  const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
   const canRefreshRating = useMemo(() => {
     const isMovieOrSeries =
       props.item.type === 'movie' || props.item.type === 'tvSeries'
@@ -61,16 +68,7 @@ const ItemMoreIcon = (props: Props) => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        {authUser?.isAdmin && (
-          <Menu.Item
-            icon={<MdEdit />}
-            onClick={() => {
-              openModal(props.item)
-            }}
-          >
-            Edit (admin)
-          </Menu.Item>
-        )}
+        <Menu.Label>Info</Menu.Label>
         <Menu.Item
           icon={<MdShare />}
           onClick={() => {
@@ -78,18 +76,8 @@ const ItemMoreIcon = (props: Props) => {
             myNotifications.success("Item's url copied to clipboard!")
           }}
         >
-          Share item
+          Copy item URL
         </Menu.Item>
-        {youRated && (
-          <Menu.Item
-            icon={<MdShare />}
-            onClick={() => {
-              openShareRatingModal(youRated)
-            }}
-          >
-            Share your rating
-          </Menu.Item>
-        )}
         <Menu.Item
           icon={<MdStarOutline />}
           onClick={() => {
@@ -99,6 +87,30 @@ const ItemMoreIcon = (props: Props) => {
           Syncro ratings
         </Menu.Item>
 
+        {youRated && (
+          <>
+            <Menu.Divider />
+            <Menu.Label>Your rating</Menu.Label>
+            <Menu.Item
+              icon={<MdOutlineInfo />}
+              onClick={() => openRatingDetailsModal(youRated)}
+            >
+              See rating details
+            </Menu.Item>
+            <Menu.Item
+              icon={<MdShare />}
+              onClick={() => {
+                openShareRatingModal(youRated)
+              }}
+            >
+              Share your rating
+            </Menu.Item>
+          </>
+        )}
+
+        <Menu.Divider />
+
+        <Menu.Label>Edit</Menu.Label>
         <Tooltip label={canRefreshRating.message} withArrow position="bottom">
           <div>
             <Menu.Item
@@ -112,6 +124,16 @@ const ItemMoreIcon = (props: Props) => {
             </Menu.Item>
           </div>
         </Tooltip>
+        {authUser?.isAdmin && (
+          <Menu.Item
+            icon={<MdEdit />}
+            onClick={() => {
+              openModal(props.item)
+            }}
+          >
+            Edit (admin)
+          </Menu.Item>
+        )}
       </Menu.Dropdown>
     </Menu>
   )
