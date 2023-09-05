@@ -8,6 +8,7 @@ import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { SortingByType } from '../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { QueryParams } from '../../utils/queryParams'
+import ItemTypeSelector from '../ExplorePageContent/MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { useSortedItems } from '../UserProfilePage/ProfileScreenRatingItem/useSortedItems/useSortedItems'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
@@ -18,9 +19,15 @@ import UserItemsMdTable from './UserItemsMdTable/UserItemsMdTable'
 import UserItemsViewSelector from './UserItemsViewSelector/UserItemsViewSelector'
 
 const UserItemsPage = () => {
-  const { userId, type } = useMyRouterQuery()
+  const { userId } = useMyRouterQuery()
 
-  const itemType = type as SyncroItemType
+  const [itemType, setItemType] = useQueryState<SyncroItemType>(
+    QueryParams.type,
+    {
+      defaultValue: 'movie',
+      parse: (value) => value as SyncroItemType,
+    }
+  )
 
   const {
     data: items,
@@ -63,18 +70,28 @@ const UserItemsPage = () => {
               size="xs"
               fluid={isSmallScreen}
               px={isSmallScreen ? 0 : undefined}
-              pt={isSmallScreen ? 24 : undefined}
             >
               <FlexVCenter justify={'space-between'}>
-                <div>
+                <FlexVCenter gap={8}>
+                  <ItemTypeSelector
+                    value={itemType}
+                    onChange={(type) => {
+                      setItemType(type)
+                    }}
+                    label="Type"
+                    width={150}
+                  />
                   {!thisIsYourList && (
                     <SortBySelector onChange={setSortingBy} value={sortingBy} />
                   )}
-                </div>
-                <UserItemsViewSelector value={view} onChange={setView} />
+                </FlexVCenter>
+
+                <FlexVCenter mt={16}>
+                  <UserItemsViewSelector value={view} onChange={setView} />
+                </FlexVCenter>
               </FlexVCenter>
 
-              <Text size="lg" mt={8}>
+              <Text size="lg" mt={16}>
                 {items?.length} items
               </Text>
 

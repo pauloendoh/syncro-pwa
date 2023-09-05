@@ -9,7 +9,8 @@ export const useUserSimilarityQuery = (userId: string) => {
   return useQuery<OverallUserSimilarityDto, Error>(
     [urls.api.userSimilarity(userId)],
     {
-      enabled: !!authUser && userId !== authUser.id && userId !== '',
+      enabled:
+        !!authUser && userId !== authUser.id && userId !== '' && !!userId,
     }
   )
 }

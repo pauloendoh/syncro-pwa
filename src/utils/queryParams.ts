@@ -15,4 +15,5 @@ export enum QueryParams {
   itemImageOpen = 'itemImageOpen',
   ratingDetailsId = 'ratingDetailsId',
   genre = 'genre',
+  type = 'type',
 }
