@@ -8,7 +8,7 @@ import { useUserSimilarityQuery } from './useUserSimilarityQuery'
 export const useUserHighSimilarityTypesQueryUtils = (userId: string) => {
   const { data, isLoading } = useUserSimilarityQuery(userId)
 
-  const result = useMemo(() => {
+  const highSimilarityTypes = useMemo(() => {
     if (!data) return []
     const result = syncroItemTypes.reduce<SyncroItemType[]>((acc, type) => {
       const similarity = data.typeSimilarity.find((x) => x.itemType === type)
@@ -27,5 +27,5 @@ export const useUserHighSimilarityTypesQueryUtils = (userId: string) => {
     return result
   }, [data])
 
-  return result
+  return highSimilarityTypes
 }

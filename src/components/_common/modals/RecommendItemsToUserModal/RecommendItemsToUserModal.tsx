@@ -1,8 +1,17 @@
-import { Box, Flex, Modal, ScrollArea, Tabs, Title } from '@mantine/core'
+import {
+  Box,
+  Flex,
+  Indicator,
+  Modal,
+  ScrollArea,
+  Tabs,
+  Title,
+} from '@mantine/core'
 import { useDebouncedState } from '@mantine/hooks'
 import { useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsToRecommendQuery } from '../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
+import { useUserHighSimilarityTypesQueryUtils } from '../../../../hooks/react-query/rating/user-similarity/useUserHighSimilarityTypesQueryUtils'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useRecommendItemsToUserModalStore from '../../../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
@@ -10,6 +19,7 @@ import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemT
 import textContainsWords from '../../../../utils/text/textContainsWords'
 import MyTextInput from '../../inputs/MyTextInput'
 import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
+import Span from '../../text/Span'
 import ItemToRecommendOption from './ItemToRecommendOption/ItemToRecommendOption'
 import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
 
@@ -39,6 +49,8 @@ const RecommendItemsToUserModal = () => {
 
   const { isMobile } = useMyMediaQuery()
 
+  const highSimilarityTypes = useUserHighSimilarityTypesQueryUtils(userId!)
+
   return (
     <Modal
       opened={!!recommendItemsToUser}
@@ -65,7 +77,13 @@ const RecommendItemsToUserModal = () => {
           <Tabs.List>
             {itemToRecommendTabOptions.map((option) => (
               <Tabs.Tab key={option.key} value={option.key}>
-                {option.label}
+                <Indicator
+                  label="High"
+                  size={16}
+                  disabled={!highSimilarityTypes.includes(option.key as any)}
+                >
+                  <Span>{option.label}</Span>
+                </Indicator>
               </Tabs.Tab>
             ))}
           </Tabs.List>
