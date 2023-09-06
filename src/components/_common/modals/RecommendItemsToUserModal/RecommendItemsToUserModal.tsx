@@ -97,7 +97,7 @@ const RecommendItemsToUserModal = () => {
 
           <ScrollArea.Autosize
             mt={4}
-            mah={isMobile ? 'calc(100vh - 176px)' : 'calc(100vh - 268px)'}
+            mah={isMobile ? 'calc(100vh - 176px)' : 'calc(100vh - 276px)'}
           >
             <Flex gap={8} pr={16} wrap={'wrap'}>
               {isLoading && <CenterLoader width={'100%'} />}
