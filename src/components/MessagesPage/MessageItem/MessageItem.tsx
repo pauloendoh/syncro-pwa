@@ -116,6 +116,9 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
               sx={{
                 // large url should not break the layout
                 wordBreak: 'break-word',
+
+                // allow line break
+                whiteSpace: 'pre-wrap',
               }}
             >
               <MyReactLinkify openNewTab color={'white'}>
