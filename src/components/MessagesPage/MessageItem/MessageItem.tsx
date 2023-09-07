@@ -7,6 +7,7 @@ import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/u
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
+import MyReactLinkify from '../../_common/text/MyReactLinkify'
 
 type Props = {
   message: MessageDto
@@ -111,7 +112,16 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
               maxWidth: '80%',
             }}
           >
-            <Text>{message.text}</Text>
+            <Text
+              sx={{
+                // large url should not break the layout
+                wordBreak: 'break-word',
+              }}
+            >
+              <MyReactLinkify openNewTab color={'white'}>
+                {message.text}
+              </MyReactLinkify>
+            </Text>
           </Box>
         </Tooltip>
       </Flex>

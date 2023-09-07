@@ -6,6 +6,7 @@ type Props = React.ComponentProps<typeof ReactLinkify> & {
   openNewTab?: boolean
   truncateWidth?: number
   stopPropagation?: boolean
+  color?: string
 }
 
 const MyReactLinkify = (props: Props) => {
@@ -30,7 +31,7 @@ const MyReactLinkify = (props: Props) => {
       target={props.openNewTab ? '_blank' : undefined}
       rel={props.openNewTab ? 'noopener noreferrer' : undefined}
       style={{
-        color: theme.colors.primary[5],
+        color: props.color || theme.colors.primary[5],
         fontWeight: 'inherit',
         textDecoration: 'underline',
 
