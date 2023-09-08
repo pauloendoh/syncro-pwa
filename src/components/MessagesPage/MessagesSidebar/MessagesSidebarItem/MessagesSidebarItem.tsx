@@ -1,6 +1,7 @@
 import { Flex, Indicator, Text, Title, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { MessageRoomDto } from '../../../../hooks/react-query/message/types/MessageRoomDto'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { formatShortTimeago } from '../../../../utils/date/formatShortTimeago'
 import { urls } from '../../../../utils/urls/urls'
@@ -35,6 +36,7 @@ const MessagesSidebarItem = (props: Props) => {
   }, [lastMessage, authUser])
 
   const theme = useMantineTheme()
+  const { isMobile } = useMyMediaQuery()
   if (!otherUser) return null
 
   return (
@@ -44,6 +46,7 @@ const MessagesSidebarItem = (props: Props) => {
     >
       <Flex
         p={8}
+        pr={24}
         gap={16}
         sx={{
           backgroundColor: props.isSelected ? theme.colors.dark[4] : undefined,
@@ -72,10 +75,9 @@ const MessagesSidebarItem = (props: Props) => {
             gap={4}
             sx={{
               color: theme.colors.gray[5],
-              fontSize: 14,
             }}
           >
-            <Text lineClamp={1}>
+            <Text lineClamp={1} size="sm">
               {lastMessageIsYours ? 'You: ' : ''}
               {lastMessage?.text}
             </Text>
@@ -86,14 +88,14 @@ const MessagesSidebarItem = (props: Props) => {
               size={8}
               styles={{
                 indicator: {
-                  right: '-16px !important',
+                  right: '-4px !important',
                   position: 'absolute',
                 },
               }}
               disabled={!props.unread}
             >
               {lastMessage?.createdAt && (
-                <Text w={40}>
+                <Text w={40} size="sm">
                   {' · '} {formatShortTimeago(new Date(lastMessage?.createdAt))}
                 </Text>
               )}

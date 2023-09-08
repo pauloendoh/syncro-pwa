@@ -61,13 +61,9 @@ const MessagesPage = (props: Props) => {
         }}
       >
         {!isMobile && (
-          <Grid.Col span={0} xs={6} sm={4} md={4} lg={4}>
+          <Grid.Col span={0} xs={6} sm={5} md={4} lg={4}>
             <Flex justify="flex-end">
-              <Box
-                sx={{
-                  width: 'clamp(280px, 100%, 400px)',
-                }}
-              >
+              <Box sx={{}}>
                 <MessagesSidebar />
               </Box>
             </Flex>
@@ -77,7 +73,7 @@ const MessagesPage = (props: Props) => {
         <Grid.Col
           span={'auto'}
           xs={6}
-          sm={8}
+          sm={7}
           md={6}
           lg={4}
           p={isMobile ? 0 : undefined}

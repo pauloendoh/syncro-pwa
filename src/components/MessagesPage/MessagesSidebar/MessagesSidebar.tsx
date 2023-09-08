@@ -1,4 +1,4 @@
-import { Switch, Title, Tooltip } from '@mantine/core'
+import { ScrollArea, Switch, Title, Tooltip } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
 import { MdNotifications } from 'react-icons/md'
 import { useSidebarMessageRoomsQuery } from '../../../hooks/react-query/message/useSidebarMessageRoomsQuery'
@@ -167,18 +167,25 @@ const MessagesSidebar = () => {
         }
       </FlexVCenter>
 
-      <FlexCol mt={8} p={isMobile ? 8 : 0}>
-        {rooms?.map((room) => (
-          <MessagesSidebarItem
-            key={room.messages?.[0].id}
-            room={room}
-            isSelected={room.id === roomId}
-            unread={unreadRooms?.some(
-              (unreadRoom) => unreadRoom.id === room.id
-            )}
-          />
-        ))}
-      </FlexCol>
+      <ScrollArea.Autosize
+        mt={8}
+        sx={{
+          maxHeight: isMobile ? 'unset' : 'calc(100vh - 168px)',
+        }}
+      >
+        <FlexCol pr={12}>
+          {rooms?.map((room) => (
+            <MessagesSidebarItem
+              key={room.messages?.[0].id}
+              room={room}
+              isSelected={room.id === roomId}
+              unread={unreadRooms?.some(
+                (unreadRoom) => unreadRoom.id === room.id
+              )}
+            />
+          ))}
+        </FlexCol>
+      </ScrollArea.Autosize>
     </FlexCol>
   )
 }
