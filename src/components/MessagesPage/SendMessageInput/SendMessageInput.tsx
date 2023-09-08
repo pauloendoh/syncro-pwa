@@ -16,7 +16,6 @@ const SendMessageInput = (props: Props) => {
     submitSendMessage({
       content: message,
       roomId: props.roomId,
-      createdAt: new Date().toISOString(),
     })
 
     setMessage('')
