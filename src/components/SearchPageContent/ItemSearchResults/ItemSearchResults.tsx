@@ -45,6 +45,9 @@ const ItemSearchResults = (props: Props) => {
 
   const otherSyncroItems = useMemo(() => {
     if (!searchResultItems) return null
+    if (props.type === 'book') {
+      return searchResultItems
+    }
     const result = [...searchResultItems] as SyncroItemDto[]
     return result.sort(
       // order the results that contain title first
