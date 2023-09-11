@@ -8,7 +8,6 @@ import { useSearchByTypeQuery } from '../../../hooks/react-query/search/useSearc
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import textContainsWords from '../../../utils/text/textContainsWords'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -42,29 +41,6 @@ const ItemSearchResults = (props: Props) => {
   const notFoundMessage = useMemo(() => {
     return `No ${typeMap.getTypeLabelLowerCase(true)} found :(`
   }, [props.type])
-
-  const otherSyncroItems = useMemo(() => {
-    if (!searchResultItems) return null
-    if (props.type === 'book') {
-      return searchResultItems
-    }
-    const result = [...searchResultItems] as SyncroItemDto[]
-    return result.sort(
-      // order the results that contain title first
-      (a, b) => {
-        if (
-          textContainsWords(a.title, props.query) &&
-          textContainsWords(b.title, props.query)
-        ) {
-          return a.ratingCount > b.ratingCount ? -1 : 1
-        }
-
-        if (textContainsWords(a.title, props.query)) return -1
-        if (textContainsWords(b.title, props.query)) return 1
-        return 0
-      }
-    )
-  }, [searchResultItems, props.type, props.query])
 
   const queryIsValid = useMemo(
     () => props.query.trim().length > 0,
@@ -147,7 +123,7 @@ const ItemSearchResults = (props: Props) => {
         )}
         {noResults && <Text>{notFoundMessage}</Text>}
 
-        {otherSyncroItems?.map((syncroItem) => (
+        {searchResultItems?.map((syncroItem) => (
           <SyncroSearchItem item={syncroItem} key={syncroItem.id} />
         ))}
 
