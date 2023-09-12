@@ -164,7 +164,7 @@ const EditRatingModal = () => {
             <Skeleton height={24} radius="md" />
           ) : (
             <Title order={4}>
-              <Title order={4}>How would you rate "{syncroItem?.title}"?</Title>
+              <Title order={4}>{syncroItem?.title}</Title>
             </Title>
           )}
         </FlexVCenter>
