@@ -78,11 +78,6 @@ const UserPlannedItemsSection = (props: Props) => {
 
           <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
             <GridPlannedItemsV2 ratings={ratings} selectedType={selectedType} />
-
-            {/* <DragDropPlannedItems
-              userId={props.userId}
-              itemType={selectedType}
-            /> */}
           </Box>
         </FlexCol>
       </MyPaper>

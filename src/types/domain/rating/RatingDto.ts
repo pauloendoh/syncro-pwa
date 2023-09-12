@@ -47,7 +47,6 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   scenes: [],
   consumedOn: '',
   isPrivate: false,
-
   plannedPosition: 9999,
   ...p,
 })

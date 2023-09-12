@@ -44,10 +44,11 @@ const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
 
   return (
     <Flex wrap="wrap" gap={16}>
-      {filteredRatings.map((rating) => (
+      {filteredRatings.map((rating, index) => (
         <GridPlannedItem
           rating={rating}
           key={rating.id}
+          index={index}
           onMoveToFirst={handleMoveToFirst}
           onMoveToLast={handleMoveToLast}
         />

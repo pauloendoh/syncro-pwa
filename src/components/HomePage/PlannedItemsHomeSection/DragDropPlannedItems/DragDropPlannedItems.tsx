@@ -15,6 +15,7 @@ type Props = {
   maxHeight?: string
 }
 
+// PE 1/3 - remove?
 const DragDropPlannedItems = (props: Props) => {
   const { authUser } = useAuthStore()
 

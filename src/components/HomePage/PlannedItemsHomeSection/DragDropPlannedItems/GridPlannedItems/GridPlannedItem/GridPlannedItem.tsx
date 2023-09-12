@@ -1,22 +1,26 @@
-import { ActionIcon, Box, Menu, useMantineTheme } from '@mantine/core'
+import { ActionIcon, Box, Menu } from '@mantine/core'
 import {
+  AiOutlineDrag,
   AiOutlineVerticalAlignBottom,
   AiOutlineVerticalAlignTop,
 } from 'react-icons/ai'
-import { MdMoreHoriz } from 'react-icons/md'
+import useUpdateSavedPositionMutationV2 from '../../../../../../hooks/react-query/interest/useUpdateSavedPositionMutationV2'
 import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
 import { RatingDto } from '../../../../../../types/domain/rating/RatingDto'
 import FavoriteItem from '../../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
+import FlexCol from '../../../../../_common/flex/FlexCol'
+import Span from '../../../../../_common/text/Span'
 
 type Props = {
   rating: RatingDto
+  index: number
   onMoveToFirst: (ratingId: string) => void
   onMoveToLast: (ratingId: string) => void
 }
 
 const GridPlannedItem = ({ rating, ...props }: Props) => {
-  const theme = useMantineTheme()
   const { authUser } = useAuthStore()
+  const { mutate: submitUpdatePosition } = useUpdateSavedPositionMutationV2()
   return (
     <Box
       sx={{
@@ -29,7 +33,8 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
         disablePreview={authUser?.id === rating.userId}
       />
       {authUser?.id === rating.userId && (
-        <Box
+        <FlexCol
+          gap={2}
           sx={{
             position: 'absolute',
             top: 2,
@@ -45,7 +50,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
                 size="sm"
                 variant="filled"
               >
-                <MdMoreHoriz />
+                <Span size="sm">{props.index + 1}</Span>
               </ActionIcon>
             </Menu.Target>
 
@@ -56,15 +61,34 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
               >
                 Move to first
               </Menu.Item>
+
               <Menu.Item
                 icon={<AiOutlineVerticalAlignBottom size={14} />}
                 onClick={() => props.onMoveToLast(rating.id)}
               >
                 Move to last
               </Menu.Item>
+
+              <Menu.Item
+                icon={<AiOutlineDrag size={14} />}
+                onClick={() => {
+                  const position = Number(prompt('Enter new position'))
+                  if (position && position > 0) {
+                    submitUpdatePosition({
+                      newPosition: position,
+                      ratingId: rating.id,
+                    })
+                    return
+                  }
+
+                  alert('Invalid position')
+                }}
+              >
+                Move to position
+              </Menu.Item>
             </Menu.Dropdown>
           </Menu>
-        </Box>
+        </FlexCol>
       )}
     </Box>
   )

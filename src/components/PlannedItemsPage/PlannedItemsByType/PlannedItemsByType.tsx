@@ -10,6 +10,7 @@ interface Props {
   savedItems: RatingDto[]
 }
 
+// PE 1/3 - remove?
 const PlannedItemsByType = ({ savedItems, ...props }: Props) => {
   const type = useSyncroItemTypeMap({
     itemType: props.itemType,
