@@ -1,7 +1,7 @@
 import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
 import { format } from 'timeago.js'
 import { ItemRecommendationDto } from '../../../hooks/react-query/notification/types/ItemRecommendationDto'
-import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { urls } from '../../../utils/urls/urls'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
@@ -19,8 +19,8 @@ const ItemRecommendationNotificationItem = ({
   ...props
 }: Props) => {
   // const { push } = useNavigation<NativeStackNavigationProp<HomeScreenTypes>>()
-  const authUser = useAuthStore((s) => s.authUser)
 
+  const { isMobile } = useMyMediaQuery()
   const theme = useMantineTheme()
 
   // copy of UserSearchItem
@@ -44,7 +44,13 @@ const ItemRecommendationNotificationItem = ({
           </MyNextLink>
         </Box>
 
-        <FlexCol ml={16} pr={40}>
+        <FlexCol
+          ml={16}
+          pr={40}
+          sx={{
+            width: isMobile ? 188 : undefined,
+          }}
+        >
           <span>
             <span>
               <MyNextLink

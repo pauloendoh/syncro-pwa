@@ -1,6 +1,6 @@
 import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
-import { useRouter } from 'next/router'
 import { format } from 'timeago.js'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { FollowDto } from '../../../types/domain/follow/FollowDto'
 import { urls } from '../../../utils/urls/urls'
@@ -20,7 +20,7 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
 
   const theme = useMantineTheme()
 
-  const router = useRouter()
+  const { isMobile } = useMyMediaQuery()
 
   return (
     <Box
@@ -35,7 +35,12 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
             <UserProfilePicture userId={follow.followerId} widthHeigth={36} />
           </MyNextLink>
 
-          <FlexCol ml={16}>
+          <FlexCol
+            ml={16}
+            sx={{
+              width: isMobile ? 188 : undefined,
+            }}
+          >
             <Text
               component="span"
               sx={{
