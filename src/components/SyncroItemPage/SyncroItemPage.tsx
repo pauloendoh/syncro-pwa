@@ -1,7 +1,6 @@
 import { Box, Container, Grid } from '@mantine/core'
 import { useMemo } from 'react'
 import ReactPlayer from 'react-player'
-import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemReviewQuery } from '../../hooks/react-query/review/useItemReviewQuery'
 import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -9,6 +8,7 @@ import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
+import AuthorsPaper from './ItemPageRightSection/AuthorsPaper/AuthorsPaper'
 import ItemPageRightSection from './ItemPageRightSection/ItemPageRightSection'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import SyncroItemPaperContent from './SyncroItemPaperContent/SyncroItemPaperContent'
@@ -28,15 +28,11 @@ const SyncroItemPage = (props: Props) => {
   const canHaveTrailers =
     item?.type === 'tvSeries' || item?.type === 'movie' || item?.type === 'game'
 
-  const itemTypeMap = useSyncroItemTypeMap({
-    itemType: item?.type,
-  })
-
-  const { isMobile } = useMyMediaQuery()
+  const { isMobile, isSmallScreen } = useMyMediaQuery()
 
   const { data: reviews } = useItemReviewQuery(syncroItemId!)
 
-  const hasRightColumnInfo = useMemo(() => {
+  const hasAuthors = useMemo(() => {
     return (
       item?.mangaExtraInfo?.authors && item?.mangaExtraInfo?.authors.length > 0
     )
@@ -76,6 +72,10 @@ const SyncroItemPage = (props: Props) => {
               <Box mt={24}>
                 <MangaPanelsSection syncroItem={item} />
               </Box>
+            )}
+
+            {isSmallScreen && item && hasAuthors && (
+              <AuthorsPaper item={item} />
             )}
 
             {item && (
