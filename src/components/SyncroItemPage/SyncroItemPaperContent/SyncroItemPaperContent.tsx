@@ -1,5 +1,4 @@
 import { Box, Flex, Skeleton, Title } from '@mantine/core'
-import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
@@ -27,10 +26,6 @@ const SyncroItemPaperContent = (props: Props) => {
   })
 
   const { isMobile } = useMyMediaQuery()
-
-  const itemTypeMap = useSyncroItemTypeMap({
-    itemType: item?.type,
-  })
 
   return (
     <Box>
@@ -61,7 +56,7 @@ const SyncroItemPaperContent = (props: Props) => {
 
             <ItemMoreIcon item={item} />
           </Flex>
-          <Flex mt={16} gap={16}>
+          <Flex mt={16} gap={isMobile ? 12 : 16}>
             <ImageSyncroItemPage
               isMobile={isMobile}
               item={item}
