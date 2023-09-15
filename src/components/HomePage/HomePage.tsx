@@ -11,7 +11,6 @@ import { useTimelineRatingsQuery } from '../../hooks/react-query/feed/useHomeRat
 import { useTimelineHasNewsQuery } from '../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useSettingsQuery } from '../../hooks/react-query/user-settings/useSettingsQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
-import useFeedSettingsModal from '../../hooks/zustand/modals/useFeedSettingsModal'
 import useOnboardingModalStore from '../../hooks/zustand/modals/useOnboardingModalStore'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { urls } from '../../utils/urls/urls'
@@ -35,8 +34,6 @@ const HomePage = () => {
 
   const { isSmallScreen, isMobile } = useMyMediaQuery()
   const theme = useMantineTheme()
-
-  const { openModal: openFeedSettingsModal } = useFeedSettingsModal()
 
   const { data: settings } = useSettingsQuery()
   const { openModal: openOnboardingModal } = useOnboardingModalStore()

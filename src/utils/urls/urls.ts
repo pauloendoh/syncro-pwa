@@ -120,7 +120,10 @@ export const urls = {
       )
     },
     timelineHasNews: (userId?: string, lastRatingCreatedAt?: string) =>
-      `/timeline-has-news?userId=${userId}&lastRatingCreatedAt=${lastRatingCreatedAt}`,
+      `/timeline-has-news?${qs.stringify({
+        userId,
+        lastRatingCreatedAt,
+      })}`,
 
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
     userItems: (userId: string, itemType?: SyncroItemType) =>
