@@ -1,5 +1,5 @@
 import { Box, Flex, Grid, ScrollArea, Text } from '@mantine/core'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useMessageRoomQuery } from '../../hooks/react-query/message/useMessageRoomQuery'
 import { useMessagesQuery } from '../../hooks/react-query/message/useMessagesQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
@@ -21,7 +21,7 @@ import SendMessageInput from './SendMessageInput/SendMessageInput'
 type Props = {}
 
 const MessagesPage = (props: Props) => {
-  const { roomId: roomId } = useMyRouterQuery()
+  const { roomId } = useMyRouterQuery()
   const { data: messageRoom } = useMessageRoomQuery(roomId)
 
   const { authUser } = useAuthStore()
@@ -31,24 +31,31 @@ const MessagesPage = (props: Props) => {
     }
     return messageRoom.users.find((user) => user.id !== authUser?.id)
   }, [messageRoom, authUser])
+
   const { data: otherUserInfo, isLoading: loadingOtherUserInfo } =
     useUserInfoQuery(otherUser?.id)
 
   const { data: messages, isLoading } = useMessagesQuery(roomId)
-  const viewport = useRef<HTMLDivElement>(null)
+  const chatScrollArea = useRef<HTMLDivElement>(null)
+
+  const [roomFirstRender, setRoomFirstRender] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
-      if (!viewport.current) {
+      if (!chatScrollArea.current) {
         return
       }
 
-      viewport.current.scrollTo({
-        top: viewport.current.scrollHeight,
-        behavior: 'auto',
+      if (roomFirstRender) {
+        setRoomFirstRender(false)
+      }
+
+      chatScrollArea.current.scrollTo({
+        top: chatScrollArea.current.scrollHeight,
+        behavior: roomFirstRender ? 'auto' : 'smooth',
       })
-    }, 0)
-  }, [viewport.current, messages])
+    }, 100)
+  }, [chatScrollArea.current, messages])
 
   const { isMobile } = useMyMediaQuery()
 
@@ -104,17 +111,19 @@ const MessagesPage = (props: Props) => {
               </FlexVCenter>
 
               <ScrollArea
-                viewportRef={viewport}
+                viewportRef={chatScrollArea}
                 type="hover"
                 id="message-scroll-area"
                 sx={{
                   padding: 24,
+                  paddingBottom: 8,
                   height: isMobile
                     ? 'calc(100vh - 120px )'
                     : 'calc(100vh - 240px )',
+                  visibility: roomFirstRender ? 'hidden' : 'visible',
                 }}
               >
-                {isLoading && <CenterLoader />}
+                {(isLoading || roomFirstRender) && <CenterLoader />}
                 {messages?.map((message, index) => (
                   <MessageItem
                     key={message.id}
