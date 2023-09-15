@@ -1,4 +1,4 @@
-import { Modal, Table, Tooltip } from '@mantine/core'
+import { Modal, Table, Tooltip, useMantineTheme } from '@mantine/core'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserHighSimilarityTypesQueryUtils } from '../../../../hooks/react-query/rating/user-similarity/useUserHighSimilarityTypesQueryUtils'
 import { useUserSimilarityQuery } from '../../../../hooks/react-query/rating/user-similarity/useUserSimilarityQuery'
@@ -8,7 +8,9 @@ import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useUserSimilarityModalStore from '../../../../hooks/zustand/modals/useUserSimilarityModalStore'
 import { syncroItemTypes } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { urls } from '../../../../utils/urls/urls'
 import FlexVCenter from '../../flex/FlexVCenter'
+import MyNextLink from '../../overrides/MyNextLink'
 import Span from '../../text/Span'
 
 const UserSimilarityModal = () => {
@@ -25,6 +27,7 @@ const UserSimilarityModal = () => {
   const { border } = useMyColors()
 
   const { isMobile } = useMyMediaQuery()
+  const theme = useMantineTheme()
 
   return (
     <Modal
@@ -82,7 +85,7 @@ const UserSimilarityModal = () => {
               (t) => t.itemType === type
             )?.similarityInfo
 
-            const x = useSyncroItemTypeMap({
+            const typeMap = useSyncroItemTypeMap({
               itemType: type,
             })
 
@@ -90,7 +93,7 @@ const UserSimilarityModal = () => {
               <tr key={type}>
                 <td>
                   <FlexVCenter gap={8}>
-                    {x.getTypeLabel()}{' '}
+                    {typeMap.getTypeLabel()}{' '}
                     {highSimilarityTypes.includes(type) && (
                       <Tooltip
                         label="Over 50% similarity and over 10 shared items"
@@ -115,7 +118,16 @@ const UserSimilarityModal = () => {
                 <td align="center">
                   {(info?.overallPercentage! * 100).toFixed(0)}%
                 </td>
-                <td align="center">{info?.ratedSameItemsCount}</td>
+                <td align="center">
+                  <MyNextLink
+                    href={urls.pages.userItems(userId, type)}
+                    style={{
+                      color: theme.colors.primary[9],
+                    }}
+                  >
+                    {info?.ratedSameItemsCount}
+                  </MyNextLink>
+                </td>
               </tr>
             )
           })}
