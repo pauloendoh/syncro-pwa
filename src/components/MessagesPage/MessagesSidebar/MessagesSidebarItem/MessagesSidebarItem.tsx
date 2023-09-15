@@ -14,6 +14,7 @@ type Props = {
   room: MessageRoomDto
   isSelected?: boolean
   unread?: boolean
+  parentWidth: number
 }
 
 const MessagesSidebarItem = (props: Props) => {
@@ -37,12 +38,15 @@ const MessagesSidebarItem = (props: Props) => {
 
   const theme = useMantineTheme()
   const { isMobile } = useMyMediaQuery()
+
   if (!otherUser) return null
 
   return (
     <MyNextLink
       href={urls.pages.messageRoom(props.room.id)}
-      style={{ width: '100%' }}
+      style={{
+        width: '100%',
+      }}
     >
       <Flex
         p={8}
@@ -77,7 +81,13 @@ const MessagesSidebarItem = (props: Props) => {
               color: theme.colors.gray[5],
             }}
           >
-            <Text lineClamp={1} size="sm">
+            <Text
+              lineClamp={1}
+              size="sm"
+              sx={{
+                maxWidth: props.parentWidth - 140,
+              }}
+            >
               {lastMessageIsYours ? 'You: ' : ''}
               {lastMessage?.text}
             </Text>

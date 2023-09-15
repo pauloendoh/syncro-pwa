@@ -1,5 +1,5 @@
-import { Box, Flex, Grid, ScrollArea, Text } from '@mantine/core'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Flex, Grid, ScrollArea, Text } from '@mantine/core'
+import { useEffect, useMemo, useRef } from 'react'
 import { useMessageRoomQuery } from '../../hooks/react-query/message/useMessageRoomQuery'
 import { useMessagesQuery } from '../../hooks/react-query/message/useMessagesQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
@@ -38,24 +38,15 @@ const MessagesPage = (props: Props) => {
   const { data: messages, isLoading } = useMessagesQuery(roomId)
   const chatScrollArea = useRef<HTMLDivElement>(null)
 
-  const [roomFirstRender, setRoomFirstRender] = useState(true)
-  useEffect(() => {
-    setRoomFirstRender(true)
-  }, [roomId])
-
   useEffect(() => {
     setTimeout(() => {
-      if (roomFirstRender) {
-        setRoomFirstRender(false)
-      }
-
       if (!chatScrollArea.current) {
         return
       }
 
       chatScrollArea.current.scrollTo({
         top: chatScrollArea.current.scrollHeight,
-        behavior: roomFirstRender ? 'auto' : 'smooth',
+        behavior: 'smooth',
       })
     }, 100)
   }, [chatScrollArea.current, messages])
@@ -73,9 +64,7 @@ const MessagesPage = (props: Props) => {
         {!isMobile && (
           <Grid.Col span={0} xs={6} sm={5} md={4} lg={4}>
             <Flex justify="flex-end">
-              <Box sx={{}}>
-                <MessagesSidebar />
-              </Box>
+              <MessagesSidebar />
             </Flex>
           </Grid.Col>
         )}
@@ -88,8 +77,6 @@ const MessagesPage = (props: Props) => {
           lg={4}
           p={isMobile ? 0 : undefined}
         >
-          {loadingOtherUserInfo && <CenterLoader />}
-
           <MyPaper
             sx={{
               padding: 0,
@@ -99,6 +86,7 @@ const MessagesPage = (props: Props) => {
             <FlexVCenter
               sx={(theme) => ({
                 background: theme.colors.dark[8],
+                height: 56,
               })}
               gap={8}
               p={8}
@@ -127,10 +115,9 @@ const MessagesPage = (props: Props) => {
                 height: isMobile
                   ? 'calc(100vh - 120px )'
                   : 'calc(100vh - 240px )',
-                visibility: roomFirstRender ? 'hidden' : 'visible',
               }}
             >
-              {(isLoading || roomFirstRender) && <CenterLoader />}
+              {isLoading && <CenterLoader />}
               {messages?.map((message, index) => (
                 <MessageItem
                   key={message.id}

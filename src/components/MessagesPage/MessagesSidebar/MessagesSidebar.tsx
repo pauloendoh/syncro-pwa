@@ -1,4 +1,5 @@
 import { ScrollArea, Switch, Title, Tooltip } from '@mantine/core'
+import { useElementSize } from '@mantine/hooks'
 import { useEffect, useMemo, useState } from 'react'
 import { MdNotifications } from 'react-icons/md'
 import { useSidebarMessageRoomsQuery } from '../../../hooks/react-query/message/useSidebarMessageRoomsQuery'
@@ -132,11 +133,13 @@ const MessagesSidebar = () => {
   const { isMobile, screenWidth } = useMyMediaQuery()
   const { mobileHeaderBg } = useMyColors()
 
+  const { ref: parentRef, width: parentWidth } = useElementSize()
+
   return (
     <FlexCol
       p={isMobile ? 0 : 16}
       sx={{
-        width: screenWidth < 1100 ? '100%' : '360px',
+        width: screenWidth < 1100 ? '100%' : '320px',
       }}
     >
       <FlexVCenter
@@ -178,7 +181,7 @@ const MessagesSidebar = () => {
           maxHeight: isMobile ? 'unset' : 'calc(100vh - 168px)',
         }}
       >
-        <FlexCol pr={12}>
+        <FlexCol pr={12} ref={parentRef}>
           {rooms?.map((room) => (
             <MessagesSidebarItem
               key={room.messages?.[0].id}
@@ -187,6 +190,7 @@ const MessagesSidebar = () => {
               unread={unreadRooms?.some(
                 (unreadRoom) => unreadRoom.id === room.id
               )}
+              parentWidth={parentWidth}
             />
           ))}
         </FlexCol>
