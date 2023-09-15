@@ -129,14 +129,14 @@ const MessagesSidebar = () => {
     return false
   }, [subscription, registration])
 
-  const { isMobile } = useMyMediaQuery()
+  const { isMobile, screenWidth } = useMyMediaQuery()
   const { mobileHeaderBg } = useMyColors()
 
   return (
     <FlexCol
       p={isMobile ? 0 : 16}
       sx={{
-        width: isMobile ? '100%' : '300px',
+        width: screenWidth < 1100 ? '100%' : '360px',
       }}
     >
       <FlexVCenter
