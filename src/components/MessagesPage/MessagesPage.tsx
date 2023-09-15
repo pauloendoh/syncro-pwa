@@ -45,12 +45,12 @@ const MessagesPage = (props: Props) => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (!chatScrollArea.current) {
-        return
-      }
-
       if (roomFirstRender) {
         setRoomFirstRender(false)
+      }
+
+      if (!chatScrollArea.current) {
+        return
       }
 
       chatScrollArea.current.scrollTo({
@@ -89,57 +89,60 @@ const MessagesPage = (props: Props) => {
           p={isMobile ? 0 : undefined}
         >
           {loadingOtherUserInfo && <CenterLoader />}
-          {!!otherUserInfo && (
-            <MyPaper
+
+          <MyPaper
+            sx={{
+              padding: 0,
+              background: isMobile ? 'transparent' : undefined,
+            }}
+          >
+            <FlexVCenter
+              sx={(theme) => ({
+                background: theme.colors.dark[8],
+              })}
+              gap={8}
+              p={8}
+            >
+              {isMobile && <BackButton />}
+
+              {!!otherUserInfo && (
+                <>
+                  <MyNextLink href={urls.pages.userProfile(otherUserInfo.id)}>
+                    <UserImage pictureUrl={otherUserInfo.profile?.pictureUrl} />
+                  </MyNextLink>
+                  <MyNextLink href={urls.pages.userProfile(otherUserInfo.id)}>
+                    <Text>{otherUserInfo?.username}</Text>
+                  </MyNextLink>
+                </>
+              )}
+            </FlexVCenter>
+
+            <ScrollArea
+              viewportRef={chatScrollArea}
+              type="hover"
+              id="message-scroll-area"
               sx={{
-                padding: 0,
-                background: isMobile ? 'transparent' : undefined,
+                padding: 24,
+                paddingBottom: 8,
+                height: isMobile
+                  ? 'calc(100vh - 120px )'
+                  : 'calc(100vh - 240px )',
+                visibility: roomFirstRender ? 'hidden' : 'visible',
               }}
             >
-              <FlexVCenter
-                sx={(theme) => ({
-                  background: theme.colors.dark[8],
-                })}
-                gap={8}
-                p={8}
-              >
-                {isMobile && <BackButton />}
+              {(isLoading || roomFirstRender) && <CenterLoader />}
+              {messages?.map((message, index) => (
+                <MessageItem
+                  key={message.id}
+                  message={message}
+                  isMyMessage={message.userId === authUser?.id}
+                  isLast={index === messages.length - 1}
+                />
+              ))}
+            </ScrollArea>
 
-                <MyNextLink href={urls.pages.userProfile(otherUserInfo.id)}>
-                  <UserImage pictureUrl={otherUserInfo.profile?.pictureUrl} />
-                </MyNextLink>
-                <MyNextLink href={urls.pages.userProfile(otherUserInfo.id)}>
-                  <Text>{otherUserInfo?.username}</Text>
-                </MyNextLink>
-              </FlexVCenter>
-
-              <ScrollArea
-                viewportRef={chatScrollArea}
-                type="hover"
-                id="message-scroll-area"
-                sx={{
-                  padding: 24,
-                  paddingBottom: 8,
-                  height: isMobile
-                    ? 'calc(100vh - 120px )'
-                    : 'calc(100vh - 240px )',
-                  visibility: roomFirstRender ? 'hidden' : 'visible',
-                }}
-              >
-                {(isLoading || roomFirstRender) && <CenterLoader />}
-                {messages?.map((message, index) => (
-                  <MessageItem
-                    key={message.id}
-                    message={message}
-                    isMyMessage={message.userId === authUser?.id}
-                    isLast={index === messages.length - 1}
-                  />
-                ))}
-              </ScrollArea>
-
-              <SendMessageInput roomId={roomId} />
-            </MyPaper>
-          )}
+            <SendMessageInput roomId={roomId} />
+          </MyPaper>
         </Grid.Col>
       </Grid>
     </LoggedLayout>
