@@ -133,7 +133,12 @@ const MessagesSidebar = () => {
   const { mobileHeaderBg } = useMyColors()
 
   return (
-    <FlexCol p={isMobile ? 0 : 16}>
+    <FlexCol
+      p={isMobile ? 0 : 16}
+      sx={{
+        width: isMobile ? '100%' : '300px',
+      }}
+    >
       <FlexVCenter
         sx={
           isMobile
