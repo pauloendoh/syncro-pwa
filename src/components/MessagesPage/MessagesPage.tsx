@@ -39,6 +39,9 @@ const MessagesPage = (props: Props) => {
   const chatScrollArea = useRef<HTMLDivElement>(null)
 
   const [roomFirstRender, setRoomFirstRender] = useState(true)
+  useEffect(() => {
+    setRoomFirstRender(true)
+  }, [roomId])
 
   useEffect(() => {
     setTimeout(() => {
