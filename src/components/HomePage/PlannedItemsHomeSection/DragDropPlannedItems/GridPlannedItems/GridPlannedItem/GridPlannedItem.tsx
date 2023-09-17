@@ -4,7 +4,9 @@ import {
   AiOutlineVerticalAlignBottom,
   AiOutlineVerticalAlignTop,
 } from 'react-icons/ai'
+import { MdEdit } from 'react-icons/md'
 import useUpdateSavedPositionMutationV2 from '../../../../../../hooks/react-query/interest/useUpdateSavedPositionMutationV2'
+import useSaveRatingModalStore from '../../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
 import { RatingDto } from '../../../../../../types/domain/rating/RatingDto'
 import FavoriteItem from '../../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
@@ -21,6 +23,9 @@ type Props = {
 const GridPlannedItem = ({ rating, ...props }: Props) => {
   const { authUser } = useAuthStore()
   const { mutate: submitUpdatePosition } = useUpdateSavedPositionMutationV2()
+
+  const { openModal: openSaveRatingModal } = useSaveRatingModalStore()
+
   return (
     <Box
       sx={{
@@ -85,6 +90,12 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
                 }}
               >
                 Move to position
+              </Menu.Item>
+              <Menu.Item
+                icon={<MdEdit size={14} />}
+                onClick={() => openSaveRatingModal(rating)}
+              >
+                Edit your rating
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
