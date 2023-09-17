@@ -13,10 +13,10 @@ export function buildRatingProgressDto(
 ): RatingProgressDto {
   return {
     id: null,
-    currentSeason: 1,
-    currentEpisode: 1,
-    currentChapter: 1,
-    currentPage: 1,
+    currentSeason: 0,
+    currentEpisode: 0,
+    currentChapter: 0,
+    currentPage: 0,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     ...p,

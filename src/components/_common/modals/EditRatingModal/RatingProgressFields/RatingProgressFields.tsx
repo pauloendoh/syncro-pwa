@@ -30,11 +30,6 @@ const RatingProgressFields = ({ ...props }: Props) => {
           }}
           min={0}
           w={100}
-          styles={{
-            root: {
-              opacity: props.value.currentChapter === 0 ? 0.5 : 1,
-            },
-          }}
         />
       </>
     )
