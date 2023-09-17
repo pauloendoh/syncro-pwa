@@ -27,7 +27,7 @@ export const useRatingStatusLabel = (params: {
       return 'dropped:'
 
     case 'ON_HOLD':
-      return 'paused:'
+      return 'put on hold:'
     case 'PLANNED':
       return params.isMobile ? 'planned:' : typeMap.plansTo + ':'
   }
