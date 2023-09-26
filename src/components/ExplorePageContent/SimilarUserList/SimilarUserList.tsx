@@ -1,8 +1,9 @@
-import { Text } from '@mantine/core'
+import { Box, Flex, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { useQueryParams } from '../../../hooks/useQueryParams'
 import { useMySimilarUsersQuery } from '../../../types/domain/me/useMySimilarUsersQuery'
 import { urls } from '../../../utils/urls/urls'
+import FollowUnfollowButton from '../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -10,7 +11,7 @@ import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import Span from '../../_common/text/Span'
 import ItemTypeSelector from '../MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
-import { getRatingSimilarityLabel } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
+import { getRatingSimilarityLabel as getRatingSimilarityLabels } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
 
 // PE 1/3 - rename to RatingSimilarityList
 const SimilarUserList = () => {
@@ -47,25 +48,43 @@ const SimilarUserList = () => {
         <Span>No similar users found</Span>
       )}
 
-      {sortedRatingSimilarities.map((item) => (
-        <FlexVCenter>
-          <MyNextLink href={urls.pages.userProfile(item.userB.id)}>
-            <UserProfilePicture userId={item.userB.id} widthHeigth={36} />
-          </MyNextLink>
+      {sortedRatingSimilarities.map((item) => {
+        const { countLabel, similarityLabel } = getRatingSimilarityLabels({
+          similarityDto: item,
+        })
+        return (
+          <FlexVCenter>
+            <MyNextLink href={urls.pages.userProfile(item.userB.id)}>
+              <UserProfilePicture userId={item.userB.id} widthHeigth={36} />
+            </MyNextLink>
 
-          <FlexCol ml={16}>
-            <MyNextLink
-              href={urls.pages.userProfile(item.userB.id)}
-              style={{
-                color: 'inherit',
+            <Box
+              ml={16}
+              sx={{
+                flexGrow: 1,
               }}
             >
-              <Text weight={500}>{item.userB.username}</Text>
-            </MyNextLink>
-            <Text>{getRatingSimilarityLabel({ similarityDto: item })}</Text>
-          </FlexCol>
-        </FlexVCenter>
-      ))}
+              <Flex justify={'space-between'}>
+                <FlexCol>
+                  <MyNextLink
+                    href={urls.pages.userProfile(item.userB.id)}
+                    style={{
+                      color: 'inherit',
+                    }}
+                  >
+                    <Text weight={500}>{item.userB.username}</Text>
+                  </MyNextLink>
+
+                  <Text>{countLabel}</Text>
+                  <Text>{similarityLabel}</Text>
+                </FlexCol>
+
+                <FollowUnfollowButton profileUserId={item.userB.id} />
+              </Flex>
+            </Box>
+          </FlexVCenter>
+        )
+      })}
     </FlexCol>
   )
 }

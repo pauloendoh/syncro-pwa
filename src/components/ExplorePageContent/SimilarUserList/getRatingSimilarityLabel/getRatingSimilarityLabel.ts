@@ -3,10 +3,17 @@ import { RatingSimilarityByTypeDto } from '../../../../types/domain/rating/Ratin
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 export function getRatingSimilarityLabel(params: {
-  similarityDto: RatingSimilarityByTypeDto
+  similarityDto?: RatingSimilarityByTypeDto
   sharedItemType?: SyncroItemType
 }) {
   const { similarityDto, sharedItemType } = params
+
+  if (!similarityDto) {
+    return {
+      countLabel: '',
+      similarityLabel: '',
+    }
+  }
 
   if (sharedItemType) {
     const option = syncroItemTypeOptions.find(
@@ -14,15 +21,25 @@ export function getRatingSimilarityLabel(params: {
     )
 
     if (option) {
-      return `${similarityDto.ratedSameItemsCount} ${
-        similarityDto.ratedSameItemsCount <= 1
-          ? `shared ${option.getTypeLabelLowerCase()}`
-          : `shared ${option.getTypeLabelLowerCase(true)}`
-      } · ${Math.floor(similarityDto.overallPercentage * 100)}% similarity`
+      return {
+        countLabel: `${similarityDto.ratedSameItemsCount} ${
+          similarityDto.ratedSameItemsCount <= 1
+            ? `shared ${option.getTypeLabelLowerCase()}`
+            : `shared ${option.getTypeLabelLowerCase(true)}`
+        }`,
+        similarityLabel: `${Math.floor(
+          similarityDto.overallPercentage * 100
+        )}% similarity`,
+      }
     }
   }
 
-  return `${similarityDto.ratedSameItemsCount} ${
-    similarityDto.ratedSameItemsCount <= 1 ? 'item' : 'items'
-  } · ${Math.floor(similarityDto.overallPercentage * 100)}% rating similarity`
+  return {
+    countLabel: `${similarityDto.ratedSameItemsCount} ${
+      similarityDto.ratedSameItemsCount <= 1 ? 'item' : 'items'
+    }`,
+    similarityLabel: `${Math.floor(
+      similarityDto.overallPercentage * 100
+    )}% rating similarity`,
+  }
 }

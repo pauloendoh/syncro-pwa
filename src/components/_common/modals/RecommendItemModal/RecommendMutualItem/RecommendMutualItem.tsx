@@ -6,6 +6,7 @@ import useRecommendItemMutation from '../../../../../hooks/react-query/syncro-it
 import { MutualSavedItemDto } from '../../../../../hooks/react-query/user/types/MutualSavedItemDto'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { SyncroItemType } from '../../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { middleDot } from '../../../../../utils/text/middleDot'
 import { urls } from '../../../../../utils/urls/urls'
 import { getRatingSimilarityLabel } from '../../../../ExplorePageContent/SimilarUserList/getRatingSimilarityLabel/getRatingSimilarityLabel'
 import UserProfilePicture from '../../../UserProfilePicture/UserProfilePicture'
@@ -43,6 +44,10 @@ const RecommendMutualItem = ({ mutual, itemId, ...props }: Props) => {
   const { isMobile } = useMyMediaQuery()
 
   const typeMap = useSyncroItemTypeMap({ itemType: props.itemType })
+  const { countLabel, similarityLabel } = getRatingSimilarityLabel({
+    similarityDto: mutual.similarity,
+    sharedItemType: props.itemType,
+  })
 
   return (
     <Flex justify="space-between">
@@ -63,10 +68,7 @@ const RecommendMutualItem = ({ mutual, itemId, ...props }: Props) => {
                 ? `${Math.floor(
                     mutual.similarity.overallPercentage * 100
                   )}% ${typeMap.getTypeLabelLowerCase()} similarity`
-                : getRatingSimilarityLabel({
-                    similarityDto: mutual.similarity,
-                    sharedItemType: props.itemType,
-                  })}
+                : `${countLabel} ${middleDot} ${similarityLabel}`}
             </Span>
           )}
         </FlexCol>
