@@ -50,12 +50,12 @@ const SyncroItemImage = (props: Props) => {
   const [isError, setIsError] = useState(false)
 
   const showNextImage = useMemo(() => {
-    return false
-    // return (
-    //   !isError &&
-    //   props.item?.syncroRatingCount &&
-    //   props.item?.syncroRatingCount > 0
-    // )
+    // return false
+    return (
+      !isError &&
+      props.item?.syncroRatingCount &&
+      props.item?.syncroRatingCount > 0
+    )
   }, [isError])
 
   return (
