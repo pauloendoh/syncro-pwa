@@ -77,18 +77,7 @@ const ReplyToRatingSection = (props: Props) => {
             <ActionIcon
               key={emote}
               onClick={() =>
-                submitReply(
-                  {
-                    ratingId: props.rating.id,
-                    content: emote,
-                  },
-                  {
-                    onSuccess: () => {
-                      handleClose()
-                      myNotifications.success('Reaction sent!')
-                    },
-                  }
-                )
+                setMessage((prev) => (prev ? prev + ' ' + emote : emote))
               }
             >
               {emote}
