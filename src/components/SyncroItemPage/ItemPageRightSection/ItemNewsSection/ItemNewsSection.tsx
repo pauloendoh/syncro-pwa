@@ -15,6 +15,10 @@ type Props = {
 const ItemNewsSection = ({ ...props }: Props) => {
   const { isLoading, data } = useItemNewsQuery(props.item.id)
 
+  if (!isLoading && data?.length === 0) {
+    return null
+  }
+
   return (
     <MyPaper className="ItemNewsSection">
       <Title order={4}>News</Title>
