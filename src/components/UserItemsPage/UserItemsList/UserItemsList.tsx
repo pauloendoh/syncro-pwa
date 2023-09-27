@@ -34,6 +34,7 @@ const UserItemsList = ({
 
   return (
     <FlexCol gap={16} mt={16} style={{ flex: 1 }}>
+      {/* delete? */}
       {sortingBy === 'customOrdering' && <Text>Min interest: 3</Text>}
       {finalItems.map((item) => {
         return (

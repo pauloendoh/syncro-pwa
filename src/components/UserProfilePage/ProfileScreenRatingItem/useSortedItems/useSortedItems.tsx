@@ -60,13 +60,32 @@ export const useSortedItems = ({
     }
 
     if (sortingBy === 'avgInterest')
-      return items.sort((a, b) => {
+      return items.sort((next, prev) => {
         const avgInterestA =
-          ((a.interests?.[0]?.interestLevel || 0) + (a.myInterest || 0)) / 2
+          ((next.interests?.[0]?.interestLevel || 0) + (next.myInterest || 0)) /
+          2
         const avgInterestB =
-          ((b.interests?.[0]?.interestLevel || 0) + (b.myInterest || 0)) / 2
+          ((prev.interests?.[0]?.interestLevel || 0) + (prev.myInterest || 0)) /
+          2
         return avgInterestB >= avgInterestA ? 1 : -1
       })
+
+    if (sortingBy === 'theirLastUpdatedAt') {
+      return items.sort((a, b) => {
+        const updatedAtA = a.ratings?.[0]?.updatedAt
+        const updatedAtB = b.ratings?.[0]?.updatedAt
+
+        // newest first
+        if (updatedAtA && updatedAtB) {
+          if (updatedAtA > updatedAtB) return -1
+          return 1
+        }
+
+        if (updatedAtA) return -1
+        if (updatedAtB) return 1
+        return 0
+      })
+    }
 
     return items.sort((a, b) => {
       const ratingA = a.ratings?.[0]?.ratingValue

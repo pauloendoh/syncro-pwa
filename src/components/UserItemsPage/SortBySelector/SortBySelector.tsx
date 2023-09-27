@@ -18,6 +18,10 @@ const SortBySelector = (props: Props) => {
           value: 'bothPlannedDesc' as SortingByType,
           label: 'Both planned',
         },
+        {
+          value: 'theirLastUpdatedAt' as SortingByType,
+          label: 'Last updated (newest)',
+        },
       ]}
       value={props.value}
       onChange={(value) => props.onChange(value as SortingByType)}

@@ -4,6 +4,7 @@ export type SortingByType =
   | 'customOrdering'
   | 'avgInterest'
   | 'bothPlannedDesc'
+  | 'theirLastUpdatedAt'
 
 type SortingOption = {
   type: SortingByType
