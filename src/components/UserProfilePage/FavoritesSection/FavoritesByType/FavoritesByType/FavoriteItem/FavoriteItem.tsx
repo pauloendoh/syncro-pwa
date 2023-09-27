@@ -5,6 +5,7 @@ import { MdClose, MdStar } from 'react-icons/md'
 import { useMyRatingsQuery } from '../../../../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyColors } from '../../../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../../../hooks/useMyMediaQuery'
+import { useRatingStatusIcon } from '../../../../../../types/domain/rating/useRatingStatusIcon/useRatingStatusIcon'
 import { SyncroItemDto } from '../../../../../../types/domain/syncro-item/SyncroItemDto'
 import { getItemTitleAndYear } from '../../../../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { useGetFinalRatingCountAvgSite } from '../../../../../SyncroItemPage/AvgRatingRow/useGetFinalRatingCountAvgSite/useGetFinalRatingCountAvgSite'
@@ -41,9 +42,13 @@ const FavoriteItem = (props: Props) => {
 
   const { data: myRatings } = useMyRatingsQuery()
 
-  const myRatingValue = useMemo(() => {
-    return myRatings?.find((r) => r.syncroItemId === props.item.id)?.ratingValue
+  const myRating = useMemo(() => {
+    return myRatings?.find((r) => r.syncroItemId === props.item.id)
   }, [myRatings, props.item.id])
+
+  const MyRatingStatusIcon = useRatingStatusIcon(
+    myRating?.status || 'COMPLETED'
+  )
 
   const hasCornerInfo = useMemo(() => {
     return !!props.showMyRating || !!props.showAvgRating || !!props.onClose
@@ -109,16 +114,16 @@ const FavoriteItem = (props: Props) => {
                   </FlexVCenter>
                 )}
 
-                {!!myRatingValue && props.showMyRating && (
+                {!!myRating && props.showMyRating && (
                   <FlexVCenter>
-                    <MdStar color={theme.colors.secondary[9]} />
+                    <MyRatingStatusIcon color={theme.colors.secondary[9]} />
                     <Span
                       color={theme.colors.secondary[9]}
                       size="xs"
                       align="center"
                       w={15}
                     >
-                      {myRatingValue}
+                      {myRating.ratingValue}
                     </Span>
                   </FlexVCenter>
                 )}
