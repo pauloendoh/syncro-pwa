@@ -68,7 +68,7 @@ const FollowersModal = () => {
             <Tabs.Tab value={'1'}>Following</Tabs.Tab>
           </Tabs.List>
 
-          {userList.length!! && (
+          {!!userList.length && (
             <ScrollArea.Autosize mah={'calc(100vh - 168px)'}>
               <FlexCol gap={16} pt={24} pr={16}>
                 {userList.map((user) => (
