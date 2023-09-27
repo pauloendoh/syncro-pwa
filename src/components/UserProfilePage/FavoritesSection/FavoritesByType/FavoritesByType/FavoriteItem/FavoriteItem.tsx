@@ -109,7 +109,7 @@ const FavoriteItem = (props: Props) => {
                   <FlexVCenter>
                     <MdStar color={ratingYellow} />
                     <Span color={ratingYellow} size="xs" align="center" w={15}>
-                      {itemFinalRating.avgRating}
+                      {itemFinalRating.avgRating || '?'}
                     </Span>
                   </FlexVCenter>
                 )}
