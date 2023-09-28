@@ -13,6 +13,7 @@ import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
+import { useRatingStatusIcon } from '../../../types/domain/rating/useRatingStatusIcon/useRatingStatusIcon'
 import { useRatingStatusMap } from '../../../types/domain/rating/useRatingStatusMap'
 import ItemTitleAndYear from '../../../utils/domains/syncro-item/ItemTitleAndYear'
 import { urls } from '../../../utils/urls/urls'
@@ -102,6 +103,8 @@ const HomeRatingItem = (props: Props) => {
     return true
   }, [props.rating.ratingValue, progressLabel])
 
+  const StatusIcon = useRatingStatusIcon(props.rating.status)
+
   if (!props.rating.syncroItem) return null
 
   return (
@@ -142,6 +145,16 @@ const HomeRatingItem = (props: Props) => {
                 </Text>{' '}
               </MyNextLink>
               {statusLabel}{' '}
+              {!props.rating.ratingValue && (
+                <StatusIcon
+                  style={{
+                    fontSize: 16,
+                    position: 'relative',
+                    top: 3,
+                    color: theme.colors.yellow[5],
+                  }}
+                />
+              )}
               <b
                 style={{
                   color: theme.colors.yellow[5],
