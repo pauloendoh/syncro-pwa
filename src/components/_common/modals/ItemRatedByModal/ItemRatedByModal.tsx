@@ -4,6 +4,7 @@ import { useEffect, useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../../hooks/react-query/rating/useItemRatedByQuery'
 import useItemRatedByModalStore from '../../../../hooks/zustand/modals/useItemRatedByModalStore'
 import FlexCol from '../../flex/FlexCol'
+import Span from '../../text/Span'
 import ItemRatedByModalItem from './ItemRatedByModalItem/ItemRatedByModalItem'
 
 const ItemRatedByModal = () => {
@@ -43,6 +44,7 @@ const ItemRatedByModal = () => {
       }}
     >
       <FlexCol gap={16}>
+        {sortedRatings.length === 0 && <Span>No user ratings yet</Span>}
         {sortedRatings.map((rating) => (
           <ItemRatedByModalItem rating={rating} />
         ))}
