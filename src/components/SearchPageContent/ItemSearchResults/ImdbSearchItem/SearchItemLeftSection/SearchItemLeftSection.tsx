@@ -37,13 +37,13 @@ const SearchItemLeftSection = ({ item, ...props }: Props) => {
       <Text>{finalSource}</Text>
 
       {ratingCount > 0 && (
-        <FlexVCenter gap={8}>
+        <FlexVCenter gap={4}>
           <MdStar color={'#FFB600'} size={18} />
           <Text>{upToNDecimals(avgRating, 1)}/10</Text>
         </FlexVCenter>
       )}
 
-      <FlexVCenter gap={8}>
+      <FlexVCenter gap={4}>
         <IoMdEye size={18} />
         <Text>
           {shortNumberFormatter(ratingCount)}

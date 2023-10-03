@@ -62,7 +62,7 @@ const SyncroSearchItem = ({ item, ...props }: Props) => {
         </SyncroItemLink>
 
         <Flex mt={2}>
-          <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>
+          <FlexCol style={{ width: 120 }}>
             {item.id ? (
               <SearchItemLeftSection
                 avgRating={item?.avgRating}
