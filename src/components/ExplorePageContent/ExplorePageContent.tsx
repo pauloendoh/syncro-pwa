@@ -7,8 +7,8 @@ import LoggedLayout from '../_common/layout/LoggedLayout'
 import MostRatedExploreSection from './MostRatedExploreSection/MostRatedExploreSection'
 import NewUsersList from './NewUsersList/NewUsersList'
 import PopularUserList from './PopularUserList/PopularUserList'
+import RatingSimilarityList from './RatingSimilarityList/RatingSimilarityList'
 import RecommendedForYouSection from './RecommendedForYouSection/RecommendedForYouSection'
-import SimilarUserList from './SimilarUserList/SimilarUserList'
 import { exploreTabOptions } from './exploreTabOptions/exploreTabOptions'
 
 type Props = {}
@@ -62,7 +62,7 @@ const ExplorePageContent = (props: Props) => {
           {exploreSlug === 'for-you' && <RecommendedForYouSection />}
           {exploreSlug === 'most-rated' && <MostRatedExploreSection />}
           {exploreSlug === 'popular-users' && <PopularUserList />}
-          {exploreSlug === 'rating-similarity' && <SimilarUserList />}
+          {exploreSlug === 'rating-similarity' && <RatingSimilarityList />}
           {exploreSlug === 'new-users' && <NewUsersList />}
         </Tabs>
       </Container>

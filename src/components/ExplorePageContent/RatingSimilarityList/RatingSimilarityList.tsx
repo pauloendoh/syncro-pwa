@@ -13,8 +13,7 @@ import Span from '../../_common/text/Span'
 import ItemTypeSelector from '../MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { getRatingSimilarityLabel as getRatingSimilarityLabels } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
 
-// PE 1/3 - rename to RatingSimilarityList
-const SimilarUserList = () => {
+const RatingSimilarityList = () => {
   const { queryValue, setQuery } = useQueryParams().itemType
 
   const { data: ratingSimilarities, isLoading } = useMySimilarUsersQuery(
@@ -89,4 +88,4 @@ const SimilarUserList = () => {
   )
 }
 
-export default SimilarUserList
+export default RatingSimilarityList

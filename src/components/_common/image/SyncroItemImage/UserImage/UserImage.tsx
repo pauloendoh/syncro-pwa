@@ -29,11 +29,7 @@ const UserImage = (props: Props) => {
         }}
       />
       {props.showLookingForRecommendationIcon && (
-        <Tooltip
-          label={'Looking for recommendations'}
-          position="bottom"
-          withArrow
-        >
+        <Tooltip label={'Looking for recommendations'} position="bottom">
           <Box pos={'absolute'} right={0} bottom={-8}>
             <MdRemoveRedEye />
           </Box>

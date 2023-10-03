@@ -57,7 +57,7 @@ const HomeRatingItemButtons = (props: Props) => {
   return (
     <FlexVCenter mt={2} gap={props.gap || (isMobile ? 18 : 24)}>
       <MyRatingButton itemId={props.syncroItemId!} />
-      {/* <Tooltip label={bookmarkTooltipLabel} withArrow>
+      {/* <Tooltip label={bookmarkTooltipLabel} >
         <FlexVCenter
           sx={(theme) => ({
             color: myInterest

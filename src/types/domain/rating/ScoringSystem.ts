@@ -3,6 +3,7 @@ export const scoringSystems = ['tenPoints', 'tenPointsDecimal'] as const
 export type ScoringSystem = (typeof scoringSystems)[number]
 
 export const scoringSystemMap: {
+  // PE 1/3 - use Record
   [key in ScoringSystem]: {
     type: ScoringSystem
     label: string

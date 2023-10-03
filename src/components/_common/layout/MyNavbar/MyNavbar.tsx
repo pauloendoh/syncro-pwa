@@ -102,7 +102,7 @@ const MyNavbar = (props: Props) => {
             {!authUser && <NavbarSignButtons />}
             {authUser && (
               <FlexVCenter gap={isSmallScreen ? 16 : 24}>
-                <Tooltip label="Explore" withArrow>
+                <Tooltip label="Explore">
                   <div>
                     <MyNextLink href={urls.pages.explore()}>
                       <ActionIcon>

@@ -111,7 +111,7 @@ const ItemMoreIcon = (props: Props) => {
         <Menu.Divider />
 
         <Menu.Label>Edit</Menu.Label>
-        <Tooltip label={canRefreshRating.message} withArrow position="bottom">
+        <Tooltip label={canRefreshRating.message} position="bottom">
           <div>
             <Menu.Item
               icon={<RxUpdate />}

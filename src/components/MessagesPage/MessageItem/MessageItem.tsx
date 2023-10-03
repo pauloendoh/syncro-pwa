@@ -95,7 +95,6 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
       >
         <Tooltip
           label={tooltipLabel}
-          withArrow
           position={isMyMessage ? 'left' : 'right'}
           withinPortal
         >

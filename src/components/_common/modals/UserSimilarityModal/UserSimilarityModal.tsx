@@ -95,10 +95,7 @@ const UserSimilarityModal = () => {
                   <FlexVCenter gap={8}>
                     {typeMap.getTypeLabel()}{' '}
                     {highSimilarityTypes.includes(type) && (
-                      <Tooltip
-                        label="Over 50% similarity and over 10 shared items"
-                        withArrow
-                      >
+                      <Tooltip label="Over 50% similarity and over 10 shared items">
                         <Span
                           size="xs"
                           sx={(theme) => ({

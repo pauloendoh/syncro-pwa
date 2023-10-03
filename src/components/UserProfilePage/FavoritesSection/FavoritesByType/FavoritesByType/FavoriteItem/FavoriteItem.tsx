@@ -131,7 +131,6 @@ const FavoriteItem = (props: Props) => {
                   <Tooltip
                     label={props.onCloseTooltip}
                     disabled={!props.onCloseTooltip}
-                    withArrow
                   >
                     <ActionIcon
                       sx={{

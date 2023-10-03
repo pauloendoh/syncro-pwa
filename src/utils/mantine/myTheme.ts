@@ -54,6 +54,12 @@ export const myTheme: MantineThemeOverride = {
     Tooltip: {
       defaultProps: {
         openDelay: 500,
+        withArrow: true,
+      },
+    },
+    Menu: {
+      defaultProps: {
+        withArrow: true,
       },
     },
   },

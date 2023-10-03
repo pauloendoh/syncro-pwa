@@ -30,7 +30,6 @@ const NavbarUserMenu = (props: Props) => {
 
   return (
     <Menu
-      withArrow
       shadow="md"
       styles={(theme) => ({
         item: {

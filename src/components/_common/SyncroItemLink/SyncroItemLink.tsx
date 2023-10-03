@@ -61,7 +61,6 @@ const SyncroItemLink = (props: Props) => {
       closeDelay={250}
       width={400}
       disabled={isMobile || props.disablePreview || forceDisabled}
-      withArrow
       withinPortal={props.previewWithinPortal}
       middlewares={{
         flip: false, // https://floating-ui.com/docs/flip

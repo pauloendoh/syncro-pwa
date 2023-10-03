@@ -10,6 +10,7 @@ interface Props {
   size?: number
 }
 
+// PE 1/3 - use Record
 export const SyncroItemBaseIcon: {
   [key in SyncroItemType]: React.ComponentType<IconBaseProps>
 } = {

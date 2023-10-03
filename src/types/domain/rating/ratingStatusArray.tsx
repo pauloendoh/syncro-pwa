@@ -69,6 +69,7 @@ export const ratingStatusArray: {
 export function useRatingStatusMap(itemType: SyncroItemType) {
   const typeMap = useSyncroItemTypeMap({ itemType })
   const map: {
+    // PE 1/3 - use Record
     [key in RatingStatusType]: {
       label: string
       icon: React.ReactNode

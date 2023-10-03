@@ -61,7 +61,7 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
           <Text size="sm">
             {item.title}
             {item.ratings?.[0]?.isPrivate && (
-              <Tooltip label="This rating is private" withArrow>
+              <Tooltip label="This rating is private">
                 <span
                   style={{
                     position: 'relative',

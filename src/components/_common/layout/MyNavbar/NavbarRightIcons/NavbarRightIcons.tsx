@@ -44,7 +44,6 @@ const NavbarRightIcons = () => {
             ? 'Messages'
             : 'No messages'
         }
-        withArrow
       >
         <Indicator
           disabled={isLoading || unreadMessageRooms?.length === 0}
@@ -64,7 +63,7 @@ const NavbarRightIcons = () => {
         </Indicator>
       </Tooltip>
 
-      <Tooltip label="Notifications" withArrow>
+      <Tooltip label="Notifications">
         <Indicator
           disabled={!unseenNotifications || unseenNotifications.length === 0}
           color="red"
