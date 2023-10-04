@@ -3,6 +3,7 @@ import { Box, Button } from '@mantine/core'
 import { useForm } from 'react-hook-form'
 import { format } from 'timeago.js'
 import useKeepTempUserMutation from '../../../../hooks/react-query/auth/useKeepTempUserMutation'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { RegisterDto } from '../../../AuthPage/RegisterForm/RegisterForm'
 import FlexCol from '../../../_common/flex/FlexCol'
@@ -37,8 +38,10 @@ const KeepUserForm = ({ ...props }: Props) => {
     )
   }
 
+  const { isMobile } = useMyMediaQuery()
+
   return (
-    <Box className="KeepUserForm" w={200}>
+    <Box className="KeepUserForm" w={isMobile ? '100%' : 200}>
       {!!authUser?.userExpiresAt && (
         <Span>
           Your temporary account expires {format(authUser?.userExpiresAt)}

@@ -50,10 +50,13 @@ const SettingsLayout = (props: Props) => {
                 <Title order={4}>Settings</Title>
 
                 <FlexCol
-                  mt={24}
+                  mt={16}
                   sx={{
                     a: {
                       width: '100% !important',
+                    },
+                    button: {
+                      display: 'flex',
                     },
                   }}
                 >
@@ -107,7 +110,8 @@ const SettingsLayout = (props: Props) => {
             )}
 
             <Box
-              p={16}
+              pt={isMobile ? 0 : 16}
+              px={24}
               sx={{
                 background: isMobile ? undefined : theme.colors.dark[9],
                 flexGrow: 1,

@@ -1,4 +1,4 @@
-import { Box, Checkbox, Table, useMantineTheme } from '@mantine/core'
+import { Checkbox, Table, useMantineTheme } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { MdEmail } from 'react-icons/md'
@@ -36,17 +36,12 @@ const SettingsNotificationsPage = (props: Props) => {
   return (
     <SettingsLayout
       rightContent={
-        <Box
-          p={16}
-          sx={{
-            flexGrow: 1,
-          }}
-        >
+        <>
           <SettingsTitle page="notifications" />
 
           <Table
             sx={{
-              marginTop: 24,
+              marginTop: 16,
               // 1st td
               'tbody > tr > td:first-child': {
                 paddingLeft: 0,
@@ -156,7 +151,7 @@ const SettingsNotificationsPage = (props: Props) => {
               </tr>
             </tbody>
           </Table>
-        </Box>
+        </>
       }
     />
   )
