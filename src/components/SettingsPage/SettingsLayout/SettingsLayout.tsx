@@ -111,6 +111,7 @@ const SettingsLayout = (props: Props) => {
 
             <Box
               pt={isMobile ? 0 : 16}
+              pb={isMobile ? 0 : 16}
               px={24}
               sx={{
                 background: isMobile ? undefined : theme.colors.dark[9],
