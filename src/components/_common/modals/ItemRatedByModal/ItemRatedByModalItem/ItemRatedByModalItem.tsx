@@ -51,7 +51,7 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
                 marginLeft: 2,
               }}
             >
-              {rating.ratingValue}
+              {rating.ratingValue || null}
             </b>
           </MyText>
           <MyText size="sm">{rating.user?.profile?.fullName}</MyText>
