@@ -146,6 +146,7 @@ const RatingCell = (props: {
             onClick={() => {
               if (props.rating) {
                 openSaveRatingModal(props.rating)
+                return
               }
               openSaveRatingModal(
                 buildRatingDto({ syncroItemId: props.itemId })

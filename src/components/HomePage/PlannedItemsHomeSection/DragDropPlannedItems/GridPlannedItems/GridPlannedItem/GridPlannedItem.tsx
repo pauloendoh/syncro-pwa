@@ -55,7 +55,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
                 size="sm"
                 variant="filled"
               >
-                <Span size="sm">{props.index + 1}</Span>
+                <Span size="sm">{rating.plannedPosition}</Span>
               </ActionIcon>
             </Menu.Target>
 
