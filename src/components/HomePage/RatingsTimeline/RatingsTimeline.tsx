@@ -1,5 +1,4 @@
 import { Box, Center, Loader } from '@mantine/core'
-import { useIntersection } from '@mantine/hooks'
 import { motion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
@@ -20,19 +19,6 @@ const RatingsTimeline = (props: Props) => {
     hasNextPage,
     isLoading,
   } = useTimelineRatingsQuery(props.userId)
-
-  const containerRef = useRef()
-
-  const { ref, entry } = useIntersection({
-    root: containerRef.current,
-    threshold: 0.5,
-  })
-
-  useEffect(() => {
-    if (entry?.isIntersecting && hasNextPage && homeRatings?.pages?.length) {
-      fetchNextPage()
-    }
-  }, [entry?.isIntersecting, hasNextPage, homeRatings])
 
   const flatRatings = useMemo(() => {
     return homeRatings?.pages.flat() || []
@@ -55,6 +41,13 @@ const RatingsTimeline = (props: Props) => {
     }, 100)
   }, [])
 
+  const virtuosoKey = useMemo(() => {
+    if (hasPreviousState) {
+      return `with-state-${isVisible ? 'visible' : 'hidden'}`
+    }
+    return `without-state-${isVisible ? 'visible' : 'hidden'}`
+  }, [isVisible, hasPreviousState])
+
   return (
     <>
       {isLoading && <CenterLoader />}
@@ -63,17 +56,15 @@ const RatingsTimeline = (props: Props) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        style={{
-          visibility: isVisible ? 'visible' : 'hidden',
-        }}
       >
         <Virtuoso
-          key={hasPreviousState ? 'with-state' : 'without-state'}
+          key={virtuosoKey}
           useWindowScroll
           totalCount={flatRatings.length}
           ref={virtuosoRef}
           restoreStateFrom={virtuosoState}
-          overscan={1000}
+          // overscan={1000}
+
           endReached={() => {
             if (hasNextPage) {
               fetchNextPage()
@@ -94,13 +85,11 @@ const RatingsTimeline = (props: Props) => {
           )}
         />
       </motion.div>
-
       {hasNextPage && (
         <Center mt={40} sx={{ height: 80 }}>
           <Loader />
         </Center>
       )}
-
       {/* <FlexCol gap={16} mt={16}>
         {flatRatings.map((rating) => (
           <HomeRatingItem rating={rating} key={rating.id} />
