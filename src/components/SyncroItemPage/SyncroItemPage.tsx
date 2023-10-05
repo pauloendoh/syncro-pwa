@@ -46,15 +46,15 @@ const SyncroItemPage = (props: Props) => {
           margin: '0 auto',
         }}
       >
-        {!isMobile && <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} />}
+        {!isMobile && <Grid.Col span={0} xs={0} sm={0} md={0} lg={1} xl={2} />}
 
         <Grid.Col
           span={12}
           xs={12}
           sm={7}
           md={7}
-          lg={5}
-          xl={4}
+          lg={6}
+          xl={5}
           sx={{
             paddingInline: isMobile ? 0 : undefined,
           }}
