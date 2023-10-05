@@ -32,7 +32,7 @@ const MySidebar = ({ ...props }: Props) => {
       px={isReduced ? 0 : 32}
       py={24}
     >
-      <FlexCol gap={24} align="center">
+      <FlexCol gap={24} align={isReduced ? 'center' : 'flex-start'}>
         {sidebarLinks.map((item) => (
           <MyNextLink href={item.href} key={item.href}>
             <FlexVCenter gap={16}>
