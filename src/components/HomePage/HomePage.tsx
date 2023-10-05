@@ -51,12 +51,11 @@ const HomePage = () => {
       {isMobile && (
         <>
           <MobileHomeNavbar />
-          <Box mt={64} />
         </>
       )}
       <Grid w="100%" mr={isMobile ? 0 : undefined}>
-        <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} />
-        <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}>
+        <Grid.Col span={0} xs={0} sm={0} md={1} lg={1} xl={2} />
+        <Grid.Col span={12} xs={12} sm={7} md={7} lg={6} xl={6}>
           <Container
             w="100%"
             size="xs"
@@ -96,7 +95,7 @@ const HomePage = () => {
             )}
           </Container>
         </Grid.Col>
-        <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
+        <Grid.Col span={0} xs={0} sm={5} md={4} lg={5} xl={4}>
           {!isSmallScreen && authUser && (
             <UserPlannedItemsSection userId={authUser.id} titleIsOutside />
           )}

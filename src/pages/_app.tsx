@@ -15,6 +15,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import BreakpointsViewer from '../components/_common/BreakpointsViewer/BreakpointsViewer'
 import { RouterTransition } from '../components/_common/RouterTransition/RouterTransition'
 import useCheckAuthOrLogout from '../hooks/domains/auth/useCheckAuthUserOrLogout'
 import { useMyMediaQuery } from '../hooks/useMyMediaQuery'
@@ -22,6 +23,7 @@ import { usePreserveScroll } from '../hooks/usePreserveScroll'
 import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlOnSessionStorage'
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
+import { myEnvs } from '../utils/myEnvs'
 import { useMyQueryClient } from '../utils/myQueryClient'
 import { sessionKeys, setSessionStorage } from '../utils/sessionStorageKeys'
 import { zIndexes } from '../utils/zIndexes'
@@ -107,6 +109,7 @@ export default function App(props: AppProps) {
             />
             <IoProvider>
               <Component {...pageProps} />
+              <BreakpointsViewer disabled={myEnvs.isProduction || false} />
             </IoProvider>
           </MantineProvider>
         </ColorSchemeProvider>

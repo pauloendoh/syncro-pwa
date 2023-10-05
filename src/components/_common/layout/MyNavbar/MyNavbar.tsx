@@ -1,16 +1,6 @@
-import {
-  ActionIcon,
-  Container,
-  Grid,
-  Header,
-  Title,
-  Tooltip,
-  useMantineTheme,
-} from '@mantine/core'
+import { Container, Grid, Header, Title, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { IoCompass, IoCompassOutline } from 'react-icons/io5'
-import { MdHome, MdOutlineHome } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls/urls'
@@ -57,39 +47,19 @@ const MyNavbar = (props: Props) => {
             href={urls.pages.index}
             style={{
               color: theme.colors.dark[0],
+              display: 'inline-block',
             }}
           >
-            <FlexVCenter
-              sx={{
-                paddingLeft: isSmallScreen ? 16 : 32,
-              }}
-              gap={4}
+            <Title
+              sx={(theme) => ({
+                color: theme.colors.dark[0],
+              })}
+              order={2}
+              ml={32}
+              w="fit-content"
             >
-              {/* <MyNextImage300
-                alt="Syncro logo"
-                src="/syncro-logo.svg"
-                style={{
-                  width: 24,
-                  height: 24,
-                }}
-              /> */}
-              <Title
-                sx={(theme) => ({
-                  color: theme.colors.dark[0],
-                })}
-                order={2}
-              >
-                Syncro
-              </Title>
-
-              <ActionIcon ml={8}>
-                {router.pathname === urls.pages.index ? (
-                  <MdHome size={24} color={theme.colors.primary[9]} />
-                ) : (
-                  <MdOutlineHome size={24} />
-                )}
-              </ActionIcon>
-            </FlexVCenter>
+              Syncro
+            </Title>
           </MyNextLink>
         </Grid.Col>
         <Grid.Col span={4} xs={5} sm={6} md={6}>
@@ -102,7 +72,7 @@ const MyNavbar = (props: Props) => {
             {!authUser && <NavbarSignButtons />}
             {authUser && (
               <FlexVCenter gap={isSmallScreen ? 16 : 24}>
-                <Tooltip label="Explore">
+                {/* <Tooltip label="Explore">
                   <div>
                     <MyNextLink href={urls.pages.explore()}>
                       <ActionIcon>
@@ -117,7 +87,7 @@ const MyNavbar = (props: Props) => {
                       </ActionIcon>
                     </MyNextLink>
                   </div>
-                </Tooltip>
+                </Tooltip> */}
 
                 <NavbarRightIcons />
               </FlexVCenter>

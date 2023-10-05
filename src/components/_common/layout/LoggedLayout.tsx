@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core'
+import { AppShell, Box } from '@mantine/core'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import { useMessageRoomSockets } from '../../../hooks/socket/domain/message-room/useMessageRoomSockets'
@@ -7,6 +7,7 @@ import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import GlobalModals from '../modals/GlobalModals'
 import MobileFooter from './MobileFooter/MobileFooter'
 import MyNavbar from './MyNavbar/MyNavbar'
+import MySidebar from './MySidebar/MySidebar'
 
 type Props = {
   children: React.ReactNode
@@ -15,7 +16,7 @@ type Props = {
 }
 
 const LoggedLayout = (props: Props) => {
-  const { isMobile: isXsScreen, isLoading } = useMyMediaQuery()
+  const { isMobile, isLoading } = useMyMediaQuery()
 
   const router = useRouter()
 
@@ -28,18 +29,18 @@ const LoggedLayout = (props: Props) => {
   useMessageRoomSockets(roomId)
 
   return (
-    <div>
-      {!isXsScreen && !isLoading && <MyNavbar />}
+    <AppShell navbar={<MySidebar />}>
+      {!isMobile && !isLoading && <MyNavbar />}
 
-      {props.disableMarginTop ? null : <Box mt={isXsScreen ? 24 : 96} />}
+      {props.disableMarginTop ? null : <Box mt={isMobile ? 0 : 24} />}
 
       {props.children}
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
 
-      {isXsScreen && !isLoading && !isMessagePage && <MobileFooter />}
+      {isMobile && !isLoading && !isMessagePage && <MobileFooter />}
       <GlobalModals />
-    </div>
+    </AppShell>
   )
 }
 

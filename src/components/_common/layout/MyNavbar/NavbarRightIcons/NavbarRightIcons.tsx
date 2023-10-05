@@ -38,30 +38,32 @@ const NavbarRightIcons = () => {
 
   return (
     <>
-      <Tooltip
-        label={
-          unreadMessageRooms && unreadMessageRooms.length > 0
-            ? 'Messages'
-            : 'No messages'
-        }
-      >
-        <Indicator
-          disabled={isLoading || unreadMessageRooms?.length === 0}
-          label={unreadMessageRooms?.length || 0}
-          size={16}
-          color="red"
+      {isMobile && (
+        <Tooltip
+          label={
+            unreadMessageRooms && unreadMessageRooms.length > 0
+              ? 'Messages'
+              : 'No messages'
+          }
         >
-          <MyNextLink href={urls.pages.messagesIndex}>
-            <ActionIcon>
-              {isMessagesPage ? (
-                <MdMail size={24} color={theme.colors.primary[9]} />
-              ) : (
-                <MdMailOutline size={24} />
-              )}
-            </ActionIcon>
-          </MyNextLink>
-        </Indicator>
-      </Tooltip>
+          <Indicator
+            disabled={isLoading || unreadMessageRooms?.length === 0}
+            label={unreadMessageRooms?.length || 0}
+            size={16}
+            color="red"
+          >
+            <MyNextLink href={urls.pages.messagesIndex}>
+              <ActionIcon>
+                {isMessagesPage ? (
+                  <MdMail size={24} color={theme.colors.primary[9]} />
+                ) : (
+                  <MdMailOutline size={24} />
+                )}
+              </ActionIcon>
+            </MyNextLink>
+          </Indicator>
+        </Tooltip>
+      )}
 
       <Tooltip label="Notifications">
         <Indicator
