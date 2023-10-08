@@ -71,7 +71,10 @@ const SyncroItemImage = (props: Props) => {
         <MyNextImage300x400
           width={finalWidth}
           height={height}
-          src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
+          src={getSyncroItemImageOrDefault({
+            isError,
+            url: props.item?.imageUrl || '',
+          })}
           alt={props.item?.title || 'syncro-item'}
           style={{
             objectFit: 'cover',
@@ -88,7 +91,10 @@ const SyncroItemImage = (props: Props) => {
         <img
           width={finalWidth}
           height={height}
-          src={getSyncroItemImageOrDefault(props.item?.imageUrl)}
+          src={getSyncroItemImageOrDefault({
+            isError,
+            url: props.item?.imageUrl || '',
+          })}
           alt={props.item?.title || 'syncro-item'}
           style={{
             objectFit: 'cover',
@@ -99,6 +105,7 @@ const SyncroItemImage = (props: Props) => {
               e.preventDefault()
             }
           }}
+          onError={() => setIsError(true)}
         />
       )}
 

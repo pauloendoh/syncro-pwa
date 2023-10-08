@@ -1,4 +1,5 @@
 import { Box, Tooltip } from '@mantine/core'
+import { useState } from 'react'
 import { MdRemoveRedEye } from 'react-icons/md'
 import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
@@ -12,7 +13,12 @@ type Props = {
 }
 
 const UserImage = (props: Props) => {
-  const image = (
+  const [image, setImage] = useState(
+    props.pictureUrl ||
+      'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
+  )
+
+  const ImageComponent = (
     <div
       style={{
         position: 'relative',
@@ -20,12 +26,17 @@ const UserImage = (props: Props) => {
     >
       <img
         alt={props.username || 'username'}
-        src={props.pictureUrl || '/images/avatars/avatar.png'}
+        src={image}
         width={props.widthHeight || 40}
         height={props.widthHeight || 40}
         style={{
           borderRadius: '50%',
           objectFit: 'cover',
+        }}
+        onError={(e) => {
+          setImage(
+            'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
+          )
         }}
       />
       {props.showLookingForRecommendationIcon && (
@@ -41,11 +52,11 @@ const UserImage = (props: Props) => {
   if (props.userIdAndLink)
     return (
       <MyNextLink href={urls.pages.userProfile(props.userIdAndLink)}>
-        {image}
+        {ImageComponent}
       </MyNextLink>
     )
 
-  return image
+  return ImageComponent
 }
 
 export default UserImage
