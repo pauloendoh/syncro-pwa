@@ -31,7 +31,7 @@ const InstallButton = ({ ...props }: Props) => {
 
   if (authUser?.username === 'pauloendoh')
     return JSON.stringify({
-      platform,
+      platform: navigator.platform,
       pwaIsInstalled,
     })
 }
