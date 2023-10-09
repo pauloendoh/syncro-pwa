@@ -1,3 +1,4 @@
+import platform from 'platform'
 import { useMemo } from 'react'
 import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
 
@@ -13,16 +14,16 @@ const InstallButton = ({ ...props }: Props) => {
     return window.matchMedia('(display-mode: standalone)').matches
   }, [])
 
-  const platform = useMemo(() => {
-    if (navigator.platform === 'Android') {
+  const currentPlatform = useMemo(() => {
+    const platform = navigator.platform.toLowerCase()
+
+    const androidPlatforms = ['win32', 'linux armv', 'linux aarch']
+    if (androidPlatforms.some((p) => platform.includes(p))) {
       return 'android'
     }
 
-    if (
-      navigator.platform === 'iPhone' ||
-      navigator.platform === 'iPad' ||
-      navigator.platform === 'iPod'
-    ) {
+    const ios = ['iphone', 'ipad', 'ipod']
+    if (ios.includes(platform)) {
       return 'ios'
     }
 
@@ -31,8 +32,10 @@ const InstallButton = ({ ...props }: Props) => {
 
   if (authUser?.username === 'pauloendoh')
     return JSON.stringify({
-      platform: navigator.platform,
+      platform: currentPlatform,
       pwaIsInstalled,
+      os: platform.os,
+      product: platform.product,
     })
 }
 
