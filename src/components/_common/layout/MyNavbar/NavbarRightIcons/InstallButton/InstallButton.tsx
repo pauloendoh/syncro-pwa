@@ -29,7 +29,11 @@ const InstallButton = ({ ...props }: Props) => {
     return 'none'
   }, [navigator.platform])
 
-  if (authUser?.username === 'pauloendoh') return platform
+  if (authUser?.username === 'pauloendoh')
+    return JSON.stringify({
+      platform,
+      pwaIsInstalled,
+    })
 }
 
 export default InstallButton
