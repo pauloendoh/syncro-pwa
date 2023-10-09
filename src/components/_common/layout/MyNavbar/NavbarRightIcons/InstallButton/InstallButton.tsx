@@ -14,15 +14,15 @@ const InstallButton = ({ ...props }: Props) => {
   }, [])
 
   const currentPlatform = useMemo(() => {
-    const isAndroid = /(android)/i.test(navigator.userAgent)
+    const platform = navigator.platform.toLowerCase()
 
-    // is android
-    if (isAndroid) {
+    const androidPlatforms = ['linux armv', 'linux aarch']
+    if (androidPlatforms.some((p) => platform.includes(p))) {
       return 'android'
     }
 
     const ios = ['iphone', 'ipad', 'ipod']
-    if (ios.includes(navigator.platform.toLowerCase())) {
+    if (ios.includes(platform)) {
       return 'ios'
     }
 
@@ -31,9 +31,9 @@ const InstallButton = ({ ...props }: Props) => {
 
   if (authUser?.username === 'pauloendoh')
     return JSON.stringify({
-      platform: currentPlatform,
+      platform: navigator.platform,
       pwaIsInstalled,
-      userAgent: navigator.userAgent,
+      currentPlatform,
     })
 }
 
