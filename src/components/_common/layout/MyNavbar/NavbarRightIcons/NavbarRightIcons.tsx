@@ -8,6 +8,7 @@ import { useNotificationsQuery } from '../../../../../hooks/react-query/notifica
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
+import InstallButton from './InstallButton/InstallButton'
 
 const NavbarRightIcons = () => {
   const { data: notifications } = useNotificationsQuery()
@@ -38,6 +39,8 @@ const NavbarRightIcons = () => {
 
   return (
     <>
+      <InstallButton />
+
       {isMobile && (
         <Tooltip
           label={
