@@ -31,21 +31,22 @@ const InstallButton = ({ ...props }: Props) => {
     return 'none'
   }, [navigator.platform])
 
-  if (currentPlatform === 'android')
-    return (
-      <Tooltip label="Install Syncro from Google Play">
-        <a
-          href="https://play.google.com/store/apps/details?id=app.vercel.syncro.twa"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            color: 'unset',
-          }}
-        >
-          <FaGooglePlay />
-        </a>
-      </Tooltip>
-    )
+  return (
+    <Tooltip label="Install Syncro from Google Play">
+      <a
+        href="https://play.google.com/store/apps/details?id=app.vercel.syncro.twa"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: 'unset',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <FaGooglePlay />
+      </a>
+    </Tooltip>
+  )
 }
 
 export default InstallButton
