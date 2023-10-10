@@ -21,12 +21,6 @@ const UsersSuggestedForYouSidebar = ({ ...props }: Props) => {
             key={item.userB.id}
           />
         ))}
-        {data?.map((item) => (
-          <UsersSuggestedForYouSidebarItem
-            user={item.userB}
-            key={item.userB.id}
-          />
-        ))}
       </FlexCol>
     </FlexCol>
   )

@@ -24,6 +24,7 @@ import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { htmlTitles } from '../../utils/consts/htmlTitles'
 import UserPlannedItemsSection from '../HomePage/PlannedItemsHomeSection/UserPlannedItemsSection'
+import UsersSuggestedForYouSidebar from '../HomePage/UsersSuggestedForYouSidebar/UsersSuggestedForYouSidebar'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
@@ -228,7 +229,12 @@ const UserProfilePage = () => {
           </Container>
         </Grid.Col>
         <Grid.Col span={0} xs={0} sm={5} md={4} lg={5} xl={5}>
-          {!isSmallScreen && <UserPlannedItemsSection userId={userId} />}
+          {!isSmallScreen && authUser && (
+            <FlexCol gap={16}>
+              <UserPlannedItemsSection userId={authUser.id} />
+              <UsersSuggestedForYouSidebar />
+            </FlexCol>
+          )}
         </Grid.Col>
       </Grid>
     </LoggedLayout>
