@@ -15,7 +15,7 @@ const UsersSuggestedForYouSidebar = ({ ...props }: Props) => {
       {isLoading && <CenterLoader width={160} />}
 
       <FlexCol gap={16}>
-        {data?.map((item) => (
+        {data?.slice(0, 4).map((item) => (
           <UsersSuggestedForYouSidebarItem
             user={item.userB}
             key={item.userB.id}
