@@ -33,16 +33,26 @@ const MySidebar = ({ ...props }: Props) => {
       py={24}
     >
       <FlexCol gap={24} align={isReduced ? 'center' : 'flex-start'}>
-        {sidebarLinks.map((item) => (
-          <MyNextLink href={item.href} key={item.href}>
+        {sidebarLinks.map((item) => {
+          const component = (
             <FlexVCenter gap={16}>
               <Center w={40}>
                 <item.Icon />
               </Center>
               {isReduced ? null : <Span size={16}>{item.text}</Span>}
             </FlexVCenter>
-          </MyNextLink>
-        ))}
+          )
+
+          if (item.href === '#') {
+            return component
+          }
+
+          return (
+            <MyNextLink href={item.href} key={item.href}>
+              {component}
+            </MyNextLink>
+          )
+        })}
       </FlexCol>
     </Navbar>
   )

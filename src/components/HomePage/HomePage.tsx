@@ -22,6 +22,7 @@ import FeedSettingsIcon from './FeedSettingsIconButton/FeedSettingsIconButton'
 import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
 import UserPlannedItemsSection from './PlannedItemsHomeSection/UserPlannedItemsSection'
 import RatingsTimeline from './RatingsTimeline/RatingsTimeline'
+import UsersSuggestedForYouSidebar from './UsersSuggestedForYouSidebar/UsersSuggestedForYouSidebar'
 
 const HomePage = () => {
   const { data: homeRatings, isLoading } = useTimelineRatingsQuery()
@@ -97,7 +98,10 @@ const HomePage = () => {
         </Grid.Col>
         <Grid.Col span={0} xs={0} sm={5} md={4} lg={5} xl={4}>
           {!isSmallScreen && authUser && (
-            <UserPlannedItemsSection userId={authUser.id} titleIsOutside />
+            <FlexCol gap={16}>
+              <UserPlannedItemsSection userId={authUser.id} titleIsOutside />
+              <UsersSuggestedForYouSidebar />
+            </FlexCol>
           )}
         </Grid.Col>
 

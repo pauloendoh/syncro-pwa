@@ -68,28 +68,30 @@ const NavbarRightIcons = () => {
         </Tooltip>
       )}
 
-      <Tooltip label="Notifications">
-        <Indicator
-          disabled={!unseenNotifications || unseenNotifications.length === 0}
-          color="red"
-          label={
-            unseenNotifications.length > 0
-              ? unseenNotifications.length
-              : undefined
-          }
-          size={16}
-        >
-          <MyNextLink href={urls.pages.notifications}>
-            <ActionIcon>
-              {isNotificationPage ? (
-                <IoNotifications size={24} color={theme.colors.primary[9]} />
-              ) : (
-                <IoNotificationsOutline size={24} />
-              )}
-            </ActionIcon>
-          </MyNextLink>
-        </Indicator>
-      </Tooltip>
+      {isMobile && (
+        <Tooltip label="Notifications">
+          <Indicator
+            disabled={!unseenNotifications || unseenNotifications.length === 0}
+            color="red"
+            label={
+              unseenNotifications.length > 0
+                ? unseenNotifications.length
+                : undefined
+            }
+            size={16}
+          >
+            <MyNextLink href={urls.pages.notifications}>
+              <ActionIcon>
+                {isNotificationPage ? (
+                  <IoNotifications size={24} color={theme.colors.primary[9]} />
+                ) : (
+                  <IoNotificationsOutline size={24} />
+                )}
+              </ActionIcon>
+            </MyNextLink>
+          </Indicator>
+        </Tooltip>
+      )}
     </>
   )
 }

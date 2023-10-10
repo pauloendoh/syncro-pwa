@@ -1,13 +1,20 @@
 import { ActionIcon, Indicator, Tooltip, useMantineTheme } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { IoCompass, IoCompassOutline } from 'react-icons/io5'
+import {
+  IoCompass,
+  IoCompassOutline,
+  IoNotifications,
+  IoNotificationsOutline,
+} from 'react-icons/io5'
 import { MdHome, MdMail, MdMailOutline, MdOutlineHome } from 'react-icons/md'
 import { useUnreadMessageRoomsQuery } from '../../../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
+import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
+import NavbarUserMenu from '../../MyNavbar/NavbarUserMenu/NavbarUserMenu'
 
 export const useSidebarLinks = () => {
   const router = useRouter()
@@ -17,10 +24,12 @@ export const useSidebarLinks = () => {
   const { authUser } = useAuthStore()
   const { data: userInfo } = useUserInfoQuery(authUser?.id || '')
 
-  // PE 1/3 - DRY useProfileImage(userId)
-  const imageUrl =
-    userInfo?.profile?.pictureUrl ||
-    'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
+  const { data: notifications } = useNotificationsQuery()
+
+  const unseenNotifications = useMemo(
+    () => notifications?.filter((n) => n.showDot) || [],
+    [notifications]
+  )
 
   const sidebarLinks = useMemo(() => {
     return [
@@ -33,6 +42,39 @@ export const useSidebarLinks = () => {
           ) : (
             <MdOutlineHome size={32} />
           ),
+      },
+      {
+        href: urls.pages.notifications,
+        text: 'Notifications',
+        Icon: () => (
+          <Tooltip label="Notifications">
+            <Indicator
+              disabled={
+                !unseenNotifications || unseenNotifications.length === 0
+              }
+              color="red"
+              label={
+                unseenNotifications.length > 0
+                  ? unseenNotifications.length
+                  : undefined
+              }
+              size={16}
+            >
+              <MyNextLink href={urls.pages.notifications}>
+                <ActionIcon>
+                  {router.pathname.startsWith('/notifications') ? (
+                    <IoNotifications
+                      size={24}
+                      color={theme.colors.primary[9]}
+                    />
+                  ) : (
+                    <IoNotificationsOutline size={24} />
+                  )}
+                </ActionIcon>
+              </MyNextLink>
+            </Indicator>
+          </Tooltip>
+        ),
       },
       {
         href: urls.pages.explore(),
@@ -75,29 +117,24 @@ export const useSidebarLinks = () => {
         ),
       },
       {
-        href: urls.pages.userProfile(authUser?.id || ''),
-        text: authUser?.username,
+        href: '#',
+        text: <NavbarUserMenu useUsername={authUser?.username} />,
         Icon: () => (
-          <img
-            alt="Picture of the user"
-            src={imageUrl}
-            width={32}
-            height={32}
-            style={{
-              cursor: 'pointer',
-              objectFit: 'cover',
-              borderRadius: '50%',
-              border: router.asPath.includes(
-                urls.pages.userProfile(authUser?.id || '')
-              )
-                ? `3px solid ${theme.colors.primary[9]}`
-                : 'none',
-            }}
+          <NavbarUserMenu
+            isActive={router.asPath.includes(
+              urls.pages.userProfile(authUser?.id || '')
+            )}
+            size={32}
           />
         ),
       },
     ]
-  }, [router.asPath, unreadMessageRooms?.length, isLoading])
+  }, [
+    router.asPath,
+    unreadMessageRooms?.length,
+    isLoading,
+    unseenNotifications,
+  ])
 
   return sidebarLinks
 }

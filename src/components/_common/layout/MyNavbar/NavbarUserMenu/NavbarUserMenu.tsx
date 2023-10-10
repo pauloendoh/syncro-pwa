@@ -11,7 +11,11 @@ import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
 
-type Props = {}
+type Props = {
+  isActive?: boolean
+  useUsername?: string
+  size?: number
+}
 
 const NavbarUserMenu = (props: Props) => {
   const { authUser } = useAuthStore()
@@ -36,20 +40,35 @@ const NavbarUserMenu = (props: Props) => {
           fontSize: 14,
         },
       })}
-      position="bottom-end"
     >
       <Menu.Target>
-        <img
-          alt="Picture of the user"
-          src={imageUrl}
-          width={36}
-          height={36}
-          style={{
-            cursor: 'pointer',
-            objectFit: 'cover',
-            borderRadius: '50%',
-          }}
-        />
+        {props.useUsername ? (
+          <span
+            style={{
+              cursor: 'pointer',
+            }}
+          >
+            {props.useUsername}
+          </span>
+        ) : (
+          <img
+            alt="Picture of the user"
+            src={imageUrl}
+            width={props.size || 36}
+            height={props.size || 36}
+            style={{
+              cursor: 'pointer',
+              objectFit: 'cover',
+              borderRadius: '50%',
+
+              ...(props.isActive
+                ? {
+                    border: `2px solid ${theme.colors.primary[9]}`,
+                  }
+                : {}),
+            }}
+          />
+        )}
       </Menu.Target>
 
       <Menu.Dropdown>
@@ -61,9 +80,6 @@ const NavbarUserMenu = (props: Props) => {
         >
           <Menu.Item icon={<AiOutlineUser />}>Profile</Menu.Item>
         </MyNextLink>
-        {/* <MyNextLink href={urls.pages.savedItems()}>
-          <Menu.Item icon={<IoBookmarksOutline />}>Planned items</Menu.Item>
-        </MyNextLink> */}
 
         {!!authUser.userExpiresAt ? (
           <MyNextLink href={urls.pages.settings()}>

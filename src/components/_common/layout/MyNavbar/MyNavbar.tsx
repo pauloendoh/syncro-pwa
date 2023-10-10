@@ -1,6 +1,4 @@
 import { Container, Grid, Header, Title, useMantineTheme } from '@mantine/core'
-import { useRouter } from 'next/router'
-import { useMemo } from 'react'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../utils/urls/urls'
@@ -9,7 +7,6 @@ import FlexVCenter from '../../flex/FlexVCenter'
 import MyNextLink from '../../overrides/MyNextLink'
 import NavbarSignButtons from '../NavbarSignButtons/NavbarSignButtons'
 import NavbarRightIcons from './NavbarRightIcons/NavbarRightIcons'
-import NavbarUserMenu from './NavbarUserMenu/NavbarUserMenu'
 import SearchBar from './SearchBar/SearchBar'
 
 type Props = {}
@@ -20,11 +17,6 @@ const MyNavbar = (props: Props) => {
   const { isSmallScreen } = useMyMediaQuery()
 
   const theme = useMantineTheme()
-
-  const router = useRouter()
-  const currentlyOnExplore = useMemo(() => {
-    return router.pathname.startsWith('/explore')
-  }, [router.pathname])
 
   return (
     <Header
@@ -92,8 +84,6 @@ const MyNavbar = (props: Props) => {
                 <NavbarRightIcons />
               </FlexVCenter>
             )}
-
-            <NavbarUserMenu />
           </FlexVCenter>
         </Grid.Col>
       </Grid>
