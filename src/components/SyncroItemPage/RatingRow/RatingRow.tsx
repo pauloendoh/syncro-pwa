@@ -80,7 +80,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
     return 'Rate'
   }, [myRating?.ratingValue])
 
-  const { data: myRatings } = useMyRatingsQuery()
+  const { data: myRatings, isLoading } = useMyRatingsQuery()
 
   return (
     <ScrollArea pb={16}>
@@ -89,7 +89,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
           <>
             <Tooltip
               label="Click here to save your first item"
-              disabled={!!myRatings?.length}
+              disabled={!!myRatings?.length || isLoading}
               withinPortal
               opened
             >
