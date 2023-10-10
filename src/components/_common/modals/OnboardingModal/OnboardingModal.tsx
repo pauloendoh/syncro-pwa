@@ -1,5 +1,5 @@
 import { ActionIcon, Modal, Text, useMantineTheme } from '@mantine/core'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
@@ -20,11 +20,6 @@ const OnboardingModal = () => {
 
   const { data: settings } = useSettingsQuery()
 
-  const title = useMemo(() => {
-    if (!selectedFavorite) return 'What is your favorite type of media?'
-    return 'blabla'
-  }, [settings])
-
   const typeMap = useSyncroItemTypeMap({
     itemType: selectedFavorite || undefined,
   })
@@ -38,7 +33,7 @@ const OnboardingModal = () => {
       withCloseButton={false}
       title={
         selectedFavorite === null ? (
-          'What is your favorite type of media?'
+          'What is your most consumed type of media?'
         ) : (
           <FlexVCenter gap={4}>
             <ActionIcon onClick={() => setSelectedFavorite(null)}>

@@ -1,4 +1,4 @@
-import { ScrollArea, useMantineTheme } from '@mantine/core'
+import { ScrollArea, Tooltip, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { IoMdShareAlt } from 'react-icons/io'
@@ -6,9 +6,8 @@ import { MdLink, MdStarBorder } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useFavoriteItemsQuery } from '../../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
 import useToggleFavoriteItemMutation from '../../../hooks/react-query/favorite-item/useToggleFavoriteItemMutation'
-import { useMyInterestQU } from '../../../hooks/react-query/interest/useMyInterestsQuery'
-import useToggleSaveItemMutation from '../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyItemRatingQueryUtils } from '../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
+import { useMyRatingsQuery } from '../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import useRecommendItemModalStore from '../../../hooks/zustand/modals/useRecommendItemModalStore'
 import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRatingModalStore'
@@ -30,14 +29,9 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
   const { authUser } = useAuthStore()
   const myRating = useMyItemRatingQueryUtils(syncroItem.id)
 
-  const myInterest = useMyInterestQU(syncroItem.id)
-
   const theme = useMantineTheme()
 
   const openRatingModal = useSaveRatingModalStore((s) => s.openModal)
-
-  const { mutate: submitToggleSave, isLoading: toggleSaveIsLoading } =
-    useToggleSaveItemMutation()
 
   const externalLink = useMemo(() => {
     if (syncroItem.type === 'game') {
@@ -74,7 +68,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
   }, [favorites, syncroItem.id])
 
   const ratingButtonLabel = useMemo(() => {
-    if (!myRating) return 'Rate'
+    if (!myRating) return 'Save'
     if (myRating?.ratingValue) {
       return myRating?.ratingValue
     }
@@ -86,27 +80,36 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
     return 'Rate'
   }, [myRating?.ratingValue])
 
+  const { data: myRatings } = useMyRatingsQuery()
+
   return (
     <ScrollArea pb={16}>
       <FlexVCenter gap={isSmallScreen ? 4 : 8} pb={isSmallScreen ? 16 : 0}>
         {authUser && (
           <>
-            <RatingRowButton
-              onClick={() =>
-                openRatingModal(
-                  myRating || buildRatingDto({ syncroItemId: syncroItem.id })
-                )
-              }
-              isActive={!!myRating}
-              leftIcon={
-                ratingStatusArray.find((s) => s.value === myRating?.status)
-                  ?.icon || (
-                  <MdStarBorder color={theme.colors.dark[0]} size={16} />
-                )
-              }
+            <Tooltip
+              label="Click here to save your first item"
+              disabled={!!myRatings?.length}
+              withinPortal
+              opened
             >
-              {ratingButtonLabel}
-            </RatingRowButton>
+              <RatingRowButton
+                onClick={() =>
+                  openRatingModal(
+                    myRating || buildRatingDto({ syncroItemId: syncroItem.id })
+                  )
+                }
+                isActive={!!myRating}
+                leftIcon={
+                  ratingStatusArray.find((s) => s.value === myRating?.status)
+                    ?.icon || (
+                    <MdStarBorder color={theme.colors.dark[0]} size={16} />
+                  )
+                }
+              >
+                {ratingButtonLabel}
+              </RatingRowButton>
+            </Tooltip>
 
             <RatingRowButton
               ml={2}

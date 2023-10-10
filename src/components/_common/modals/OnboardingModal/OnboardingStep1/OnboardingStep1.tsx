@@ -17,51 +17,54 @@ const OnboardingStep1 = (props: Props) => {
   return (
     <FlexCol gap={16}>
       <Flex wrap="wrap" gap={16} justify={'center'}>
-        {syncroItemTypeOptions.map((o) => (
-          <div
-            key={o.itemType}
-            style={{
-              position: 'relative',
-              borderRadius: 8,
-
-              border:
-                selectedType === o.itemType
-                  ? `4px solid ${theme.colors.primary[9]}`
-                  : '4px solid transparent',
-            }}
-          >
-            <img
-              src={o.onboardingImageUrl}
+        {syncroItemTypeOptions
+          .filter((o) => o.itemType !== 'music')
+          .map((o) => (
+            <div
+              key={o.itemType}
               style={{
-                width: width,
-                height: width,
-                objectFit: 'cover',
-                cursor: 'pointer',
+                position: 'relative',
                 borderRadius: 8,
-              }}
-              onClick={() => {
-                if (selectedType === o.itemType) {
-                  setSelectedType(undefined)
-                  return
-                }
-                setSelectedType(o.itemType)
-              }}
-            />
-            <Span
-              pos="absolute"
-              sx={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: width,
-                textAlign: 'center',
-                backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0))',
+
+                border:
+                  selectedType === o.itemType
+                    ? `4px solid ${theme.colors.primary[9]}`
+                    : '4px solid transparent',
               }}
             >
-              {o.getTypeLabel(true)}
-            </Span>
-          </div>
-        ))}
+              <img
+                src={o.onboardingImageUrl}
+                style={{
+                  width: width,
+                  height: width,
+                  objectFit: 'cover',
+                  cursor: 'pointer',
+                  borderRadius: 8,
+                }}
+                onClick={() => {
+                  if (selectedType === o.itemType) {
+                    setSelectedType(undefined)
+                    return
+                  }
+                  setSelectedType(o.itemType)
+                }}
+              />
+              <Span
+                pos="absolute"
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  width: width,
+                  textAlign: 'center',
+                  backgroundImage:
+                    'linear-gradient(rgba(0,0,0,0), rgba(0,0,0))',
+                }}
+              >
+                {o.getTypeLabel(true)}
+              </Span>
+            </div>
+          ))}
       </Flex>
 
       <Button
