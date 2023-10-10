@@ -229,9 +229,9 @@ const UserProfilePage = () => {
           </Container>
         </Grid.Col>
         <Grid.Col span={0} xs={0} sm={5} md={4} lg={5} xl={5}>
-          {!isSmallScreen && authUser && (
+          {!isSmallScreen && (
             <FlexCol gap={16}>
-              <UserPlannedItemsSection userId={authUser.id} />
+              <UserPlannedItemsSection userId={userId} />
               <UsersSuggestedForYouSidebar />
             </FlexCol>
           )}
