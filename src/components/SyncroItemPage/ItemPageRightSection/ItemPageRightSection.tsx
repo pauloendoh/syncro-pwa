@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import FlexCol from '../../_common/flex/FlexCol'
+import AmazonLinksSection from './AmazonLinksSection/AmazonLinksSection'
 import AuthorsPaper from './AuthorsPaper/AuthorsPaper'
 import ItemNewsSection from './ItemNewsSection/ItemNewsSection'
 
@@ -37,8 +38,11 @@ const ItemPageRightSection = ({ ...props }: Props) => {
 
       {!isSmallScreen && (
         <>
-          <ItemNewsSection item={props.item} />
-          {/* <AmazonLinksSection item={props.item} /> */}
+          {props.item.type !== 'book' && <ItemNewsSection item={props.item} />}
+
+          {props.item.type === 'book' && (
+            <AmazonLinksSection item={props.item} />
+          )}
         </>
       )}
     </FlexCol>

@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { urls } from '../../../../utils/urls/urls'
+import { AmazonLinkDto } from './types/AmazonLinkDto'
 
 export const useAmazonLinksQuery = (syncroItemId: string) => {
-  return useQuery<any[], Error>([urls.api.amazonLinks(syncroItemId)], {})
+  return useQuery<AmazonLinkDto[], Error>(
+    [urls.api.amazonLinks(syncroItemId)],
+    {}
+  )
 }

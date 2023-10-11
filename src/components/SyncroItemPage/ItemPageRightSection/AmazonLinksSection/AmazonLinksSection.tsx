@@ -1,16 +1,27 @@
-import { useAmazonLinksQuery } from '../../../../hooks/react-query/syncro-item/book/useMyFeedbackQuery'
+import { Title } from '@mantine/core'
+import { useAmazonLinksQuery } from '../../../../hooks/react-query/syncro-item/book/useAmazonLinksQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
+import FlexCol from '../../../_common/flex/FlexCol'
+import CenterLoader from '../../../_common/overrides/CenterLoader/CenterLoader'
+import MyPaper from '../../../_common/overrides/MyPaper'
+import AmazonLinksSectionItem from './AmazonLinksSectionItem/AmazonLinksSectionItem'
 
 type Props = {
   item: SyncroItemDto
 }
 
 const AmazonLinksSection = ({ ...props }: Props) => {
-  const { data } = useAmazonLinksQuery(props.item.id)
+  const { data, isLoading } = useAmazonLinksQuery(props.item.id)
   return (
-    <div className="AmazonLinksSection">
-      <div>AmazonLinksSection</div>
-    </div>
+    <MyPaper className="AmazonLinksSection">
+      <Title order={4}>Amazon links</Title>
+      {isLoading && <CenterLoader />}
+      <FlexCol mt={8} gap={16}>
+        {data?.map((link) => (
+          <AmazonLinksSectionItem link={link} key={link.amazonUrl} />
+        ))}
+      </FlexCol>
+    </MyPaper>
   )
 }
 
