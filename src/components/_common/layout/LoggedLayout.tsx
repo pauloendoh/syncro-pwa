@@ -29,7 +29,13 @@ const LoggedLayout = (props: Props) => {
   useMessageRoomSockets(roomId)
 
   return (
-    <AppShell navbar={<MySidebar />}>
+    <AppShell
+      navbar={<MySidebar />}
+      sx={{
+        paddingInline: 0,
+        paddingTop: props.disableMarginTop ? 0 : undefined,
+      }}
+    >
       {!isMobile && !isLoading && <MyNavbar />}
 
       {props.disableMarginTop ? null : <Box mt={isMobile ? 0 : 24} />}

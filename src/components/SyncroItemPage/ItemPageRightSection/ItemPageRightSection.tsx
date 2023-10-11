@@ -35,7 +35,12 @@ const ItemPageRightSection = ({ ...props }: Props) => {
     >
       {hasAuthors && <AuthorsPaper item={props.item} />}
 
-      {!isSmallScreen && <ItemNewsSection item={props.item} />}
+      {!isSmallScreen && (
+        <>
+          <ItemNewsSection item={props.item} />
+          {/* <AmazonLinksSection item={props.item} /> */}
+        </>
+      )}
     </FlexCol>
   )
 }

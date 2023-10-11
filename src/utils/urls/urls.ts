@@ -214,6 +214,8 @@ export const urls = {
     importConnectors: '/import-connectors',
     importConnectorsValidate: (params: { connector: string; url: string }) =>
       `/import-connectors/validate?${qs.stringify(params)}`,
+
+    amazonLinks: (itemId: string) => `/syncro-item/${itemId}/amazon-links`,
   },
 
   others: {
