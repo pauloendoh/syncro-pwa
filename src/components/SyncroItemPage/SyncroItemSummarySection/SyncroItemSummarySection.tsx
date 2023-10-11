@@ -4,6 +4,7 @@ import LinesEllipsis from 'react-lines-ellipsis'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import FlexCol from '../../_common/flex/FlexCol'
 import MangaExtraInfoSection from '../MangaExtraInfoSection/MangaExtraInfoSection'
+import BookExtraInfoSection from './BookExtraInfoSection/BookExtraInfoSection'
 import GameExtraInfoSection from './GameExtraInfoSection/GameExtraInfoSection'
 
 type Props = {
@@ -97,6 +98,12 @@ const SyncroItemSummarySection = ({ item, ...props }: Props) => {
       {item.gameExtraInfo && !!item.gameExtraInfo.platforms.length && (
         <Box mt={24}>
           <GameExtraInfoSection info={item.gameExtraInfo} />
+        </Box>
+      )}
+
+      {item.bookExtraInfo && (
+        <Box mt={24}>
+          <BookExtraInfoSection info={item.bookExtraInfo} />
         </Box>
       )}
     </FlexCol>
