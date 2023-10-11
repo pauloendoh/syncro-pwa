@@ -34,7 +34,7 @@ export type Period = (typeof periods)[number]['value']
 const MostRatedExploreSection = ({ ...props }: Props) => {
   const [itemType, setItemType] = useState<SyncroItemType>('movie')
 
-  const [period, setPeriod] = useState<Period>('week')
+  const [period, setPeriod] = useState<Period>('month')
 
   const { data: items, isLoading } = useMostRatedItemsQuery({
     itemType,
@@ -75,6 +75,7 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
               alwaysShowTitle
               width={140}
               showAvgRating
+              showMyRating
             />
           </SyncroItemLink>
         ))}
