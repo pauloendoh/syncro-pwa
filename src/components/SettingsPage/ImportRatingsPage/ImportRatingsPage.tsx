@@ -1,4 +1,4 @@
-import { Box, useMantineTheme } from '@mantine/core'
+import { Box } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import { useSettingsQuery } from '../../../hooks/react-query/user-settings/useSettingsQuery'
@@ -32,8 +32,8 @@ const ImportRatingsPage = (props: Props) => {
     }
   }, [debouncedSettings])
 
-  const theme = useMantineTheme()
   const { openModal } = useImportRatingsModalStore()
+
   return (
     <SettingsLayout
       rightContent={

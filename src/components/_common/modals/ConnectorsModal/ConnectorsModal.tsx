@@ -1,16 +1,8 @@
-import {
-  Box,
-  Modal,
-  Select,
-  Text,
-  TextInput,
-  useMantineTheme,
-} from '@mantine/core'
+import { Box, Modal, Select, Text, TextInput } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useQueryState } from 'next-usequerystate'
 import { useEffect, useState } from 'react'
 import useUpdateConnectorsMutation from '../../../../hooks/react-query/connectors/useUpdateConnectorsMutation'
-import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useConnectorsModalStore from '../../../../hooks/zustand/modals/useConnectorsModalStore'
 import { QueryParams } from '../../../../utils/queryParams'
 import { urls } from '../../../../utils/urls/urls'
@@ -26,9 +18,7 @@ const ConnectorsModal = () => {
     openModal,
   } = useConnectorsModalStore()
 
-  const [queryParam] = useQueryState(QueryParams.importRatings)
-
-  const theme = useMantineTheme()
+  const [queryParam] = useQueryState(QueryParams.connectorsModal)
 
   const { mutate: submitUpdate } = useUpdateConnectorsMutation()
 
@@ -41,8 +31,6 @@ const ConnectorsModal = () => {
       openModal('Anilist')
     }
   }, [queryParam])
-
-  const { isMobile } = useMyMediaQuery()
 
   const handleCloseModal = () => [closeModal()]
 
