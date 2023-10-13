@@ -1,7 +1,9 @@
-import { Flex, Grid, ScrollArea, Text } from '@mantine/core'
+import { Box, Flex, Grid, ScrollArea, Text } from '@mantine/core'
+import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
 import { useMessageRoomQuery } from '../../hooks/react-query/message/useMessageRoomQuery'
 import { useMessagesQuery } from '../../hooks/react-query/message/useMessagesQuery'
+import useReadAllMessagesMutation from '../../hooks/react-query/message/useReadAllMessagesMutation'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
@@ -36,22 +38,45 @@ const MessagesPage = (props: Props) => {
     useUserInfoQuery(otherUser?.id)
 
   const { data: messages, isLoading } = useMessagesQuery(roomId)
-  const chatScrollArea = useRef<HTMLDivElement>(null)
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setTimeout(() => {
-      if (!chatScrollArea.current) {
+      if (!scrollAreaRef.current) {
         return
       }
 
-      chatScrollArea.current.scrollTo({
-        top: chatScrollArea.current.scrollHeight,
+      scrollAreaRef.current.scrollTo({
+        top: scrollAreaRef.current.scrollHeight,
         behavior: 'smooth',
       })
     }, 100)
-  }, [chatScrollArea.current, messages])
+  }, [scrollAreaRef.current, messages])
 
   const { isMobile } = useMyMediaQuery()
+
+  const { mutate: submitReadAllMessages } = useReadAllMessagesMutation()
+
+  const { ref: seenDivRef, entry } = useIntersection({
+    root: scrollAreaRef.current,
+  })
+
+  const theirMessages = useMemo(() => {
+    if (!messages) return []
+    return messages.filter((message) => message.userId !== authUser?.id)
+  }, [messages])
+
+  const hasUnseenMessages = useMemo(() => {
+    if (!theirMessages) return false
+    return theirMessages.some((message) => !message.isRead)
+  }, [theirMessages])
+
+  useEffect(() => {
+    if (!entry?.isIntersecting) return
+    if (!hasUnseenMessages) return
+
+    submitReadAllMessages({ roomId })
+  }, [entry?.isIntersecting, hasUnseenMessages])
 
   return (
     <LoggedLayout disableMarginBottom disableMarginTop={isMobile}>
@@ -106,7 +131,7 @@ const MessagesPage = (props: Props) => {
             </FlexVCenter>
 
             <ScrollArea
-              viewportRef={chatScrollArea}
+              viewportRef={scrollAreaRef}
               type="hover"
               id="message-scroll-area"
               sx={{
@@ -126,6 +151,12 @@ const MessagesPage = (props: Props) => {
                   isLast={index === messages.length - 1}
                 />
               ))}
+              <Box
+                sx={{
+                  visibility: 'hidden',
+                }}
+                ref={seenDivRef}
+              />
             </ScrollArea>
 
             <SendMessageInput roomId={roomId} />

@@ -1,8 +1,7 @@
 import { Box, Flex, Text, Tooltip, useMantineTheme } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
-import useReadAllMessagesMutation from '../../../hooks/react-query/message/useReadAllMessagesMutation'
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
@@ -23,17 +22,6 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
     root: containerRef.current,
     threshold: 0.7,
   })
-
-  const { mutate: submitReadAllMessages } = useReadAllMessagesMutation()
-
-  useEffect(() => {
-    if (isMyMessage) return
-    if (!entry?.isIntersecting) return
-    if (!isLast) return
-    if (message.isRead) return
-
-    submitReadAllMessages({ roomId: message.roomId })
-  }, [entry?.isIntersecting, message, isLast, isMyMessage])
 
   const tooltipLabel = useMemo(() => {
     // locale date string + HH:mm
