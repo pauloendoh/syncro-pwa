@@ -8,7 +8,6 @@ import FlexCol from '../../_common/flex/FlexCol'
 import MyTextLink from '../../_common/text/MyTextLink/MyTextLink'
 import SettingsLayout from '../SettingsLayout/SettingsLayout'
 import SettingsTitle from '../SettingsTitle/SettingsTitle'
-import ConnectorsSection from './ConnectorsSection/ConnectorsSection'
 
 type Props = {}
 
@@ -51,9 +50,9 @@ const ImportRatingsPage = (props: Props) => {
             </FlexCol>
           </Box>
 
-          <Box mt={32}>
+          {/* <Box mt={32}>
             <ConnectorsSection />
-          </Box>
+          </Box> */}
         </Box>
       }
     />

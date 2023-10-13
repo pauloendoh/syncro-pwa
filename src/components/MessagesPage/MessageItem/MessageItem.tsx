@@ -3,7 +3,6 @@ import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
 import useReadAllMessagesMutation from '../../../hooks/react-query/message/useReadAllMessagesMutation'
-import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
@@ -17,15 +16,6 @@ type Props = {
 
 const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
   const theme = useMantineTheme()
-
-  const { data: unreadRooms } = useUnreadMessageRoomsQuery()
-  const unreadRoom = useMemo(() => {
-    if (!unreadRooms) {
-      return null
-    }
-
-    return unreadRooms.find((room) => room.id === message.roomId)
-  }, [unreadRooms, message.roomId])
 
   const containerRef = useRef<HTMLDivElement>(null)
 
