@@ -59,7 +59,7 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
     }
 
     if (authUser?.id === message.replyToMessage?.userId) {
-      return `${message.user.username} replied to your message`
+      return `${message.user.username} replied to you`
     }
 
     return `${message.user.username} replied to themselves`
