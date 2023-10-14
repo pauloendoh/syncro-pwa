@@ -107,7 +107,7 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
             }}
           >
             <FlexVCenter gap={4}>
-              <MdReply />
+              <MdReply color={theme.colors.dark[2]} />
               <Text size="xs" color={theme.colors.dark[2]}>
                 {replyMessageTitle}
               </Text>
@@ -187,7 +187,7 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
               props.onReplyClick()
             }}
           >
-            <MdReply size="20px" color={theme.colors.dark[2]} />
+            <MdReply size="20px" />
           </ActionIcon>
         </FlexVCenter>
       </FlexVCenter>
