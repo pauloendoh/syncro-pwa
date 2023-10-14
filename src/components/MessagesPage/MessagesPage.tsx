@@ -1,6 +1,7 @@
 import { Box, Flex, Grid, ScrollArea, Text } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { MessageDto } from '../../hooks/react-query/message/types/MessageDto'
 import { useMessageRoomQuery } from '../../hooks/react-query/message/useMessageRoomQuery'
 import { useMessagesQuery } from '../../hooks/react-query/message/useMessagesQuery'
 import useReadAllMessagesMutation from '../../hooks/react-query/message/useReadAllMessagesMutation'
@@ -78,6 +79,10 @@ const MessagesPage = (props: Props) => {
     submitReadAllMessages({ roomId })
   }, [entry?.isIntersecting, hasUnseenMessages])
 
+  const [replyingToMessage, setReplyingToMessage] = useState<MessageDto | null>(
+    null
+  )
+
   return (
     <LoggedLayout disableMarginBottom disableMarginTop={isMobile}>
       <Grid
@@ -149,6 +154,9 @@ const MessagesPage = (props: Props) => {
                   message={message}
                   isMyMessage={message.userId === authUser?.id}
                   isLast={index === messages.length - 1}
+                  onReplyClick={() => {
+                    setReplyingToMessage(message)
+                  }}
                 />
               ))}
               <Box
@@ -159,7 +167,11 @@ const MessagesPage = (props: Props) => {
               />
             </ScrollArea>
 
-            <SendMessageInput roomId={roomId} />
+            <SendMessageInput
+              roomId={roomId}
+              replyingToMessage={replyingToMessage}
+              onClearReply={() => setReplyingToMessage(null)}
+            />
           </MyPaper>
         </Grid.Col>
       </Grid>

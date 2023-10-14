@@ -13,7 +13,11 @@ const useSendMessageMutation = () => {
   const { data: user } = useUserInfoQuery()
   const axios = useAxios()
   return useMutation(
-    async (payload: { content: string; roomId: string }) => {
+    async (payload: {
+      content: string
+      roomId: string
+      replyToMessageId: string | null
+    }) => {
       const message = buildMessageDto({
         roomId: payload.roomId,
         userId: authUser?.id,

@@ -1,9 +1,19 @@
-import { Box, Flex, Text, Tooltip, useMantineTheme } from '@mantine/core'
-import { useIntersection } from '@mantine/hooks'
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Text,
+  Tooltip,
+  useMantineTheme,
+} from '@mantine/core'
+import { useHover, useIntersection } from '@mantine/hooks'
 import { useMemo, useRef } from 'react'
+import { MdReply } from 'react-icons/md'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexCol from '../../_common/flex/FlexCol'
+import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import MyReactLinkify from '../../_common/text/MyReactLinkify'
 
@@ -11,9 +21,10 @@ type Props = {
   message: MessageDto
   isMyMessage: boolean
   isLast: boolean
+  onReplyClick: () => void
 }
 
-const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
+const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
   const theme = useMantineTheme()
 
   const containerRef = useRef<HTMLDivElement>(null)
@@ -36,8 +47,32 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
 
   const { openModal: openModal } = useRatingDetailsModalStore()
 
+  const { hovered, ref: rootRef } = useHover()
+  const { authUser } = useAuthStore()
+
+  const replyMessageTitle = useMemo(() => {
+    if (isMyMessage) {
+      if (authUser?.id === message.replyToMessage?.userId) {
+        return 'You replied to yourself'
+      }
+      return `You replied to ${message.replyToMessage?.user.username}`
+    }
+
+    if (authUser?.id === message.replyToMessage?.userId) {
+      return `${message.user.username} replied to your message`
+    }
+
+    return `${message.user.username} replied to themselves`
+  }, [message.user.username, isMyMessage])
+
   return (
-    <FlexCol gap={4}>
+    <FlexCol
+      gap={4}
+      sx={{
+        width: '100%',
+      }}
+      ref={rootRef}
+    >
       {message.repliedToRating && (
         <Flex justify={isMyMessage ? 'flex-end' : 'flex-start'}>
           <FlexCol gap={4} align={isMyMessage ? 'flex-end' : 'flex-start'}>
@@ -62,13 +97,50 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
           </FlexCol>
         </Flex>
       )}
-      <Flex
+      {message.replyToMessage && (
+        <Flex justify={isMyMessage ? 'flex-end' : 'flex-start'}>
+          <FlexCol
+            gap={4}
+            sx={{
+              maxWidth: '90%',
+              alignItems: isMyMessage ? 'flex-end' : 'flex-start',
+            }}
+          >
+            <FlexVCenter gap={4}>
+              <MdReply />
+              <Text size="xs" color={theme.colors.dark[2]}>
+                {replyMessageTitle}
+              </Text>
+            </FlexVCenter>
+            <Flex
+              sx={{
+                background: theme.colors.dark[4],
+                padding: 8,
+                borderRadius: 8,
+              }}
+            >
+              <Text
+                size="xs"
+                color={theme.colors.dark[2]}
+                sx={{
+                  // allow line break
+                  whiteSpace: 'pre-wrap',
+                }}
+                lineClamp={2}
+              >
+                {message.replyToMessage.text}
+              </Text>
+            </Flex>
+          </FlexCol>
+        </Flex>
+      )}
+      <FlexVCenter
         ref={containerRef}
         sx={{
-          justifyContent: isMyMessage ? 'flex-end' : 'flex-start',
-
           // add fade in animation when rendered
           transition: 'opacity 0.3s ease-in-out',
+          gap: 8,
+          flexDirection: isMyMessage ? 'row-reverse' : 'row',
         }}
       >
         <Tooltip
@@ -104,7 +176,21 @@ const MessageItem = ({ message, isMyMessage, isLast }: Props) => {
             </Text>
           </Box>
         </Tooltip>
-      </Flex>
+        <FlexVCenter
+          sx={{
+            visibility: hovered ? 'visible' : 'hidden',
+            marginBottom: 8,
+          }}
+        >
+          <ActionIcon
+            onClick={() => {
+              props.onReplyClick()
+            }}
+          >
+            <MdReply size="20px" color={theme.colors.dark[2]} />
+          </ActionIcon>
+        </FlexVCenter>
+      </FlexVCenter>
     </FlexCol>
   )
 }

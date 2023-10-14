@@ -16,6 +16,8 @@ export interface MessageDto {
 
   repliedToRating?: RatingDto
   repliedToRatingId: string | null
+
+  replyToMessage: MessageDto | null
 }
 
 export const buildMessageDto = (p?: Partial<MessageDto>): MessageDto => ({
@@ -29,6 +31,6 @@ export const buildMessageDto = (p?: Partial<MessageDto>): MessageDto => ({
   isRead: false,
 
   repliedToRatingId: null,
-
+  replyToMessage: null,
   ...p,
 })
