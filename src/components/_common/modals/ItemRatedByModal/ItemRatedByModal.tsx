@@ -32,8 +32,8 @@ const ItemRatedByModal = () => {
       title={
         <Title order={4}>
           {type === 'you-follow'
-            ? 'Rated by users you follow'
-            : 'Rated by Syncro users'}
+            ? 'Saved by users you follow'
+            : 'Saved by Syncro users'}
         </Title>
       }
       withCloseButton={false}

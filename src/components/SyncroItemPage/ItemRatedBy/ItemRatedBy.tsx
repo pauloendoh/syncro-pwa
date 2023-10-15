@@ -23,12 +23,12 @@ const ItemRatedBy = (props: Props) => {
 
     const firstUsername = data?.[0]?.user?.username
     if (data.length === 1) {
-      return <Text size="sm">Rated by {firstUsername}</Text>
+      return <Text size="sm">Saved by {firstUsername}</Text>
     }
 
     return (
       <Text size="sm">
-        Rated by {firstUsername} and {data.length - 1}{' '}
+        Saved by {firstUsername} and {data.length - 1}{' '}
         {data.length - 1 === 1 ? 'other' : 'others'}
       </Text>
     )
