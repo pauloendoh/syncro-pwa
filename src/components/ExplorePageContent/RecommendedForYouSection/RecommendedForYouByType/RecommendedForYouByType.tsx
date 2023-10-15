@@ -39,7 +39,7 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
                   itemType: props.type,
                 })
               }
-              onCloseTooltip="Ignore this recommendation"
+              onCloseTooltip="Not interested"
             />
           ))}
           {data?.length === 0 && <Span>No recommendations for you yet</Span>}
