@@ -24,6 +24,9 @@ const UserItemsMdTable = ({ ...props }: Props) => {
     <Box
       className="UserItemsMdTable"
       sx={{
+        '& table': {
+          maxWidth: 480,
+        },
         '& td:nth-child(3), & td:nth-child(4), & th:nth-child(3), & th:nth-child(4)':
           {
             textAlign: 'center',

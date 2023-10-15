@@ -62,73 +62,71 @@ const UserItemsPage = () => {
 
   return (
     <LoggedLayout>
-      <Container fluid>
-        {/* <Grid> */}
-        {/* <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} /> */}
-        {/* <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}> */}
-        <Container
-          size="xs"
-          fluid={isSmallScreen}
-          px={isSmallScreen ? 0 : undefined}
-        >
-          <FlexVCenter justify={'space-between'}>
-            <FlexVCenter gap={8}>
-              <ItemTypeSelector
-                value={itemType}
-                onChange={(type) => {
-                  setItemType(type)
-                }}
-                label="Type"
-                width={150}
-              />
-              {!thisIsYourList && (
-                <SortBySelector onChange={setSortingBy} value={sortingBy} />
-              )}
-            </FlexVCenter>
-
-            <FlexVCenter mt={16}>
-              <UserItemsViewSelector value={view} onChange={setView} />
-            </FlexVCenter>
+      {/* <Grid> */}
+      {/* <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} /> */}
+      {/* <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}> */}
+      <Container
+        size="lg"
+        fluid={isSmallScreen}
+        px={isSmallScreen ? 0 : undefined}
+      >
+        <FlexVCenter gap={24}>
+          <FlexVCenter gap={8}>
+            <ItemTypeSelector
+              value={itemType}
+              onChange={(type) => {
+                setItemType(type)
+              }}
+              label="Type"
+              width={150}
+            />
+            {!thisIsYourList && (
+              <SortBySelector onChange={setSortingBy} value={sortingBy} />
+            )}
           </FlexVCenter>
 
-          <Text size="lg" mt={16}>
-            {items?.length} items
-          </Text>
+          <FlexVCenter mt={16}>
+            <UserItemsViewSelector value={view} onChange={setView} />
+          </FlexVCenter>
+        </FlexVCenter>
 
-          {view === 'md' && (
-            <Box mt={8}>
-              <UserItemsMdTable
-                items={finalItems}
-                thisIsYourList={thisIsYourList}
-              />
-            </Box>
-          )}
+        <Text size="lg" mt={16}>
+          {items?.length} items
+        </Text>
 
-          {view === 'lg' && (
-            <UserItemsList
-              onRefresh={refetch}
-              isLoading={isLoading}
-              itemType={itemType}
-              sortedItems={finalItems}
-              sortingBy={sortingBy}
+        {view === 'md' && (
+          <Box mt={8}>
+            <UserItemsMdTable
+              items={finalItems}
               thisIsYourList={thisIsYourList}
-              filterByGenre={selectedGenre}
             />
-          )}
-          {view === 'grid' && (
-            <UserItemsGrid items={finalItems} thisIsYourList={thisIsYourList} />
-          )}
-        </Container>
-        {/* </Grid.Col> */}
-        {/* <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
+          </Box>
+        )}
+
+        {view === 'lg' && (
+          <UserItemsList
+            onRefresh={refetch}
+            isLoading={isLoading}
+            itemType={itemType}
+            sortedItems={finalItems}
+            sortingBy={sortingBy}
+            thisIsYourList={thisIsYourList}
+            filterByGenre={selectedGenre}
+          />
+        )}
+        {view === 'grid' && (
+          <UserItemsGrid items={finalItems} thisIsYourList={thisIsYourList} />
+        )}
+      </Container>
+      {/* </Grid.Col> */}
+      {/* <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
             {!isSmallScreen && (
               <>
                 <GenresCountSection itemType={itemType} userId={userId} />
               </>
             )}
           </Grid.Col> */}
-        {/* </Grid> */}
-      </Container>
+      {/* </Grid> */}
     </LoggedLayout>
   )
 }
