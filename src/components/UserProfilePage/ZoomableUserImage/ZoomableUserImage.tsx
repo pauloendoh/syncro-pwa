@@ -34,6 +34,7 @@ const ZoomableUserImage = ({ userInfo, ...props }: Props) => {
         }}
       >
         <UserImage
+          key={userInfo.id}
           pictureUrl={userInfo.profile.pictureUrl}
           username={userInfo.username}
           widthHeight={isSmallScreen ? 80 : 96}
