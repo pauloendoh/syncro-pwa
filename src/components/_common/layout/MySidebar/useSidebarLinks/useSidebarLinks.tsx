@@ -43,6 +43,17 @@ export const useSidebarLinks = () => {
             <MdOutlineHome size={32} />
           ),
       },
+
+      {
+        href: urls.pages.explore(),
+        text: 'Explore',
+        Icon: () =>
+          router.asPath.startsWith('/explore') ? (
+            <IoCompass size={32} color={theme.colors.primary[9]} />
+          ) : (
+            <IoCompassOutline size={32} />
+          ),
+      },
       {
         href: urls.pages.notifications,
         text: 'Notifications',
@@ -75,16 +86,6 @@ export const useSidebarLinks = () => {
             </Indicator>
           </Tooltip>
         ),
-      },
-      {
-        href: urls.pages.explore(),
-        text: 'Explore',
-        Icon: () =>
-          router.asPath.startsWith('/explore') ? (
-            <IoCompass size={32} color={theme.colors.primary[9]} />
-          ) : (
-            <IoCompassOutline size={32} />
-          ),
       },
       {
         href: urls.pages.messagesIndex,
