@@ -15,7 +15,7 @@ const ItemTitleAndYear = ({ item, showIcon, ...props }: Props) => {
     itemType: item.type,
   })
 
-  if (item?.year && showIcon) {
+  if (showIcon) {
     return (
       <span>
         {item?.title}{' '}
@@ -24,7 +24,8 @@ const ItemTitleAndYear = ({ item, showIcon, ...props }: Props) => {
           maw={props.yearIconWidth || 80}
           display="inline-block"
         >
-          [{item.year}]
+          {!!item.year && `[${item.year}]`}
+
           <Span
             display={'inline'}
             style={{
