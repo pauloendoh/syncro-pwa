@@ -133,7 +133,7 @@ const HomeRatingItem = (props: Props) => {
           }}
         >
           <FlexCol sx={{ flexGrow: 1 }}>
-            <Text>
+            <Text size={isMobile ? 'sm' : undefined}>
               <MyNextLink
                 href={urls.pages.userProfile(props.rating.userId)}
                 style={{
