@@ -51,7 +51,11 @@ const FavoriteItem = (props: Props) => {
   )
 
   const hasCornerInfo = useMemo(() => {
-    return !!props.showMyRating || !!props.showAvgRating || !!props.onClose
+    return (
+      (!!props.showMyRating && !!myRating) ||
+      !!props.showAvgRating ||
+      !!props.onClose
+    )
   }, [])
 
   return (

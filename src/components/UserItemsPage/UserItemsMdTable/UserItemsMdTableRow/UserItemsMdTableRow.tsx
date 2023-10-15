@@ -77,30 +77,37 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
       </td>
 
       {!props.thisIsYourList && (
-        <RatingCell
-          rating={theirRating}
-          iconColor={ratingYellow}
-          ratingStatus={item.ratings?.[0]?.status as RatingStatusType}
-          itemId={item.id}
-        />
+        <td>
+          <RatingCellInfo
+            rating={theirRating}
+            iconColor={ratingYellow}
+            ratingStatus={item.ratings?.[0]?.status as RatingStatusType}
+            itemId={item.id}
+            fixedIconsWidth
+          />
+        </td>
       )}
-      <RatingCell
-        rating={myRating}
-        iconColor={theme.colors.secondary[9]}
-        ratingStatus={myRating?.status as RatingStatusType}
-        thisIsYourRating
-        itemId={item.id}
-      />
+      <td>
+        <RatingCellInfo
+          rating={myRating}
+          iconColor={theme.colors.secondary[9]}
+          ratingStatus={myRating?.status as RatingStatusType}
+          thisIsYourRating
+          itemId={item.id}
+          fixedIconsWidth
+        />
+      </td>
     </>
   )
 }
 
-const RatingCell = (props: {
+export const RatingCellInfo = (props: {
   rating?: RatingDto
   iconColor: string
   ratingStatus: RatingStatusType
   thisIsYourRating?: boolean
   itemId: string
+  fixedIconsWidth?: boolean
 }) => {
   const StatusIcon = ratingStatusArray.find(
     (r) => r.value === props.ratingStatus
@@ -112,66 +119,62 @@ const RatingCell = (props: {
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
 
   return (
-    <td>
-      <FlexVCenter gap={2}>
-        <Center w={16}>
-          {review && (
-            <ActionIcon
-              sx={{
-                background: 'transparent !important',
-                border: 'none !important',
-              }}
-              onClick={() => {
-                if (!props.rating) return
-                openRatingDetailsModal(props.rating)
-              }}
-            >
-              <MdRateReview
-                style={{
-                  color: props.iconColor,
-                  fontSize: 16,
-                }}
-              />
-            </ActionIcon>
-          )}
-        </Center>
-
-        <Center w={16}>
+    <FlexVCenter gap={2}>
+      <Center w={props.fixedIconsWidth ? 16 : undefined}>
+        {review && (
           <ActionIcon
-            disabled={!props.thisIsYourRating}
             sx={{
               background: 'transparent !important',
               border: 'none !important',
             }}
             onClick={() => {
-              if (props.rating) {
-                openSaveRatingModal(props.rating)
-                return
-              }
-              openSaveRatingModal(
-                buildRatingDto({ syncroItemId: props.itemId })
-              )
+              if (!props.rating) return
+              openRatingDetailsModal(props.rating)
             }}
           >
-            <div>
-              {StatusIcon && (
-                <StatusIcon
-                  style={{
-                    color: props.iconColor,
-                    fontSize: 16,
-                  }}
-                />
-              )}
-              {props.thisIsYourRating && !props.rating && <MdStar />}
-            </div>
+            <MdRateReview
+              style={{
+                color: props.iconColor,
+                fontSize: 16,
+              }}
+            />
           </ActionIcon>
-        </Center>
+        )}
+      </Center>
 
-        <Span align="center" w={16} mb={2}>
-          {props.rating?.ratingValue}
-        </Span>
-      </FlexVCenter>
-    </td>
+      <Center w={props.fixedIconsWidth ? 16 : undefined}>
+        <ActionIcon
+          disabled={!props.thisIsYourRating}
+          sx={{
+            background: 'transparent !important',
+            border: 'none !important',
+          }}
+          onClick={() => {
+            if (props.rating) {
+              openSaveRatingModal(props.rating)
+              return
+            }
+            openSaveRatingModal(buildRatingDto({ syncroItemId: props.itemId }))
+          }}
+        >
+          <div>
+            {StatusIcon && (
+              <StatusIcon
+                style={{
+                  color: props.iconColor,
+                  fontSize: 16,
+                }}
+              />
+            )}
+            {props.thisIsYourRating && !props.rating && <MdStar />}
+          </div>
+        </ActionIcon>
+      </Center>
+
+      <Span align="center" w={props.fixedIconsWidth ? 16 : undefined} mb={2}>
+        {props.rating?.ratingValue}
+      </Span>
+    </FlexVCenter>
   )
 }
 

@@ -1,17 +1,18 @@
 import { ActionIcon, useMantineTheme } from '@mantine/core'
+import { BsFillGridFill } from 'react-icons/bs'
 import { FaList, FaThList } from 'react-icons/fa'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 
 type Props = {
-  value: 'md' | 'lg'
-  onChange: (value: 'md' | 'lg') => void
+  value: 'md' | 'lg' | 'grid'
+  onChange: (value: 'md' | 'lg' | 'grid') => void
 }
 
 const UserItemsViewSelector = ({ ...props }: Props) => {
   const theme = useMantineTheme()
   const selectedColor = theme.colors.secondary[9]
   return (
-    <FlexVCenter className="UserItemsViewSelector" gap={8}>
+    <FlexVCenter className="UserItemsViewSelector">
       <ActionIcon onClick={() => props.onChange('md')}>
         <FaList
           style={{
@@ -24,6 +25,14 @@ const UserItemsViewSelector = ({ ...props }: Props) => {
         <FaThList
           style={{
             color: props.value === 'lg' ? selectedColor : undefined,
+          }}
+        />
+      </ActionIcon>
+
+      <ActionIcon onClick={() => props.onChange('grid')}>
+        <BsFillGridFill
+          style={{
+            color: props.value === 'grid' ? selectedColor : undefined,
           }}
         />
       </ActionIcon>
