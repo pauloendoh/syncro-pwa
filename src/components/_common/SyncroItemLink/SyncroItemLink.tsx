@@ -78,6 +78,7 @@ const SyncroItemLink = (props: Props) => {
           setForceDisabled(false)
         }, 2000)
       }}
+      withArrow
     >
       <HoverCard.Target>
         <span>
