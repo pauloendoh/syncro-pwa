@@ -31,9 +31,11 @@ const LoggedLayout = (props: Props) => {
   return (
     <AppShell
       navbar={<MySidebar />}
-      sx={{
-        paddingInline: 0,
-        paddingTop: props.disableMarginTop ? 0 : undefined,
+      styles={{
+        main: {
+          paddingInline: 0,
+          paddingTop: props.disableMarginTop ? 0 : undefined,
+        },
       }}
     >
       {!isMobile && !isLoading && <MyNavbar />}

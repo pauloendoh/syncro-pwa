@@ -1,6 +1,6 @@
 import { ActionIcon, Flex, Textarea, useMantineTheme } from '@mantine/core'
 import { useEffect, useRef, useState } from 'react'
-import { MdClose } from 'react-icons/md'
+import { MdClose, MdSend } from 'react-icons/md'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
 import useSendMessageMutation from '../../../hooks/react-query/message/useSendMessageMutation'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -74,12 +74,12 @@ const SendMessageInput = (props: Props) => {
             </Span>
           </FlexCol>
         )}
-        <Flex w="100%" px={24} pb={16}>
+        <Flex w="100%" px={24} align="flex-end">
           <Textarea
             ref={inputRef}
             value={message}
             onChange={(e) => setMessage(e.currentTarget.value)}
-            placeholder="Type your message here. Press enter to send."
+            placeholder="Type your message here."
             rows={3}
             sx={{
               flex: 1,
@@ -103,6 +103,14 @@ const SendMessageInput = (props: Props) => {
               }
             }}
           />
+          <ActionIcon
+            variant="transparent"
+            color={theme.colors.dark[2]}
+            size="xl"
+            onClick={() => handleSubmit()}
+          >
+            <MdSend />
+          </ActionIcon>
         </Flex>
       </FlexCol>
     </form>
