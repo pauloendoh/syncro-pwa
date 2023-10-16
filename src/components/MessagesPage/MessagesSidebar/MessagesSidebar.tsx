@@ -3,7 +3,6 @@ import { useElementSize } from '@mantine/hooks'
 import { useEffect, useMemo, useState } from 'react'
 import { MdNotifications } from 'react-icons/md'
 import { useSidebarMessageRoomsQuery } from '../../../hooks/react-query/message/useSidebarMessageRoomsQuery'
-import { useUnreadMessageRoomsQuery } from '../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
@@ -18,8 +17,11 @@ import MessagesSidebarItem from './MessagesSidebarItem/MessagesSidebarItem'
 
 const MessagesSidebar = () => {
   const { data: rooms } = useSidebarMessageRoomsQuery()
+
+  useEffect(() => {
+    console.log('rooms changed')
+  }, [rooms])
   const { roomId } = useMyRouterQuery()
-  const { data: unreadRooms } = useUnreadMessageRoomsQuery()
 
   const [subscription, setSubscription] = useState<PushSubscription>()
   const [registration, setRegistration] = useState<ServiceWorkerRegistration>()
@@ -184,12 +186,9 @@ const MessagesSidebar = () => {
         <FlexCol pr={12} ref={parentRef}>
           {rooms?.map((room) => (
             <MessagesSidebarItem
-              key={room.messages?.[0].id}
+              key={room.id}
               room={room}
               isSelected={room.id === roomId}
-              unread={unreadRooms?.some(
-                (unreadRoom) => unreadRoom.id === room.id
-              )}
               parentWidth={parentWidth}
             />
           ))}

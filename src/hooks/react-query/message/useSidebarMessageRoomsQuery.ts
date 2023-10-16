@@ -5,7 +5,7 @@ import { MessageRoomDto } from './types/MessageRoomDto'
 
 export const useSidebarMessageRoomsQuery = () => {
   const { authUser } = useAuthStore()
-  return useQuery<MessageRoomDto[]>([urls.api.lastRoomsWithMessages], {
+  return useQuery<MessageRoomDto[]>([urls.api.messageRooms], {
     enabled: !!authUser,
   })
 }

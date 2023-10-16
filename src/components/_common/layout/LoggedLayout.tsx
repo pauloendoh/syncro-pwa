@@ -2,12 +2,14 @@ import { AppShell, Box } from '@mantine/core'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import { useMessageRoomSockets } from '../../../hooks/socket/domain/message-room/useMessageRoomSockets'
+import { useNewMessageSocket } from '../../../hooks/socket/domain/message-room/useNewMessageSocket/useNewMessageSocket'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import GlobalModals from '../modals/GlobalModals'
 import MobileFooter from './MobileFooter/MobileFooter'
 import MyNavbar from './MyNavbar/MyNavbar'
 import MySidebar from './MySidebar/MySidebar'
+import { useUserSockets } from './useUserSockets'
 
 type Props = {
   children: React.ReactNode
@@ -27,6 +29,8 @@ const LoggedLayout = (props: Props) => {
   const { roomId: roomId } = useMyRouterQuery()
 
   useMessageRoomSockets(roomId)
+  useNewMessageSocket()
+  useUserSockets()
 
   return (
     <AppShell

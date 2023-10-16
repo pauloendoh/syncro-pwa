@@ -61,10 +61,10 @@ const useSendMessageMutation = () => {
         ])
 
         queryClient.setQueryData<MessageRoomDto[]>(
-          [urls.api.lastRoomsWithMessages],
+          [urls.api.messageRooms],
           (curr) => {
             if (!curr) {
-              queryClient.invalidateQueries([urls.api.lastRoomsWithMessages])
+              queryClient.invalidateQueries([urls.api.messageRooms])
               return curr
             }
 
@@ -72,7 +72,7 @@ const useSendMessageMutation = () => {
               (room) => room.id === payload.roomId
             )?.messages
             if (!messages) {
-              queryClient.invalidateQueries([urls.api.lastRoomsWithMessages])
+              queryClient.invalidateQueries([urls.api.messageRooms])
               return curr
             }
 

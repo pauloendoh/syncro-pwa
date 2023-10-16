@@ -1,7 +1,7 @@
 import { Flex, Indicator, Text, Title, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
+import { MessageDto } from '../../../../hooks/react-query/message/types/MessageDto'
 import { MessageRoomDto } from '../../../../hooks/react-query/message/types/MessageRoomDto'
-import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { formatShortTimeago } from '../../../../utils/date/formatShortTimeago'
 import { urls } from '../../../../utils/urls/urls'
@@ -13,8 +13,8 @@ import MyNextLink from '../../../_common/overrides/MyNextLink'
 type Props = {
   room: MessageRoomDto
   isSelected?: boolean
-  unread?: boolean
   parentWidth: number
+  message?: MessageDto
 }
 
 const MessagesSidebarItem = (props: Props) => {
@@ -23,13 +23,7 @@ const MessagesSidebarItem = (props: Props) => {
     return props.room.users.find((user) => user.id !== authUser?.id)
   }, [props.room])
 
-  const lastMessage = useMemo(() => {
-    if (!props.room?.messages) return null
-
-    if (props.room.messages.length === 0) return null
-
-    return props.room.messages[props.room.messages.length - 1]
-  }, [props.room])
+  const lastMessage = props.room?.messages?.[0]
 
   const lastMessageIsYours = useMemo(() => {
     if (!lastMessage) return null
@@ -37,7 +31,12 @@ const MessagesSidebarItem = (props: Props) => {
   }, [lastMessage, authUser])
 
   const theme = useMantineTheme()
-  const { isMobile } = useMyMediaQuery()
+
+  const hasUnread = useMemo(() => {
+    return props.room?.messages?.some(
+      (message) => message.userId !== authUser?.id && !message.isRead
+    )
+  }, [props.room, authUser])
 
   if (!otherUser) return null
 
@@ -102,7 +101,7 @@ const MessagesSidebarItem = (props: Props) => {
                   position: 'absolute',
                 },
               }}
-              disabled={!props.unread}
+              disabled={!hasUnread}
             >
               {lastMessage?.createdAt && (
                 <Text w={40} size="sm">

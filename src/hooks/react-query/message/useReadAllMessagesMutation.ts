@@ -8,6 +8,7 @@ const useReadAllMessagesMutation = () => {
   const queryClient = useQueryClient()
 
   const axios = useAxios()
+
   return useMutation(
     (payload: { roomId: string }) =>
       axios
@@ -31,6 +32,27 @@ const useReadAllMessagesMutation = () => {
           [urls.api.unreadMessagesRooms],
           (curr) => {
             return curr?.filter((room) => room.id !== payload.roomId) || []
+          }
+        )
+
+        queryClient.setQueryData<MessageRoomDto[]>(
+          [urls.api.messageRooms],
+          (currMessageRooms) => {
+            if (!currMessageRooms) {
+              queryClient.invalidateQueries([urls.api.messageRooms])
+              return currMessageRooms
+            }
+
+            return currMessageRooms?.map((room) => {
+              return {
+                ...room,
+                messages:
+                  room.messages?.map((message) => ({
+                    ...message,
+                    isRead: true,
+                  })) || [],
+              }
+            })
           }
         )
       },

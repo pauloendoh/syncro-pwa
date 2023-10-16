@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { socketEvents } from '../../../../utils/socketEvents'
 import useAuthStore from '../../../zustand/useAuthStore'
 import { useMySocketEvent } from '../../useMySocketEvent'
-import { useNewMessageSocket } from './useNewMessageSocket/useNewMessageSocket'
 
 // PE 1/3
 export const useMessageRoomSockets = (messageRoomId: string | undefined) => {
@@ -22,6 +21,4 @@ export const useMessageRoomSockets = (messageRoomId: string | undefined) => {
       })
     }
   }, [messageRoomId, authUser, mainSocket])
-
-  useNewMessageSocket()
 }

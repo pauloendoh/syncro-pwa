@@ -5,16 +5,20 @@ import { socketEvents } from '../../../../../utils/socketEvents'
 import { urls } from '../../../../../utils/urls/urls'
 import { MessageDto } from '../../../../react-query/message/types/MessageDto'
 import { MessageRoomDto } from '../../../../react-query/message/types/MessageRoomDto'
+import { useMyRouterQuery } from '../../../../useMyRouterQuery'
 import { useMySocketEvent } from '../../../useMySocketEvent'
 
 export const useNewMessageSocket = () => {
-  const { lastMessage } = useMySocketEvent<{
+  const { lastMessage, connected, mainSocket } = useMySocketEvent<{
     messageRoomId: string
     message: MessageDto
   }>(socketEvents.newMessage)
   const queryClient = useQueryClient()
 
+  const { roomId } = useMyRouterQuery()
+
   useEffect(() => {
+    if (!connected) return
     if (!lastMessage) return
 
     queryClient.setQueryData<MessageDto[]>(
@@ -28,23 +32,26 @@ export const useNewMessageSocket = () => {
     )
 
     queryClient.setQueryData<MessageRoomDto[]>(
-      [urls.api.lastRoomsWithMessages],
-      (curr) => {
-        if (!curr) {
-          queryClient.invalidateQueries([urls.api.lastRoomsWithMessages])
-          return curr
+      [urls.api.messageRooms],
+      (currMessageRooms) => {
+        if (!currMessageRooms) {
+          queryClient.invalidateQueries([urls.api.messageRooms])
+          queryClient.invalidateQueries([urls.api.unreadMessagesRooms])
+          return currMessageRooms
         }
 
-        const messages = curr.find(
-          (room) => room.id === lastMessage.messageRoomId
-        )?.messages
-        if (!messages) {
-          queryClient.invalidateQueries([urls.api.lastRoomsWithMessages])
-          return curr
-        }
+        if (roomId === lastMessage.messageRoomId) return currMessageRooms
 
-        messages[0] = lastMessage.message
+        queryClient.invalidateQueries([urls.api.unreadMessagesRooms])
+
+        return currMessageRooms?.map((room) => {
+          const isTargetRoom = room.id === lastMessage.messageRoomId
+          return {
+            ...room,
+            messages: isTargetRoom ? [lastMessage.message] : room.messages,
+          }
+        })
       }
     )
-  }, [lastMessage])
+  }, [lastMessage, connected, mainSocket])
 }

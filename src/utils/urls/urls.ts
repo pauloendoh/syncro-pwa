@@ -186,7 +186,7 @@ export const urls = {
     sendMessage: API_URL + `/message`,
     replyToRating: API_URL + `/reply-to-rating`,
     unreadMessagesRooms: API_URL + `/unread-messages-rooms`,
-    lastRoomsWithMessages: API_URL + `/last-rooms-with-messages`,
+    messageRooms: API_URL + `/last-rooms-with-messages`,
     readAllMessages: (roomId: string) =>
       API_URL + `/read-all-messages?roomId=${roomId}`,
     feedback: API_URL + `/feedback`,

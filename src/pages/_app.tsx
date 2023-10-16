@@ -11,6 +11,7 @@ import {
 import { useLocalStorage, useViewportSize } from '@mantine/hooks'
 import { Notifications } from '@mantine/notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -74,6 +75,8 @@ export default function App(props: AppProps) {
   return (
     <>
       <QueryClientProvider client={myQueryClient}>
+        <ReactQueryDevtools />
+
         <Head>
           <title>Syncro</title>
           {/* favicon */}

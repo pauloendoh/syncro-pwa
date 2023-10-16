@@ -60,6 +60,7 @@ const MessagesPage = (props: Props) => {
 
   const { ref: seenDivRef, entry } = useIntersection({
     root: scrollAreaRef.current,
+    threshold: 0,
   })
 
   const theirMessages = useMemo(() => {
@@ -159,11 +160,13 @@ const MessagesPage = (props: Props) => {
                   }}
                 />
               ))}
+
               <Box
                 sx={{
                   visibility: 'hidden',
                 }}
                 ref={seenDivRef}
+                h={4}
               />
             </ScrollArea>
 
