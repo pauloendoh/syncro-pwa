@@ -74,7 +74,7 @@ const SendMessageInput = (props: Props) => {
             </Span>
           </FlexCol>
         )}
-        <Flex w="100%" px={24} align="flex-end">
+        <Flex w="100%" px={16} pb={8} align="flex-end">
           <Textarea
             ref={inputRef}
             value={message}

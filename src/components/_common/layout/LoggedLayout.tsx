@@ -33,7 +33,7 @@ const LoggedLayout = (props: Props) => {
       navbar={<MySidebar />}
       styles={{
         main: {
-          paddingInline: 0,
+          paddingInline: isMobile ? 0 : undefined,
           paddingTop: props.disableMarginTop ? 0 : undefined,
         },
       }}
