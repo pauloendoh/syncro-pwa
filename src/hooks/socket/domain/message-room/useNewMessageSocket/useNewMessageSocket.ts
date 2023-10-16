@@ -34,23 +34,25 @@ export const useNewMessageSocket = () => {
     queryClient.setQueryData<MessageRoomDto[]>(
       [urls.api.messageRooms],
       (currMessageRooms) => {
-        if (!currMessageRooms) {
-          queryClient.invalidateQueries([urls.api.messageRooms])
-          queryClient.invalidateQueries([urls.api.unreadMessagesRooms])
-          return currMessageRooms
-        }
-
-        if (roomId === lastMessage.messageRoomId) return currMessageRooms
-
-        queryClient.invalidateQueries([urls.api.unreadMessagesRooms])
-
-        return currMessageRooms?.map((room) => {
+        const newValue = currMessageRooms?.map((room) => {
           const isTargetRoom = room.id === lastMessage.messageRoomId
           return {
             ...room,
             messages: isTargetRoom ? [lastMessage.message] : room.messages,
           }
         })
+
+        if (!currMessageRooms) {
+          queryClient.setQueryData([urls.api.messageRooms], newValue)
+          queryClient.invalidateQueries([urls.api.unreadMessagesRooms])
+          return currMessageRooms
+        }
+
+        if (roomId !== lastMessage.messageRoomId) {
+          queryClient.invalidateQueries([urls.api.unreadMessagesRooms])
+        }
+
+        return newValue
       }
     )
   }, [lastMessage, connected, mainSocket])
