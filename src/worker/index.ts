@@ -49,6 +49,7 @@ self.addEventListener('push', async (event) => {
         icon: '/icon-192x192.png',
         badge: '/icon-192x192.png',
         tag: data.type,
+        renotify: true,
         // looks like this does not work anymore
         // https://stackoverflow.com/questions/62261805/how-to-play-sound-in-service-worker-or-even-vibrate-in-chrome
         // vibrate: [200, 100, 200, 100, 200, 100, 200],

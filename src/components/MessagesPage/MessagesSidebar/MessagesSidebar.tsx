@@ -18,9 +18,6 @@ import MessagesSidebarItem from './MessagesSidebarItem/MessagesSidebarItem'
 const MessagesSidebar = () => {
   const { data: rooms } = useSidebarMessageRoomsQuery()
 
-  useEffect(() => {
-    console.log('rooms changed')
-  }, [rooms])
   const { roomId } = useMyRouterQuery()
 
   const [subscription, setSubscription] = useState<PushSubscription>()
@@ -35,10 +32,6 @@ const MessagesSidebar = () => {
     try {
       openLoadingModal()
 
-      console.log({
-        registration,
-        permission: Notification.permission,
-      })
       if (!registration) {
         console.log('no registration')
         return
@@ -84,46 +77,53 @@ const MessagesSidebar = () => {
     console.log('web push unsubscribed!')
   }
 
-  const checkSubscriptions = () => {
-    if (
-      typeof window !== 'undefined' &&
-      'serviceWorker' in navigator &&
-      // @ts-expect-error
-      window.workbox !== undefined
-    ) {
-      navigator.serviceWorker.ready
-        .then((reg) => {
-          reg.pushManager
-            .getSubscription()
-            .then(async (sub) => {
-              if (sub?.expirationTime) {
-                const willExpireSoon =
-                  Date.now() > sub.expirationTime - 5 * 60 * 1000
-
-                if (willExpireSoon) {
+  useEffect(() => {
+    const checkSubscriptions = () => {
+      if (
+        typeof window !== 'undefined' &&
+        'serviceWorker' in navigator &&
+        // @ts-expect-error
+        window.workbox !== undefined
+      ) {
+        navigator.serviceWorker.ready
+          .then((reg) => {
+            reg.pushManager
+              .getSubscription()
+              .then(async (sub) => {
+                if (sub) {
                   setSubscription(sub)
 
-                  await axios.post(urls.api.webPushSubscribe, {
-                    subscription: sub,
-                  })
+                  if (sub.expirationTime) {
+                    const willExpireSoon =
+                      Date.now() > sub.expirationTime - 5 * 60 * 1000 // 5 minutes
+
+                    if (willExpireSoon) {
+                      await axios.post(urls.api.webPushSubscribe, {
+                        subscription: sub,
+                      })
+                    }
+                  }
                 }
-              }
-            })
-            .catch((e) => {
-              console.log('Error while getting subscription: ', e)
-            })
+              })
+              .catch((e) => {
+                console.log('Error while getting subscription: ', e)
+              })
 
-          setRegistration(reg)
-        })
-        .catch((e) => {
-          console.log('Error while getting service worker registration: ', e)
-        })
+            setRegistration(reg)
+          })
+          .catch((e) => {
+            console.log('Error while getting service worker registration: ', e)
+          })
+      }
     }
-  }
 
-  useEffect(() => {
     checkSubscriptions()
-  }, [])
+  }, [
+    typeof window !== 'undefined' &&
+      'serviceWorker' in navigator &&
+      // @ts-expect-error
+      window.workbox !== undefined,
+  ])
 
   const pushNotificationsEnabled = useMemo(() => {
     if (typeof window !== 'undefined' && 'Notification' in window) {
