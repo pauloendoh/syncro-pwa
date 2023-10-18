@@ -1,5 +1,4 @@
 import { Center, useMantineTheme } from '@mantine/core'
-import { motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
@@ -59,13 +58,11 @@ const SyncroItemImage = (props: Props) => {
   }, [isError])
 
   return (
-    <motion.div
+    <div
       ref={props.ref}
       style={{
         position: 'relative',
       }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
     >
       {!!showNextImage ? (
         <MyNextImage300x400
@@ -125,7 +122,7 @@ const SyncroItemImage = (props: Props) => {
           <SyncroItemIcon type={props.showItemType} size={16} />
         </Center>
       )}
-    </motion.div>
+    </div>
   )
 }
 

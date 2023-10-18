@@ -69,17 +69,13 @@ const RatingsTimeline = (props: Props) => {
             }
           }}
           itemContent={(index) => (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
+            <>
               <HomeRatingItem
                 rating={flatRatings[index]}
                 key={flatRatings[index].id}
               />
               <Box mt={16} />
-            </motion.div>
+            </>
           )}
         />
       </motion.div>
