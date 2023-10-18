@@ -3,7 +3,9 @@ import { format } from 'timeago.js'
 import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 import { useRatingStatusIcon } from '../../../../../types/domain/rating/useRatingStatusIcon/useRatingStatusIcon'
 import { urls } from '../../../../../utils/urls/urls'
+import MyIcons from '../../../MyIcons/MyIcons'
 import FlexCol from '../../../flex/FlexCol'
+import FlexVCenter from '../../../flex/FlexVCenter'
 import UserImage from '../../../image/SyncroItemImage/UserImage/UserImage'
 import MyNextLink from '../../../overrides/MyNextLink'
 import MyText from '../../../text/MyText'
@@ -28,7 +30,12 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
 
       <Flex justify={'space-between'} sx={{ flexGrow: 1 }}>
         <FlexCol>
-          <MyText>
+          <FlexVCenter
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >
             <MyNextLink
               href={urls.pages.userProfile(rating.userId)}
               style={{
@@ -37,23 +44,27 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
             >
               {rating.user?.username}
             </MyNextLink>
-            <Icon
-              color={theme.colors.yellow[5]}
-              style={{
-                position: 'relative',
-                top: 3,
-                marginLeft: 4,
-              }}
-            />
-            <b
-              style={{
-                color: theme.colors.yellow[5],
-                marginLeft: 2,
-              }}
-            >
-              {rating.ratingValue || null}
-            </b>
-          </MyText>
+            <FlexVCenter ml={8} gap={2}>
+              {!!rating.review && (
+                <MyIcons.Review color={theme.colors.yellow[5]} />
+              )}
+
+              <Icon
+                color={theme.colors.yellow[5]}
+                style={{
+                  position: 'relative',
+                }}
+              />
+              <b
+                style={{
+                  color: theme.colors.yellow[5],
+                  marginLeft: 2,
+                }}
+              >
+                {rating.ratingValue || null}
+              </b>
+            </FlexVCenter>
+          </FlexVCenter>
           <MyText size="sm">{rating.user?.profile?.fullName}</MyText>
         </FlexCol>
 
