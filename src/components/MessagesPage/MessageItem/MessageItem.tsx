@@ -9,9 +9,11 @@ import {
 import { useHover, useIntersection } from '@mantine/hooks'
 import { useMemo, useRef } from 'react'
 import { MdReply } from 'react-icons/md'
+import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
@@ -65,6 +67,10 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
     return `${message.user.username} replied to themselves`
   }, [message.user.username, isMyMessage])
 
+  const recommendedTypeMap = useSyncroItemTypeMap({
+    itemType: message.recommendedItem?.type,
+  })
+
   return (
     <FlexCol
       gap={4}
@@ -93,6 +99,25 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
                   width={80}
                 />
               </div>
+            )}
+          </FlexCol>
+        </Flex>
+      )}
+      {message.recommendedItem && (
+        <Flex justify={isMyMessage ? 'flex-end' : 'flex-start'}>
+          <FlexCol gap={4} align={isMyMessage ? 'flex-end' : 'flex-start'}>
+            <Text size="xs" color={theme.colors.dark[2]}>
+              {isMyMessage
+                ? `You recommended a ${recommendedTypeMap.getTypeLabelLowerCase()}:`
+                : `Recommended a ${recommendedTypeMap.getTypeLabelLowerCase()}: `}
+            </Text>
+            {message.recommendedItem && (
+              <SyncroItemLink
+                item={message.recommendedItem}
+                previewWithinPortal
+              >
+                <SyncroItemImage item={message.recommendedItem} width={80} />
+              </SyncroItemLink>
             )}
           </FlexCol>
         </Flex>
@@ -134,63 +159,65 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
           </FlexCol>
         </Flex>
       )}
-      <FlexVCenter
-        ref={containerRef}
-        sx={{
-          // add fade in animation when rendered
-          transition: 'opacity 0.3s ease-in-out',
-          gap: 8,
-          flexDirection: isMyMessage ? 'row-reverse' : 'row',
-        }}
-      >
-        <Tooltip
-          label={tooltipLabel}
-          position={isMyMessage ? 'left' : 'right'}
-          withinPortal
-        >
-          <Box
-            ref={ref}
-            px={16}
-            py={8}
-            sx={{
-              background: isMyMessage
-                ? theme.colors.secondary[9]
-                : theme.colors.dark[4],
-              borderRadius: 16,
-              marginBottom: 8,
-              maxWidth: '80%',
-            }}
-          >
-            <Text
-              sx={{
-                // large url should not break the layout
-                wordBreak: 'break-word',
-
-                // allow line break
-                whiteSpace: 'pre-wrap',
-              }}
-            >
-              <MyReactLinkify openNewTab color={'white'}>
-                {message.text}
-              </MyReactLinkify>
-            </Text>
-          </Box>
-        </Tooltip>
+      {!!message.text && (
         <FlexVCenter
+          ref={containerRef}
           sx={{
-            visibility: hovered ? 'visible' : 'hidden',
-            marginBottom: 8,
+            // add fade in animation when rendered
+            transition: 'opacity 0.3s ease-in-out',
+            gap: 8,
+            flexDirection: isMyMessage ? 'row-reverse' : 'row',
           }}
         >
-          <ActionIcon
-            onClick={() => {
-              props.onReplyClick()
+          <Tooltip
+            label={tooltipLabel}
+            position={isMyMessage ? 'left' : 'right'}
+            withinPortal
+          >
+            <Box
+              ref={ref}
+              px={16}
+              py={8}
+              sx={{
+                background: isMyMessage
+                  ? theme.colors.secondary[9]
+                  : theme.colors.dark[4],
+                borderRadius: 16,
+                marginBottom: 8,
+                maxWidth: '80%',
+              }}
+            >
+              <Text
+                sx={{
+                  // large url should not break the layout
+                  wordBreak: 'break-word',
+
+                  // allow line break
+                  whiteSpace: 'pre-wrap',
+                }}
+              >
+                <MyReactLinkify openNewTab color={'white'}>
+                  {message.text}
+                </MyReactLinkify>
+              </Text>
+            </Box>
+          </Tooltip>
+          <FlexVCenter
+            sx={{
+              visibility: hovered ? 'visible' : 'hidden',
+              marginBottom: 8,
             }}
           >
-            <MdReply size="20px" />
-          </ActionIcon>
+            <ActionIcon
+              onClick={() => {
+                props.onReplyClick()
+              }}
+            >
+              <MdReply size="20px" />
+            </ActionIcon>
+          </FlexVCenter>
         </FlexVCenter>
-      </FlexVCenter>
+      )}
     </FlexCol>
   )
 }

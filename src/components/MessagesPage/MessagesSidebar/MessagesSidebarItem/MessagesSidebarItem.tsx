@@ -59,7 +59,6 @@ const MessagesSidebarItem = (props: Props) => {
               ? theme.colors.dark[4]
               : theme.colors.dark[3],
           },
-          borderRadius: 4,
         }}
       >
         <MyNextImage300

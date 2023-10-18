@@ -1,4 +1,5 @@
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import {
   UserSimpleDto,
   buildUserSimpleDto,
@@ -18,6 +19,8 @@ export interface MessageDto {
   repliedToRatingId: string | null
 
   replyToMessage: MessageDto | null
+
+  recommendedItem: SyncroItemDto | null
 }
 
 export const buildMessageDto = (p?: Partial<MessageDto>): MessageDto => ({
@@ -32,5 +35,6 @@ export const buildMessageDto = (p?: Partial<MessageDto>): MessageDto => ({
 
   repliedToRatingId: null,
   replyToMessage: null,
+  recommendedItem: null,
   ...p,
 })
