@@ -1,5 +1,4 @@
 import { Box, Center, Loader } from '@mantine/core'
-import { motion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import { useTimelineRatingsQuery } from '../../../hooks/react-query/feed/useHomeRatingsQuery'
@@ -52,11 +51,7 @@ const RatingsTimeline = (props: Props) => {
     <>
       {isLoading && <CenterLoader />}
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div>
         <Virtuoso
           key={virtuosoKey}
           useWindowScroll
@@ -78,7 +73,7 @@ const RatingsTimeline = (props: Props) => {
             </>
           )}
         />
-      </motion.div>
+      </div>
       {hasNextPage && (
         <Center mt={40} sx={{ height: 80 }}>
           <Loader />
