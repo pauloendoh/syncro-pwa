@@ -76,6 +76,7 @@ const UserItemsMdTable = ({ ...props }: Props) => {
                 <UserImage
                   widthHeight={32}
                   pictureUrl={userInfo?.profile.pictureUrl}
+                  userIdAndLink={userInfo?.id}
                 />
               </th>
             )}
@@ -83,6 +84,7 @@ const UserItemsMdTable = ({ ...props }: Props) => {
               <UserImage
                 widthHeight={32}
                 pictureUrl={authUserInfo?.profile.pictureUrl}
+                userIdAndLink={authUser?.id}
               />
             </th>
           </tr>
