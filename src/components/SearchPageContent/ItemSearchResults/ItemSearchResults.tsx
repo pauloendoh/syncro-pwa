@@ -1,7 +1,7 @@
 import { Center, Loader, Text } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
 import { upsertMany } from 'endoh-utils'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDidNotFindMutation from '../../../hooks/react-query/did-not-find/useDidNotFindMutation'
 import { useSearchByTypeQuery } from '../../../hooks/react-query/search/useSearchByTypeQuery'
@@ -47,24 +47,27 @@ const ItemSearchResults = (props: Props) => {
     [props.query]
   )
 
-  const [shouldShowMore, setShouldShowMore] = useState(false)
-  useEffect(() => {
-    if (props.type !== 'game') {
-      setShouldShowMore(false)
-      return
-    }
+  // const [shouldShowMore, setShouldShowMore] = useState(false)
+  // useEffect(() => {
+  //   if (props.type !== 'game') {
+  //     setShouldShowMore(false)
+  //     return
+  //   }
 
-    setShouldShowMore(queryIsValid && !!searchResultItems)
-  }, [props.query, props.type, searchResultItems])
+  //   setShouldShowMore(queryIsValid && !!searchResultItems)
+  // }, [props.query, props.type, searchResultItems])
 
   const shouldShowDidNotFind = useMemo(
-    () =>
-      queryIsValid &&
-      searchResultItems &&
-      !isLoading &&
-      typeMap &&
-      !shouldShowMore,
-    [queryIsValid, searchResultItems, isLoading, typeMap, shouldShowMore]
+    () => queryIsValid && searchResultItems && !isLoading && typeMap,
+    // !shouldShowMore,
+    [
+      queryIsValid,
+      searchResultItems,
+      isLoading,
+      typeMap,
+
+      // shouldShowMore
+    ]
   )
 
   const { mutate: submitDidNotFind, isLoading: didNotFindIsLoading } =
@@ -99,7 +102,7 @@ const ItemSearchResults = (props: Props) => {
       })
       .finally(() => {
         setIsLoadingSearchMore(false)
-        setShouldShowMore(false)
+        // setShouldShowMore(false)
       })
   }, [props.query, props.type])
 
@@ -127,7 +130,7 @@ const ItemSearchResults = (props: Props) => {
           <SyncroSearchItem item={syncroItem} key={syncroItem.id} />
         ))}
 
-        {shouldShowMore && (
+        {/* {shouldShowMore && (
           <Center mt={4}>
             {isLoadingSearchMore ? (
               <Loader />
@@ -145,7 +148,7 @@ const ItemSearchResults = (props: Props) => {
               </Text>
             )}
           </Center>
-        )}
+        )} */}
 
         {shouldShowDidNotFind && typeMap && (
           <FlexVCenter my={8}>
