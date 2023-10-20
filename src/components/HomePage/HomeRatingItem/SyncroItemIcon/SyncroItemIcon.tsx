@@ -3,6 +3,7 @@ import { IconBaseProps } from 'react-icons'
 import { FiFilm, FiTv } from 'react-icons/fi'
 import { IoLogoGameControllerA, IoMdBook } from 'react-icons/io'
 import { IoMusicalNotesSharp } from 'react-icons/io5'
+import { MdOutlineMenuBook } from 'react-icons/md'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 interface Props {
   type: SyncroItemType
@@ -14,7 +15,7 @@ interface Props {
 export const SyncroItemBaseIcon: {
   [key in SyncroItemType]: React.ComponentType<IconBaseProps>
 } = {
-  book: IoMdBook,
+  book: MdOutlineMenuBook,
   game: IoLogoGameControllerA,
   manga: IoMdBook,
   movie: FiFilm,
