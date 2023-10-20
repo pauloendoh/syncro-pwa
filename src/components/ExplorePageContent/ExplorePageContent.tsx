@@ -20,7 +20,7 @@ const ExplorePageContent = (props: Props) => {
 
   return (
     <LoggedLayout>
-      <Container size="xs">
+      <Container>
         <FlexVCenter>
           <Title order={2}>Explore</Title>
         </FlexVCenter>

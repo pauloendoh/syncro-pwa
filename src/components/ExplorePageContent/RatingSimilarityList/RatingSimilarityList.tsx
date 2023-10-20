@@ -6,7 +6,6 @@ import { urls } from '../../../utils/urls/urls'
 import FollowUnfollowButton from '../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
 import UserProfilePicture from '../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../_common/flex/FlexCol'
-import FlexVCenter from '../../_common/flex/FlexVCenter'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import Span from '../../_common/text/Span'
@@ -30,7 +29,7 @@ const RatingSimilarityList = () => {
   )
 
   return (
-    <FlexCol gap={16}>
+    <FlexCol gap={16} maw={480}>
       <ItemTypeSelector
         includeAll
         value={queryValue || 'all'}
@@ -52,8 +51,13 @@ const RatingSimilarityList = () => {
           similarityDto: item,
         })
         return (
-          <FlexVCenter>
-            <MyNextLink href={urls.pages.userProfile(item.userB.id)}>
+          <Flex>
+            <MyNextLink
+              href={urls.pages.userProfile(item.userB.id)}
+              style={{
+                marginTop: 8,
+              }}
+            >
               <UserProfilePicture userId={item.userB.id} widthHeigth={36} />
             </MyNextLink>
 
@@ -78,10 +82,12 @@ const RatingSimilarityList = () => {
                   <Text>{similarityLabel}</Text>
                 </FlexCol>
 
-                <FollowUnfollowButton profileUserId={item.userB.id} />
+                <Box mt={8}>
+                  <FollowUnfollowButton profileUserId={item.userB.id} />
+                </Box>
               </Flex>
             </Box>
-          </FlexVCenter>
+          </Flex>
         )
       })}
     </FlexCol>

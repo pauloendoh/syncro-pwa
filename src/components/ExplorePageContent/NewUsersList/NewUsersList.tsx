@@ -11,7 +11,7 @@ const NewUsersList = (props: Props) => {
   if (isLoading) return <CenterLoader />
 
   return (
-    <FlexCol gap={16}>
+    <FlexCol gap={16} maw={500}>
       {users?.map((user) => (
         <UserSearchItem user={user} />
       ))}
