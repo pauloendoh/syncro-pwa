@@ -11,6 +11,7 @@ import { useMemo, useRef } from 'react'
 import { MdReply } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
+import { useMyColors } from '../../../hooks/useMyColors'
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
@@ -70,6 +71,8 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
   const recommendedTypeMap = useSyncroItemTypeMap({
     itemType: message.recommendedItem?.type,
   })
+
+  const colors = useMyColors()
 
   return (
     <FlexCol
@@ -176,15 +179,17 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
           >
             <Box
               ref={ref}
-              px={16}
-              py={8}
+              px={8}
+              pt={8}
+              pb={4}
               sx={{
                 background: isMyMessage
                   ? theme.colors.secondary[9]
                   : theme.colors.dark[4],
-                borderRadius: 16,
+                borderRadius: 8,
                 marginBottom: 8,
                 maxWidth: '80%',
+                minWidth: '108px',
               }}
             >
               <Text
@@ -200,6 +205,23 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
                   {message.text}
                 </MyReactLinkify>
               </Text>
+              <Flex justify={'flex-end'}>
+                <Text
+                  size="xs"
+                  color={theme.colors.dark[1]}
+                  sx={{
+                    // allow line break
+                    whiteSpace: 'pre-wrap',
+                    opacity: 0.7,
+                  }}
+                >
+                  {new Date().toLocaleTimeString('en-US', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </Text>
+              </Flex>
             </Box>
           </Tooltip>
           <FlexVCenter
