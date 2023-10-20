@@ -33,7 +33,7 @@ const MessagesPage = (props: Props) => {
       return null
     }
     return messageRoom.users.find((user) => user.id !== authUser?.id)
-  }, [messageRoom, authUser])
+  }, [messageRoom, authUser, roomId])
 
   const { data: otherUserInfo, isLoading: loadingOtherUserInfo } =
     useUserInfoQuery(otherUser?.id)
