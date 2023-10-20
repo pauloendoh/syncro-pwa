@@ -54,6 +54,9 @@ const useSaveRatingMutation = () => {
         queryClient.setQueryData<RatingDto[]>([urls.api.myRatings], (curr) => {
           return upsert(curr, savedRating, (i) => i.id === savedRating.id)
         })
+
+        queryClient.invalidateQueries([urls.api.plannedItemsV2(userId)])
+
         if (prev?.length === 0) {
           router.push(urls.pages.userProfile(getAuthUserId()))
           myNotifications.success(
