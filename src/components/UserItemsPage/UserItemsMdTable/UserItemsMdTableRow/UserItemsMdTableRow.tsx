@@ -28,6 +28,7 @@ import Span from '../../../_common/text/Span'
 type Props = {
   item: UserItemDto
   thisIsYourList: boolean
+  isLoggedIn: boolean
 }
 
 const UserItemsMdTableRow = ({ item, ...props }: Props) => {
@@ -87,16 +88,19 @@ const UserItemsMdTableRow = ({ item, ...props }: Props) => {
           />
         </td>
       )}
-      <td>
-        <RatingCellInfo
-          rating={myRating}
-          iconColor={theme.colors.secondary[9]}
-          ratingStatus={myRating?.status as RatingStatusType}
-          thisIsYourRating
-          itemId={item.id}
-          fixedIconsWidth
-        />
-      </td>
+
+      {props.isLoggedIn && (
+        <td>
+          <RatingCellInfo
+            rating={myRating}
+            iconColor={theme.colors.secondary[9]}
+            ratingStatus={myRating?.status as RatingStatusType}
+            thisIsYourRating
+            itemId={item.id}
+            fixedIconsWidth
+          />
+        </td>
+      )}
     </>
   )
 }

@@ -80,13 +80,15 @@ const UserItemsMdTable = ({ ...props }: Props) => {
                 />
               </th>
             )}
-            <th>
-              <UserImage
-                widthHeight={32}
-                pictureUrl={authUserInfo?.profile.pictureUrl}
-                userIdAndLink={authUser?.id}
-              />
-            </th>
+            {authUserInfo && (
+              <th>
+                <UserImage
+                  widthHeight={32}
+                  pictureUrl={authUserInfo.profile.pictureUrl}
+                  userIdAndLink={authUserInfo.id}
+                />
+              </th>
+            )}
           </tr>
         )}
         itemContent={(index, item) => (
@@ -94,6 +96,7 @@ const UserItemsMdTable = ({ ...props }: Props) => {
             item={item}
             key={item.id}
             thisIsYourList={props.thisIsYourList}
+            isLoggedIn={!!authUser}
           />
         )}
       />
