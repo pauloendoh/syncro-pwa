@@ -215,7 +215,7 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
                     opacity: 0.7,
                   }}
                 >
-                  {new Date().toLocaleTimeString('en-US', {
+                  {new Date(message.createdAt).toLocaleTimeString('en-US', {
                     hour12: false,
                     hour: '2-digit',
                     minute: '2-digit',
