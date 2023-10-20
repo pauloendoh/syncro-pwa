@@ -11,7 +11,6 @@ import { useMemo, useRef } from 'react'
 import { MdReply } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { MessageDto } from '../../../hooks/react-query/message/types/MessageDto'
-import { useMyColors } from '../../../hooks/useMyColors'
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
@@ -37,17 +36,6 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
     threshold: 0.7,
   })
 
-  const tooltipLabel = useMemo(() => {
-    // locale date string + HH:mm
-    return `${new Date(message.createdAt).toLocaleDateString()}
-    ${new Date(message.createdAt).toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    })}
-    
-    `
-  }, [message.createdAt])
-
   const { openModal: openModal } = useRatingDetailsModalStore()
 
   const { hovered, ref: rootRef } = useHover()
@@ -71,8 +59,6 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
   const recommendedTypeMap = useSyncroItemTypeMap({
     itemType: message.recommendedItem?.type,
   })
-
-  const colors = useMyColors()
 
   return (
     <FlexCol
@@ -173,7 +159,7 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
           }}
         >
           <Tooltip
-            label={tooltipLabel}
+            label={new Date(message.createdAt).toLocaleDateString()}
             position={isMyMessage ? 'left' : 'right'}
             withinPortal
           >
