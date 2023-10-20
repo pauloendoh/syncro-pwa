@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { getSyncroItemImageOrDefault } from '../../../../utils/image/getSyncroItemImageOrDefault'
+import { myEnvs } from '../../../../utils/myEnvs'
 import SyncroItemIcon from '../../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import MyNextImage300x400 from '../MyNextImage300/MyNextImage300x444'
 
@@ -49,12 +50,14 @@ const SyncroItemImage = (props: Props) => {
   const [isError, setIsError] = useState(false)
 
   const showNextImage = useMemo(() => {
+    if (myEnvs.enableImageOptimization) {
+      return (
+        !isError &&
+        props.item?.syncroRatingCount &&
+        props.item?.syncroRatingCount > 0
+      )
+    }
     return false
-    // return (
-    //   !isError &&
-    //   props.item?.syncroRatingCount &&
-    //   props.item?.syncroRatingCount > 0
-    // )
   }, [isError])
 
   return (
