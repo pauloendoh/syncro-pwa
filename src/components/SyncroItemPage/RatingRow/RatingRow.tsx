@@ -78,7 +78,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
       return status.label
     }
     return 'Rate'
-  }, [myRating?.ratingValue])
+  }, [myRating])
 
   const { data: myRatings, isLoading } = useMyRatingsQuery()
 
