@@ -137,8 +137,8 @@ const EditRatingModal = () => {
   const handleDelete = () => {
     if (initialValue) {
       openConfirmDialog({
-        title: 'Delete rating',
-        description: 'Are you sure you want to delete this rating?',
+        title: 'Delete entry',
+        description: 'Are you sure you want to delete this entry?',
         onConfirm: () => {
           submitDeleteRating(initialValue.id, {
             onSuccess: closeBothModals,

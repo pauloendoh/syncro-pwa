@@ -51,7 +51,7 @@ const HomeRatingMoreMenu = (props: Props) => {
               if (props.rating) openRatingDetailsModal(props.rating)
             }}
           >
-            See rating details
+            See entry details
           </Menu.Item>
         )}
         <MyNextLink
@@ -71,7 +71,7 @@ const HomeRatingMoreMenu = (props: Props) => {
             icon={<MdEdit size={14} />}
             onClick={() => openSaveRatingModal(myRating)}
           >
-            Edit your rating
+            Edit your entry
           </Menu.Item>
         )}
 
@@ -80,7 +80,7 @@ const HomeRatingMoreMenu = (props: Props) => {
             icon={<MdShare size={14} />}
             onClick={() => openModal(myRating)}
           >
-            Share your rating
+            Share your entry
           </Menu.Item>
         )}
       </Menu.Dropdown>

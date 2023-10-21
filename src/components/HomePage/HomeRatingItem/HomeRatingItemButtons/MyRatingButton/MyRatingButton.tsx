@@ -20,7 +20,10 @@ const MyRatingButton = (props: Props) => {
   const color = myRating ? theme.colors.secondary[9] : theme.colors.dark[0]
 
   const tooltipLabel = useMemo(() => {
-    if (!myRating || myRating.ratingValue === null) return 'Rate this item'
+    if (!myRating) {
+      return 'Save entry'
+    }
+    if (myRating.ratingValue === null) return 'Update entry'
     if (myRating.ratingValue > 0) {
       return `You rated ${myRating.ratingValue} out of 10`
     }

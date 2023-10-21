@@ -44,7 +44,7 @@ const ItemRatedByModal = () => {
       }}
     >
       <FlexCol gap={16}>
-        {sortedRatings.length === 0 && <Span>No user ratings yet</Span>}
+        {sortedRatings.length === 0 && <Span>No entries yet</Span>}
         {sortedRatings.map((rating) => (
           <ItemRatedByModalItem rating={rating} />
         ))}

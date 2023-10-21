@@ -97,7 +97,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
                 icon={<MdEdit size={14} />}
                 onClick={() => openSaveRatingModal(rating)}
               >
-                Edit your rating
+                Edit your entry
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

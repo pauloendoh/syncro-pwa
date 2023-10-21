@@ -59,7 +59,7 @@ const ShareRatingModal = () => {
     <Modal
       opened={!!shareRatingModal}
       onClose={closeModal}
-      title={<Title order={4}>Share your rating</Title>}
+      title={<Title order={4}>Share your entry</Title>}
     >
       {!!rating && rating.syncroItemId && (
         <FlexCol w="100%" gap={32}>

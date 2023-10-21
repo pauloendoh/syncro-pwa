@@ -34,7 +34,7 @@ const UserPageRatingsSection = (props: Props) => {
   return (
     <FlexCol gap={16}>
       <FlexVCenter justify="space-between">
-        <Title order={4}>Last ratings</Title>
+        <Title order={4}>Last entries</Title>
 
         <FlexVCenter gap={8}>
           <FeedSettingsIcon />

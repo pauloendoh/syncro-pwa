@@ -163,7 +163,7 @@ const HomeRatingItem = (props: Props) => {
                 {props.rating.ratingValue}
               </b>
               {props.rating.isPrivate && (
-                <Tooltip label="This rating is private">
+                <Tooltip label="This entry is private">
                   <span
                     style={{
                       position: 'relative',

@@ -13,7 +13,7 @@ const NoRatingsUserProfile = (props: Props) => {
   }, [])
   return (
     <Center sx={{ height: 80 }}>
-      <Text>No ratings yet</Text>
+      <Text>No entries yet</Text>
     </Center>
   )
 }

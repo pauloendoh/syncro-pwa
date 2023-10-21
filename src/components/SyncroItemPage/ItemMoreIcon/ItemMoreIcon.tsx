@@ -84,18 +84,18 @@ const ItemMoreIcon = (props: Props) => {
             openItemRatedByModal(props.item.id!, 'all-users')
           }}
         >
-          Syncro ratings
+          Syncro entries
         </Menu.Item>
 
         {youRated && (
           <>
             <Menu.Divider />
-            <Menu.Label>Your rating</Menu.Label>
+            <Menu.Label>Your entry</Menu.Label>
             <Menu.Item
               icon={<MdOutlineInfo />}
               onClick={() => openRatingDetailsModal(youRated)}
             >
-              See rating details
+              See entry details
             </Menu.Item>
             <Menu.Item
               icon={<MdShare />}
@@ -103,7 +103,7 @@ const ItemMoreIcon = (props: Props) => {
                 openShareRatingModal(youRated)
               }}
             >
-              Share your rating
+              Share your entry
             </Menu.Item>
           </>
         )}
