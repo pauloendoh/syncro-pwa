@@ -1,7 +1,8 @@
-import { Box, Container, Text } from '@mantine/core'
+import { Box, Container, Text, Title } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
 import { useMemo, useState } from 'react'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
+import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
@@ -12,6 +13,7 @@ import ItemTypeSelector from '../ExplorePageContent/MostRatedExploreSection/Item
 import { useSortedItems } from '../UserProfilePage/ProfileScreenRatingItem/useSortedItems/useSortedItems'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
+import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import SortBySelector from './SortBySelector/SortBySelector'
 import UserItemsGrid from './UserItemsGrid/UserItemsGrid'
 import UserItemsList from './UserItemsList/UserItemsList'
@@ -34,6 +36,8 @@ const UserItemsPage = () => {
     isLoading,
     refetch,
   } = useUserItemsQuery(userId, itemType as SyncroItemType)
+
+  const { data: userInfo } = useUserInfoQuery(userId)
 
   const authUser = useAuthStore((s) => s.authUser)
 
@@ -70,7 +74,8 @@ const UserItemsPage = () => {
         fluid={isSmallScreen}
         px={isSmallScreen ? 0 : undefined}
       >
-        <FlexVCenter gap={24}>
+        <Title order={3}>{userInfo?.username}'s items</Title>
+        <FlexVCenter gap={24} mt={16}>
           <FlexVCenter gap={8}>
             <ItemTypeSelector
               value={itemType}
@@ -94,6 +99,8 @@ const UserItemsPage = () => {
           {items?.length} items
         </Text>
 
+        {isLoading && <CenterLoader mt={24} />}
+
         {view === 'md' && (
           <Box mt={8}>
             <UserItemsMdTable
@@ -106,7 +113,7 @@ const UserItemsPage = () => {
         {view === 'lg' && (
           <UserItemsList
             onRefresh={refetch}
-            isLoading={isLoading}
+            isLoading={false}
             itemType={itemType}
             sortedItems={finalItems}
             sortingBy={sortingBy}
