@@ -1,4 +1,5 @@
 import { ActionIcon, Box, Menu } from '@mantine/core'
+import { useHover } from '@mantine/hooks'
 import {
   AiOutlineDrag,
   AiOutlineVerticalAlignBottom,
@@ -10,7 +11,6 @@ import useSaveRatingModalStore from '../../../../../../hooks/zustand/modals/useS
 import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
 import { RatingDto } from '../../../../../../types/domain/rating/RatingDto'
 import FavoriteItem from '../../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
-import FlexCol from '../../../../../_common/flex/FlexCol'
 import Span from '../../../../../_common/text/Span'
 
 type Props = {
@@ -26,6 +26,8 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
 
   const { openModal: openSaveRatingModal } = useSaveRatingModalStore()
 
+  const { ref: hoverRef, hovered } = useHover<HTMLButtonElement>()
+
   return (
     <Box
       sx={{
@@ -38,8 +40,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
         disablePreview={authUser?.id === rating.userId}
       />
       {authUser?.id === rating.userId && (
-        <FlexCol
-          gap={2}
+        <Box
           sx={{
             position: 'absolute',
             top: 2,
@@ -54,8 +55,9 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
                 }}
                 size="sm"
                 variant="filled"
+                ref={hoverRef}
               >
-                <Span size="sm">{props.index + 1}</Span>
+                <Span size="sm">{hovered ? '...' : props.index + 1}</Span>
               </ActionIcon>
             </Menu.Target>
 
@@ -99,7 +101,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
-        </FlexCol>
+        </Box>
       )}
     </Box>
   )
