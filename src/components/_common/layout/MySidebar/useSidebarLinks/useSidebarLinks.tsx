@@ -14,7 +14,7 @@ import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserI
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
-import NavbarUserMenu from '../../MyNavbar/NavbarUserMenu/NavbarUserMenu'
+import SidebarMoreMenu from '../../MyNavbar/SidebarMoreMenu/SidebarMoreMenu'
 
 export const useSidebarLinks = () => {
   const router = useRouter()
@@ -118,16 +118,33 @@ export const useSidebarLinks = () => {
         ),
       },
       {
-        href: '#',
-        text: <NavbarUserMenu useUsername={authUser?.username} />,
+        href: urls.pages.userProfile(authUser?.id || ''),
+        text: 'Profile',
         Icon: () => (
-          <NavbarUserMenu
-            isActive={router.asPath.includes(
-              urls.pages.userProfile(authUser?.id || '')
-            )}
-            size={32}
+          <img
+            alt="Picture of the user"
+            src={userInfo?.profile.pictureUrl}
+            width={32}
+            height={32}
+            style={{
+              cursor: 'pointer',
+              objectFit: 'cover',
+              borderRadius: '50%',
+              ...(router.asPath.includes(
+                urls.pages.userProfile(authUser?.id || '')
+              )
+                ? {
+                    border: `2px solid ${theme.colors.primary[9]}`,
+                  }
+                : {}),
+            }}
           />
         ),
+      },
+      {
+        href: '#',
+        text: <SidebarMoreMenu useTextInsteadOfIcon={'More'} />,
+        Icon: () => <SidebarMoreMenu size={32} />,
       },
     ]
   }, [

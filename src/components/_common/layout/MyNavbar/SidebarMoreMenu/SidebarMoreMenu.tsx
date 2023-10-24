@@ -1,5 +1,5 @@
-import { Menu, useMantineTheme } from '@mantine/core'
-import { AiOutlineUser } from 'react-icons/ai'
+import { ActionIcon, Menu, useMantineTheme } from '@mantine/core'
+import { CgMoreO } from 'react-icons/cg'
 import { MdLogout, MdOutlineFeedback, MdSettings } from 'react-icons/md'
 import { SiDiscord } from 'react-icons/si'
 import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
@@ -13,11 +13,11 @@ import MyNextLink from '../../../overrides/MyNextLink'
 
 type Props = {
   isActive?: boolean
-  useUsername?: string
+  useTextInsteadOfIcon?: string
   size?: number
 }
 
-const NavbarUserMenu = (props: Props) => {
+const SidebarMoreMenu = (props: Props) => {
   const { authUser } = useAuthStore()
   const logout = useLogout()
 
@@ -42,45 +42,22 @@ const NavbarUserMenu = (props: Props) => {
       })}
     >
       <Menu.Target>
-        {props.useUsername ? (
+        {props.useTextInsteadOfIcon ? (
           <span
             style={{
               cursor: 'pointer',
             }}
           >
-            {props.useUsername}
+            {props.useTextInsteadOfIcon}
           </span>
         ) : (
-          <img
-            alt="Picture of the user"
-            src={imageUrl}
-            width={props.size || 36}
-            height={props.size || 36}
-            style={{
-              cursor: 'pointer',
-              objectFit: 'cover',
-              borderRadius: '50%',
-
-              ...(props.isActive
-                ? {
-                    border: `2px solid ${theme.colors.primary[9]}`,
-                  }
-                : {}),
-            }}
-          />
+          <ActionIcon>
+            <CgMoreO size={24} />
+          </ActionIcon>
         )}
       </Menu.Target>
 
       <Menu.Dropdown>
-        <MyNextLink
-          href={urls.pages.userProfile(authUser?.id || '')}
-          style={{
-            textDecoration: 'none',
-          }}
-        >
-          <Menu.Item icon={<AiOutlineUser />}>Profile</Menu.Item>
-        </MyNextLink>
-
         {!!authUser.userExpiresAt ? (
           <MyNextLink href={urls.pages.settings()}>
             <Menu.Item
@@ -135,4 +112,4 @@ const NavbarUserMenu = (props: Props) => {
   )
 }
 
-export default NavbarUserMenu
+export default SidebarMoreMenu
