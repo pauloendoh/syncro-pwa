@@ -12,7 +12,7 @@ interface Props {
 
 const FollowUnfollowButton = (props: Props) => {
   const { authUser } = useAuthStore()
-  const { data: myFollowingUsers, isLoading } = useMyFollowingUsersQuery()
+  const { data: myFollowingUsers } = useMyFollowingUsersQuery()
 
   const alreadyFollowing = useMemo(() => {
     if (!myFollowingUsers) return false
@@ -22,7 +22,7 @@ const FollowUnfollowButton = (props: Props) => {
     )
   }, [myFollowingUsers])
 
-  const { mutate: submitToggleFollow } = useToggleFollowMutation()
+  const { mutate: submitToggleFollow, isLoading } = useToggleFollowMutation()
 
   const label = useMemo(() => {
     if (alreadyFollowing) return 'Following'
@@ -50,6 +50,7 @@ const FollowUnfollowButton = (props: Props) => {
       color={alreadyFollowing ? 'gray' : 'secondary'}
       onClick={handleClick}
       width={props.width || 100}
+      disabled={isLoading}
     >
       {label}
     </MyLoadingButton>

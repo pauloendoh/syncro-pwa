@@ -24,6 +24,7 @@ const MyLoadingButton = React.forwardRef<HTMLButtonElement, Props>(
           },
           ...props.styles,
         }}
+        disabled={props.disabled || props.loading}
       >
         {!props.loading && props.children}
       </Button>
