@@ -16,7 +16,7 @@ const ConfirmNewPasswordForm = (props: Props) => {
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
 
-  const [code, email] = usePasswordResetStore((s) => [s.code, s.email])
+  const [code, email] = usePasswordResetStore((s) => [s.code, s.identificator])
 
   const [isLoading, setIsLoading] = useState(false)
 

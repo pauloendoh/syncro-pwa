@@ -1,16 +1,16 @@
 import { create } from 'zustand'
 
 interface IStore {
-  email: string
-  setEmail: (email: string) => void
+  identificator: string
+  setIdentificator: (value: string) => void
   code: string
   setCode: (code: string) => void
 }
 
 const usePasswordResetStore = create<IStore>((set, get) => ({
-  email: '',
-  setEmail: (email: string) => {
-    set({ email })
+  identificator: '',
+  setIdentificator: (value: string) => {
+    set({ identificator: value })
   },
 
   code: '',

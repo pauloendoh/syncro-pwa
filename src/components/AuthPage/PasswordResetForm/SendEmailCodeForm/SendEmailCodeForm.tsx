@@ -1,5 +1,4 @@
 import { Text } from '@mantine/core'
-import { isEmail } from 'class-validator'
 import { useState } from 'react'
 import usePasswordResetStore from '../../../../hooks/zustand/usePasswordResetStore'
 import { urls } from '../../../../utils/urls/urls'
@@ -13,7 +12,10 @@ interface Props {
 }
 
 const SendEmailCodeForm = (props: Props) => {
-  const [email, setEmail] = usePasswordResetStore((s) => [s.email, s.setEmail])
+  const [identificator, setIdentificator] = usePasswordResetStore((s) => [
+    s.identificator,
+    s.setIdentificator,
+  ])
 
   const [isLoading, setIsLoading] = useState(false)
   const [sent, setSent] = useState(false)
@@ -23,7 +25,7 @@ const SendEmailCodeForm = (props: Props) => {
   const submit = () => {
     setIsLoading(true)
     axios
-      .post<boolean>(urls.api.sendPasswordResetEmail, { email })
+      .post<boolean>(urls.api.sendPasswordResetEmail, { email: identificator })
       .then(() => {
         setSent(true)
         props.goNext()
@@ -44,29 +46,26 @@ const SendEmailCodeForm = (props: Props) => {
         </Text>
 
         <Text align={'center'}>
-          Tell us your email associated with Syncro and we’ll send a code to
-          reset your password.
+          Tell us your email or username associated with Syncro and we'll send a
+          code to reset your password.
         </Text>
 
         <FlexCol w="100%">
           <MyTextInput
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={identificator}
+            onChange={(e) => setIdentificator(e.target.value)}
             autoCapitalize="none"
-            autoComplete="email"
             autoCorrect="off"
             autoFocus
-            placeholder="Email"
+            placeholder="Email or username"
             w="100%"
           />
 
           <MyLoadingButton
             type="submit"
-            disabled={!isEmail(email)}
+            disabled={identificator.trim().length < 3}
             width="100%"
             mt={8}
-            // onPress={handleSubmit(onSubmit)}
-            color={!isEmail(email) ? 'gray' : 'primary'}
             loading={isLoading}
           >
             Send Code

@@ -15,7 +15,7 @@ const ConfirmCodeForm = (props: Props) => {
   const [code, setCode, email] = usePasswordResetStore((s) => [
     s.code,
     s.setCode,
-    s.email,
+    s.identificator,
   ])
 
   const [isLoading, setIsLoading] = useState(false)
