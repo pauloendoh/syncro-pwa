@@ -25,22 +25,35 @@ const UserRecommendationCard = ({ ...props }: Props) => {
         width: 133,
       }}
     >
-      <FlexCol align={'center'} justify={'space-between'}>
-        <UserImage
-          pictureUrl={props.user.profile.pictureUrl}
-          userIdAndLink={props.user.id}
-        />
-        <MyNextLink href={urls.pages.userProfile(props.user.id)}>
-          <Span align="center" size="sm" weight={500} lineClamp={2}>
-            {props.user.profile.fullName}
-          </Span>
-        </MyNextLink>
+      <FlexCol
+        align={'center'}
+        justify={'space-between'}
+        sx={{
+          height: '100%',
+        }}
+      >
+        <FlexCol align={'center'}>
+          <UserImage
+            pictureUrl={props.user.profile.pictureUrl}
+            userIdAndLink={props.user.id}
+          />
+          <MyNextLink
+            href={urls.pages.userProfile(props.user.id)}
+            style={{
+              marginTop: 4,
+            }}
+          >
+            <Span color="dimmed" align="center" size="sm">
+              @{props.user.username}
+            </Span>
+          </MyNextLink>
 
-        <MyNextLink href={urls.pages.userProfile(props.user.id)}>
-          <Span color="dimmed" align="center" size="sm">
-            @{props.user.username}
-          </Span>
-        </MyNextLink>
+          <MyNextLink href={urls.pages.userProfile(props.user.id)}>
+            <Span align="center" size="sm" weight={500} lineClamp={2} mih={20}>
+              {props.user.profile.fullName}
+            </Span>
+          </MyNextLink>
+        </FlexCol>
 
         <Box mt={16}>
           <FollowUnfollowButton profileUserId={props.user.id} />
