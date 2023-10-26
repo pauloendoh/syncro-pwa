@@ -1,6 +1,6 @@
 import { Box, Container, Text, Title } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -8,6 +8,7 @@ import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { SortingByType } from '../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { QueryParams } from '../../utils/queryParams'
 import ItemTypeSelector from '../ExplorePageContent/MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { useSortedItems } from '../UserProfilePage/ProfileScreenRatingItem/useSortedItems/useSortedItems'
@@ -22,6 +23,20 @@ import UserItemsViewSelector from './UserItemsViewSelector/UserItemsViewSelector
 
 const UserItemsPage = () => {
   const { userId } = useMyRouterQuery()
+
+  type ViewType = 'md' | 'lg' | 'grid'
+  const [view, setView] = useState<ViewType>('grid')
+
+  useEffect(() => {
+    const localView = localStorage.getItem(localStorageKeys.userItemsViewType)
+    if (localView) {
+      setView(localView as ViewType)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKeys.userItemsViewType, view)
+  }, [view])
 
   const [itemType, setItemType] = useQueryState<SyncroItemType>(
     QueryParams.type,
@@ -53,8 +68,6 @@ const UserItemsPage = () => {
   const { isSmallScreen } = useMyMediaQuery()
 
   const [selectedGenre] = useQueryState(QueryParams.genre)
-
-  const [view, setView] = useState<'md' | 'lg' | 'grid'>('grid')
 
   const finalItems = useMemo(() => {
     if (selectedGenre) {
