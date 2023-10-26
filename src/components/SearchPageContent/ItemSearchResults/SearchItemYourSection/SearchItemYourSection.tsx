@@ -60,7 +60,7 @@ const SearchItemYourSection = (props: Props) => {
               </>
             )}
           </FlexVCenter>
-          <Text>{myRating?.ratingValue || <Text>Rate</Text>}</Text>
+          <Text>{myRating?.ratingValue || <Text>Save</Text>}</Text>
         </FlexVCenter>
 
         {!!myRating?.review && (
