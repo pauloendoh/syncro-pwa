@@ -1,4 +1,4 @@
-import { Box, Container } from '@mantine/core'
+import { Box, Container, Grid } from '@mantine/core'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import FlexVCenter from '../_common/flex/FlexVCenter'
@@ -18,28 +18,33 @@ const SearchPageContent = (props: Props) => {
 
   return (
     <LoggedLayout>
-      <Container size="xs">
-        {isMobile && (
-          <FlexVCenter w="100%" mb={24}>
-            <SearchBar />
-          </FlexVCenter>
-        )}
-        <Box mt={16} />
-        {!!q && isSyncroItemType(type) && (
-          <ItemSearchResults query={q} type={type} />
-        )}
+      <Grid>
+        <Grid.Col sm={1} md={2} lg={1} xl={2} />
+        <Grid.Col sm={8} md={7} lg={6}>
+          <Container size="sm">
+            {isMobile && (
+              <FlexVCenter w="100%" mb={24}>
+                <SearchBar />
+              </FlexVCenter>
+            )}
+            <Box mt={16} />
+            {!!q && isSyncroItemType(type) && (
+              <ItemSearchResults query={q} type={type} />
+            )}
 
-        {!q && isSyncroItemType(type) && isMobile && (
-          <>
-            {/* <MobileSearchMostRated /> */}
-            hello
-          </>
-        )}
-        {type === 'users' && (
-          <UserSearchResults onClickUser={() => {}} query={q} />
-        )}
-        {type === 'all' && <SearchAllSection q={q} />}
-      </Container>
+            {!q && isSyncroItemType(type) && isMobile && (
+              <>
+                {/* <MobileSearchMostRated /> */}
+                hello
+              </>
+            )}
+            {type === 'users' && (
+              <UserSearchResults onClickUser={() => {}} query={q} />
+            )}
+            {type === 'all' && <SearchAllSection q={q} />}
+          </Container>
+        </Grid.Col>
+      </Grid>
     </LoggedLayout>
   )
 }
