@@ -32,10 +32,24 @@ const MySidebar = ({ ...props }: Props) => {
       px={isReduced ? 0 : 32}
       py={24}
     >
-      <FlexCol gap={24} align={isReduced ? 'center' : 'flex-start'}>
+      <FlexCol
+        align={isReduced ? 'center' : 'flex-start'}
+        sx={{
+          '> a': {
+            background: 'transparent',
+            borderRadius: isReduced ? undefined : 8,
+            '&:hover': {
+              background: theme.colors.dark[5],
+            },
+            width: '100% !important',
+            paddingBlock: 16,
+            paddingInline: 8,
+          },
+        }}
+      >
         {sidebarLinks.map((item) => {
           const component = (
-            <FlexVCenter gap={16}>
+            <FlexVCenter gap={16} justify={isReduced ? 'center' : 'flex-start'}>
               <Center w={40}>
                 <item.Icon />
               </Center>
@@ -43,12 +57,19 @@ const MySidebar = ({ ...props }: Props) => {
             </FlexVCenter>
           )
 
-          if (item.href === '#') {
-            return component
-          }
-
           return (
-            <MyNextLink href={item.href} key={item.href}>
+            <MyNextLink
+              href={item.href}
+              key={item.href}
+              onClick={(e) => {
+                if (item.href === '#') {
+                  e.preventDefault()
+                  // simulate click on first button inside event target
+                  // @ts-ignore
+                  e.target.querySelector('button')?.click()
+                }
+              }}
+            >
               {component}
             </MyNextLink>
           )

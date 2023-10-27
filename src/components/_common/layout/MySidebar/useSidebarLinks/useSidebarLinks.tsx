@@ -124,8 +124,8 @@ export const useSidebarLinks = () => {
           <img
             alt="Picture of the user"
             src={userInfo?.profile.pictureUrl}
-            width={32}
-            height={32}
+            width={28}
+            height={28}
             style={{
               cursor: 'pointer',
               objectFit: 'cover',
