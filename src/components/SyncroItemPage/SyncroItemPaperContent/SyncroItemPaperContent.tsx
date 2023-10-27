@@ -37,7 +37,7 @@ const SyncroItemPaperContent = (props: Props) => {
             {props.isPreview ? (
               <MyNextLink href={urls.pages.syncroItem(encodeURI(item.id!))}>
                 <Title
-                  order={3}
+                  order={4}
                   weight={500}
                   sx={{
                     ':hover': {
@@ -56,7 +56,7 @@ const SyncroItemPaperContent = (props: Props) => {
 
             <ItemMoreIcon item={item} />
           </Flex>
-          <Flex mt={16} gap={isMobile ? 12 : 16}>
+          <Flex mt={props.isPreview ? 8 : 16} gap={isMobile ? 12 : 16}>
             <ImageSyncroItemPage
               isMobile={isMobile}
               item={item}

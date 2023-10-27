@@ -57,8 +57,9 @@ const SyncroItemLink = (props: Props) => {
 
   return (
     <HoverCard
-      openDelay={1000}
-      closeDelay={250}
+      openDelay={500}
+      // closeDelay={250}
+
       width={400}
       disabled={isMobile || props.disablePreview || forceDisabled}
       withinPortal={props.previewWithinPortal}
@@ -70,14 +71,14 @@ const SyncroItemLink = (props: Props) => {
       onOpen={() => {
         setKeepPosition(initialPosition)
       }}
-      onClose={() => {
-        setTimeout(() => {
-          setForceDisabled(true)
-        }, 250)
-        setTimeout(() => {
-          setForceDisabled(false)
-        }, 2000)
-      }}
+      // onClose={() => {
+      //   setTimeout(() => {
+      //     setForceDisabled(true)
+      //   }, 250)
+      //   setTimeout(() => {
+      //     setForceDisabled(false)
+      //   }, 2000)
+      // }}
       withArrow
     >
       <HoverCard.Target>

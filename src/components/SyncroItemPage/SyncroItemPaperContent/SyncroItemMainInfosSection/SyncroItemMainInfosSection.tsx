@@ -1,4 +1,5 @@
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../utils/urls/urls'
 import SyncroItemIcon from '../../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
@@ -20,6 +21,8 @@ const SyncroItemMainInfosSection = ({ item, ...props }: Props) => {
   const itemTypeMap = useSyncroItemTypeMap({
     itemType: item?.type,
   })
+  const { isMobile } = useMyMediaQuery()
+
   return (
     <FlexCol gap={8}>
       <AvgRatingRow item={item} isPreview={props.isPreview} />
@@ -37,6 +40,7 @@ const SyncroItemMainInfosSection = ({ item, ...props }: Props) => {
                 textDecoration: 'underline',
               },
             }}
+            size={props.isPreview || isMobile ? 'sm' : undefined}
           >
             {itemTypeMap.getTypeLabel()}
           </Span>

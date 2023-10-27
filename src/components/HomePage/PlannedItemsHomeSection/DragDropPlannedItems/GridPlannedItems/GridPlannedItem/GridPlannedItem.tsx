@@ -37,7 +37,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
       <FavoriteItem
         item={rating.syncroItem!}
         previewPosition="left"
-        disablePreview={authUser?.id === rating.userId}
+        // disablePreview={authUser?.id === rating.userId}
       />
       {authUser?.id === rating.userId && (
         <Box

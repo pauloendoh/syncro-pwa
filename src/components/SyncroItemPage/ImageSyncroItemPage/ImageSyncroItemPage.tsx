@@ -39,7 +39,10 @@ const ImageSyncroItemPage = ({ isMobile, item, ...props }: Props) => {
           setQuery('true')
         }}
       >
-        <SyncroItemImage item={item} width={isMobile ? 100 : 160} />
+        <SyncroItemImage
+          item={item}
+          width={props.isPreview ? 120 : isMobile ? 100 : 160}
+        />
       </div>
     </>
   )

@@ -1,4 +1,4 @@
-import { Text, useMantineTheme } from '@mantine/core'
+import { Flex, Text, useMantineTheme } from '@mantine/core'
 import { shortNumberFormatter, upToNDecimals } from 'endoh-utils'
 import { MdStarRate } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -19,12 +19,12 @@ const AvgRatingRow = ({ item, ...props }: Props) => {
     useGetFinalRatingCountAvgSite(item)
 
   return (
-    <FlexVCenter gap={isMobile || props.isPreview ? 16 : 40}>
+    <Flex gap={isMobile || props.isPreview ? 16 : 24}>
       <FlexVCenter gap={4} sx={{ height: 'fit-content' }}>
         <MdStarRate color={theme.colors.yellow[5]} size={16} />
         {ratingCount === 0 && <Text>No ratings yet</Text>}
         {ratingCount > 0 && (
-          <Text>
+          <Text size={isMobile || props.isPreview ? 'sm' : undefined}>
             {upToNDecimals(avgRating, 1)}
             /10
           </Text>
@@ -32,13 +32,13 @@ const AvgRatingRow = ({ item, ...props }: Props) => {
       </FlexVCenter>
 
       {ratingCount > 0 && (
-        <Text size={isMobile ? 'sm' : undefined}>
+        <Text size={isMobile || props.isPreview ? 'sm' : undefined}>
           {shortNumberFormatter(ratingCount)}{' '}
           {ratingCount === 1 ? 'vote' : 'votes'}
           {` on ${finalSource}`}
         </Text>
       )}
-    </FlexVCenter>
+    </Flex>
   )
 }
 
