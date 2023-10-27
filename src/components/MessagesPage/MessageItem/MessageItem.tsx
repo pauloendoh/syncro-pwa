@@ -167,7 +167,7 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
               ref={ref}
               px={8}
               pt={8}
-              pb={4}
+              pb={0}
               sx={{
                 background: isMyMessage
                   ? theme.colors.secondary[9]
@@ -191,7 +191,13 @@ const MessageItem = ({ message, isMyMessage, ...props }: Props) => {
                   {message.text}
                 </MyReactLinkify>
               </Text>
-              <Flex justify={'flex-end'}>
+              <Flex
+                justify={'flex-end'}
+                sx={{
+                  position: 'relative',
+                  bottom: 4,
+                }}
+              >
                 <Text
                   size="xs"
                   color={theme.colors.dark[1]}
