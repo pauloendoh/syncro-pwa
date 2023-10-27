@@ -36,5 +36,5 @@ export type ExploreSlug =
   | 'popular-users'
   | 'rating-similarity'
   | 'new-users'
-  | 'most-rated'
+  | 'browse'
   | 'for-you'

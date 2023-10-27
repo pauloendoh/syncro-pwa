@@ -39,7 +39,7 @@ export const urls = {
       `/user/${userId}/items?type=${type}`, // PE 1/3 - does not use the type anymore
 
     savedItems: (type?: SyncroItemType) => '/saved?' + qs.stringify({ type }),
-    explore: (exploreSlug: ExploreSlug = 'for-you', queryObj?: Object) =>
+    explore: (exploreSlug: ExploreSlug = 'browse', queryObj?: Object) =>
       `/explore/${exploreSlug}?${qs.stringify(queryObj || {})}`,
     notifications: '/notifications',
     editProfile: '/edit-profile',

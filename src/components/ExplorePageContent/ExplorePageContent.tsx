@@ -60,7 +60,7 @@ const ExplorePageContent = (props: Props) => {
 
           <Box mt={8} />
           {exploreSlug === 'for-you' && <RecommendedForYouSection />}
-          {exploreSlug === 'most-rated' && <MostRatedExploreSection />}
+          {exploreSlug === 'browse' && <MostRatedExploreSection />}
           {exploreSlug === 'popular-users' && <PopularUserList />}
           {exploreSlug === 'rating-similarity' && <RatingSimilarityList />}
           {exploreSlug === 'new-users' && <NewUsersList />}

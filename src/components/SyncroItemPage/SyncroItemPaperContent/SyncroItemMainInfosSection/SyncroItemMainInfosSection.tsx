@@ -27,7 +27,7 @@ const SyncroItemMainInfosSection = ({ item, ...props }: Props) => {
       <FlexVCenter gap={4}>
         <SyncroItemIcon type={item.type} size={16} />
         <MyNextLink
-          href={urls.pages.explore('most-rated', {
+          href={urls.pages.explore('browse', {
             type: item.type,
           })}
         >

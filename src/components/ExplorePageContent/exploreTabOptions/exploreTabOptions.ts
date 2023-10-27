@@ -5,13 +5,14 @@ export const exploreTabOptions: {
   label: string
 }[] = [
   {
+    key: 'browse',
+    label: 'Browse items',
+  },
+  {
     key: 'for-you',
     label: 'Recommended for you',
   },
-  {
-    key: 'most-rated',
-    label: 'Most Rated',
-  },
+
   {
     key: 'rating-similarity',
     label: 'Similar Users',
