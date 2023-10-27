@@ -12,7 +12,6 @@ const MyNextImage300 = React.forwardRef<HTMLImageElement, Props>(
         style={{
           width: props.width,
           height: props.height,
-
           ...props.style,
         }}
         width={300}

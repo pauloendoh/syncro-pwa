@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { PhotoSlider } from 'react-photo-view'
 import { useQueryParams } from '../../../../hooks/useQueryParams'
 import { FavoriteSceneDto } from '../../../../types/domain/rating/types/FavoriteSceneDto'
+import { myEnvs } from '../../../../utils/myEnvs'
 import MyNextImage300 from '../../../_common/image/MyNextImage300/MyNextImage300'
 
 type Props = {
@@ -21,11 +22,7 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
 
   const { setQuery, queryValue, removeQuery } = useQueryParams().favoriteScene
 
-  const handleClose = () => {
-    removeQuery()
-  }
-
-  const index = useMemo(() => {
+  const selectedIndex = useMemo(() => {
     return props.scenes.findIndex((scene) => scene.id === queryValue)
   }, [queryValue, props.scenes])
 
@@ -40,9 +37,9 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
           src: image.uri,
           key: image.uri,
         }))}
-        visible={index >= 0}
-        onClose={handleClose}
-        index={index >= 0 ? index : 0}
+        visible={selectedIndex >= 0}
+        onClose={() => removeQuery()}
+        index={selectedIndex >= 0 ? selectedIndex : 0}
         onIndexChange={(index) => {
           console.log('changing index')
           setQuery(props.scenes[index].id!, { replace: true })
@@ -50,21 +47,41 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
         loop={false}
       />
 
-      {props.scenes.map((scene, index) => (
-        <MyNextImage300
-          alt={`favorite-scene-${index}`}
-          key={index}
-          src={scene.imageUrl}
-          style={{
-            width: props.widthHeight ?? 64,
-            height: props.widthHeight ?? 64,
-            objectFit: 'cover',
-            borderRadius: 4,
-            cursor: 'pointer',
-          }}
-          onClick={() => setQuery(scene.id!, { scroll: false })}
-        />
-      ))}
+      {props.scenes.map((scene, index) => {
+        if (myEnvs.enableImageOptimization) {
+          return (
+            <MyNextImage300
+              alt={`favorite-scene-${index}`}
+              key={index}
+              src={scene.imageUrl}
+              style={{
+                width: props.widthHeight ?? 64,
+                height: props.widthHeight ?? 64,
+                objectFit: 'cover',
+                borderRadius: 4,
+                cursor: 'pointer',
+              }}
+              onClick={() => setQuery(scene.id!, { scroll: false })}
+            />
+          )
+        }
+
+        return (
+          <img
+            alt={`favorite-scene-${index}`}
+            key={index}
+            src={scene.imageUrl}
+            style={{
+              width: props.widthHeight ?? 64,
+              height: props.widthHeight ?? 64,
+              objectFit: 'cover',
+              borderRadius: 4,
+              cursor: 'pointer',
+            }}
+            onClick={() => setQuery(scene.id!, { scroll: false })}
+          />
+        )
+      })}
     </Flex>
   )
 }
