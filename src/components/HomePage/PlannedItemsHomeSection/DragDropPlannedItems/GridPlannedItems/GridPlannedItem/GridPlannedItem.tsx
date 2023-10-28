@@ -18,6 +18,7 @@ type Props = {
   index: number
   onMoveToFirst: (ratingId: string) => void
   onMoveToLast: (ratingId: string) => void
+  imageWidth: number
 }
 
 const GridPlannedItem = ({ rating, ...props }: Props) => {
@@ -37,6 +38,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
       <FavoriteItem
         item={rating.syncroItem!}
         previewPosition="left"
+        width={props.imageWidth}
         // disablePreview={authUser?.id === rating.userId}
       />
       {authUser?.id === rating.userId && (

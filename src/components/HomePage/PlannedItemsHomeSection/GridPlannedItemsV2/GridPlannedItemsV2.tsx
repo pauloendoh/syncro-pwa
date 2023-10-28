@@ -1,4 +1,5 @@
 import { Flex } from '@mantine/core'
+import { useElementSize } from '@mantine/hooks'
 import { useMemo } from 'react'
 import useUpdateSavedPositionMutationV2 from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutationV2'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -42,8 +43,15 @@ const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
     })
   }
 
+  const { width: containerWidth, ref: containerRef } = useElementSize()
+
+  const imageWidth = useMemo(() => {
+    const availableWidth = containerWidth - 44
+    return availableWidth / 3
+  }, [containerWidth])
+
   return (
-    <Flex wrap="wrap" gap={16}>
+    <Flex wrap="wrap" gap={16} className="container" ref={containerRef}>
       {filteredRatings.map((rating, index) => (
         <GridPlannedItem
           rating={rating}
@@ -51,6 +59,7 @@ const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
           index={index}
           onMoveToFirst={handleMoveToFirst}
           onMoveToLast={handleMoveToLast}
+          imageWidth={imageWidth}
         />
       ))}
     </Flex>
