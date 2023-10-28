@@ -4,10 +4,10 @@ import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { urls } from '../../../utils/urls/urls'
 import FavoriteScenesSection from '../../HomePage/HomeRatingItem/FavoriteScenesSection/FavoriteScenesSection'
 import HomeRatingItemReview from '../../HomePage/HomeRatingItem/HomeRatingItemReview/HomeRatingItemReview'
-import MyIcons from '../../_common/MyIcons/MyIcons'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
+import { getShortLabelByRatingValue } from '../../_common/modals/EditRatingModal/getLabelByRatingValue/getLabelByRatingValue'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import SemiBold from '../../_common/text/SemiBold'
 
@@ -35,27 +35,22 @@ const UserReviewsSection = (props: Props) => {
             )}
 
             <FlexCol>
-              <FlexVCenter gap={8}>
-                <MyNextLink href={urls.pages.userProfile(rating.userId)}>
-                  <SemiBold sx={{ fontWeight: 'bold' }}>
-                    {rating.user?.username}
-                  </SemiBold>
-                </MyNextLink>
+              <MyNextLink href={urls.pages.userProfile(rating.userId)}>
+                <SemiBold sx={{ fontWeight: 'bold' }}>
+                  {rating.user?.username}
+                </SemiBold>
+              </MyNextLink>
 
-                <FlexVCenter
-                  sx={{
-                    color: ratingYellow,
-                    border: '1px solid',
-                    borderRadius: 8,
-                    paddingInline: 8,
-                    paddingBlock: 2,
-                  }}
-                  gap={2}
-                >
-                  <MyIcons.RatingStart />
-                  <SemiBold size="sm">{rating.ratingValue}</SemiBold>
-                </FlexVCenter>
-              </FlexVCenter>
+              <SemiBold
+                sx={{
+                  color: ratingYellow,
+                }}
+              >
+                {rating.ratingValue} -{' '}
+                {getShortLabelByRatingValue(
+                  Math.round(rating.ratingValue || 1)
+                )}
+              </SemiBold>
 
               <HomeRatingItemReview rating={rating} />
 
