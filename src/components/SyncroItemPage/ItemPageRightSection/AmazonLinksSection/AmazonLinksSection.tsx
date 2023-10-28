@@ -4,6 +4,7 @@ import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDt
 import FlexCol from '../../../_common/flex/FlexCol'
 import CenterLoader from '../../../_common/overrides/CenterLoader/CenterLoader'
 import MyPaper from '../../../_common/overrides/MyPaper'
+import { Text } from '../../../_common/text/Text'
 import AmazonLinksSectionItem from './AmazonLinksSectionItem/AmazonLinksSectionItem'
 
 type Props = {
@@ -16,6 +17,7 @@ const AmazonLinksSection = ({ ...props }: Props) => {
     <MyPaper className="AmazonLinksSection">
       <Title order={4}>Amazon links</Title>
       {isLoading && <CenterLoader />}
+      {!isLoading && data?.length === 0 && <Text mt={24}>No links found</Text>}
       <FlexCol mt={8} gap={16}>
         {data?.map((link) => (
           <AmazonLinksSectionItem link={link} key={link.amazonUrl} />
