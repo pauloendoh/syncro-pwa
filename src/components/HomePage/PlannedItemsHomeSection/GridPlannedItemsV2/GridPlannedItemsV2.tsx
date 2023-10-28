@@ -51,7 +51,13 @@ const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
   }, [containerWidth])
 
   return (
-    <Flex wrap="wrap" gap={16} className="container" ref={containerRef}>
+    <Flex
+      wrap="wrap"
+      gap={16}
+      className="container"
+      ref={containerRef}
+      w="100%"
+    >
       {filteredRatings.map((rating, index) => (
         <GridPlannedItem
           rating={rating}
