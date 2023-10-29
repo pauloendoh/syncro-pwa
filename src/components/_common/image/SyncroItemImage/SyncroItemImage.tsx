@@ -93,7 +93,7 @@ const SyncroItemImage = (props: Props) => {
           height={height}
           src={getSyncroItemImageOrDefault({
             isError,
-            url: props.item?.imageUrl || '',
+            url: props.item?.smallImageUrl || props.item?.imageUrl || '',
           })}
           alt={props.item?.title || 'syncro-item'}
           style={{

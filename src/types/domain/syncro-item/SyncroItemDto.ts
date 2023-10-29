@@ -11,6 +11,7 @@ export interface SyncroItemDto {
   title: string
   type: SyncroItemType
   imageUrl: string
+  smallImageUrl: string
   year: number
 
   avgRating: number
@@ -51,6 +52,7 @@ export const buildSyncroItemDto = (
   title: '',
   type: 'tvSeries',
   imageUrl: '',
+  smallImageUrl: '',
   year: 0,
   genres: [],
 
