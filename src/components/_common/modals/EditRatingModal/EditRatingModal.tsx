@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Box,
   Button,
   Checkbox,
@@ -32,6 +33,7 @@ import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
+import Span from '../../text/Span'
 import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
 import RatingSection from './RatingSection/RatingSection'
@@ -268,6 +270,7 @@ const EditRatingModal = () => {
                 }
               />
             </Box>
+
             <Box mt={16}>
               <Checkbox
                 label="Private (Beta)"
@@ -277,6 +280,17 @@ const EditRatingModal = () => {
                 }}
               />
             </Box>
+
+            {Boolean(form.watch('importedFromUrl')) && (
+              <Box mt={16}>
+                <Span>
+                  This rating came from{' '}
+                  <Anchor href={form.watch('importedFromUrl')!} target="_blank">
+                    {form.watch('importedFromUrl')}
+                  </Anchor>
+                </Span>
+              </Box>
+            )}
 
             <FlexVCenter mt={32} justify="space-between">
               <SaveCancelButtons

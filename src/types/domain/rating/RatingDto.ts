@@ -29,6 +29,7 @@ export type RatingDto = {
   consumedOn: string
   isPrivate: boolean
 
+  importedFromUrl: string | null
   plannedPosition: number
 }
 
@@ -47,6 +48,7 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   scenes: [],
   consumedOn: '',
   isPrivate: false,
+  importedFromUrl: null,
   plannedPosition: 9999,
   ...p,
 })
