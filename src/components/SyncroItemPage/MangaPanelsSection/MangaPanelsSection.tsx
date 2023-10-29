@@ -63,7 +63,7 @@ const MangaPanelsSection = (props: Props) => {
 
   return (
     <FlexCol gap={8}>
-      <Title order={4}>Manga Panels</Title>
+      <Title order={4}>Manga Pannels</Title>
 
       <Box mt={2}>
         {isLoading && <CenterLoader />}
