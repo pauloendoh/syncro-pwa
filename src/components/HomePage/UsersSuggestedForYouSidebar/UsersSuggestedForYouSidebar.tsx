@@ -1,5 +1,6 @@
 import { Title } from '@mantine/core'
 import { useUserRecommendationsForMeQuery } from '../../../hooks/react-query/item-recommendation/useUserRecommendationsForMeQuery'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import UsersSuggestedForYouSidebarItem from './UsersSuggestedForYouSidebarItem/UsersSuggestedForYouSidebarItem'
@@ -8,6 +9,11 @@ type Props = {}
 
 const UsersSuggestedForYouSidebar = ({ ...props }: Props) => {
   const { data, isLoading } = useUserRecommendationsForMeQuery()
+  const { authUser } = useAuthStore()
+
+  if (!authUser) {
+    return null
+  }
 
   return (
     <FlexCol className="SuggestedForYou" gap={16}>
