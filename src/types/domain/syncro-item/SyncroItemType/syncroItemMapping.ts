@@ -12,7 +12,6 @@ export const syncroItemMapping: {
     site: 'IMDb',
     tabIndex: 0,
   },
-
   movie: {
     labelPlural: 'Movies',
     site: 'IMDb',
@@ -23,19 +22,25 @@ export const syncroItemMapping: {
     site: 'OpenLibrary',
     tabIndex: 2,
   },
+  goodreadsBook: {
+    labelPlural: 'Goodreads Books',
+    site: 'Goodreads',
+    tabIndex: 3,
+  },
+
   game: {
     labelPlural: 'Games',
     site: 'IGDB',
-    tabIndex: 3,
+    tabIndex: 4,
   },
   manga: {
     labelPlural: 'Manga',
     site: 'MAL',
-    tabIndex: 4,
+    tabIndex: 5,
   },
   music: {
     labelPlural: 'Music',
     site: 'Youtube',
-    tabIndex: 5,
+    tabIndex: 6,
   },
 }

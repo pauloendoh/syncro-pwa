@@ -30,6 +30,7 @@ export interface SyncroItemDto {
   openLibraryUrl: string | null
   youtubeMusicUrl: string | null
   tmdbUrl: string | null
+  goodreadsUrl: string | null
 
   youtubeVideoUrl: string | null
 
@@ -63,6 +64,7 @@ export const buildSyncroItemDto = (
   youtubeMusicUrl: null,
   youtubeVideoUrl: null,
   tmdbUrl: null,
+  goodreadsUrl: null,
 
   avgRating: 0,
   ratingCount: 0,

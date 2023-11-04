@@ -1,5 +1,6 @@
 import { useMantineTheme } from '@mantine/core'
 import { IconBaseProps } from 'react-icons'
+import { FaGoodreads } from 'react-icons/fa'
 import { FiFilm, FiTv } from 'react-icons/fi'
 import { IoLogoGameControllerA, IoMdBook } from 'react-icons/io'
 import { IoMusicalNotesSharp } from 'react-icons/io5'
@@ -21,6 +22,7 @@ export const SyncroItemBaseIcon: {
   movie: FiFilm,
   music: IoMusicalNotesSharp,
   tvSeries: FiTv,
+  goodreadsBook: FaGoodreads,
 }
 
 const SyncroItemIcon = (props: Props) => {

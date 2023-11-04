@@ -49,6 +49,10 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
       return syncroItem.youtubeMusicUrl
     }
 
+    if (syncroItem.type === 'goodreadsBook') {
+      return syncroItem.goodreadsUrl
+    }
+
     return syncroItem.imdbUrl
   }, [syncroItem])
 

@@ -137,6 +137,10 @@ const SearchBar = (props: Props) => {
               borderRight: `2px solid ${theme.colors.primary[9]}`,
             },
           },
+          dropdown: {
+            minWidth: 168,
+            marginLeft: 30,
+          },
         })}
         value={selectedType}
         onChange={(value) => {

@@ -122,6 +122,27 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
     getVerb: () => 'read',
   },
   {
+    itemType: 'goodreadsBook',
+    labelPlural: 'Goodreads Books',
+    site: 'Goodreads',
+    tabIndex: 2.5,
+    getTypeLabel: (isPlural = false) => (isPlural ? 'Books V2' : 'Book V2'),
+    getTypeLabelLowerCase: (isPlural = false) =>
+      isPlural ? 'books V2' : 'book V2',
+    planTo: 'Plan to read',
+    plansTo: 'plans to read',
+    removeFromPlanTo: 'Remove from planned books',
+    inProgressLabel: 'reading',
+    consumedOn: 'Read on',
+    consumedOnExamples: 'Amazon Kindle, Bookwalker, Comixology',
+
+    onboardingImageUrl:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMQV-HY00kL5Zu_FokWEcmvPz04WkOgH-IfVcXoQ4tcE1cY2TQ6MzrailPUYcNPmywGCo&usqp=CAU',
+
+    onboardingSearchQuestion: 'What is one of your favorite books?',
+    getVerb: () => 'read',
+  },
+  {
     itemType: 'music',
     labelPlural: 'Music',
     site: 'Youtube',

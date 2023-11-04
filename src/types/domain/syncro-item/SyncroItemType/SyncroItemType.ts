@@ -4,6 +4,7 @@ export const syncroItemTypes = [
   'game',
   'manga',
   'book',
+  'goodreadsBook',
   'music',
 ] as const
 

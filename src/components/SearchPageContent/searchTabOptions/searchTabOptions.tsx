@@ -39,6 +39,11 @@ export const searchTabOptions: {
     label: 'Books',
     Icon: SyncroItemBaseIcon.book,
   },
+  // {
+  //   key: 'goodreadsBook',
+  //   label: 'Goodreads Books',
+  //   Icon: SyncroItemBaseIcon.goodreadsBook,
+  // },
   {
     key: 'music',
     label: 'Music',
