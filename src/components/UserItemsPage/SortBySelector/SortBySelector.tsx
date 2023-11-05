@@ -26,6 +26,11 @@ const SortBySelector = (props: Props) => {
       value={props.value}
       onChange={(value) => props.onChange(value as SortingByType)}
       label="Sort by"
+      styles={{
+        dropdown: {
+          minWidth: 170,
+        },
+      }}
     />
   )
 }

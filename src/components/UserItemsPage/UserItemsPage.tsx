@@ -82,11 +82,7 @@ const UserItemsPage = () => {
       {/* <Grid> */}
       {/* <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} /> */}
       {/* <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}> */}
-      <Container
-        size="lg"
-        fluid={isSmallScreen}
-        px={isSmallScreen ? 0 : undefined}
-      >
+      <Container size="lg" fluid={isSmallScreen}>
         <Title order={3}>{userInfo?.username}'s items</Title>
         <FlexVCenter gap={24} mt={16}>
           <FlexVCenter gap={8}>
