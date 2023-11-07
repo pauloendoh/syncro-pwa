@@ -102,7 +102,7 @@ const UserProfilePage = () => {
           <Container
             size="xs"
             fluid={isSmallScreen}
-            pr={isSmallScreen ? 0 : undefined}
+            pr={isSmallScreen ? 8 : undefined}
           >
             <Paper
               sx={{
