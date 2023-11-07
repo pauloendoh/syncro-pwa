@@ -91,20 +91,24 @@ const UserRatingsGridView = (props: Props) => {
                   gap={4}
                   sx={{
                     cursor: 'pointer',
+                    img: {
+                      height: isMobile ? 80 * 1.33 : 104 * 1.33,
+                    },
                   }}
                 >
                   <SyncroItemLink item={rating.syncroItem!}>
                     <SyncroItemImage
                       item={rating.syncroItem}
                       width={isMobile ? 80 : 104}
-                      height={isMobile ? 80 : 104}
                       showItemType={rating.syncroItem?.type}
                     />
                   </SyncroItemLink>
 
                   <FlexVCenter
                     sx={{
-                      color: getVariantRatingYellow(rating.ratingValue || 1),
+                      color: getVariantRatingYellow(
+                        Math.round(rating.ratingValue || 1)
+                      ),
                     }}
                     gap={8}
                     onClick={() => openModal(rating)}
