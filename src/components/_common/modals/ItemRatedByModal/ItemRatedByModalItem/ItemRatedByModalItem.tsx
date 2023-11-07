@@ -1,5 +1,6 @@
 import { Flex, useMantineTheme } from '@mantine/core'
 import { format } from 'timeago.js'
+import { useRatingDetailsModalStore } from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 import { useRatingStatusIcon } from '../../../../../types/domain/rating/useRatingStatusIcon/useRatingStatusIcon'
 import { urls } from '../../../../../utils/urls/urls'
@@ -17,6 +18,7 @@ type Props = {
 const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
   const theme = useMantineTheme()
   const Icon = useRatingStatusIcon(rating.status)
+  const { openModal } = useRatingDetailsModalStore()
 
   return (
     <Flex key={rating.id} gap={16}>
@@ -46,7 +48,15 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
             </MyNextLink>
             <FlexVCenter ml={8} gap={2}>
               {!!rating.review && (
-                <MyIcons.Review color={theme.colors.yellow[5]} />
+                <MyIcons.Review
+                  color={theme.colors.yellow[5]}
+                  style={{
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    openModal(rating)
+                  }}
+                />
               )}
 
               <Icon
