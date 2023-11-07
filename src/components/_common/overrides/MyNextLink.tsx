@@ -11,13 +11,13 @@ const MyNextLink = React.forwardRef<HTMLAnchorElement, Props>((props, ref) => {
 
   return (
     <Link
+      ref={ref}
       {...props}
       passHref
       style={{
         textDecoration: 'none',
         color: 'inherit',
         width: 'fit-content',
-
         ...props.style,
       }}
       onClick={(e) => {

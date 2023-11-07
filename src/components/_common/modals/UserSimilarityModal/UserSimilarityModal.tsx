@@ -92,8 +92,17 @@ const UserSimilarityModal = () => {
             return (
               <tr key={type}>
                 <td>
-                  <FlexVCenter gap={8}>
-                    {typeMap.getTypeLabel()}{' '}
+                  <FlexVCenter
+                    gap={8}
+                    sx={{
+                      'a:hover': {
+                        textDecoration: 'underline !important',
+                      },
+                    }}
+                  >
+                    <MyNextLink href={urls.pages.userItems(userId, type)}>
+                      <Span>{typeMap.getTypeLabel()}</Span>
+                    </MyNextLink>{' '}
                     {highSimilarityTypes.includes(type) && (
                       <Tooltip label="Over 50% similarity and over 10 shared items">
                         <Span
