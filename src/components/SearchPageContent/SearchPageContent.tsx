@@ -41,7 +41,9 @@ const SearchPageContent = (props: Props) => {
             {type === 'users' && (
               <UserSearchResults onClickUser={() => {}} query={q} />
             )}
-            {type === 'all' && <SearchAllSection q={q} />}
+            {(type === 'all' || type === undefined) && q && (
+              <SearchAllSection q={q} />
+            )}
           </Container>
         </Grid.Col>
       </Grid>
