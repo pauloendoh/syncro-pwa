@@ -4,6 +4,9 @@ import {
   buildSyncroItemDto,
 } from '../../../types/domain/syncro-item/SyncroItemDto'
 
+import { isAxiosError } from 'axios'
+import { myNotifications } from '../../../utils/mantine/myNotifications'
+import { useSnackbar } from '../../../utils/mantine/useSnackbar'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
@@ -13,7 +16,8 @@ export const useSyncroItemDetailsQuery = (
     initialData?: SyncroItemDto
   }
 ) => {
-  const axios = useAxios()
+  const axios = useAxios(false)
+  const {} = useSnackbar()
   return useQuery<SyncroItemDto, Error>(
     [urls.api.syncroItemDetails(id)],
     async () => {
@@ -25,6 +29,14 @@ export const useSyncroItemDetailsQuery = (
     {
       enabled: !!id,
       initialData: options?.initialData,
+      onError: (err) => {
+        debugger
+        if (isAxiosError(err)) {
+          if (err.response?.data?.code === 429) return
+
+          myNotifications.error(err.response?.data?.message || err.message)
+        }
+      },
     }
   )
 }
