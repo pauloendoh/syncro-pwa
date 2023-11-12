@@ -30,7 +30,8 @@ const ItemPageRightSection = ({ ...props }: Props) => {
       gap={24}
       sx={{
         alignItems: isSmallScreen ? 'center' : undefined,
-        width: isSmallScreen ? '100%' : '300px',
+        width: isSmallScreen ? '100%' : '100%',
+        maxWidth: '300px',
         paddingInline: isSmallScreen ? 16 : undefined,
       }}
     >

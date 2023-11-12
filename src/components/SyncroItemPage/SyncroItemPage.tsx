@@ -51,7 +51,7 @@ const SyncroItemPage = (props: Props) => {
         <Grid.Col
           span={12}
           xs={12}
-          sm={7}
+          sm={8}
           md={7}
           lg={6}
           xl={5}
@@ -107,7 +107,7 @@ const SyncroItemPage = (props: Props) => {
           </Container>
         </Grid.Col>
 
-        <Grid.Col span={0} xs={0} sm={5} md={4} lg={4} xl={4}>
+        <Grid.Col span={0} xs={0} sm={4} md={4} lg={4} xl={4}>
           {item && <ItemPageRightSection item={item} />}
         </Grid.Col>
       </Grid>
