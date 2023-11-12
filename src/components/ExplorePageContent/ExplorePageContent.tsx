@@ -4,7 +4,7 @@ import { ExploreSlug, useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { urls } from '../../utils/urls/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
-import MostRatedExploreSection from './MostRatedExploreSection/MostRatedExploreSection'
+import BrowseItemsExploreSection from './BrowseItemsExploreSection/BrowseItemsExploreSection'
 import NewUsersList from './NewUsersList/NewUsersList'
 import PopularUserList from './PopularUserList/PopularUserList'
 import RatingSimilarityList from './RatingSimilarityList/RatingSimilarityList'
@@ -60,7 +60,7 @@ const ExplorePageContent = (props: Props) => {
 
           <Box mt={8} />
           {exploreSlug === 'for-you' && <RecommendedForYouSection />}
-          {exploreSlug === 'browse' && <MostRatedExploreSection />}
+          {exploreSlug === 'browse' && <BrowseItemsExploreSection />}
           {exploreSlug === 'popular-users' && <PopularUserList />}
           {exploreSlug === 'rating-similarity' && <RatingSimilarityList />}
           {exploreSlug === 'new-users' && <NewUsersList />}

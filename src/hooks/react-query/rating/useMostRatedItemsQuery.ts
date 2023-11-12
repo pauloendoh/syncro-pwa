@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Period } from '../../../components/ExplorePageContent/MostRatedExploreSection/MostRatedExploreSection'
+import { Period } from '../../../components/ExplorePageContent/BrowseItemsExploreSection/BrowseItemsExploreSection'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../../utils/urls/urls'

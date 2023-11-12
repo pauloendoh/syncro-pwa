@@ -9,7 +9,7 @@ import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 import Span from '../../_common/text/Span'
-import ItemTypeSelector from '../MostRatedExploreSection/ItemTypeSelector/ItemTypeSelector'
+import ItemTypeSelector from '../BrowseItemsExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { getRatingSimilarityLabel as getRatingSimilarityLabels } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
 
 const RatingSimilarityList = () => {

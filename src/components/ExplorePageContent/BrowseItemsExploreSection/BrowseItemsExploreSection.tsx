@@ -1,6 +1,8 @@
 import { Flex, Select } from '@mantine/core'
-import { useState } from 'react'
+import { useIntersection } from '@mantine/hooks'
+import { useEffect, useMemo, useState } from 'react'
 import { useMostRatedItemsQuery } from '../../../hooks/react-query/rating/useMostRatedItemsQuery'
+import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FavoriteItem from '../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
@@ -31,7 +33,7 @@ const periods = [
 ] as const
 export type Period = (typeof periods)[number]['value']
 
-const MostRatedExploreSection = ({ ...props }: Props) => {
+const BrowseItemsExploreSection = ({ ...props }: Props) => {
   const [itemType, setItemType] = useState<SyncroItemType>('movie')
 
   const [period, setPeriod] = useState<Period>('month')
@@ -40,6 +42,26 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
     itemType,
     period,
   })
+
+  const { isMobile } = useMyMediaQuery()
+
+  const { entry, ref } = useIntersection()
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      setPage((prevPage) => prevPage + 1)
+    }
+  }, [entry?.isIntersecting])
+
+  useEffect(() => {
+    setPage(1)
+  }, [itemType, period])
+
+  const showingItems = useMemo(
+    () => items?.slice(0, page * 20) || [],
+    [items, page]
+  )
 
   return (
     <FlexCol gap={16}>
@@ -68,20 +90,21 @@ const MostRatedExploreSection = ({ ...props }: Props) => {
       {!isLoading && items?.length === 0 && <div>No items found</div>}
 
       <Flex wrap="wrap" gap={16}>
-        {items?.map((item) => (
+        {showingItems.map((item) => (
           <SyncroItemLink item={item}>
             <FavoriteItem
               item={item}
               alwaysShowTitle
-              width={140}
+              width={isMobile ? 100 : 160}
               showAvgRating
               showMyRating
             />
           </SyncroItemLink>
         ))}
+        <div ref={ref} />
       </Flex>
     </FlexCol>
   )
 }
 
-export default MostRatedExploreSection
+export default BrowseItemsExploreSection
