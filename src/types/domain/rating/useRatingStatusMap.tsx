@@ -1,7 +1,7 @@
 import { useMantineTheme } from '@mantine/core'
 import { CgRadioCheck } from 'react-icons/cg'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
-import { MdAccessTime, MdCheckCircleOutline } from 'react-icons/md'
+import { MdAccessTime, MdBookmark, MdCheckCircleOutline } from 'react-icons/md'
 import { RatingStatusType } from './ratingStatusArray'
 
 export const useRatingStatusMap = (status?: RatingStatusType) => {
@@ -35,6 +35,12 @@ export const useRatingStatusMap = (status?: RatingStatusType) => {
       label: 'Completed',
       icon: <MdCheckCircleOutline title="Completed" />,
       value: 'COMPLETED',
+      color: 'unset',
+    },
+    {
+      label: 'Planned',
+      value: 'PLANNED',
+      icon: <MdBookmark title="Planned" />,
       color: 'unset',
     },
   ]
