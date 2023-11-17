@@ -10,6 +10,7 @@ import { MdSearch } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
+import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 import { SearchType } from '../../../../../types/domain/search/SearchParams'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../../utils/urls/urls'
@@ -24,9 +25,12 @@ import MyNextLink from '../../../overrides/MyNextLink'
 import SearchBarSelectItem from './SearchBarSelectItem/SearchBarSelectItem'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
-type Props = {}
+type SearchPreviewDto = {
+  item: SyncroItemDto
+  myRating: RatingDto | null
+}
 
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
   const theme = useMantineTheme()
   const { q, type } = useMyRouterQuery()
   const [input, setInput] = useState('')
@@ -55,8 +59,7 @@ const SearchBar = (props: Props) => {
     if (input.length > 0 && isMobile) handleSubmit()
   }, [selectedType])
 
-  const [previewedItems, setPreviewedItems] = useState<SyncroItemDto[]>([])
-
+  const [previewData, setPreviewData] = useState<SearchPreviewDto[]>([])
   const { ref, width } = useElementSize()
 
   const axios = useAxios()
@@ -64,30 +67,30 @@ const SearchBar = (props: Props) => {
   const handlePreviewItems = useCallback(
     (input: string, selectedType: SearchType) => {
       if (q === debouncedInput && type === selectedType) {
-        setPreviewedItems([])
+        setPreviewData([])
         return
       }
 
       if (!isSyncroItemType(selectedType)) {
-        setPreviewedItems([])
+        setPreviewData([])
         return
       }
 
       if (input.length > 0) {
         axios
-          .get<SyncroItemDto[]>(
+          .get<SearchPreviewDto[]>(
             urls.api.searchAutocomplete({
               q: debouncedInput,
               type: selectedType,
             })
           )
           .then((res) => {
-            setPreviewedItems(res.data)
+            setPreviewData(res.data)
           })
         return
       }
 
-      setPreviewedItems([])
+      setPreviewData([])
     },
     [debouncedInput, selectedType]
   )
@@ -96,7 +99,7 @@ const SearchBar = (props: Props) => {
     handlePreviewItems(debouncedInput, selectedType)
   }, [debouncedInput, selectedType])
 
-  const clickOutsideRef = useClickOutside(() => setPreviewedItems([]))
+  const clickOutsideRef = useClickOutside(() => setPreviewData([]))
 
   return (
     <form
@@ -192,7 +195,7 @@ const SearchBar = (props: Props) => {
         }}
       />
 
-      {previewedItems.length > 0 && (
+      {previewData.length > 0 && (
         <Paper
           ref={clickOutsideRef}
           sx={{
@@ -227,12 +230,12 @@ const SearchBar = (props: Props) => {
               </Text>
             </Flex>
           </MyNextLink>
-          {previewedItems.map((item) => (
+          {previewData.map(({ item, myRating }) => (
             <SyncroItemLink
               key={item.id}
               item={item}
               onClick={() => {
-                setPreviewedItems([])
+                setPreviewData([])
               }}
               disablePreview
             >
@@ -256,6 +259,7 @@ const SearchBar = (props: Props) => {
                     {item.title}
                   </Text>
                   {item.year ?? <Text>{item.year}</Text>}
+                  {myRating && <div>I rated :D</div>}
                 </FlexCol>
               </Flex>
             </SyncroItemLink>
