@@ -8,7 +8,7 @@ export default class _Document extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en" className="notranslate" translate="no">
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
