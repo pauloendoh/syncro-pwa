@@ -92,7 +92,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
         {authUser && (
           <>
             <Tooltip
-              label="Click here to save your first item"
+              label="Click here to rate your first item"
               disabled={!!myRatings?.length || isLoading}
               withinPortal
               opened

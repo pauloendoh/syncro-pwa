@@ -21,6 +21,7 @@ import SyncroItemLink from '../../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../flex/FlexCol'
 import SyncroItemImage from '../../../image/SyncroItemImage/SyncroItemImage'
 import MyTextInput from '../../../inputs/MyTextInput'
+import UserEntryIcons from '../../../modals/ItemRatedByModal/ItemRatedByModalItem/UserEntryIcons/UserEntryIcons'
 import MyNextLink from '../../../overrides/MyNextLink'
 import SearchBarSelectItem from './SearchBarSelectItem/SearchBarSelectItem'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
@@ -259,7 +260,12 @@ const SearchBar = () => {
                     {item.title}
                   </Text>
                   {item.year ?? <Text>{item.year}</Text>}
-                  {myRating && <div>I rated :D</div>}
+                  {myRating && (
+                    <UserEntryIcons
+                      color={theme.colors.secondary[9]}
+                      rating={myRating}
+                    />
+                  )}
                 </FlexCol>
               </Flex>
             </SyncroItemLink>

@@ -4,12 +4,12 @@ import { useRatingDetailsModalStore } from '../../../../../hooks/zustand/modals/
 import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 import { useRatingStatusIcon } from '../../../../../types/domain/rating/useRatingStatusIcon/useRatingStatusIcon'
 import { urls } from '../../../../../utils/urls/urls'
-import MyIcons from '../../../MyIcons/MyIcons'
 import FlexCol from '../../../flex/FlexCol'
 import FlexVCenter from '../../../flex/FlexVCenter'
 import UserImage from '../../../image/SyncroItemImage/UserImage/UserImage'
 import MyNextLink from '../../../overrides/MyNextLink'
 import MyText from '../../../text/MyText'
+import UserEntryIcons from './UserEntryIcons/UserEntryIcons'
 
 type Props = {
   rating: RatingDto
@@ -42,38 +42,12 @@ const ItemRatedByModalItem = ({ rating, ...props }: Props) => {
               href={urls.pages.userProfile(rating.userId)}
               style={{
                 fontWeight: 500,
+                marginRight: 8,
               }}
             >
               {rating.user?.username}
             </MyNextLink>
-            <FlexVCenter ml={8} gap={2}>
-              {!!rating.review && (
-                <MyIcons.Review
-                  color={theme.colors.yellow[5]}
-                  style={{
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => {
-                    openModal(rating)
-                  }}
-                />
-              )}
-
-              <Icon
-                color={theme.colors.yellow[5]}
-                style={{
-                  position: 'relative',
-                }}
-              />
-              <b
-                style={{
-                  color: theme.colors.yellow[5],
-                  marginLeft: 2,
-                }}
-              >
-                {rating.ratingValue || null}
-              </b>
-            </FlexVCenter>
+            <UserEntryIcons color={theme.colors.yellow[5]} rating={rating} />
           </FlexVCenter>
           <MyText size="sm">{rating.user?.profile?.fullName}</MyText>
         </FlexCol>
