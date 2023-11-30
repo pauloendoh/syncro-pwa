@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { AuthUserGetDto } from '../../types/domain/auth/AuthUserGetDto'
+import { cookieKeys } from '../../utils/consts/cookieKeys'
 import nookies from '../../utils/nookies'
 
 interface IAuthStore {
@@ -13,7 +14,7 @@ const useAuthStore = create<IAuthStore>((set, get) => ({
   setAuthUser: async (authUser) => {
     set({ authUser })
 
-    nookies.set(null, 'user', JSON.stringify(authUser), {
+    nookies.set(null, cookieKeys.user, JSON.stringify(authUser), {
       secure: true,
       path: '/',
       maxAge: 30 * 24 * 60 * 60, // 1 year
@@ -26,7 +27,7 @@ const useAuthStore = create<IAuthStore>((set, get) => ({
 }))
 const initialState = useAuthStore.getState()
 export const resetAuthStore = async () => {
-  nookies.destroy(null, 'user', {
+  nookies.destroy(null, cookieKeys.user, {
     secure: true,
     path: '/',
   })

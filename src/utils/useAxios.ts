@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ValidationError } from 'class-validator'
 import nookies from 'nookies'
 
+import { cookieKeys } from './consts/cookieKeys'
 import { myNotifications } from './mantine/myNotifications'
 
 export const useAxios = (showErrorMessage = true) => {
@@ -9,7 +10,7 @@ export const useAxios = (showErrorMessage = true) => {
   localAxios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
   localAxios.interceptors.request.use(async (config) => {
-    const userStr = nookies.get(null).user
+    const userStr = nookies.get(null)[cookieKeys.user]
 
     if (userStr && config.headers)
       config.headers['authorization'] = JSON.parse(userStr).token

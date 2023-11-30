@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
+import { cookieKeys } from '../../../utils/consts/cookieKeys'
 import nookies from '../../../utils/nookies'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
@@ -17,7 +18,7 @@ const useCheckAuthOrLogout = () => {
   const { setAuthUser } = useAuthStore()
 
   const checkAuthOrLogout = () => {
-    const userCookieStr = nookies.get(null).user
+    const userCookieStr = nookies.get(null)[cookieKeys.user]
 
     if (!userCookieStr) {
       if (oauthToken && userId) {
