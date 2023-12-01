@@ -35,7 +35,9 @@
       "short_name": "Planned",
       "description": "Planned items",
       "url": "/saved",
-      "icons": [{ "src": "/icon-512x512.png" }]
+      "icons": [
+        { "src": "/icon-512x512.png", "sizes": "192x192", "type": "image/png" }
+      ]
     }
   ]
 }
