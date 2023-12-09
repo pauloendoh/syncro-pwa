@@ -17,8 +17,10 @@ export const useSortedItems = ({
   const sortedItems = useMemo(() => {
     if (!items) return []
 
+    const copiedItems = [...items]
+
     if (sortingBy === 'bothPlannedDesc') {
-      return items.sort((a, b) => {
+      return copiedItems.sort((a, b) => {
         const theyPlannedA = !!a.interests?.[0]
         const theyPlannedB = !!b.interests?.[0]
 
@@ -34,7 +36,7 @@ export const useSortedItems = ({
     }
 
     if (sortingBy === 'theirInterestDesc')
-      return items.sort((a, b) => {
+      return copiedItems.sort((a, b) => {
         const interestA = a.interests?.[0]?.interestLevel
         const interestB = b.interests?.[0]?.interestLevel
         if (interestB && !interestA) return 1
@@ -44,7 +46,7 @@ export const useSortedItems = ({
       })
 
     if (sortingBy === 'customOrdering') {
-      return items
+      return copiedItems
         .sort((a, b) => {
           const positionA =
             customPositions?.find((p) => p.syncroItemId === a.id)?.position ||
@@ -60,7 +62,7 @@ export const useSortedItems = ({
     }
 
     if (sortingBy === 'avgInterest')
-      return items.sort((next, prev) => {
+      return copiedItems.sort((next, prev) => {
         const avgInterestA =
           ((next.interests?.[0]?.interestLevel || 0) + (next.myInterest || 0)) /
           2
@@ -71,7 +73,8 @@ export const useSortedItems = ({
       })
 
     if (sortingBy === 'theirLastUpdatedAt') {
-      return items.sort((a, b) => {
+      console.log('sorting by their last updated at')
+      const x = copiedItems.sort((a, b) => {
         const updatedAtA = a.ratings?.[0]?.updatedAt
         const updatedAtB = b.ratings?.[0]?.updatedAt
 
@@ -85,9 +88,11 @@ export const useSortedItems = ({
         if (updatedAtB) return 1
         return 0
       })
+
+      return x
     }
 
-    return items.sort((a, b) => {
+    return copiedItems.sort((a, b) => {
       const ratingA = a.ratings?.[0]?.ratingValue
       const ratingB = b.ratings?.[0]?.ratingValue
 
@@ -115,5 +120,6 @@ export const useSortedItems = ({
     })
   }, [items, sortingBy, customPositions])
 
+  console.log(sortedItems)
   return sortedItems
 }
