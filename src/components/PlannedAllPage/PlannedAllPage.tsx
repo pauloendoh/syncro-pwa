@@ -38,8 +38,8 @@ const PlannedAllPage = ({ ...props }: Props) => {
   return (
     <LoggedLayout>
       <Container>
-        <FlexCol>
-          <Title order={4}>Planned</Title>
+        <FlexCol gap={16}>
+          <Title order={4}>All Planned ({sortedRatings.length})</Title>
           <Flex wrap={'wrap'} gap={8}>
             {sortedRatings.map((rating) => (
               <div
