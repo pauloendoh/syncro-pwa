@@ -73,7 +73,6 @@ export const useSortedItems = ({
       })
 
     if (sortingBy === 'theirLastUpdatedAt') {
-      console.log('sorting by their last updated at')
       const x = copiedItems.sort((a, b) => {
         const updatedAtA = a.ratings?.[0]?.updatedAt
         const updatedAtB = b.ratings?.[0]?.updatedAt
@@ -120,6 +119,5 @@ export const useSortedItems = ({
     })
   }, [items, sortingBy, customPositions])
 
-  console.log(sortedItems)
   return sortedItems
 }

@@ -15,6 +15,7 @@ import { QueryParams } from '../../utils/queryParams'
 import ItemTypeSelector from '../ExplorePageContent/BrowseItemsExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { useSortedItems } from '../UserProfilePage/ProfileScreenRatingItem/useSortedItems/useSortedItems'
 import FlexVCenter from '../_common/flex/FlexVCenter'
+import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
 import LoggedLayout from '../_common/layout/LoggedLayout'
 import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import SortBySelector from './SortBySelector/SortBySelector'
@@ -93,7 +94,10 @@ const UserItemsPage = () => {
       {/* <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} /> */}
       {/* <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}> */}
       <Container size="lg" fluid={isSmallScreen}>
-        <Title order={3}>{userInfo?.username}'s items</Title>
+        <FlexVCenter gap={16}>
+          <UserImage pictureUrl={userInfo?.profile?.pictureUrl} />
+          <Title order={3}>{userInfo?.username}'s items</Title>
+        </FlexVCenter>
         <FlexVCenter gap={24} mt={16}>
           <FlexVCenter gap={8}>
             <ItemTypeSelector
