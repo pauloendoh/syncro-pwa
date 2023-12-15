@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Span from '../../_common/text/Span'
 import GenreChips from './GenreChips/GenreChips'
 
@@ -7,6 +8,8 @@ type Props = {
 }
 
 const GenresSection = ({ ...props }: Props) => {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   if (props.genres.length === 0) return null
 
   if (props.isPreview) {
