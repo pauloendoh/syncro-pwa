@@ -1,5 +1,6 @@
 import { Box, Container, Text, Title } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
+import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
@@ -8,6 +9,7 @@ import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { SortingByType } from '../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { htmlTitles } from '../../utils/consts/htmlTitles'
 import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { QueryParams } from '../../utils/queryParams'
 import ItemTypeSelector from '../ExplorePageContent/BrowseItemsExploreSection/ItemTypeSelector/ItemTypeSelector'
@@ -79,6 +81,14 @@ const UserItemsPage = () => {
 
   return (
     <LoggedLayout>
+      <Head>
+        <title>
+          {htmlTitles.userItems({
+            username: userInfo?.username || '',
+            itemType: itemType,
+          })}
+        </title>
+      </Head>
       {/* <Grid> */}
       {/* <Grid.Col span={0} xs={0} sm={0} md={1} lg={2} xl={4} /> */}
       {/* <Grid.Col span={12} xs={12} sm={7} md={7} lg={5} xl={4}> */}
