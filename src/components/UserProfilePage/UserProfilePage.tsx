@@ -126,7 +126,7 @@ const UserProfilePage = () => {
                         <Title order={4} weight={500}>
                           {userInfo.username}
                         </Title>
-                        {thisIsMyProfile && isMobile && <UserMoreMenu />}
+                        <UserMoreMenu thisIsMyProfile={thisIsMyProfile} />
                       </FlexVCenter>
 
                       <Box mt={16}>
