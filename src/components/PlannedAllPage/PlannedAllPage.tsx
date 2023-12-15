@@ -17,9 +17,9 @@ const PlannedAllPage = ({ ...props }: Props) => {
     () =>
       plannedItems
         ?.sort((a, b) => {
-          // updatedAt asc
-          if (a.updatedAt < b.updatedAt) return -1
-          if (a.updatedAt > b.updatedAt) return 1
+          // createdAt asc
+          if (a.createdAt < b.createdAt) return -1
+          if (a.createdAt > b.createdAt) return 1
           return 0
         })
         ?.filter((rating) => {
