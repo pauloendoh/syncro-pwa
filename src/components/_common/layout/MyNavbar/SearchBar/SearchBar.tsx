@@ -5,7 +5,7 @@ import {
   useElementSize,
 } from '@mantine/hooks'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
@@ -102,6 +102,15 @@ const SearchBar = () => {
 
   const clickOutsideRef = useClickOutside(() => setPreviewData([]))
 
+  const SelectedIcon = useMemo(() => {
+    const Icon = searchTabOptions.find(
+      (option) => option.key === selectedType
+    )?.Icon
+    if (!Icon) return null
+
+    return <Icon />
+  }, [selectedType])
+
   return (
     <form
       ref={ref}
@@ -128,7 +137,7 @@ const SearchBar = () => {
             handleSubmit()
           }
         }}
-        w={110}
+        w={140}
         sx={{
           position: 'relative',
           left: 0,
@@ -143,7 +152,7 @@ const SearchBar = () => {
           },
           dropdown: {
             minWidth: 168,
-            marginLeft: 30,
+            marginLeft: 14,
           },
         })}
         value={selectedType}
@@ -151,6 +160,7 @@ const SearchBar = () => {
           setSelectedType(value as any)
         }}
         itemComponent={SearchBarSelectItem}
+        icon={SelectedIcon}
       />
 
       <MyTextInput
