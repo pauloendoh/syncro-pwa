@@ -89,7 +89,7 @@ const RatingDetailsModal = () => {
       {!!initialValue && syncroItem && (
         <FlexCol>
           <Flex gap={16}>
-            <SyncroItemLink item={syncroItem}>
+            <SyncroItemLink item={syncroItem} previewWithinPortal>
               <SyncroItemImage item={syncroItem} width={100} />
             </SyncroItemLink>
             <SyncroItemMainInfosSection

@@ -63,7 +63,7 @@ const ItemSavedBy = (props: Props) => {
           position: 'relative',
         }}
       >
-        Added by
+        Saved by
       </Box>
       <div
         style={{

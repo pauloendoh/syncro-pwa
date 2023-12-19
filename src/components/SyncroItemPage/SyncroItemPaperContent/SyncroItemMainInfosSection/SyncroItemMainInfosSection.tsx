@@ -7,9 +7,9 @@ import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 import Span from '../../../_common/text/Span'
-import ItemSavedBy from '../../AddedBy/AddedBy'
 import AvgRatingRow from '../../AvgRatingRow/AvgRatingRow'
 import GenresSection from '../../GenresSection/GenresSection'
+import ItemSavedBy from '../../ItemSavedBy/ItemSavedBy'
 
 type Props = {
   item: SyncroItemDto
