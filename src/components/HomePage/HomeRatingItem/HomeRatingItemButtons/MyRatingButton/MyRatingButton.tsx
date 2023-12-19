@@ -21,7 +21,7 @@ const MyRatingButton = (props: Props) => {
 
   const tooltipLabel = useMemo(() => {
     if (!myRating) {
-      return 'Save entry'
+      return 'Add entry'
     }
     if (myRating.ratingValue === null) return 'Update entry'
     if (myRating.ratingValue > 0) {

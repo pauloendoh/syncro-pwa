@@ -72,7 +72,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
   }, [favorites, syncroItem.id])
 
   const ratingButtonLabel = useMemo(() => {
-    if (!myRating) return 'Rate'
+    if (!myRating) return 'Add Entry'
     if (myRating?.ratingValue) {
       return myRating?.ratingValue
     }
@@ -81,7 +81,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
     if (status) {
       return status.label
     }
-    return 'Rate'
+    return 'Add Entry'
   }, [myRating])
 
   const { data: myRatings, isLoading } = useMyRatingsQuery()

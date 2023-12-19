@@ -25,13 +25,15 @@ const UserImage = (props: Props) => {
       }}
     >
       <img
-        alt={props.username || 'username'}
+        alt={props.username ?? 'username'}
         src={image}
-        width={props.widthHeight || 40}
-        height={props.widthHeight || 40}
+        width={props.widthHeight ?? 40}
+        height={props.widthHeight ?? 40}
         style={{
           borderRadius: '50%',
           objectFit: 'cover',
+          width: props.widthHeight ?? 40,
+          height: props.widthHeight ?? 40,
         }}
         onError={(e) => {
           setImage(
