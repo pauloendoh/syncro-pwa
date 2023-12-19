@@ -73,7 +73,7 @@ const FollowersCountRowProfile = (props: Props) => {
       </FlexCol>
 
       <FlexCol align={'center'}>
-        <Text weight={500}>{shortNumberFormatter(itemsCount || 0)}</Text>
+        <Text weight={500}>{itemsCount}</Text>
         <Text>Items</Text>
       </FlexCol>
     </FlexVCenter>
