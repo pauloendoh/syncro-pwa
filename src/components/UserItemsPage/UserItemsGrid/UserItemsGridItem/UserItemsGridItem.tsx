@@ -7,7 +7,7 @@ import { RatingStatusType } from '../../../../types/domain/rating/ratingStatusAr
 import { UserItemDto } from '../../../../types/domain/syncro-item/UserItemDto'
 import FavoriteItem from '../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import FlexCol from '../../../_common/flex/FlexCol'
-import { RatingCellInfo } from '../../UserItemsMdTable/UserItemsMdTableRow/UserItemsMdTableRow'
+import { RatingCellInfo } from '../../UserItemsMdTable/UserItemsMdTableRow/RatingCellInfo/RatingCellInfo'
 
 type Props = {
   item: UserItemDto
@@ -49,6 +49,7 @@ const UserItemsGridItem = ({ ...props }: Props) => {
         }
         rating={props.thisIsYourList ? myRating : theirRating}
         thisIsYourRating={props.thisIsYourList}
+        ratingSpanWidth={28}
       />
     </FlexCol>
   )
