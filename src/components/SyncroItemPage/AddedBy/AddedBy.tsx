@@ -1,4 +1,4 @@
-import { Box, Skeleton, Text } from '@mantine/core'
+import { Box, Skeleton } from '@mantine/core'
 import { useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRatedByQuery'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
@@ -11,28 +11,28 @@ type Props = {
 }
 
 // PE 1/3 - rename
-const ItemRatedBy = (props: Props) => {
+const ItemSavedBy = (props: Props) => {
   const { data, isLoading } = useItemRatedByQuery(props.itemId, 'you-follow')
 
   const { authUser } = useAuthStore()
 
-  const label = useMemo(() => {
-    if (!data || data.length === 0) {
-      return <></>
-    }
+  // const label = useMemo(() => {
+  //   if (!data || data.length === 0) {
+  //     return <></>
+  //   }
 
-    const firstUsername = data?.[0]?.user?.username
-    if (data.length === 1) {
-      return <Text size="sm">Saved by {firstUsername}</Text>
-    }
+  //   const firstUsername = data?.[0]?.user?.username
+  //   if (data.length === 1) {
+  //     return <Text size="sm">Saved by {firstUsername}</Text>
+  //   }
 
-    return (
-      <Text size="sm">
-        Saved by {firstUsername} and {data.length - 1}{' '}
-        {data.length - 1 === 1 ? 'other' : 'others'}
-      </Text>
-    )
-  }, [data])
+  //   return (
+  //     <Text size="sm">
+  //       Saved by {firstUsername} and {data.length - 1}{' '}
+  //       {data.length - 1 === 1 ? 'other' : 'others'}
+  //     </Text>
+  //   )
+  // }, [data])
 
   const sliced = useMemo(() => data?.slice(0, 3) || [], [data])
 
@@ -58,9 +58,17 @@ const ItemRatedBy = (props: Props) => {
         cursor: 'pointer',
       }}
     >
+      <Box
+        sx={{
+          position: 'relative',
+        }}
+      >
+        Added by
+      </Box>
       <div
         style={{
           display: 'inline-flex',
+          marginLeft: 4,
         }}
       >
         {sliced?.map((rating, index) => (
@@ -68,7 +76,7 @@ const ItemRatedBy = (props: Props) => {
             key={rating.id}
             style={{
               position: 'relative',
-              right: index * 12,
+              left: index * -8,
             }}
           >
             <UserImage
@@ -79,17 +87,8 @@ const ItemRatedBy = (props: Props) => {
           </div>
         ))}
       </div>
-
-      <Box
-        sx={{
-          position: 'relative',
-          left: 20 - sliced.length * 12,
-        }}
-      >
-        {label}
-      </Box>
     </FlexVCenter>
   )
 }
 
-export default ItemRatedBy
+export default ItemSavedBy

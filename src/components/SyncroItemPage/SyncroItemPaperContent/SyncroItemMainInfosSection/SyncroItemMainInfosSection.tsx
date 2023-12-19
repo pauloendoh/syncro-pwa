@@ -7,9 +7,9 @@ import FlexCol from '../../../_common/flex/FlexCol'
 import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 import Span from '../../../_common/text/Span'
+import ItemSavedBy from '../../AddedBy/AddedBy'
 import AvgRatingRow from '../../AvgRatingRow/AvgRatingRow'
 import GenresSection from '../../GenresSection/GenresSection'
-import ItemRatedBy from '../../ItemRatedBy/ItemRatedBy'
 
 type Props = {
   item: SyncroItemDto
@@ -49,7 +49,7 @@ const SyncroItemMainInfosSection = ({ item, ...props }: Props) => {
 
       <GenresSection genres={item.genres} isPreview={props.isPreview} />
 
-      {!props.hideRatedBySection && <ItemRatedBy itemId={item.id} />}
+      {!props.hideRatedBySection && <ItemSavedBy itemId={item.id} />}
     </FlexCol>
   )
 }
