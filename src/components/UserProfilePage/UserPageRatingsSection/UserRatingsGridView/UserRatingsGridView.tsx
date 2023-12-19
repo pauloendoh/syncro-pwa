@@ -1,15 +1,15 @@
-import { Box, Center, Loader } from '@mantine/core'
+import { Box, Center, Loader, useMantineTheme } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
 import { useEffect, useMemo, useRef } from 'react'
-import { GrTextAlignFull } from 'react-icons/gr'
 import { useTimelineRatingsQuery } from '../../../../hooks/react-query/feed/useHomeRatingsQuery'
 import { useTimelineHasNewsQuery } from '../../../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
+import { RatingCellInfo } from '../../../UserItemsPage/UserItemsMdTable/UserItemsMdTableRow/RatingCellInfo/RatingCellInfo'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../_common/flex/FlexCol'
-import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
 import SemiBold from '../../../_common/text/SemiBold'
 
@@ -67,69 +67,73 @@ const UserRatingsGridView = (props: Props) => {
 
   const { isMobile } = useMyMediaQuery()
 
-  const { getVariantRatingYellow } = useMyColors()
+  const { getVariantRatingYellow, ratingYellow } = useMyColors()
 
   const { openModal: openModal } = useRatingDetailsModalStore()
 
+  const { authUser } = useAuthStore()
+  const thisIsYourList = useMemo(() => {
+    return props.userId === authUser?.id
+  }, [authUser, props.userId])
+
+  const theme = useMantineTheme()
+
   return (
-    <>
-      <FlexCol gap={16} mt={16}>
-        {Object.entries(ratingsByMonth).map(([month, ratings]) => (
-          <FlexCol key={month} gap={8}>
-            <SemiBold>{month}</SemiBold>
-            <Box
-              sx={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gridRowGap: 16,
-              }}
-            >
-              {ratings.map((rating) => (
-                <FlexCol
-                  key={rating.id}
-                  align="center"
-                  gap={4}
-                  sx={{
-                    cursor: 'pointer',
-                    img: {
-                      height: isMobile ? 80 * 1.33 : 104 * 1.33,
-                    },
-                  }}
-                >
-                  <SyncroItemLink item={rating.syncroItem!}>
-                    <SyncroItemImage
-                      item={rating.syncroItem}
-                      width={isMobile ? 80 : 104}
-                      showItemType={rating.syncroItem?.type}
-                    />
-                  </SyncroItemLink>
+    <FlexCol gap={16} mt={16}>
+      {Object.entries(ratingsByMonth).map(([month, ratings]) => (
+        <FlexCol key={month} gap={8}>
+          <SemiBold>{month}</SemiBold>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gridRowGap: 16,
+            }}
+          >
+            {ratings.map((rating) => (
+              <FlexCol
+                key={rating.id}
+                align="center"
+                gap={4}
+                sx={{
+                  cursor: 'pointer',
+                  img: {
+                    height: isMobile ? 80 * 1.33 : 104 * 1.33,
+                  },
+                }}
+              >
+                <SyncroItemLink item={rating.syncroItem!}>
+                  <SyncroItemImage
+                    item={rating.syncroItem}
+                    width={isMobile ? 80 : 104}
+                    showItemType={rating.syncroItem?.type}
+                  />
+                </SyncroItemLink>
 
-                  <FlexVCenter
-                    sx={{
-                      color: getVariantRatingYellow(
-                        Math.round(rating.ratingValue || 1)
-                      ),
-                    }}
-                    gap={8}
-                    onClick={() => openModal(rating)}
-                  >
-                    <SemiBold>{rating.ratingValue}</SemiBold>
+                {rating.syncroItem && (
+                  <RatingCellInfo
+                    iconColor={
+                      thisIsYourList ? theme.colors.secondary[9] : ratingYellow
+                    }
+                    itemId={rating.syncroItem.id}
+                    ratingStatus={rating.status}
+                    rating={rating}
+                    thisIsYourRating={thisIsYourList}
+                    ratingSpanWidth={28}
+                  />
+                )}
+              </FlexCol>
+            ))}
+          </Box>
+        </FlexCol>
+      ))}
 
-                    {rating.review.length > 0 && <GrTextAlignFull />}
-                  </FlexVCenter>
-                </FlexCol>
-              ))}
-            </Box>
-          </FlexCol>
-        ))}
-
-        {hasNextPage && (
-          <Center sx={{ height: 80 }} ref={ref}>
-            <Loader />
-          </Center>
-        )}
-      </FlexCol>
-    </>
+      {hasNextPage && (
+        <Center sx={{ height: 80 }} ref={ref}>
+          <Loader />
+        </Center>
+      )}
+    </FlexCol>
   )
 }
 
