@@ -1,10 +1,11 @@
-import { Box, Skeleton } from '@mantine/core'
+import { Skeleton } from '@mantine/core'
 import { useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRatedByQuery'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
+import Span from '../../_common/text/Span'
 
 type Props = {
   itemId: string
@@ -58,17 +59,11 @@ const ItemSavedBy = (props: Props) => {
         cursor: 'pointer',
       }}
     >
-      <Box
-        sx={{
-          position: 'relative',
-        }}
-      >
-        Saved by
-      </Box>
+      <Span>Saved by</Span>
       <div
         style={{
           display: 'inline-flex',
-          marginLeft: 4,
+          marginLeft: 8,
         }}
       >
         {sliced?.map((rating, index) => (

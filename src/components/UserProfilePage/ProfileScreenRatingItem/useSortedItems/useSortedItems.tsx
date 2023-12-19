@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
 import { CustomPositionDto } from '../../../../types/domain/custom-position/CustomPositionDto'
 import { SortingByType } from '../../../../types/domain/others/SortingByTypes'
 import { UserItemDto } from '../../../../types/domain/syncro-item/UserItemDto'
@@ -14,24 +15,20 @@ export const useSortedItems = ({
   sortingBy,
   customPositions,
 }: Params) => {
+  const { data: myRatings } = useMyRatingsQuery()
   const sortedItems = useMemo(() => {
     if (!items) return []
 
     const copiedItems = [...items]
 
     if (sortingBy === 'bothPlannedDesc') {
-      return copiedItems.sort((a, b) => {
-        const theyPlannedA = !!a.interests?.[0]
-        const theyPlannedB = !!b.interests?.[0]
+      return copiedItems.filter((item) => {
+        const iPlanned =
+          myRatings?.find((r) => r.syncroItemId === item.id)?.status ===
+          'PLANNED'
+        const theyPlanned = item.ratings?.[0]?.status === 'PLANNED'
 
-        const iPlannedA = !a.myInterest
-        const iPlannedB = !!b.myInterest
-
-        if (theyPlannedA && !theyPlannedB) return -1
-        if (!theyPlannedA && theyPlannedB) return 1
-        if (iPlannedA && !iPlannedB) return -1
-        if (!iPlannedA && iPlannedB) return 1
-        return 0
+        return iPlanned && theyPlanned
       })
     }
 
