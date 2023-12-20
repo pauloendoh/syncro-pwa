@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../../hooks/react-query/rating/useItemRatedByQuery'
 import useItemRatedByModalStore from '../../../../hooks/zustand/modals/useItemRatedByModalStore'
+import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import Span from '../../text/Span'
 import ItemRatedByModalItem from './ItemRatedByModalItem/ItemRatedByModalItem'
@@ -51,6 +52,12 @@ const ItemRatedByModal = () => {
       }
       withCloseButton={false}
       styles={{
+        overlay: {
+          zIndex: zIndexes.itemRatedByModal,
+        },
+        inner: {
+          zIndex: zIndexes.itemRatedByModal,
+        },
         root: {
           top: 80,
         },
