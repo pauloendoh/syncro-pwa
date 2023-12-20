@@ -5,7 +5,6 @@ import { useMostRatedItemsQuery } from '../../../hooks/react-query/rating/useMos
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FavoriteItem from '../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
-import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
@@ -91,15 +90,14 @@ const BrowseItemsExploreSection = ({ ...props }: Props) => {
 
       <Flex wrap="wrap" gap={16}>
         {showingItems.map((item) => (
-          <SyncroItemLink item={item}>
-            <FavoriteItem
-              item={item}
-              alwaysShowTitle
-              width={isMobile ? 100 : 160}
-              showAvgRating
-              showMyRating
-            />
-          </SyncroItemLink>
+          <FavoriteItem
+            key={item.id}
+            item={item}
+            alwaysShowTitle
+            width={isMobile ? 100 : 160}
+            showAvgRating
+            showMyRating
+          />
         ))}
         <div ref={ref} />
       </Flex>
