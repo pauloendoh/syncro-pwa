@@ -1,6 +1,5 @@
 import { Box, Title } from '@mantine/core'
-import { useLocalStorage } from '@mantine/hooks'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { usePlannedItemsQueryV2 } from '../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
@@ -8,7 +7,6 @@ import {
   SyncroItemType,
   syncroItemTypes,
 } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import { localStorageKeys } from '../../../utils/consts/localStorageKeys'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
@@ -21,9 +19,7 @@ type Props = {
 }
 
 const UserPlannedItemsSection = (props: Props) => {
-  const [selectedType, setSelectedType] = useLocalStorage<SyncroItemType>({
-    key: localStorageKeys.plannedItemsSelectedType,
-  })
+  const [selectedType, setSelectedType] = useState<SyncroItemType>()
 
   const { data: ratings } = usePlannedItemsQueryV2(props.userId)
 
@@ -38,6 +34,41 @@ const UserPlannedItemsSection = (props: Props) => {
 
     return `${userInfo.username}'s planned items`
   }, [userInfo?.username, authUser?.username])
+
+  const [hasAutoSelected, setHasAutoSelected] = useState(false)
+
+  useEffect(() => {
+    setHasAutoSelected(false)
+  }, [props.userId])
+
+  useEffect(() => {
+    if (hasAutoSelected) return
+    if (!ratings || ratings.length === 0) return
+
+    // select type with most rating
+    const typeMap = new Map<SyncroItemType, number>()
+    ratings.forEach((rating) => {
+      const type = rating.syncroItem?.type
+      if (!type) return
+
+      const currentCount = typeMap.get(type) || 0
+      typeMap.set(type, currentCount + 1)
+    })
+
+    let maxCount = 0
+    let maxType: SyncroItemType | undefined
+
+    typeMap.forEach((count, type) => {
+      if (count > maxCount) {
+        maxCount = count
+        maxType = type
+      }
+    })
+
+    if (maxType) setSelectedType(maxType)
+
+    setHasAutoSelected(true)
+  }, [ratings])
 
   if (!ratings || ratings.length === 0) return null
 
@@ -77,7 +108,12 @@ const UserPlannedItemsSection = (props: Props) => {
           </FlexVCenter>
 
           <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
-            <GridPlannedItemsV2 ratings={ratings} selectedType={selectedType} />
+            {selectedType && (
+              <GridPlannedItemsV2
+                ratings={ratings}
+                selectedType={selectedType}
+              />
+            )}
           </Box>
         </FlexCol>
       </MyPaper>
