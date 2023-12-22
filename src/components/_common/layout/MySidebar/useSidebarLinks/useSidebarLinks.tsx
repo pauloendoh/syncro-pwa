@@ -14,7 +14,8 @@ import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserI
 import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
-import SidebarMoreMenu from '../../MyNavbar/SidebarMoreMenu/SidebarMoreMenu'
+import MyEntriesMenu from './MyEntriesMenu/MyEntriesMenu'
+import SidebarMoreMenu from './SidebarMoreMenu/SidebarMoreMenu'
 
 export const useSidebarLinks = () => {
   const router = useRouter()
@@ -118,6 +119,11 @@ export const useSidebarLinks = () => {
         ),
       },
       {
+        href: '#',
+        text: <MyEntriesMenu useTextInsteadOfIcon="My Entries" />,
+        Icon: () => <MyEntriesMenu />,
+      },
+      {
         href: urls.pages.userProfile(authUser?.id || ''),
         text: 'Profile',
         Icon: () => (
@@ -144,7 +150,7 @@ export const useSidebarLinks = () => {
       {
         href: '#',
         text: <SidebarMoreMenu useTextInsteadOfIcon={'More'} />,
-        Icon: () => <SidebarMoreMenu size={32} />,
+        Icon: () => <SidebarMoreMenu />,
       },
     ]
   }, [

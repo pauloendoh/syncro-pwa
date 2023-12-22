@@ -1,4 +1,4 @@
-import { Modal, Tabs, useMantineTheme } from '@mantine/core'
+import { Modal, Tabs } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../../hooks/react-query/rating/useItemRatedByQuery'
@@ -19,8 +19,6 @@ const ItemRatedByModal = () => {
     () => data?.sort((a, b) => b.createdAt.localeCompare(a.createdAt)) || [],
     [data]
   )
-
-  const theme = useMantineTheme()
 
   const router = useRouter()
   useEffect(() => {

@@ -2,19 +2,17 @@ import { ActionIcon, Menu, useMantineTheme } from '@mantine/core'
 import { CgMoreO } from 'react-icons/cg'
 import { MdLogout, MdOutlineFeedback, MdSettings } from 'react-icons/md'
 import { SiDiscord } from 'react-icons/si'
-import { useLogout } from '../../../../../hooks/domains/auth/useLogout'
-import { buildUserFeedbackDto } from '../../../../../hooks/react-query/feedback/types/UserFeedbackDto'
-import { useMyFeedbackQuery } from '../../../../../hooks/react-query/feedback/useMyFeedbackQuery'
-import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
-import useFeedbackModalStore from '../../../../../hooks/zustand/modals/useFeedbackModalStore'
-import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
-import { urls } from '../../../../../utils/urls/urls'
-import MyNextLink from '../../../overrides/MyNextLink'
+import { useLogout } from '../../../../../../hooks/domains/auth/useLogout'
+import { buildUserFeedbackDto } from '../../../../../../hooks/react-query/feedback/types/UserFeedbackDto'
+import { useMyFeedbackQuery } from '../../../../../../hooks/react-query/feedback/useMyFeedbackQuery'
+import { useUserInfoQuery } from '../../../../../../hooks/react-query/user/useUserInfoQuery'
+import useFeedbackModalStore from '../../../../../../hooks/zustand/modals/useFeedbackModalStore'
+import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
+import { urls } from '../../../../../../utils/urls/urls'
+import MyNextLink from '../../../../overrides/MyNextLink'
 
 type Props = {
-  isActive?: boolean
   useTextInsteadOfIcon?: string
-  size?: number
 }
 
 const SidebarMoreMenu = (props: Props) => {
@@ -23,9 +21,6 @@ const SidebarMoreMenu = (props: Props) => {
 
   const { data: userInfo } = useUserInfoQuery(authUser?.id || '')
   const { openModal: openFeedbackModal } = useFeedbackModalStore()
-  const imageUrl =
-    userInfo?.profile?.pictureUrl ||
-    'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
 
   const { data: myFeedback } = useMyFeedbackQuery()
   const theme = useMantineTheme()
@@ -40,6 +35,7 @@ const SidebarMoreMenu = (props: Props) => {
           fontSize: 14,
         },
       })}
+      position="right-start"
     >
       <Menu.Target>
         {props.useTextInsteadOfIcon ? (

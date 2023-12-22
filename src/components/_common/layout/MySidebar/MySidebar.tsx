@@ -66,7 +66,18 @@ const MySidebar = ({ ...props }: Props) => {
                   e.preventDefault()
                   // simulate click on first button inside event target
                   // @ts-ignore
-                  e.target.querySelector('button')?.click()
+                  const span = e.target.querySelector('span')
+                  if (span) {
+                    span.click()
+                    return
+                  }
+
+                  // @ts-ignore
+                  const button = e.target.querySelector('button')
+                  if (button) {
+                    button.click()
+                    return
+                  }
                 }
               }}
             >
