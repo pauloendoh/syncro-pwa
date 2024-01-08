@@ -1,5 +1,4 @@
 import { Skeleton, useMantineTheme } from '@mantine/core'
-import { useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRatedByQuery'
 import { useMyColors } from '../../../hooks/useMyColors'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
@@ -36,8 +35,6 @@ const ItemSavedBy = (props: Props) => {
   //   )
   // }, [data])
 
-  const sliced = useMemo(() => data?.slice(0, 3) || [], [data])
-
   const { openModal } = useItemRatedByModalStore()
 
   const theme = useMantineTheme()
@@ -69,7 +66,7 @@ const ItemSavedBy = (props: Props) => {
           gap: 4,
         }}
       >
-        {sliced?.map((rating, index) => (
+        {data?.map((rating, index) => (
           <div
             key={rating.id}
             style={{
