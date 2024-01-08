@@ -64,6 +64,7 @@ const ItemSavedBy = (props: Props) => {
         style={{
           display: 'flex',
           gap: 4,
+          flexWrap: 'wrap',
         }}
       >
         {data?.map((rating, index) => (
