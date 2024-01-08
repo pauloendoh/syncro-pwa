@@ -1,11 +1,12 @@
-import { Skeleton } from '@mantine/core'
+import { Skeleton, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRatedByQuery'
+import { useMyColors } from '../../../hooks/useMyColors'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
-import Span from '../../_common/text/Span'
+import StatusIcon from './StatusIcon/StatusIcon'
 
 type Props = {
   itemId: string
@@ -39,6 +40,9 @@ const ItemSavedBy = (props: Props) => {
 
   const { openModal } = useItemRatedByModalStore()
 
+  const theme = useMantineTheme()
+  const myColors = useMyColors()
+
   if (!authUser) return null
 
   if (!data || isLoading) {
@@ -59,11 +63,10 @@ const ItemSavedBy = (props: Props) => {
         cursor: 'pointer',
       }}
     >
-      <Span>Saved by</Span>
       <div
         style={{
-          display: 'inline-flex',
-          marginLeft: 8,
+          display: 'flex',
+          gap: 4,
         }}
       >
         {sliced?.map((rating, index) => (
@@ -71,7 +74,6 @@ const ItemSavedBy = (props: Props) => {
             key={rating.id}
             style={{
               position: 'relative',
-              left: index * -8,
             }}
           >
             <UserImage
@@ -79,6 +81,27 @@ const ItemSavedBy = (props: Props) => {
               username={rating.user?.username}
               widthHeight={24}
             />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: -8,
+                right: -4,
+                fontSize: 10,
+                color: myColors.ratingYellow,
+                fontWeight: 700,
+                background: theme.colors.dark[7],
+                borderRadius: '100%',
+                textAlign: 'center',
+                width: 16,
+                height: 16,
+              }}
+            >
+              {rating.ratingValue ? (
+                rating.ratingValue
+              ) : (
+                <StatusIcon status={rating.status} />
+              )}
+            </div>
           </div>
         ))}
       </div>
