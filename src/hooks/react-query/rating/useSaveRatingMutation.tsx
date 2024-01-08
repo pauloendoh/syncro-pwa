@@ -16,7 +16,7 @@ import { useMyRatingsQuery } from './useMyRatingsQuery'
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
-  const { userId } = useMyRouterQuery()
+  const { userId: pageUserId } = useMyRouterQuery()
   const { openModal: openModal } = useRatingDetailsModalStore()
   const { data: ratings } = useMyRatingsQuery()
 
@@ -25,6 +25,9 @@ const useSaveRatingMutation = () => {
   const { getAuthUserId } = useAuthStore()
 
   const axios = useAxios()
+
+  const { authUser } = useAuthStore()
+
   return useMutation(
     async (payload: RatingDto) => {
       if (!payload.ratingValue) {
@@ -37,6 +40,8 @@ const useSaveRatingMutation = () => {
     },
     {
       onSuccess: (savedRating, payload) => {
+        queryClient.invalidateQueries([urls.api.plannedItemsV2(authUser?.id!)])
+
         if (!savedRating) {
           if (payload.id) {
             queryClient.setQueryData<RatingDto[]>(
@@ -54,8 +59,6 @@ const useSaveRatingMutation = () => {
         queryClient.setQueryData<RatingDto[]>([urls.api.myRatings], (curr) => {
           return upsert(curr, savedRating, (i) => i.id === savedRating.id)
         })
-
-        queryClient.invalidateQueries([urls.api.plannedItemsV2(userId)])
 
         if (prev?.length === 0) {
           router.push(urls.pages.userProfile(getAuthUserId()))
@@ -75,7 +78,7 @@ const useSaveRatingMutation = () => {
 
         // update timeline item
         queryClient.setQueryData<{ pages: RatingDto[][] }>(
-          queryKeys.timelineItems(userId),
+          queryKeys.timelineItems(pageUserId),
           (curr) => {
             if (!curr) return curr
 
