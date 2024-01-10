@@ -5,7 +5,6 @@ import { useTimelineRatingsQuery } from '../../../../hooks/react-query/feed/useH
 import { useTimelineHasNewsQuery } from '../../../../hooks/react-query/feed/useTimelineHasNewsQuery'
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { RatingCellInfo } from '../../../UserItemsPage/UserItemsMdTable/UserItemsMdTableRow/RatingCellInfo/RatingCellInfo'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
@@ -44,10 +43,10 @@ const UserRatingsGridView = (props: Props) => {
   const ratingsByMonth = useMemo(() => {
     return flatRatings.reduce<Record<string, typeof flatRatings>>(
       (acc, rating) => {
-        const month = new Date(rating.createdAt).toLocaleString('en-US', {
+        const month = new Date(rating.timelineDate).toLocaleString('en-US', {
           month: 'long',
         })
-        const year = new Date(rating.createdAt).getFullYear()
+        const year = new Date(rating.timelineDate).getFullYear()
 
         const key = `${month} ${year}`
 
@@ -63,13 +62,11 @@ const UserRatingsGridView = (props: Props) => {
     )
   }, [flatRatings])
 
-  useTimelineHasNewsQuery(props.userId, flatRatings[0]?.createdAt)
+  useTimelineHasNewsQuery(props.userId, flatRatings[0]?.timelineDate)
 
   const { isMobile } = useMyMediaQuery()
 
-  const { getVariantRatingYellow, ratingYellow } = useMyColors()
-
-  const { openModal: openModal } = useRatingDetailsModalStore()
+  const { ratingYellow } = useMyColors()
 
   const { authUser } = useAuthStore()
   const thisIsYourList = useMemo(() => {
