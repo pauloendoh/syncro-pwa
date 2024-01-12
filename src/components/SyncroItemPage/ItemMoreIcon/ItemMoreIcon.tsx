@@ -95,7 +95,7 @@ const ItemMoreIcon = (props: Props) => {
               icon={<MdOutlineInfo />}
               onClick={() => openRatingDetailsModal(youRated)}
             >
-              See entry details
+              See your entry
             </Menu.Item>
             <Menu.Item
               icon={<MdShare />}
