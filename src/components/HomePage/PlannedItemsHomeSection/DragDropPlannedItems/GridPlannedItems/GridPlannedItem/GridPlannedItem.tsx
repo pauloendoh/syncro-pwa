@@ -39,6 +39,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
         item={rating.syncroItem!}
         previewPosition="left"
         width={props.imageWidth}
+        alwaysShowTitle
         // disablePreview={authUser?.id === rating.userId}
       />
       {authUser?.id === rating.userId && (

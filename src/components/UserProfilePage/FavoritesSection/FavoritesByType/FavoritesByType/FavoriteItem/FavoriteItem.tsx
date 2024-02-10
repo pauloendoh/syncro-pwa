@@ -1,4 +1,4 @@
-import { ActionIcon, Tooltip, useMantineTheme } from '@mantine/core'
+import { ActionIcon, Box, Tooltip, useMantineTheme } from '@mantine/core'
 import { FloatingPosition } from '@mantine/core/lib/Floating'
 import { useMemo, useState } from 'react'
 import { MdClose, MdStar } from 'react-icons/md'
@@ -66,7 +66,7 @@ const FavoriteItem = (props: Props) => {
       previewWithinPortal
       previewPosition={props.previewPosition}
     >
-      <div
+      <Box
         style={{ position: 'relative' }}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
@@ -154,7 +154,7 @@ const FavoriteItem = (props: Props) => {
             }
           </FlexCol>
         )}
-      </div>
+      </Box>
     </SyncroItemLink>
   )
 }
