@@ -43,7 +43,9 @@ const RatingSimilarityList = () => {
       {isLoading && <CenterLoader />}
 
       {!isLoading && sortedRatingSimilarities.length === 0 && (
-        <Span>No similar users found</Span>
+        <Span>
+          <b>No similar users found.</b> Come back after rating some items!
+        </Span>
       )}
 
       {sortedRatingSimilarities.map((item) => {
@@ -51,7 +53,7 @@ const RatingSimilarityList = () => {
           similarityDto: item,
         })
         return (
-          <Flex>
+          <Flex key={item.userB.id}>
             <MyNextLink
               href={urls.pages.userProfile(item.userB.id)}
               style={{
