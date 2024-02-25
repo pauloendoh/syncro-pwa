@@ -45,6 +45,7 @@ const AuthPage = () => {
           mt={isMobile ? 0 : 40}
           w={isMobile ? '100%' : 300}
           mb={isMobile ? 0 : 40}
+          bg={isMobile ? 'transparent' : undefined}
         >
           <FlexCol align={'center'} gap={16}>
             <Title>Syncro</Title>
