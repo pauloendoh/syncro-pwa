@@ -76,7 +76,11 @@ const UserSimilarityModal = () => {
           >
             <td>Overall</td>
             <td align="center">
-              {(data?.allSimilarity?.overallPercentage! * 100).toFixed(0)}%
+              {isNaN(data?.allSimilarity?.overallPercentage!)
+                ? ''
+                : `${(data?.allSimilarity?.overallPercentage! * 100).toFixed(
+                    0
+                  )}%`}
             </td>
             <td align="center">{data?.allSimilarity.ratedSameItemsCount}</td>
           </tr>
@@ -122,7 +126,9 @@ const UserSimilarityModal = () => {
                   </FlexVCenter>
                 </td>
                 <td align="center">
-                  {(info?.overallPercentage! * 100).toFixed(0)}%
+                  {isNaN(info?.overallPercentage!)
+                    ? ''
+                    : `${(info?.overallPercentage! * 100).toFixed(0)}%`}
                 </td>
                 <td align="center">
                   <MyNextLink
