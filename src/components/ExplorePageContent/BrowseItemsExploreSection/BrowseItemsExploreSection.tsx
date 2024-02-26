@@ -30,6 +30,7 @@ const periods = [
     label: 'All time',
   },
 ] as const
+
 export type Period = (typeof periods)[number]['value']
 
 const BrowseItemsExploreSection = ({ ...props }: Props) => {

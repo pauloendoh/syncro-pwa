@@ -17,16 +17,15 @@ type Props = {
 
 const SettingsTitle = ({ ...props }: Props) => {
   const title = useMemo(() => {
-    switch (props.page) {
-      case 'account':
-        return 'Account'
-      case 'notifications':
-        return 'Notifications'
-      case 'import-ratings':
-        return 'Import ratings'
-      default:
-        return 'Settings'
+    const mapped: {
+      [key in SettingsPageType]: string
+    } = {
+      account: 'Account',
+      notifications: 'Notifications',
+      'import-ratings': 'Import ratings',
     }
+
+    return mapped[props.page] ?? 'Settings'
   }, [props.page])
   const { isMobile } = useMyMediaQuery()
   if (!isMobile) {

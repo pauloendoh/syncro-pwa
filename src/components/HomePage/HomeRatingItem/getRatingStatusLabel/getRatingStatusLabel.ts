@@ -16,19 +16,15 @@ export const useRatingStatusLabel = (params: {
     return 'rated'
   }
 
-  switch (params.status) {
-    case 'COMPLETED':
-      return 'completed'
-
-    case 'IN_PROGRESS':
-      return 'is ' + typeMap.getVerb() + 'ing'
-
-    case 'DROPPED':
-      return 'dropped'
-
-    case 'ON_HOLD':
-      return params.isMobile ? 'paused' : 'put on hold'
-    case 'PLANNED':
-      return params.isMobile ? 'planned' : typeMap.plansTo
+  const mapped: {
+    [key in RatingStatusType]: string
+  } = {
+    COMPLETED: 'completed',
+    IN_PROGRESS: 'is ' + typeMap.getVerb() + 'ing',
+    DROPPED: 'dropped',
+    ON_HOLD: params.isMobile ? 'paused' : 'put on hold',
+    PLANNED: params.isMobile ? 'planned' : typeMap.plansTo,
   }
+
+  return mapped[params.status]
 }

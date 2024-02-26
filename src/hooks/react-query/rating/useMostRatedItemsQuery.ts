@@ -9,29 +9,24 @@ export function useMostRatedItemsQuery(params: {
   period: Period
   itemType: SyncroItemType
 }) {
-  let createdAtGte: string
-  switch (params.period) {
-    case 'year':
-      createdAtGte = new Date(new Date().getFullYear() - 1, 0, 1).toISOString()
-      break
-    case 'month':
-      createdAtGte = new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() - 1,
-        1
-      ).toISOString()
-      break
-    case 'week':
-      createdAtGte = new Date(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-        new Date().getDate() - 7
-      ).toISOString()
-      break
-    case 'all-time':
-      createdAtGte = new Date(0).toISOString()
-      break
+  const mapped: {
+    [key in Period]: string
+  } = {
+    year: new Date(new Date().getFullYear() - 1, 0, 1).toISOString(),
+    month: new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      1
+    ).toISOString(),
+    week: new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate() - 7
+    ).toISOString(),
+    'all-time': new Date(0).toISOString(),
   }
+
+  const createdAtGte = mapped[params.period]
 
   return useQuery<SyncroItemDto[], Error>(
     [
