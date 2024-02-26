@@ -18,6 +18,7 @@ import { QueryParams } from '../../../../utils/queryParams'
 import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import FavoriteScenesSection from '../../../HomePage/HomeRatingItem/FavoriteScenesSection/FavoriteScenesSection'
+import UsernameRatedRow from '../../../HomePage/HomeRatingItem/UsernameRatedRow/UsernameRatedRow'
 import SyncroItemMainInfosSection from '../../../SyncroItemPage/SyncroItemPaperContent/SyncroItemMainInfosSection/SyncroItemMainInfosSection'
 import SyncroItemLink from '../../SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../flex/FlexCol'
@@ -26,7 +27,6 @@ import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../overrides/MyNextLink'
-import Span from '../../text/Span'
 
 const RatingDetailsModal = () => {
   const {
@@ -112,35 +112,12 @@ const RatingDetailsModal = () => {
                 justifyContent: 'space-between',
               }}
             >
-              <Text>
-                <MyNextLink
-                  href={urls.pages.userProfile(initialValue.userId)}
-                  style={{
-                    color: 'unset',
-                  }}
-                >
-                  <Text weight={600} span>
-                    {userInfo?.username}
-                  </Text>{' '}
-                </MyNextLink>
-                rated{' '}
-                <b
-                  style={{
-                    color: theme.colors.yellow[5],
-                  }}
-                >
-                  {initialValue.ratingValue}
-                </b>
-              </Text>
-              <Text></Text>
+              <UsernameRatedRow rating={initialValue} />
+
               <FlexVCenter gap={4}>
                 <Text size={'xs'}>
                   {format(initialValue.timelineDate)}
                   {initialValue.consumedOn && ` on ${initialValue.consumedOn}`}
-                  {' · '}
-                  <Span sx={{ color: statusMap?.color }}>
-                    {statusMap?.label}
-                  </Span>
                 </Text>
               </FlexVCenter>
             </FlexCol>

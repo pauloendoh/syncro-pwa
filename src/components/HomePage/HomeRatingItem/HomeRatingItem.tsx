@@ -1,14 +1,6 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Text,
-  Tooltip,
-  useMantineTheme,
-} from '@mantine/core'
+import { Box, Center, Flex, Text, useMantineTheme } from '@mantine/core'
 
 import { useMemo } from 'react'
-import { MdLock } from 'react-icons/md'
 import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
@@ -28,6 +20,7 @@ import FavoriteScenesSection from './FavoriteScenesSection/FavoriteScenesSection
 import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons'
 import HomeRatingItemReview from './HomeRatingItemReview/HomeRatingItemReview'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
+import UsernameRatedRow from './UsernameRatedRow/UsernameRatedRow'
 import { useRatingStatusLabel } from './getRatingStatusLabel/getRatingStatusLabel'
 
 type Props = {
@@ -133,48 +126,7 @@ const HomeRatingItem = (props: Props) => {
           }}
         >
           <FlexCol sx={{ flexGrow: 1 }}>
-            <Text size={isMobile ? 'sm' : undefined}>
-              <MyNextLink
-                href={urls.pages.userProfile(props.rating.userId)}
-                style={{
-                  color: 'unset',
-                }}
-              >
-                <Text weight={600} span>
-                  {props.rating.user?.username}
-                </Text>{' '}
-              </MyNextLink>
-              {statusLabel}{' '}
-              {!props.rating.ratingValue && (
-                <StatusIcon
-                  style={{
-                    fontSize: 16,
-                    position: 'relative',
-                    top: 3,
-                    color: theme.colors.yellow[5],
-                  }}
-                />
-              )}
-              <b
-                style={{
-                  color: theme.colors.yellow[5],
-                }}
-              >
-                {props.rating.ratingValue}
-              </b>
-              {props.rating.isPrivate && (
-                <Tooltip label="This entry is private">
-                  <span
-                    style={{
-                      position: 'relative',
-                      top: 1,
-                    }}
-                  >
-                    <MdLock style={{ fontSize: 16 }} />
-                  </span>
-                </Tooltip>
-              )}
-            </Text>
+            <UsernameRatedRow rating={props.rating} />
             <Text>
               {props.rating.syncroItem && (
                 <SyncroItemLink item={props.rating.syncroItem!}>
