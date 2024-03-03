@@ -1,4 +1,4 @@
-import { Box, Title } from '@mantine/core'
+import { Box, ScrollArea, Title } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
 import { usePlannedItemsQueryV2 } from '../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
@@ -107,14 +107,16 @@ const UserPlannedItemsSection = (props: Props) => {
             ))}
           </FlexVCenter>
 
-          <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
-            {selectedType && (
-              <GridPlannedItemsV2
-                ratings={ratings}
-                selectedType={selectedType}
-              />
-            )}
-          </Box>
+          <ScrollArea.Autosize mah={1000}>
+            <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
+              {selectedType && (
+                <GridPlannedItemsV2
+                  ratings={ratings}
+                  selectedType={selectedType}
+                />
+              )}
+            </Box>
+          </ScrollArea.Autosize>
         </FlexCol>
       </MyPaper>
     </FlexCol>

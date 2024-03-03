@@ -58,7 +58,7 @@ const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
       ref={containerRef}
       w="100%"
     >
-      {filteredRatings.map((rating, index) => (
+      {[...filteredRatings].map((rating, index) => (
         <GridPlannedItem
           rating={rating}
           key={rating.id}
