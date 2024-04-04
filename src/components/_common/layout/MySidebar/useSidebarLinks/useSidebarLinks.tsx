@@ -7,7 +7,14 @@ import {
   IoNotifications,
   IoNotificationsOutline,
 } from 'react-icons/io5'
-import { MdHome, MdMail, MdMailOutline, MdOutlineHome } from 'react-icons/md'
+import {
+  MdAdminPanelSettings,
+  MdHome,
+  MdMail,
+  MdMailOutline,
+  MdOutlineAdminPanelSettings,
+  MdOutlineHome,
+} from 'react-icons/md'
 import { useUnreadMessageRoomsQuery } from '../../../../../hooks/react-query/message/useUnreadMessageRoomsQuery'
 import { useNotificationsQuery } from '../../../../../hooks/react-query/notification/useNotificationsQuery'
 import { useUserInfoQuery } from '../../../../../hooks/react-query/user/useUserInfoQuery'
@@ -33,7 +40,7 @@ export const useSidebarLinks = () => {
   )
 
   const sidebarLinks = useMemo(() => {
-    return [
+    const links = [
       {
         href: urls.pages.index,
         text: 'Home',
@@ -153,6 +160,40 @@ export const useSidebarLinks = () => {
         Icon: () => <SidebarMoreMenu />,
       },
     ]
+
+    if (authUser?.isAdmin) {
+      const adminLink = {
+        href: urls.pages.admin(),
+        text: 'Admin',
+        Icon: () => {
+          if (router.asPath.startsWith('/admin')) {
+            return (
+              <Tooltip label="Admin">
+                <ActionIcon>
+                  <MdAdminPanelSettings
+                    size={24}
+                    color={theme.colors.primary[9]}
+                  />
+                </ActionIcon>
+              </Tooltip>
+            )
+          }
+
+          return (
+            <Tooltip label="Admin">
+              <ActionIcon>
+                <MdOutlineAdminPanelSettings size={24} />
+              </ActionIcon>
+            </Tooltip>
+          )
+        },
+      }
+
+      // put on penultimate position
+      links.splice(links.length - 1, 0, adminLink)
+    }
+
+    return links
   }, [
     router.asPath,
     unreadMessageRooms?.length,

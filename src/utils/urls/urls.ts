@@ -47,6 +47,8 @@ export const urls = {
     messageRoom: (roomId: string) => `/messages/${roomId}`,
 
     settings: (page: SettingsPageType = 'account') => `/settings/${page}`,
+
+    admin: () => '/admin',
   },
   api: {
     register: (pushToken: string | null) =>
