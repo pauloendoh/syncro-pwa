@@ -11,7 +11,7 @@ const UsersSuggestedForYouSidebar = ({ ...props }: Props) => {
   const { data, isLoading } = useUserRecommendationsForMeQuery()
   const { authUser } = useAuthStore()
 
-  if (!authUser) {
+  if (!authUser || (!isLoading && data?.length === 0)) {
     return null
   }
 
