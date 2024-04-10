@@ -179,7 +179,7 @@ const UserProfilePage = () => {
                                 .find((o) => o.itemType === type)
                                 ?.getTypeLabelLowerCase(true)
 
-                              let suffix = ', '
+                              let suffix = <>,&nbsp;</>
                               // penultimate is "and"
                               if (
                                 index ===
@@ -187,7 +187,7 @@ const UserProfilePage = () => {
                                   .length -
                                   2
                               ) {
-                                suffix = ' and '
+                                suffix = <>&nbsp;and&nbsp;</>
                               }
                               // last is "."
                               if (
@@ -196,11 +196,14 @@ const UserProfilePage = () => {
                                   .length -
                                   1
                               ) {
-                                suffix = '.'
+                                suffix = <>.</>
                               }
 
                               return (
-                                <span key={typeLabel}>
+                                <span
+                                  key={typeLabel}
+                                  style={{ display: 'inline-flex' }}
+                                >
                                   <button
                                     style={{
                                       background: 'none',
