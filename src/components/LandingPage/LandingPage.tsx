@@ -55,12 +55,12 @@ const LandingPage = ({ ...props }: Props) => {
         <FlexVCenter w="100%" justify={'space-between'} px={16}>
           <Span></Span>
           <FlexVCenter gap={8}>
-            <MyNextLink href={urls.pages.signIn}>
+            <MyNextLink href={urls.pages.getSignIn()}>
               <Button variant="subtle" color="dark">
                 Sign In
               </Button>
             </MyNextLink>
-            <MyNextLink href={urls.pages.signUp}>
+            <MyNextLink href={urls.pages.signUp()}>
               <Button color="secondary">Sign Up</Button>
             </MyNextLink>
           </FlexVCenter>
@@ -105,7 +105,7 @@ const LandingPage = ({ ...props }: Props) => {
           <Span size="1.25rem" mt={16}>
             All in one place.
           </Span>
-          <MyNextLink href={urls.pages.signUp}>
+          <MyNextLink href={urls.pages.signUp()}>
             <Button color="secondary" size="lg" mt={24}>
               JOIN SYNCRO FOR FREE
             </Button>

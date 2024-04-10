@@ -9,6 +9,7 @@ import {
 import { MostRatedItemsQueryParams } from '../../hooks/react-query/rating/types/MostRatedItemsQueryParams'
 import { ItemRatedByModalType } from '../../hooks/zustand/modals/useItemRatedByModalStore'
 import { myEnvs } from '../myEnvs'
+import { getAuthUrl } from './getAuthUrl/getAuthUrl'
 import { SettingsPageType } from './types/SettingsPageType'
 
 const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
@@ -16,9 +17,9 @@ const { NEXT_PUBLIC_API_URL: API_URL } = myEnvs
 export const urls = {
   pages: {
     index: '/',
-    signIn: '/auth',
+    getSignIn: () => getAuthUrl('login'),
     indexAndRedirectTo: (url: string) => `/?redirectTo=${url}`,
-    signUp: '/auth?initialPage=signUp',
+    signUp: () => getAuthUrl('signup'),
     syncroItem: (
       syncroItemId: string,
       extraParams?: {

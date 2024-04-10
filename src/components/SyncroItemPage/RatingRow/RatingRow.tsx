@@ -144,7 +144,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
         )}
 
         {!authUser && (
-          <MyNextLink href={urls.pages.signUp}>
+          <MyNextLink href={urls.pages.signUp()}>
             <RatingRowButton
               variant="outline"
               color="secondary"

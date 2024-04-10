@@ -8,12 +8,12 @@ type Props = {}
 const NavbarSignButtons = (props: Props) => {
   return (
     <FlexVCenter>
-      <MyNextLink href={urls.pages.signIn}>
+      <MyNextLink href={urls.pages.getSignIn()}>
         <Button variant="subtle" color="dark">
           Log In
         </Button>
       </MyNextLink>
-      <MyNextLink href={urls.pages.signUp}>
+      <MyNextLink href={urls.pages.signUp()}>
         <Button color="secondary" variant="outline">
           Sign Up
         </Button>
