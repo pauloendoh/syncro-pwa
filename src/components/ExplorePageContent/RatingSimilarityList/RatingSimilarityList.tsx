@@ -1,5 +1,5 @@
-import { Box, Flex, Text } from '@mantine/core'
-import { useMemo } from 'react'
+import { Box, Flex, Select, Text } from '@mantine/core'
+import { useMemo, useState } from 'react'
 import { useQueryParams } from '../../../hooks/useQueryParams'
 import { useMySimilarUsersQuery } from '../../../types/domain/me/useMySimilarUsersQuery'
 import { urls } from '../../../utils/urls/urls'
@@ -12,6 +12,8 @@ import Span from '../../_common/text/Span'
 import ItemTypeSelector from '../BrowseItemsExploreSection/ItemTypeSelector/ItemTypeSelector'
 import { getRatingSimilarityLabel as getRatingSimilarityLabels } from './getRatingSimilarityLabel/getRatingSimilarityLabel'
 
+type SortBy = 'items count' | 'rating similarity'
+
 const RatingSimilarityList = () => {
   const { queryValue, setQuery } = useQueryParams().itemType
 
@@ -19,26 +21,49 @@ const RatingSimilarityList = () => {
     queryValue || 'all'
   )
 
-  const sortedRatingSimilarities = useMemo(
-    () =>
-      ratingSimilarities?.sort((a, b) => {
+  const [sortBy, setSortBy] = useState<SortBy>('items count')
+
+  const sortedRatingSimilarities = useMemo(() => {
+    if (!ratingSimilarities) return []
+
+    if (sortBy === 'items count') {
+      return ratingSimilarities.sort((a, b) => {
         if (b.ratedSameItemsCount > a.ratedSameItemsCount) return 1
         return -1
-      }) || [],
-    [ratingSimilarities]
-  )
+      })
+    }
+    return ratingSimilarities.sort((a, b) => {
+      if (b.overallPercentage > a.overallPercentage) return 1
+      return -1
+    })
+  }, [ratingSimilarities, sortBy])
 
   return (
     <FlexCol gap={16} maw={480}>
-      <ItemTypeSelector
-        includeAll
-        value={queryValue || 'all'}
-        onChange={(value) => {
-          setQuery(value, { replace: true })
-        }}
-        label="Item type"
-        width={120}
-      />
+      <Flex gap={16}>
+        <ItemTypeSelector
+          includeAll
+          value={queryValue || 'all'}
+          onChange={(value) => {
+            setQuery(value, { replace: true })
+          }}
+          label="Item type"
+          width={120}
+        />
+
+        <Select
+          label="Sort by"
+          data={[
+            { value: 'items count', label: 'Items count' },
+            { value: 'rating similarity', label: 'Rating similarity' },
+          ]}
+          value={sortBy}
+          onChange={(value: SortBy) => {
+            setSortBy(value)
+          }}
+          w={160}
+        />
+      </Flex>
 
       {isLoading && <CenterLoader />}
 
