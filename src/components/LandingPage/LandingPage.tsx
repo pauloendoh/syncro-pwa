@@ -105,18 +105,11 @@ const LandingPage = ({ ...props }: Props) => {
           <Span size="1.25rem" mt={16}>
             All in one place.
           </Span>
-          {/* <MyNextLink href={urls.pages.signUp}> */}
-          <Button
-            color="secondary"
-            size="lg"
-            mt={24}
-            onClick={() => {
-              throw new Error('XD')
-            }}
-          >
-            JOIN SYNCRO FOR FREE
-          </Button>
-          {/* </MyNextLink> */}
+          <MyNextLink href={urls.pages.signUp}>
+            <Button color="secondary" size="lg" mt={24}>
+              JOIN SYNCRO FOR FREE
+            </Button>
+          </MyNextLink>
 
           <FlexCol mt={isMobile ? 40 : 64} align="center" gap={16}>
             <Span size={isMobile ? '1.25rem' : '1.5rem'}>Get it on</Span>
