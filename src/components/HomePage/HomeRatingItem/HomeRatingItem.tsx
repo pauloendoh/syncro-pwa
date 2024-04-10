@@ -5,7 +5,6 @@ import { format } from 'timeago.js'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { useRatingStatusIcon } from '../../../types/domain/rating/useRatingStatusIcon/useRatingStatusIcon'
 import { useRatingStatusMap } from '../../../types/domain/rating/useRatingStatusMap'
 import ItemTitleAndYear from '../../../utils/domains/syncro-item/ItemTitleAndYear'
 import { urls } from '../../../utils/urls/urls'
@@ -21,7 +20,6 @@ import HomeRatingItemButtons from './HomeRatingItemButtons/HomeRatingItemButtons
 import HomeRatingItemReview from './HomeRatingItemReview/HomeRatingItemReview'
 import SyncroItemIcon from './SyncroItemIcon/SyncroItemIcon'
 import UsernameRatedRow from './UsernameRatedRow/UsernameRatedRow'
-import { useRatingStatusLabel } from './getRatingStatusLabel/getRatingStatusLabel'
 
 type Props = {
   rating: RatingDto
@@ -84,19 +82,10 @@ const HomeRatingItem = (props: Props) => {
     props.rating.ratingProgress,
   ])
 
-  const statusLabel = useRatingStatusLabel({
-    status: props.rating.status,
-    type: props.rating.syncroItem?.type!,
-    hasRated: !!props.rating.ratingValue,
-    isMobile,
-  })
-
   const showMiddleDot = useMemo(() => {
     if (!props.rating.ratingValue && !progressLabel) return false
     return true
   }, [props.rating.ratingValue, progressLabel])
-
-  const StatusIcon = useRatingStatusIcon(props.rating.status)
 
   if (!props.rating.syncroItem) return null
 
@@ -113,7 +102,7 @@ const HomeRatingItem = (props: Props) => {
           <UserImage
             pictureUrl={props.rating.user?.profile?.pictureUrl}
             username={props.rating.user?.username}
-            showLookingForRecommendationIcon={isLookingForRecommendation}
+            showLookingForRecommendationIcon={false}
           />
         </div>
       </MyNextLink>

@@ -20,6 +20,7 @@ import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItem
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
+import useRecommendItemsToUserModalStore from '../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { htmlTitles } from '../../utils/consts/htmlTitles'
@@ -28,6 +29,7 @@ import UsersSuggestedForYouSidebar from '../HomePage/UsersSuggestedForYouSidebar
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import LoggedLayout from '../_common/layout/LoggedLayout'
+import Span from '../_common/text/Span'
 import EditProfileButton from './EditProfileButton/EditProfileButton'
 import FavoritesSection from './FavoritesSection/FavoritesSection'
 import FollowersCountRowProfile from './FollowersCountRowProfile/FollowersCountRowProfile'
@@ -80,6 +82,9 @@ const UserProfilePage = () => {
   }, [favoriteItems, typesWithoutFavorites, userItems])
 
   const theme = useMantineTheme()
+
+  const { openModal: openRecommendItemsModal } =
+    useRecommendItemsToUserModalStore()
 
   return (
     <LoggedLayout>
@@ -168,16 +173,61 @@ const UserProfilePage = () => {
                         Looking for recommendations:{' '}
                         {
                           // split by ","
-                          userInfo.profile.lookingForRecommendationTypes
-                            .map((type) =>
-                              syncroItemTypeOptions
+                          userInfo.profile.lookingForRecommendationTypes.map(
+                            (type, index) => {
+                              const typeLabel = syncroItemTypeOptions
                                 .find((o) => o.itemType === type)
                                 ?.getTypeLabelLowerCase(true)
-                            )
-                            .join(', ')
-                            .replace(/,(?=[^,]*$)/, ' and')
+
+                              let suffix = ', '
+                              // penultimate is "and"
+                              if (
+                                index ===
+                                userInfo.profile.lookingForRecommendationTypes
+                                  .length -
+                                  2
+                              ) {
+                                suffix = ' and '
+                              }
+                              // last is "."
+                              if (
+                                index ===
+                                userInfo.profile.lookingForRecommendationTypes
+                                  .length -
+                                  1
+                              ) {
+                                suffix = '.'
+                              }
+
+                              return (
+                                <span key={typeLabel}>
+                                  <button
+                                    style={{
+                                      background: 'none',
+                                      border: 'none',
+                                      color: 'inherit',
+                                      padding: 0,
+                                      textDecoration: thisIsMyProfile
+                                        ? 'none'
+                                        : 'underline',
+                                      cursor: thisIsMyProfile
+                                        ? 'default'
+                                        : 'pointer',
+                                    }}
+                                    onClick={() => {
+                                      if (!thisIsMyProfile) {
+                                        openRecommendItemsModal(userId, type)
+                                      }
+                                    }}
+                                  >
+                                    <Span>{typeLabel}</Span>
+                                  </button>
+                                  {suffix}
+                                </span>
+                              )
+                            }
+                          )
                         }
-                        .
                       </Text>
                     </FlexVCenter>
                   )}

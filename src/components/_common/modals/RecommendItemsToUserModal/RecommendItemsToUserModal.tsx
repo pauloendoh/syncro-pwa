@@ -8,7 +8,7 @@ import {
   Title,
 } from '@mantine/core'
 import { useDebouncedState } from '@mantine/hooks'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useItemsToRecommendQuery } from '../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery'
 import { useUserHighSimilarityTypesQueryUtils } from '../../../../hooks/react-query/rating/user-similarity/useUserHighSimilarityTypesQueryUtils'
@@ -24,17 +24,27 @@ import ItemToRecommendOption from './ItemToRecommendOption/ItemToRecommendOption
 import { itemToRecommendTabOptions } from './itemToRecommendTabOptions/itemToRecommendTabOptions'
 
 const RecommendItemsToUserModal = () => {
-  const { closeActionSheet, userId } = useRecommendItemsToUserModalStore()
+  const {
+    closeModal: closeActionSheet,
+    userId,
+    initialType,
+  } = useRecommendItemsToUserModalStore()
   const { recommendItemsToUser } = useMyRouterQuery()
 
   const [currentType, setCurrentType] = useState<SyncroItemType>('movie')
+
+  useEffect(() => {
+    if (recommendItemsToUser) {
+      setCurrentType(initialType)
+    }
+  }, [recommendItemsToUser])
 
   const itemType = useSyncroItemTypeMap({
     itemType: currentType,
   })
 
   const { data: itemsToRecommend, isLoading } = useItemsToRecommendQuery(
-    userId!,
+    userId,
     itemType.itemType
   )
 

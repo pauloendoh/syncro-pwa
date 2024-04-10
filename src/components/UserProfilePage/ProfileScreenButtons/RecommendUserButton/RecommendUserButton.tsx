@@ -9,7 +9,7 @@ interface Props {
 }
 
 const RecommendUserButton = (props: Props) => {
-  const { openActionSheet } = useRecommendItemsToUserModalStore()
+  const { openModal: openActionSheet } = useRecommendItemsToUserModalStore()
 
   const { authUser } = useAuthStore()
   const { data: myFollowers } = useFollowersQuery(authUser?.id)
