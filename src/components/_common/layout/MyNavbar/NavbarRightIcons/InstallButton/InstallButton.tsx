@@ -33,7 +33,9 @@ const InstallButton = ({ ...props }: Props) => {
   }, [navigator.platform])
 
   const isSafariAndIos = useMemo(() => {
-    return currentPlatform === 'ios' && navigator.userAgent.includes('Safari')
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
+    return isSafari && currentPlatform === 'ios'
   }, [currentPlatform, navigator.userAgent])
 
   if (pwaIsInstalled) {
