@@ -33,7 +33,14 @@ const InstallButton = ({ ...props }: Props) => {
   }, [navigator.platform])
 
   const isSafariAndIos = useMemo(() => {
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+    const userAgentString = navigator.userAgent
+    const isChrome = userAgentString.indexOf('Chrome') > -1
+
+    if (isChrome) {
+      return false
+    }
+
+    const isSafari = userAgentString.indexOf('Safari') > -1
 
     return isSafari && currentPlatform === 'ios'
   }, [currentPlatform, navigator.userAgent])
