@@ -1,6 +1,7 @@
 import { ActionIcon, Tooltip } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
 import { MdInstallMobile } from 'react-icons/md'
+import { useMyMediaQuery } from '../../../../../../../hooks/useMyMediaQuery'
 
 type UserChoice = Promise<{
   outcome: 'accepted' | 'dismissed'
@@ -49,7 +50,9 @@ const InstallPWAButton = () => {
     promptInstall.prompt()
   }
 
-  if (!supportsPWA) {
+  const { isMobile } = useMyMediaQuery()
+
+  if (!supportsPWA || !isMobile) {
     return null
   }
 
