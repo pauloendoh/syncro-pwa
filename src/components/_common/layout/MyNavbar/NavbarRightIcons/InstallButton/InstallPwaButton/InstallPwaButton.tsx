@@ -1,4 +1,4 @@
-import { Tooltip } from '@mantine/core'
+import { ActionIcon, Tooltip } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
 import { MdInstallMobile } from 'react-icons/md'
 
@@ -55,20 +55,14 @@ const InstallPWAButton = () => {
 
   return (
     <Tooltip label="Install Syncro PWA">
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
+      <ActionIcon onClick={onClick}>
         <MdInstallMobile
           className="link-button"
           id="setup_button"
           title="Install app"
-          onClick={onClick}
           fontSize={24}
         />
-      </div>
+      </ActionIcon>
     </Tooltip>
   )
 }

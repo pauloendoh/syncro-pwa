@@ -1,4 +1,4 @@
-import { Modal, Tooltip } from '@mantine/core'
+import { ActionIcon, Modal, Tooltip } from '@mantine/core'
 import { useEffect, useState } from 'react'
 import { MdInstallMobile } from 'react-icons/md'
 
@@ -17,22 +17,18 @@ const SafariIosInstallButton = ({ ...props }: Props) => {
   return (
     <>
       <Tooltip label="Install Syncro PWA">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
+        <ActionIcon
+          onClick={() => {
+            setIsOpen(true)
           }}
         >
           <MdInstallMobile
             className="link-button"
             id="setup_button"
             title="Install app"
-            onClick={() => {
-              setIsOpen(true)
-            }}
             fontSize={24}
           />
-        </div>
+        </ActionIcon>
       </Tooltip>
 
       <Modal
