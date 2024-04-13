@@ -13,6 +13,7 @@ import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls/urls'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
+import SafariIosInstallButton from '../_common/layout/MyNavbar/NavbarRightIcons/InstallButton/SafariIosInstallButton/SafariIosInstallButton'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import Span from '../_common/text/Span'
 import LandingPageItemsSection from './LandingPageItemsSection/LandingPageItemsSection'
@@ -113,20 +114,36 @@ const LandingPage = ({ ...props }: Props) => {
 
           <FlexCol mt={isMobile ? 40 : 64} align="center" gap={16}>
             <Span size={isMobile ? '1.25rem' : '1.5rem'}>Get it on</Span>
-            <a
-              href={
-                'https://play.google.com/store/apps/details?id=app.vercel.syncro.twa'
-              }
-              style={{
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
+
+            <FlexVCenter gap={32}>
+              <a
+                href={
+                  'https://play.google.com/store/apps/details?id=app.vercel.syncro.twa'
+                }
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                <FlexCol align="center" gap={8}>
+                  <FaGooglePlay fontSize={isMobile ? '1.5rem' : '2rem'} />
+                  <Span size={'sm'}>Google Play</Span>
+                </FlexCol>
+              </a>
               <FlexCol align="center" gap={8}>
-                <FaGooglePlay fontSize={isMobile ? '1.5rem' : '2rem'} />
-                <Span size={'sm'}>Google Play</Span>
+                <div
+                  style={{
+                    height: isMobile ? '1.5rem' : '2rem',
+                  }}
+                >
+                  <SafariIosInstallButton
+                    iconType="ios"
+                    fontSize={isMobile ? '1.5rem' : '2rem'}
+                  />
+                </div>
+                <Span size={'sm'}>iOS</Span>
               </FlexCol>
-            </a>
+            </FlexVCenter>
           </FlexCol>
 
           <Divider

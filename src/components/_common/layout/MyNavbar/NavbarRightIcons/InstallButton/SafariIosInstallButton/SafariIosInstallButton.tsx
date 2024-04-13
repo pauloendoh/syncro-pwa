@@ -1,8 +1,12 @@
 import { ActionIcon, Modal, Tooltip } from '@mantine/core'
 import { useEffect, useState } from 'react'
+import { FaApple } from 'react-icons/fa'
 import { MdInstallMobile } from 'react-icons/md'
 
-type Props = {}
+type Props = {
+  iconType?: 'phone' | 'ios'
+  fontSize?: number | string
+}
 
 const SafariIosInstallButton = ({ ...props }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,19 +26,19 @@ const SafariIosInstallButton = ({ ...props }: Props) => {
             setIsOpen(true)
           }}
         >
-          <MdInstallMobile
-            className="link-button"
-            id="setup_button"
-            title="Install app"
-            fontSize={24}
-          />
+          {props.iconType === 'phone' && (
+            <MdInstallMobile fontSize={props.fontSize ?? 24} />
+          )}
+          {props.iconType === 'ios' && (
+            <FaApple fontSize={props.fontSize ?? 24} />
+          )}
         </ActionIcon>
       </Tooltip>
 
       <Modal
         opened={isOpen}
         onClose={() => setIsOpen(false)}
-        title="Install Syncro in iOS"
+        title="How to install Syncro in iOS"
       >
         {hasOpenOnce && (
           <div>
