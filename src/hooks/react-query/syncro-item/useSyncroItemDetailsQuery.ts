@@ -30,7 +30,6 @@ export const useSyncroItemDetailsQuery = (
       enabled: !!id,
       initialData: options?.initialData,
       onError: (err) => {
-        debugger
         if (isAxiosError(err)) {
           if (err.response?.data?.code === 429) return
 

@@ -1,6 +1,8 @@
 import { Tooltip } from '@mantine/core'
 import { useMemo } from 'react'
 import { FaGooglePlay } from 'react-icons/fa'
+import InstallPWAButton from './InstallPwaButton/InstallPwaButton'
+import SafariIosInstallButton from './SafariIosInstallButton/SafariIosInstallButton'
 
 type Props = {}
 
@@ -14,20 +16,25 @@ const InstallButton = ({ ...props }: Props) => {
   }, [])
 
   const currentPlatform = useMemo(() => {
-    const platform = navigator.platform.toLowerCase()
+    return 'ios'
+    // const platform = navigator.platform.toLowerCase()
 
-    const androidPlatforms = ['linux armv', 'linux aarch']
-    if (androidPlatforms.some((p) => platform.includes(p))) {
-      return 'android'
-    }
+    // const androidPlatforms = ['linux armv', 'linux aarch']
+    // if (androidPlatforms.some((p) => platform.includes(p))) {
+    //   return 'android'
+    // }
 
-    const ios = ['iphone', 'ipad', 'ipod']
-    if (ios.includes(platform)) {
-      return 'ios'
-    }
+    // const ios = ['iphone', 'ipad', 'ipod']
+    // if (ios.includes(platform)) {
+    //   return 'ios'
+    // }
 
-    return 'none'
+    // return 'none'
   }, [navigator.platform])
+
+  const isSafariAndIos = useMemo(() => {
+    return currentPlatform === 'ios' && navigator.userAgent.includes('Safari')
+  }, [currentPlatform, navigator.userAgent])
 
   if (pwaIsInstalled) {
     return null
@@ -50,6 +57,12 @@ const InstallButton = ({ ...props }: Props) => {
         </a>
       </Tooltip>
     )
+
+  if (isSafariAndIos) {
+    return <SafariIosInstallButton />
+  }
+
+  return <InstallPWAButton />
 }
 
 export default InstallButton
