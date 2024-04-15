@@ -30,7 +30,13 @@ const UserItemsGridItem = ({ ...props }: Props) => {
   const theme = useMantineTheme()
 
   return (
-    <FlexCol className="UserItemsGridItem" align="center">
+    <FlexCol
+      className="UserItemsGridItem"
+      align="center"
+      sx={{
+        opacity: theirRating?.isPrivate ? 0.5 : 1,
+      }}
+    >
       <FavoriteItem
         item={props.item}
         showMyRating={!props.thisIsYourList}

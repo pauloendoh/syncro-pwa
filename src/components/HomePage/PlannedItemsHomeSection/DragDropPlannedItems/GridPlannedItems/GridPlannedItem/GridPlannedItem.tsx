@@ -33,6 +33,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
     <Box
       sx={{
         position: 'relative',
+        opacity: rating.isPrivate ? 0.5 : 1,
       }}
     >
       <FavoriteItem

@@ -97,6 +97,7 @@ const UserRatingsGridView = (props: Props) => {
                   img: {
                     height: isMobile ? 80 * 1.33 : 104 * 1.33,
                   },
+                  opacity: rating.isPrivate ? 0.5 : 1,
                 }}
               >
                 <SyncroItemLink item={rating.syncroItem!}>

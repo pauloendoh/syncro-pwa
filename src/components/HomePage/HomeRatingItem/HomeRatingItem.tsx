@@ -90,7 +90,10 @@ const HomeRatingItem = (props: Props) => {
   if (!props.rating.syncroItem) return null
 
   return (
-    <MyPaper key={props.rating.id} sx={{ position: 'relative' }}>
+    <MyPaper
+      key={props.rating.id}
+      sx={{ position: 'relative', opacity: props.rating.isPrivate ? 0.5 : 1 }}
+    >
       <MyNextLink href={urls.pages.userProfile(props.rating.userId)}>
         <div
           style={{
