@@ -1,9 +1,11 @@
 import { Flex, Select } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
+import { useQueryState } from 'next-usequerystate'
 import { useEffect, useMemo, useState } from 'react'
 import { useMostRatedItemsQuery } from '../../../hooks/react-query/rating/useMostRatedItemsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { QueryParams } from '../../../utils/queryParams'
 import FavoriteItem from '../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -34,13 +36,29 @@ const periods = [
 export type Period = (typeof periods)[number]['value']
 
 const BrowseItemsExploreSection = ({ ...props }: Props) => {
-  const [itemType, setItemType] = useState<SyncroItemType>('movie')
+  const [itemType, setItemType] = useQueryState(QueryParams.type)
+  const [period, setPeriod] = useQueryState(QueryParams.period)
 
-  const [period, setPeriod] = useState<Period>('month')
+  useEffect(() => {
+    if (!itemType && !period) {
+      setItemType('movie' as SyncroItemType)
+      setPeriod('month' as Period)
+      return
+    }
+
+    if (!itemType) {
+      setItemType('movie' as SyncroItemType)
+      return
+    }
+
+    if (!period) {
+      setPeriod('month' as Period)
+    }
+  }, [itemType, period])
 
   const { data: items, isLoading } = useMostRatedItemsQuery({
-    itemType,
-    period,
+    itemType: itemType as SyncroItemType,
+    period: period as Period,
   })
 
   const { isMobile } = useMyMediaQuery()
@@ -63,11 +81,15 @@ const BrowseItemsExploreSection = ({ ...props }: Props) => {
     [items, page]
   )
 
+  if (!itemType || !period) {
+    return null
+  }
+
   return (
     <FlexCol gap={16}>
       <FlexVCenter gap={24}>
         <ItemTypeSelector
-          value={itemType}
+          value={itemType as SyncroItemType}
           onChange={(newItemType) => {
             setItemType(newItemType)
           }}

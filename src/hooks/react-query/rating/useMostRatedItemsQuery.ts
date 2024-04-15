@@ -35,6 +35,8 @@ export function useMostRatedItemsQuery(params: {
         type: params.itemType,
       }),
     ],
-    {}
+    {
+      enabled: !!params.itemType && !!params.period,
+    }
   )
 }

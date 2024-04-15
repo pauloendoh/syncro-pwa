@@ -16,4 +16,6 @@ export enum QueryParams {
   ratingDetailsId = 'ratingDetailsId',
   genre = 'genre',
   type = 'type',
+
+  period = 'period',
 }

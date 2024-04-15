@@ -47,7 +47,7 @@ const MySidebar = ({ ...props }: Props) => {
           },
         }}
       >
-        {sidebarLinks.map((item) => {
+        {sidebarLinks.map((item, index) => {
           const component = (
             <FlexVCenter gap={16} justify={isReduced ? 'center' : 'flex-start'}>
               <Center w={40}>
@@ -60,7 +60,7 @@ const MySidebar = ({ ...props }: Props) => {
           return (
             <MyNextLink
               href={item.href}
-              key={item.href}
+              key={item.href + index}
               onClick={(e) => {
                 if (item.href === '#') {
                   e.preventDefault()

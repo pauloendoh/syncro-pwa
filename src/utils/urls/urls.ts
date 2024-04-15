@@ -6,6 +6,7 @@ import {
   SyncroItemTypeAll,
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
+import { Period } from '../../components/ExplorePageContent/BrowseItemsExploreSection/BrowseItemsExploreSection'
 import { MostRatedItemsQueryParams } from '../../hooks/react-query/rating/types/MostRatedItemsQueryParams'
 import { ItemRatedByModalType } from '../../hooks/zustand/modals/useItemRatedByModalStore'
 import { myEnvs } from '../myEnvs'
@@ -40,8 +41,15 @@ export const urls = {
       `/user/${userId}/items?type=${type}`, // PE 1/3 - does not use the type anymore
 
     savedItems: (type?: SyncroItemType) => '/saved?' + qs.stringify({ type }),
-    explore: (exploreSlug: ExploreSlug = 'browse', queryObj?: Object) =>
-      `/explore/${exploreSlug}?${qs.stringify(queryObj || {})}`,
+    explore: (exploreSlug: ExploreSlug = 'browse', queryObj?: Object) => {
+      if (exploreSlug === 'browse' && !queryObj) {
+        queryObj = {
+          type: 'movie' as SyncroItemType,
+          period: 'month' as Period,
+        }
+      }
+      return `/explore/${exploreSlug}?${qs.stringify(queryObj || {})}`
+    },
     notifications: '/notifications',
     editProfile: '/edit-profile',
     messagesIndex: '/messages',
