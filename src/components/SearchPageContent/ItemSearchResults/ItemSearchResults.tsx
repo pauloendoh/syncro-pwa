@@ -126,8 +126,8 @@ const ItemSearchResults = (props: Props) => {
         )}
         {noResults && <Text>{notFoundMessage}</Text>}
 
-        {searchResultItems?.map((syncroItem) => (
-          <SyncroSearchItem item={syncroItem} key={syncroItem.id} />
+        {searchResultItems?.map((result) => (
+          <SyncroSearchItem result={result} key={result.item.id} />
         ))}
 
         {/* {shouldShowMore && (

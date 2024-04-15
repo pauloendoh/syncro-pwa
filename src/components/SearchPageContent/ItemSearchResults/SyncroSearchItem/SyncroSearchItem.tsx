@@ -3,8 +3,9 @@ import { useMemo } from 'react'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
 import { useMyRatingsQuery } from '../../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { SyncroItemDto } from '../../../../types/domain/syncro-item/SyncroItemDto'
+import { SearchResultByTypeDto } from '../../../../types/domain/search/SearchByTypeDto'
 import { syncroItemMapping } from '../../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping'
+import ItemSavedByPreloaded from '../../../SyncroItemPage/ItemSavedBy/ItemSavedByPreloaded/ItemSavedByPreloaded'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 import FlexCol from '../../../_common/flex/FlexCol'
 import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemImage'
@@ -12,11 +13,14 @@ import SearchItemLeftSection from '../ImdbSearchItem/SearchItemLeftSection/Searc
 import SearchItemYourSection from '../SearchItemYourSection/SearchItemYourSection'
 
 interface Props {
-  item: SyncroItemDto
+  result: SearchResultByTypeDto
   previewWithinPortal?: boolean
 }
 
-const SyncroSearchItem = ({ item, ...props }: Props) => {
+const SyncroSearchItem = ({
+  result: { item, ratingsByFollowingUsers },
+  ...props
+}: Props) => {
   const { data: myRatings } = useMyRatingsQuery()
   const { data: myInterests } = useMyInterestsQuery()
 
@@ -57,7 +61,7 @@ const SyncroSearchItem = ({ item, ...props }: Props) => {
             })}
             lineClamp={2}
           >
-            {item.title} {item.year && `[${item.year}]`}
+            {item.title} {!!item.year && `[${item.year}]`}
           </Text>
         </SyncroItemLink>
 
@@ -83,6 +87,11 @@ const SyncroSearchItem = ({ item, ...props }: Props) => {
             )}
           </FlexCol>
         </Flex>
+
+        <ItemSavedByPreloaded
+          itemId={item.id}
+          ratings={ratingsByFollowingUsers}
+        />
       </FlexCol>
     </Flex>
   )

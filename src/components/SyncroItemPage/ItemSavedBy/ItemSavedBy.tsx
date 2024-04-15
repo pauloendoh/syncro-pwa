@@ -3,9 +3,7 @@ import { useItemRatedByQuery } from '../../../hooks/react-query/rating/useItemRa
 import { useMyColors } from '../../../hooks/useMyColors'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
-import FlexVCenter from '../../_common/flex/FlexVCenter'
-import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
-import StatusIcon from './StatusIcon/StatusIcon'
+import ItemSavedByPreloaded from './ItemSavedByPreloaded/ItemSavedByPreloaded'
 
 type Props = {
   itemId: string
@@ -50,61 +48,7 @@ const ItemSavedBy = (props: Props) => {
     return <></>
   }
 
-  return (
-    <FlexVCenter
-      h={40}
-      onClick={() => {
-        openModal(props.itemId, 'you-follow')
-      }}
-      sx={{
-        cursor: 'pointer',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          gap: 4,
-          flexWrap: 'wrap',
-        }}
-      >
-        {data?.map((rating, index) => (
-          <div
-            key={rating.id}
-            style={{
-              position: 'relative',
-            }}
-          >
-            <UserImage
-              pictureUrl={rating.user?.profile?.pictureUrl}
-              username={rating.user?.username}
-              widthHeight={24}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                bottom: -8,
-                right: -4,
-                fontSize: 10,
-                color: myColors.ratingYellow,
-                fontWeight: 700,
-                background: theme.colors.dark[7],
-                borderRadius: '100%',
-                textAlign: 'center',
-                width: 16,
-                height: 16,
-              }}
-            >
-              {rating.ratingValue ? (
-                rating.ratingValue
-              ) : (
-                <StatusIcon status={rating.status} />
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </FlexVCenter>
-  )
+  return <ItemSavedByPreloaded itemId={props.itemId} ratings={data} />
 }
 
 export default ItemSavedBy

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 import { isSyncroItemType } from '../../../components/SearchPageContent/isSyncroItemType/isSyncroItemType'
+import { SearchResultByTypeDto } from '../../../types/domain/search/SearchByTypeDto'
 import { urls } from '../../../utils/urls/urls'
 
 export const useSearchByTypeQuery = (
@@ -13,7 +13,7 @@ export const useSearchByTypeQuery = (
     refetchOnWindowFocus?: boolean
   }
 ) => {
-  return useQuery<SyncroItemDto[], AxiosError>(
+  return useQuery<SearchResultByTypeDto[], AxiosError>(
     [urls.api.search({ q: query, type })],
     {
       retry: false,
