@@ -84,65 +84,67 @@ const UserSimilarityModal = () => {
             </td>
             <td align="center">{data?.allSimilarity.ratedSameItemsCount}</td>
           </tr>
-          {syncroItemTypes.map((type) => {
-            const info = data?.typeSimilarity?.find(
-              (t) => t.itemType === type
-            )?.similarityInfo
+          {syncroItemTypes
+            .filter((type) => type !== 'music' && type !== 'book')
+            .map((type) => {
+              const info = data?.typeSimilarity?.find(
+                (t) => t.itemType === type
+              )?.similarityInfo
 
-            const typeMap = useSyncroItemTypeMap({
-              itemType: type,
-            })
+              const typeMap = useSyncroItemTypeMap({
+                itemType: type,
+              })
 
-            return (
-              <tr key={type}>
-                <td>
-                  <FlexVCenter
-                    gap={8}
-                    sx={{
-                      'a:hover': {
-                        textDecoration: 'underline !important',
-                      },
-                    }}
-                  >
-                    <MyNextLink href={urls.pages.userItems(userId, type)}>
-                      <Span>{typeMap.getTypeLabel()}</Span>
-                    </MyNextLink>{' '}
-                    {highSimilarityTypes.includes(type) && (
-                      <Tooltip label="Over 50% similarity and over 10 shared items">
-                        <Span
-                          size="xs"
-                          sx={(theme) => ({
-                            background: theme.colors.dark[4],
-                            paddingBlock: 2,
-                            paddingInline: 4,
-                            borderRadius: 4,
-                            cursor: 'help',
-                          })}
-                        >
-                          High similarity
-                        </Span>
-                      </Tooltip>
-                    )}
-                  </FlexVCenter>
-                </td>
-                <td align="center">
-                  {isNaN(info?.overallPercentage!)
-                    ? ''
-                    : `${(info?.overallPercentage! * 100).toFixed(0)}%`}
-                </td>
-                <td align="center">
-                  <MyNextLink
-                    href={urls.pages.userItems(userId, type)}
-                    style={{
-                      color: theme.colors.primary[9],
-                    }}
-                  >
-                    {info?.ratedSameItemsCount}
-                  </MyNextLink>
-                </td>
-              </tr>
-            )
-          })}
+              return (
+                <tr key={type}>
+                  <td>
+                    <FlexVCenter
+                      gap={8}
+                      sx={{
+                        'a:hover': {
+                          textDecoration: 'underline !important',
+                        },
+                      }}
+                    >
+                      <MyNextLink href={urls.pages.userItems(userId, type)}>
+                        <Span>{typeMap.getTypeLabel()}</Span>
+                      </MyNextLink>{' '}
+                      {highSimilarityTypes.includes(type) && (
+                        <Tooltip label="Over 50% similarity and over 10 shared items">
+                          <Span
+                            size="xs"
+                            sx={(theme) => ({
+                              background: theme.colors.dark[4],
+                              paddingBlock: 2,
+                              paddingInline: 4,
+                              borderRadius: 4,
+                              cursor: 'help',
+                            })}
+                          >
+                            High similarity
+                          </Span>
+                        </Tooltip>
+                      )}
+                    </FlexVCenter>
+                  </td>
+                  <td align="center">
+                    {isNaN(info?.overallPercentage!)
+                      ? ''
+                      : `${(info?.overallPercentage! * 100).toFixed(0)}%`}
+                  </td>
+                  <td align="center">
+                    <MyNextLink
+                      href={urls.pages.userItems(userId, type)}
+                      style={{
+                        color: theme.colors.primary[9],
+                      }}
+                    >
+                      {info?.ratedSameItemsCount}
+                    </MyNextLink>
+                  </td>
+                </tr>
+              )
+            })}
         </tbody>
       </Table>
     </Modal>

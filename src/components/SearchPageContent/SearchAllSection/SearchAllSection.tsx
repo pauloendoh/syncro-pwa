@@ -1,4 +1,5 @@
 import { useSearchAllQuery } from '../../../hooks/react-query/search/useSearchAllQuery'
+import { SearchType } from '../../../types/domain/search/SearchParams'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -26,7 +27,10 @@ const SearchAllSection = (props: Props) => {
         // render a section
 
         Object.entries(data).map(([key, value]) => {
-          if (key === 'users') return null
+          const invalidTypes = ['users', 'book', 'music'] as SearchType[]
+          if (invalidTypes.includes(key as SearchType)) {
+            return null
+          }
 
           return (
             <SearchAllSectionTypeItem
