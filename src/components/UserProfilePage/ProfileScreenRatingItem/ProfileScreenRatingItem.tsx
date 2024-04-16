@@ -46,10 +46,10 @@ const ProfileScreenRatingItem = (props: Props) => {
       }}
     >
       <FlexCol align={'center'} mt={4}>
-        {firstItem?.imageUrl ? (
+        {firstItem ? (
           <SyncroItemImage item={firstItem} />
         ) : (
-          <Box w={150} h={150} />
+          <Box w={100} h={133} />
         )}
 
         <Text style={{ fontWeight: '500' }} mt={8}>

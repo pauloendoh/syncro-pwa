@@ -18,7 +18,7 @@ export const syncroItemMapping: {
     tabIndex: 1,
   },
   book: {
-    labelPlural: 'Books',
+    labelPlural: 'Books (old)',
     site: 'OpenLibrary',
     tabIndex: 2,
   },

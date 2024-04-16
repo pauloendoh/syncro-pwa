@@ -18,7 +18,8 @@ const OnboardingStep1 = (props: Props) => {
     <FlexCol gap={16}>
       <Flex wrap="wrap" gap={16} justify={'center'}>
         {syncroItemTypeOptions
-          .filter((o) => o.itemType !== 'music')
+
+          .filter((o) => o.itemType !== 'music' && o.itemType !== 'book')
           .map((o) => (
             <div
               key={o.itemType}

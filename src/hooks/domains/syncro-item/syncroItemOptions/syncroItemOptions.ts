@@ -104,14 +104,16 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
   },
   {
     itemType: 'book',
-    labelPlural: 'Books',
+    labelPlural: 'Books (old)',
     site: 'OpenLibrary',
     tabIndex: 2,
-    getTypeLabel: (isPlural = false) => (isPlural ? 'Books' : 'Book'),
-    getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'books' : 'book'),
+    getTypeLabel: (isPlural = false) =>
+      isPlural ? 'Books (old)' : 'Book (old)',
+    getTypeLabelLowerCase: (isPlural = false) =>
+      isPlural ? 'books (old)' : 'book (old)',
     planTo: 'Plan to read',
     plansTo: 'plans to read',
-    removeFromPlanTo: 'Remove from planned books',
+    removeFromPlanTo: 'Remove from planned books (old)',
     inProgressLabel: 'reading',
     consumedOn: 'Read on',
     consumedOnExamples: 'Amazon Kindle, Bookwalker, Comixology',
@@ -126,9 +128,8 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
     labelPlural: 'Goodreads Books',
     site: 'Goodreads',
     tabIndex: 2.5,
-    getTypeLabel: (isPlural = false) => (isPlural ? 'Books V2' : 'Book V2'),
-    getTypeLabelLowerCase: (isPlural = false) =>
-      isPlural ? 'books V2' : 'book V2',
+    getTypeLabel: (isPlural = false) => (isPlural ? 'Books' : 'Book'),
+    getTypeLabelLowerCase: (isPlural = false) => (isPlural ? 'books' : 'book'),
     planTo: 'Plan to read',
     plansTo: 'plans to read',
     removeFromPlanTo: 'Remove from planned books',

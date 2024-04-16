@@ -34,20 +34,11 @@ export const searchTabOptions: {
     label: 'Manga',
     Icon: SyncroItemBaseIcon.manga,
   },
-  {
-    key: 'book',
-    label: 'Books',
-    Icon: SyncroItemBaseIcon.book,
-  },
+
   {
     key: 'goodreadsBook',
     label: 'Goodreads Books',
     Icon: SyncroItemBaseIcon.goodreadsBook,
-  },
-  {
-    key: 'music',
-    label: 'Music',
-    Icon: SyncroItemBaseIcon.music,
   },
 
   {

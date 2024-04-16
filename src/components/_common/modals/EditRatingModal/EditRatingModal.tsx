@@ -273,7 +273,7 @@ const EditRatingModal = () => {
 
             <Box mt={16}>
               <Checkbox
-                label="Private (Beta)"
+                label="Private"
                 checked={form.watch('isPrivate')}
                 onChange={(e) => {
                   form.setValue('isPrivate', e.target.checked)

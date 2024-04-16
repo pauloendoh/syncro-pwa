@@ -10,6 +10,7 @@ import LoggedLayout from '../_common/layout/LoggedLayout'
 import MyPaper from '../_common/overrides/MyPaper'
 import AuthorsPaper from './ItemPageRightSection/AuthorsPaper/AuthorsPaper'
 import ItemPageRightSection from './ItemPageRightSection/ItemPageRightSection'
+import ItemPageTopBanner from './ItemPageTopBanner/ItemPageTopBanner'
 import MangaPanelsSection from './MangaPanelsSection/MangaPanelsSection'
 import SyncroItemPaperContent from './SyncroItemPaperContent/SyncroItemPaperContent'
 import TrailerSection from './TrailerSection/TrailerSection'
@@ -40,6 +41,7 @@ const SyncroItemPage = (props: Props) => {
 
   return (
     <LoggedLayout disableMarginBottom={isMobile}>
+      {item && <ItemPageTopBanner item={item} />}
       <Grid
         w="100%"
         sx={{
