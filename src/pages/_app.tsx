@@ -72,51 +72,57 @@ export default function App(props: AppProps) {
   useSavePreviousUrlOnSessionStorage()
   const { isMobile } = useMyMediaQuery()
 
+  useEffect(() => {
+    if (navigator.userAgent.includes('iPhone')) {
+      document
+        .querySelector('[name="viewport"]')
+        ?.setAttribute(
+          'content',
+          'width=device-width, initial-scale=1.0, maximum-scale=1.0'
+        )
+    }
+  }, [])
+
   return (
-    <>
-      <QueryClientProvider client={myQueryClient}>
-        <ReactQueryDevtools />
+    <QueryClientProvider client={myQueryClient}>
+      <ReactQueryDevtools />
 
-        <Head>
-          <title>Syncro</title>
-          {/* favicon */}
-          <link rel="icon" href="/favicon.ico" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-          />
-        </Head>
+      <Head>
+        <title>Syncro</title>
+        {/* favicon */}
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
 
-        <ColorSchemeProvider
-          colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{ ...myTheme, colorScheme }}
         >
-          <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            theme={{ ...myTheme, colorScheme }}
-          >
-            <Notifications
-              position="bottom-center"
-              zIndex={zIndexes.notification}
-            />
-            <RouterTransition />
+          <Notifications
+            position="bottom-center"
+            zIndex={zIndexes.notification}
+          />
+          <RouterTransition />
 
-            <LoadingOverlay
-              visible={loading}
-              overlayOpacity={1}
-              transitionDuration={500}
-              sx={{
-                zIndex: zIndexes.loadingPageOverlay,
-              }}
-            />
-            <IoProvider>
-              <Component {...pageProps} />
-              <BreakpointsViewer disabled={myEnvs.isProduction || false} />
-            </IoProvider>
-          </MantineProvider>
-        </ColorSchemeProvider>
-      </QueryClientProvider>
-    </>
+          <LoadingOverlay
+            visible={loading}
+            overlayOpacity={1}
+            transitionDuration={500}
+            sx={{
+              zIndex: zIndexes.loadingPageOverlay,
+            }}
+          />
+          <IoProvider>
+            <Component {...pageProps} />
+            <BreakpointsViewer disabled={myEnvs.isProduction || false} />
+          </IoProvider>
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </QueryClientProvider>
   )
 }

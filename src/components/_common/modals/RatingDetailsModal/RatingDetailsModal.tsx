@@ -12,7 +12,6 @@ import {
   RatingDto,
   buildRatingDto,
 } from '../../../../types/domain/rating/RatingDto'
-import { useRatingStatusMap } from '../../../../types/domain/rating/useRatingStatusMap'
 import { getItemTitleAndYear } from '../../../../utils/domains/syncro-item/getItemTitleAndYear'
 import { QueryParams } from '../../../../utils/queryParams'
 import { urls } from '../../../../utils/urls/urls'
@@ -73,7 +72,6 @@ const RatingDetailsModal = () => {
     }
   }, [queryParam])
 
-  const statusMap = useRatingStatusMap(initialValue?.status)
   const { isMobile } = useMyMediaQuery()
 
   return (
