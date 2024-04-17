@@ -1,7 +1,7 @@
 /* https://stackoverflow.com/a/47818418/8060650 */
 @supports (-webkit-touch-callout: none) {
   /* https://stackoverflow.com/a/73558386/8060650 */
-  @media only screen and (hover: none) and (pointer: coarse) {
+  @media only screen and (hover: none) and (pointer: coarse) and (max-width: 600px) {
     input:focus,
     select:focus,
     textarea:focus {
