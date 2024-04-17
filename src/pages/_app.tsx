@@ -72,6 +72,17 @@ export default function App(props: AppProps) {
   useSavePreviousUrlOnSessionStorage()
   const { isMobile } = useMyMediaQuery()
 
+  useEffect(() => {
+    if (navigator.userAgent.includes('iPhone')) {
+      document
+        .querySelector('[name="viewport"]')
+        ?.setAttribute(
+          'content',
+          'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
+        )
+    }
+  }, [])
+
   return (
     <QueryClientProvider client={myQueryClient}>
       <ReactQueryDevtools />
