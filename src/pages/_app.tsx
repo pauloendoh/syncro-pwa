@@ -1,4 +1,5 @@
 import { IoProvider } from 'socket.io-react-hook'
+import './global.css'
 
 import 'react-photo-view/dist/react-photo-view.css'
 

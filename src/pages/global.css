@@ -1,0 +1,8 @@
+/* https://stackoverflow.com/a/73558386/8060650 */
+@media only screen and (hover: none) and (pointer: coarse) {
+  input:focus,
+  select:focus,
+  textarea:focus {
+    font-size: 16px;
+  }
+}
