@@ -4,6 +4,9 @@ export type RatingProgressDto = {
   currentEpisode: number
   currentChapter: number
   currentPage: number
+
+  hoursToBeatGame: number
+
   createdAt: string
   updatedAt: string
 }
@@ -17,6 +20,7 @@ export function buildRatingProgressDto(
     currentEpisode: 0,
     currentChapter: 0,
     currentPage: 0,
+    hoursToBeatGame: 0,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     ...p,

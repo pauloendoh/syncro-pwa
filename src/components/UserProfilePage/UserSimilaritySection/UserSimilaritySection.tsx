@@ -72,7 +72,7 @@ const UserSimilaritySection = (props: Props) => {
             similarity
           </Text>
           <Text weight={'normal'}>
-            {data.allSimilarity.ratedSameItemsCount} common items
+            {data.allSimilarity.ratedSameItemsCount} shared items
           </Text>
         </FlexCol>
       </Button>

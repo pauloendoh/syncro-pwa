@@ -12,26 +12,24 @@ type Props = {
 }
 
 const RatingProgressFields = ({ ...props }: Props) => {
-  if (props.status === 'COMPLETED' || props.status === 'PLANNED') {
+  if (props.status === 'PLANNED') {
     return null
   }
   if (props.item.type === 'manga')
     return (
-      <>
-        <NumberInput
-          label="Chapter"
-          value={props.value.currentChapter}
-          onChange={(value) => {
-            let numValue = value === '' ? 0 : value
-            if (numValue < 0) {
-              numValue = 0
-            }
-            props.onChange({ ...props.value, currentChapter: numValue })
-          }}
-          min={0}
-          w={100}
-        />
-      </>
+      <NumberInput
+        label="Chapter"
+        value={props.value.currentChapter}
+        onChange={(value) => {
+          let numValue = value === '' ? 0 : value
+          if (numValue < 0) {
+            numValue = 0
+          }
+          props.onChange({ ...props.value, currentChapter: numValue })
+        }}
+        min={0}
+        w={100}
+      />
     )
 
   if (props.item.type === 'tvSeries')
@@ -75,6 +73,24 @@ const RatingProgressFields = ({ ...props }: Props) => {
         />
       </FlexVCenter>
     )
+
+  if (props.item.type === 'game') {
+    return (
+      <NumberInput
+        label="Hours to beat"
+        value={props.value.hoursToBeatGame}
+        onChange={(value) => {
+          let numValue = value === '' ? 0 : value
+          if (numValue < 0) {
+            numValue = 0
+          }
+          props.onChange({ ...props.value, hoursToBeatGame: numValue })
+        }}
+        min={0}
+        w={100}
+      />
+    )
+  }
 
   return null
 }
