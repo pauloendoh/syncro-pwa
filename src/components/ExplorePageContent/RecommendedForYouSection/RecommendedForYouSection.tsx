@@ -1,6 +1,6 @@
 import { Flex, ScrollArea, Title } from '@mantine/core'
 import { useUserRecommendationsForMeQuery } from '../../../hooks/react-query/item-recommendation/useUserRecommendationsForMeQuery'
-import { syncroItemTypes } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { validSyncroItemTypes } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../_common/flex/FlexCol'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
 import Span from '../../_common/text/Span'
@@ -18,7 +18,7 @@ const RecommendedForYouSection = ({ ...props }: Props) => {
         gap: 16,
       }}
     >
-      {syncroItemTypes.map((t) => (
+      {validSyncroItemTypes.map((t) => (
         <RecommendedForYouByType key={t} type={t} />
       ))}
 
