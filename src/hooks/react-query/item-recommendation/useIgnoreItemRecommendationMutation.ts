@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 import { UserFeedbackDto } from '../feedback/types/UserFeedbackDto'
+import { ItemRecommendationForMeDto } from './types/ItemRecommendationForMeDto'
 
 const useIgnoreItemRecommendationMutation = () => {
   const axios = useAxios()
@@ -18,10 +18,10 @@ const useIgnoreItemRecommendationMutation = () => {
         .then((res) => res.data),
     {
       onSuccess: (saved, payload) => {
-        qc.setQueryData<SyncroItemDto[]>(
+        qc.setQueryData<ItemRecommendationForMeDto[]>(
           [urls.api.itemRecommendationsForMe(payload.itemType)],
           (curr) => {
-            return curr?.filter((item) => item.id !== payload.itemId)
+            return curr?.filter(({ item }) => item.id !== payload.itemId)
           }
         )
         // qc.setQueryData<UserFeedbackDto>([urls.api.feedback], saved)

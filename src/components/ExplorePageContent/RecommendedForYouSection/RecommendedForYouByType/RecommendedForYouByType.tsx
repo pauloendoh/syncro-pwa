@@ -3,6 +3,7 @@ import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useS
 import useIgnoreItemRecommendationMutation from '../../../../hooks/react-query/item-recommendation/useIgnoreItemRecommendationMutation'
 import { useItemRecommendationsForMeQuery } from '../../../../hooks/react-query/item-recommendation/useItemRecommendationsForMeQuery'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import ItemSavedByPreloaded from '../../../SyncroItemPage/ItemSavedBy/ItemSavedByPreloaded/ItemSavedByPreloaded'
 import FavoriteItem from '../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import FlexCol from '../../../_common/flex/FlexCol'
 import CenterLoader from '../../../_common/overrides/CenterLoader/CenterLoader'
@@ -26,21 +27,26 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
       <ScrollArea pb={16}>
         <Flex gap={8}>
           {isLoading && <CenterLoader height={133} width="100%" />}
-          {data?.map((item) => (
-            <FavoriteItem
-              key={item.id}
-              item={item}
-              width={133}
-              alwaysShowTitle
-              showAvgRating
-              onClose={() =>
-                submitIgnore({
-                  itemId: item.id,
-                  itemType: props.type,
-                })
-              }
-              onCloseTooltip="Not interested"
-            />
+          {data?.map(({ item, ratingsByFollowingUsers }) => (
+            <FlexCol key={item.id}>
+              <FavoriteItem
+                item={item}
+                width={133}
+                alwaysShowTitle
+                showAvgRating
+                onClose={() =>
+                  submitIgnore({
+                    itemId: item.id,
+                    itemType: props.type,
+                  })
+                }
+                onCloseTooltip="Not interested"
+              />
+              <ItemSavedByPreloaded
+                itemId={item.id}
+                ratings={ratingsByFollowingUsers}
+              />
+            </FlexCol>
           ))}
           {data?.length === 0 && <Span>No recommendations for you yet</Span>}
         </Flex>
