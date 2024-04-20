@@ -1,5 +1,6 @@
 import { ActionIcon, Box, Tooltip, useMantineTheme } from '@mantine/core'
 import { FloatingPosition } from '@mantine/core/lib/Floating'
+import { useHover } from '@mantine/hooks'
 import { useMemo, useState } from 'react'
 import { MdClose, MdStar } from 'react-icons/md'
 import { useMyRatingsQuery } from '../../../../../../hooks/react-query/rating/useMyRatingsQuery'
@@ -58,11 +59,13 @@ const FavoriteItem = (props: Props) => {
     )
   }, [])
 
+  const { ref: cornerInfoRef, hovered: isHoveringCornerInfo } = useHover()
+
   return (
     <SyncroItemLink
       item={props.item}
       draggable
-      disablePreview={props.disablePreview}
+      disablePreview={props.disablePreview || isHoveringCornerInfo}
       previewWithinPortal
       previewPosition={props.previewPosition}
     >
@@ -95,6 +98,7 @@ const FavoriteItem = (props: Props) => {
 
         {hasCornerInfo && (
           <FlexCol
+            ref={cornerInfoRef}
             gap={2}
             sx={{
               position: 'absolute',
