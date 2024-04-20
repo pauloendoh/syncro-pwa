@@ -1,4 +1,5 @@
 import { Flex, ScrollArea, Title } from '@mantine/core'
+import { useMemo } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useIgnoreItemRecommendationMutation from '../../../../hooks/react-query/item-recommendation/useIgnoreItemRecommendationMutation'
 import { useItemRecommendationsForMeQuery } from '../../../../hooks/react-query/item-recommendation/useItemRecommendationsForMeQuery'
@@ -21,10 +22,18 @@ const RecommendedForYouByType = ({ ...props }: Props) => {
   const { data, isLoading } = useItemRecommendationsForMeQuery(props.type)
   const { mutate: submitIgnore } = useIgnoreItemRecommendationMutation()
 
+  const hasAnyRatingsByFollowingUsers = useMemo(
+    () =>
+      data?.some(
+        ({ ratingsByFollowingUsers }) => ratingsByFollowingUsers.length > 0
+      ),
+    [data]
+  )
+
   return (
     <FlexCol className="RecommendedForYouByType" gap={16}>
       <Title order={5}>{typeMap.getTypeLabel(true)}</Title>
-      <ScrollArea pb={16}>
+      <ScrollArea pb={16} h={hasAnyRatingsByFollowingUsers ? 240 : undefined}>
         <Flex gap={8}>
           {isLoading && <CenterLoader height={133} width="100%" />}
           {data?.map(({ item, ratingsByFollowingUsers }) => (
