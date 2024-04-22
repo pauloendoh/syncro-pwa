@@ -12,9 +12,13 @@ type Props = {
 }
 
 const SearchAllSection = (props: Props) => {
-  const { data, isLoading } = useSearchAllQuery(props.q)
+  const { data, isLoading, isError } = useSearchAllQuery(props.q, {
+    refetchOnWindowFocus: false,
+  })
 
   if (isLoading) return <CenterLoader />
+
+  if (isError) return <div>Error. Please, contact support.</div>
 
   if (!data) {
     return <div>No data</div>
