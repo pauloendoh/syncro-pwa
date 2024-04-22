@@ -14,7 +14,11 @@ type Props = {
 const SearchAllSection = (props: Props) => {
   const { data, isLoading } = useSearchAllQuery(props.q)
 
-  if (isLoading || !data) return <CenterLoader />
+  if (isLoading) return <CenterLoader />
+
+  if (!data) {
+    return <div>No data</div>
+  }
 
   return (
     <FlexCol gap={40}>
