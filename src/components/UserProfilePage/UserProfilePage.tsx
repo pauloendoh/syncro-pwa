@@ -152,7 +152,7 @@ const UserProfilePage = () => {
                         whiteSpace: 'pre-wrap',
                       }}
                     >
-                      {userInfo.profile.bio}
+                      {userInfo.profile.bio.trim()}
                     </Text>
                   )}
 
