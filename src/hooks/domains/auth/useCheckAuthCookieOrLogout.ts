@@ -1,3 +1,4 @@
+import { create } from 'zustand'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import { cookieKeys } from '../../../utils/consts/cookieKeys'
 import nookies from '../../../utils/nookies'
@@ -7,13 +8,25 @@ import { useMyRouterQuery } from '../../useMyRouterQuery'
 import useAuthStore from '../../zustand/useAuthStore'
 import { useLogoutAndPushIndex } from './useLogoutAndPushIndex'
 
+interface IStore {
+  loadingCheckAuthCookie: boolean
+  setLoadingCheckAuthCookie: (loadingCheckAuthCookie: boolean) => void
+}
+
+const useStore = create<IStore>((set) => ({
+  loadingCheckAuthCookie: true,
+  setLoadingCheckAuthCookie: (loadingCheckAuthCookie) =>
+    set({ loadingCheckAuthCookie }),
+}))
+
 const useCheckAuthCookieOrLogout = () => {
   const logout = useLogoutAndPushIndex()
 
   const { oauthToken, userId } = useMyRouterQuery()
   const axios = useAxios(false)
-  const { setAuthUser, loadingCheckAuthCookie, setLoadingCheckAuthCookie } =
-    useAuthStore()
+  const { setAuthUser } = useAuthStore()
+
+  const { loadingCheckAuthCookie, setLoadingCheckAuthCookie } = useStore()
 
   const checkAuthCookieOrLogout = () => {
     const userCookieStr = nookies.get(null)[cookieKeys.user]
