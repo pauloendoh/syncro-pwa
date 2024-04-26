@@ -124,7 +124,7 @@ const ItemMoreIcon = (props: Props) => {
                 submitRefreshAvgRating(props.item.id!)
               }}
             >
-              Update rating
+              Sync rating with source
             </Menu.Item>
           </div>
         </Tooltip>
