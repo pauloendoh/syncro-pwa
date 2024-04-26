@@ -35,8 +35,7 @@ const MessagesPage = (props: Props) => {
     return messageRoom.users.find((user) => user.id !== authUser?.id)
   }, [messageRoom, authUser, roomId])
 
-  const { data: otherUserInfo, isLoading: loadingOtherUserInfo } =
-    useUserInfoQuery(otherUser?.id)
+  const { data: otherUserInfo } = useUserInfoQuery(otherUser?.id)
 
   const { data: messages, isLoading } = useMessagesQuery(roomId)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
@@ -85,7 +84,11 @@ const MessagesPage = (props: Props) => {
   )
 
   return (
-    <LoggedLayout disableMarginBottom disableMarginTop={isMobile}>
+    <LoggedLayout
+      disableMarginBottom
+      disableMarginTop={isMobile}
+      mustBeLoggedIn
+    >
       <Grid
         sx={{
           width: '100%',

@@ -1,10 +1,13 @@
 import { AppShell, Box } from '@mantine/core'
 import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
+import useCheckAuthCookieOrLogout from '../../../hooks/domains/auth/useCheckAuthCookieOrLogout'
+import { useLogoutAndPushIndex } from '../../../hooks/domains/auth/useLogoutAndPushIndex'
 import { useMessageRoomSockets } from '../../../hooks/socket/domain/message-room/useMessageRoomSockets'
 import { useNewMessageSocket } from '../../../hooks/socket/domain/message-room/useNewMessageSocket/useNewMessageSocket'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
+import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import GlobalModals from '../modals/GlobalModals'
 import MobileFooter from './MobileFooter/MobileFooter'
 import MyNavbar from './MyNavbar/MyNavbar'
@@ -15,10 +18,13 @@ type Props = {
   children: React.ReactNode
   disableMarginTop?: boolean
   disableMarginBottom?: boolean
+  mustBeLoggedIn?: boolean
 }
 
 const LoggedLayout = (props: Props) => {
-  const { isMobile, isLoading } = useMyMediaQuery()
+  const { isMobile, isLoading: isLoadingMyMediaQuery } = useMyMediaQuery()
+  const logoutAndPushIndex = useLogoutAndPushIndex()
+  const { loadingCheckAuthCookie } = useCheckAuthCookieOrLogout()
 
   const router = useRouter()
 
@@ -26,11 +32,19 @@ const LoggedLayout = (props: Props) => {
     return router.asPath.includes('/messages')
   }, [router])
 
-  const { roomId: roomId } = useMyRouterQuery()
+  const { roomId } = useMyRouterQuery()
+
+  const { authUser } = useAuthStore()
 
   useMessageRoomSockets(roomId)
   useNewMessageSocket()
   useUserSockets()
+
+  useEffect(() => {
+    if (props.mustBeLoggedIn && !authUser && !loadingCheckAuthCookie) {
+      logoutAndPushIndex()
+    }
+  }, [loadingCheckAuthCookie])
 
   return (
     <AppShell
@@ -42,7 +56,7 @@ const LoggedLayout = (props: Props) => {
         },
       }}
     >
-      {!isMobile && !isLoading && <MyNavbar />}
+      {!isMobile && !isLoadingMyMediaQuery && <MyNavbar />}
 
       {props.disableMarginTop ? null : <Box mt={isMobile ? 0 : 24} />}
 
@@ -50,7 +64,7 @@ const LoggedLayout = (props: Props) => {
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
 
-      {isMobile && !isLoading && !isMessagePage && <MobileFooter />}
+      {isMobile && !isLoadingMyMediaQuery && !isMessagePage && <MobileFooter />}
       <GlobalModals />
     </AppShell>
   )

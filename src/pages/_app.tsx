@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import BreakpointsViewer from '../components/_common/BreakpointsViewer/BreakpointsViewer'
 import { RouterTransition } from '../components/_common/RouterTransition/RouterTransition'
-import useCheckAuthOrLogout from '../hooks/domains/auth/useCheckAuthUserOrLogout'
+import useCheckAuthCookieOrLogout from '../hooks/domains/auth/useCheckAuthCookieOrLogout'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
 import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlOnSessionStorage'
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
@@ -42,7 +42,8 @@ export default function App(props: AppProps) {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
 
   const myQueryClient = useMyQueryClient()
-  const { checkAuthOrLogout, loading } = useCheckAuthOrLogout()
+  const { checkAuthCookieOrLogout, loadingCheckAuthCookie } =
+    useCheckAuthCookieOrLogout()
 
   const router = useRouter()
 
@@ -52,7 +53,7 @@ export default function App(props: AppProps) {
 
   useEffect(() => {
     if (router.isReady) {
-      checkAuthOrLogout()
+      checkAuthCookieOrLogout()
       sessionStorage.setItem(sessionKeys.cameFromDomain, document.referrer)
     }
   }, [router.isReady])
@@ -101,7 +102,7 @@ export default function App(props: AppProps) {
           <RouterTransition />
 
           <LoadingOverlay
-            visible={loading}
+            visible={loadingCheckAuthCookie}
             overlayOpacity={1}
             transitionDuration={500}
             sx={{

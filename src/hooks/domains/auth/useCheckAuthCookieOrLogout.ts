@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { AuthUserGetDto } from '../../../types/domain/auth/AuthUserGetDto'
 import { cookieKeys } from '../../../utils/consts/cookieKeys'
 import nookies from '../../../utils/nookies'
@@ -8,16 +7,15 @@ import { useMyRouterQuery } from '../../useMyRouterQuery'
 import useAuthStore from '../../zustand/useAuthStore'
 import { useLogoutAndPushIndex } from './useLogoutAndPushIndex'
 
-const useCheckAuthOrLogout = () => {
+const useCheckAuthCookieOrLogout = () => {
   const logout = useLogoutAndPushIndex()
-
-  const [loading, setLoading] = useState(true)
 
   const { oauthToken, userId } = useMyRouterQuery()
   const axios = useAxios(false)
-  const { setAuthUser } = useAuthStore()
+  const { setAuthUser, loadingCheckAuthCookie, setLoadingCheckAuthCookie } =
+    useAuthStore()
 
-  const checkAuthOrLogout = () => {
+  const checkAuthCookieOrLogout = () => {
     const userCookieStr = nookies.get(null)[cookieKeys.user]
 
     if (!userCookieStr) {
@@ -32,14 +30,16 @@ const useCheckAuthOrLogout = () => {
             setAuthUser(user)
           })
       }
-      return setLoading(false)
+      setLoadingCheckAuthCookie(false)
+      return
     }
 
     // Regular login
     const user: AuthUserGetDto = JSON.parse(userCookieStr)
     if (new Date(user.tokenExpiresAt) <= new Date()) {
       logout()
-      return setLoading(false)
+      setLoadingCheckAuthCookie(false)
+      return
     }
 
     axios
@@ -50,10 +50,15 @@ const useCheckAuthOrLogout = () => {
       .catch((e) => {
         logout()
       })
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setLoadingCheckAuthCookie(false)
+      })
   }
 
-  return { checkAuthOrLogout, loading }
+  return {
+    checkAuthCookieOrLogout,
+    loadingCheckAuthCookie,
+  }
 }
 
-export default useCheckAuthOrLogout
+export default useCheckAuthCookieOrLogout

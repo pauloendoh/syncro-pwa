@@ -7,6 +7,9 @@ interface IAuthStore {
   authUser: AuthUserGetDto | null
   setAuthUser: (authUser: AuthUserGetDto) => void
   getAuthUserId: () => string
+
+  loadingCheckAuthCookie: boolean
+  setLoadingCheckAuthCookie: (loadingCheckAuthCookie: boolean) => void
 }
 
 const useAuthStore = create<IAuthStore>((set, get) => ({
@@ -24,6 +27,10 @@ const useAuthStore = create<IAuthStore>((set, get) => ({
     const { authUser } = get()
     return authUser?.id || ''
   },
+
+  loadingCheckAuthCookie: true,
+  setLoadingCheckAuthCookie: (loadingCheckAuthCookie) =>
+    set({ loadingCheckAuthCookie }),
 }))
 const initialState = useAuthStore.getState()
 export const resetAuthStore = async () => {

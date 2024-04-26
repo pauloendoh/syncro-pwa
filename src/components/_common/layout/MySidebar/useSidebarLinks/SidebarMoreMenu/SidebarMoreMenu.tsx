@@ -5,7 +5,6 @@ import { SiDiscord } from 'react-icons/si'
 import { useLogout } from '../../../../../../hooks/domains/auth/useLogout'
 import { buildUserFeedbackDto } from '../../../../../../hooks/react-query/feedback/types/UserFeedbackDto'
 import { useMyFeedbackQuery } from '../../../../../../hooks/react-query/feedback/useMyFeedbackQuery'
-import { useUserInfoQuery } from '../../../../../../hooks/react-query/user/useUserInfoQuery'
 import useFeedbackModalStore from '../../../../../../hooks/zustand/modals/useFeedbackModalStore'
 import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../../utils/urls/urls'
@@ -19,7 +18,6 @@ const SidebarMoreMenu = (props: Props) => {
   const { authUser } = useAuthStore()
   const logout = useLogout()
 
-  const { data: userInfo } = useUserInfoQuery(authUser?.id || '')
   const { openModal: openFeedbackModal } = useFeedbackModalStore()
 
   const { data: myFeedback } = useMyFeedbackQuery()
