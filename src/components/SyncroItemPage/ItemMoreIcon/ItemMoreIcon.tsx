@@ -110,7 +110,7 @@ const ItemMoreIcon = (props: Props) => {
 
         <Menu.Divider />
 
-        <Menu.Label>Edit</Menu.Label>
+        <Menu.Label>Edit item</Menu.Label>
         <Tooltip
           label={canRefreshRating.message}
           position="bottom"
