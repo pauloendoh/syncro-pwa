@@ -47,11 +47,6 @@ const RatingProgressFields = ({ ...props }: Props) => {
           }}
           min={0}
           w={72}
-          styles={{
-            root: {
-              opacity: props.value.currentSeason === 0 ? 0.5 : 1,
-            },
-          }}
         />
         <NumberInput
           label="Episode"
@@ -65,11 +60,6 @@ const RatingProgressFields = ({ ...props }: Props) => {
           }}
           min={0}
           w={72}
-          styles={{
-            root: {
-              opacity: props.value.currentEpisode === 0 ? 0.5 : 1,
-            },
-          }}
         />
       </FlexVCenter>
     )
