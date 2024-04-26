@@ -103,9 +103,13 @@ const UserItemsPage = () => {
           })}
         </title>
       </Head>
-      <Grid>
+      <Grid
+        sx={{
+          margin: '0 !important',
+        }}
+      >
         <Grid.Col span={12} xs={12} sm={8} md={8} lg={8} xl={8}>
-          <Container size="lg" fluid={isSmallScreen}>
+          <Container fluid={isSmallScreen}>
             <FlexVCenter gap={16}>
               <UserImage pictureUrl={userInfo?.profile?.pictureUrl} />
               <Title order={3}>{userInfo?.username}'s items</Title>

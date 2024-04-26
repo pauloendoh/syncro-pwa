@@ -18,7 +18,11 @@ const SearchPageContent = (props: Props) => {
 
   return (
     <LoggedLayout>
-      <Grid>
+      <Grid
+        sx={{
+          margin: '0 !important',
+        }}
+      >
         <Grid.Col sm={1} md={2} lg={1} xl={2} />
         <Grid.Col sm={8} md={7} lg={6}>
           <Container size="sm">
