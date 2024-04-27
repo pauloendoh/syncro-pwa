@@ -6,6 +6,7 @@ import 'react-photo-view/dist/react-photo-view.css'
 import {
   ColorScheme,
   ColorSchemeProvider,
+  LoadingOverlay,
   MantineProvider,
 } from '@mantine/core'
 import { useLocalStorage, useViewportSize } from '@mantine/hooks'
@@ -99,6 +100,15 @@ export default function App(props: AppProps) {
             zIndex={zIndexes.notification}
           />
           <RouterTransition />
+
+          <LoadingOverlay
+            visible={loadingCheckAuthCookie}
+            overlayOpacity={1}
+            transitionDuration={500}
+            sx={{
+              zIndex: zIndexes.loadingPageOverlay,
+            }}
+          />
 
           <IoProvider>
             <Component {...pageProps} />
