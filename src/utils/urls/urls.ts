@@ -227,6 +227,10 @@ export const urls = {
       `/import-connectors/validate?${qs.stringify(params)}`,
 
     amazonLinks: (itemId: string) => `/syncro-item/${itemId}/amazon-links`,
+
+    dating: {
+      myDatingProfile: API_URL + '/me/dating-profile',
+    },
   },
 
   others: {
@@ -238,5 +242,3 @@ export const urls = {
       })}`,
   },
 }
-
-// todo

@@ -13,7 +13,7 @@ import { RiAccountCircleLine } from 'react-icons/ri'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { urls } from '../../../utils/urls/urls'
 import FlexCol from '../../_common/flex/FlexCol'
-import LoggedLayout from '../../_common/layout/LoggedLayout'
+import DefaultLayout from '../../_common/layout/DefaultLayout'
 import MyNextLink from '../../_common/overrides/MyNextLink'
 
 type Props = {
@@ -27,7 +27,7 @@ const SettingsLayout = (props: Props) => {
   const { isMobile } = useMyMediaQuery()
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Container size="md" px={isMobile ? 0 : undefined}>
         <Paper
           sx={{
@@ -123,7 +123,7 @@ const SettingsLayout = (props: Props) => {
           </Flex>
         </Paper>
       </Container>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

@@ -6,7 +6,7 @@ import { useSyncroItemDetailsQuery } from '../../hooks/react-query/syncro-item/u
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { SyncroItemDto } from '../../types/domain/syncro-item/SyncroItemDto'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import MyPaper from '../_common/overrides/MyPaper'
 import AuthorsPaper from './ItemPageRightSection/AuthorsPaper/AuthorsPaper'
 import ItemPageRightSection from './ItemPageRightSection/ItemPageRightSection'
@@ -40,7 +40,7 @@ const SyncroItemPage = (props: Props) => {
   }, [item])
 
   return (
-    <LoggedLayout disableMarginBottom={isMobile}>
+    <DefaultLayout disableMarginBottom={isMobile}>
       {item && <ItemPageTopBanner item={item} />}
       <Grid
         w="100%"
@@ -113,7 +113,7 @@ const SyncroItemPage = (props: Props) => {
           {item && <ItemPageRightSection item={item} />}
         </Grid.Col>
       </Grid>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

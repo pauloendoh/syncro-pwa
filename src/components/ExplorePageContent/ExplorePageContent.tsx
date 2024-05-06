@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { ExploreSlug, useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import { urls } from '../../utils/urls/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import BrowseItemsExploreSection from './BrowseItemsExploreSection/BrowseItemsExploreSection'
 import NewUsersList from './NewUsersList/NewUsersList'
 import PopularUserList from './PopularUserList/PopularUserList'
@@ -19,7 +19,7 @@ const ExplorePageContent = (props: Props) => {
   const router = useRouter()
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Container>
         <FlexVCenter>
           <Title order={2}>Explore</Title>
@@ -66,7 +66,7 @@ const ExplorePageContent = (props: Props) => {
           {exploreSlug === 'new-users' && <NewUsersList />}
         </Tabs>
       </Container>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

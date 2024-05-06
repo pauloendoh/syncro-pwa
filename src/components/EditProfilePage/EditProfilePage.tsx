@@ -9,7 +9,7 @@ import { urls } from '../../utils/urls/urls'
 import FlexCol from '../_common/flex/FlexCol'
 import MyTextInput from '../_common/inputs/MyTextInput'
 import SaveCancelButtons from '../_common/inputs/SaveCancelButtons'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import MyPaper from '../_common/overrides/MyPaper'
 import ChangeProfileImageSection from './ChangeProfileImageSection/ChangeProfileImageSection'
 import EditLookingForRecommendations from './EditLookingForRecommendations/EditLookingForRecommendations'
@@ -40,7 +40,7 @@ const EditProfilePage = (props: Props) => {
   if (!authUser) return null
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Container size="xs">
         <MyPaper>
           <form
@@ -136,7 +136,7 @@ const EditProfilePage = (props: Props) => {
           </form>
         </MyPaper>
       </Container>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

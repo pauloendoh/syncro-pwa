@@ -19,9 +19,10 @@ type Props = {
   disableMarginTop?: boolean
   disableMarginBottom?: boolean
   mustBeLoggedIn?: boolean
+  disableAppShell?: boolean
 }
 
-const LoggedLayout = (props: Props) => {
+const DefaultLayout = (props: Props) => {
   const { isMobile, isLoading: isLoadingMyMediaQuery } = useMyMediaQuery()
   const logoutAndPushIndex = useLogoutAndPushIndex()
   const { loadingCheckAuthCookie } = useCheckAuthCookieOrLogout()
@@ -45,6 +46,15 @@ const LoggedLayout = (props: Props) => {
       logoutAndPushIndex()
     }
   }, [loadingCheckAuthCookie])
+
+  if (props.disableAppShell) {
+    return (
+      <>
+        {props.children}
+        <GlobalModals />
+      </>
+    )
+  }
 
   return (
     <AppShell
@@ -70,4 +80,4 @@ const LoggedLayout = (props: Props) => {
   )
 }
 
-export default LoggedLayout
+export default DefaultLayout

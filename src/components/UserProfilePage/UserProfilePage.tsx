@@ -28,7 +28,7 @@ import UserPlannedItemsSection from '../HomePage/PlannedItemsHomeSection/UserPla
 import UsersSuggestedForYouSidebar from '../HomePage/UsersSuggestedForYouSidebar/UsersSuggestedForYouSidebar'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import Span from '../_common/text/Span'
 import EditProfileButton from './EditProfileButton/EditProfileButton'
 import FavoritesSection from './FavoritesSection/FavoritesSection'
@@ -87,7 +87,7 @@ const UserProfilePage = () => {
     useRecommendItemsToUserModalStore()
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Head>
         <title>
           {userInfo ? htmlTitles.userPage(userInfo.username) : htmlTitles.index}
@@ -290,7 +290,7 @@ const UserProfilePage = () => {
           )}
         </Grid.Col>
       </Grid>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

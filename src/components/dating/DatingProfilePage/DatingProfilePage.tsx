@@ -1,10 +1,14 @@
+import { useMyDatingProfileQuery } from '../../../hooks/react-query/dating/dating-profile/useMyDatingProfileQuery'
+import DatingLayout from '../DatingLayout/DatingLayout'
+
 type Props = {}
 
 const DatingProfilePage = ({ ...props }: Props) => {
+  const { data } = useMyDatingProfileQuery()
   return (
-    <div className="DatingProfilePage">
-      <div>DatingProfilePage</div>
-    </div>
+    <DatingLayout>
+      <div>{JSON.stringify(data)}</div>
+    </DatingLayout>
   )
 }
 

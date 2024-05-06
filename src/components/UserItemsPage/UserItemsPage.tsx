@@ -18,7 +18,7 @@ import ItemTypeSelector from '../ExplorePageContent/BrowseItemsExploreSection/It
 import { useSortedItems } from '../UserProfilePage/ProfileScreenRatingItem/useSortedItems/useSortedItems'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import SortBySelector from './SortBySelector/SortBySelector'
 import UserItemsFilter from './UserItemsFilter/UserItemsFilter'
@@ -94,7 +94,7 @@ const UserItemsPage = () => {
   }, [selectedGenre, sortedItems, titleFilter])
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Head>
         <title>
           {htmlTitles.userItems({
@@ -187,7 +187,7 @@ const UserItemsPage = () => {
           </Grid.Col>
         )}
       </Grid>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

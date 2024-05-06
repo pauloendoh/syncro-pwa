@@ -12,7 +12,7 @@ import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { urls } from '../../utils/urls/urls'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import UserImage from '../_common/image/SyncroItemImage/UserImage/UserImage'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import MyPaper from '../_common/overrides/MyPaper'
@@ -84,7 +84,7 @@ const MessagesPage = (props: Props) => {
   )
 
   return (
-    <LoggedLayout
+    <DefaultLayout
       disableMarginBottom
       disableMarginTop={isMobile}
       mustBeLoggedIn
@@ -181,7 +181,7 @@ const MessagesPage = (props: Props) => {
           </MyPaper>
         </Grid.Col>
       </Grid>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

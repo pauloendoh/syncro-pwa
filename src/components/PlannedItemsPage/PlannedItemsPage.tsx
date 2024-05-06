@@ -16,7 +16,7 @@ import GridPlannedItemsV2 from '../HomePage/PlannedItemsHomeSection/GridPlannedI
 import PlannedItemTypeButton from '../HomePage/PlannedItemsHomeSection/PlannedItemTypeButton/PlannedItemTypeButton'
 import { isSyncroItemType } from '../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 
 const PlannedItemsPage = () => {
   const { authUser } = useAuthStore()
@@ -72,7 +72,7 @@ const PlannedItemsPage = () => {
   }, [plannedItems])
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Container size="sm">
         <FlexVCenter>
           {authUser && (
@@ -104,7 +104,7 @@ const PlannedItemsPage = () => {
           ))} */}
         </Flex>
       </Container>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

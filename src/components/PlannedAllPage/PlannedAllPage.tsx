@@ -5,7 +5,7 @@ import useAuthStore from '../../hooks/zustand/useAuthStore'
 import SyncroItemIcon from '../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import FavoriteItem from '../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import FlexCol from '../_common/flex/FlexCol'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 
 type Props = {}
 
@@ -36,7 +36,7 @@ const PlannedAllPage = ({ ...props }: Props) => {
   const theme = useMantineTheme()
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Container>
         <FlexCol gap={16}>
           <Title order={4}>All Planned ({sortedRatings.length})</Title>
@@ -68,7 +68,7 @@ const PlannedAllPage = ({ ...props }: Props) => {
           </Flex>
         </FlexCol>
       </Container>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

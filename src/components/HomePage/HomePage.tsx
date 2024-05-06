@@ -16,7 +16,7 @@ import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { urls } from '../../utils/urls/urls'
 import FlexCol from '../_common/flex/FlexCol'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import MyNextLink from '../_common/overrides/MyNextLink'
 import FeedSettingsIcon from './FeedSettingsIconButton/FeedSettingsIconButton'
 import MobileHomeNavbar from './MobileHomeNavbar/MobileHomeNavbar'
@@ -48,7 +48,7 @@ const HomePage = () => {
   const { authUser } = useAuthStore()
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       {isMobile && (
         <>
           <MobileHomeNavbar />
@@ -109,7 +109,7 @@ const HomePage = () => {
           {!isSmallScreen && <PlanUpdatesSection />}
         </Grid.Col> */}
       </Grid>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

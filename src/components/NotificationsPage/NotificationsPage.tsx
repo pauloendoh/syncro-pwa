@@ -6,7 +6,7 @@ import { useNotificationsQuery } from '../../hooks/react-query/notification/useN
 import { urls } from '../../utils/urls/urls'
 import { useAxios } from '../../utils/useAxios'
 import FlexCol from '../_common/flex/FlexCol'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import FollowNotificationItem from './FollowNotificationItem/FollowNotificationItem'
 import ItemRecommendationNotificationItem from './ItemRecommendationNotificationItem/ItemRecommendationNotificationItem'
 import RatingImportRequestNotificationItem from './RatingImportRequestNotificationItem/RatingImportRequestNotificationItem'
@@ -124,7 +124,7 @@ const NotificationsPage = () => {
   }
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       {/* <button onClick={subscribeButtonOnClick} disabled={Boolean(subscription)}>
         Subscribe
       </button>
@@ -169,7 +169,7 @@ const NotificationsPage = () => {
           })}
         </FlexCol>
       </Container>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

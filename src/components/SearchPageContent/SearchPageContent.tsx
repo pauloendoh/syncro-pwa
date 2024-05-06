@@ -2,7 +2,7 @@ import { Box, Container, Grid } from '@mantine/core'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import FlexVCenter from '../_common/flex/FlexVCenter'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import SearchBar from '../_common/layout/MyNavbar/SearchBar/SearchBar'
 import ItemSearchResults from './ItemSearchResults/ItemSearchResults'
 import SearchAllSection from './SearchAllSection/SearchAllSection'
@@ -17,7 +17,7 @@ const SearchPageContent = (props: Props) => {
   const { isMobile } = useMyMediaQuery()
 
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <Grid
         sx={{
           margin: '0 !important',
@@ -51,7 +51,7 @@ const SearchPageContent = (props: Props) => {
           </Container>
         </Grid.Col>
       </Grid>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

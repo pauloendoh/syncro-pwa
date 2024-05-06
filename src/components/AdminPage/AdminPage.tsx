@@ -1,12 +1,12 @@
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 
 type Props = {}
 
 const AdminPage = ({ ...props }: Props) => {
   return (
-    <LoggedLayout>
+    <DefaultLayout>
       <div>AdminPage</div>
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 

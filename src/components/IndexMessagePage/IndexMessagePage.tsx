@@ -5,7 +5,7 @@ import { useSidebarMessageRoomsQuery } from '../../hooks/react-query/message/use
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { urls } from '../../utils/urls/urls'
 import MessagesSidebar from '../MessagesPage/MessagesSidebar/MessagesSidebar'
-import LoggedLayout from '../_common/layout/LoggedLayout'
+import DefaultLayout from '../_common/layout/DefaultLayout'
 import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 
 type Props = {}
@@ -25,7 +25,7 @@ const IndexMessagePage = (props: Props) => {
   }, [isLoading, rooms, isMobile])
 
   return (
-    <LoggedLayout
+    <DefaultLayout
       mustBeLoggedIn
       disableMarginBottom
       disableMarginTop={isMobile}
@@ -41,7 +41,7 @@ const IndexMessagePage = (props: Props) => {
           No messages yet. Search user profile and click on "Message"
         </Container>
       )}
-    </LoggedLayout>
+    </DefaultLayout>
   )
 }
 
