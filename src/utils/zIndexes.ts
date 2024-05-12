@@ -6,4 +6,6 @@ export const zIndexes = {
   editRatingModal: 999,
   editRatingModalHeader: 1000,
   notification: 9999,
-}
+
+  mobileHeader: 100,
+} as const
