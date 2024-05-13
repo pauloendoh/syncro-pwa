@@ -42,10 +42,17 @@ const PlannedAllPage = ({ ...props }: Props) => {
   const unqueuedEntriesByType = useMemo(() => {
     const itemsByType = syncroItemTypes.map((type) => ({
       itemType: type,
-      entries: sortedRatings.filter(
-        (rating) =>
-          rating.syncroItem?.type === type && rating.queuePosition === null
-      ),
+      entries: sortedRatings
+        .filter(
+          (rating) =>
+            rating.syncroItem?.type === type && rating.queuePosition === null
+        )
+        .sort((a, b) => {
+          if (a.plannedPosition < b.plannedPosition) return -1
+          if (a.plannedPosition > b.plannedPosition) return 1
+
+          return 0
+        }),
     }))
 
     return itemsByType.filter((item) => item.entries.length > 0)
