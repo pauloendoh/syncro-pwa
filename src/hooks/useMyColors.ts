@@ -24,5 +24,6 @@ export const useMyColors = () => {
       return options[rating as keyof typeof options]
     },
     border: theme.colors.dark[4],
+    darkest: theme.colors.dark[9],
   }
 }

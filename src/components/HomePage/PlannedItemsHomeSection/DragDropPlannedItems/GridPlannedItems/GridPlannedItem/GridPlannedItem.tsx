@@ -51,7 +51,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
             right: 2,
           }}
         >
-          <Menu shadow="md">
+          <Menu shadow="md" withinPortal>
             <Menu.Target>
               <ActionIcon
                 sx={{

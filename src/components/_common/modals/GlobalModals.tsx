@@ -6,6 +6,7 @@ import EditRatingModal from './EditRatingModal/EditRatingModal'
 import FeedSettingsModal from './FeedSettingsModal/FeedSettingsModal'
 import FeedbackModal from './FeedbackModal/FeedbackModal'
 import FollowersModal from './FollowersModal/FollowersModal'
+import InfoModal from './InfoModal/InfoModal'
 import ItemRatedByModal from './ItemRatedByModal/ItemRatedByModal'
 import LoadingModal from './LoadingModal/LoadingModal'
 import OnboardingModal from './OnboardingModal/OnboardingModal'
@@ -41,6 +42,8 @@ const GlobalModals = (props: Props) => {
       <UserSimilarityModal />
       <ConnectorsModal />
       <LoadingModal />
+
+      <InfoModal />
     </>
   )
 }
