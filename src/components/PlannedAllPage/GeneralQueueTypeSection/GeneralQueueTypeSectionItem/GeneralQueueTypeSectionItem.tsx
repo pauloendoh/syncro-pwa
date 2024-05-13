@@ -6,6 +6,7 @@ import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useS
 import { usePlannedItemsQueryV2 } from '../../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import useMoveToQueuePositionMutation from '../../../../hooks/react-query/rating/useMoveToQueuePositionMutation'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import SyncroItemIcon from '../../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
@@ -27,7 +28,8 @@ const GeneralQueueTypeSectionItem = ({ ...props }: Props) => {
   const { isMobile } = useMyMediaQuery()
   const { hovered, ref: hoverRef } = useHover()
 
-  const { data: entries } = usePlannedItemsQueryV2()
+  const { getAuthUserId } = useAuthStore()
+  const { data: entries } = usePlannedItemsQueryV2(getAuthUserId())
 
   const generalQueueEntries = useMemo(() => {
     return entries?.filter((entry) => entry.queuePosition !== null) ?? []

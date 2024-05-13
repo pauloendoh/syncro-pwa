@@ -1,7 +1,6 @@
 import { Container, Flex, Title, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 import { usePlannedItemsQueryV2 } from '../../hooks/react-query/interest/usePlannedItemsQueryV2'
-import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import MyInfoIcon from '../_common/MyIcons/MyInfoIcon/MyInfoIcon'
 import FlexCol from '../_common/flex/FlexCol'
@@ -14,8 +13,7 @@ import GeneralQueueTypeSectionItem from './GeneralQueueTypeSection/GeneralQueueT
 type Props = {}
 
 const PlannedAllPage = ({ ...props }: Props) => {
-  const { authUser } = useAuthStore()
-  const { data: plannedItems } = usePlannedItemsQueryV2(authUser?.id)
+  const { data: plannedItems } = usePlannedItemsQueryV2()
 
   const sortedRatings = useMemo(
     () =>
