@@ -4,13 +4,25 @@ export interface DatingProfileDto {
   updatedAt: string
   photos: any[]
   nickname: string
-  gender: string
+  gender: DatingGender
   lookingFor: string
   goal: string
-  birthdate: null
-  heightInCm: null
+  birthdate: string | null
+  heightInCm: number | null
   location: string
   aboutMe: string
-  topAchievements: any[]
+  topAchievements: string[]
   openToDate: boolean
 }
+
+export type DatingGender = 'man' | 'woman' | 'beyondBinary'
+
+export type DatingLookingFor = 'men' | 'women' | 'beyondBinary' | 'everyone'
+
+export type DatingGoal =
+  | 'longTermPartner'
+  | 'longTermOpenToShort'
+  | 'shortTermOpenToLong'
+  | 'shortTermFun'
+  | 'newFriends'
+  | 'stillFiguringItOut'

@@ -6,14 +6,14 @@ type Props = Omit<
   'value' | 'onChange'
 > & {
   precision: number
-  value: number | undefined
+  value: number | null
   onChange: (value: number) => void
 }
 
 const MyNumberInput = React.forwardRef<HTMLInputElement, Props>(
   ({ ...props }, ref) => {
     const value = useMemo(() => {
-      if (props.value === undefined) return ''
+      if (props.value === null) return ''
       return Number(props.value)
     }, [props.value])
     return (
