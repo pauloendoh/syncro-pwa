@@ -92,6 +92,7 @@ export const urls = {
     myRatings: API_URL + `/me/ratings`,
     myRatingId: (id: string) => API_URL + `/me/ratings/` + id,
     moveToQueuePosition: API_URL + `/move-to-queue-position`,
+    removeQueuePosition: API_URL + `/remove-queue-position`,
     ratingsByItem: (itemId: string, type: ItemRatedByModalType) =>
       API_URL + `/ratings-by-following-users?${qs.stringify({ itemId, type })}`,
     uploadFavoriteScene: API_URL + `/upload-favorite-scene`,

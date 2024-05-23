@@ -256,7 +256,6 @@ const DatingProfilePage = ({ ...props }: Props) => {
       </Grid>
       <Divider />
       <Span mt={16}>Top personal achievements</Span>
-      {JSON.stringify(form.watch('topAchievements'))}
       {Array.isArray(form.watch('topAchievements')) && (
         <FlexCol gap={4} mt={16} key={resetTimes}>
           {[

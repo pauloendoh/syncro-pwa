@@ -5,6 +5,7 @@ import { MdMoreHoriz } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { usePlannedItemsQueryV2 } from '../../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import useMoveToQueuePositionMutation from '../../../../hooks/react-query/rating/useMoveToQueuePositionMutation'
+import useRemoveQueuePositionMutation from '../../../../hooks/react-query/rating/useRemoveQueuePositionMutation'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -36,6 +37,7 @@ const GeneralQueueTypeSectionItem = ({ ...props }: Props) => {
   }, [entries])
 
   const { mutate: submitMoveToQueuePosition } = useMoveToQueuePositionMutation()
+  const { mutate: submitRemoveQueuePosition } = useRemoveQueuePositionMutation()
 
   if (!props.entry.syncroItem) return null
 
@@ -88,6 +90,15 @@ const GeneralQueueTypeSectionItem = ({ ...props }: Props) => {
               }}
             >
               Move to position
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                submitRemoveQueuePosition({
+                  ratingId: props.entry.id,
+                })
+              }}
+            >
+              Remove from queue
             </Menu.Item>
           </Menu.Dropdown>
         ) : (
