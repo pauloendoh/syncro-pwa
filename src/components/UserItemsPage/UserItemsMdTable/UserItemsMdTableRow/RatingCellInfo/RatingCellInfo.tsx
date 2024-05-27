@@ -1,12 +1,9 @@
 import { ActionIcon, Center } from '@mantine/core'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { MdRateReview, MdStar } from 'react-icons/md'
 import { useRatingDetailsModalStore } from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
-import {
-  RatingDto,
-  buildRatingDto,
-} from '../../../../../types/domain/rating/RatingDto'
+import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 import {
   RatingStatusType,
   ratingStatusArray,
@@ -39,6 +36,17 @@ export const RatingCellInfo = (props: {
     return undefined
   }, [props.fixedIconsWidth, props.ratingSpanWidth])
 
+  const handleClick = useCallback(() => {
+    if (!props.rating) return
+
+    if (props.thisIsYourRating) {
+      openSaveRatingModal(props.rating)
+      return
+    }
+
+    openRatingDetailsModal(props.rating)
+  }, [props.rating, props.thisIsYourRating])
+
   return (
     <FlexVCenter gap={2}>
       <Center w={props.fixedIconsWidth ? 16 : undefined}>
@@ -49,8 +57,7 @@ export const RatingCellInfo = (props: {
               border: 'none !important',
             }}
             onClick={() => {
-              if (!props.rating) return
-              openRatingDetailsModal(props.rating)
+              handleClick()
             }}
           >
             <MdRateReview
@@ -65,17 +72,12 @@ export const RatingCellInfo = (props: {
 
       <Center w={props.fixedIconsWidth ? 16 : undefined}>
         <ActionIcon
-          disabled={!props.thisIsYourRating}
           sx={{
             background: 'transparent !important',
             border: 'none !important',
           }}
           onClick={() => {
-            if (props.rating) {
-              openSaveRatingModal(props.rating)
-              return
-            }
-            openSaveRatingModal(buildRatingDto({ syncroItemId: props.itemId }))
+            handleClick()
           }}
         >
           <div>
@@ -93,9 +95,19 @@ export const RatingCellInfo = (props: {
       </Center>
 
       {props.rating?.ratingValue && (
-        <Span align="center" miw={finalRatingSpanWidth} mb={2}>
-          {props.rating?.ratingValue}
-        </Span>
+        <ActionIcon
+          sx={{
+            background: 'transparent !important',
+            border: 'none !important',
+          }}
+          onClick={() => {
+            handleClick()
+          }}
+        >
+          <Span align="center" miw={finalRatingSpanWidth} mb={2}>
+            {props.rating?.ratingValue}
+          </Span>
+        </ActionIcon>
       )}
     </FlexVCenter>
   )

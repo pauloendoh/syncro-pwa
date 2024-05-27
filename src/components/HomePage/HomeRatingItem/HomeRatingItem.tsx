@@ -28,7 +28,7 @@ type Props = {
 const HomeRatingItem = (props: Props) => {
   const theme = useMantineTheme()
 
-  const { isSmallScreen, isMobile } = useMyMediaQuery()
+  const { isSmallScreen } = useMyMediaQuery()
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.rating.syncroItem?.type,
