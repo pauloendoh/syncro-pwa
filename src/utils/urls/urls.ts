@@ -58,6 +58,8 @@ export const urls = {
     settings: (page: SettingsPageType = 'account') => `/settings/${page}`,
 
     admin: () => '/admin',
+
+    allPlanned: () => '/planned-all',
   },
   api: {
     register: (pushToken: string | null) =>

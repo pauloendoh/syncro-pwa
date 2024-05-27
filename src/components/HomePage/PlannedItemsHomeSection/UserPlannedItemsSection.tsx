@@ -1,5 +1,6 @@
-import { Box, ScrollArea, Title } from '@mantine/core'
+import { ActionIcon, Box, Menu, ScrollArea, Title } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
+import { MdMoreHoriz } from 'react-icons/md'
 import { usePlannedItemsQueryV2 } from '../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
@@ -7,9 +8,12 @@ import {
   SyncroItemType,
   syncroItemTypes,
 } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { urls } from '../../../utils/urls/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import MyNextLink from '../../_common/overrides/MyNextLink'
 import MyPaper from '../../_common/overrides/MyPaper'
+import Span from '../../_common/text/Span'
 import GridPlannedItemsV2 from './GridPlannedItemsV2/GridPlannedItemsV2'
 import PlannedItemTypeButton from './PlannedItemTypeButton/PlannedItemTypeButton'
 
@@ -27,13 +31,18 @@ const UserPlannedItemsSection = (props: Props) => {
 
   const { authUser } = useAuthStore()
 
+  const isMyPlannedItems = useMemo(
+    () => props.userId === authUser?.id,
+    [props.userId, authUser?.id]
+  )
+
   const title = useMemo(() => {
-    if (props.userId === authUser?.id) return 'My planned items'
+    if (isMyPlannedItems) return 'My planned items'
 
     if (!userInfo?.username) return 'Planned items'
 
     return `${userInfo.username}'s planned items`
-  }, [userInfo?.username, authUser?.username])
+  }, [userInfo?.username, authUser?.username, isMyPlannedItems])
 
   const [hasAutoSelected, setHasAutoSelected] = useState(false)
 
@@ -90,12 +99,29 @@ const UserPlannedItemsSection = (props: Props) => {
       >
         <FlexCol pb={4}>
           {!props.titleIsOutside && (
-            <Title order={5} p={16} pb={0}>
-              {title}
-            </Title>
+            <FlexVCenter justify={'space-between'} p={16}>
+              <Span weight={600} size={'lg'}>
+                {title}
+              </Span>
+              {isMyPlannedItems && (
+                <Menu shadow="md">
+                  <Menu.Target>
+                    <ActionIcon>
+                      <MdMoreHoriz />
+                    </ActionIcon>
+                  </Menu.Target>
+
+                  <Menu.Dropdown>
+                    <MyNextLink href={urls.pages.allPlanned()}>
+                      <Menu.Item>See All Planned</Menu.Item>
+                    </MyNextLink>
+                  </Menu.Dropdown>
+                </Menu>
+              )}
+            </FlexVCenter>
           )}
 
-          <FlexVCenter gap={8} wrap="wrap" p={16}>
+          <FlexVCenter gap={8} wrap="wrap" px={16}>
             {syncroItemTypes.map((type) => (
               <PlannedItemTypeButton
                 userId={props.userId}
@@ -107,7 +133,7 @@ const UserPlannedItemsSection = (props: Props) => {
             ))}
           </FlexVCenter>
 
-          <ScrollArea.Autosize mah={1000}>
+          <ScrollArea.Autosize mah={1000} mt={16}>
             <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
               {selectedType && (
                 <GridPlannedItemsV2
