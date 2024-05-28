@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import useVirtuosoStore from './useVirtuosoStore'
+import useIsBackStore from './zustand/useIsBackStore'
 
 export const usePreserveScroll = () => {
   const router = useRouter()
@@ -14,15 +15,23 @@ export const usePreserveScroll = () => {
 
   const { virtuosoStates, clearVirtuosoState } = useVirtuosoStore()
 
+  const isBackStore = useIsBackStore()
+
   useEffect(() => {
+    // runs first
     router.beforePopState(() => {
       isBack.current = true
+      isBackStore.setIsBack(true)
       return true
     })
 
     const onRouteChangeStart = (nextUrl: string) => {
       console.log('router change scroll')
       const prevUrl = router.asPath
+      if (!isBack.current) {
+        isBackStore.setIsBack(false)
+      }
+
       setScrollPositions((prev) => ({ ...prev, [prevUrl]: window.scrollY }))
 
       if (virtuosoStates[nextUrl] && !isBack.current) {

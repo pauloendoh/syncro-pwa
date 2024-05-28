@@ -1,6 +1,7 @@
 import { Flex } from '@mantine/core'
 import { useIntersection } from '@mantine/hooks'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
+import useIsBackStore from '../../../hooks/zustand/useIsBackStore'
 import { UserItemDto } from '../../../types/domain/syncro-item/UserItemDto'
 import UserItemsGridItem from './UserItemsGridItem/UserItemsGridItem'
 
@@ -11,19 +12,21 @@ type Props = {
 
 const UserItemsGrid = ({ ...props }: Props) => {
   const { entry, ref } = useIntersection()
-  const [page, setPage] = useState(1)
 
+  const { isBack, userItemsGridPage, setItemsGridPage } = useIsBackStore()
   useEffect(() => {
-    setPage(1)
-  }, [props.items])
+    if (!isBack) {
+      setItemsGridPage(1)
+    }
+  }, [])
 
   const showingItems = useMemo(() => {
-    return props.items.slice(0, page * 20)
-  }, [props.items, page])
+    return props.items.slice(0, userItemsGridPage * 20)
+  }, [props.items, userItemsGridPage])
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      setPage((prevPage) => prevPage + 1)
+      setItemsGridPage(userItemsGridPage + 1)
     }
   }, [entry?.isIntersecting])
 

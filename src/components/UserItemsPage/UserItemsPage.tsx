@@ -7,7 +7,10 @@ import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
-import useUserItemsFilterStore from '../../hooks/zustand/useUserItemsFilterStore'
+import useIsBackStore from '../../hooks/zustand/useIsBackStore'
+import useUserItemsFilterStore, {
+  resetUserItemsFilterStore,
+} from '../../hooks/zustand/useUserItemsFilterStore'
 import { SortingByType } from '../../types/domain/others/SortingByTypes'
 import { SyncroItemType } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { htmlTitles } from '../../utils/consts/htmlTitles'
@@ -44,6 +47,13 @@ const UserItemsPage = () => {
     localStorage.setItem(localStorageKeys.userItemsViewType, view)
   }, [view])
 
+  const { isBack } = useIsBackStore()
+  useEffect(() => {
+    if (!isBack) {
+      resetUserItemsFilterStore()
+    }
+  }, [])
+
   const [itemType, setItemType] = useQueryState<SyncroItemType>(
     QueryParams.type,
     {
@@ -75,7 +85,7 @@ const UserItemsPage = () => {
 
   const [selectedGenre] = useQueryState(QueryParams.genre)
 
-  const { title: titleFilter } = useUserItemsFilterStore()
+  const filter = useUserItemsFilterStore()
 
   const finalItems = useMemo(() => {
     let filteredItems = [...sortedItems]
@@ -84,14 +94,20 @@ const UserItemsPage = () => {
       filteredItems.filter((item) => item.genres.includes(selectedGenre))
     }
 
-    if (titleFilter) {
+    if (filter.title) {
       filteredItems = filteredItems.filter((item) =>
-        textContainsWords(item.title, titleFilter)
+        textContainsWords(item.title, filter.title)
       )
     }
 
+    if (filter.byStatus) {
+      filteredItems = filteredItems.filter((item) => {
+        return item.ratings?.[0]?.status === filter.byStatus
+      })
+    }
+
     return filteredItems
-  }, [selectedGenre, sortedItems, titleFilter])
+  }, [selectedGenre, sortedItems, filter.title, filter.byStatus])
 
   return (
     <DefaultLayout>
@@ -115,7 +131,7 @@ const UserItemsPage = () => {
               <Title order={3}>{userInfo?.username}'s items</Title>
             </FlexVCenter>
             {isSmallScreen && (
-              <Box w={300} mt={16}>
+              <Box mt={16} w="100%">
                 <UserItemsFilter />
               </Box>
             )}
