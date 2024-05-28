@@ -63,11 +63,7 @@ const GeneralQueueTypeSectionItem = ({ ...props }: Props) => {
 
       <Menu>
         <Menu.Target>
-          <ActionIcon
-            sx={{
-              visibility: hovered || isMobile ? 'visible' : 'hidden',
-            }}
-          >
+          <ActionIcon>
             <MdMoreHoriz />
           </ActionIcon>
         </Menu.Target>
