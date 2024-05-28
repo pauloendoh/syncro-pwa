@@ -17,8 +17,8 @@ const UserItemsFilterSharedSection = ({ ...props }: Props) => {
           { value: 'COMPLETED', label: 'Completed' },
           { value: 'DROPPED', label: 'Dropped' },
           { value: 'ON_HOLD', label: 'On hold' },
-          { value: 'PLANNED', label: 'Plan to watch' },
-          { value: 'IN_PROGRESS', label: 'Watching' },
+          { value: 'PLANNED', label: 'Planned' },
+          { value: 'IN_PROGRESS', label: 'In Progress' },
         ] as MantineSelectData<RatingStatusType>
       }
       value={filterStore.byStatus ?? ''}
