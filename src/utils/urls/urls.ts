@@ -59,7 +59,7 @@ export const urls = {
 
     admin: () => '/admin',
 
-    allPlanned: () => '/planned-all',
+    allPlanned: () => '/all-planned',
   },
   api: {
     register: (pushToken: string | null) =>
