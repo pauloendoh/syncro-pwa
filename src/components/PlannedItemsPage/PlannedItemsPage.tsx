@@ -1,8 +1,7 @@
-import { Container, Flex } from '@mantine/core'
+import { Container, Flex, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo } from 'react'
-import { syncroItemTypeOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { useEffect } from 'react'
 import { usePlannedItemsQueryV2 } from '../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
@@ -14,6 +13,7 @@ import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { urls } from '../../utils/urls/urls'
 import GridPlannedItemsV2 from '../HomePage/PlannedItemsHomeSection/GridPlannedItemsV2/GridPlannedItemsV2'
 import PlannedItemTypeButton from '../HomePage/PlannedItemsHomeSection/PlannedItemTypeButton/PlannedItemTypeButton'
+import PlannedItemsMoreMenu from '../HomePage/PlannedItemsHomeSection/PlannedItemsMoreMenu/PlannedItemsMoreMenu'
 import { isSyncroItemType } from '../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import FlexVCenter from '../_common/flex/FlexVCenter'
 import DefaultLayout from '../_common/layout/DefaultLayout'
@@ -32,7 +32,6 @@ const PlannedItemsPage = () => {
   useEffect(() => {
     if (!type && localType) {
       router.replace(urls.pages.savedItems(localType))
-      return
     }
   }, [localType])
 
@@ -42,39 +41,14 @@ const PlannedItemsPage = () => {
     }
   }, [type])
 
-  const groupedSavedItems = useMemo(() => {
-    if (!plannedItems) return []
-
-    return syncroItemTypes
-      .map((t) => ({
-        type: t,
-        items: plannedItems.filter((i) => i.syncroItem?.type === t),
-      }))
-      .filter((t) => {
-        if (String(type) === 'all') return true
-        return type === t.type
-      })
-  }, [plannedItems, type])
-
-  const options = useMemo(() => {
-    return [
-      ...syncroItemTypes.map((t) => ({
-        value: t,
-        label: `${
-          plannedItems?.filter((i) => i.syncroItem?.type === t).length || 0
-        } ${
-          syncroItemTypeOptions
-            .find((o) => o.itemType === t)
-            ?.getTypeLabelLowerCase() || ''
-        }`,
-      })),
-    ]
-  }, [plannedItems])
-
   return (
     <DefaultLayout>
       <Container size="sm">
-        <FlexVCenter>
+        <FlexVCenter justify={'space-between'}>
+          <Title size="lg">Planned Items</Title>
+          <PlannedItemsMoreMenu />
+        </FlexVCenter>
+        <FlexVCenter mt={16}>
           {authUser && (
             <FlexVCenter gap={8} wrap="wrap">
               {syncroItemTypes.map((t) => (
@@ -96,12 +70,6 @@ const PlannedItemsPage = () => {
             ratings={plannedItems || []}
             selectedType={localType}
           />
-          {/* {groupedSavedItems.map((group) => (
-            <PlannedItemsByType
-              itemType={group.type}
-              savedItems={group.items}
-            />
-          ))} */}
         </Flex>
       </Container>
     </DefaultLayout>
