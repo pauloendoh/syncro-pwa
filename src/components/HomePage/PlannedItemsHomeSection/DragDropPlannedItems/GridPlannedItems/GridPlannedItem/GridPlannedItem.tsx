@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Menu } from '@mantine/core'
+import { ActionIcon, Box, Divider, Menu } from '@mantine/core'
 import { useHover } from '@mantine/hooks'
 import {
   AiOutlineDrag,
@@ -97,6 +97,7 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
               >
                 Move to position
               </Menu.Item>
+              <Divider />
               <Menu.Item
                 icon={<MdEdit size={14} />}
                 onClick={() => openSaveRatingModal(rating)}
