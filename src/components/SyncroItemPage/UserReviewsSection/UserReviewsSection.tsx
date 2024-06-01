@@ -30,7 +30,7 @@ const UserReviewsSection = (props: Props) => {
                 pictureUrl={rating.user?.profile?.pictureUrl}
                 username={rating.user?.username}
                 widthHeight={40}
-                userIdAndLink={rating.userId}
+                userIdForLink={rating.userId}
               />
             )}
 

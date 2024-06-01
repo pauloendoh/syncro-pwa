@@ -8,7 +8,7 @@ type Props = {
   username?: string
   pictureUrl?: string
   widthHeight?: number
-  userIdAndLink?: string
+  userIdForLink?: string
   showLookingForRecommendationIcon?: boolean
 }
 
@@ -51,9 +51,9 @@ const UserImage = (props: Props) => {
     </div>
   )
 
-  if (props.userIdAndLink)
+  if (props.userIdForLink)
     return (
-      <MyNextLink href={urls.pages.userProfile(props.userIdAndLink)}>
+      <MyNextLink href={urls.pages.userProfile(props.userIdForLink)}>
         {ImageComponent}
       </MyNextLink>
     )

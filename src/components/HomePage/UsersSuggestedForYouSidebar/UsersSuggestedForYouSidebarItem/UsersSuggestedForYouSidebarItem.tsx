@@ -17,7 +17,7 @@ const UsersSuggestedForYouSidebarItem = ({ ...props }: Props) => {
       <FlexVCenter className="UsersSuggestedForYouSidebarItem" gap={16}>
         <UserImage
           pictureUrl={props.user.profile.pictureUrl}
-          userIdAndLink={props.user.id}
+          userIdForLink={props.user.id}
         />
         <FlexCol>
           <MyNextLink href={urls.pages.userProfile(props.user.id)}>

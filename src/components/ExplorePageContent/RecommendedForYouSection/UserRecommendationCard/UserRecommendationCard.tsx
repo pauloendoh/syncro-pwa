@@ -35,7 +35,7 @@ const UserRecommendationCard = ({ ...props }: Props) => {
         <FlexCol align={'center'}>
           <UserImage
             pictureUrl={props.user.profile.pictureUrl}
-            userIdAndLink={props.user.id}
+            userIdForLink={props.user.id}
           />
           <MyNextLink
             href={urls.pages.userProfile(props.user.id)}

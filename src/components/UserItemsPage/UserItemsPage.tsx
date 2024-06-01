@@ -127,7 +127,10 @@ const UserItemsPage = () => {
         <Grid.Col span={12} xs={12} sm={8} md={8} lg={8} xl={8}>
           <Container fluid={isSmallScreen}>
             <FlexVCenter gap={16}>
-              <UserImage pictureUrl={userInfo?.profile?.pictureUrl} />
+              <UserImage
+                pictureUrl={userInfo?.profile?.pictureUrl}
+                userIdForLink={thisIsYourList ? authUser?.id : userInfo?.id}
+              />
               <Title order={3}>{userInfo?.username}'s items</Title>
             </FlexVCenter>
             {isSmallScreen && (
