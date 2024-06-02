@@ -67,6 +67,14 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
 
             <Menu.Dropdown>
               <Menu.Item
+                icon={<MdEdit size={14} />}
+                onClick={() => openSaveRatingModal(rating)}
+              >
+                Edit your entry
+              </Menu.Item>
+              <Divider />
+
+              <Menu.Item
                 icon={<AiOutlineVerticalAlignTop size={14} />}
                 onClick={() => props.onMoveToFirst(rating.id)}
               >
@@ -96,13 +104,6 @@ const GridPlannedItem = ({ rating, ...props }: Props) => {
                 }}
               >
                 Move to position
-              </Menu.Item>
-              <Divider />
-              <Menu.Item
-                icon={<MdEdit size={14} />}
-                onClick={() => openSaveRatingModal(rating)}
-              >
-                Edit your entry
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
