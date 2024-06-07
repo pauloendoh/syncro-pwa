@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   isOpen: boolean
@@ -11,6 +12,8 @@ const useLoadingModalStore = create<IStore>((set, get) => ({
   isOpen: false,
   openModal: () => {
     set({ isOpen: true })
+
+    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => set({ isOpen: false }),
 }))

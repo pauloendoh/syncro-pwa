@@ -1,8 +1,8 @@
 import { Modal, Title } from '@mantine/core'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import useRecommendItemModalStore from '../../../../hooks/zustand/modals/useRecommendItemModalStore'
-import { zIndexes } from '../../../../utils/zIndexes'
 import RecommendItemToUsersList from './RecommendItemToUsersList/RecommendItemToUsersList'
 
 const RecommendItemModal = () => {
@@ -16,6 +16,8 @@ const RecommendItemModal = () => {
     closeModal()
   }
 
+  const zIndex = useModalZIndex({ isOpen: !!recommendItemIsOpen })
+
   return (
     <Modal
       opened={!!recommendItemIsOpen}
@@ -26,10 +28,10 @@ const RecommendItemModal = () => {
       styles={{
         inner: {
           top: 40,
-          zIndex: zIndexes.editRatingModal,
+          zIndex,
         },
         overlay: {
-          zIndex: zIndexes.editRatingModal,
+          zIndex,
         },
       }}
     >

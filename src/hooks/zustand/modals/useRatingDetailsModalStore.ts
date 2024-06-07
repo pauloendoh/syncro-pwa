@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
+import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   initialValue: RatingDto | null
@@ -22,6 +23,8 @@ export const useRatingDetailsModalStore = create<IStore>((set, get) => ({
       scroll: false,
       shallow: true,
     })
+
+    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => {
     set({ isOpen: false })

@@ -28,7 +28,6 @@ import {
   buildRatingDto,
 } from '../../../../types/domain/rating/RatingDto'
 import { QueryParams } from '../../../../utils/queryParams'
-import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyTextInput from '../../inputs/MyTextInput'
@@ -173,14 +172,9 @@ const EditRatingModal = () => {
       }
       withCloseButton={isMobile}
       styles={{
-        overlay: {
-          zIndex: zIndexes.editRatingModal,
-        },
-        inner: {
-          zIndex: zIndexes.editRatingModal,
-        },
+        overlay: {},
+        inner: {},
         header: {
-          zIndex: zIndexes.editRatingModalHeader,
           background: theme.colors.dark[7],
           paddingBottom: 0,
         },

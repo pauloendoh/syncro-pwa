@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import useModalZIndexStore from './useModalZIndexStore'
 
 export type ItemRatedByModalType = 'you-follow' | 'all-users'
 
@@ -16,6 +17,8 @@ const useItemRatedByModalStore = create<IStore>((set, get) => ({
   isOpen: false,
   openModal: (itemId, type) => {
     set({ itemId, isOpen: true, type })
+
+    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => set({ isOpen: false }),
 }))

@@ -2,8 +2,8 @@ import { Modal, Tabs } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
 import { useItemRatedByQuery } from '../../../../hooks/react-query/rating/useItemRatedByQuery'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import useItemRatedByModalStore from '../../../../hooks/zustand/modals/useItemRatedByModalStore'
-import { zIndexes } from '../../../../utils/zIndexes'
 import FlexCol from '../../flex/FlexCol'
 import Span from '../../text/Span'
 import ItemRatedByModalItem from './ItemRatedByModalItem/ItemRatedByModalItem'
@@ -19,6 +19,8 @@ const ItemRatedByModal = () => {
     () => data?.sort((a, b) => b.createdAt.localeCompare(a.createdAt)) || [],
     [data]
   )
+
+  const zIndex = useModalZIndex({ isOpen })
 
   const router = useRouter()
   useEffect(() => {
@@ -51,10 +53,10 @@ const ItemRatedByModal = () => {
       withCloseButton={false}
       styles={{
         overlay: {
-          zIndex: zIndexes.itemRatedByModal,
+          zIndex,
         },
         inner: {
-          zIndex: zIndexes.itemRatedByModal,
+          zIndex,
         },
         root: {
           top: 80,

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { InterestDto } from '../../../types/domain/interest/InterestDto'
+import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   initialValue: InterestDto | null
@@ -13,6 +14,8 @@ const useSaveItemModalStore = create<IStore>((set, get) => ({
   isOpen: false,
   openModal: (initialValue) => {
     set({ initialValue, isOpen: true })
+
+    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => set({ isOpen: false }),
 }))

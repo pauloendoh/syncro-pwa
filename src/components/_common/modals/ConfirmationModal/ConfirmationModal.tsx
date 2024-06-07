@@ -1,11 +1,13 @@
 import { Modal, Title } from '@mantine/core'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
-import { zIndexes } from '../../../../utils/zIndexes'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 
 const ConfirmationModal = () => {
   const { isOpen, closeModal, initialValue } = useConfirmationModalStore()
+
+  const zIndex = useModalZIndex({ isOpen })
 
   const confirmAndClose = () => {
     closeModal()
@@ -19,11 +21,11 @@ const ConfirmationModal = () => {
       title={<Title order={4}>{initialValue.title}</Title>}
       styles={{
         overlay: {
-          zIndex: zIndexes.confirmationModal,
+          zIndex,
         },
         inner: {
           top: 100,
-          zIndex: zIndexes.confirmationModal,
+          zIndex,
         },
       }}
     >

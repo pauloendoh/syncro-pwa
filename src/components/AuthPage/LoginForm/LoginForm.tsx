@@ -76,6 +76,7 @@ const LoginForm = (props: Props) => {
             label="Username or email"
             {...register('identificator')}
             error={errors.identificator?.message}
+            autoFocus
           />
 
           <MyTextInput

@@ -1,12 +1,13 @@
 import { useQueryState } from 'next-usequerystate'
 
-import { Box, Flex, Modal, Text, Title, useMantineTheme } from '@mantine/core'
+import { Box, Flex, Modal, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import {
   RatingDto,
@@ -31,11 +32,11 @@ const RatingDetailsModal = () => {
   const {
     initialValue,
     closeModal,
-    openModal: openModal,
+    openModal,
     isOpen: modalIsOpen,
   } = useRatingDetailsModalStore()
 
-  const theme = useMantineTheme()
+  const zIndex = useModalZIndex({ isOpen: modalIsOpen })
 
   const { data: syncroItem, isLoading } = useSyncroItemDetailsQuery(
     initialValue?.syncroItemId
@@ -82,6 +83,14 @@ const RatingDetailsModal = () => {
       title={
         syncroItem && <Title order={4}>{getItemTitleAndYear(syncroItem)}</Title>
       }
+      styles={{
+        overlay: {
+          zIndex,
+        },
+        inner: {
+          zIndex,
+        },
+      }}
     >
       {isLoading && <CenterLoader />}
       {!!initialValue && syncroItem && (

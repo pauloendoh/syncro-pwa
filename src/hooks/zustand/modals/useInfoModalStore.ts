@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { create } from 'zustand'
+import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   isOpen: boolean
@@ -13,6 +14,8 @@ const useInfoModalStore = create<IStore>((set, get) => ({
   text: '',
   openModal: (text) => {
     set({ isOpen: true, text })
+
+    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => set({ isOpen: false }),
 }))

@@ -74,6 +74,7 @@ const RegisterForm = (props: Props) => {
             label="Username"
             {...register('username')}
             error={errors.username?.message?.toString()}
+            autoFocus
           />
           <MyTextInput
             label="Email"
