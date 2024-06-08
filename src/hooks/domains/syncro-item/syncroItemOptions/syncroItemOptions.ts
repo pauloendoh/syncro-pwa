@@ -166,3 +166,8 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
     consumedOnExamples: 'Spotify, Apple Music, Youtube Music',
   },
 ]
+
+export const validSyncroItemTypeOptions: SyncroItemTypeMapOption[] =
+  syncroItemTypeOptions.filter(
+    (t) => t.itemType !== 'book' && t.itemType !== 'music'
+  )

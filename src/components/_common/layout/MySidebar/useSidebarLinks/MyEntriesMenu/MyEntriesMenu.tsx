@@ -1,6 +1,6 @@
 import { ActionIcon, Menu } from '@mantine/core'
 import { MdFormatListBulleted } from 'react-icons/md'
-import { syncroItemTypeOptions } from '../../../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
+import { validSyncroItemTypeOptions } from '../../../../../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
 import { urls } from '../../../../../../utils/urls/urls'
 import SyncroItemIcon from '../../../../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
@@ -42,7 +42,7 @@ const MyEntriesMenu = (props: Props) => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        {syncroItemTypeOptions.map((option) => (
+        {validSyncroItemTypeOptions.map((option) => (
           <MyNextLink
             href={urls.pages.userItems(authUser.id, option.itemType)}
             key={option.itemType}

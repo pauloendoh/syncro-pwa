@@ -21,7 +21,7 @@ export const itemToRecommendTabOptions: {
     label: 'Manga',
   },
   {
-    key: 'book',
+    key: 'goodreadsBook',
     label: 'Books',
   },
 ]
