@@ -25,11 +25,7 @@ const PlannedAllPage = ({ ...props }: Props) => {
           return 0
         })
         ?.filter((rating) => {
-          if (
-            rating.syncroItem?.type === 'book' ||
-            rating.syncroItem?.type === 'goodreadsBook'
-          )
-            return false
+          if (rating.syncroItem?.type === 'book') return false
           return true
         }) || [],
     [plannedItems]
@@ -72,8 +68,8 @@ const PlannedAllPage = ({ ...props }: Props) => {
   )
 
   return (
-    <DefaultLayout>
-      <Container>
+    <DefaultLayout horizontalScrollable>
+      <Container size="xl">
         <FlexCol gap={16}>
           <Title order={4}>All Planned Items</Title>
 

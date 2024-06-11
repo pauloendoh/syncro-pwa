@@ -20,6 +20,7 @@ type Props = {
   disableMarginBottom?: boolean
   mustBeLoggedIn?: boolean
   disableAppShell?: boolean
+  horizontalScrollable?: boolean
 }
 
 const DefaultLayout = (props: Props) => {
@@ -63,6 +64,7 @@ const DefaultLayout = (props: Props) => {
         main: {
           paddingInline: isMobile ? 0 : undefined,
           paddingTop: props.disableMarginTop ? 0 : undefined,
+          overflowX: props.horizontalScrollable ? 'auto' : undefined,
         },
       }}
     >
