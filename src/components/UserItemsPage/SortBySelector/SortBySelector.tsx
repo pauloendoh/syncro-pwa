@@ -14,10 +14,7 @@ const SortBySelector = (props: Props) => {
           value: 'theirRatingDesc' as SortingByType,
           label: 'Their rating (highest)',
         },
-        {
-          value: 'bothPlannedDesc' as SortingByType,
-          label: 'Both planned',
-        },
+
         {
           value: 'theirLastUpdatedAt' as SortingByType,
           label: 'Last updated (newest)',
