@@ -36,7 +36,6 @@ const HomeRatingItemReview = (props: Props) => {
       sx={{
         marginTop: 8,
         fontSize: 14,
-        fontStyle: 'italic',
         a: {
           textDecoration: 'none',
         },
