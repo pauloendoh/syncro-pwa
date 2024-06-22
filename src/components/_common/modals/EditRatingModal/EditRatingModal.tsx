@@ -226,12 +226,7 @@ const EditRatingModal = () => {
 
             <Textarea
               label="Review"
-              value={form.watch('review')}
-              onChange={(e) =>
-                form.setValue('review', e.currentTarget.value, {
-                  shouldDirty: true,
-                })
-              }
+              {...form.register('review')}
               placeholder="Write a review..."
               autosize
               minRows={3}
