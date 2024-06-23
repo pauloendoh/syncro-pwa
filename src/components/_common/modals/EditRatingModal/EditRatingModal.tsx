@@ -199,7 +199,7 @@ const EditRatingModal = () => {
               />
             </FlexVCenter>
 
-            <FlexVCenter gap={16} mt={16}>
+            <FlexVCenter gap={16} mt={16} justify={'space-between'}>
               {syncroItem && (
                 <RatingStatusSelector
                   itemType={syncroItem.type}
@@ -210,18 +210,20 @@ const EditRatingModal = () => {
                 />
               )}
 
-              {syncroItem && form.watch('ratingProgress') && (
-                <RatingProgressFields
-                  value={form.watch('ratingProgress')!}
-                  onChange={(value) =>
-                    form.setValue('ratingProgress', value, {
-                      shouldDirty: true,
-                    })
-                  }
-                  item={syncroItem}
-                  status={form.watch('status')}
-                />
-              )}
+              <FlexVCenter>
+                {syncroItem && form.watch('ratingProgress') && (
+                  <RatingProgressFields
+                    value={form.watch('ratingProgress')!}
+                    onChange={(value) =>
+                      form.setValue('ratingProgress', value, {
+                        shouldDirty: true,
+                      })
+                    }
+                    item={syncroItem}
+                    status={form.watch('status')}
+                  />
+                )}
+              </FlexVCenter>
             </FlexVCenter>
 
             <Textarea
