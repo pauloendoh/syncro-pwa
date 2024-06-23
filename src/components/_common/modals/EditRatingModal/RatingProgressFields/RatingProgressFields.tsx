@@ -12,9 +12,6 @@ type Props = {
 }
 
 const RatingProgressFields = ({ ...props }: Props) => {
-  if (props.status === 'PLANNED') {
-    return null
-  }
   if (props.item.type === 'manga')
     return (
       <NumberInput
