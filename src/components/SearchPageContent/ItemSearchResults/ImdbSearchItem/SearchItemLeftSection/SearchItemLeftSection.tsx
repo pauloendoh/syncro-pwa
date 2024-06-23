@@ -1,5 +1,6 @@
 import { Text } from '@mantine/core'
 import { shortNumberFormatter, upToNDecimals } from 'endoh-utils'
+
 import { useMemo } from 'react'
 import { IoMdEye } from 'react-icons/io'
 import { MdStar } from 'react-icons/md'

@@ -1,5 +1,5 @@
 import { Box, Tooltip } from '@mantine/core'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdRemoveRedEye } from 'react-icons/md'
 import { urls } from '../../../../../utils/urls/urls'
 import MyNextLink from '../../../overrides/MyNextLink'
@@ -14,9 +14,14 @@ type Props = {
 
 const UserImage = (props: Props) => {
   const [image, setImage] = useState(
-    props.pictureUrl ||
+    props.pictureUrl ??
       'https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png'
   )
+
+  useEffect(() => {
+    if (!props.pictureUrl) return
+    setImage(props.pictureUrl)
+  }, [props.pictureUrl])
 
   const ImageComponent = (
     <div

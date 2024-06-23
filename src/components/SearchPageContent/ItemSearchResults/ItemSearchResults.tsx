@@ -1,6 +1,6 @@
 import { Center, Loader, Text } from '@mantine/core'
 import { useQueryClient } from '@tanstack/react-query'
-import { upsertMany } from 'endoh-utils'
+import { multiwordSearch, upsertMany } from 'endoh-utils'
 import { useCallback, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDidNotFindMutation from '../../../hooks/react-query/did-not-find/useDidNotFindMutation'
@@ -15,6 +15,7 @@ import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
 import SyncroSearchItem from './SyncroSearchItem/SyncroSearchItem'
 
+const x = multiwordSearch('', '')
 type Props = {
   query: string
   type: SyncroItemType
