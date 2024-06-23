@@ -15,7 +15,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
   if (props.item.type === 'manga')
     return (
       <NumberInput
-        label="Chapter"
+        label="Chapter progress"
         value={props.value.currentChapter}
         onChange={(value) => {
           let numValue = value === '' ? 0 : value
@@ -25,7 +25,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
           props.onChange({ ...props.value, currentChapter: numValue })
         }}
         min={0}
-        w={100}
+        w={120}
       />
     )
 
@@ -33,7 +33,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
     return (
       <FlexVCenter gap={8}>
         <NumberInput
-          label="Season"
+          label="Season progress"
           value={props.value.currentSeason}
           onChange={(value) => {
             let numValue = value === '' ? 0 : value
@@ -43,10 +43,10 @@ const RatingProgressFields = ({ ...props }: Props) => {
             props.onChange({ ...props.value, currentSeason: numValue })
           }}
           min={0}
-          w={72}
+          w={120}
         />
         <NumberInput
-          label="Episode"
+          label="Episode progress"
           value={props.value.currentEpisode}
           onChange={(value) => {
             let numValue = value === '' ? 0 : value
@@ -56,7 +56,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
             props.onChange({ ...props.value, currentEpisode: numValue })
           }}
           min={0}
-          w={72}
+          w={120}
         />
       </FlexVCenter>
     )
@@ -64,7 +64,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
   if (props.item.type === 'game') {
     return (
       <NumberInput
-        label="Hours to beat"
+        label="Hours played"
         value={props.value.hoursToBeatGame}
         onChange={(value) => {
           let numValue = value === '' ? 0 : value
@@ -74,7 +74,7 @@ const RatingProgressFields = ({ ...props }: Props) => {
           props.onChange({ ...props.value, hoursToBeatGame: numValue })
         }}
         min={0}
-        w={100}
+        w={120}
       />
     )
   }

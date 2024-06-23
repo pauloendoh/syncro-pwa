@@ -4,6 +4,7 @@ import {
   Button,
   Checkbox,
   Divider,
+  Flex,
   Modal,
   ScrollArea,
   Skeleton,
@@ -199,7 +200,7 @@ const EditRatingModal = () => {
               />
             </FlexVCenter>
 
-            <FlexVCenter gap={16} mt={16} justify={'space-between'}>
+            <Flex gap={16} mt={16} align="flex-end">
               {syncroItem && (
                 <RatingStatusSelector
                   itemType={syncroItem.type}
@@ -209,21 +210,21 @@ const EditRatingModal = () => {
                   }
                 />
               )}
+            </Flex>
 
-              <FlexVCenter>
-                {syncroItem && form.watch('ratingProgress') && (
-                  <RatingProgressFields
-                    value={form.watch('ratingProgress')!}
-                    onChange={(value) =>
-                      form.setValue('ratingProgress', value, {
-                        shouldDirty: true,
-                      })
-                    }
-                    item={syncroItem}
-                    status={form.watch('status')}
-                  />
-                )}
-              </FlexVCenter>
+            <FlexVCenter mt={16}>
+              {syncroItem && form.watch('ratingProgress') && (
+                <RatingProgressFields
+                  value={form.watch('ratingProgress')!}
+                  onChange={(value) =>
+                    form.setValue('ratingProgress', value, {
+                      shouldDirty: true,
+                    })
+                  }
+                  item={syncroItem}
+                  status={form.watch('status')}
+                />
+              )}
             </FlexVCenter>
 
             <Textarea
