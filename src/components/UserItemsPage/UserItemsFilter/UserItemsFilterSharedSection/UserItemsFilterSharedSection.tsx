@@ -10,6 +10,7 @@ const UserItemsFilterSharedSection = ({ ...props }: Props) => {
 
   return (
     <Select
+      maxDropdownHeight={240}
       label="By status"
       data={
         [
