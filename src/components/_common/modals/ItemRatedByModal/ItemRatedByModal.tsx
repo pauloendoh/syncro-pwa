@@ -15,10 +15,14 @@ const ItemRatedByModal = () => {
   const { data } = useItemRatedByQuery(itemId!, type)
 
   // newest first
-  const sortedRatings = useMemo(
-    () => data?.sort((a, b) => b.createdAt.localeCompare(a.createdAt)) || [],
-    [data]
-  )
+  const sortedRatings = useMemo(() => {
+    if (!data) {
+      return []
+    }
+    return (
+      [...data].sort((a, b) => b.createdAt.localeCompare(a.createdAt)) || []
+    )
+  }, [data])
 
   const zIndex = useModalZIndex({ isOpen })
 
