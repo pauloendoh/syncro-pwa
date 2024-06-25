@@ -22,6 +22,7 @@ import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-
 import { useUsersToRecommendQueryV2 } from '../../../../hooks/react-query/user/useMutualsSavedItemQueryV2'
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import {
@@ -156,6 +157,10 @@ const EditRatingModal = () => {
     initialValue?.syncroItemId || undefined
   )
 
+  const zIndex = useModalZIndex({
+    isOpen: !!modalIsOpen,
+  })
+
   return (
     <Modal
       opened={!!modalIsOpen}
@@ -174,7 +179,9 @@ const EditRatingModal = () => {
       withCloseButton={isMobile}
       styles={{
         overlay: {},
-        inner: {},
+        inner: {
+          zIndex,
+        },
         header: {
           background: theme.colors.dark[7],
           paddingBottom: 0,

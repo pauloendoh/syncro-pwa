@@ -71,14 +71,6 @@ const SyncroItemLink = (props: Props) => {
       onOpen={() => {
         setKeepPosition(initialPosition)
       }}
-      // onClose={() => {
-      //   setTimeout(() => {
-      //     setForceDisabled(true)
-      //   }, 250)
-      //   setTimeout(() => {
-      //     setForceDisabled(false)
-      //   }, 2000)
-      // }}
       withArrow
     >
       <HoverCard.Target>
