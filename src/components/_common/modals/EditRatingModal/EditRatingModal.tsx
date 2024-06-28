@@ -191,132 +191,131 @@ const EditRatingModal = () => {
         },
       }}
       fullScreen={isMobile}
+      scrollAreaComponent={ScrollArea.Autosize}
     >
-      <ScrollArea.Autosize mah={isMobile ? 'unset' : 'calc(100vh - 160px)'}>
-        <FlexCol pr={12}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FlexVCenter
-              mt={24}
-              sx={{
-                justifyContent: 'center',
-              }}
-            >
-              <RatingSection
-                value={form.watch('ratingValue')}
-                onChange={handleChangeRating}
-              />
-            </FlexVCenter>
+      <FlexCol pr={12}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <FlexVCenter
+            mt={24}
+            sx={{
+              justifyContent: 'center',
+            }}
+          >
+            <RatingSection
+              value={form.watch('ratingValue')}
+              onChange={handleChangeRating}
+            />
+          </FlexVCenter>
 
-            <Flex gap={16} mt={16} align="flex-end">
-              {syncroItem && (
-                <RatingStatusSelector
-                  itemType={syncroItem.type}
-                  value={form.watch('status')}
-                  onChange={(value) =>
-                    form.setValue('status', value, { shouldDirty: true })
-                  }
-                />
-              )}
-            </Flex>
-
-            <FlexVCenter mt={16}>
-              {syncroItem && form.watch('ratingProgress') && (
-                <RatingProgressFields
-                  value={form.watch('ratingProgress')!}
-                  onChange={(value) =>
-                    form.setValue('ratingProgress', value, {
-                      shouldDirty: true,
-                    })
-                  }
-                  item={syncroItem}
-                  status={form.watch('status')}
-                />
-              )}
-            </FlexVCenter>
-
-            <Textarea
-              label="Review"
-              {...form.register('review')}
-              placeholder="Write a review..."
-              autosize
-              minRows={3}
-              styles={{
-                root: {
-                  marginTop: 20,
-                },
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && e.ctrlKey) {
-                  if (initialValue) onSubmit(form.watch())
+          <Flex gap={16} mt={16} align="flex-end">
+            {syncroItem && (
+              <RatingStatusSelector
+                itemType={syncroItem.type}
+                value={form.watch('status')}
+                onChange={(value) =>
+                  form.setValue('status', value, { shouldDirty: true })
                 }
+              />
+            )}
+          </Flex>
+
+          <FlexVCenter mt={16}>
+            {syncroItem && form.watch('ratingProgress') && (
+              <RatingProgressFields
+                value={form.watch('ratingProgress')!}
+                onChange={(value) =>
+                  form.setValue('ratingProgress', value, {
+                    shouldDirty: true,
+                  })
+                }
+                item={syncroItem}
+                status={form.watch('status')}
+              />
+            )}
+          </FlexVCenter>
+
+          <Textarea
+            label="Review"
+            {...form.register('review')}
+            placeholder="Write a review..."
+            autosize
+            minRows={3}
+            styles={{
+              root: {
+                marginTop: 20,
+              },
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && e.ctrlKey) {
+                if (initialValue) onSubmit(form.watch())
+              }
+            }}
+          />
+
+          <Box mt={16}>
+            <ShareFavoriteScenesSection
+              values={form.watch('scenes') || []}
+              onChange={(values) => form.setValue('scenes', values)}
+            />
+          </Box>
+
+          <Box mt={16}>
+            <MyTextInput
+              {...form.register('consumedOn')}
+              label={typeMap?.consumedOn}
+              placeholder={typeMap?.consumedOnExamples}
+              error={
+                form.watch('consumedOn').length > 16 && 'Max 16 characters'
+              }
+            />
+          </Box>
+
+          <Box mt={16}>
+            <Checkbox
+              label="Private"
+              checked={form.watch('isPrivate')}
+              onChange={(e) => {
+                form.setValue('isPrivate', e.target.checked)
               }}
             />
+          </Box>
 
+          {Boolean(form.watch('importedFromUrl')) && (
             <Box mt={16}>
-              <ShareFavoriteScenesSection
-                values={form.watch('scenes') || []}
-                onChange={(values) => form.setValue('scenes', values)}
-              />
+              <Span>
+                This rating came from{' '}
+                <Anchor href={form.watch('importedFromUrl')!} target="_blank">
+                  {form.watch('importedFromUrl')}
+                </Anchor>
+              </Span>
             </Box>
+          )}
 
-            <Box mt={16}>
-              <MyTextInput
-                {...form.register('consumedOn')}
-                label={typeMap?.consumedOn}
-                placeholder={typeMap?.consumedOnExamples}
-                error={
-                  form.watch('consumedOn').length > 16 && 'Max 16 characters'
-                }
-              />
-            </Box>
-
-            <Box mt={16}>
-              <Checkbox
-                label="Private"
-                checked={form.watch('isPrivate')}
-                onChange={(e) => {
-                  form.setValue('isPrivate', e.target.checked)
-                }}
-              />
-            </Box>
-
-            {Boolean(form.watch('importedFromUrl')) && (
-              <Box mt={16}>
-                <Span>
-                  This rating came from{' '}
-                  <Anchor href={form.watch('importedFromUrl')!} target="_blank">
-                    {form.watch('importedFromUrl')}
-                  </Anchor>
-                </Span>
-              </Box>
+          <FlexVCenter mt={32} justify="space-between">
+            <SaveCancelButtons
+              isLoading={isLoadingMutation}
+              onCancel={handleCloseModal}
+            />
+            {!!initialValue?.id && (
+              <Button onClick={handleDelete} color="red" variant="outline">
+                Delete
+              </Button>
             )}
+          </FlexVCenter>
+        </form>
 
-            <FlexVCenter mt={32} justify="space-between">
-              <SaveCancelButtons
-                isLoading={isLoadingMutation}
-                onCancel={handleCloseModal}
-              />
-              {!!initialValue?.id && (
-                <Button onClick={handleDelete} color="red" variant="outline">
-                  Delete
-                </Button>
-              )}
-            </FlexVCenter>
-          </form>
+        {!!initialValue?.syncroItemId &&
+          !!form.watch('ratingValue') &&
+          form.watch('ratingValue')! >= 8 &&
+          !!usersToRecommend?.length && (
+            <FlexCol mt={40} gap={16} pb={16}>
+              <Divider />
+              <Title order={4}>Recommend to users</Title>
 
-          {!!initialValue?.syncroItemId &&
-            !!form.watch('ratingValue') &&
-            form.watch('ratingValue')! >= 8 &&
-            !!usersToRecommend?.length && (
-              <FlexCol mt={40} gap={16} pb={16}>
-                <Divider />
-                <Title order={4}>Recommend to users</Title>
-
-                <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
-              </FlexCol>
-            )}
-        </FlexCol>
-      </ScrollArea.Autosize>
+              <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
+            </FlexCol>
+          )}
+      </FlexCol>
     </Modal>
   )
 }

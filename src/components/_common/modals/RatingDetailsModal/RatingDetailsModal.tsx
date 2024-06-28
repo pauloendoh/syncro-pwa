@@ -1,6 +1,6 @@
 import { useQueryState } from 'next-usequerystate'
 
-import { Box, Flex, Modal, Text, Title } from '@mantine/core'
+import { Box, Flex, Modal, ScrollArea, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { format } from 'timeago.js'
@@ -77,6 +77,7 @@ const RatingDetailsModal = () => {
 
   return (
     <Modal
+      scrollAreaComponent={ScrollArea.Autosize}
       opened={!!modalIsOpen}
       onClose={closeModal}
       fullScreen={isMobile}
