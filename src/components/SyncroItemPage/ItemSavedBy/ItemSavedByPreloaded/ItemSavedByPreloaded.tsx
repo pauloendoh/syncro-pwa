@@ -59,6 +59,10 @@ const ItemSavedByPreloaded = (props: Props) => {
                 textAlign: 'center',
                 width: 16,
                 height: 16,
+
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               {rating.ratingValue ? (

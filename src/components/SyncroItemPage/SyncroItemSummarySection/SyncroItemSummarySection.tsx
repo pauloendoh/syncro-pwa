@@ -1,8 +1,8 @@
 import { Box, Skeleton, Text, Title } from '@mantine/core'
-import { useMemo, useState } from 'react'
-import LinesEllipsis from 'react-lines-ellipsis'
+import { useMemo } from 'react'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import FlexCol from '../../_common/flex/FlexCol'
+import MySeeMore from '../../_common/text/MySeeMore/MySeeMore'
 import MangaExtraInfoSection from '../MangaExtraInfoSection/MangaExtraInfoSection'
 import BookExtraInfoSection from './BookExtraInfoSection/BookExtraInfoSection'
 import GameExtraInfoSection from './GameExtraInfoSection/GameExtraInfoSection'
@@ -13,18 +13,6 @@ type Props = {
 }
 
 const SyncroItemSummarySection = ({ item, ...props }: Props) => {
-  const [canToggleExpand, setCanToggleExpand] = useState(false)
-  const [seeMore, setSeeMore] = useState<boolean | null>(null)
-  const handleReflow = ({ text }: { clamped: boolean; text: string }) => {
-    if (!item) return
-
-    const isClamped = text.length < item.plotSummary.length
-
-    if (isClamped) {
-      setCanToggleExpand(true)
-    }
-  }
-
   const showSkeleton = useMemo(
     () =>
       (item.type === 'manga' && !item.mangaExtraInfo) ||
@@ -52,36 +40,16 @@ const SyncroItemSummarySection = ({ item, ...props }: Props) => {
       >
         {item.plotSummary.length === 0 && <Text>No summary available</Text>}
         {item.plotSummary.length > 0 && (
-          <LinesEllipsis
-            text={item.plotSummary}
-            maxLine={seeMore || seeMore === null ? 3 : 1000}
-            onReflow={handleReflow}
-          />
+          <MySeeMore
+            maxLines={4}
+            buttonsText={{
+              seeMore: 'Read more',
+              seeLess: 'Read less',
+            }}
+          >
+            {item.plotSummary}
+          </MySeeMore>
         )}
-        <Box
-          style={{
-            display: canToggleExpand ? 'block' : 'none',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            width: 'fit-content',
-            marginTop: 8,
-          }}
-          onClick={() => {
-            if (seeMore === null) {
-              setSeeMore(false)
-            }
-            if (seeMore === true) {
-              setSeeMore(false)
-            }
-            if (seeMore === false) {
-              setSeeMore(true)
-            }
-          }}
-        >
-          {seeMore === null && 'Show more'}
-          {seeMore === true && 'Show more '}
-          {seeMore === false && 'Show less '}
-        </Box>
       </Box>
 
       {showSkeleton && (
