@@ -10,6 +10,7 @@ type Props = {
     seeMore: string
     seeLess: string
   }
+  buttonMarginBottom?: number
 }
 
 const MySeeMore = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
@@ -37,6 +38,8 @@ const MySeeMore = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 
   const seeMoreText = props.buttonsText?.seeMore ?? 'See more'
   const seeLessText = props.buttonsText?.seeLess ?? 'See less'
+
+  const buttonMarginBottom = props.buttonMarginBottom ?? 16
 
   return (
     <div
@@ -71,7 +74,7 @@ const MySeeMore = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
             border: 'unset',
             cursor: 'pointer',
             padding: 0,
-            marginBottom: 8,
+            marginBottom: buttonMarginBottom,
           }}
         >
           <Text weight={600}>{isOpen ? seeLessText : seeMoreText}</Text>
