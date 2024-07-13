@@ -191,7 +191,7 @@ const EditRatingModal = () => {
         },
       }}
       fullScreen={isMobile}
-      scrollAreaComponent={ScrollArea.Autosize}
+      scrollAreaComponent={isMobile ? undefined : ScrollArea.Autosize}
     >
       <FlexCol pr={12}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
