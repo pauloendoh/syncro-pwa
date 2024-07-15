@@ -24,6 +24,11 @@ const SyncroSearchItem = ({
   const { data: myRatings } = useMyRatingsQuery()
   const { data: myInterests } = useMyInterestsQuery()
 
+  const myEntry = useMemo(
+    () => myRatings?.find((rating) => rating.syncroItemId === item.id),
+    [myRatings, item.id]
+  )
+
   const myRatingValue = useMemo(
     () =>
       myRatings?.find((rating) => rating.syncroItemId === item.id)
@@ -82,9 +87,7 @@ const SyncroSearchItem = ({
             )}
           </FlexCol>
           <FlexCol style={{ width: isSmallScreen ? 100 : 120 }}>
-            {Boolean(myRatingValue || myInterestLevel) && (
-              <SearchItemYourSection itemId={item.id} />
-            )}
+            {!!myEntry && <SearchItemYourSection itemId={item.id} />}
           </FlexCol>
         </Flex>
 
