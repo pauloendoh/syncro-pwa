@@ -14,18 +14,17 @@ const UserEntryIcons = ({ rating, ...props }: Props) => {
   const Icon = useRatingStatusIcon(rating.status)
 
   return (
-    <FlexVCenter gap={2}>
-      {!!rating.review && (
-        <MyIcons.Review
-          color={props.color}
-          style={{
-            cursor: 'pointer',
-          }}
-          onClick={() => {
-            openModal(rating)
-          }}
-        />
-      )}
+    <FlexVCenter
+      gap={2}
+      sx={{
+        width: 'fit-content',
+        cursor: 'pointer',
+      }}
+      onClick={() => {
+        openModal(rating)
+      }}
+    >
+      {!!rating.review && <MyIcons.Review color={props.color} />}
 
       <Icon
         color={props.color}
