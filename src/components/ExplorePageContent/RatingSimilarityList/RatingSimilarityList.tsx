@@ -139,7 +139,7 @@ const RatingSimilarityList = () => {
                       color="white"
                       title={`${similarityLabel} ${
                         isHighSimilarity
-                          ? '(high similarity: over 50% and over 10 shared items)'
+                          ? '(high similarity: over 50% and at least 10 shared items)'
                           : ''
                       }`}
                     >

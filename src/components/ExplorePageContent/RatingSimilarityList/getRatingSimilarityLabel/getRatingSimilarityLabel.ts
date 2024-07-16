@@ -43,6 +43,6 @@ export function getRatingSimilarityLabel(params: {
     )}% rating similarity`,
     isHighSimilarity:
       similarityDto.overallPercentage > 0.5 &&
-      similarityDto.ratedSameItemsCount > 10,
+      similarityDto.ratedSameItemsCount >= 10,
   }
 }

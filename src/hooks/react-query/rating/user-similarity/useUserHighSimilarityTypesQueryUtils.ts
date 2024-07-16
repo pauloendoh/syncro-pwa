@@ -16,7 +16,7 @@ export const useUserHighSimilarityTypesQueryUtils = (userId: string) => {
 
       if (
         similarity.similarityInfo.overallPercentage > 0.5 &&
-        similarity.similarityInfo.ratedSameItemsCount > 10
+        similarity.similarityInfo.ratedSameItemsCount >= 10
       ) {
         acc.push(type)
       }

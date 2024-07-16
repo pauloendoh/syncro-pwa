@@ -110,7 +110,7 @@ const UserSimilarityModal = () => {
                         <Span>{typeMap.getTypeLabel()}</Span>
                       </MyNextLink>{' '}
                       {highSimilarityTypes.includes(type) && (
-                        <Tooltip label="Over 50% similarity and over 10 shared items">
+                        <Tooltip label="Over 50% similarity and at least 10 shared items">
                           <Span
                             size="xs"
                             sx={(theme) => ({
