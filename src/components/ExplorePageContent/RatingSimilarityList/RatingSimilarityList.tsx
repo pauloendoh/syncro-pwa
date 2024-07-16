@@ -106,7 +106,7 @@ const RatingSimilarityList = () => {
                     <Text weight={500}>{item.userB.username}</Text>
                   </MyNextLink>
 
-                  <Text>{countLabel}</Text>
+                  <Text>{countLabel.replace('item', 'shared item')}</Text>
                   <div
                     style={{
                       position: 'relative',
@@ -120,7 +120,7 @@ const RatingSimilarityList = () => {
                       sections={[
                         {
                           value: item.overallPercentage * 100,
-                          color: 'secondary',
+                          color: isHighSimilarity ? 'secondary' : 'grey',
                         },
                       ]}
                       sx={{
@@ -137,7 +137,11 @@ const RatingSimilarityList = () => {
                       }}
                       size="xs"
                       color="white"
-                      title={similarityLabel}
+                      title={`${similarityLabel} ${
+                        isHighSimilarity
+                          ? '(high similarity: over 50% and over 10 shared items)'
+                          : ''
+                      }`}
                     >
                       {Math.round(item.overallPercentage * 100)}%
                     </Text>
