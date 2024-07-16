@@ -120,7 +120,7 @@ const RatingSimilarityList = () => {
                       sections={[
                         {
                           value: item.overallPercentage * 100,
-                          color: isHighSimilarity ? 'secondary' : 'primary',
+                          color: 'secondary',
                         },
                       ]}
                       sx={{
