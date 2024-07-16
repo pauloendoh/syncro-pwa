@@ -27,7 +27,7 @@ export function getRatingSimilarityLabel(params: {
             ? `shared ${option.getTypeLabelLowerCase()}`
             : `shared ${option.getTypeLabelLowerCase(true)}`
         }`,
-        similarityLabel: `${Math.floor(
+        similarityLabel: `${Math.round(
           similarityDto.overallPercentage * 100
         )}% similarity`,
       }
@@ -38,8 +38,11 @@ export function getRatingSimilarityLabel(params: {
     countLabel: `${similarityDto.ratedSameItemsCount} ${
       similarityDto.ratedSameItemsCount <= 1 ? 'item' : 'items'
     }`,
-    similarityLabel: `${Math.floor(
+    similarityLabel: `${Math.round(
       similarityDto.overallPercentage * 100
     )}% rating similarity`,
+    isHighSimilarity:
+      similarityDto.overallPercentage > 0.5 &&
+      similarityDto.ratedSameItemsCount > 10,
   }
 }

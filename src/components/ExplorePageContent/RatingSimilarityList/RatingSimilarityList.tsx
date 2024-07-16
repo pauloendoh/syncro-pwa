@@ -1,4 +1,4 @@
-import { Box, Flex, Select, Text } from '@mantine/core'
+import { Box, Flex, Progress, Select, Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useQueryParams } from '../../../hooks/useQueryParams'
 import { useMySimilarUsersQuery } from '../../../types/domain/me/useMySimilarUsersQuery'
@@ -74,9 +74,10 @@ const RatingSimilarityList = () => {
       )}
 
       {sortedRatingSimilarities.map((item) => {
-        const { countLabel, similarityLabel } = getRatingSimilarityLabels({
-          similarityDto: item,
-        })
+        const { countLabel, similarityLabel, isHighSimilarity } =
+          getRatingSimilarityLabels({
+            similarityDto: item,
+          })
         return (
           <Flex key={item.userB.id}>
             <MyNextLink
@@ -106,7 +107,41 @@ const RatingSimilarityList = () => {
                   </MyNextLink>
 
                   <Text>{countLabel}</Text>
-                  <Text>{similarityLabel}</Text>
+                  <div
+                    style={{
+                      position: 'relative',
+                      marginTop: 4,
+                    }}
+                  >
+                    <Progress
+                      size="xl"
+                      radius={0}
+                      w="160px"
+                      sections={[
+                        {
+                          value: item.overallPercentage * 100,
+                          color: isHighSimilarity ? 'secondary' : 'primary',
+                        },
+                      ]}
+                      sx={{
+                        height: 24,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        position: 'absolute',
+                        left: 4,
+                        top: 2,
+                        borderBottom: '1px dotted white',
+                        cursor: 'help',
+                      }}
+                      size="xs"
+                      color="white"
+                      title={similarityLabel}
+                    >
+                      {Math.round(item.overallPercentage * 100)}%
+                    </Text>
+                  </div>
                 </FlexCol>
 
                 <Box mt={8}>
