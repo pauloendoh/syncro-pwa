@@ -17,7 +17,7 @@ type Props = {
   onClick?: () => void
   draggable?: boolean
   disablePreview?: boolean
-  previewWithinPortal?: boolean
+  previewWithinPortal?: boolean // TODO: not being used anymore?
   previewPosition?: FloatingPosition
 }
 
@@ -62,7 +62,7 @@ const SyncroItemLink = (props: Props) => {
 
       width={400}
       disabled={isMobile || props.disablePreview || forceDisabled}
-      withinPortal={props.previewWithinPortal}
+      withinPortal
       middlewares={{
         flip: false, // https://floating-ui.com/docs/flip
         shift: true, //  https://floating-ui.com/docs/shift
