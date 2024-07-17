@@ -37,8 +37,8 @@ export const searchTabOptions: {
 
   {
     key: 'goodreadsBook',
-    label: 'Goodreads Books',
-    Icon: SyncroItemBaseIcon.goodreadsBook,
+    label: 'Books',
+    Icon: SyncroItemBaseIcon.book,
   },
 
   {
