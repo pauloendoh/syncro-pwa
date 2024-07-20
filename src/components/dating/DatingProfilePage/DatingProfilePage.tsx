@@ -259,7 +259,7 @@ const DatingProfilePage = ({ ...props }: Props) => {
       {Array.isArray(form.watch('topAchievements')) && (
         <FlexCol gap={4} mt={16} key={resetTimes}>
           {[
-            'Opened a startup',
+            'Founded a startup',
             'Graduated from college',
             'Got Challenger in League of Legends',
             '30 years without kissing anyone',
