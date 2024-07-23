@@ -50,7 +50,7 @@ const ShareRatingModal = () => {
     const limit = 280 - 31
 
     if (text.length > limit) {
-      return text.slice(0, limit) + '..."\n\n'
+      return text.slice(0, limit) + '...\n\n'
     }
     return text
   }, [rating, item, typeMap, urlToCopy])
