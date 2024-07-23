@@ -47,7 +47,7 @@ const ShareRatingModal = () => {
       rating?.review ? `\n\n${rating.review}` : ''
     }\n\n`
 
-    const limit = 280 - 31
+    const limit = 280 - 30
 
     if (text.length > limit) {
       return text.slice(0, limit) + '...\n\n'
