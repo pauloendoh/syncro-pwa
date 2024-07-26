@@ -27,6 +27,7 @@ const UserPlannedItemsSection = (props: Props) => {
     setSelectedStatus,
     ratings,
     title,
+    isLoading,
   } = usePlannedSectionUtils({ userId: props.userId })
 
   const [hasAutoSelected, setHasAutoSelected] = useState(false)
@@ -82,7 +83,7 @@ const UserPlannedItemsSection = (props: Props) => {
         </FlexVCenter>
       )}
 
-      {ratings && ratings.length === 0 ? null : (
+      {isLoading || (ratings && ratings.length === 0) ? null : (
         <MyPaper
           sx={{
             padding: 0,

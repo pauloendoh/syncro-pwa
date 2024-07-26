@@ -14,7 +14,10 @@ export const usePlannedSectionUtils = (props: { userId: string }) => {
   const [selectedStatus, setSelectedStatus] =
     useState<RatingStatusType>('PLANNED')
 
-  const { data: ratings } = usePlannedItemsQueryV2(props.userId, selectedStatus)
+  const { data: ratings, isLoading } = usePlannedItemsQueryV2(
+    props.userId,
+    selectedStatus
+  )
 
   const { data: userInfo } = useUserInfoQuery(props.userId)
 
@@ -46,5 +49,6 @@ export const usePlannedSectionUtils = (props: { userId: string }) => {
     userInfo,
     isMyPlannedItems,
     title,
+    isLoading,
   }
 }
