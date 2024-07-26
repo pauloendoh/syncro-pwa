@@ -46,13 +46,17 @@ const PlannedItemsPage = () => {
       <Container size="sm">
         <FlexVCenter justify={'space-between'}>
           <Title size="lg">Planned Items</Title>
-          <PlannedItemsMoreMenu />
+          <PlannedItemsMoreMenu
+            selectedStatus="PLANNED"
+            onChangeStatus={() => {}}
+          />
         </FlexVCenter>
         <FlexVCenter mt={16}>
           {authUser && (
             <FlexVCenter gap={8} wrap="wrap">
               {syncroItemTypes.map((t) => (
                 <PlannedItemTypeButton
+                  selectedStatus="PLANNED"
                   userId={authUser.id}
                   key={t}
                   type={t}

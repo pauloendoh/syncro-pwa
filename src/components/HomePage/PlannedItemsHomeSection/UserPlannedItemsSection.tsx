@@ -4,9 +4,14 @@ import { usePlannedItemsQueryV2 } from '../../../hooks/react-query/interest/useP
 import { useUserInfoQuery } from '../../../hooks/react-query/user/useUserInfoQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import {
+  ratingStatusArray,
+  RatingStatusType,
+} from '../../../types/domain/rating/ratingStatusArray'
+import {
   SyncroItemType,
   syncroItemTypes,
 } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { capitalize } from '../../../utils/text/capitalize'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
@@ -23,7 +28,10 @@ type Props = {
 const UserPlannedItemsSection = (props: Props) => {
   const [selectedType, setSelectedType] = useState<SyncroItemType>()
 
-  const { data: ratings } = usePlannedItemsQueryV2(props.userId)
+  const [selectedStatus, setSelectedStatus] =
+    useState<RatingStatusType>('PLANNED')
+
+  const { data: ratings } = usePlannedItemsQueryV2(props.userId, selectedStatus)
 
   const { data: userInfo } = useUserInfoQuery(props.userId)
 
@@ -35,12 +43,16 @@ const UserPlannedItemsSection = (props: Props) => {
   )
 
   const title = useMemo(() => {
-    if (isMyPlannedItems) return 'My planned items'
+    const statusLabel = ratingStatusArray.find(
+      (status) => status.value === selectedStatus
+    )?.simpleLabel
 
-    if (!userInfo?.username) return 'Planned items'
+    if (isMyPlannedItems) return `My ${statusLabel} items`
 
-    return `${userInfo.username}'s planned items`
-  }, [userInfo?.username, authUser?.username, isMyPlannedItems])
+    if (!userInfo?.username) return `${capitalize(statusLabel!)} items`
+
+    return `${userInfo.username}'s ${statusLabel} items`
+  }, [userInfo?.username, authUser?.username, isMyPlannedItems, selectedStatus])
 
   const [hasAutoSelected, setHasAutoSelected] = useState(false)
 
@@ -77,8 +89,6 @@ const UserPlannedItemsSection = (props: Props) => {
     setHasAutoSelected(true)
   }, [ratings])
 
-  if (!ratings || ratings.length === 0) return null
-
   return (
     <FlexCol
       gap={8}
@@ -90,55 +100,66 @@ const UserPlannedItemsSection = (props: Props) => {
       {props.titleIsOutside && (
         <FlexVCenter justify={'space-between'}>
           <Title order={4}>{title}</Title>
-          <PlannedItemsMoreMenu />
+          <PlannedItemsMoreMenu
+            selectedStatus={selectedStatus}
+            onChangeStatus={setSelectedStatus}
+          />
         </FlexVCenter>
       )}
 
-      <MyPaper
-        sx={{
-          padding: 0,
-          paddingBottom: 16,
-        }}
-      >
-        <FlexCol pb={4}>
-          {!props.titleIsOutside && (
-            <FlexVCenter justify={'space-between'} p={16}>
-              <Span weight={600} size={'lg'}>
-                {title}
-              </Span>
-              {isMyPlannedItems && <PlannedItemsMoreMenu />}
-            </FlexVCenter>
-          )}
+      {ratings && ratings.length === 0 ? null : (
+        <MyPaper
+          sx={{
+            padding: 0,
+            paddingBottom: 16,
+          }}
+        >
+          <FlexCol pb={4}>
+            {!props.titleIsOutside && (
+              <FlexVCenter justify={'space-between'} p={16}>
+                <Span weight={600} size={'lg'}>
+                  {title}
+                </Span>
+                {isMyPlannedItems && (
+                  <PlannedItemsMoreMenu
+                    selectedStatus={selectedStatus}
+                    onChangeStatus={setSelectedStatus}
+                  />
+                )}
+              </FlexVCenter>
+            )}
 
-          <FlexVCenter
-            gap={8}
-            wrap="wrap"
-            pt={props.titleIsOutside ? 16 : 0}
-            px={16}
-          >
-            {syncroItemTypes.map((type) => (
-              <PlannedItemTypeButton
-                userId={props.userId}
-                key={type}
-                type={type}
-                isSelected={type === selectedType}
-                onClick={() => setSelectedType(type)}
-              />
-            ))}
-          </FlexVCenter>
-
-          <ScrollArea.Autosize mah={1000} mt={16}>
-            <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
-              {selectedType && (
-                <GridPlannedItemsV2
-                  ratings={ratings}
-                  selectedType={selectedType}
+            <FlexVCenter
+              gap={8}
+              wrap="wrap"
+              pt={props.titleIsOutside ? 16 : 0}
+              px={16}
+            >
+              {syncroItemTypes.map((type) => (
+                <PlannedItemTypeButton
+                  userId={props.userId}
+                  key={type}
+                  type={type}
+                  isSelected={type === selectedType}
+                  onClick={() => setSelectedType(type)}
+                  selectedStatus={selectedStatus}
                 />
-              )}
-            </Box>
-          </ScrollArea.Autosize>
-        </FlexCol>
-      </MyPaper>
+              ))}
+            </FlexVCenter>
+
+            <ScrollArea.Autosize mah={1000} mt={16}>
+              <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
+                {selectedType && (
+                  <GridPlannedItemsV2
+                    ratings={ratings ?? []}
+                    selectedType={selectedType}
+                  />
+                )}
+              </Box>
+            </ScrollArea.Autosize>
+          </FlexCol>
+        </MyPaper>
+      )}
     </FlexCol>
   )
 }

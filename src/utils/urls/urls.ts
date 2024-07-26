@@ -9,6 +9,7 @@ import {
 import { Period } from '../../components/ExplorePageContent/BrowseItemsExploreSection/BrowseItemsExploreSection'
 import { MostRatedItemsQueryParams } from '../../hooks/react-query/rating/types/MostRatedItemsQueryParams'
 import { ItemRatedByModalType } from '../../hooks/zustand/modals/useItemRatedByModalStore'
+import { RatingStatusType } from '../../types/domain/rating/ratingStatusArray'
 import { myEnvs } from '../myEnvs'
 import { getAuthUrl } from './getAuthUrl/getAuthUrl'
 import { SettingsPageType } from './types/SettingsPageType'
@@ -104,8 +105,12 @@ export const urls = {
       API_URL + `/toggle-save/item?id=${itemId}`,
     plannedItems: (userId: string) =>
       API_URL + `/planned-items?userId=${userId}`,
-    plannedItemsV2: (userId: string) =>
-      API_URL + `/v2/planned-items?userId=${userId}`,
+    plannedItemsV2: (
+      userId: string,
+      ratingStatus: RatingStatusType = 'PLANNED'
+    ) =>
+      API_URL +
+      `/v2/planned-items?userId=${userId}&ratingStatus=${ratingStatus}`,
 
     updateSavedPosition: API_URL + `/update-saved-position`,
     updateSavedPositionV2: API_URL + `/v2/update-saved-position`,

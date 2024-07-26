@@ -2,6 +2,7 @@ import { Button } from '@mantine/core'
 import { useMemo } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { usePlannedItemsQueryV2 } from '../../../../hooks/react-query/interest/usePlannedItemsQueryV2'
+import { RatingStatusType } from '../../../../types/domain/rating/ratingStatusArray'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 type Props = {
@@ -9,10 +10,11 @@ type Props = {
   isSelected: boolean
   type: SyncroItemType
   onClick: () => void
+  selectedStatus: RatingStatusType
 }
 
 const PlannedItemTypeButton = (props: Props) => {
-  const { data } = usePlannedItemsQueryV2(props.userId)
+  const { data } = usePlannedItemsQueryV2(props.userId, props.selectedStatus)
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.type,

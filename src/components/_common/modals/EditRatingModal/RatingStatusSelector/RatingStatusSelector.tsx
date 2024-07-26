@@ -42,7 +42,7 @@ const RatingStatusSelector = (props: Props) => {
   const data = useMemo(() => {
     return Object.entries(statusMap).map(([key, value]) => ({
       value: key,
-      label: value.label,
+      label: value.titleLabel,
       icon: value.icon,
     }))
   }, [statusMap])

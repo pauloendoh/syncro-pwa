@@ -1,9 +1,13 @@
 import { ActionIcon, Menu } from '@mantine/core'
 import { MdMoreHoriz } from 'react-icons/md'
+import { RatingStatusType } from '../../../../types/domain/rating/ratingStatusArray'
 import { urls } from '../../../../utils/urls/urls'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 
-type Props = {}
+type Props = {
+  selectedStatus: RatingStatusType
+  onChangeStatus: (status: RatingStatusType) => void
+}
 
 const PlannedItemsMoreMenu = ({ ...props }: Props) => {
   return (
@@ -18,6 +22,18 @@ const PlannedItemsMoreMenu = ({ ...props }: Props) => {
         <MyNextLink href={urls.pages.allPlanned()}>
           <Menu.Item>See All Planned</Menu.Item>
         </MyNextLink>
+        <Menu.Divider />
+
+        <Menu.Label>Rating Status</Menu.Label>
+        <Menu.Item onClick={() => props.onChangeStatus('PLANNED')}>
+          Planned {props.selectedStatus === 'PLANNED' && '✓'}
+        </Menu.Item>
+        <Menu.Item onClick={() => props.onChangeStatus('IN_PROGRESS')}>
+          In Progress {props.selectedStatus === 'IN_PROGRESS' && '✓'}
+        </Menu.Item>
+        <Menu.Item onClick={() => props.onChangeStatus('ON_HOLD')}>
+          On Hold {props.selectedStatus === 'ON_HOLD' && '✓'}
+        </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   )

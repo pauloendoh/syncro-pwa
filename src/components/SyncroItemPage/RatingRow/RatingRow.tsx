@@ -79,7 +79,7 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
 
     const status = ratingStatusArray.find((s) => s.value === myRating?.status)
     if (status) {
-      return status.label
+      return status.titleLabel
     }
     return 'Add Entry'
   }, [myRating])

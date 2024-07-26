@@ -17,22 +17,27 @@ export const ratingStatusOptions = [
   'PLANNED',
 ] as const
 
+export type RatingStatusType = (typeof ratingStatusOptions)[number]
+
 type IconProps = React.ComponentProps<typeof TbProgressCheck>
 
 export const ratingStatusArray: {
-  label: string
+  titleLabel: string
+  simpleLabel: string
   icon: React.ReactNode
   value: RatingStatusType
   IconWithProps: (props: IconProps) => React.ReactNode
 }[] = [
   {
-    label: 'Planned',
+    titleLabel: 'Planned',
+    simpleLabel: 'planned',
     icon: <MdBookmark title="Planned" />,
     IconWithProps: (props) => <MdBookmark title="Planned" {...props} />,
     value: 'PLANNED',
   },
   {
-    label: 'In Progress',
+    titleLabel: 'In Progress',
+    simpleLabel: 'in progress',
     icon: <TbProgressCheck title="In Progress" />,
     IconWithProps: (props: IconProps) => (
       <TbProgressCheck title="In Progress" {...props} />
@@ -40,7 +45,8 @@ export const ratingStatusArray: {
     value: 'IN_PROGRESS',
   },
   {
-    label: 'On Hold',
+    titleLabel: 'On Hold',
+    simpleLabel: 'on hold',
     icon: <MdPauseCircleOutline title="On Hold" />,
     IconWithProps: (props) => (
       <MdPauseCircleOutline title="On Hold" {...props} />
@@ -48,7 +54,8 @@ export const ratingStatusArray: {
     value: 'ON_HOLD',
   },
   {
-    label: 'Dropped',
+    titleLabel: 'Dropped',
+    simpleLabel: 'dropped',
     icon: <IoMdCloseCircleOutline title="Dropped" />,
     IconWithProps: (props) => (
       <IoMdCloseCircleOutline title="Dropped" {...props} />
@@ -56,7 +63,8 @@ export const ratingStatusArray: {
     value: 'DROPPED',
   },
   {
-    label: 'Completed',
+    titleLabel: 'Completed',
+    simpleLabel: 'completed',
     icon: <MdCheckCircleOutline title="Completed" />,
     IconWithProps: (props) => (
       <MdCheckCircleOutline title="Completed" {...props} />
@@ -71,7 +79,7 @@ export function useRatingStatusMap(itemType: SyncroItemType) {
   const map: {
     // PE 1/3 - use Record
     [key in RatingStatusType]: {
-      label: string
+      titleLabel: string
       icon: React.ReactNode
       IconWithProps: (props: IconProps) => React.ReactNode
       value: RatingStatusType
@@ -79,7 +87,7 @@ export function useRatingStatusMap(itemType: SyncroItemType) {
   } = {
     PLANNED: {
       ...ratingStatusArray[0],
-      label: typeMap.planTo,
+      titleLabel: typeMap.planTo,
     },
     IN_PROGRESS: ratingStatusArray[1],
     ON_HOLD: ratingStatusArray[2],
@@ -89,5 +97,3 @@ export function useRatingStatusMap(itemType: SyncroItemType) {
 
   return map
 }
-
-export type RatingStatusType = (typeof ratingStatusOptions)[number]
