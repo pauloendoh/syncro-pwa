@@ -99,7 +99,11 @@ const HomePage = () => {
         <Grid.Col span={0} xs={0} sm={5} md={4} lg={5} xl={4}>
           {!isSmallScreen && authUser && (
             <FlexCol gap={16}>
-              <UserPlannedItemsSection userId={authUser.id} titleIsOutside />
+              <UserPlannedItemsSection
+                userId={authUser.id}
+                titleIsOutside
+                showMoreMenu
+              />
               <UsersSuggestedForYouSidebar />
             </FlexCol>
           )}
