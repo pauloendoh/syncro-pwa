@@ -163,33 +163,37 @@ const UserItemsPage = () => {
               {finalItems.length} items
             </Text>
 
-            {isLoading && <CenterLoader mt={24} />}
+            {isLoading ? (
+              <CenterLoader mt={24} />
+            ) : (
+              <>
+                {view === 'md' && (
+                  <Box mt={8}>
+                    <UserItemsMdTable
+                      items={finalItems}
+                      thisIsYourList={thisIsYourList}
+                    />
+                  </Box>
+                )}
 
-            {view === 'md' && (
-              <Box mt={8}>
-                <UserItemsMdTable
-                  items={finalItems}
-                  thisIsYourList={thisIsYourList}
-                />
-              </Box>
-            )}
-
-            {view === 'lg' && (
-              <UserItemsList
-                onRefresh={refetch}
-                isLoading={false}
-                itemType={itemType}
-                sortedItems={finalItems}
-                sortingBy={sortingBy}
-                thisIsYourList={thisIsYourList}
-                filterByGenre={selectedGenre}
-              />
-            )}
-            {view === 'grid' && (
-              <UserItemsGrid
-                items={finalItems}
-                thisIsYourList={thisIsYourList}
-              />
+                {view === 'lg' && (
+                  <UserItemsList
+                    onRefresh={refetch}
+                    isLoading={false}
+                    itemType={itemType}
+                    sortedItems={finalItems}
+                    sortingBy={sortingBy}
+                    thisIsYourList={thisIsYourList}
+                    filterByGenre={selectedGenre}
+                  />
+                )}
+                {view === 'grid' && (
+                  <UserItemsGrid
+                    items={finalItems}
+                    thisIsYourList={thisIsYourList}
+                  />
+                )}
+              </>
             )}
           </Container>
         </Grid.Col>
