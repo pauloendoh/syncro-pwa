@@ -178,7 +178,9 @@ const EditRatingModal = () => {
       }
       withCloseButton={isMobile}
       styles={{
-        overlay: {},
+        overlay: {
+          zIndex,
+        },
         inner: {
           zIndex,
         },
