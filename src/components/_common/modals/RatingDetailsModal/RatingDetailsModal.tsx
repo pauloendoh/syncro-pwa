@@ -2,13 +2,15 @@ import { useQueryState } from 'next-usequerystate'
 
 import { Box, Flex, Modal, ScrollArea, Text, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import {
   RatingDto,
   buildRatingDto,
@@ -27,6 +29,7 @@ import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../overrides/MyNextLink'
+import EntryDetailsMoreMenu from './EntryDetailsMoreMenu/EntryDetailsMoreMenu'
 
 const RatingDetailsModal = () => {
   const {
@@ -75,6 +78,14 @@ const RatingDetailsModal = () => {
 
   const { isMobile } = useMyMediaQuery()
 
+  const { getAuthUserId } = useAuthStore()
+
+  const isMyEntry = useMemo(() => {
+    return getAuthUserId() === initialValue?.userId
+  }, [getAuthUserId(), initialValue?.userId])
+
+  const { openModal: openEditEntryModal } = useSaveRatingModalStore()
+
   return (
     <Modal
       scrollAreaComponent={ScrollArea.Autosize}
@@ -118,9 +129,13 @@ const RatingDetailsModal = () => {
             <FlexCol
               sx={{
                 justifyContent: 'space-between',
+                flexGrow: 1,
               }}
             >
-              <UsernameRatedRow rating={initialValue} />
+              <Flex justify={'space-between'}>
+                <UsernameRatedRow rating={initialValue} />
+                {isMyEntry && <EntryDetailsMoreMenu rating={initialValue} />}
+              </Flex>
 
               <FlexVCenter gap={4}>
                 <Text size={'xs'}>
