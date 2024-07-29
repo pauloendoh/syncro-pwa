@@ -94,9 +94,11 @@ const BrowseItemsExploreSection = ({ ...props }: Props) => {
             setItemType(newItemType)
           }}
           width={120}
+          label="Item Type"
         />
 
         <Select
+          label="Most Syncro Entries"
           w={128}
           data={periods}
           maxDropdownHeight={400}
