@@ -4,6 +4,7 @@ import { SortingByType } from '../../../types/domain/others/SortingByTypes'
 type Props = {
   value: SortingByType
   onChange: (value: SortingByType) => void
+  highestRatingLabel: string
 }
 
 const SortBySelector = (props: Props) => {
@@ -12,12 +13,12 @@ const SortBySelector = (props: Props) => {
       data={[
         {
           value: 'theirRatingDesc' as SortingByType,
-          label: 'Their rating (highest)',
+          label: props.highestRatingLabel,
         },
 
         {
           value: 'theirLastUpdatedAt' as SortingByType,
-          label: 'Last updated (newest)',
+          label: 'Last updated',
         },
       ]}
       value={props.value}

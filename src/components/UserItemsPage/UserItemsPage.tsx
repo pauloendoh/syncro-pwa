@@ -149,9 +149,13 @@ const UserItemsPage = () => {
                   label="Type"
                   width={150}
                 />
-                {!thisIsYourList && (
-                  <SortBySelector onChange={setSortingBy} value={sortingBy} />
-                )}
+                <SortBySelector
+                  onChange={setSortingBy}
+                  value={sortingBy}
+                  highestRatingLabel={
+                    thisIsYourList ? 'Rating' : 'Their rating'
+                  }
+                />
               </FlexVCenter>
 
               <FlexVCenter mt={16}>
