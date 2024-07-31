@@ -7,6 +7,7 @@ import FlexVCenter from '../../../../flex/FlexVCenter'
 type Props = {
   rating: RatingDto
   color: string
+  shouldPreventDefault?: boolean
 }
 
 const UserEntryIcons = ({ rating, ...props }: Props) => {
@@ -20,7 +21,7 @@ const UserEntryIcons = ({ rating, ...props }: Props) => {
         width: 'fit-content',
         cursor: 'pointer',
       }}
-      onClick={() => {
+      onClick={(e) => {
         openModal(rating)
       }}
     >

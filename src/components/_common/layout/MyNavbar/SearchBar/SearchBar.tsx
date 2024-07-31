@@ -274,6 +274,7 @@ const SearchBar = () => {
                     <UserEntryIcons
                       color={theme.colors.secondary[9]}
                       rating={myRating}
+                      shouldPreventDefault
                     />
                   )}
                 </FlexCol>
