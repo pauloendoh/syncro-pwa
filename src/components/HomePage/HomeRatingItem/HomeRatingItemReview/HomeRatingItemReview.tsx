@@ -1,6 +1,7 @@
 import { Box } from '@mantine/core'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import MyReactLinkify from '../../../_common/text/MyReactLinkify'
 import MySeeMore from '../../../_common/text/MySeeMore/MySeeMore'
 
 type Props = {
@@ -13,7 +14,9 @@ const HomeRatingItemReview = (props: Props) => {
   return (
     <Box mt={8}>
       <MySeeMore preventDefaultOnClick onClick={() => openModal(props.rating)}>
-        {props.rating.review}
+        <MyReactLinkify truncateWidth={200}>
+          {props.rating.review}
+        </MyReactLinkify>
       </MySeeMore>
     </Box>
   )

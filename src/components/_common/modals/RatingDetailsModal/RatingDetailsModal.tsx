@@ -29,6 +29,7 @@ import SyncroItemImage from '../../image/SyncroItemImage/SyncroItemImage'
 import UserImage from '../../image/SyncroItemImage/UserImage/UserImage'
 import CenterLoader from '../../overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../overrides/MyNextLink'
+import MyReactLinkify from '../../text/MyReactLinkify'
 import EntryDetailsMoreMenu from './EntryDetailsMoreMenu/EntryDetailsMoreMenu'
 
 const RatingDetailsModal = () => {
@@ -154,7 +155,7 @@ const RatingDetailsModal = () => {
                 whiteSpace: 'pre-line',
               }}
             >
-              {initialValue.review}
+              <MyReactLinkify>{initialValue.review}</MyReactLinkify>
             </Text>
           )}
 

@@ -30,8 +30,10 @@ import { sessionKeys, setSessionStorage } from '../utils/sessionStorageKeys'
 import { zIndexes } from '../utils/zIndexes'
 
 export default function App(props: AppProps) {
+  // PE 1/3
   const { Component, pageProps } = props
 
+  // PE 1/3 - why do we need this? There's only dark scheme..
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
     defaultValue: 'dark',
@@ -78,7 +80,6 @@ export default function App(props: AppProps) {
 
       <Head>
         <title>Syncro</title>
-        {/* favicon */}
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"

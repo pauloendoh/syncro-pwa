@@ -112,3 +112,6 @@ self.addEventListener('notificationclick', (event) => {
       })
   )
 })
+
+// @ts-expect-error
+importScripts('https://cdn.pushalert.co/sw-72747.js')
