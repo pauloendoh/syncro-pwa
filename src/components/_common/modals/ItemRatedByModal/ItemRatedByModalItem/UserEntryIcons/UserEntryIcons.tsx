@@ -8,6 +8,7 @@ type Props = {
   rating: RatingDto
   color: string
   clickShouldStopPropagation?: boolean
+  clickShouldPreventDefault?: boolean
 }
 
 const UserEntryIcons = ({ rating, ...props }: Props) => {
@@ -22,11 +23,14 @@ const UserEntryIcons = ({ rating, ...props }: Props) => {
         cursor: 'pointer',
       }}
       onClick={(e) => {
-        openModal(rating)
-
         if (props.clickShouldStopPropagation) {
           e.stopPropagation()
         }
+        if (props.clickShouldPreventDefault) {
+          e.preventDefault()
+        }
+
+        openModal(rating)
       }}
     >
       {!!rating.review && <MyIcons.Review color={props.color} />}

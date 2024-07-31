@@ -275,6 +275,7 @@ const SearchBar = () => {
                       color={theme.colors.secondary[9]}
                       rating={myRating}
                       clickShouldStopPropagation
+                      clickShouldPreventDefault
                     />
                   )}
                 </FlexCol>
