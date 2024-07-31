@@ -7,7 +7,7 @@ import FlexVCenter from '../../../../flex/FlexVCenter'
 type Props = {
   rating: RatingDto
   color: string
-  shouldPreventDefault?: boolean
+  clickShouldStopPropagation?: boolean
 }
 
 const UserEntryIcons = ({ rating, ...props }: Props) => {
@@ -23,6 +23,10 @@ const UserEntryIcons = ({ rating, ...props }: Props) => {
       }}
       onClick={(e) => {
         openModal(rating)
+
+        if (props.clickShouldStopPropagation) {
+          e.stopPropagation()
+        }
       }}
     >
       {!!rating.review && <MyIcons.Review color={props.color} />}
