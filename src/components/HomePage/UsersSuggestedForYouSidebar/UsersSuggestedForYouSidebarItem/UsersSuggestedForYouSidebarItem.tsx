@@ -1,3 +1,6 @@
+import { ActionIcon } from '@mantine/core'
+import { MdClose } from 'react-icons/md'
+import useIgnoreFollowRecommendationMutation from '../../../../hooks/react-query/item-recommendation/useIgnoreFollowRecommendationMutation'
 import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
 import { urls } from '../../../../utils/urls/urls'
 import FollowUnfollowButton from '../../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
@@ -12,6 +15,7 @@ type Props = {
 }
 
 const UsersSuggestedForYouSidebarItem = ({ ...props }: Props) => {
+  const { mutate: submiteIgnore } = useIgnoreFollowRecommendationMutation()
   return (
     <FlexVCenter justify={'space-between'} maw={400}>
       <FlexVCenter className="UsersSuggestedForYouSidebarItem" gap={16}>
@@ -27,7 +31,16 @@ const UsersSuggestedForYouSidebarItem = ({ ...props }: Props) => {
           </MyNextLink>
         </FlexCol>
       </FlexVCenter>
-      <FollowUnfollowButton profileUserId={props.user.id} />
+
+      <FlexVCenter gap={4}>
+        <FollowUnfollowButton profileUserId={props.user.id} />
+        <ActionIcon
+          title="Ignore follow recommendation "
+          onClick={() => submiteIgnore({ ignoreUserId: props.user.id })}
+        >
+          <MdClose />
+        </ActionIcon>
+      </FlexVCenter>
     </FlexVCenter>
   )
 }

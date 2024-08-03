@@ -33,6 +33,7 @@ type SearchPreviewDto = {
 
 const SearchBar = () => {
   const theme = useMantineTheme()
+
   const { q, type } = useMyRouterQuery()
   const [input, setInput] = useState('')
 
@@ -43,8 +44,11 @@ const SearchBar = () => {
   const router = useRouter()
 
   const { selectedType, setSelectedType } = useSearchStore()
+
   useEffect(() => {
-    if (router.isReady && type) setSelectedType(type)
+    if (router.isReady && type) {
+      setSelectedType(type)
+    }
   }, [router.isReady])
 
   const handleSubmit = useSubmitSearchBar({
@@ -65,6 +69,7 @@ const SearchBar = () => {
 
   const axios = useAxios()
 
+  // PE 2/3 - rename to searchPreviewItems
   const handlePreviewItems = useCallback(
     (input: string, selectedType: SearchType) => {
       if (q === debouncedInput && type === selectedType) {
@@ -102,6 +107,7 @@ const SearchBar = () => {
 
   const clickOutsideRef = useClickOutside(() => setPreviewData([]))
 
+  // PE 2/3 - rename to SelectedItemTypeIcon, and maybe use SyncroItemIcon component?
   const SelectedIcon = useMemo(() => {
     const Icon = searchTabOptions.find(
       (option) => option.key === selectedType
@@ -206,6 +212,7 @@ const SearchBar = () => {
         }}
       />
 
+      {/* PE 1/3 - separate into a different component SearchPreviewItem */}
       {previewData.length > 0 && (
         <Paper
           ref={clickOutsideRef}

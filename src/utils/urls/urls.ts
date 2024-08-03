@@ -231,6 +231,7 @@ export const urls = {
       '/item-recommendations-for-me?' + qs.stringify({ itemType }),
     userRecommendationsForMe: '/user-recommendations-for-me',
     ignoreItemRecommendation: '/ignore-recommendation',
+    ignoreFollowRecommendation: '/ignore-follow-recommendation',
     importConnectors: '/import-connectors',
     importConnectorsValidate: (params: { connector: string; url: string }) =>
       `/import-connectors/validate?${qs.stringify(params)}`,

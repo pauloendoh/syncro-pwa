@@ -1,4 +1,6 @@
-import { Box } from '@mantine/core'
+import { ActionIcon, Box } from '@mantine/core'
+import { MdClose } from 'react-icons/md'
+import useIgnoreFollowRecommendationMutation from '../../../../hooks/react-query/item-recommendation/useIgnoreFollowRecommendationMutation'
 import { useMyColors } from '../../../../hooks/useMyColors'
 import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
 import { urls } from '../../../../utils/urls/urls'
@@ -14,9 +16,12 @@ type Props = {
 
 const UserRecommendationCard = ({ ...props }: Props) => {
   const { border } = useMyColors()
+  const { mutate: submitIgnore } = useIgnoreFollowRecommendationMutation()
+
   return (
     <Box
       className="UserRecommendationCard"
+      pos="relative"
       sx={{
         paddingInline: 8,
         paddingBlock: 16,
@@ -25,6 +30,16 @@ const UserRecommendationCard = ({ ...props }: Props) => {
         width: 133,
       }}
     >
+      <ActionIcon
+        pos="absolute"
+        top={4}
+        right={4}
+        onClick={() => submitIgnore({ ignoreUserId: props.user.id })}
+        title="Ignore follow recommendation"
+      >
+        <MdClose />
+      </ActionIcon>
+
       <FlexCol
         align={'center'}
         justify={'space-between'}
