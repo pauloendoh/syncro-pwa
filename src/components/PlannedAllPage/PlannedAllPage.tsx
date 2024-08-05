@@ -67,11 +67,16 @@ const PlannedAllPage = ({ ...props }: Props) => {
     [plannedItems]
   )
 
+  const plannedItemsCount = plannedItems?.length || 0
+
   return (
     <DefaultLayout horizontalScrollable>
       <Container size="xl">
         <FlexCol gap={16}>
-          <Title order={4}>All Planned Items</Title>
+          <Title order={4}>
+            All Planned Items&nbsp;
+            {plannedItemsCount > 0 && <Span>({plannedItemsCount})</Span>}
+          </Title>
 
           <Flex gap={24}>
             <div>
@@ -84,7 +89,12 @@ const PlannedAllPage = ({ ...props }: Props) => {
                 }}
               >
                 <FlexVCenter justify={'space-between'}>
-                  <Span weight={'bold'}>General Queue</Span>
+                  <Span weight={'bold'}>
+                    General Queue{' '}
+                    {queuedEntries.length > 0 && (
+                      <Span>({queuedEntries.length})</Span>
+                    )}
+                  </Span>
                   <MyInfoIcon
                     text="List of items that you plan to consume in the future, regardless of the type of item."
                     useQuestionIconInstead

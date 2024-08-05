@@ -14,6 +14,7 @@ type Props = {
   user: UserSimpleDto
 }
 
+// PE 3/3
 const UserRecommendationCard = ({ ...props }: Props) => {
   const { border } = useMyColors()
   const { mutate: submitIgnore } = useIgnoreFollowRecommendationMutation()

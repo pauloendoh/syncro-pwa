@@ -5,6 +5,7 @@ import { RatingSimilarityByTypeDto } from '../../../types/domain/rating/RatingSi
 import { urls } from '../../../utils/urls/urls'
 import useAuthStore from '../../zustand/useAuthStore'
 
+// PE 2/3
 export const useUserRecommendationsForMeQuery = () => {
   const { authUser } = useAuthStore()
   return useQuery<RatingSimilarityByTypeDto[], AxiosError>(

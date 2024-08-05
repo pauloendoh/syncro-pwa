@@ -9,7 +9,6 @@ import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfo
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
-import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import {
   RatingDto,
@@ -34,6 +33,7 @@ import EntryDetailsMoreMenu from './EntryDetailsMoreMenu/EntryDetailsMoreMenu'
 
 const RatingDetailsModal = () => {
   const {
+    // PE 1/3 - initialValue should be just a ratingId, this way you can use a useRatingDetatailsQuery or something
     initialValue,
     closeModal,
     openModal,
@@ -84,8 +84,6 @@ const RatingDetailsModal = () => {
   const isMyEntry = useMemo(() => {
     return getAuthUserId() === initialValue?.userId
   }, [getAuthUserId(), initialValue?.userId])
-
-  const { openModal: openEditEntryModal } = useSaveRatingModalStore()
 
   return (
     <Modal
