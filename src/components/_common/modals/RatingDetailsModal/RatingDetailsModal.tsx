@@ -132,7 +132,7 @@ const RatingDetailsModal = () => {
               }}
             >
               <Flex justify={'space-between'}>
-                <UsernameRatedRow rating={initialValue} />
+                <UsernameRatedRow rating={initialValue} alwaysShowStatusIcon />
                 {isMyEntry && <EntryDetailsMoreMenu rating={initialValue} />}
               </Flex>
 

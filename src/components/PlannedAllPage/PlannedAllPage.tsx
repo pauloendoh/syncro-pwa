@@ -10,9 +10,8 @@ import Span from '../_common/text/Span'
 import GeneralQueueTypeSection from './GeneralQueueTypeSection/GeneralQueueTypeSection'
 import GeneralQueueTypeSectionItem from './GeneralQueueTypeSection/GeneralQueueTypeSectionItem/GeneralQueueTypeSectionItem'
 
-type Props = {}
-
-const PlannedAllPage = ({ ...props }: Props) => {
+const PlannedAllPage = () => {
+  // PE 2/3 - rename everything to "entries" instead of items or ratings
   const { data: plannedItems } = usePlannedItemsQueryV2()
 
   const sortedRatings = useMemo(

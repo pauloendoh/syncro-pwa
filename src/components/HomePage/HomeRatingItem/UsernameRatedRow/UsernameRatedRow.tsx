@@ -9,6 +9,7 @@ import { useRatingStatusLabel } from '../getRatingStatusLabel/getRatingStatusLab
 
 type Props = {
   rating: RatingDto
+  alwaysShowStatusIcon?: boolean
 }
 
 const UsernameRatedRow = ({ ...props }: Props) => {
@@ -38,7 +39,15 @@ const UsernameRatedRow = ({ ...props }: Props) => {
         </Text>{' '}
       </MyNextLink>
       {statusLabel}{' '}
-      {!props.rating.ratingValue && (
+      <b
+        style={{
+          color: theme.colors.yellow[5],
+          marginRight: 2,
+        }}
+      >
+        {props.rating.ratingValue}
+      </b>
+      {(props.alwaysShowStatusIcon || !props.rating.ratingValue) && (
         <StatusIcon
           style={{
             fontSize: 16,
@@ -48,13 +57,6 @@ const UsernameRatedRow = ({ ...props }: Props) => {
           }}
         />
       )}
-      <b
-        style={{
-          color: theme.colors.yellow[5],
-        }}
-      >
-        {props.rating.ratingValue}
-      </b>
       {props.rating.isPrivate && (
         <Tooltip label="This entry is private">
           <span
