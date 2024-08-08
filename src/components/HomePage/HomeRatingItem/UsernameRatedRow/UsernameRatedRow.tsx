@@ -12,6 +12,7 @@ type Props = {
   alwaysShowStatusIcon?: boolean
 }
 
+// PE 2/3 - maybe improve this component name?
 const UsernameRatedRow = ({ ...props }: Props) => {
   const { isMobile } = useMyMediaQuery()
 

@@ -2,6 +2,7 @@ import { Box, Container, Grid, Text, Title } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
+import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -109,6 +110,10 @@ const UserItemsPage = () => {
     return filteredItems
   }, [selectedGenre, sortedItems, filter.title, filter.byStatus])
 
+  const typeMap = useSyncroItemTypeMap({
+    itemType: itemType,
+  })
+
   return (
     <DefaultLayout>
       <Head>
@@ -131,7 +136,9 @@ const UserItemsPage = () => {
                 pictureUrl={userInfo?.profile?.pictureUrl}
                 userIdForLink={thisIsYourList ? authUser?.id : userInfo?.id}
               />
-              <Title order={3}>{userInfo?.username}'s items</Title>
+              <Title order={3}>
+                {userInfo?.username}'s {typeMap.getTypeLabelLowerCase(true)}
+              </Title>
             </FlexVCenter>
             {isSmallScreen && (
               <Box mt={16} w="100%">
@@ -146,7 +153,7 @@ const UserItemsPage = () => {
                   onChange={(type) => {
                     setItemType(type)
                   }}
-                  label="Type"
+                  label="Item type"
                   width={150}
                 />
                 <SortBySelector
