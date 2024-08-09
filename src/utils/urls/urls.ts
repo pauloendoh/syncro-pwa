@@ -241,6 +241,9 @@ export const urls = {
     dating: {
       myDatingProfile: API_URL + '/me/dating-profile',
     },
+    dashboard: {
+      userDailyLog: API_URL + '/user-daily-log',
+    },
   },
 
   others: {

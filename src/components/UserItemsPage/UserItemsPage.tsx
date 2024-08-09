@@ -31,8 +31,11 @@ import UserItemsList from './UserItemsList/UserItemsList'
 import UserItemsMdTable from './UserItemsMdTable/UserItemsMdTable'
 import UserItemsViewSelector from './UserItemsViewSelector/UserItemsViewSelector'
 
+// PE 2/3 - maybe change variables order?
 const UserItemsPage = () => {
   const { userId } = useMyRouterQuery()
+
+  const { data: userInfo } = useUserInfoQuery(userId)
 
   type ViewType = 'md' | 'lg' | 'grid'
   const [view, setView] = useState<ViewType>('grid')
@@ -68,8 +71,6 @@ const UserItemsPage = () => {
     isLoading,
     refetch,
   } = useUserItemsQuery(userId, itemType as SyncroItemType)
-
-  const { data: userInfo } = useUserInfoQuery(userId)
 
   const authUser = useAuthStore((s) => s.authUser)
 

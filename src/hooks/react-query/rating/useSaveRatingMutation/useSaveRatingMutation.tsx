@@ -1,31 +1,26 @@
-import { Anchor } from '@mantine/core'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteFromArray, upsert } from 'endoh-utils/dist/array'
 import { useRouter } from 'next/router'
-import Span from '../../../components/_common/text/Span'
-import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { myNotifications } from '../../../utils/mantine/myNotifications'
-import { queryKeys } from '../../../utils/queryKeys'
-import { urls } from '../../../utils/urls/urls'
-import { useAxios } from '../../../utils/useAxios'
-import { useMyRouterQuery } from '../../useMyRouterQuery'
-import { useRatingDetailsModalStore } from '../../zustand/modals/useRatingDetailsModalStore'
-import useAuthStore from '../../zustand/useAuthStore'
-import { useMyRatingsQuery } from './useMyRatingsQuery'
+import { RatingDto } from '../../../../types/domain/rating/RatingDto'
+import { myNotifications } from '../../../../utils/mantine/myNotifications'
+import { queryKeys } from '../../../../utils/queryKeys'
+import { urls } from '../../../../utils/urls/urls'
+import { useAxios } from '../../../../utils/useAxios'
+import { useMyRouterQuery } from '../../../useMyRouterQuery'
+import { useRatingDetailsModalStore } from '../../../zustand/modals/useRatingDetailsModalStore'
+import useAuthStore from '../../../zustand/useAuthStore'
+import { moveToProfileOrStay } from './moveToProfileOrStay/moveToProfileOrStay'
 
+// PE 2/3
 const useSaveRatingMutation = () => {
+  const axios = useAxios()
   const queryClient = useQueryClient()
-  // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
-  const { userId: pageUserId } = useMyRouterQuery()
-  const { openModal: openModal } = useRatingDetailsModalStore()
-  const { data: ratings } = useMyRatingsQuery()
 
   const router = useRouter()
+  const { userId: pageUserId } = useMyRouterQuery()
 
+  const { openModal: openEntryDetailsModal } = useRatingDetailsModalStore()
   const { getAuthUserId } = useAuthStore()
-
-  const axios = useAxios()
-
   const { authUser } = useAuthStore()
 
   return useMutation(
@@ -42,6 +37,7 @@ const useSaveRatingMutation = () => {
       onSuccess: (savedRating, payload) => {
         queryClient.invalidateQueries([urls.api.plannedItemsV2(authUser?.id!)])
 
+        // PE 1/3 - why would this happen?
         if (!savedRating) {
           if (payload.id) {
             queryClient.setQueryData<RatingDto[]>(
@@ -55,26 +51,22 @@ const useSaveRatingMutation = () => {
           return
         }
 
-        const prev = queryClient.getQueryData<RatingDto[]>([urls.api.myRatings])
+        // this has to be done before updating myRatings
+        const prevMyRatings = queryClient.getQueryData<RatingDto[]>([
+          urls.api.myRatings,
+        ])
+
         queryClient.setQueryData<RatingDto[]>([urls.api.myRatings], (curr) => {
           return upsert(curr, savedRating, (i) => i.id === savedRating.id)
         })
 
-        if (prev?.length === 0) {
-          router.push(urls.pages.userProfile(getAuthUserId()))
-          myNotifications.success(
-            '🎉 Your first rating was saved! Moving to profile...'
-          )
-        } else {
-          myNotifications.success(
-            <Span>
-              Rating saved!{' '}
-              <Anchor onClick={() => openModal(savedRating)}>
-                See details
-              </Anchor>
-            </Span>
-          )
-        }
+        moveToProfileOrStay({
+          prevMyRatings: prevMyRatings || [],
+          router,
+          authUserId: getAuthUserId(),
+          openEntryDetailsModal,
+          savedRating,
+        })
 
         // update timeline item
         queryClient.setQueryData<{ pages: RatingDto[][] }>(
