@@ -58,7 +58,7 @@ export const urls = {
 
     settings: (page: SettingsPageType = 'account') => `/settings/${page}`,
 
-    admin: () => '/admin',
+    admin: () => '/admin/dashboard/users',
 
     allPlanned: () => '/all-planned',
   },
@@ -242,7 +242,9 @@ export const urls = {
       myDatingProfile: API_URL + '/me/dating-profile',
     },
     dashboard: {
-      userDailyLog: API_URL + '/user-daily-log',
+      addUserDailyLog: API_URL + '/user-daily-log',
+      getDailyLoggedUsers: (lastNDays = 30) =>
+        `/daily-logged-users?lastNDays=${lastNDays}`,
     },
   },
 

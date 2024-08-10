@@ -20,6 +20,7 @@ import { useEffect } from 'react'
 import BreakpointsViewer from '../components/_common/BreakpointsViewer/BreakpointsViewer'
 import { RouterTransition } from '../components/_common/RouterTransition/RouterTransition'
 import useCheckAuthCookieOrLogout from '../hooks/domains/auth/useCheckAuthCookieOrLogout'
+import { useLogUserInfo } from '../hooks/domains/dashboard/useLogUserInfo'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
 import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlOnSessionStorage'
 import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
@@ -73,6 +74,7 @@ export default function App(props: AppProps) {
   }, [height, width])
 
   useSavePreviousUrlOnSessionStorage()
+  useLogUserInfo()
 
   return (
     <QueryClientProvider client={myQueryClient}>
