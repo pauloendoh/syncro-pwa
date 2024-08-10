@@ -1,7 +1,7 @@
 import { Table } from '@mantine/core'
+import { DateTime } from 'luxon'
 import { useMemo } from 'react'
 import { useDailyLoggedUsersQuery } from '../../../hooks/react-query/dashboard/useDailyLoggedUsersQuery'
-import MyTimeagoSpan from '../../_common/text/MyTimeagoSpan'
 
 type Props = {}
 
@@ -29,15 +29,37 @@ const UsersDashboard = ({ ...props }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {sortedItems.map((item) => (
-            <tr key={item.userId}>
-              <td>{item.username}</td>
-              <td>{item.count}</td>
-              <td>
-                <MyTimeagoSpan date={item.lastLoggedDate} />
-              </td>
-            </tr>
-          ))}
+          {sortedItems.map((item) => {
+            const now = DateTime.now()
+            const diff = Math.floor(
+              now.diff(DateTime.fromISO(item.lastLoggedDate), 'days').days
+            )
+
+            const getDiffLabel = () => {
+              if (diff === 0) {
+                return 'Today'
+              }
+              if (diff === 1) {
+                return 'Yesterday'
+              }
+
+              return `${diff} days ago`
+            }
+
+            return (
+              <tr key={item.userId}>
+                <td>{item.username}</td>
+                <td>{item.count}</td>
+                <td>
+                  <span
+                    title={new Date(item.lastLoggedDate).toLocaleDateString()}
+                  >
+                    {getDiffLabel()}
+                  </span>
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </Table>
     </div>
