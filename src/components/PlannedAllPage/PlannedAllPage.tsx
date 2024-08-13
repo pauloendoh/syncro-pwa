@@ -118,6 +118,12 @@ const PlannedAllPage = () => {
                 entries={byType.entries}
               />
             ))}
+
+            <div
+              style={{
+                minWidth: 40,
+              }}
+            />
           </Flex>
         </FlexCol>
       </Container>
