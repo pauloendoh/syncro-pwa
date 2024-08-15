@@ -1,6 +1,7 @@
 import { ActionIcon, Menu } from '@mantine/core'
-import { MdMoreHoriz, MdOutlineShare } from 'react-icons/md'
+import { MdEdit, MdMoreHoriz, MdOutlineShare } from 'react-icons/md'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
+import useShareRatingModalStore from '../../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 
 type Props = {
@@ -9,6 +10,7 @@ type Props = {
 
 const EntryDetailsMoreMenu = (props: Props) => {
   const { openModal } = useSaveRatingModalStore()
+  const { openModal: openShareRatingModal } = useShareRatingModalStore()
 
   return (
     <Menu shadow="md" position="bottom-end">
@@ -20,12 +22,20 @@ const EntryDetailsMoreMenu = (props: Props) => {
 
       <Menu.Dropdown>
         <Menu.Item
-          icon={<MdOutlineShare size={14} />}
+          icon={<MdEdit size={14} />}
           onClick={() => {
             openModal(props.rating)
           }}
         >
           Edit entry
+        </Menu.Item>
+        <Menu.Item
+          icon={<MdOutlineShare size={14} />}
+          onClick={() => {
+            openShareRatingModal(props.rating)
+          }}
+        >
+          Share entry
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

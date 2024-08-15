@@ -11,6 +11,7 @@ import { FaTwitter } from 'react-icons/fa'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { myNotifications } from '../../../../utils/mantine/myNotifications'
 import { urls } from '../../../../utils/urls/urls'
@@ -55,11 +56,23 @@ const ShareRatingModal = () => {
     return text
   }, [rating, item, typeMap, urlToCopy])
 
+  const zIndex = useModalZIndex({
+    isOpen: !!shareRatingModal,
+  })
+
   return (
     <Modal
       opened={!!shareRatingModal}
       onClose={closeModal}
       title={<Title order={4}>Share your entry</Title>}
+      styles={{
+        overlay: {
+          zIndex,
+        },
+        inner: {
+          zIndex,
+        },
+      }}
     >
       {!!rating && rating.syncroItemId && (
         <FlexCol w="100%" gap={32}>
