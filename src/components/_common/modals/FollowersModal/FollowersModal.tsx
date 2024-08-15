@@ -1,11 +1,13 @@
-import { Box, Modal, ScrollArea, Tabs } from '@mantine/core'
+import { ActionIcon, Box, Modal, ScrollArea, Tabs } from '@mantine/core'
 import { useEffect, useMemo, useState } from 'react'
+import { MdClose } from 'react-icons/md'
 import { useFollowersQuery } from '../../../../hooks/react-query/follow/useFollowersQuery'
 import { useFollowingUsersQuery } from '../../../../hooks/react-query/follow/useFollowingUsersQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useFollowersModalStore from '../../../../hooks/zustand/modals/useFollowersModalStore'
 import UserSearchItem from '../../../SearchPageContent/UserSearchResults/UserSearchItem/UserSearchItem'
 import FlexCol from '../../flex/FlexCol'
+import FlexVCenter from '../../flex/FlexVCenter'
 
 const FollowersModal = () => {
   const { initialValue, closeModal } = useFollowersModalStore()
@@ -48,7 +50,7 @@ const FollowersModal = () => {
       size="sm"
       withCloseButton={false}
     >
-      <Box mt={4}>
+      <Box>
         <Tabs
           styles={{
             tabsList: {
@@ -63,10 +65,19 @@ const FollowersModal = () => {
             setTabIndex(Number(newTabValue))
           }}
         >
-          <Tabs.List>
-            <Tabs.Tab value={'0'}>Followers</Tabs.Tab>
-            <Tabs.Tab value={'1'}>Following</Tabs.Tab>
-          </Tabs.List>
+          <FlexVCenter justify={'space-between'}>
+            <Tabs.List>
+              <Tabs.Tab value={'0'}>Followers</Tabs.Tab>
+              <Tabs.Tab value={'1'}>Following</Tabs.Tab>
+            </Tabs.List>
+            <ActionIcon
+              onClick={() => {
+                closeModal()
+              }}
+            >
+              <MdClose />
+            </ActionIcon>
+          </FlexVCenter>
 
           {!!userList.length && (
             <ScrollArea.Autosize mah={'calc(100vh - 168px)'}>
