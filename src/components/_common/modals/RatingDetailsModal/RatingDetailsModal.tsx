@@ -87,7 +87,7 @@ const RatingDetailsModal = () => {
 
   return (
     <Modal
-      scrollAreaComponent={ScrollArea.Autosize}
+      scrollAreaComponent={isMobile ? undefined : ScrollArea.Autosize}
       opened={!!modalIsOpen}
       onClose={closeModal}
       fullScreen={isMobile}
