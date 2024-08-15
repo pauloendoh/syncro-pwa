@@ -11,7 +11,7 @@ const UserItemsFilterSharedSection = ({ ...props }: Props) => {
   return (
     <Select
       maxDropdownHeight={240}
-      label="By status"
+      label="Status"
       data={
         [
           { value: '', label: 'All' },
@@ -28,7 +28,6 @@ const UserItemsFilterSharedSection = ({ ...props }: Props) => {
           status === '' ? null : (status as RatingStatusType)
         )
       }
-      placeholder="By status"
       withinPortal
     />
   )
