@@ -125,7 +125,7 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
   },
   {
     itemType: 'goodreadsBook',
-    labelPlural: 'Goodreads Books',
+    labelPlural: 'Books',
     site: 'Goodreads',
     tabIndex: 2.5,
     getTypeLabel: (isPlural = false) => (isPlural ? 'Books' : 'Book'),

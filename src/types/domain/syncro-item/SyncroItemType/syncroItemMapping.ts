@@ -1,5 +1,6 @@
 import { SyncroItemType } from './SyncroItemType'
 
+// PE 1/3 - remover isso?.. usar o useSyncroItemTypeMap ?
 export const syncroItemMapping: {
   [key in SyncroItemType]: {
     labelPlural: string
@@ -23,7 +24,7 @@ export const syncroItemMapping: {
     tabIndex: 2,
   },
   goodreadsBook: {
-    labelPlural: 'Goodreads Books',
+    labelPlural: 'Books',
     site: 'Goodreads',
     tabIndex: 3,
   },
