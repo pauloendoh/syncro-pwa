@@ -22,7 +22,10 @@ import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useRecommendItemsToUserModalStore from '../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
-import { syncroItemTypes } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import {
+  syncroItemTypes,
+  validSyncroItemTypes,
+} from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { htmlTitles } from '../../utils/consts/htmlTitles'
 import UserPlannedItemsSection from '../HomePage/PlannedItemsHomeSection/UserPlannedItemsSection'
 import UsersSuggestedForYouSidebar from '../HomePage/UsersSuggestedForYouSidebar/UsersSuggestedForYouSidebar'
@@ -60,7 +63,7 @@ const UserProfilePage = () => {
 
   const { data: favoriteItems } = useFavoriteItemsQuery({ userId })
   const typesWithoutFavorites = useMemo(() => {
-    return syncroItemTypes.filter((type) => {
+    return validSyncroItemTypes.filter((type) => {
       const typeFavorites = favoriteItems?.filter(
         (fav) => fav.syncroItem?.type === type
       )
