@@ -19,7 +19,9 @@ const TrailerSection = (props: Props) => {
 
   return (
     <Box>
-      <Title order={5}>Trailers</Title>
+      <Title order={5}>
+        {props.item.type === 'game' ? 'Gameplay' : 'Trailers'}
+      </Title>
       <Box mt={8}>
         {isLoading && (
           <Center sx={{ height: 80 }}>
