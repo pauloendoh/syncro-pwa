@@ -25,6 +25,7 @@ const ItemSavedByPreloaded = (props: Props) => {
       }}
       sx={{
         cursor: 'pointer',
+        width: 'fit-content',
       }}
     >
       <div
