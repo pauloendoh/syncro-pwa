@@ -2,7 +2,7 @@ import { Title } from '@mantine/core'
 import { useMemo } from 'react'
 import { FavoriteItemDto } from '../../../hooks/react-query/favorite-item/types/FavoriteItemDto'
 import { useFavoriteItemsQuery } from '../../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
-import { syncroItemTypes } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { validSyncroItemTypes } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import FlexCol from '../../_common/flex/FlexCol'
 import FavoritesByType from './FavoritesByType/FavoritesByType'
 
@@ -17,7 +17,7 @@ const FavoritesSection = ({ userId }: Props) => {
     if (!favorites) return []
 
     // grouped by type, sorted by position asc
-    return syncroItemTypes.map((type) => ({
+    return validSyncroItemTypes.map((type) => ({
       type,
       items: favorites
         .filter((item: FavoriteItemDto) => item.syncroItem?.type === type)
