@@ -1,6 +1,7 @@
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 
 import { Flex, Text } from '@mantine/core'
+import { useState } from 'react'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
 import { MdImage } from 'react-icons/md'
 import { FavoriteSceneDto } from '../../../../../types/domain/rating/types/FavoriteSceneDto'
@@ -16,9 +17,17 @@ type Props = {
 const ShareFavoriteScenesSection = ({ ...props }: Props) => {
   const axios = useAxios()
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleUpload = async (file: File) => {
+    if (isLoading) {
+      return
+    }
+
     const formData = new FormData()
     formData.append('file', file)
+
+    setIsLoading(true)
 
     const response = await axios.post<string>(
       urls.api.uploadFavoriteScene,
@@ -33,6 +42,8 @@ const ShareFavoriteScenesSection = ({ ...props }: Props) => {
         position: props.values.length + 1,
       },
     ])
+
+    setIsLoading(false)
   }
 
   const handleRemove = (imageUrl: string) => {
@@ -68,16 +79,21 @@ const ShareFavoriteScenesSection = ({ ...props }: Props) => {
           />
         </div>
       ))}
+
       <Dropzone
         multiple={false}
         onDrop={(files) => {
           handleUpload(files[0])
         }}
         maxSize={3 * 1024 ** 2}
+        onReject={() => {
+          alert(`File is too large, max size is 3mb`)
+        }}
         accept={IMAGE_MIME_TYPE}
         w={100}
         h={100}
         p={8}
+        loading={isLoading}
       >
         <FlexCol align={'center'} gap={4} pt={8}>
           <MdImage />
