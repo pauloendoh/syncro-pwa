@@ -6,9 +6,11 @@ import { useFollowingUsersQuery } from '../../../hooks/react-query/follow/useFol
 import { useUserItemsCountQuery } from '../../../hooks/react-query/syncro-item/useUserItemsCountQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import useFollowersModalStore from '../../../hooks/zustand/modals/useFollowersModalStore'
+import { urls } from '../../../utils/urls/urls'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import CenterLoader from '../../_common/overrides/CenterLoader/CenterLoader'
+import MyNextLink from '../../_common/overrides/MyNextLink'
 
 type Props = {
   userId: string
@@ -72,10 +74,12 @@ const FollowersCountRowProfile = (props: Props) => {
         <Text>Following</Text>
       </FlexCol>
 
-      <FlexCol align={'center'}>
-        <Text weight={500}>{itemsCount}</Text>
-        <Text>Items</Text>
-      </FlexCol>
+      <MyNextLink href={urls.pages.userItems(props.userId, 'movie')}>
+        <FlexCol align={'center'}>
+          <Text weight={500}>{itemsCount}</Text>
+          <Text>Items</Text>
+        </FlexCol>
+      </MyNextLink>
     </FlexVCenter>
   )
 }
