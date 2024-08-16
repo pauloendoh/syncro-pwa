@@ -2,6 +2,7 @@ import {
   Button,
   Center,
   Modal,
+  Text,
   TextInput,
   Title,
   useMantineTheme,
@@ -10,8 +11,10 @@ import { useMemo } from 'react'
 import { FaTwitter } from 'react-icons/fa'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
+import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
+import useMinRatingSharingModalStore from '../../../../hooks/zustand/modals/useMinRatingSharingModalStore'
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { myNotifications } from '../../../../utils/mantine/myNotifications'
 import { urls } from '../../../../utils/urls/urls'
@@ -19,7 +22,11 @@ import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 
 const ShareRatingModal = () => {
-  const { initialValue: rating, closeModal } = useShareRatingModalStore()
+  const {
+    initialValue: rating,
+    closeModal,
+    isAfterRating,
+  } = useShareRatingModalStore()
 
   const theme = useMantineTheme()
 
@@ -59,6 +66,11 @@ const ShareRatingModal = () => {
   const zIndex = useModalZIndex({
     isOpen: !!shareRatingModal,
   })
+
+  const { data: userSettings } = useSettingsQuery()
+
+  const { openModal: openMinRatingSharingModal } =
+    useMinRatingSharingModalStore()
 
   return (
     <Modal
@@ -124,6 +136,35 @@ const ShareRatingModal = () => {
             />
             <Button>Copy</Button>
           </FlexVCenter>
+
+          {isAfterRating && Boolean(userSettings?.minRatingForSharing) && (
+            <FlexVCenter>
+              <span>
+                This pop-up opens after giving a rating of{' '}
+                <b
+                  style={{
+                    color: theme.colors.yellow[6],
+                  }}
+                >
+                  {userSettings?.minRatingForSharing}
+                </b>{' '}
+                or more{' '}
+                <Text
+                  component="span"
+                  size="sm"
+                  sx={{
+                    fontStyle: 'italic',
+                    color: theme.colors.gray[6],
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                  }}
+                  onClick={() => openMinRatingSharingModal()}
+                >
+                  (edit)
+                </Text>
+              </span>
+            </FlexVCenter>
+          )}
         </FlexCol>
       )}
     </Modal>

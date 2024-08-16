@@ -7,14 +7,21 @@ import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   initialValue: RatingDto | null
-  openModal: (ratingDto: RatingDto) => void
+  isAfterRating: boolean
+  openModal: (
+    ratingDto: RatingDto,
+    options?: {
+      isAfterRating?: boolean
+    }
+  ) => void
   closeModal: () => void
 }
 
 const useShareRatingModalStore = create<IStore>((set, get) => ({
   initialValue: null,
-  openModal: (initialValue) => {
-    set({ initialValue })
+  isAfterRating: false,
+  openModal: (initialValue, options) => {
+    set({ initialValue, isAfterRating: options?.isAfterRating ?? false })
     Router.query[QueryParams.shareRatingModal] = 'true'
     Router.push(Router, undefined, { scroll: false })
 
@@ -22,6 +29,9 @@ const useShareRatingModalStore = create<IStore>((set, get) => ({
   },
   closeModal: () => {
     routerBackIfSameDomainOrClearQueryParam(QueryParams.shareRatingModal)
+    setTimeout(() => {
+      set({ isAfterRating: false })
+    }, 1000)
   },
 }))
 

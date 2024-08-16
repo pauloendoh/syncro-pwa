@@ -27,4 +27,6 @@ export type UserSettingsDto = {
   onboardingFavoriteGenre: SyncroItemType
 
   scoringSystem: ScoringSystem
+
+  minRatingForSharing: number | null
 }

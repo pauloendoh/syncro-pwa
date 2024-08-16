@@ -3,7 +3,6 @@ import { create } from 'zustand'
 import { ConnectorSource } from '../../../components/SettingsPage/ImportRatingsPage/ConnectorsSection/connectorOptions/connectorOptions'
 import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
-import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   initialValue: ConnectorSource
@@ -19,8 +18,6 @@ const useConnectorsModalStore = create<IStore>((set, get) => ({
     set({ initialValue, isOpen: true })
     Router.query[QueryParams.connectorsModal] = 'open'
     Router.push(Router, undefined, { scroll: false, shallow: true })
-
-    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => {
     set({ isOpen: false })

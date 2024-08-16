@@ -18,13 +18,17 @@ import { useForm } from 'react-hook-form'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation/useSaveRatingMutation'
+import { useUserRatingsQuery } from '../../../../hooks/react-query/rating/useUserRatingsQuery'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
+import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
 import { useUsersToRecommendQueryV2 } from '../../../../hooks/react-query/user/useMutualsSavedItemQueryV2'
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
+import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
+import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import {
   RatingDto,
   buildRatingDto,
@@ -40,8 +44,6 @@ import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
 import RatingSection from './RatingSection/RatingSection'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
 import ShareFavoriteScenesSection from './ShareFavoriteScenesSection/ShareFavoriteScenesSection'
-
-const cn = (...classNames: string[]) => classNames.filter(Boolean).join(' ')
 
 const EditRatingModal = () => {
   const {
@@ -60,9 +62,29 @@ const EditRatingModal = () => {
   const { mutate: submitSaveRating, isLoading: isLoadingMutation } =
     useSaveRatingMutation()
 
+  const { openModal: openShareRatingModal } = useShareRatingModalStore()
+  const { data: userSettings } = useSettingsQuery()
+
+  const { getAuthUserId } = useAuthStore()
+  const { data: userRatings } = useUserRatingsQuery(getAuthUserId())
+
   const onSubmit = async (data: RatingDto) => {
     submitSaveRating(data, {
       onSuccess: () => {
+        const minRating = userSettings?.minRatingForSharing ?? 0
+        const ratingsCount = userRatings?.length ?? 0
+
+        if (minRating === 0 || ratingsCount < 5) {
+          closeBothModals()
+          return
+        }
+
+        const prevRating = initialValue?.ratingValue ?? 0
+        const newRating = data.ratingValue ?? 0
+
+        if (prevRating < minRating && newRating >= minRating) {
+          openShareRatingModal(data, { isAfterRating: true })
+        }
         closeBothModals()
       },
     })
@@ -144,7 +166,9 @@ const EditRatingModal = () => {
         description: 'Are you sure you want to delete this entry?',
         onConfirm: () => {
           submitDeleteRating(initialValue.id, {
-            onSuccess: closeBothModals,
+            onSuccess: () => {
+              closeBothModals()
+            },
           })
         },
       })
