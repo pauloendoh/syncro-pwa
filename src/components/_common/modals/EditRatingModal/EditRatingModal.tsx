@@ -82,9 +82,10 @@ const EditRatingModal = () => {
         const prevRating = initialValue?.ratingValue ?? 0
         const newRating = data.ratingValue ?? 0
 
-        if (prevRating < minRating && newRating >= minRating) {
-          openShareRatingModal(data, { isAfterRating: true })
-        }
+        // WAIT FOR BETTER SHARING MODAL
+        // if (prevRating < minRating && newRating >= minRating) {
+        //   openShareRatingModal(data, { isAfterRating: true })
+        // }
         closeBothModals()
       },
     })
