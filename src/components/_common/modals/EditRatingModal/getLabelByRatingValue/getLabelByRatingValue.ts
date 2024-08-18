@@ -15,7 +15,7 @@ export const getShortLabelByRatingValue = (ratingValue: number | null) => {
   if (ratingValue === 6) return 'Fine'
   if (ratingValue === 7) return 'Good'
   if (ratingValue === 8) return 'Very good'
-  if (ratingValue === 9) return 'Great'
+  if (ratingValue === 9) return 'Excellent!'
   if (ratingValue === 10) return 'Masterpiece!'
   return 'Rate'
 }

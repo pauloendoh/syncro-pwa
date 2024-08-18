@@ -48,7 +48,7 @@ const UserReviewsSection = (props: Props) => {
               >
                 {rating.ratingValue} -{' '}
                 {getShortLabelByRatingValue(
-                  Math.round(rating.ratingValue || 1)
+                  Math.floor(rating.ratingValue ?? 1)
                 )}
               </SemiBold>
 
