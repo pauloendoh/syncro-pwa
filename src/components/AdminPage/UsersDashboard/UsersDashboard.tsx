@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core'
+import { Table, Text } from '@mantine/core'
 import { DateTime } from 'luxon'
 import { useMemo } from 'react'
 import { useDailyLoggedUsersQuery } from '../../../hooks/react-query/dashboard/useDailyLoggedUsersQuery'
@@ -30,13 +30,16 @@ const UsersDashboard = ({ ...props }: Props) => {
         </thead>
         <tbody>
           {sortedItems.map((item) => {
-            const now = DateTime.now()
+            const today = DateTime.now().setZone('utc').startOf('day')
             const diff = Math.floor(
-              now.diff(DateTime.fromISO(item.lastLoggedDate), 'days').days
+              today.diff(
+                DateTime.fromISO(item.lastLoggedDate?.slice(0, 10)),
+                'days'
+              ).days
             )
 
             const getDiffLabel = () => {
-              if (diff === 0) {
+              if (diff <= 0) {
                 return 'Today'
               }
               if (diff === 1) {
@@ -48,11 +51,17 @@ const UsersDashboard = ({ ...props }: Props) => {
 
             return (
               <tr key={item.userId}>
-                <td>{item.username}</td>
+                <td>
+                  <Text truncate maw={120} title={item.username}>
+                    {item.username}
+                  </Text>
+                </td>
                 <td>{item.count}</td>
                 <td>
                   <span
-                    title={new Date(item.lastLoggedDate).toLocaleDateString()}
+                    title={DateTime.fromISO(item.lastLoggedDate)
+                      .setZone('utc')
+                      .toLocaleString()}
                   >
                     {getDiffLabel()}
                   </span>
