@@ -1,6 +1,7 @@
 import { Anchor, Text } from '@mantine/core'
 import { useMemo } from 'react'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
+import { pluralize } from '../../../utils/text/pluralize'
 
 type Props = {
   item: SyncroItemDto
@@ -22,10 +23,16 @@ const ImdbExtraInfoSection = ({ item }: Props) => {
 
     if (item.imdbExtraInfo?.episodesCount) {
       if (duration) {
-        return `${item.imdbExtraInfo?.episodesCount} episodes · ${duration}`
+        return `${item.imdbExtraInfo?.episodesCount} ${pluralize(
+          item.imdbExtraInfo?.episodesCount,
+          'episode'
+        )} · ${duration}`
       }
 
-      return `${item.imdbExtraInfo?.episodesCount} episodes`
+      return `${item.imdbExtraInfo?.episodesCount} ${pluralize(
+        item.imdbExtraInfo?.episodesCount,
+        'episode'
+      )}`
     }
 
     if (duration) {
