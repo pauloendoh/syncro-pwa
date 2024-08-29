@@ -20,6 +20,10 @@ const UserItemsMdTable = ({ ...props }: Props) => {
   const { data: authUserInfo } = useUserInfoQuery(authUser?.id)
   const theme = useMantineTheme()
 
+  if (props.items.length === 0) {
+    return null
+  }
+
   return (
     <Box
       className="UserItemsMdTable"
