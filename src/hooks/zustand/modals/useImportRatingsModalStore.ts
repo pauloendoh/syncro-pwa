@@ -4,7 +4,7 @@ import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
 import useModalZIndexStore from './useModalZIndexStore'
 
-export type ImportRatingsType = 'MAL-Anime'
+export type ImportRatingsType = 'MAL-Anime' | 'Anilist'
 
 interface IStore {
   initialValue: ImportRatingsType

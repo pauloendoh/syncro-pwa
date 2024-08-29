@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { ConnectorSource } from '../../../components/SettingsPage/ImportRatingsPage/ConnectorsSection/connectorOptions/connectorOptions'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
@@ -9,7 +10,7 @@ const useUpdateConnectorsMutation = () => {
 
   const axios = useAxios()
   return useMutation(
-    (payload: { connector: string; url: string }) =>
+    (payload: { connector: ConnectorSource; url: string }) =>
       axios
         .put<ImportConnectorsDto>(urls.api.importConnectors, payload)
         .then((res) => res.data),

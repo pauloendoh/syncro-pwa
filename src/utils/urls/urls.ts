@@ -7,6 +7,7 @@ import {
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 import { Period } from '../../components/ExplorePageContent/BrowseItemsExploreSection/BrowseItemsExploreSection'
+import { ConnectorSource } from '../../components/SettingsPage/ImportRatingsPage/ConnectorsSection/connectorOptions/connectorOptions'
 import { MostRatedItemsQueryParams } from '../../hooks/react-query/rating/types/MostRatedItemsQueryParams'
 import { ItemRatedByModalType } from '../../hooks/zustand/modals/useItemRatedByModalStore'
 import { RatingStatusType } from '../../types/domain/rating/ratingStatusArray'
@@ -117,10 +118,6 @@ export const urls = {
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
     checkMalUser: (username: string) => API_URL + `/check-mal/${username}`,
-    confirmAndStartAnimeImport: (username: string) =>
-      API_URL + `/confirm-and-start-anime-import/${username}`,
-    importItemsByRequestId: (requestId: string) =>
-      API_URL + `/import-request/${requestId}/import-items`,
 
     userInterests: (userId: string) => API_URL + `/user/${userId}/interests`,
 
@@ -233,8 +230,10 @@ export const urls = {
     ignoreItemRecommendation: '/ignore-recommendation',
     ignoreFollowRecommendation: '/ignore-follow-recommendation',
     importConnectors: '/import-connectors',
-    importConnectorsValidate: (params: { connector: string; url: string }) =>
-      `/import-connectors/validate?${qs.stringify(params)}`,
+    importConnectorsValidate: (params: {
+      connector: ConnectorSource
+      url: string
+    }) => `/import-connectors/validate?${qs.stringify(params)}`,
 
     amazonLinks: (itemId: string) => `/syncro-item/${itemId}/amazon-links`,
 

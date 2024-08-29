@@ -38,21 +38,15 @@ const ImportRatingsPage = (props: Props) => {
     <SettingsLayout
       rightContent={
         <Box>
-          {/* PE 1/3 - next two lines... can go on layout? :D */}
           <SettingsTitle page="import-ratings" />
-          <Box mt={16}>
-            <FlexCol>
-              <Box>
-                <MyTextLink onClick={() => openModal('MAL-Anime')}>
-                  MyAnimeList (anime & manga)
-                </MyTextLink>
-              </Box>
-            </FlexCol>
-          </Box>
-
-          {/* <Box mt={32}>
-            <ConnectorsSection />
-          </Box> */}
+          <FlexCol mt={16}>
+            <MyTextLink onClick={() => openModal('MAL-Anime')}>
+              MyAnimeList (anime & manga)
+            </MyTextLink>
+            {/* <MyTextLink onClick={() => openModal('Anilist')}>
+              Anilist (anime & manga)
+            </MyTextLink> */}
+          </FlexCol>
         </Box>
       }
     />

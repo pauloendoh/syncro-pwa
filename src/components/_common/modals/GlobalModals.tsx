@@ -1,6 +1,5 @@
 import useSavedPositionSheetStore from '../../../hooks/zustand/action-sheets/useSavedPositionSheetStore'
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
-import ConnectorsModal from './ConnectorsModal/ConnectorsModal'
 import EditItemModal from './EditItemModal/EditItemModal'
 import EditRatingModal from './EditRatingModal/EditRatingModal'
 import FeedSettingsModal from './FeedSettingsModal/FeedSettingsModal'
@@ -41,7 +40,6 @@ const GlobalModals = (props: Props) => {
       <RatingsImportModal />
       <OnboardingModal />
       <UserSimilarityModal />
-      <ConnectorsModal />
       <LoadingModal />
 
       <InfoModal />

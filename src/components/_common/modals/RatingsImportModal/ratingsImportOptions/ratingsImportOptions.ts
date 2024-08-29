@@ -8,4 +8,8 @@ export const ratingsImportOptions: {
     type: 'MAL-Anime',
     title: 'MyAnimeList - Anime & Manga',
   },
+  {
+    type: 'Anilist',
+    title: 'Anilist - Anime & Manga',
+  },
 ]

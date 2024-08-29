@@ -1,6 +1,7 @@
 import { Modal, useMantineTheme } from '@mantine/core'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useImportRatingsModalStore from '../../../../hooks/zustand/modals/useImportRatingsModalStore'
+import AnilistImportModalContent from './AnilistImportModalContent/AnilistImportModalContent'
 import MalAnimeImportModalContent from './MalAnimeImportModalContent/MalAnimeImportModalContent'
 import { ratingsImportOptions } from './ratingsImportOptions/ratingsImportOptions'
 
@@ -19,6 +20,12 @@ const RatingsImportModal = () => {
     <Modal opened={!!importRatings} onClose={closeModal} title={option?.title}>
       {importType === 'MAL-Anime' && (
         <MalAnimeImportModalContent
+          closeModal={() => closeModal()}
+          afterConfirming={() => closeModal()}
+        />
+      )}
+      {importType === 'Anilist' && (
+        <AnilistImportModalContent
           closeModal={() => closeModal()}
           afterConfirming={() => closeModal()}
         />
