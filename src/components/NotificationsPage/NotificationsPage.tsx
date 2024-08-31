@@ -1,4 +1,4 @@
-import { Container } from '@mantine/core'
+import { Container, Title } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
 import useHideNotificationDotsMutation from '../../hooks/react-query/notification/useHideNotificationDotsMutation'
@@ -142,15 +142,21 @@ const NotificationsPage = () => {
       </button> */}
 
       <Container size="xs">
-        <FlexCol gap={24}>
+        <Title order={4}>Notifications</Title>
+        <FlexCol mt={16} gap={24}>
           {sortedNotifications.map((n) => {
             if (n.follow)
               return (
-                <FollowNotificationItem follow={n.follow} showDot={n.showDot} />
+                <FollowNotificationItem
+                  key={n.id}
+                  follow={n.follow}
+                  showDot={n.showDot}
+                />
               )
             if (n.itemRecommendation)
               return (
                 <ItemRecommendationNotificationItem
+                  key={n.id}
                   itemRecommendation={n.itemRecommendation}
                   showDot={n.showDot}
                 />
