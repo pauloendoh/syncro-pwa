@@ -1,6 +1,6 @@
 import { ActionIcon, Center } from '@mantine/core'
 import { useCallback, useMemo } from 'react'
-import { MdRateReview, MdStar } from 'react-icons/md'
+import { MdRateReview } from 'react-icons/md'
 import { useRatingDetailsModalStore } from '../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
@@ -49,7 +49,7 @@ export const RatingCellInfo = (props: {
 
   return (
     <FlexVCenter gap={2}>
-      <Center w={props.fixedIconsWidth ? 16 : undefined}>
+      <Center w={props.fixedIconsWidth ? 20 : undefined}>
         {review && (
           <ActionIcon
             sx={{
@@ -70,7 +70,7 @@ export const RatingCellInfo = (props: {
         )}
       </Center>
 
-      <Center w={props.fixedIconsWidth ? 16 : undefined}>
+      <Center w={props.fixedIconsWidth ? 20 : undefined}>
         <ActionIcon
           sx={{
             background: 'transparent !important',
@@ -89,26 +89,28 @@ export const RatingCellInfo = (props: {
                 }}
               />
             )}
-            {props.thisIsYourRating && !props.rating && <MdStar />}
+            {props.thisIsYourRating && !props.rating && null}
           </div>
         </ActionIcon>
       </Center>
 
-      {props.rating?.ratingValue && (
-        <ActionIcon
-          sx={{
-            background: 'transparent !important',
-            border: 'none !important',
-          }}
-          onClick={() => {
-            handleClick()
-          }}
-        >
-          <Span align="center" miw={finalRatingSpanWidth} mb={2}>
-            {props.rating?.ratingValue}
-          </Span>
-        </ActionIcon>
-      )}
+      <Center w={props.fixedIconsWidth ? 20 : undefined}>
+        {props.rating?.ratingValue && (
+          <ActionIcon
+            sx={{
+              background: 'transparent !important',
+              border: 'none !important',
+            }}
+            onClick={() => {
+              handleClick()
+            }}
+          >
+            <Span align="center" miw={finalRatingSpanWidth} mb={2}>
+              {props.rating?.ratingValue}
+            </Span>
+          </ActionIcon>
+        )}
+      </Center>
     </FlexVCenter>
   )
 }
