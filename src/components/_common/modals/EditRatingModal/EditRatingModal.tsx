@@ -310,7 +310,7 @@ const EditRatingModal = () => {
           {Boolean(form.watch('importedFromUrl')) && (
             <Box mt={16}>
               <Span>
-                This rating came from{' '}
+                Your rating came from{' '}
                 <Anchor href={form.watch('importedFromUrl')!} target="_blank">
                   {form.watch('importedFromUrl')}
                 </Anchor>

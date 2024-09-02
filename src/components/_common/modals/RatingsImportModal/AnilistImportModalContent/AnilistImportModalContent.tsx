@@ -1,7 +1,7 @@
 import { Box, Flex, TextInput } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
-import useUpdateConnectorsMutation from '../../../../../hooks/react-query/connectors/useUpdateConnectorsMutation'
+import useConfirmAnilistImportMutation from '../../../../../hooks/react-query/anilist/useConfirmAnilistImportMutation'
 import { urls } from '../../../../../utils/urls/urls'
 import { useAxios } from '../../../../../utils/useAxios'
 import FlexCol from '../../../flex/FlexCol'
@@ -13,11 +13,11 @@ type Props = {
 }
 
 const AnilistImportModalContent = (props: Props) => {
-  const { mutate: submitUpdate } = useUpdateConnectorsMutation()
+  const { mutate: submitUpdate } = useConfirmAnilistImportMutation()
 
-  const [url, setUrl] = useState('')
+  const [profileUrl, setProfileUrl] = useState('')
 
-  const [debouncedUrl] = useDebouncedValue(url, 500)
+  const [debouncedProfileUrl] = useDebouncedValue(profileUrl, 500)
 
   const [isValid, setIsValid] = useState<boolean>()
 
@@ -27,37 +27,47 @@ const AnilistImportModalContent = (props: Props) => {
   const [avatarUrl, setAvatarUrl] = useState('')
 
   useEffect(() => {
-    if (debouncedUrl.length > 0) {
+    if (debouncedProfileUrl.length > 0) {
       setLoading(true)
       axios
-        .get<string | false>(
-          urls.api.importConnectorsValidate({
-            connector: 'Anilist',
-            url: debouncedUrl,
+        .get<
+          | {
+              avatarUrl: string
+              profileUrl: string
+            }
+          | false
+        >(
+          urls.api.importAnilistValidate({
+            url: debouncedProfileUrl,
           })
         )
         .then((res) => {
           setIsValid(!!res.data)
           if (res.data) {
-            setAvatarUrl(res.data)
+            setAvatarUrl(res.data.avatarUrl)
+            setProfileUrl(res.data.profileUrl)
           }
         })
         .finally(() => {
           setLoading(false)
         })
     }
-  }, [debouncedUrl])
+  }, [debouncedProfileUrl])
 
   return (
     <FlexCol gap={16}>
       <Flex align={'flex-end'}>
         <TextInput
           mt={8}
-          value={url}
-          onChange={(event) => setUrl(event.currentTarget.value)}
-          label="Profile URL"
+          value={profileUrl}
+          onChange={(event) => setProfileUrl(event.currentTarget.value)}
+          label="Anilist Profile URL or username"
           placeholder="https://anilist.co/user/username/"
-          error={url.length > 0 && isValid === false && 'Invalid URL'}
+          error={
+            profileUrl.length > 0 &&
+            isValid === false &&
+            'Invalid URL or usernameks'
+          }
           w="calc(100% - 40px)"
         />
 
@@ -82,10 +92,10 @@ const AnilistImportModalContent = (props: Props) => {
           saveText="Import"
           saveWidth={100}
           onCancel={props.closeModal}
-          disabled={!isValid || debouncedUrl.length === 0 || loading}
+          disabled={!isValid || debouncedProfileUrl.length === 0 || loading}
           onSave={() => {
             submitUpdate(
-              { connector: 'Anilist', url: debouncedUrl },
+              { url: debouncedProfileUrl },
               {
                 onSuccess: () => {
                   props.closeModal()

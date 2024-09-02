@@ -7,7 +7,6 @@ import {
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 
 import { Period } from '../../components/ExplorePageContent/BrowseItemsExploreSection/BrowseItemsExploreSection'
-import { ConnectorSource } from '../../components/SettingsPage/ImportRatingsPage/ConnectorsSection/connectorOptions/connectorOptions'
 import { MostRatedItemsQueryParams } from '../../hooks/react-query/rating/types/MostRatedItemsQueryParams'
 import { ItemRatedByModalType } from '../../hooks/zustand/modals/useItemRatedByModalStore'
 import { RatingStatusType } from '../../types/domain/rating/ratingStatusArray'
@@ -229,11 +228,10 @@ export const urls = {
     userRecommendationsForMe: '/user-recommendations-for-me',
     ignoreItemRecommendation: '/ignore-recommendation',
     ignoreFollowRecommendation: '/ignore-follow-recommendation',
-    importConnectors: '/import-connectors',
-    importConnectorsValidate: (params: {
-      connector: ConnectorSource
-      url: string
-    }) => `/import-connectors/validate?${qs.stringify(params)}`,
+
+    importAnilistValidate: (params: { url: string }) =>
+      `/import-anilist/validate?${qs.stringify(params)}`,
+    importAnilistConfirm: '/import-anilist/confirm',
 
     amazonLinks: (itemId: string) => `/syncro-item/${itemId}/amazon-links`,
 
