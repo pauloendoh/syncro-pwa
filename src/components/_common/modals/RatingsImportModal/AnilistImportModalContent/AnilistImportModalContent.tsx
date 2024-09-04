@@ -105,7 +105,7 @@ const AnilistImportModalContent = (props: Props) => {
         error={
           scoringSystem.length === 0 &&
           !!debouncedProfileUrl &&
-          'Please select a scoring system'
+          'Please select the scoring system you use in Anilist'
         }
         onChange={(value) => {
           if (value !== null) {
