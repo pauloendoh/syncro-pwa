@@ -119,15 +119,15 @@ const AnilistImportModalContent = (props: Props) => {
           },
           {
             value: '100 Point',
-            label: '100 Point (55/100)',
+            label: '100 Point (92/100)',
           },
           {
             value: '10 Point Decimal',
-            label: '10 Point Decimal (5.5/10)',
+            label: '10 Point Decimal (9.2/10)',
           },
           {
             value: '5 Point',
-            label: '5 Point (3/5)',
+            label: '5 Point (4/5)',
           },
           {
             value: '3 Point',
