@@ -1,6 +1,6 @@
-import { Box, Flex, TextInput } from '@mantine/core'
+import { Box, Flex, Select, TextInput } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useConfirmAnilistImportMutation from '../../../../../hooks/react-query/anilist/useConfirmAnilistImportMutation'
 import { urls } from '../../../../../utils/urls/urls'
 import { useAxios } from '../../../../../utils/useAxios'
@@ -54,6 +54,16 @@ const AnilistImportModalContent = (props: Props) => {
     }
   }, [debouncedProfileUrl])
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 250)
+  }, [])
+
+  const [scoringSystem, setScoringSystem] = useState('')
+
   return (
     <FlexCol gap={16}>
       <Flex align={'flex-end'}>
@@ -66,9 +76,10 @@ const AnilistImportModalContent = (props: Props) => {
           error={
             profileUrl.length > 0 &&
             isValid === false &&
-            'Invalid URL or usernameks'
+            'Invalid URL or username'
           }
           w="calc(100% - 40px)"
+          ref={inputRef}
         />
 
         {!!avatarUrl && (
@@ -86,6 +97,45 @@ const AnilistImportModalContent = (props: Props) => {
         )}
       </Flex>
 
+      <Select
+        label="Scoring System"
+        value={scoringSystem}
+        w={208}
+        withinPortal
+        error={
+          scoringSystem.length === 0 &&
+          !!debouncedProfileUrl &&
+          'Please select a scoring system'
+        }
+        onChange={(value) => {
+          if (value !== null) {
+            setScoringSystem(value)
+          }
+        }}
+        data={[
+          {
+            value: '',
+            label: '-',
+          },
+          {
+            value: '100 Point',
+            label: '100 Point (55/100)',
+          },
+          {
+            value: '10 Point Decimal',
+            label: '10 Point Decimal (5.5/10)',
+          },
+          {
+            value: '5 Point',
+            label: '5 Point (3/5)',
+          },
+          {
+            value: '3 Point',
+            label: '3 Point Smiley :)',
+          },
+        ]}
+      />
+
       <Box mt={16}>
         <SaveCancelButtons
           isLoading={loading}
@@ -95,7 +145,7 @@ const AnilistImportModalContent = (props: Props) => {
           disabled={!isValid || debouncedProfileUrl.length === 0 || loading}
           onSave={() => {
             submitUpdate(
-              { url: debouncedProfileUrl },
+              { url: debouncedProfileUrl, scoringSystem },
               {
                 onSuccess: () => {
                   props.closeModal()
