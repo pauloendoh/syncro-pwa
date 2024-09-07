@@ -20,6 +20,10 @@ const SortBySelector = (props: Props) => {
           value: 'theirLastUpdatedAt' as SortingByType,
           label: 'Last updated',
         },
+        {
+          value: 'sourceRating' as SortingByType,
+          label: 'Source rating',
+        },
       ]}
       value={props.value}
       onChange={(value) => props.onChange(value as SortingByType)}

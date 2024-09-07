@@ -88,6 +88,15 @@ export const useSortedItems = ({
       return x
     }
 
+    if (sortingBy === 'sourceRating') {
+      return copiedItems.sort((a, b) => {
+        const ratingA = a.avgRating
+        const ratingB = b.avgRating
+
+        return ratingB - ratingA
+      })
+    }
+
     return copiedItems.sort((a, b) => {
       const ratingA = a.ratings?.[0]?.ratingValue
       const ratingB = b.ratings?.[0]?.ratingValue

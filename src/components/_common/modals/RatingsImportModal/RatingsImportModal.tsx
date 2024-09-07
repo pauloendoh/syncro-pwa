@@ -1,23 +1,26 @@
-import { Modal, useMantineTheme } from '@mantine/core'
+import { Modal } from '@mantine/core'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
 import useImportRatingsModalStore from '../../../../hooks/zustand/modals/useImportRatingsModalStore'
 import AnilistImportModalContent from './AnilistImportModalContent/AnilistImportModalContent'
 import MalAnimeImportModalContent from './MalAnimeImportModalContent/MalAnimeImportModalContent'
 import { ratingsImportOptions } from './ratingsImportOptions/ratingsImportOptions'
 
+// PE 2/3 -
 const RatingsImportModal = () => {
   const { initialValue: importType, closeModal } = useImportRatingsModalStore()
 
-  const theme = useMantineTheme()
-
   const { importRatings } = useMyRouterQuery()
 
-  const option = ratingsImportOptions.find(
+  const ratingsImportOption = ratingsImportOptions.find(
     (option) => option.type === importType
   )
 
   return (
-    <Modal opened={!!importRatings} onClose={closeModal} title={option?.title}>
+    <Modal
+      opened={!!importRatings}
+      onClose={closeModal}
+      title={ratingsImportOption?.title}
+    >
       {importType === 'MAL-Anime' && (
         <MalAnimeImportModalContent
           closeModal={() => closeModal()}
@@ -25,10 +28,7 @@ const RatingsImportModal = () => {
         />
       )}
       {importType === 'Anilist' && (
-        <AnilistImportModalContent
-          closeModal={() => closeModal()}
-          afterConfirming={() => closeModal()}
-        />
+        <AnilistImportModalContent closeModal={() => closeModal()} />
       )}
     </Modal>
   )

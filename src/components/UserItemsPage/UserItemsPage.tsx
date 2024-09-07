@@ -161,7 +161,7 @@ const UserItemsPage = () => {
                   onChange={setSortingBy}
                   value={sortingBy}
                   highestRatingLabel={
-                    thisIsYourList ? 'Rating' : 'Their rating'
+                    thisIsYourList ? 'My rating' : 'Their rating'
                   }
                 />
               </FlexVCenter>

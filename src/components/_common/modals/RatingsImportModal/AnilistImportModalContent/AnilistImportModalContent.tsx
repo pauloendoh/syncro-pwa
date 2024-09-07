@@ -9,9 +9,9 @@ import SaveCancelButtons from '../../../inputs/SaveCancelButtons'
 
 type Props = {
   closeModal: () => void
-  afterConfirming: () => void
 }
 
+// PE 2/3
 const AnilistImportModalContent = (props: Props) => {
   const { mutate: submitUpdate } = useConfirmAnilistImportMutation()
 
