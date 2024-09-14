@@ -43,6 +43,7 @@ import FlexVCenter from '../../flex/FlexVCenter'
 import MyNumberInput from '../../inputs/MyNumberInput'
 import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
+import MyInfoIcon from '../../MyIcons/MyInfoIcon/MyInfoIcon'
 import Span from '../../text/Span'
 import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
@@ -213,15 +214,25 @@ const EditRatingModal = () => {
     }
 
     return (
-      <Span>
-        <Span>{capitalize(typeMap?.getVerb())} count</Span>
-        {!!diffString && (
-          <Span color={diff > 0 ? theme.colors.green[6] : theme.colors.red[6]}>
-            {diffString}
-          </Span>
+      <FlexVCenter>
+        <Span>
+          <Span>{capitalize(typeMap?.getVerb())} count</Span>
+          {!!diffString && (
+            <Span
+              color={diff > 0 ? theme.colors.green[6] : theme.colors.red[6]}
+            >
+              {diffString}
+            </Span>
+          )}
+        </Span>
+        {!diffString && (
+          <MyInfoIcon
+            text={`How many times have you ${typeMap?.getVerb({
+              isPast: true,
+            })} this item?`}
+          />
         )}
-        <Span></Span>
-      </Span>
+      </FlexVCenter>
     )
   }, [form.watch('completedCount'), initialValue?.completedCount])
 
@@ -314,7 +325,10 @@ const EditRatingModal = () => {
 
                     form.setValue(
                       'completedCount',
-                      form.watch('completedCount') + 1
+                      form.watch('completedCount') + 1,
+                      {
+                        shouldDirty: true,
+                      }
                     )
                     setHasAutomaticallyChangedCount(true)
                     return
@@ -328,7 +342,8 @@ const EditRatingModal = () => {
                     if (hasAutomaticallyChangedCount) {
                       form.setValue(
                         'completedCount',
-                        initialValue?.completedCount ?? 0
+                        initialValue?.completedCount ?? 0,
+                        { shouldDirty: true }
                       )
 
                       setHasAutomaticallyChangedCount(false)
@@ -402,7 +417,7 @@ const EditRatingModal = () => {
               }
               precision={0}
               value={form.watch('completedCount')}
-              w={120}
+              w={140}
             />
 
             <MyTextInput
