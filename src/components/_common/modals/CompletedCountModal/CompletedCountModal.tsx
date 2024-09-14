@@ -49,7 +49,7 @@ const CompletedCountModal = () => {
 
   const title = useMemo(() => {
     const verb = typeMap?.getVerb()
-    return `How many time did you ${verb} "${item.title}" ?`
+    return `How many times did you completed "${item.title}" ?`
   }, [item, typeMap])
 
   const handleIncrease = () => {

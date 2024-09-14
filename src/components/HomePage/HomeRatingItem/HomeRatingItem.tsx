@@ -47,7 +47,10 @@ const HomeRatingItem = (props: Props) => {
   const progressLabel = useMemo(() => {
     if (!props.rating.syncroItem) return ''
     if (!props.rating.ratingProgress) return ''
-    if (props.rating.status === 'PLANNED') {
+    if (
+      props.rating.status === 'PLANNED' ||
+      props.rating.status === 'COMPLETED'
+    ) {
       return ''
     }
 
@@ -79,11 +82,6 @@ const HomeRatingItem = (props: Props) => {
     props.rating.status,
     props.rating.ratingProgress,
   ])
-
-  const showMiddleDot = useMemo(() => {
-    if (!props.rating.ratingValue && !progressLabel) return false
-    return true
-  }, [props.rating.ratingValue, progressLabel])
 
   if (!props.rating.syncroItem) return null
 
@@ -140,13 +138,17 @@ const HomeRatingItem = (props: Props) => {
               {format(props.rating.timelineDate)}
               {props.rating.consumedOn && ` on ${props.rating.consumedOn}`}
 
-              {showMiddleDot && ' · '}
+              {' · '}
+
               <Span
                 sx={{
                   color: statusMap?.color,
                 }}
               >
-                {!!props.rating.ratingValue && statusMap?.label}
+                {statusMap?.label}
+                {props.rating.completedDates.length > 1 &&
+                  props.rating.status === 'COMPLETED' &&
+                  ` ${props.rating.completedDates.length}x`}
                 {progressLabel && ` (${progressLabel})`}
               </Span>
             </Text>
