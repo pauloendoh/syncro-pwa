@@ -34,6 +34,7 @@ export type RatingDto = {
   queuePosition: number | null
 
   completedDates: string[]
+  completedCount: number
 }
 
 export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
@@ -56,6 +57,7 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   queuePosition: null,
 
   completedDates: [],
+  completedCount: 0,
 
   ...p,
 })

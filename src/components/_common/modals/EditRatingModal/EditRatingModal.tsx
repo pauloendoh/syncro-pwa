@@ -14,7 +14,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { MdInfo } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
@@ -37,13 +37,14 @@ import {
   buildRatingDto,
 } from '../../../../types/domain/rating/RatingDto'
 import { QueryParams } from '../../../../utils/queryParams'
+import { capitalize } from '../../../../utils/text/capitalize'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
+import MyNumberInput from '../../inputs/MyNumberInput'
 import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import Span from '../../text/Span'
 import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
-import CompletedCountInput from './CompletedCountInput/CompletedCountInput'
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
 import RatingSection from './RatingSection/RatingSection'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
@@ -113,8 +114,8 @@ const EditRatingModal = () => {
         syncroItemId: syncroItem?.id,
       })
       form.reset(initialValue || newRating)
-      setAutomaticallyAddedCompletedDate(null)
       setSelectedCompletedOnce(false)
+      setHasAutomaticallyChangedCount(false)
     }
   }, [modalIsOpen])
 
@@ -193,14 +194,39 @@ const EditRatingModal = () => {
     isOpen: !!modalIsOpen,
   })
 
-  const [automaticallyAddedCompletedDate, setAutomaticallyAddedCompletedDate] =
-    useState<string | null>(null)
   const [selectedCompletedOnce, setSelectedCompletedOnce] = useState(false)
   useEffect(() => {
     if (form.watch('status') === 'COMPLETED' && !selectedCompletedOnce) {
       setSelectedCompletedOnce(true)
     }
   }, [form.watch('status')])
+
+  const completedCountInputLabel = useMemo(() => {
+    const diff =
+      form.watch('completedCount') - (initialValue?.completedCount ?? 0)
+    let diffString = ''
+    if (diff > 0) {
+      diffString += ` (+${diff})`
+    }
+    if (diff < 0) {
+      diffString += ` (${diff})`
+    }
+
+    return (
+      <Span>
+        <Span>{capitalize(typeMap?.getVerb())} count</Span>
+        {!!diffString && (
+          <Span color={diff > 0 ? theme.colors.green[6] : theme.colors.red[6]}>
+            {diffString}
+          </Span>
+        )}
+        <Span></Span>
+      </Span>
+    )
+  }, [form.watch('completedCount'), initialValue?.completedCount])
+
+  const [hasAutomaticallyChangedCount, setHasAutomaticallyChangedCount] =
+    useState(false)
 
   return (
     <Modal
@@ -264,54 +290,53 @@ const EditRatingModal = () => {
 
           <Flex mt={16} justify={'space-between'} w="100%">
             {syncroItem && (
-              <>
-                <RatingStatusSelector
-                  itemType={syncroItem.type}
-                  value={form.watch('status')}
-                  onChange={({ newValue, prevValue }) => {
-                    form.setValue('status', newValue, { shouldDirty: true })
+              <RatingStatusSelector
+                itemType={syncroItem.type}
+                value={form.watch('status')}
+                onChange={({ newValue, prevValue }) => {
+                  form.setValue('status', newValue, { shouldDirty: true })
 
-                    if (
-                      initialValue?.status === 'COMPLETED' &&
-                      prevValue === 'COMPLETED' &&
-                      newValue !== 'COMPLETED'
-                    ) {
+                  if (
+                    initialValue?.status === 'COMPLETED' &&
+                    prevValue === 'COMPLETED' &&
+                    newValue !== 'COMPLETED'
+                  ) {
+                    return
+                  }
+
+                  if (
+                    initialValue?.status !== 'COMPLETED' &&
+                    newValue === 'COMPLETED'
+                  ) {
+                    if (form.formState.dirtyFields.completedCount) {
                       return
                     }
 
-                    const completedDatesCopy = [...form.watch('completedDates')]
-                    if (
-                      initialValue?.status !== 'COMPLETED' &&
-                      newValue === 'COMPLETED'
-                    ) {
-                      const dateString = new Date().toISOString()
-                      form.setValue('completedDates', [
-                        dateString,
-                        ...completedDatesCopy,
-                      ])
+                    form.setValue(
+                      'completedCount',
+                      form.watch('completedCount') + 1
+                    )
+                    setHasAutomaticallyChangedCount(true)
+                    return
+                  }
 
-                      setAutomaticallyAddedCompletedDate(dateString)
-                      return
-                    }
-
-                    if (
-                      initialValue?.status !== 'COMPLETED' &&
-                      prevValue === 'COMPLETED' &&
-                      newValue !== 'COMPLETED'
-                    ) {
-                      const index = completedDatesCopy.findIndex(
-                        (date) => date === automaticallyAddedCompletedDate
+                  if (
+                    initialValue?.status !== 'COMPLETED' &&
+                    prevValue === 'COMPLETED' &&
+                    newValue !== 'COMPLETED'
+                  ) {
+                    if (hasAutomaticallyChangedCount) {
+                      form.setValue(
+                        'completedCount',
+                        initialValue?.completedCount ?? 0
                       )
-                      if (index !== -1) {
-                        completedDatesCopy.splice(index, 1)
-                        form.setValue('completedDates', completedDatesCopy)
-                        setAutomaticallyAddedCompletedDate(null)
-                      }
+
+                      setHasAutomaticallyChangedCount(false)
                     }
-                  }}
-                  width={180}
-                />
-              </>
+                  }
+                }}
+                width={180}
+              />
             )}
           </Flex>
 
@@ -370,19 +395,15 @@ const EditRatingModal = () => {
           </Box>
 
           <FlexVCenter mt={16} gap={16}>
-            {syncroItem && (
-              <CompletedCountInput
-                completedDates={form.watch('completedDates')}
-                onChange={(completedDates) =>
-                  form.setValue('completedDates', completedDates)
-                }
-                syncroItem={syncroItem}
-                automaticallyAddedDate={automaticallyAddedCompletedDate}
-                onRemoveAutomaticallyAddedDate={() => {
-                  setAutomaticallyAddedCompletedDate(null)
-                }}
-              />
-            )}
+            <MyNumberInput
+              label={completedCountInputLabel}
+              onChange={(value) =>
+                form.setValue('completedCount', value, { shouldDirty: true })
+              }
+              precision={0}
+              value={form.watch('completedCount')}
+              w={120}
+            />
 
             <MyTextInput
               sx={{

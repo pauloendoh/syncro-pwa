@@ -19,7 +19,6 @@ const CompletedCountInput = ({ ...props }: Props) => {
   const typeMap = useSyncroItemTypeMap({
     itemType: props.syncroItem.type,
   })
-
   const theme = useMantineTheme()
 
   const label = useMemo(() => {
