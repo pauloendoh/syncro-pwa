@@ -6,7 +6,6 @@ import {
   Checkbox,
   Divider,
   Flex,
-  Grid,
   Modal,
   ScrollArea,
   Skeleton,
@@ -115,6 +114,7 @@ const EditRatingModal = () => {
       })
       form.reset(initialValue || newRating)
       setAutomaticallyAddedCompletedDate(null)
+      setSelectedCompletedOnce(false)
     }
   }, [modalIsOpen])
 
@@ -195,6 +195,12 @@ const EditRatingModal = () => {
 
   const [automaticallyAddedCompletedDate, setAutomaticallyAddedCompletedDate] =
     useState<string | null>(null)
+  const [selectedCompletedOnce, setSelectedCompletedOnce] = useState(false)
+  useEffect(() => {
+    if (form.watch('status') === 'COMPLETED' && !selectedCompletedOnce) {
+      setSelectedCompletedOnce(true)
+    }
+  }, [form.watch('status')])
 
   return (
     <Modal
@@ -232,18 +238,6 @@ const EditRatingModal = () => {
     >
       <FlexCol pr={12}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FlexVCenter
-            mt={24}
-            sx={{
-              justifyContent: 'center',
-            }}
-          >
-            <RatingSection
-              value={form.watch('ratingValue')}
-              onChange={handleChangeRating}
-            />
-          </FlexVCenter>
-
           {userSettings?.showDefaultStatusIsInProgressNow &&
             !form.watch('id') && (
               <Alert
@@ -268,90 +262,87 @@ const EditRatingModal = () => {
               </Alert>
             )}
 
-          <Flex mt={16} align="flex-end" w="100%">
+          <Flex mt={16} justify={'space-between'} w="100%">
             {syncroItem && (
-              <Grid w="100%" m={0} p={0} gutter={'xs'}>
-                <Grid.Col span={8} p={0} pr={16}>
-                  <RatingStatusSelector
-                    itemType={syncroItem.type}
-                    value={form.watch('status')}
-                    onChange={({ newValue, prevValue }) => {
-                      form.setValue('status', newValue, { shouldDirty: true })
+              <>
+                <RatingStatusSelector
+                  itemType={syncroItem.type}
+                  value={form.watch('status')}
+                  onChange={({ newValue, prevValue }) => {
+                    form.setValue('status', newValue, { shouldDirty: true })
 
-                      if (
-                        initialValue?.status === 'COMPLETED' &&
-                        prevValue === 'COMPLETED' &&
-                        newValue !== 'COMPLETED'
-                      ) {
-                        return
-                      }
-
-                      const completedDatesCopy = [
-                        ...form.watch('completedDates'),
-                      ]
-                      if (
-                        initialValue?.status !== 'COMPLETED' &&
-                        newValue === 'COMPLETED'
-                      ) {
-                        const dateString = new Date().toISOString()
-                        form.setValue('completedDates', [
-                          dateString,
-                          ...completedDatesCopy,
-                        ])
-
-                        setAutomaticallyAddedCompletedDate(dateString)
-                        return
-                      }
-
-                      if (
-                        initialValue?.status !== 'COMPLETED' &&
-                        prevValue === 'COMPLETED' &&
-                        newValue !== 'COMPLETED'
-                      ) {
-                        const index = completedDatesCopy.findIndex(
-                          (date) => date === automaticallyAddedCompletedDate
-                        )
-                        if (index !== -1) {
-                          completedDatesCopy.splice(index, 1)
-                          form.setValue('completedDates', completedDatesCopy)
-                          setAutomaticallyAddedCompletedDate(null)
-                        }
-                      }
-                    }}
-                    width={'100%'}
-                  />
-                </Grid.Col>
-                <Grid.Col span={4} p={0}>
-                  <CompletedCountInput
-                    completedDates={form.watch('completedDates')}
-                    onChange={(completedDates) =>
-                      form.setValue('completedDates', completedDates)
+                    if (
+                      initialValue?.status === 'COMPLETED' &&
+                      prevValue === 'COMPLETED' &&
+                      newValue !== 'COMPLETED'
+                    ) {
+                      return
                     }
-                    syncroItem={syncroItem}
-                    automaticallyAddedDate={automaticallyAddedCompletedDate}
-                    onRemoveAutomaticallyAddedDate={() => {
-                      setAutomaticallyAddedCompletedDate(null)
-                    }}
-                  />
-                </Grid.Col>
-              </Grid>
+
+                    const completedDatesCopy = [...form.watch('completedDates')]
+                    if (
+                      initialValue?.status !== 'COMPLETED' &&
+                      newValue === 'COMPLETED'
+                    ) {
+                      const dateString = new Date().toISOString()
+                      form.setValue('completedDates', [
+                        dateString,
+                        ...completedDatesCopy,
+                      ])
+
+                      setAutomaticallyAddedCompletedDate(dateString)
+                      return
+                    }
+
+                    if (
+                      initialValue?.status !== 'COMPLETED' &&
+                      prevValue === 'COMPLETED' &&
+                      newValue !== 'COMPLETED'
+                    ) {
+                      const index = completedDatesCopy.findIndex(
+                        (date) => date === automaticallyAddedCompletedDate
+                      )
+                      if (index !== -1) {
+                        completedDatesCopy.splice(index, 1)
+                        form.setValue('completedDates', completedDatesCopy)
+                        setAutomaticallyAddedCompletedDate(null)
+                      }
+                    }
+                  }}
+                  width={180}
+                />
+              </>
             )}
           </Flex>
 
-          <FlexVCenter mt={16}>
-            {syncroItem && form.watch('ratingProgress') && (
-              <RatingProgressFields
-                value={form.watch('ratingProgress')!}
-                onChange={(value) =>
-                  form.setValue('ratingProgress', value, {
-                    shouldDirty: true,
-                  })
-                }
-                item={syncroItem}
-                status={form.watch('status')}
-              />
-            )}
+          <FlexVCenter
+            mt={16}
+            sx={{
+              justifyContent: 'center',
+            }}
+          >
+            <RatingSection
+              value={form.watch('ratingValue')}
+              onChange={handleChangeRating}
+            />
           </FlexVCenter>
+
+          {syncroItem &&
+            form.watch('ratingProgress') &&
+            syncroItem.type !== 'movie' && (
+              <FlexVCenter mt={16}>
+                <RatingProgressFields
+                  value={form.watch('ratingProgress')!}
+                  onChange={(value) =>
+                    form.setValue('ratingProgress', value, {
+                      shouldDirty: true,
+                    })
+                  }
+                  item={syncroItem}
+                  status={form.watch('status')}
+                />
+              </FlexVCenter>
+            )}
 
           <Textarea
             label="Review"
@@ -378,16 +369,34 @@ const EditRatingModal = () => {
             />
           </Box>
 
-          <Box mt={16}>
+          <FlexVCenter mt={16} gap={16}>
             <MyTextInput
+              sx={{
+                flexGrow: 1,
+              }}
               {...form.register('consumedOn')}
-              label={typeMap?.consumedOn}
+              label={`${typeMap?.getVerb({ isPast: true })} on`}
               placeholder={typeMap?.consumedOnExamples}
               error={
                 form.watch('consumedOn').length > 16 && 'Max 16 characters'
               }
             />
-          </Box>
+
+            {syncroItem && (
+              <CompletedCountInput
+                completedDates={form.watch('completedDates')}
+                onChange={(completedDates) =>
+                  form.setValue('completedDates', completedDates)
+                }
+                syncroItem={syncroItem}
+                automaticallyAddedDate={automaticallyAddedCompletedDate}
+                onRemoveAutomaticallyAddedDate={() => {
+                  setAutomaticallyAddedCompletedDate(null)
+                }}
+                inputWidth={120}
+              />
+            )}
+          </FlexVCenter>
 
           <Box mt={16}>
             <Checkbox

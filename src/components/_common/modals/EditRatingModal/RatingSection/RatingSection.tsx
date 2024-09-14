@@ -1,4 +1,4 @@
-import { Flex, Rating, Text, useMantineTheme } from '@mantine/core'
+import { Box, Flex, Rating, Text, useMantineTheme } from '@mantine/core'
 import { useSettingsQuery } from '../../../../../hooks/react-query/user-settings/useSettingsQuery'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import FlexVCenter from '../../../flex/FlexVCenter'
@@ -51,7 +51,7 @@ const RatingSection = ({ ...props }: Props) => {
   }
 
   return (
-    <div className="RatingSection">
+    <Box className="RatingSection" mt={16}>
       <Rating
         value={props.value || undefined}
         onChange={props.onChange}
@@ -77,7 +77,7 @@ const RatingSection = ({ ...props }: Props) => {
           </Text>
         )}
       </FlexVCenter>
-    </div>
+    </Box>
   )
 }
 

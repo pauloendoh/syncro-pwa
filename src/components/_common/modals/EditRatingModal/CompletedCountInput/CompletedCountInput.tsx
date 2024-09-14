@@ -30,10 +30,7 @@ const CompletedCountInput = ({ ...props }: Props) => {
         <Span>{capitalize(verb)} count</Span>
 
         {!!props.automaticallyAddedDate && (
-          <Span title={'Added automatically'} color={theme.colors.green[6]}>
-            {' '}
-            (+1)
-          </Span>
+          <Span title={'Added automatically'}> (+1)</Span>
         )}
       </Span>
     )
@@ -46,7 +43,9 @@ const CompletedCountInput = ({ ...props }: Props) => {
       <TextInput
         w={props.inputWidth ?? '100%'}
         label={label}
-        value={props.completedDates.length}
+        value={
+          props.completedDates.length === 0 ? '' : props.completedDates.length
+        }
         tabIndex={-1}
         styles={{
           input: {

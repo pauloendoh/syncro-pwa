@@ -3,7 +3,12 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { ActionIcon, Center, Modal, ScrollArea, Title } from '@mantine/core'
 import { DateInput } from '@mantine/dates'
 import { useEffect, useMemo, useState } from 'react'
-import { MdClose, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
+import {
+  MdClose,
+  MdDelete,
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+} from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
@@ -48,8 +53,8 @@ const CompletedCountModal = () => {
   }, [isOpen])
 
   const title = useMemo(() => {
-    const verb = typeMap?.getVerb()
-    return `How many times did you completed "${item.title}" ?`
+    const verb = typeMap?.getVerb({ isPast: true })
+    return `How many times have you ${verb} "${item.title}" ?`
   }, [item, typeMap])
 
   const handleIncrease = () => {
@@ -100,7 +105,7 @@ const CompletedCountModal = () => {
         </FlexCol>
       </Center>
 
-      <FlexCol mt={24} gap={8} ref={animationParent}>
+      <FlexCol mt={16} gap={8} ref={animationParent}>
         {localDateItems.map((item, index) => {
           const value =
             new Date(item.date).toISOString() === new Date(0).toISOString()
@@ -115,7 +120,6 @@ const CompletedCountModal = () => {
                   size="xs"
                   sx={(theme) => ({
                     fontStyle: 'italic',
-                    color: theme.colors.green[6],
                     position: 'relative',
                     bottom: 1,
                     left: 8,
@@ -167,17 +171,35 @@ const CompletedCountModal = () => {
                   return date > new Date()
                 }}
               />
-              <ActionIcon
-                onClick={() => {
-                  const result = [...localDateItems]
-                  result.splice(index, 1)
-                  setLocalDateItems(result)
-                }}
-                size="lg"
-                mt={24}
-              >
-                <MdClose />
-              </ActionIcon>
+              {value ? (
+                <ActionIcon
+                  onClick={() => {
+                    const result = [...localDateItems]
+                    result[index].date = new Date(0).toISOString()
+
+                    const [cleanedItem] = result.splice(index, 1)
+                    result.push(cleanedItem)
+
+                    setLocalDateItems(result)
+                  }}
+                  size="lg"
+                  mt={24}
+                >
+                  <MdClose />
+                </ActionIcon>
+              ) : (
+                <ActionIcon
+                  onClick={() => {
+                    const result = [...localDateItems]
+                    result.splice(index, 1)
+                    setLocalDateItems(result)
+                  }}
+                  size="lg"
+                  mt={24}
+                >
+                  <MdDelete />
+                </ActionIcon>
+              )}
             </FlexVCenter>
           )
         })}
