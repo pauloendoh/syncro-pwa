@@ -14,19 +14,19 @@ type Props = {
 const MyInfoIcon = ({ ...props }: Props) => {
   const { isMobile, isTouchScreen } = useMyMediaQuery()
   const { openModal } = useInfoModalStore()
-  const isClickable = isTouchScreen || isMobile
+  const isTouchable = isTouchScreen || isMobile
 
   return (
     <Tooltip label={props.text} multiline maw={180}>
       <ActionIcon
         sx={{
           ':hover': {
-            cursor: isClickable ? 'pointer' : 'default',
-            backgroundColor: isClickable ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
+            cursor: isTouchable ? 'pointer' : 'default',
+            backgroundColor: isTouchable ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
           },
         }}
         onClick={(e) => {
-          if (isTouchScreen || isMobile) {
+          if (isTouchable) {
             openModal(props.text)
           }
         }}
