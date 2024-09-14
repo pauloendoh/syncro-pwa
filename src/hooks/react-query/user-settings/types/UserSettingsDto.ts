@@ -29,4 +29,6 @@ export type UserSettingsDto = {
   scoringSystem: ScoringSystem
 
   minRatingForSharing: number | null
+
+  showDefaultStatusIsInProgressNow: boolean
 }

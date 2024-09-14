@@ -1,4 +1,5 @@
 import {
+  Alert,
   Anchor,
   Box,
   Button,
@@ -16,12 +17,14 @@ import {
 import { useQueryState } from 'next-usequerystate'
 import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { MdInfo } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation/useSaveRatingMutation'
 import { useUserRatingsQuery } from '../../../../hooks/react-query/rating/useUserRatingsQuery'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
+import useUpdateSettingsMutation from '../../../../hooks/react-query/user-settings/useUpdateSettingsMutation'
 import { useUsersToRecommendQueryV2 } from '../../../../hooks/react-query/user/useMutualsSavedItemQueryV2'
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
@@ -66,6 +69,7 @@ const EditRatingModal = () => {
 
   const { openModal: openShareRatingModal } = useShareRatingModalStore()
   const { data: userSettings } = useSettingsQuery()
+  const { mutate: submitUpdateSettings } = useUpdateSettingsMutation()
 
   const { getAuthUserId } = useAuthStore()
   const { data: userRatings } = useUserRatingsQuery(getAuthUserId())
@@ -239,6 +243,25 @@ const EditRatingModal = () => {
               onChange={handleChangeRating}
             />
           </FlexVCenter>
+
+          {userSettings?.showDefaultStatusIsInProgressNow &&
+            !form.watch('id') && (
+              <Alert
+                mt={24}
+                variant="light"
+                color="blue"
+                icon={<MdInfo />}
+                withCloseButton
+                onClose={() => {
+                  submitUpdateSettings({
+                    ...userSettings,
+                    showDefaultStatusIsInProgressNow: false,
+                  })
+                }}
+              >
+                Default status is "In progress" for new ratings, now.
+              </Alert>
+            )}
 
           <Flex mt={16} align="flex-end" w="100%">
             {syncroItem && (
