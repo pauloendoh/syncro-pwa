@@ -37,7 +37,6 @@ import {
   buildRatingDto,
 } from '../../../../types/domain/rating/RatingDto'
 import { QueryParams } from '../../../../utils/queryParams'
-import { capitalize } from '../../../../utils/text/capitalize'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyTextInput from '../../inputs/MyTextInput'
@@ -371,18 +370,6 @@ const EditRatingModal = () => {
           </Box>
 
           <FlexVCenter mt={16} gap={16}>
-            <MyTextInput
-              sx={{
-                flexGrow: 1,
-              }}
-              {...form.register('consumedOn')}
-              label={`${capitalize(typeMap?.getVerb({ isPast: true }))} on`}
-              placeholder={typeMap?.consumedOnExamples}
-              error={
-                form.watch('consumedOn').length > 16 && 'Max 16 characters'
-              }
-            />
-
             {syncroItem && (
               <CompletedCountInput
                 completedDates={form.watch('completedDates')}
@@ -397,6 +384,18 @@ const EditRatingModal = () => {
                 inputWidth={120}
               />
             )}
+
+            <MyTextInput
+              sx={{
+                flexGrow: 1,
+              }}
+              {...form.register('consumedOn')}
+              label={`Last ${typeMap?.getVerb({ isPast: true })} on`}
+              placeholder={typeMap?.consumedOnExamples}
+              error={
+                form.watch('consumedOn').length > 16 && 'Max 16 characters'
+              }
+            />
           </FlexVCenter>
 
           <Box mt={16}>
