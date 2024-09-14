@@ -13,6 +13,7 @@ import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useS
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
 import useCompletedCountModalStore from '../../../../hooks/zustand/modals/useCompletedCountModalStore'
+import { capitalize } from '../../../../utils/text/capitalize'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
@@ -53,7 +54,8 @@ const CompletedCountModal = () => {
   }, [isOpen])
 
   const title = useMemo(() => {
-    return `How many times have you completed "${item.title}" ?`
+    const verb = typeMap?.getVerb({ isPast: true })
+    return `How many times have you ${verb} "${item.title}" ?`
   }, [item, typeMap])
 
   const handleIncrease = () => {
@@ -113,7 +115,9 @@ const CompletedCountModal = () => {
 
           const label = (
             <Span>
-              <Span>{`Completed #${localDateItems.length - index}`}</Span>
+              <Span>{`${capitalize(typeMap?.getVerb())} #${
+                localDateItems.length - index
+              }`}</Span>
               {item.date === automaticallyAddedDate && (
                 <Span
                   size="xs"
@@ -136,7 +140,7 @@ const CompletedCountModal = () => {
                 label={label}
                 key={item.localId}
                 value={value}
-                placeholder="Select completed date"
+                placeholder="When did you finish it?"
                 popoverProps={{
                   zIndex: zIndex + 1,
                   withinPortal: true,

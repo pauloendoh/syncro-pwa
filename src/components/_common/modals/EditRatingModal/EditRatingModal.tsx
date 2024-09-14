@@ -381,7 +381,6 @@ const EditRatingModal = () => {
                 onRemoveAutomaticallyAddedDate={() => {
                   setAutomaticallyAddedCompletedDate(null)
                 }}
-                inputWidth={120}
               />
             )}
 
