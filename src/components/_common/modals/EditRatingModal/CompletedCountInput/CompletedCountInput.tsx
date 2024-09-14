@@ -29,9 +29,7 @@ const CompletedCountInput = ({ ...props }: Props) => {
       <Span>
         <Span>{capitalize(verb)} count</Span>
 
-        {!!props.automaticallyAddedDate && (
-          <Span title={'Added automatically'}> (+1)</Span>
-        )}
+        {!!props.automaticallyAddedDate && <Span> (+1)</Span>}
       </Span>
     )
   }, [typeMap, props.automaticallyAddedDate])
@@ -41,7 +39,7 @@ const CompletedCountInput = ({ ...props }: Props) => {
   return (
     <div className="CompletedCountInput">
       <TextInput
-        w={props.inputWidth ?? '100%'}
+        w={props.inputWidth ?? 120}
         label={label}
         value={
           props.completedDates.length === 0 ? '' : props.completedDates.length
