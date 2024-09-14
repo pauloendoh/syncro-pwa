@@ -230,6 +230,9 @@ const EditRatingModal = () => {
             text={`How many times have you ${typeMap?.getVerb({
               isPast: true,
             })} this item?`}
+            actionIconProps={{
+              size: 'sm',
+            }}
           />
         )}
       </FlexVCenter>

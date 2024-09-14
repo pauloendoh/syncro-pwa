@@ -1,4 +1,4 @@
-import { ActionIcon, Tooltip } from '@mantine/core'
+import { ActionIcon, ActionIconProps, Tooltip } from '@mantine/core'
 import React, { ReactNode } from 'react'
 import { GoQuestion } from 'react-icons/go'
 import { MdInfo, MdInfoOutline } from 'react-icons/md'
@@ -8,6 +8,7 @@ import useInfoModalStore from '../../../../hooks/zustand/modals/useInfoModalStor
 type Props = {
   text: ReactNode | string
   useQuestionIconInstead?: boolean
+  actionIconProps?: ActionIconProps
   iconProps?: React.ComponentProps<typeof MdInfo>
 }
 
@@ -30,6 +31,7 @@ const MyInfoIcon = ({ ...props }: Props) => {
             openModal(props.text)
           }
         }}
+        {...props.actionIconProps}
       >
         {props.useQuestionIconInstead ? (
           <GoQuestion {...props.iconProps} />
