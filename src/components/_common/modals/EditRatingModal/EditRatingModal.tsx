@@ -37,6 +37,7 @@ import {
   buildRatingDto,
 } from '../../../../types/domain/rating/RatingDto'
 import { QueryParams } from '../../../../utils/queryParams'
+import { capitalize } from '../../../../utils/text/capitalize'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyTextInput from '../../inputs/MyTextInput'
@@ -375,7 +376,7 @@ const EditRatingModal = () => {
                 flexGrow: 1,
               }}
               {...form.register('consumedOn')}
-              label={`${typeMap?.getVerb({ isPast: true })} on`}
+              label={`${capitalize(typeMap?.getVerb({ isPast: true }))} on`}
               placeholder={typeMap?.consumedOnExamples}
               error={
                 form.watch('consumedOn').length > 16 && 'Max 16 characters'
