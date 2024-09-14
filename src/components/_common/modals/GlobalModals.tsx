@@ -1,4 +1,5 @@
 import useSavedPositionSheetStore from '../../../hooks/zustand/action-sheets/useSavedPositionSheetStore'
+import CompletedCountModal from './CompletedCountModal/CompletedCountModal'
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
 import EditItemModal from './EditItemModal/EditItemModal'
 import EditRatingModal from './EditRatingModal/EditRatingModal'
@@ -45,6 +46,8 @@ const GlobalModals = (props: Props) => {
       <InfoModal />
 
       <MinRatingSharingModal />
+
+      <CompletedCountModal />
     </>
   )
 }

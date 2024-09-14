@@ -9,8 +9,12 @@ import FlexVCenter from '../../../flex/FlexVCenter'
 
 type Props = {
   value: RatingStatusType
-  onChange: (value: RatingStatusType) => void
+  onChange: (values: {
+    prevValue: RatingStatusType
+    newValue: RatingStatusType
+  }) => void
   itemType: SyncroItemType
+  width?: number | string
 }
 
 interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -49,12 +53,15 @@ const RatingStatusSelector = (props: Props) => {
 
   return (
     <Select
-      w={140}
+      w={props.width ?? 140}
       label="Your status"
       value={props.value}
       onChange={(value) => {
         if (value) {
-          props.onChange(value as RatingStatusType)
+          props.onChange({
+            prevValue: props.value,
+            newValue: value as RatingStatusType,
+          })
         }
       }}
       itemComponent={SelectItem}

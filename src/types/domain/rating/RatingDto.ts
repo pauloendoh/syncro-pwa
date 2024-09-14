@@ -32,6 +32,8 @@ export type RatingDto = {
   importedFromUrl: string | null
   plannedPosition: number
   queuePosition: number | null
+
+  completedDates: string[]
 }
 
 export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
@@ -52,5 +54,8 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   importedFromUrl: null,
   plannedPosition: 9999,
   queuePosition: null,
+
+  completedDates: [],
+
   ...p,
 })

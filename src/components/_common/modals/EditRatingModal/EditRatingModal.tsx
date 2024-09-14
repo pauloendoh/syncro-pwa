@@ -5,6 +5,7 @@ import {
   Checkbox,
   Divider,
   Flex,
+  Grid,
   Modal,
   ScrollArea,
   Skeleton,
@@ -13,7 +14,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
@@ -40,6 +41,7 @@ import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import Span from '../../text/Span'
 import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
+import CompletedCountInput from './CompletedCountInput/CompletedCountInput'
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
 import RatingSection from './RatingSection/RatingSection'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
@@ -108,6 +110,7 @@ const EditRatingModal = () => {
         syncroItemId: syncroItem?.id,
       })
       form.reset(initialValue || newRating)
+      setAutomaticallyAddedCompletedDate(null)
     }
   }, [modalIsOpen])
 
@@ -186,6 +189,9 @@ const EditRatingModal = () => {
     isOpen: !!modalIsOpen,
   })
 
+  const [automaticallyAddedCompletedDate, setAutomaticallyAddedCompletedDate] =
+    useState<string | null>(null)
+
   return (
     <Modal
       opened={!!modalIsOpen}
@@ -234,15 +240,73 @@ const EditRatingModal = () => {
             />
           </FlexVCenter>
 
-          <Flex gap={16} mt={16} align="flex-end">
+          <Flex mt={16} align="flex-end" w="100%">
             {syncroItem && (
-              <RatingStatusSelector
-                itemType={syncroItem.type}
-                value={form.watch('status')}
-                onChange={(value) =>
-                  form.setValue('status', value, { shouldDirty: true })
-                }
-              />
+              <Grid w="100%" m={0} p={0} gutter={'xs'}>
+                <Grid.Col span={8} p={0} pr={16}>
+                  <RatingStatusSelector
+                    itemType={syncroItem.type}
+                    value={form.watch('status')}
+                    onChange={({ newValue, prevValue }) => {
+                      form.setValue('status', newValue, { shouldDirty: true })
+
+                      if (
+                        initialValue?.status === 'COMPLETED' &&
+                        prevValue === 'COMPLETED' &&
+                        newValue !== 'COMPLETED'
+                      ) {
+                        return
+                      }
+
+                      const completedDatesCopy = [
+                        ...form.watch('completedDates'),
+                      ]
+                      if (
+                        initialValue?.status !== 'COMPLETED' &&
+                        newValue === 'COMPLETED'
+                      ) {
+                        const dateString = new Date().toISOString()
+                        form.setValue('completedDates', [
+                          dateString,
+                          ...completedDatesCopy,
+                        ])
+
+                        setAutomaticallyAddedCompletedDate(dateString)
+                        return
+                      }
+
+                      if (
+                        initialValue?.status !== 'COMPLETED' &&
+                        prevValue === 'COMPLETED' &&
+                        newValue !== 'COMPLETED'
+                      ) {
+                        const index = completedDatesCopy.findIndex(
+                          (date) => date === automaticallyAddedCompletedDate
+                        )
+                        if (index !== -1) {
+                          completedDatesCopy.splice(index, 1)
+                          form.setValue('completedDates', completedDatesCopy)
+                          setAutomaticallyAddedCompletedDate(null)
+                        }
+                      }
+                    }}
+                    width={'100%'}
+                  />
+                </Grid.Col>
+                <Grid.Col span={4} p={0}>
+                  <CompletedCountInput
+                    completedDates={form.watch('completedDates')}
+                    onChange={(completedDates) =>
+                      form.setValue('completedDates', completedDates)
+                    }
+                    syncroItem={syncroItem}
+                    automaticallyAddedDate={automaticallyAddedCompletedDate}
+                    onRemoveAutomaticallyAddedDate={() => {
+                      setAutomaticallyAddedCompletedDate(null)
+                    }}
+                  />
+                </Grid.Col>
+              </Grid>
             )}
           </Flex>
 

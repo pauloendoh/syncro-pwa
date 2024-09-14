@@ -1,3 +1,7 @@
+import 'dayjs/locale/en'
+
+import { DatesProvider } from '@mantine/dates'
+
 import { IoProvider } from 'socket.io-react-hook'
 import './global.css'
 
@@ -98,25 +102,27 @@ export default function App(props: AppProps) {
           withNormalizeCSS
           theme={{ ...myTheme, colorScheme }}
         >
-          <Notifications
-            position="bottom-center"
-            zIndex={zIndexes.notification}
-          />
-          <RouterTransition />
+          <DatesProvider settings={{}}>
+            <Notifications
+              position="bottom-center"
+              zIndex={zIndexes.notification}
+            />
+            <RouterTransition />
 
-          <LoadingOverlay
-            visible={loadingCheckAuthCookie}
-            overlayOpacity={1}
-            transitionDuration={500}
-            sx={{
-              zIndex: zIndexes.loadingPageOverlay,
-            }}
-          />
+            <LoadingOverlay
+              visible={loadingCheckAuthCookie}
+              overlayOpacity={1}
+              transitionDuration={500}
+              sx={{
+                zIndex: zIndexes.loadingPageOverlay,
+              }}
+            />
 
-          <IoProvider>
-            <Component {...pageProps} />
-            <BreakpointsViewer disabled={myEnvs.isProduction || false} />
-          </IoProvider>
+            <IoProvider>
+              <Component {...pageProps} />
+              <BreakpointsViewer disabled={myEnvs.isProduction || false} />
+            </IoProvider>
+          </DatesProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </QueryClientProvider>
