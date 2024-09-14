@@ -258,6 +258,11 @@ const EditRatingModal = () => {
                     showDefaultStatusIsInProgressNow: false,
                   })
                 }}
+                styles={{
+                  icon: {
+                    marginRight: 4,
+                  },
+                }}
               >
                 Default status is "In progress" for new ratings, now.
               </Alert>
