@@ -4,19 +4,28 @@ import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
+import useAuthStore from '../../zustand/useAuthStore'
 
 const useDeleteRatingMutation = () => {
   const queryClient = useQueryClient()
+  const { getAuthUserId } = useAuthStore()
 
   const axios = useAxios()
   return useMutation(
-    (ratingId: string) =>
-      axios.delete(urls.api.myRatingId(ratingId)).then((res) => res.data),
+    (entry: RatingDto) =>
+      axios.delete(urls.api.myRatingId(entry.id)).then((res) => res.data),
     {
-      onSuccess: (_, ratingId) => {
+      onSuccess: (_, prevEntry) => {
         queryClient.setQueryData<RatingDto[]>([urls.api.myRatings], (curr) => {
-          return deleteFromArray(curr, (i) => i.id === ratingId)
+          return deleteFromArray(curr, (i) => i.id === prevEntry.id)
         })
+
+        queryClient.setQueryData<RatingDto[]>(
+          [urls.api.plannedItemsV2(getAuthUserId(), prevEntry.status)],
+          (curr) => {
+            return deleteFromArray(curr, (i) => i.id === prevEntry.id)
+          }
+        )
 
         myNotifications.success('Rating deleted!')
       },

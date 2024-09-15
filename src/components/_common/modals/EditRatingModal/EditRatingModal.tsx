@@ -175,7 +175,7 @@ const EditRatingModal = () => {
         title: 'Delete entry',
         description: 'Are you sure you want to delete this entry?',
         onConfirm: () => {
-          submitDeleteRating(initialValue.id, {
+          submitDeleteRating(initialValue, {
             onSuccess: () => {
               closeBothModals()
             },

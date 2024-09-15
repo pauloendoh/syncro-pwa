@@ -40,7 +40,7 @@ const OnboardingStep2 = (props: Props) => {
   }
 
   const isDisabled = useMemo(() => {
-    return !input.trim()
+    return input.trim().length === 0
   }, [input])
 
   return (
@@ -53,6 +53,7 @@ const OnboardingStep2 = (props: Props) => {
     >
       <FlexCol gap={16}>
         <MyTextInput
+          autoFocus
           value={input}
           onChange={(e) => setInput(e.currentTarget.value)}
         />
