@@ -298,7 +298,8 @@ const EditRatingModal = () => {
                   },
                 }}
               >
-                Default status is "In progress" instead of "Completed", now.
+                The default status has been updated from "Completed" to "In
+                Progress."
               </Alert>
             )}
 
