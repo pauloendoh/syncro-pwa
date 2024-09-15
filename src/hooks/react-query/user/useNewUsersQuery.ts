@@ -4,6 +4,10 @@ import { UserSimpleDto } from '../../../types/domain/user/UserSimpleDto'
 
 import { urls } from '../../../utils/urls/urls'
 
+type NewUserDto = UserSimpleDto & {
+  entryCount: number
+}
+
 export const useNewUsersQuery = () => {
-  return useQuery<UserSimpleDto[], AxiosError>([urls.api.newUsers])
+  return useQuery<NewUserDto[], AxiosError>([urls.api.newUsers])
 }

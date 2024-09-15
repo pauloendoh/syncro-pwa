@@ -6,10 +6,11 @@ import { urls } from '../../../../utils/urls/urls'
 import FollowUnfollowButton from '../../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
 import UserProfilePicture from '../../../_common/UserProfilePicture/UserProfilePicture'
 import FlexCol from '../../../_common/flex/FlexCol'
+import FlexVCenter from '../../../_common/flex/FlexVCenter'
 import MyNextLink from '../../../_common/overrides/MyNextLink'
 
 interface Props {
-  user: UserSimpleDto
+  user: UserSimpleDto & { entryCount?: number }
 }
 
 const UserSearchItem = ({ user }: Props) => {
@@ -23,10 +24,20 @@ const UserSearchItem = ({ user }: Props) => {
     return user.username
   }, [user.username])
 
+  const entriesLabel = useMemo(() => {
+    if (user.entryCount === 0) {
+      return 'No entries'
+    }
+    if (user.entryCount === 1) {
+      return '1 entry'
+    }
+    return `${user.entryCount} entries`
+  }, [user.entryCount])
+
   return (
     <Box>
-      <Flex justify={'space-between'}>
-        <Flex gap={8}>
+      <FlexVCenter justify={'space-between'}>
+        <FlexVCenter gap={8}>
           <MyNextLink href={urls.pages.userProfile(user.id)}>
             <UserProfilePicture userId={user.id} widthHeigth={36} />
           </MyNextLink>
@@ -46,15 +57,17 @@ const UserSearchItem = ({ user }: Props) => {
                 {visibleUsername}
               </Text>
             </MyNextLink>
-            <Text></Text>
+            <Text size="sm" opacity={0.7}>
+              {entriesLabel}
+            </Text>
           </FlexCol>
-        </Flex>
+        </FlexVCenter>
         <Flex w={100}>
           {!itsAuthUser && (
             <FollowUnfollowButton profileUserId={user.id} width={100} />
           )}
         </Flex>
-      </Flex>
+      </FlexVCenter>
     </Box>
   )
 }
