@@ -2,7 +2,6 @@ import { useMantineTheme } from '@mantine/core'
 import { memo, useMemo } from 'react'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyInterestsQuery } from '../../../../hooks/react-query/interest/useMyInterestsQuery'
-import useToggleSaveItemMutation from '../../../../hooks/react-query/interest/useToggleSaveItemMutation'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
@@ -29,8 +28,6 @@ const HomeRatingItemButtons = (props: Props) => {
       myInterests?.find((r) => r.syncroItemId === props.syncroItemId) || null,
     [myInterests, props.syncroItemId]
   )
-
-  const { mutate: submitToggleSave } = useToggleSaveItemMutation()
 
   const typeMap = useSyncroItemTypeMap({
     itemType: props.itemType,
