@@ -103,7 +103,7 @@ const BrowseItemsExploreSection = ({ ...props }: Props) => {
 
   return (
     <FlexCol gap={16}>
-      <FlexVCenter justify={'space-between'}>
+      <FlexVCenter justify={'space-between'} wrap="wrap" gap={16}>
         <FlexVCenter gap={24}>
           <ItemTypeSelector
             value={itemType as SyncroItemType}
