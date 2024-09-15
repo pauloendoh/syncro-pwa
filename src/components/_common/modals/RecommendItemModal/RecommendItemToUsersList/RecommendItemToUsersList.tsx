@@ -80,6 +80,7 @@ const RecommendItemToUsersList = (props: Props) => {
           >
             {visibleMutuals.map((mutual) => (
               <RecommendMutualItem
+                key={props.itemId}
                 mutual={mutual}
                 itemId={props.itemId}
                 itemType={itemInfo.type}

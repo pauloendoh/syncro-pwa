@@ -34,8 +34,9 @@ const RecommendMutualItem = ({ mutual, itemId, ...props }: Props) => {
   }, [itemsRecommended])
 
   const [isDisabled, buttonLabel] = useMemo<[boolean, string]>(() => {
-    if (mutual.theirRating && mutual.theirRating > 0)
+    if (mutual.theirRating && mutual.theirRating > 0) {
       return [true, `Rated ${mutual.theirRating}`]
+    }
     if (mutual.isSaved) return [true, 'Saved']
     if (isAlreadyRecommended) return [true, 'Recommended']
     return [false, 'Recommend']
