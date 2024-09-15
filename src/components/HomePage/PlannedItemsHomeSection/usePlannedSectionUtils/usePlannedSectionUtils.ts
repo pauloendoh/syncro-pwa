@@ -1,3 +1,4 @@
+import { useQueryState } from 'next-usequerystate'
 import { useMemo, useState } from 'react'
 import { usePlannedItemsQueryV2 } from '../../../../hooks/react-query/interest/usePlannedItemsQueryV2'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
@@ -7,12 +8,18 @@ import {
   RatingStatusType,
 } from '../../../../types/domain/rating/ratingStatusArray'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { QueryParams } from '../../../../utils/queryParams'
 import { capitalize } from '../../../../utils/text/capitalize'
 
 export const usePlannedSectionUtils = (props: { userId: string }) => {
   const [selectedType, setSelectedType] = useState<SyncroItemType>()
-  const [selectedStatus, setSelectedStatus] =
-    useState<RatingStatusType>('PLANNED')
+  const [selectedStatus, setSelectedStatus] = useQueryState<RatingStatusType>(
+    QueryParams.status,
+    {
+      defaultValue: 'PLANNED',
+      parse: (value) => value as RatingStatusType,
+    }
+  )
 
   const { data: ratings, isLoading } = usePlannedItemsQueryV2(
     props.userId,

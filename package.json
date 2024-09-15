@@ -36,7 +36,7 @@
     "class-validator": "^0.14.0",
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^7.1.0",
-    "endoh-utils": "^1.0.23",
+    "endoh-utils": "^1.0.24",
     "luxon": "^3.5.0",
     "million": "^2.5.0",
     "next": "^13.4.8",

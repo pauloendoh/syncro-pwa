@@ -1,5 +1,6 @@
 import { Container, Flex, Title } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
+import { useQueryState } from 'next-usequerystate'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
@@ -9,6 +10,7 @@ import {
   syncroItemTypes,
 } from '../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
 import { localStorageKeys } from '../../utils/consts/localStorageKeys'
+import { QueryParams } from '../../utils/queryParams'
 import { urls } from '../../utils/urls/urls'
 import GridPlannedItemsV2 from '../HomePage/PlannedItemsHomeSection/GridPlannedItemsV2/GridPlannedItemsV2'
 import PlannedItemTypeButton from '../HomePage/PlannedItemsHomeSection/PlannedItemTypeButton/PlannedItemTypeButton'
@@ -25,6 +27,7 @@ const PlannedItemsPage = () => {
     usePlannedSectionUtils({ userId: getAuthUserId() })
 
   const { type } = useMyRouterQuery()
+  const [status, setStatus] = useQueryState(QueryParams.status)
   const router = useRouter()
 
   const [localType, setLocalType] = useLocalStorage<SyncroItemType>({

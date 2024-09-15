@@ -17,4 +17,6 @@ export enum QueryParams {
   type = 'type',
 
   period = 'period',
+
+  status = 'status',
 }
