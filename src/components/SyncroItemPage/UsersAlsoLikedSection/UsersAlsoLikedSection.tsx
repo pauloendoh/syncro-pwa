@@ -21,7 +21,7 @@ const UsersAlsoLikedSection = (props: Props) => {
   const { authUser } = useAuthStore()
 
   const [hideAlreadySaved, setHideAlreadySaved] = useLocalStorage({
-    key: localStorageKeys.hideAlreadySaved,
+    key: localStorageKeys.itemPage.hideAlreadySaved,
     defaultValue: false,
   })
 

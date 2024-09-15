@@ -1,10 +1,12 @@
-import { Flex, Select } from '@mantine/core'
-import { useIntersection } from '@mantine/hooks'
+import { Flex, Select, Switch } from '@mantine/core'
+import { useIntersection, useLocalStorage } from '@mantine/hooks'
 import { useQueryState } from 'next-usequerystate'
 import { useEffect, useMemo, useState } from 'react'
 import { useMostRatedItemsQuery } from '../../../hooks/react-query/rating/useMostRatedItemsQuery'
+import { useMyRatingsQuery } from '../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { SyncroItemType } from '../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import { localStorageKeys } from '../../../utils/consts/localStorageKeys'
 import { QueryParams } from '../../../utils/queryParams'
 import FavoriteItem from '../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
 import FlexCol from '../../_common/flex/FlexCol'
@@ -76,10 +78,24 @@ const BrowseItemsExploreSection = ({ ...props }: Props) => {
     setPage(1)
   }, [itemType, period])
 
-  const showingItems = useMemo(
-    () => items?.slice(0, page * 20) || [],
-    [items, page]
-  )
+  const [hideAlreadySaved, setHideAlreadySaved] = useLocalStorage({
+    key: localStorageKeys.browsePage.hideAlreadySaved,
+    defaultValue: false,
+  })
+
+  const { data: myRatings } = useMyRatingsQuery()
+
+  const showingItems = useMemo(() => {
+    const resultItems = [...(items ?? [])]
+
+    if (hideAlreadySaved) {
+      return resultItems.filter(
+        (item) => !myRatings?.some((r) => r.syncroItemId === item.id)
+      )
+    }
+
+    return resultItems.slice(0, page * 20)
+  }, [items, page, myRatings, hideAlreadySaved])
 
   if (!itemType || !period) {
     return null
@@ -87,25 +103,32 @@ const BrowseItemsExploreSection = ({ ...props }: Props) => {
 
   return (
     <FlexCol gap={16}>
-      <FlexVCenter gap={24}>
-        <ItemTypeSelector
-          value={itemType as SyncroItemType}
-          onChange={(newItemType) => {
-            setItemType(newItemType)
-          }}
-          width={120}
-          label="Item Type"
-        />
+      <FlexVCenter justify={'space-between'}>
+        <FlexVCenter gap={24}>
+          <ItemTypeSelector
+            value={itemType as SyncroItemType}
+            onChange={(newItemType) => {
+              setItemType(newItemType)
+            }}
+            width={120}
+            label="Item type"
+          />
 
-        <Select
-          label="Most Syncro Entries"
-          w={128}
-          data={periods}
-          maxDropdownHeight={400}
-          value={period}
-          onChange={(newPeriod: Period) => {
-            setPeriod(newPeriod)
-          }}
+          <Select
+            label="Most saved Syncro items"
+            w={160}
+            data={periods}
+            maxDropdownHeight={400}
+            value={period}
+            onChange={(newPeriod: Period) => {
+              setPeriod(newPeriod)
+            }}
+          />
+        </FlexVCenter>
+        <Switch
+          label="Hide items you saved"
+          checked={hideAlreadySaved}
+          onChange={(e) => setHideAlreadySaved(e.currentTarget.checked)}
         />
       </FlexVCenter>
 
