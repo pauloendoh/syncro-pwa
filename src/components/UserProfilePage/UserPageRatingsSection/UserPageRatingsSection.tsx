@@ -25,16 +25,18 @@ const UserPageRatingsSection = (props: Props) => {
     defaultValue: 'card',
   })
 
-  const { data: homeRatings } = useTimelineRatingsQuery(props.userId)
+  const { data: ratings } = useTimelineRatingsQuery(props.userId)
 
   const { isMobile } = useMyMediaQuery()
-
-  if (!homeRatings || homeRatings.pages[0].length === 0) return null
 
   return (
     <FlexCol gap={16}>
       <FlexVCenter justify="space-between">
-        <Title order={4}>Last entries</Title>
+        {ratings?.pages[0].length === 0 ? (
+          <Title order={4}>No entries</Title>
+        ) : (
+          <Title order={4}>Last entries</Title>
+        )}
 
         <FlexVCenter gap={8}>
           <FeedSettingsIcon />

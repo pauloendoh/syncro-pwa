@@ -43,7 +43,7 @@ const UsersAlsoLikedSection = (props: Props) => {
         <Title order={4}>Users also liked</Title>
 
         <Switch
-          label="Hide items you saved"
+          label="Hide items you already saved"
           checked={hideAlreadySaved}
           onChange={(e) => setHideAlreadySaved(e.currentTarget.checked)}
         />

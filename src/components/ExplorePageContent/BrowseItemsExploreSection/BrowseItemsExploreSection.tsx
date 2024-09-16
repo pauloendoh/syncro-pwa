@@ -126,7 +126,7 @@ const BrowseItemsExploreSection = ({ ...props }: Props) => {
           />
         </FlexVCenter>
         <Switch
-          label="Hide items you saved"
+          label="Hide items you already saved"
           checked={hideAlreadySaved}
           onChange={(e) => setHideAlreadySaved(e.currentTarget.checked)}
         />
