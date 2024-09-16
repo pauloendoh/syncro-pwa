@@ -1,4 +1,5 @@
 import { useRatingDetailsModalStore } from '../../../../../../hooks/zustand/modals/useRatingDetailsModalStore'
+import useSaveRatingModalStore from '../../../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import { RatingDto } from '../../../../../../types/domain/rating/RatingDto'
 import { useRatingStatusIcon } from '../../../../../../types/domain/rating/useRatingStatusIcon/useRatingStatusIcon'
 import MyIcons from '../../../../MyIcons/MyIcons'
@@ -9,10 +10,12 @@ type Props = {
   color: string
   clickShouldStopPropagation?: boolean
   clickShouldPreventDefault?: boolean
+  modalType?: 'details' | 'edit'
 }
 
 const UserEntryIcons = ({ rating, ...props }: Props) => {
-  const { openModal } = useRatingDetailsModalStore()
+  const { openModal: openDetailsModal } = useRatingDetailsModalStore()
+  const { openModal: openEditRatingModal } = useSaveRatingModalStore()
   const Icon = useRatingStatusIcon(rating.status)
 
   return (
@@ -30,7 +33,12 @@ const UserEntryIcons = ({ rating, ...props }: Props) => {
           e.preventDefault()
         }
 
-        openModal(rating)
+        if (props.modalType === 'edit') {
+          openEditRatingModal(rating)
+          return
+        }
+
+        openDetailsModal(rating)
       }}
     >
       {!!rating.review && <MyIcons.Review color={props.color} />}

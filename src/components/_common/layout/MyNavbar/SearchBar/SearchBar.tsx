@@ -17,12 +17,9 @@ import { urls } from '../../../../../utils/urls/urls'
 import { useAxios } from '../../../../../utils/useAxios'
 import { isSyncroItemType } from '../../../../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
-import SyncroItemLink from '../../../SyncroItemLink/SyncroItemLink'
-import FlexCol from '../../../flex/FlexCol'
-import SyncroItemImage from '../../../image/SyncroItemImage/SyncroItemImage'
 import MyTextInput from '../../../inputs/MyTextInput'
-import UserEntryIcons from '../../../modals/ItemRatedByModal/ItemRatedByModalItem/UserEntryIcons/UserEntryIcons'
 import MyNextLink from '../../../overrides/MyNextLink'
+import SearchAutocompleteItem from './SearchAutocompleteItem/SearchAutocompleteItem'
 import SearchBarSelectItem from './SearchBarSelectItem/SearchBarSelectItem'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
@@ -249,45 +246,13 @@ const SearchBar = () => {
             </Flex>
           </MyNextLink>
           {previewData.map(({ item, myRating }) => (
-            <SyncroItemLink
+            <SearchAutocompleteItem
               key={item.id}
               item={item}
               onClick={() => {
                 setPreviewData([])
               }}
-              disablePreview
-            >
-              <Flex
-                p={8}
-                gap={8}
-                sx={{
-                  cursor: 'pointer',
-                  ':hover': {
-                    backgroundColor: theme.colors.dark[4],
-                  },
-                }}
-              >
-                <SyncroItemImage item={item} height={80} width={80} />
-                <FlexCol>
-                  <Text
-                    sx={{
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {item.title}
-                  </Text>
-                  {item.year ?? <Text>{item.year}</Text>}
-                  {myRating && (
-                    <UserEntryIcons
-                      color={theme.colors.secondary[9]}
-                      rating={myRating}
-                      clickShouldStopPropagation
-                      clickShouldPreventDefault
-                    />
-                  )}
-                </FlexCol>
-              </Flex>
-            </SyncroItemLink>
+            />
           ))}
         </Paper>
       )}
