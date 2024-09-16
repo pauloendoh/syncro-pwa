@@ -1,4 +1,12 @@
-import { Flex, Paper, Select, Text, useMantineTheme } from '@mantine/core'
+import {
+  Box,
+  Flex,
+  LoadingOverlay,
+  Paper,
+  Select,
+  Text,
+  useMantineTheme,
+} from '@mantine/core'
 import {
   useClickOutside,
   useDebouncedValue,
@@ -10,7 +18,6 @@ import { MdSearch } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
-import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
 import { SearchType } from '../../../../../types/domain/search/SearchParams'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import { urls } from '../../../../../utils/urls/urls'
@@ -18,6 +25,7 @@ import { useAxios } from '../../../../../utils/useAxios'
 import { isSyncroItemType } from '../../../../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
 import MyTextInput from '../../../inputs/MyTextInput'
+import CenterLoader from '../../../overrides/CenterLoader/CenterLoader'
 import MyNextLink from '../../../overrides/MyNextLink'
 import SearchAutocompleteItem from './SearchAutocompleteItem/SearchAutocompleteItem'
 import SearchBarSelectItem from './SearchBarSelectItem/SearchBarSelectItem'
@@ -25,7 +33,6 @@ import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
 type SearchPreviewDto = {
   item: SyncroItemDto
-  myRating: RatingDto | null
 }
 
 const SearchBar = () => {
@@ -66,9 +73,13 @@ const SearchBar = () => {
 
   const axios = useAxios()
 
+  const [loading, setLoading] = useState(false)
+
+  const cancelController = useRef(new AbortController())
+
   // PE 2/3 - rename to searchPreviewItems
   const handlePreviewItems = useCallback(
-    (input: string, selectedType: SearchType) => {
+    async (input: string, selectedType: SearchType) => {
       if (q === debouncedInput && type === selectedType) {
         setPreviewData([])
         return
@@ -80,7 +91,10 @@ const SearchBar = () => {
       }
 
       if (input.length > 0) {
-        axios
+        setLoading(true)
+        cancelController.current.abort()
+
+        await axios
           .get<SearchPreviewDto[]>(
             urls.api.searchAutocomplete({
               q: debouncedInput,
@@ -89,6 +103,9 @@ const SearchBar = () => {
           )
           .then((res) => {
             setPreviewData(res.data)
+          })
+          .finally(() => {
+            setLoading(false)
           })
         return
       }
@@ -210,7 +227,7 @@ const SearchBar = () => {
       />
 
       {/* PE 1/3 - separate into a different component SearchPreviewItem */}
-      {previewData.length > 0 && (
+      {(previewData.length > 0 || loading) && (
         <Paper
           ref={clickOutsideRef}
           sx={{
@@ -224,36 +241,49 @@ const SearchBar = () => {
             backgroundColor: theme.colors.dark[8],
           }}
         >
-          <MyNextLink
-            href={urls.pages.search({
-              q: input,
-              type: selectedType,
-            })}
-          >
-            <Flex
-              p={8}
-              justify="center"
-              sx={{
-                cursor: 'pointer',
-                ':hover': {
-                  backgroundColor: theme.colors.dark[4],
-                },
-              }}
-            >
-              <Text color="primary" underline>
-                See all results
-              </Text>
-            </Flex>
-          </MyNextLink>
-          {previewData.map(({ item, myRating }) => (
-            <SearchAutocompleteItem
-              key={item.id}
-              item={item}
-              onClick={() => {
-                setPreviewData([])
-              }}
+          <Box pos="relative">
+            {previewData.length === 0 && loading && (
+              <CenterLoader width={'100%'} />
+            )}
+            <LoadingOverlay
+              mah={340}
+              visible={previewData.length > 0 && loading}
             />
-          ))}
+            {previewData.length > 0 && (
+              <>
+                <MyNextLink
+                  href={urls.pages.search({
+                    q: input,
+                    type: selectedType,
+                  })}
+                >
+                  <Flex
+                    p={8}
+                    justify="center"
+                    sx={{
+                      cursor: 'pointer',
+                      ':hover': {
+                        backgroundColor: theme.colors.dark[4],
+                      },
+                    }}
+                  >
+                    <Text color="primary" underline>
+                      See all results
+                    </Text>
+                  </Flex>
+                </MyNextLink>
+                {previewData.map(({ item }) => (
+                  <SearchAutocompleteItem
+                    key={item.id}
+                    item={item}
+                    onClick={() => {
+                      setPreviewData([])
+                    }}
+                  />
+                ))}
+              </>
+            )}
+          </Box>
         </Paper>
       )}
     </form>
