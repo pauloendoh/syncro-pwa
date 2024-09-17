@@ -58,7 +58,7 @@ const RatingSimilarityItem = ({ item }: Props) => {
               {youreFollowing && (
                 <Text
                   size="xs"
-                  color="grey"
+                  opacity={0.7}
                   style={{
                     marginLeft: 4,
                   }}
@@ -82,7 +82,7 @@ const RatingSimilarityItem = ({ item }: Props) => {
                 sections={[
                   {
                     value: item.overallPercentage * 100,
-                    color: isHighSimilarity ? 'secondary' : 'grey',
+                    color: 'secondary',
                   },
                 ]}
                 sx={{
@@ -94,8 +94,6 @@ const RatingSimilarityItem = ({ item }: Props) => {
                   position: 'absolute',
                   left: 4,
                   top: 2,
-                  borderBottom: '1px dotted white',
-                  cursor: 'help',
                 }}
                 size="xs"
                 color="white"
