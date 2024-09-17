@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import useUpdateProfileMutation from '../../hooks/react-query/profile/useUpdateProfileMutation'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import useAuthStore from '../../hooks/zustand/useAuthStore'
 import { ProfilePutDto } from '../../types/domain/profile/ProfilePutDto'
 import { urls } from '../../utils/urls/urls'
@@ -37,12 +38,19 @@ const EditProfilePage = (props: Props) => {
 
   const router = useRouter()
 
+  const { isMobile } = useMyMediaQuery()
+
   if (!authUser) return null
 
   return (
     <DefaultLayout>
       <Container size="xs">
-        <MyPaper>
+        <MyPaper
+          px={isMobile ? 8 : undefined}
+          mt={isMobile ? 0 : undefined}
+          w={isMobile ? '100%' : undefined}
+          bg={isMobile ? 'transparent' : undefined}
+        >
           <form
             onSubmit={handleSubmit((data) => {
               submitUpdateProfile(data, {

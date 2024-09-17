@@ -226,7 +226,6 @@ const SearchBar = () => {
         }}
       />
 
-      {/* PE 1/3 - separate into a different component SearchPreviewItem */}
       {(previewData.length > 0 || loading) && (
         <Paper
           ref={clickOutsideRef}
