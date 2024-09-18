@@ -41,7 +41,6 @@ import { capitalize } from '../../../../utils/text/capitalize'
 import FlexCol from '../../flex/FlexCol'
 import FlexVCenter from '../../flex/FlexVCenter'
 import MyNumberInput from '../../inputs/MyNumberInput'
-import MyTextInput from '../../inputs/MyTextInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import MyInfoIcon from '../../MyIcons/MyInfoIcon/MyInfoIcon'
 import Span from '../../text/Span'
@@ -86,10 +85,9 @@ const EditRatingModal = () => {
           return
         }
 
-        const prevRating = initialValue?.ratingValue ?? 0
-        const newRating = data.ratingValue ?? 0
-
         // WAIT FOR BETTER SHARING MODAL
+        // const prevRating = initialValue?.ratingValue ?? 0
+        // const newRating = data.ratingValue ?? 0
         // if (prevRating < minRating && newRating >= minRating) {
         //   openShareRatingModal(data, { isAfterRating: true })
         // }
@@ -237,7 +235,7 @@ const EditRatingModal = () => {
         )}
       </FlexVCenter>
     )
-  }, [form.watch('completedCount'), initialValue?.completedCount])
+  }, [form.watch('completedCount'), typeMap, initialValue?.completedCount])
 
   const [hasAutomaticallyChangedCount, setHasAutomaticallyChangedCount] =
     useState(false)
@@ -422,18 +420,6 @@ const EditRatingModal = () => {
               precision={0}
               value={form.watch('completedCount')}
               w={140}
-            />
-
-            <MyTextInput
-              sx={{
-                flexGrow: 1,
-              }}
-              {...form.register('consumedOn')}
-              label={`Last ${typeMap?.getVerb({ isPast: true })} on`}
-              placeholder={typeMap?.consumedOnExamples}
-              error={
-                form.watch('consumedOn').length > 16 && 'Max 16 characters'
-              }
             />
           </FlexVCenter>
 
