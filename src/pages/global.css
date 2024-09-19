@@ -12,4 +12,8 @@
   body {
     padding-bottom: env(safe-area-inset-bottom);
   }
+
+  :root {
+    --sat: env(safe-area-inset-top);
+  }
 }

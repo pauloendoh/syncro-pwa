@@ -458,12 +458,12 @@ const EditRatingModal = () => {
                   }
                 : {
                     position: 'sticky',
-                    bottom: 'env(safe-area-inset-bottom)',
+                    bottom: 0,
                     left: 0,
                     right: 0,
                     paddingInline: 16,
                     paddingTop: 8,
-                    paddingBottom: 8,
+                    paddingBottom: `calc(env(safe-area-inset-bottom) + 8px)`,
                     zIndex: zIndex + 1,
                     borderTop: `1px solid ${theme.colors.dark[4]}`,
                     background: theme.colors.dark[7],
