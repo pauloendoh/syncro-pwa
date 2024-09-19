@@ -8,12 +8,8 @@
       font-size: 16px;
     }
   }
+}
 
-  body {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  :root {
-    --sat: env(safe-area-inset-top);
-  }
+body {
+  min-height: 100vh;
 }
