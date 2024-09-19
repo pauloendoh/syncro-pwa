@@ -181,7 +181,7 @@ const EditRatingModal = () => {
     }
   }
 
-  const { isMobile } = useMyMediaQuery()
+  const { isMobile, isIphone } = useMyMediaQuery()
 
   const { data: usersToRecommend } = useUsersToRecommendQueryV2(
     initialValue?.syncroItemId || undefined
@@ -461,8 +461,9 @@ const EditRatingModal = () => {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    paddingBlock: 8,
                     paddingInline: 16,
+                    paddingTop: 8,
+                    paddingBottom: isIphone ? 36 : 8,
                     zIndex: zIndex + 1,
                     borderTop: `1px solid ${theme.colors.dark[4]}`,
                     background: theme.colors.dark[7],

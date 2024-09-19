@@ -10,11 +10,14 @@ export const useMyMediaQuery = () => {
 
   const isTouchScreen = useMediaQuery('pointer:coarce')
 
+  const isIphone = useMediaQuery('@supports (-webkit-touch-callout: none)')
+
   return {
     screenWidth,
     isSmallScreen,
     isMobile,
     isLoading,
     isTouchScreen,
+    isIphone,
   }
 }
