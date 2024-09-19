@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Checkbox,
-  Divider,
   Flex,
   Modal,
   ScrollArea,
@@ -44,7 +43,6 @@ import MyNumberInput from '../../inputs/MyNumberInput'
 import SaveCancelButtons from '../../inputs/SaveCancelButtons'
 import MyInfoIcon from '../../MyIcons/MyInfoIcon/MyInfoIcon'
 import Span from '../../text/Span'
-import RecommendItemToUsersList from '../RecommendItemModal/RecommendItemToUsersList/RecommendItemToUsersList'
 import RatingProgressFields from './RatingProgressFields/RatingProgressFields'
 import RatingSection from './RatingSection/RatingSection'
 import RatingStatusSelector from './RatingStatusSelector/RatingStatusSelector'
@@ -483,7 +481,7 @@ const EditRatingModal = () => {
           </FlexVCenter>
         </form>
 
-        {!!initialValue?.syncroItemId &&
+        {/* {!!initialValue?.syncroItemId &&
           !!form.watch('ratingValue') &&
           form.watch('ratingValue')! >= 8 &&
           !!usersToRecommend?.length && (
@@ -493,7 +491,7 @@ const EditRatingModal = () => {
 
               <RecommendItemToUsersList itemId={initialValue.syncroItemId} />
             </FlexCol>
-          )}
+          )} */}
       </FlexCol>
     </Modal>
   )
