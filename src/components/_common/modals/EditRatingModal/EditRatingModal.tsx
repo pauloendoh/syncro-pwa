@@ -465,7 +465,7 @@ const EditRatingModal = () => {
                     right: 0,
                     paddingBlock: 8,
                     paddingInline: 16,
-
+                    zIndex: zIndex + 1,
                     borderTop: `1px solid ${theme.colors.dark[4]}`,
                     background: theme.colors.dark[7],
                   }
