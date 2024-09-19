@@ -181,7 +181,7 @@ const EditRatingModal = () => {
     }
   }
 
-  const { isMobile, isIphone } = useMyMediaQuery()
+  const { isMobile } = useMyMediaQuery()
 
   const { data: usersToRecommend } = useUsersToRecommendQueryV2(
     initialValue?.syncroItemId || undefined
@@ -270,6 +270,7 @@ const EditRatingModal = () => {
         },
         body: {
           padding: 0,
+          height: isMobile ? '100dvh' : undefined,
         },
       }}
       fullScreen={isMobile}
@@ -463,7 +464,7 @@ const EditRatingModal = () => {
                     right: 0,
                     paddingInline: 16,
                     paddingTop: 8,
-                    paddingBottom: isIphone ? 36 : 8,
+                    paddingBottom: 8,
                     zIndex: zIndex + 1,
                     borderTop: `1px solid ${theme.colors.dark[4]}`,
                     background: theme.colors.dark[7],
