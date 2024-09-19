@@ -270,7 +270,6 @@ const EditRatingModal = () => {
         },
         body: {
           padding: 0,
-          height: isMobile ? '100dvh' : undefined,
         },
       }}
       fullScreen={isMobile}
