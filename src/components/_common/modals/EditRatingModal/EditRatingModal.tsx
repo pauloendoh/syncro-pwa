@@ -270,181 +270,207 @@ const EditRatingModal = () => {
         title: {
           paddingBottom: 8,
         },
+        body: {
+          padding: 0,
+        },
       }}
       fullScreen={isMobile}
       scrollAreaComponent={isMobile ? undefined : ScrollArea.Autosize}
     >
-      <FlexCol pr={12}>
+      <FlexCol>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          {userSettings?.showDefaultStatusIsInProgressNow &&
-            !form.watch('id') && (
-              <Alert
-                mt={24}
-                variant="light"
-                color="blue"
-                icon={<MdInfo />}
-                withCloseButton
-                onClose={() => {
-                  submitUpdateSettings({
-                    ...userSettings,
-                    showDefaultStatusIsInProgressNow: false,
-                  })
-                }}
-                styles={{
-                  icon: {
-                    marginRight: 4,
-                  },
-                }}
-              >
-                The default status has been updated from "Completed" to "In
-                Progress."
-              </Alert>
-            )}
+          <Box p={16}>
+            {userSettings?.showDefaultStatusIsInProgressNow &&
+              !form.watch('id') && (
+                <Alert
+                  mt={24}
+                  variant="light"
+                  color="blue"
+                  icon={<MdInfo />}
+                  withCloseButton
+                  onClose={() => {
+                    submitUpdateSettings({
+                      ...userSettings,
+                      showDefaultStatusIsInProgressNow: false,
+                    })
+                  }}
+                  styles={{
+                    icon: {
+                      marginRight: 4,
+                    },
+                  }}
+                >
+                  The default status has been updated from "Completed" to "In
+                  Progress."
+                </Alert>
+              )}
 
-          <Flex mt={16} justify={'space-between'} w="100%">
-            {syncroItem && (
-              <RatingStatusSelector
-                itemType={syncroItem.type}
-                value={form.watch('status')}
-                onChange={({ newValue, prevValue }) => {
-                  form.setValue('status', newValue, { shouldDirty: true })
+            <Flex justify={'space-between'} w="100%">
+              {syncroItem && (
+                <RatingStatusSelector
+                  itemType={syncroItem.type}
+                  value={form.watch('status')}
+                  onChange={({ newValue, prevValue }) => {
+                    form.setValue('status', newValue, { shouldDirty: true })
 
-                  if (
-                    initialValue?.status === 'COMPLETED' &&
-                    prevValue === 'COMPLETED' &&
-                    newValue !== 'COMPLETED'
-                  ) {
-                    return
-                  }
-
-                  if (
-                    initialValue?.status !== 'COMPLETED' &&
-                    newValue === 'COMPLETED'
-                  ) {
-                    if (form.formState.dirtyFields.completedCount) {
+                    if (
+                      initialValue?.status === 'COMPLETED' &&
+                      prevValue === 'COMPLETED' &&
+                      newValue !== 'COMPLETED'
+                    ) {
                       return
                     }
 
-                    form.setValue(
-                      'completedCount',
-                      form.watch('completedCount') + 1,
-                      {
-                        shouldDirty: true,
+                    if (
+                      initialValue?.status !== 'COMPLETED' &&
+                      newValue === 'COMPLETED'
+                    ) {
+                      if (form.formState.dirtyFields.completedCount) {
+                        return
                       }
-                    )
-                    setHasAutomaticallyChangedCount(true)
-                    return
-                  }
 
-                  if (
-                    initialValue?.status !== 'COMPLETED' &&
-                    prevValue === 'COMPLETED' &&
-                    newValue !== 'COMPLETED'
-                  ) {
-                    if (hasAutomaticallyChangedCount) {
                       form.setValue(
                         'completedCount',
-                        initialValue?.completedCount ?? 0,
-                        { shouldDirty: true }
+                        form.watch('completedCount') + 1,
+                        {
+                          shouldDirty: true,
+                        }
                       )
-
-                      setHasAutomaticallyChangedCount(false)
+                      setHasAutomaticallyChangedCount(true)
+                      return
                     }
-                  }
-                }}
-                width={180}
-              />
-            )}
-          </Flex>
 
-          <FlexVCenter
-            mt={16}
-            sx={{
-              justifyContent: 'center',
-            }}
-          >
-            <RatingSection
-              value={form.watch('ratingValue')}
-              onChange={handleChangeRating}
-            />
-          </FlexVCenter>
+                    if (
+                      initialValue?.status !== 'COMPLETED' &&
+                      prevValue === 'COMPLETED' &&
+                      newValue !== 'COMPLETED'
+                    ) {
+                      if (hasAutomaticallyChangedCount) {
+                        form.setValue(
+                          'completedCount',
+                          initialValue?.completedCount ?? 0,
+                          { shouldDirty: true }
+                        )
 
-          {syncroItem &&
-            form.watch('ratingProgress') &&
-            syncroItem.type !== 'movie' && (
-              <FlexVCenter mt={16}>
-                <RatingProgressFields
-                  value={form.watch('ratingProgress')!}
-                  onChange={(value) =>
-                    form.setValue('ratingProgress', value, {
-                      shouldDirty: true,
-                    })
-                  }
-                  item={syncroItem}
-                  status={form.watch('status')}
+                        setHasAutomaticallyChangedCount(false)
+                      }
+                    }
+                  }}
+                  width={180}
                 />
-              </FlexVCenter>
-            )}
+              )}
+            </Flex>
 
-          <Textarea
-            label="Review"
-            {...form.register('review')}
-            placeholder="Write a review..."
-            autosize
-            minRows={3}
-            styles={{
-              root: {
-                marginTop: 20,
-              },
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && e.ctrlKey) {
-                if (initialValue) onSubmit(form.watch())
-              }
-            }}
-          />
+            <FlexVCenter
+              mt={16}
+              sx={{
+                justifyContent: 'center',
+              }}
+            >
+              <RatingSection
+                value={form.watch('ratingValue')}
+                onChange={handleChangeRating}
+              />
+            </FlexVCenter>
 
-          <Box mt={16}>
-            <ShareFavoriteScenesSection
-              values={form.watch('scenes') || []}
-              onChange={(values) => form.setValue('scenes', values)}
-            />
-          </Box>
+            {syncroItem &&
+              form.watch('ratingProgress') &&
+              syncroItem.type !== 'movie' && (
+                <FlexVCenter mt={16}>
+                  <RatingProgressFields
+                    value={form.watch('ratingProgress')!}
+                    onChange={(value) =>
+                      form.setValue('ratingProgress', value, {
+                        shouldDirty: true,
+                      })
+                    }
+                    item={syncroItem}
+                    status={form.watch('status')}
+                  />
+                </FlexVCenter>
+              )}
 
-          <FlexVCenter mt={16} gap={16}>
-            <MyNumberInput
-              label={completedCountInputLabel}
-              onChange={(value) =>
-                form.setValue('completedCount', value, { shouldDirty: true })
-              }
-              precision={0}
-              value={form.watch('completedCount')}
-              w={140}
-            />
-          </FlexVCenter>
-
-          <Box mt={16}>
-            <Checkbox
-              label="Private"
-              checked={form.watch('isPrivate')}
-              onChange={(e) => {
-                form.setValue('isPrivate', e.target.checked)
+            <Textarea
+              label="Review"
+              {...form.register('review')}
+              placeholder="Write a review..."
+              autosize
+              minRows={3}
+              styles={{
+                root: {
+                  marginTop: 20,
+                },
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                  if (initialValue) onSubmit(form.watch())
+                }
               }}
             />
+
+            <Box mt={16}>
+              <ShareFavoriteScenesSection
+                values={form.watch('scenes') || []}
+                onChange={(values) => form.setValue('scenes', values)}
+              />
+            </Box>
+
+            <FlexVCenter mt={16} gap={16}>
+              <MyNumberInput
+                label={completedCountInputLabel}
+                onChange={(value) =>
+                  form.setValue('completedCount', value, { shouldDirty: true })
+                }
+                precision={0}
+                value={form.watch('completedCount')}
+                w={140}
+              />
+            </FlexVCenter>
+
+            <Box mt={16}>
+              <Checkbox
+                label="Private"
+                checked={form.watch('isPrivate')}
+                onChange={(e) => {
+                  form.setValue('isPrivate', e.target.checked)
+                }}
+              />
+            </Box>
+
+            <Box mt={isMobile ? 24 : undefined} />
+
+            {Boolean(form.watch('importedFromUrl')) && (
+              <Box mt={16}>
+                <Span>
+                  Your rating came from{' '}
+                  <Anchor href={form.watch('importedFromUrl')!} target="_blank">
+                    {form.watch('importedFromUrl')}
+                  </Anchor>
+                </Span>
+              </Box>
+            )}
           </Box>
 
-          {Boolean(form.watch('importedFromUrl')) && (
-            <Box mt={16}>
-              <Span>
-                Your rating came from{' '}
-                <Anchor href={form.watch('importedFromUrl')!} target="_blank">
-                  {form.watch('importedFromUrl')}
-                </Anchor>
-              </Span>
-            </Box>
-          )}
+          <FlexVCenter
+            justify="space-between"
+            sx={
+              !isMobile
+                ? {
+                    padding: 16,
+                  }
+                : {
+                    position: 'sticky',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    paddingBlock: 8,
+                    paddingInline: 16,
 
-          <FlexVCenter mt={32} justify="space-between">
+                    borderTop: `1px solid ${theme.colors.dark[4]}`,
+                    background: theme.colors.dark[7],
+                  }
+            }
+          >
             <SaveCancelButtons
               isLoading={isLoadingMutation}
               onCancel={handleCloseModal}
