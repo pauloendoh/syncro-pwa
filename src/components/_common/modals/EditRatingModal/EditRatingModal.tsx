@@ -11,6 +11,7 @@ import {
   Skeleton,
   Textarea,
   Title,
+  Transition,
   useMantineTheme,
 } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
@@ -306,6 +307,12 @@ const EditRatingModal = () => {
         body: {
           padding: 0,
         },
+        close: {
+          width: 32,
+          height: 32,
+          position: 'relative',
+          top: -4,
+        },
       }}
       fullScreen={isMobile}
       scrollAreaComponent={isMobile ? undefined : ScrollArea.Autosize}
@@ -484,7 +491,22 @@ const EditRatingModal = () => {
             )}
           </Box>
 
-          {!isMobile ? saveCancelSection : <Portal>{saveCancelSection}</Portal>}
+          {!isMobile ? (
+            saveCancelSection
+          ) : (
+            <Portal>
+              <Transition
+                transition={'fade'}
+                mounted={!!modalIsOpen}
+                duration={500}
+                timingFunction="ease"
+              >
+                {(styles) => (
+                  <FlexVCenter style={styles}>{saveCancelSection}</FlexVCenter>
+                )}
+              </Transition>
+            </Portal>
+          )}
 
           {isMobile && <Box mt={120} />}
         </form>
