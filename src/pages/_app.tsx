@@ -8,12 +8,17 @@ import './global.css'
 import 'react-photo-view/dist/react-photo-view.css'
 
 import {
+  Box,
   ColorScheme,
   ColorSchemeProvider,
   LoadingOverlay,
   MantineProvider,
 } from '@mantine/core'
-import { useLocalStorage, useViewportSize } from '@mantine/hooks'
+import {
+  useLocalStorage,
+  useResizeObserver,
+  useViewportSize,
+} from '@mantine/hooks'
 import { Notifications } from '@mantine/notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { AppProps } from 'next/app'
@@ -66,15 +71,22 @@ export default function App(props: AppProps) {
 
   usePreserveScroll()
 
+  const [appRef, rect] = useResizeObserver()
+
   const { height, width } = useViewportSize()
-  const [setScreenHeight, setScreenWidth] = useScreenSizeStore((s) => [
-    s.setScreenHeight,
-    s.setScreenWidth,
-  ])
+  const [setScreenHeight, setScreenWidth, setLvhHeight, setDiffLvh] =
+    useScreenSizeStore((s) => [
+      s.setScreenHeight,
+      s.setScreenWidth,
+      s.setLvhHeight,
+      s.setDiffLvh,
+    ])
   useEffect(() => {
     setScreenHeight(height)
     setScreenWidth(width)
-  }, [height, width])
+    setLvhHeight(Math.ceil(rect.height))
+    setDiffLvh(Math.ceil(rect.height) - height)
+  }, [height, width, rect.height])
 
   useSavePreviousUrlOnSessionStorage()
   useLogUserInfo()
@@ -101,6 +113,15 @@ export default function App(props: AppProps) {
           withNormalizeCSS
           theme={{ ...myTheme, colorScheme }}
         >
+          <Box
+            ref={appRef}
+            className="App"
+            sx={{
+              minHeight: '100lvh',
+              position: 'fixed',
+              visibility: 'hidden',
+            }}
+          />
           <DatesProvider settings={{}}>
             <Notifications
               position="bottom-center"

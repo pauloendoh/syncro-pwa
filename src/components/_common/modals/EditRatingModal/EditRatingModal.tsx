@@ -33,6 +33,7 @@ import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfi
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
+import useScreenSizeStore from '../../../../hooks/zustand/useScreenSizeStore'
 import {
   RatingDto,
   buildRatingDto,
@@ -274,6 +275,8 @@ const EditRatingModal = () => {
     </FlexVCenter>
   )
 
+  const [diffLvh] = useScreenSizeStore((s) => [s.diffLvh])
+
   return (
     <Modal
       opened={!!modalIsOpen}
@@ -319,7 +322,7 @@ const EditRatingModal = () => {
     >
       <FlexCol>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Box p={16}>
+          <Box p={16} h={!isMobile ? undefined : 'calc(100dvh + 40px)'}>
             {userSettings?.showDefaultStatusIsInProgressNow &&
               !form.watch('id') && (
                 <Alert
@@ -477,8 +480,6 @@ const EditRatingModal = () => {
               />
             </Box>
 
-            <Box mt={isMobile ? 24 : undefined} />
-
             {Boolean(form.watch('importedFromUrl')) && (
               <Box mt={16}>
                 <Span>
@@ -487,6 +488,12 @@ const EditRatingModal = () => {
                     {form.watch('importedFromUrl')}
                   </Anchor>
                 </Span>
+              </Box>
+            )}
+
+            {isMobile && (
+              <Box h={diffLvh + 64}>
+                {/* sinceramente não sei pq isso funciona  */}
               </Box>
             )}
           </Box>
@@ -507,8 +514,6 @@ const EditRatingModal = () => {
               </Transition>
             </Portal>
           )}
-
-          {isMobile && <Box mt={120} />}
         </form>
 
         {/* {!!initialValue?.syncroItemId &&

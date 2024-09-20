@@ -4,6 +4,7 @@ import nookies from 'nookies'
 
 import { cookieKeys } from './consts/cookieKeys'
 import { myNotifications } from './mantine/myNotifications'
+import { myEnvs } from './myEnvs'
 
 export const useAxios = (showErrorMessage = true) => {
   const localAxios = axios.create()
@@ -44,12 +45,18 @@ export const useAxios = (showErrorMessage = true) => {
           return Promise.reject(error)
         }
 
-        myNotifications.error(error.response?.data.message || error.message)
+        const isIphone = navigator.userAgent.includes('iPhone')
+
+        if (!myEnvs.isProduction && isIphone) {
+          // debugging locally on iPhone
+          console.log('do nothing')
+        } else {
+          myNotifications.error(error.response?.data.message ?? error.message)
+        }
       }
 
       return Promise.reject(error)
     }
   )
-
   return localAxios
 }
