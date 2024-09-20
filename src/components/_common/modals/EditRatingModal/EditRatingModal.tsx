@@ -266,6 +266,7 @@ const EditRatingModal = () => {
       <SaveCancelButtons
         isLoading={isLoadingMutation}
         onCancel={handleCloseModal}
+        onSave={form.handleSubmit(onSubmit)}
       />
       {!!initialValue?.id && (
         <Button onClick={handleDelete} color="red" variant="outline">
