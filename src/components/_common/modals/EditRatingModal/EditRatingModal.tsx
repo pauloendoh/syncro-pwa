@@ -6,6 +6,7 @@ import {
   Checkbox,
   Flex,
   Modal,
+  Portal,
   ScrollArea,
   Skeleton,
   Textarea,
@@ -238,6 +239,40 @@ const EditRatingModal = () => {
   const [hasAutomaticallyChangedCount, setHasAutomaticallyChangedCount] =
     useState(false)
 
+  const saveCancelSection = (
+    <FlexVCenter
+      justify="space-between"
+      sx={
+        !isMobile
+          ? {
+              padding: 16,
+            }
+          : {
+              position: 'fixed',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              paddingInline: 16,
+              paddingTop: 8,
+              paddingBottom: 8,
+              zIndex: zIndex + 1,
+              borderTop: `1px solid ${theme.colors.dark[4]}`,
+              background: theme.colors.dark[7],
+            }
+      }
+    >
+      <SaveCancelButtons
+        isLoading={isLoadingMutation}
+        onCancel={handleCloseModal}
+      />
+      {!!initialValue?.id && (
+        <Button onClick={handleDelete} color="red" variant="outline">
+          Delete
+        </Button>
+      )}
+    </FlexVCenter>
+  )
+
   return (
     <Modal
       opened={!!modalIsOpen}
@@ -449,37 +484,9 @@ const EditRatingModal = () => {
             )}
           </Box>
 
-          <FlexVCenter
-            justify="space-between"
-            sx={
-              !isMobile
-                ? {
-                    padding: 16,
-                  }
-                : {
-                    position: 'sticky',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    paddingInline: 16,
-                    paddingTop: 8,
-                    paddingBottom: `calc(env(safe-area-inset-bottom) + 8px)`,
-                    zIndex: zIndex + 1,
-                    borderTop: `1px solid ${theme.colors.dark[4]}`,
-                    background: theme.colors.dark[7],
-                  }
-            }
-          >
-            <SaveCancelButtons
-              isLoading={isLoadingMutation}
-              onCancel={handleCloseModal}
-            />
-            {!!initialValue?.id && (
-              <Button onClick={handleDelete} color="red" variant="outline">
-                Delete
-              </Button>
-            )}
-          </FlexVCenter>
+          {!isMobile ? saveCancelSection : <Portal>{saveCancelSection}</Portal>}
+
+          {isMobile && <Box mt={120} />}
         </form>
 
         {/* {!!initialValue?.syncroItemId &&
