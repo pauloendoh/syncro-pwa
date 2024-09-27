@@ -11,10 +11,10 @@ interface Props {
   size?: number
 }
 
-// PE 1/3 - use Record
-export const SyncroItemBaseIcon: {
-  [key in SyncroItemType]: React.ComponentType<IconBaseProps>
-} = {
+export const SyncroItemBaseIcon: Record<
+  SyncroItemType,
+  React.ComponentType<IconBaseProps>
+> = {
   book: MdOutlineMenuBook,
   game: IoLogoGameControllerA,
   manga: IoMdBook,

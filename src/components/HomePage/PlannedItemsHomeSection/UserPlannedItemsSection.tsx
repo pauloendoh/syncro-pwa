@@ -8,7 +8,7 @@ import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
 import MyPaper from '../../_common/overrides/MyPaper'
 import Span from '../../_common/text/Span'
-import GridPlannedItemsV2 from './GridPlannedItemsV2/GridPlannedItemsV2'
+import GridPlannedItems from './GridPlannedItems/GridPlannedItems'
 import PlannedItemTypeButton from './PlannedItemTypeButton/PlannedItemTypeButton'
 import PlannedItemsMoreMenu from './PlannedItemsMoreMenu/PlannedItemsMoreMenu'
 import { usePlannedSectionUtils } from './usePlannedSectionUtils/usePlannedSectionUtils'
@@ -126,7 +126,7 @@ const UserPlannedItemsSection = (props: Props) => {
             <ScrollArea.Autosize mah={1000} mt={16}>
               <Box sx={{ paddingRight: 16, paddingLeft: 16 }}>
                 {selectedType && (
-                  <GridPlannedItemsV2
+                  <GridPlannedItems
                     ratings={ratings ?? []}
                     selectedType={selectedType}
                   />

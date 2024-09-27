@@ -12,7 +12,7 @@ import {
 import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { QueryParams } from '../../utils/queryParams'
 import { urls } from '../../utils/urls/urls'
-import GridPlannedItemsV2 from '../HomePage/PlannedItemsHomeSection/GridPlannedItemsV2/GridPlannedItemsV2'
+import GridPlannedItems from '../HomePage/PlannedItemsHomeSection/GridPlannedItems/GridPlannedItems'
 import PlannedItemTypeButton from '../HomePage/PlannedItemsHomeSection/PlannedItemTypeButton/PlannedItemTypeButton'
 import PlannedItemsMoreMenu from '../HomePage/PlannedItemsHomeSection/PlannedItemsMoreMenu/PlannedItemsMoreMenu'
 import { usePlannedSectionUtils } from '../HomePage/PlannedItemsHomeSection/usePlannedSectionUtils/usePlannedSectionUtils'
@@ -73,10 +73,7 @@ const PlannedItemsPage = () => {
           </FlexVCenter>
         </FlexVCenter>
         <Flex gap={32} mt={24}>
-          <GridPlannedItemsV2
-            ratings={ratings || []}
-            selectedType={localType}
-          />
+          <GridPlannedItems ratings={ratings || []} selectedType={localType} />
         </Flex>
       </Container>
     </DefaultLayout>

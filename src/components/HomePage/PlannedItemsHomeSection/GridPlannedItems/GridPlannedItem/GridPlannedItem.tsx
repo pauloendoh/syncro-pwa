@@ -6,12 +6,12 @@ import {
   AiOutlineVerticalAlignTop,
 } from 'react-icons/ai'
 import { MdEdit } from 'react-icons/md'
-import useUpdateSavedPositionMutationV2 from '../../../../../../hooks/react-query/interest/useUpdateSavedPositionMutationV2'
-import useSaveRatingModalStore from '../../../../../../hooks/zustand/modals/useSaveRatingModalStore'
-import useAuthStore from '../../../../../../hooks/zustand/useAuthStore'
-import { RatingDto } from '../../../../../../types/domain/rating/RatingDto'
-import FavoriteItem from '../../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
-import Span from '../../../../../_common/text/Span'
+import useUpdateSavedPositionMutationV2 from '../../../../../hooks/react-query/interest/useUpdateSavedPositionMutationV2'
+import useSaveRatingModalStore from '../../../../../hooks/zustand/modals/useSaveRatingModalStore'
+import useAuthStore from '../../../../../hooks/zustand/useAuthStore'
+import { RatingDto } from '../../../../../types/domain/rating/RatingDto'
+import FavoriteItem from '../../../../UserProfilePage/FavoritesSection/FavoritesByType/FavoritesByType/FavoriteItem/FavoriteItem'
+import Span from '../../../../_common/text/Span'
 
 type Props = {
   rating: RatingDto

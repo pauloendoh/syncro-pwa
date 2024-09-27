@@ -33,7 +33,6 @@ import EntryDetailsMoreMenu from './EntryDetailsMoreMenu/EntryDetailsMoreMenu'
 
 const RatingDetailsModal = () => {
   const {
-    // PE 1/3 - initialValue should be just a ratingId, this way you can use a useRatingDetatailsQuery or something
     initialValue,
     closeModal,
     openModal,

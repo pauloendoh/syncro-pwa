@@ -16,9 +16,6 @@ export type SyncroItemTypeMapOption = {
   onboardingSearchQuestion: string
 
   getVerb: (options?: { isPast?: boolean }) => string
-
-  consumedOn: string // PE 1/3 - can be changed by getVerb
-  consumedOnExamples: string
 }
 
 export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
@@ -40,8 +37,6 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
     onboardingSearchQuestion: 'What is one of your favorite movies?',
 
     getVerb: (options) => (options?.isPast ? 'watched' : 'watch'),
-    consumedOn: 'Watched on',
-    consumedOnExamples: 'Netflix, Amazon Prime...',
   },
 
   {
@@ -61,8 +56,6 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
       'https://static.ffx.io/images/$zoom_0.369140625%2C$multiply_0.7725%2C$ratio_1.5%2C$width_756%2C$x_0%2C$y_0/t_crop_custom/q_86%2Cf_auto/45945ae17062bbcc507a504a27cedbf2b22ab8e1',
     onboardingSearchQuestion: 'What is one of your favorite TV series?',
     getVerb: (options) => (options?.isPast ? 'watched' : 'watch'),
-    consumedOn: 'Watched on',
-    consumedOnExamples: 'Netflix, Amazon Prime...',
   },
 
   {
@@ -80,8 +73,6 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
       'https://th-media.apjonlinecdn.com/magefan_blog/best-racing-games-to-play-for-pc-hero1561571168405232.jpg',
     onboardingSearchQuestion: 'What is one of your favorite games?',
     getVerb: (options) => (options?.isPast ? 'played' : 'play'),
-    consumedOn: 'Played on',
-    consumedOnExamples: 'Steam, Epic Games...',
   },
   {
     itemType: 'manga',
@@ -98,8 +89,6 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
       'https://gogonihon.com/wp-content/uploads/2019/06/Manga-1-min.jpg',
     onboardingSearchQuestion: 'What is one of your favorite manga?',
     getVerb: (options) => 'read',
-    consumedOn: 'Read on',
-    consumedOnExamples: 'Amazon Kindle, Bookwalker...',
   },
   {
     itemType: 'book',
@@ -114,8 +103,6 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
     plansTo: 'plans to read',
     removeFromPlanTo: 'Remove from planned books (old)',
     inProgressLabel: 'reading',
-    consumedOn: 'Read on',
-    consumedOnExamples: 'Amazon Kindle, Bookwalker...',
 
     onboardingImageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMQV-HY00kL5Zu_FokWEcmvPz04WkOgH-IfVcXoQ4tcE1cY2TQ6MzrailPUYcNPmywGCo&usqp=CAU',
@@ -133,8 +120,6 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
     plansTo: 'plans to read',
     removeFromPlanTo: 'Remove from planned books',
     inProgressLabel: 'reading',
-    consumedOn: 'Read on',
-    consumedOnExamples: 'Amazon Kindle, Bookwalker...',
 
     onboardingImageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMQV-HY00kL5Zu_FokWEcmvPz04WkOgH-IfVcXoQ4tcE1cY2TQ6MzrailPUYcNPmywGCo&usqp=CAU',
@@ -161,8 +146,6 @@ export const syncroItemTypeOptions: SyncroItemTypeMapOption[] = [
     onboardingImageUrl: 'https://i.ytimg.com/vi/5qap5aO4i9A/maxresdefault.jpg',
     onboardingSearchQuestion: 'What is one of your favorite songs?',
     getVerb: () => 'listen',
-    consumedOn: 'Listened on',
-    consumedOnExamples: 'Spotify, Apple Music...',
   },
 ]
 

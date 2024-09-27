@@ -4,15 +4,14 @@ import { useMemo } from 'react'
 import useUpdateSavedPositionMutationV2 from '../../../../hooks/react-query/interest/useUpdateSavedPositionMutationV2'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
-import GridPlannedItem from '../DragDropPlannedItems/GridPlannedItems/GridPlannedItem/GridPlannedItem'
+import GridPlannedItem from './GridPlannedItem/GridPlannedItem'
 
 type Props = {
   ratings: RatingDto[]
   selectedType: SyncroItemType
 }
 
-// PE 1/3 - clear V1
-const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
+const GridPlannedItems = ({ ratings, selectedType, ...props }: Props) => {
   const { mutate: submitUpdateSavedPosition } =
     useUpdateSavedPositionMutationV2()
 
@@ -72,4 +71,4 @@ const GridPlannedItemsV2 = ({ ratings, selectedType, ...props }: Props) => {
   )
 }
 
-export default GridPlannedItemsV2
+export default GridPlannedItems
