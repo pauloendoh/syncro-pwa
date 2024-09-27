@@ -3,6 +3,7 @@ import { useQueryState } from 'next-usequerystate'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
+import { useUserItemsCountDetailsQuery } from '../../hooks/react-query/syncro-item/useUserItemsCountDetailsQuery'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
@@ -115,6 +116,8 @@ const UserItemsPage = () => {
     itemType: itemType,
   })
 
+  const { data: userItemsCount } = useUserItemsCountDetailsQuery(userId)
+
   return (
     <DefaultLayout>
       <Head>
@@ -156,6 +159,7 @@ const UserItemsPage = () => {
                   }}
                   label="Item type"
                   width={150}
+                  entriesCountFromUserId={userInfo?.id}
                 />
                 <SortBySelector
                   onChange={setSortingBy}

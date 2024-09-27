@@ -178,6 +178,8 @@ export const urls = {
     recommendationsFromMe: API_URL + `/item-recommendations-from-me`,
 
     userItemsCount: (userId: string) => API_URL + `/user/${userId}/items-count`,
+    userItemsCountDetails: (userId: string) =>
+      API_URL + `/user/${userId}/items-count-details`,
     itemsToRecommendToUser: (userId: string, itemType: SyncroItemType) =>
       API_URL +
       `/items-to-recommend-to-user?userId=${userId}&itemType=${itemType}`,
