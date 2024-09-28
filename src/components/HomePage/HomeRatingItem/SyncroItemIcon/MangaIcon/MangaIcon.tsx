@@ -12,8 +12,8 @@ const MangaIcon = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
       fill={'currentColor'}
       strokeWidth="2"
       viewBox="0 0 1200 1200"
-      height="1rem"
-      width="1rem"
+      height={props.size ?? '1rem'}
+      width={props.size ?? '1rem'}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
