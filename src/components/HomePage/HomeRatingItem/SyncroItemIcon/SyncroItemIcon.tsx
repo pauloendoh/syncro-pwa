@@ -1,10 +1,11 @@
 import { useMantineTheme } from '@mantine/core'
 import { IconBaseProps } from 'react-icons'
 import { FiFilm, FiTv } from 'react-icons/fi'
-import { IoLogoGameControllerA, IoMdBook } from 'react-icons/io'
+import { IoLogoGameControllerA } from 'react-icons/io'
 import { IoMusicalNotesSharp } from 'react-icons/io5'
 import { MdOutlineMenuBook } from 'react-icons/md'
 import { SyncroItemType } from '../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType'
+import MangaIcon from './MangaIcon/MangaIcon'
 interface Props {
   type: SyncroItemType
   color?: string
@@ -17,7 +18,7 @@ export const SyncroItemBaseIcon: Record<
 > = {
   book: MdOutlineMenuBook,
   game: IoLogoGameControllerA,
-  manga: IoMdBook,
+  manga: MangaIcon,
   movie: FiFilm,
   music: IoMusicalNotesSharp,
   tvSeries: FiTv,
