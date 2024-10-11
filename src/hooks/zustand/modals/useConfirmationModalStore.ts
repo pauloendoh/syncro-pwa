@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { create } from 'zustand'
-import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   initialValue: IConfirmDialog
@@ -14,8 +13,6 @@ const useConfirmationModalStore = create<IStore>((set, get) => ({
   isOpen: false,
   openConfirmDialog: (val) => {
     set({ initialValue: val, isOpen: true })
-
-    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => set({ isOpen: false }),
 }))

@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteFromArray, upsert } from 'endoh-utils/dist/array'
+import { upsert } from 'endoh-utils/dist/array'
 import { useRouter } from 'next/router'
 import { RatingDto } from '../../../../types/domain/rating/RatingDto'
-import { myNotifications } from '../../../../utils/mantine/myNotifications'
 import { queryKeys } from '../../../../utils/queryKeys'
 import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
@@ -30,26 +29,12 @@ const useSaveRatingMutation = () => {
       }
 
       return axios
-        .post<RatingDto | null>(urls.api.myRatings, payload)
+        .post<RatingDto>(urls.api.myRatings, payload)
         .then((res) => res.data)
     },
     {
       onSuccess: (savedRating, payload) => {
         queryClient.invalidateQueries([urls.api.plannedItemsV2(authUser?.id!)])
-
-        // PE 1/3 - why would this happen?
-        if (!savedRating) {
-          if (payload.id) {
-            queryClient.setQueryData<RatingDto[]>(
-              [urls.api.myRatings],
-              (curr) => deleteFromArray(curr, (i) => i.id === payload.id)
-            )
-          }
-
-          myNotifications.success('Rating removed!')
-
-          return
-        }
 
         // this has to be done before updating myRatings
         const prevMyRatings = queryClient.getQueryData<RatingDto[]>([

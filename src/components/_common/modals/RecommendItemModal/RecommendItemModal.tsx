@@ -1,7 +1,7 @@
 import { Modal, Title } from '@mantine/core'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndex'
 import useRecommendItemModalStore from '../../../../hooks/zustand/modals/useRecommendItemModalStore'
 import RecommendItemToUsersList from './RecommendItemToUsersList/RecommendItemToUsersList'
 

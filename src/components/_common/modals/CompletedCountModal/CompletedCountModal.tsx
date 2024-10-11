@@ -11,7 +11,7 @@ import {
 } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndex'
 import useCompletedCountModalStore from '../../../../hooks/zustand/modals/useCompletedCountModalStore'
 import { capitalize } from '../../../../utils/text/capitalize'
 import FlexCol from '../../flex/FlexCol'

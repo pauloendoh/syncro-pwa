@@ -1,6 +1,5 @@
 import Router from 'next/router'
 import { create } from 'zustand'
-import useModalZIndexStore from './useModalZIndexStore'
 
 const queryString = 'recommendItemIsOpen'
 
@@ -18,8 +17,6 @@ const useRecommendItemModalStore = create<IStore>((set, get) => {
       set({ itemId })
       Router.query[queryString] = '1'
       Router.push(Router, undefined, { scroll: false })
-
-      useModalZIndexStore.getState().incrementZIndex()
     },
     closeModal: () => {
       Router.back()

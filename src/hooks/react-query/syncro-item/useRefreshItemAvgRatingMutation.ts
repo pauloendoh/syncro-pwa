@@ -4,8 +4,7 @@ import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
-// PE 1/3 - does not use the type anymore
-const useUpdateItemAvgRatingMutation = () => {
+const useRefreshItemInfoMutation = () => {
   const queryClient = useQueryClient()
 
   const axios = useAxios()
@@ -13,7 +12,7 @@ const useUpdateItemAvgRatingMutation = () => {
   return useMutation(
     (itemId: string) =>
       axios
-        .put<SyncroItemDto>(urls.api.updateItemAvgRating(itemId))
+        .put<SyncroItemDto>(urls.api.refreshItemInfo(itemId))
         .then((res) => res.data),
     {
       onSuccess: (updatedItem) => {
@@ -27,4 +26,4 @@ const useUpdateItemAvgRatingMutation = () => {
   )
 }
 
-export default useUpdateItemAvgRatingMutation
+export default useRefreshItemInfoMutation

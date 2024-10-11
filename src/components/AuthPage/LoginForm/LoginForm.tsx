@@ -69,51 +69,49 @@ const LoginForm = (props: Props) => {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FlexCol mt={16} gap={8}>
-          <MyTextInput
-            label="Username or email"
-            {...register('identificator')}
-            error={errors.identificator?.message}
-            autoFocus
-          />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FlexCol mt={16} gap={8}>
+        <MyTextInput
+          label="Username or email"
+          {...register('identificator')}
+          error={errors.identificator?.message}
+          autoFocus
+        />
 
-          <MyTextInput
-            label="Password"
-            type="password"
-            {...register('password')}
-            error={errors.password?.message}
-          />
+        <MyTextInput
+          label="Password"
+          type="password"
+          {...register('password')}
+          error={errors.password?.message}
+        />
 
-          <FlexVCenter justify={'flex-end'}>
-            <MyTextLink size={13} onClick={props.onClickResetPassword}>
-              Forgot your password?
-            </MyTextLink>
-          </FlexVCenter>
-          <FlexCol align="center" mt={16} gap={16}>
-            <Button type="submit" loading={loading} fullWidth>
-              LOG IN
-            </Button>
+        <FlexVCenter justify={'flex-end'}>
+          <MyTextLink size={13} onClick={props.onClickResetPassword}>
+            Forgot your password?
+          </MyTextLink>
+        </FlexVCenter>
+        <FlexCol align="center" mt={16} gap={16}>
+          <Button type="submit" loading={loading} fullWidth>
+            LOG IN
+          </Button>
 
-            <Text component="span" size="sm" align="center">
-              Don't have an account? <br />
-              <Text
-                component="span"
-                color="primary"
-                underline
-                onClick={props.onToggleForm}
-                sx={{
-                  cursor: 'pointer',
-                }}
-              >
-                Sign up
-              </Text>
+          <Text component="span" size="sm" align="center">
+            Don't have an account? <br />
+            <Text
+              component="span"
+              color="primary"
+              underline
+              onClick={props.onToggleForm}
+              sx={{
+                cursor: 'pointer',
+              }}
+            >
+              Sign up
             </Text>
-          </FlexCol>
+          </Text>
         </FlexCol>
-      </form>
-    </>
+      </FlexCol>
+    </form>
   )
 }
 

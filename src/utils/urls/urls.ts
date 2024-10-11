@@ -86,7 +86,7 @@ export const urls = {
     syncroItem: API_URL + `/syncro-item`,
     syncroItemDetails: (id?: string | null) =>
       API_URL + `/syncro-item?id=${id}`,
-    updateItemAvgRating: (itemId: string) =>
+    refreshItemInfo: (itemId: string) =>
       API_URL + `/syncro-item/rating?id=${itemId}`,
     syncroItemImage: (itemId: string) =>
       API_URL + `/syncro-item/${itemId}/image`,
@@ -166,9 +166,7 @@ export const urls = {
     notifications: API_URL + `/notifications`,
     hideNotificationDots: API_URL + `/notifications/hide-dots`,
 
-    usersToRecommend: (itemId: string) =>
-      API_URL + `/users-to-recommend?itemId=${itemId}`,
-    usersToRecommendV2: (itemId: string) =>
+    usersToRecommendItem: (itemId: string) =>
       API_URL + `/v2/users-to-recommend?itemId=${itemId}`,
 
     usersAlsoLiked: (itemId: string) =>

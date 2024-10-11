@@ -25,10 +25,10 @@ import { useUserRatingsQuery } from '../../../../hooks/react-query/rating/useUse
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
 import useUpdateSettingsMutation from '../../../../hooks/react-query/user-settings/useUpdateSettingsMutation'
-import { useUsersToRecommendQueryV2 } from '../../../../hooks/react-query/user/useMutualsSavedItemQueryV2'
+import { useUsersToRecommendItemQuery } from '../../../../hooks/react-query/user/useMutualsSavedItemQueryV2'
 import useConfirmTabClose from '../../../../hooks/useConfirmTabClose'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndex'
 import useConfirmationModalStore from '../../../../hooks/zustand/modals/useConfirmationModalStore'
 import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
@@ -186,7 +186,7 @@ const EditRatingModal = () => {
 
   const { isMobile } = useMyMediaQuery()
 
-  const { data: usersToRecommend } = useUsersToRecommendQueryV2(
+  const { data: usersToRecommend } = useUsersToRecommendItemQuery(
     initialValue?.syncroItemId || undefined
   )
 

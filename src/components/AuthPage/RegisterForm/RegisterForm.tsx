@@ -67,56 +67,54 @@ const RegisterForm = (props: Props) => {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FlexCol mt={16} gap={8}>
-          <MyTextInput
-            label="Username"
-            {...register('username')}
-            error={errors.username?.message?.toString()}
-            autoFocus
-          />
-          <MyTextInput
-            label="Email"
-            {...register('email')}
-            error={errors.email?.message?.toString()}
-          />
-          <MyTextInput
-            label="Password"
-            type="password"
-            {...register('password1')}
-            error={errors.password1?.message}
-          />
-          <MyTextInput
-            label="Confirm Password"
-            type="password"
-            {...register('password2')}
-            error={errors.password2?.message}
-          />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FlexCol mt={16} gap={8}>
+        <MyTextInput
+          label="Username"
+          {...register('username')}
+          error={errors.username?.message?.toString()}
+          autoFocus
+        />
+        <MyTextInput
+          label="Email"
+          {...register('email')}
+          error={errors.email?.message?.toString()}
+        />
+        <MyTextInput
+          label="Password"
+          type="password"
+          {...register('password1')}
+          error={errors.password1?.message}
+        />
+        <MyTextInput
+          label="Confirm Password"
+          type="password"
+          {...register('password2')}
+          error={errors.password2?.message}
+        />
 
-          <FlexCol align="center" mt={16} gap={16}>
-            <Button type="submit" loading={loading} fullWidth>
-              CREATE ACCOUNT
-            </Button>
+        <FlexCol align="center" mt={16} gap={16}>
+          <Button type="submit" loading={loading} fullWidth>
+            CREATE ACCOUNT
+          </Button>
 
-            <Text component="span" size="sm" align="center">
-              Already have an account? <br />
-              <Text
-                component="span"
-                color="primary"
-                underline
-                onClick={props.onToggleForm}
-                sx={{
-                  cursor: 'pointer',
-                }}
-              >
-                Log in
-              </Text>
+          <Text component="span" size="sm" align="center">
+            Already have an account? <br />
+            <Text
+              component="span"
+              color="primary"
+              underline
+              onClick={props.onToggleForm}
+              sx={{
+                cursor: 'pointer',
+              }}
+            >
+              Log in
             </Text>
-          </FlexCol>
+          </Text>
         </FlexCol>
-      </form>
-    </>
+      </FlexCol>
+    </form>
   )
 }
 

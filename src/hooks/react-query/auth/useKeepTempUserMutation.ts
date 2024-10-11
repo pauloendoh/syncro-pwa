@@ -12,7 +12,7 @@ const useKeepTempUserMutation = () => {
   const { setAuthUser } = useAuthStore()
   const axios = useAxios()
 
-  const logout = useLogout({ forceLogout: true })
+  const logout = useLogout({ skipTempUserMessage: true })
   const router = useRouter()
 
   return useMutation(

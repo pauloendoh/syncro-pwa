@@ -1,41 +1,41 @@
-import { Box, Button, Center, Divider, Text, Title } from '@mantine/core'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { AiOutlineGoogle } from 'react-icons/ai'
-import { SiDiscord } from 'react-icons/si'
-import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
-import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
-import { myEnvs } from '../../utils/myEnvs'
-import FlexCol from '../_common/flex/FlexCol'
-import FlexVCenter from '../_common/flex/FlexVCenter'
-import MyPaper from '../_common/overrides/MyPaper'
-import Span from '../_common/text/Span'
-import LoginForm from './LoginForm/LoginForm'
-import PasswordResetForm from './PasswordResetForm/PasswordResetForm'
-import RegisterForm from './RegisterForm/RegisterForm'
-import TempUserButton from './TempUserButton/TempUserButton'
+import { Box, Button, Center, Divider, Text, Title } from '@mantine/core';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { AiOutlineGoogle } from 'react-icons/ai';
+import { SiDiscord } from 'react-icons/si';
+import { useMyMediaQuery } from '../../hooks/useMyMediaQuery';
+import { useMyRouterQuery } from '../../hooks/useMyRouterQuery';
+import { myEnvs } from '../../utils/myEnvs';
+import FlexCol from '../_common/flex/FlexCol';
+import FlexVCenter from '../_common/flex/FlexVCenter';
+import MyPaper from '../_common/overrides/MyPaper';
+import Span from '../_common/text/Span';
+import LoginForm from './LoginForm/LoginForm';
+import PasswordResetForm from './PasswordResetForm/PasswordResetForm';
+import RegisterForm from './RegisterForm/RegisterForm';
+import TempUserButton from './TempUserButton/TempUserButton';
 
 const AuthPage = () => {
-  const router = useRouter()
-  const { initialPage } = useMyRouterQuery()
+  const router = useRouter();
+  const { initialPage } = useMyRouterQuery();
   const [currentForm, setCurrentForm] = useState<
     'loginForm' | 'registerForm' | 'resetPassword'
-  >()
+  >();
 
   useEffect(() => {
     if (router.isReady && initialPage === 'signUp') {
-      setCurrentForm('registerForm')
-      return
+      setCurrentForm('registerForm');
+      return;
     }
-    setCurrentForm('loginForm')
-  }, [router.isReady])
+    setCurrentForm('loginForm');
+  }, [router.isReady]);
 
   const handleGoogleSignIn = () => {
-    window.open(myEnvs.NEXT_PUBLIC_API_URL + '/auth/google', '_self')
-  }
+    window.open(myEnvs.NEXT_PUBLIC_API_URL + '/auth/google', '_self');
+  };
 
-  const { isMobile } = useMyMediaQuery()
+  const { isMobile } = useMyMediaQuery();
 
   return (
     <Box>
@@ -63,24 +63,24 @@ const AuthPage = () => {
           {currentForm === 'loginForm' && (
             <LoginForm
               onToggleForm={() => {
-                setCurrentForm('registerForm')
+                setCurrentForm('registerForm');
               }}
               onClickResetPassword={() => {
-                setCurrentForm('resetPassword')
+                setCurrentForm('resetPassword');
               }}
             />
           )}
           {currentForm === 'registerForm' && (
             <RegisterForm
               onToggleForm={() => {
-                setCurrentForm('loginForm')
+                setCurrentForm('loginForm');
               }}
             />
           )}
           {currentForm === 'resetPassword' && (
             <PasswordResetForm
               onChangeForm={() => {
-                setCurrentForm('loginForm')
+                setCurrentForm('loginForm');
               }}
             />
           )}
@@ -127,7 +127,7 @@ const AuthPage = () => {
         </MyPaper>
       </Center>
     </Box>
-  )
-}
+  );
+};
 
-export default AuthPage
+export default AuthPage;

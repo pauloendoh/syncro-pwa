@@ -7,7 +7,7 @@ import { format } from 'timeago.js'
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useUserInfoQuery } from '../../../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../../../hooks/useMyMediaQuery'
-import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndex'
 import { useRatingDetailsModalStore } from '../../../../hooks/zustand/modals/useRatingDetailsModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import {

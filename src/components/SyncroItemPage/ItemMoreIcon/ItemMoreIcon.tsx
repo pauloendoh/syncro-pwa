@@ -9,7 +9,7 @@ import {
 } from 'react-icons/md'
 import { RxUpdate } from 'react-icons/rx'
 import { useMyRatingsQuery } from '../../../hooks/react-query/rating/useMyRatingsQuery'
-import useUpdateItemAvgRatingMutation from '../../../hooks/react-query/syncro-item/useUpdateItemAvgRatingMutation'
+import useRefreshItemInfoMutation from '../../../hooks/react-query/syncro-item/useRefreshItemAvgRatingMutation'
 import { useEditItemModalStore } from '../../../hooks/zustand/modals/useEditItemModal'
 import useItemRatedByModalStore from '../../../hooks/zustand/modals/useItemRatedByModalStore'
 import { useRatingDetailsModalStore } from '../../../hooks/zustand/modals/useRatingDetailsModalStore'
@@ -35,7 +35,7 @@ const ItemMoreIcon = (props: Props) => {
 
   const { openModal: openItemRatedByModal } = useItemRatedByModalStore()
 
-  const { mutate: submitRefreshAvgRating } = useUpdateItemAvgRatingMutation()
+  const { mutate: submitRefreshAvgRating } = useRefreshItemInfoMutation()
   const { openModal: openRatingDetailsModal } = useRatingDetailsModalStore()
   const canRefreshRating = useMemo(() => {
     const isMovieOrSeries =

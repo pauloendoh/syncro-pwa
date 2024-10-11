@@ -3,7 +3,6 @@ import { socketEvents } from '../../../../utils/socketEvents'
 import useAuthStore from '../../../zustand/useAuthStore'
 import { useMySocketEvent } from '../../useMySocketEvent'
 
-// PE 1/3
 export const useMessageRoomSockets = (messageRoomId: string | undefined) => {
   const {
     sendMessage: sendJoinRoomMessage,

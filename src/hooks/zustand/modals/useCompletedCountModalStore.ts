@@ -35,9 +35,6 @@ const useCompletedCountModalStore = create<IStore>((set, get) => ({
       automaticallyAddedDate: params.automaticallyAddedDate,
       onSave: params.onSave,
     })
-
-    // PE 1/3 I don't think we need this anymore since we have the hook
-    // useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => set({ isOpen: false }),
 }))

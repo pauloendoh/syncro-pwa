@@ -1,5 +1,5 @@
 import { Modal } from '@mantine/core'
-import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndex'
 import useInfoModalStore from '../../../../hooks/zustand/modals/useInfoModalStore'
 
 const InfoModal = () => {

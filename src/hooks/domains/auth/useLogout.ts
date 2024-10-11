@@ -3,7 +3,7 @@ import { urls } from '../../../utils/urls/urls'
 import useConfirmationModalStore from '../../zustand/modals/useConfirmationModalStore'
 import useAuthStore, { resetAuthStore } from '../../zustand/useAuthStore'
 
-export const useLogout = (options?: { forceLogout: boolean }) => {
+export const useLogout = (options?: { skipTempUserMessage: boolean }) => {
   // const { showSuccessToast } = useMyToast()
   // const axios = useAxios()
 
@@ -12,7 +12,7 @@ export const useLogout = (options?: { forceLogout: boolean }) => {
 
   const router = useRouter()
   const logout = async () => {
-    if (authUser?.userExpiresAt && !options?.forceLogout) {
+    if (authUser?.userExpiresAt && !options?.skipTempUserMessage) {
       openConfirmDialog({
         title: 'Logout',
         description:

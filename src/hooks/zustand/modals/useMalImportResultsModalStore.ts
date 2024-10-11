@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import useModalZIndexStore from './useModalZIndexStore'
 
 interface IStore {
   requestId: string
@@ -13,8 +12,6 @@ const useMalImportResultsModalStore = create<IStore>((set, get) => ({
   isOpen: false,
   openModal: (requestId) => {
     set({ requestId, isOpen: true })
-
-    useModalZIndexStore.getState().incrementZIndex()
   },
   closeModal: () => set({ isOpen: false }),
 }))

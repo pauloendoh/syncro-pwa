@@ -13,7 +13,7 @@ import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useS
 import { useSyncroItemDetailsQuery } from '../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery'
 import { useSettingsQuery } from '../../../../hooks/react-query/user-settings/useSettingsQuery'
 import { useMyRouterQuery } from '../../../../hooks/useMyRouterQuery'
-import { useModalZIndex } from '../../../../hooks/utils/useModalZIndexState'
+import { useModalZIndex } from '../../../../hooks/utils/useModalZIndex'
 import useMinRatingSharingModalStore from '../../../../hooks/zustand/modals/useMinRatingSharingModalStore'
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
 import { myNotifications } from '../../../../utils/mantine/myNotifications'
