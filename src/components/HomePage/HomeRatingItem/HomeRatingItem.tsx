@@ -146,9 +146,9 @@ const HomeRatingItem = (props: Props) => {
                 }}
               >
                 {statusMap?.label}
-                {props.rating.completedDates.length > 1 &&
+                {props.rating.completedCount > 1 &&
                   props.rating.status === 'COMPLETED' &&
-                  ` ${props.rating.completedDates.length}x`}
+                  ` ${props.rating.completedCount}x`}
                 {progressLabel && ` (${progressLabel})`}
               </Span>
             </Text>
