@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
-import useVirtuosoStore from './useVirtuosoStore'
+import { useVirtuosoStoreV2 } from './useVirtuosoStore'
 import useIsBackStore from './zustand/useIsBackStore'
 
 export const usePreserveScroll = () => {
@@ -13,7 +13,10 @@ export const usePreserveScroll = () => {
 
   const isBack = useRef(false)
 
-  const { virtuosoStates, clearVirtuosoState } = useVirtuosoStore()
+  const { virtuosoStates, clearVirtuosoState } = useVirtuosoStoreV2({
+    virtuosoStates: true,
+    clearVirtuosoState: true,
+  })
 
   const isBackStore = useIsBackStore()
 

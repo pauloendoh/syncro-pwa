@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router'
 import { RefObject, useEffect, useMemo } from 'react'
 import { VirtuosoHandle } from 'react-virtuoso'
-import useVirtuosoStore from './useVirtuosoStore'
+import { useVirtuosoStoreV2 } from './useVirtuosoStore'
 
 export const usePreserveVirtuosoState = (ref: RefObject<VirtuosoHandle>) => {
   const router = useRouter()
 
-  const [virtuosoStates, setVirtuosoState] = useVirtuosoStore((s) => [
-    s.virtuosoStates,
-    s.setVirtuosoState,
-  ])
+  const { virtuosoStates, setVirtuosoState } = useVirtuosoStoreV2({
+    virtuosoStates: true,
+    setVirtuosoState: true,
+  })
 
   useEffect(() => {
     const onRouteChangeStart = () => {

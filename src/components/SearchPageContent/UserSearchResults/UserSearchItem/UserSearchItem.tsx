@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@mantine/core'
 import { useMemo } from 'react'
-import useAuthStore from '../../../../hooks/zustand/useAuthStore'
+import { useAuthStoreV2 } from '../../../../hooks/zustand/useAuthStore'
 import { UserSimpleDto } from '../../../../types/domain/user/UserSimpleDto'
 import { urls } from '../../../../utils/urls/urls'
 import FollowUnfollowButton from '../../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
@@ -14,7 +14,9 @@ interface Props {
 }
 
 const UserSearchItem = ({ user }: Props) => {
-  const authUser = useAuthStore((s) => s.authUser)
+  const { authUser } = useAuthStoreV2({
+    authUser: true,
+  })
   const itsAuthUser = useMemo(() => authUser?.id === user.id, [authUser, user])
 
   const visibleUsername = useMemo(() => {

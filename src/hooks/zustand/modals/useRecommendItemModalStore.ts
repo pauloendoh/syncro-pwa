@@ -1,5 +1,6 @@
 import Router from 'next/router'
 import { create } from 'zustand'
+import { buildShallowStoreHookV2 } from '../utils/useShallowStore'
 
 const queryString = 'recommendItemIsOpen'
 
@@ -23,5 +24,9 @@ const useRecommendItemModalStore = create<IStore>((set, get) => {
     },
   }
 })
+
+export const useRecommendItemModalStoreV2 = buildShallowStoreHookV2(
+  useRecommendItemModalStore
+)
 
 export default useRecommendItemModalStore

@@ -1,7 +1,7 @@
 import { Box, Flex, Text, useMantineTheme } from '@mantine/core'
 import { format } from 'timeago.js'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
-import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import { useAuthStoreV2 } from '../../../hooks/zustand/useAuthStore'
 import { FollowDto } from '../../../types/domain/follow/FollowDto'
 import { urls } from '../../../utils/urls/urls'
 import FollowUnfollowButton from '../../UserProfilePage/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton'
@@ -16,7 +16,9 @@ interface Props {
 
 const FollowNotificationItem = ({ follow, ...props }: Props) => {
   // const { push } = useNavigation<NativeStackNavigationProp<HomeScreenTypes>>()
-  const authUser = useAuthStore((s) => s.authUser)
+  const { authUser } = useAuthStoreV2({
+    authUser: true,
+  })
 
   const theme = useMantineTheme()
 

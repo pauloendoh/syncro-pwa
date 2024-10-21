@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import useUpdateProfileMutation from '../../hooks/react-query/profile/useUpdateProfileMutation'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
-import useAuthStore from '../../hooks/zustand/useAuthStore'
+import { useAuthStoreV2 } from '../../hooks/zustand/useAuthStore'
 import { ProfilePutDto } from '../../types/domain/profile/ProfilePutDto'
 import { urls } from '../../utils/urls/urls'
 import FlexCol from '../_common/flex/FlexCol'
@@ -18,7 +18,9 @@ import EditLookingForRecommendations from './EditLookingForRecommendations/EditL
 type Props = {}
 
 const EditProfilePage = (props: Props) => {
-  const authUser = useAuthStore((s) => s.authUser)
+  const { authUser } = useAuthStoreV2({
+    authUser: true,
+  })
 
   const { data } = useUserInfoQuery(authUser?.id)
 

@@ -34,6 +34,7 @@ import useSaveRatingModalStore from '../../../../hooks/zustand/modals/useSaveRat
 import useShareRatingModalStore from '../../../../hooks/zustand/modals/useShareRatingModalStore'
 import useAuthStore from '../../../../hooks/zustand/useAuthStore'
 import useScreenSizeStore from '../../../../hooks/zustand/useScreenSizeStore'
+import { useShallowStore } from '../../../../hooks/zustand/utils/useShallowStore'
 import {
   RatingDto,
   buildRatingDto,
@@ -276,7 +277,7 @@ const EditRatingModal = () => {
     </FlexVCenter>
   )
 
-  const [diffLvh] = useScreenSizeStore((s) => [s.diffLvh])
+  const { diffLvh } = useShallowStore(useScreenSizeStore, ['diffLvh'])
 
   return (
     <Modal

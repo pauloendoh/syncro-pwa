@@ -1,6 +1,7 @@
 import { Text } from '@mantine/core'
 import { useState } from 'react'
 import usePasswordResetStore from '../../../../hooks/zustand/usePasswordResetStore'
+import { useShallowStore } from '../../../../hooks/zustand/utils/useShallowStore'
 import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import FlexCol from '../../../_common/flex/FlexCol'
@@ -12,11 +13,10 @@ interface Props {
 }
 
 const ConfirmCodeForm = (props: Props) => {
-  const [code, setCode, email] = usePasswordResetStore((s) => [
-    s.code,
-    s.setCode,
-    s.identificator,
-  ])
+  const { code, setCode, identificator } = useShallowStore(
+    usePasswordResetStore,
+    ['code', 'setCode', 'identificator']
+  )
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -25,7 +25,10 @@ const ConfirmCodeForm = (props: Props) => {
   const submit = () => {
     setIsLoading(true)
     axios
-      .post<boolean>(urls.api.confirmPasswordResetCode, { email, code })
+      .post<boolean>(urls.api.confirmPasswordResetCode, {
+        email: identificator,
+        code,
+      })
       .then(() => {
         props.goNext()
       })

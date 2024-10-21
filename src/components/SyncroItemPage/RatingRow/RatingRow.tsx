@@ -9,8 +9,8 @@ import useToggleFavoriteItemMutation from '../../../hooks/react-query/favorite-i
 import { useMyItemRatingQueryUtils } from '../../../hooks/react-query/rating/useMyItemRatingQueryUtils'
 import { useMyRatingsQuery } from '../../../hooks/react-query/rating/useMyRatingsQuery'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
-import useRecommendItemModalStore from '../../../hooks/zustand/modals/useRecommendItemModalStore'
-import useSaveRatingModalStore from '../../../hooks/zustand/modals/useSaveRatingModalStore'
+import { useRecommendItemModalStoreV2 } from '../../../hooks/zustand/modals/useRecommendItemModalStore'
+import { useSaveRatingModalStoreV2 } from '../../../hooks/zustand/modals/useSaveRatingModalStore'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
 import { buildRatingDto } from '../../../types/domain/rating/RatingDto'
 import { ratingStatusArray } from '../../../types/domain/rating/ratingStatusArray'
@@ -31,7 +31,9 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
 
   const theme = useMantineTheme()
 
-  const openRatingModal = useSaveRatingModalStore((s) => s.openModal)
+  const { openModal: openRatingModal } = useSaveRatingModalStoreV2({
+    openModal: true,
+  })
 
   const externalLink = useMemo(() => {
     if (syncroItem.type === 'game') {
@@ -56,7 +58,9 @@ const RatingRow = ({ syncroItem, ...props }: Props) => {
     return syncroItem.imdbUrl
   }, [syncroItem])
 
-  const openRecommendItemModal = useRecommendItemModalStore((s) => s.openModal)
+  const { openModal: openRecommendItemModal } = useRecommendItemModalStoreV2({
+    openModal: true,
+  })
 
   const typeMap = useSyncroItemTypeMap({
     itemType: syncroItem.type,

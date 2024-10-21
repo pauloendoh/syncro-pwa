@@ -1,6 +1,6 @@
 import { Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
-import usePasswordResetStore from '../../../../hooks/zustand/usePasswordResetStore'
+import { usePasswordResetStoreV2 } from '../../../../hooks/zustand/usePasswordResetStore'
 import { myNotifications } from '../../../../utils/mantine/myNotifications'
 import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
@@ -16,7 +16,10 @@ const ConfirmNewPasswordForm = (props: Props) => {
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
 
-  const [code, email] = usePasswordResetStore((s) => [s.code, s.identificator])
+  const { code, identificator } = usePasswordResetStoreV2({
+    code: true,
+    identificator: true,
+  })
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -25,7 +28,11 @@ const ConfirmNewPasswordForm = (props: Props) => {
   const submit = () => {
     setIsLoading(true)
     axios
-      .post<boolean>(urls.api.endPasswordReset, { email, code, password })
+      .post<boolean>(urls.api.endPasswordReset, {
+        email: identificator,
+        code,
+        password,
+      })
       .then(() => {
         myNotifications.success('New password saved!')
         props.goNext()

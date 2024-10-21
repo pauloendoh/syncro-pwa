@@ -31,14 +31,14 @@ import useCheckAuthCookieOrLogout from '../hooks/domains/auth/useCheckAuthCookie
 import { useLogUserInfo } from '../hooks/domains/dashboard/useLogUserInfo'
 import { usePreserveScroll } from '../hooks/usePreserveScroll'
 import { useSavePreviousUrlOnSessionStorage } from '../hooks/useSavePreviousUrlOnSessionStorage'
-import useScreenSizeStore from '../hooks/zustand/useScreenSizeStore'
+import { useScreenSizeStoreV2 } from '../hooks/zustand/useScreenSizeStore'
 import { myTheme } from '../utils/mantine/myTheme'
 import { myEnvs } from '../utils/myEnvs'
 import { useMyQueryClient } from '../utils/myQueryClient'
 import { sessionKeys, setSessionStorage } from '../utils/sessionStorageKeys'
 import { zIndexes } from '../utils/zIndexes'
 
-export default function App(props: AppProps) {
+function App(props: AppProps) {
   // PE 1/3
   const { Component, pageProps } = props
 
@@ -74,13 +74,14 @@ export default function App(props: AppProps) {
   const [appRef, rect] = useResizeObserver()
 
   const { height, width } = useViewportSize()
-  const [setScreenHeight, setScreenWidth, setLvhHeight, setDiffLvh] =
-    useScreenSizeStore((s) => [
-      s.setScreenHeight,
-      s.setScreenWidth,
-      s.setLvhHeight,
-      s.setDiffLvh,
-    ])
+  const { setScreenHeight, setScreenWidth, setLvhHeight, setDiffLvh } =
+    useScreenSizeStoreV2({
+      setScreenHeight: true,
+      setScreenWidth: true,
+      setLvhHeight: true,
+      setDiffLvh: true,
+    })
+
   useEffect(() => {
     setScreenHeight(height)
     setScreenWidth(width)
@@ -148,3 +149,5 @@ export default function App(props: AppProps) {
     </QueryClientProvider>
   )
 }
+
+export default App

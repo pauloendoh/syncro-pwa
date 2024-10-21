@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { buildShallowStoreHookV2 } from './utils/useShallowStore'
 
 interface IStore {
   screenWidth: number
@@ -26,5 +27,7 @@ const useScreenSizeStore = create<IStore>((set, get) => ({
   diffLvh: 0,
   setDiffLvh: (diff) => set({ diffLvh: diff }),
 }))
+
+export const useScreenSizeStoreV2 = buildShallowStoreHookV2(useScreenSizeStore)
 
 export default useScreenSizeStore

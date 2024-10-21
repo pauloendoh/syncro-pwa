@@ -13,6 +13,7 @@ import {
 } from '@mantine/core'
 import Head from 'next/head'
 import { useMemo } from 'react'
+import { useAuthUser } from '../../hooks/domains/auth/useAuthUser'
 import { syncroItemTypeOptions } from '../../hooks/domains/syncro-item/syncroItemOptions/syncroItemOptions'
 import { useFavoriteItemsQuery } from '../../hooks/react-query/favorite-item/useFavoriteItemsQuery'
 import { useUserRatingsQuery } from '../../hooks/react-query/rating/useUserRatingsQuery'
@@ -21,7 +22,6 @@ import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
 import useRecommendItemsToUserModalStore from '../../hooks/zustand/action-sheets/useRecommendUserSheetStore'
-import useAuthStore from '../../hooks/zustand/useAuthStore'
 import {
   syncroItemTypes,
   validSyncroItemTypes,
@@ -52,7 +52,7 @@ const UserProfilePage = () => {
 
   const noRatings = useMemo(() => userRatings?.length === 0, [userRatings])
 
-  const authUser = useAuthStore((s) => s.authUser)
+  const authUser = useAuthUser()
 
   const thisIsMyProfile = useMemo(
     () => authUser?.id === userId,

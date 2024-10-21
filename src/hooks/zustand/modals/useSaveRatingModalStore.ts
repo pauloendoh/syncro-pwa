@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { QueryParams } from '../../../utils/queryParams'
 import { routerBackIfSameDomainOrClearQueryParam } from '../../../utils/router/routerBackIfSameDomain'
+import { buildShallowStoreHookV2 } from '../utils/useShallowStore'
 
 interface IStore {
   initialValue: RatingDto | null
@@ -25,5 +26,9 @@ const useSaveRatingModalStore = create<IStore>((set, get) => ({
     routerBackIfSameDomainOrClearQueryParam(QueryParams.saveRatingModal)
   },
 }))
+
+export const useSaveRatingModalStoreV2 = buildShallowStoreHookV2(
+  useSaveRatingModalStore
+)
 
 export default useSaveRatingModalStore

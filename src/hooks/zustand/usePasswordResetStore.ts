@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { buildShallowStoreHookV2 } from './utils/useShallowStore'
 
 interface IStore {
   identificator: string
@@ -18,6 +19,10 @@ const usePasswordResetStore = create<IStore>((set, get) => ({
     set({ code })
   },
 }))
+
+export const usePasswordResetStoreV2 = buildShallowStoreHookV2(
+  usePasswordResetStore
+)
 
 const initialState = usePasswordResetStore.getState()
 export const resetPasswordResetStore = async () => {

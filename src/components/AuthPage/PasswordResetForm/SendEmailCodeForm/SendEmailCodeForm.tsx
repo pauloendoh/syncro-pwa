@@ -1,6 +1,6 @@
 import { Text } from '@mantine/core'
 import { useState } from 'react'
-import usePasswordResetStore from '../../../../hooks/zustand/usePasswordResetStore'
+import { usePasswordResetStoreV2 } from '../../../../hooks/zustand/usePasswordResetStore'
 import { urls } from '../../../../utils/urls/urls'
 import { useAxios } from '../../../../utils/useAxios'
 import FlexCol from '../../../_common/flex/FlexCol'
@@ -12,10 +12,12 @@ interface Props {
 }
 
 const SendEmailCodeForm = (props: Props) => {
-  const [identificator, setIdentificator] = usePasswordResetStore((s) => [
-    s.identificator,
-    s.setIdentificator,
-  ])
+  const {
+    identificator, setIdentificator
+  } = usePasswordResetStoreV2({
+    identificator:true,
+    setIdentificator: true
+  })
 
   const [isLoading, setIsLoading] = useState(false)
   const [sent, setSent] = useState(false)

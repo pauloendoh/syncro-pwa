@@ -1,5 +1,6 @@
 import { StateSnapshot } from 'react-virtuoso'
 import { create } from 'zustand'
+import { buildShallowStoreHookV2 } from './zustand/utils/useShallowStore'
 
 interface IStore {
   virtuosoStates: {
@@ -32,4 +33,4 @@ const useVirtuosoStore = create<IStore>((set, get) => ({
   },
 }))
 
-export default useVirtuosoStore
+export const useVirtuosoStoreV2 = buildShallowStoreHookV2(useVirtuosoStore)

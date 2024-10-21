@@ -1,7 +1,7 @@
 import { Text, useMantineTheme } from '@mantine/core'
 import { format } from 'timeago.js'
 import useMalImportResultsModalStore from '../../../hooks/zustand/modals/useMalImportResultsModalStore'
-import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import { useAuthStoreV2 } from '../../../hooks/zustand/useAuthStore'
 import { RatingImportRequestDto } from '../../../types/domain/rating-import-request/RatingImportRequestDto'
 import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
@@ -16,7 +16,9 @@ const RatingImportRequestNotificationItem = ({
   importRequest,
   ...props
 }: Props) => {
-  const authUser = useAuthStore((s) => s.authUser)
+  const authUser = useAuthStoreV2({
+    authUser: true,
+  })
 
   const theme = useMantineTheme()
 

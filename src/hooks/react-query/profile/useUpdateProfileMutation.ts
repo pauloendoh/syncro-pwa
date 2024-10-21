@@ -4,17 +4,17 @@ import { ProfilePutDto } from '../../../types/domain/profile/ProfilePutDto'
 import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
-import useAuthStore from '../../zustand/useAuthStore'
+import { useAuthStoreV2 } from '../../zustand/useAuthStore'
 
 const useUpdateProfileMutation = () => {
   const queryClient = useQueryClient()
 
   const axios = useAxios()
 
-  const [authUser, setAuthUser] = useAuthStore((s) => [
-    s.authUser,
-    s.setAuthUser,
-  ])
+  const { authUser, setAuthUser } = useAuthStoreV2({
+    authUser: true,
+    setAuthUser: true,
+  })
 
   return useMutation(
     (dto: ProfilePutDto) =>

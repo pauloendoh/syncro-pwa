@@ -2,13 +2,13 @@ import { Box, Container, Grid, Text, Title } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
+import { useAuthUser } from '../../hooks/domains/auth/useAuthUser'
 import { useSyncroItemTypeMap } from '../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUserItemsCountDetailsQuery } from '../../hooks/react-query/syncro-item/useUserItemsCountDetailsQuery'
 import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItemsQuery'
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
-import useAuthStore from '../../hooks/zustand/useAuthStore'
 import useIsBackStore from '../../hooks/zustand/useIsBackStore'
 import useUserItemsFilterStore, {
   resetUserItemsFilterStore,
@@ -73,7 +73,7 @@ const UserItemsPage = () => {
     refetch,
   } = useUserItemsQuery(userId, itemType as SyncroItemType)
 
-  const authUser = useAuthStore((s) => s.authUser)
+  const authUser = useAuthUser()
 
   const thisIsYourList = useMemo(
     () => authUser?.id === userId,
