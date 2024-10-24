@@ -1,8 +1,8 @@
 import { HoverCard } from '@mantine/core'
 import { FloatingPosition } from '@mantine/core/lib/Floating'
-import { useMouse } from '@mantine/hooks'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
+import { useMousePositionRef } from '../../../hooks/utils/useMousePositionRef'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
 import { cookieKeys } from '../../../utils/consts/cookieKeys'
 import nookies from '../../../utils/nookies'
@@ -40,20 +40,18 @@ const SyncroItemLink = (props: Props) => {
 
   const { isMobile } = useMyMediaQuery()
 
-  const { x, y } = useMouse()
+  const { y } = useMousePositionRef()
 
-  const initialPosition = useMemo(() => {
+  const getInitialPosition = useCallback(() => {
     if (props.previewPosition) return props.previewPosition
 
     // only if y is on the last 300px of the bottom of the screen
-    if (window && y > window.innerHeight / 2) return 'top'
+    if (window && y.current > window.innerHeight / 2) return 'top'
 
     return 'bottom'
-  }, [y, props.previewPosition])
+  }, [])
 
-  const [keepPosition, setKeepPosition] = useState(initialPosition)
-
-  const [forceDisabled, setForceDisabled] = useState(false)
+  const [keepPosition, setKeepPosition] = useState<FloatingPosition>('top')
 
   return (
     <HoverCard
@@ -61,7 +59,7 @@ const SyncroItemLink = (props: Props) => {
       // closeDelay={250}
 
       width={400}
-      disabled={isMobile || props.disablePreview || forceDisabled}
+      disabled={isMobile || props.disablePreview}
       withinPortal
       middlewares={{
         flip: false, // https://floating-ui.com/docs/flip
@@ -69,7 +67,7 @@ const SyncroItemLink = (props: Props) => {
       }}
       position={keepPosition}
       onOpen={() => {
-        setKeepPosition(initialPosition)
+        setKeepPosition(getInitialPosition())
       }}
       withArrow
     >
