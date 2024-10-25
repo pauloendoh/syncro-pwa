@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from './PressableDivButton.module.css'
+import { cls } from '../../../../utils/cls'
+import styles from './PressableDivButton.module.scss'
 
 type Props = React.ComponentProps<'button'>
 
@@ -8,7 +9,7 @@ export const PressableDivButton = React.forwardRef<HTMLButtonElement, Props>(
     return (
       <button
         ref={ref}
-        className={`${styles['pressable-div-like']} ${props.className ?? ''}`}
+        className={cls(styles.pressableDivLike, props.className)}
         {...props}
       />
     )
