@@ -1,6 +1,8 @@
-import { PhotoSlider } from 'react-photo-view'
+import { useEffect, useMemo } from 'react'
 import { useQueryParams } from '../../../hooks/useQueryParams'
+import { usePhotoSliderStoreV2 } from '../../../hooks/zustand/usePhotoSliderStore'
 import { SyncroItemDto } from '../../../types/domain/syncro-item/SyncroItemDto'
+import { PressableDivButton } from '../../_common/flex/PressableDivButton/PressableDivButton'
 import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 
 type Props = {
@@ -10,41 +12,95 @@ type Props = {
 }
 
 const ImageSyncroItemPage = ({ isMobile, item, ...props }: Props) => {
-  const { queryValue, setQuery, removeQuery } = useQueryParams().itemImageOpen
+  const [shouldStartOpen] = useQueryParams().itemImageOpen
 
-  // if (props.isPreview)
-  //   return (
-  //     <MyNextLink href={urls.pages.syncroItem(encodeURI(item.id!))}>
-  //       <SyncroItemImage item={item} width={120} />
-  //     </MyNextLink>
-  //   )
+  const imageWidth = useMemo(() => {
+    if (props.isPreview) {
+      return 120
+    }
+
+    if (isMobile) {
+      return 100
+    }
+
+    return 160
+  }, [isMobile, props.isPreview])
+
+  const { openPhotosSlider } = usePhotoSliderStoreV2({
+    openPhotosSlider: true,
+  })
+
+  const handleOpen = () => {
+    openPhotosSlider({
+      images: [
+        {
+          key: item.id,
+          src: item.imageUrl,
+        },
+      ],
+      queryParams: {
+        key: 'itemImageOpen',
+        value: 'true',
+      },
+    })
+  }
+
+  useEffect(() => {
+    if (shouldStartOpen) {
+      handleOpen()
+    }
+  }, [])
 
   return (
-    <>
-      <PhotoSlider
-        images={[
-          {
-            key: item.id,
-            src: item.imageUrl,
-          },
-        ]}
-        visible={!!queryValue}
-        onClose={() => {
-          removeQuery({ backTwice: true })
+    <div>
+      {/* {hasJustClosed ? undefined : (
+        <PhotoSlider
+          images={[
+            {
+              key: item.id,
+              src: item.imageUrl,
+            },
+          ]}
+          visible={hasFirstRendered && !!isOpen}
+          onClose={async () => {
+            setIsOpen(null, {
+              history: 'replace',
+            })
+
+            if (props.onCloseImageViewer) {
+              props.onCloseImageViewer()
+            }
+
+            const isBack = await awaitIsBack()
+            if (!isBack) {
+              if (canGoBack()) {
+                router.back()
+              }
+            }
+
+            if (props.isPreview) {
+              setTimeout(() => {
+                // remove overflow hidden from body
+                document.body.style.overflow = 'unset'
+
+                setHasJustClosed(true)
+              }, 250)
+            }
+          }}
+        />
+      )} */}
+
+      <PressableDivButton
+        style={{
+          cursor: 'pointer',
         }}
-      />
-      <div
-        style={{ cursor: 'pointer' }}
         onClick={() => {
-          setQuery('true')
+          handleOpen()
         }}
       >
-        <SyncroItemImage
-          item={item}
-          width={props.isPreview ? 120 : isMobile ? 100 : 160}
-        />
-      </div>
-    </>
+        <SyncroItemImage item={item} width={imageWidth} />
+      </PressableDivButton>
+    </div>
   )
 }
 

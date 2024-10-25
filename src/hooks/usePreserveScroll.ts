@@ -38,9 +38,6 @@ export const usePreserveScroll = () => {
       setScrollPositions((prev) => ({ ...prev, [prevUrl]: window.scrollY }))
 
       if (virtuosoStates[nextUrl] && !isBack.current) {
-        console.log({
-          isBack: isBack.current,
-        })
         console.log('clearing virtuoso state: ' + nextUrl)
         clearVirtuosoState(nextUrl)
       }

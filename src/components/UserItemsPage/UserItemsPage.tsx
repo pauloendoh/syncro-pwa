@@ -9,7 +9,7 @@ import { useUserItemsQuery } from '../../hooks/react-query/user-item/useUserItem
 import { useUserInfoQuery } from '../../hooks/react-query/user/useUserInfoQuery'
 import { useMyMediaQuery } from '../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../hooks/useMyRouterQuery'
-import useIsBackStore from '../../hooks/zustand/useIsBackStore'
+import { useIsBackStoreV2 } from '../../hooks/zustand/useIsBackStore'
 import useUserItemsFilterStore, {
   resetUserItemsFilterStore,
 } from '../../hooks/zustand/useUserItemsFilterStore'
@@ -52,7 +52,9 @@ const UserItemsPage = () => {
     localStorage.setItem(localStorageKeys.userItemsViewType, view)
   }, [view])
 
-  const { isBack } = useIsBackStore()
+  const { isBack } = useIsBackStoreV2({
+    isBack: true,
+  })
   useEffect(() => {
     if (!isBack) {
       resetUserItemsFilterStore()

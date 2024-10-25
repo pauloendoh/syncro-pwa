@@ -1,4 +1,5 @@
 import { Flex } from '@mantine/core'
+import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { PhotoSlider } from 'react-photo-view'
 import { useQueryParams } from '../../../../hooks/useQueryParams'
@@ -20,11 +21,13 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
     [props.scenes]
   )
 
-  const { setQuery, queryValue, removeQuery } = useQueryParams().favoriteScene
+  const [queryValue, setQuery] = useQueryParams().favoriteScene
 
   const selectedIndex = useMemo(() => {
     return props.scenes.findIndex((scene) => scene.id === queryValue)
   }, [queryValue, props.scenes])
+
+  const router = useRouter()
 
   if (props.scenes.length === 0) {
     return null
@@ -38,11 +41,17 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
           key: image.uri,
         }))}
         visible={selectedIndex >= 0}
-        onClose={() => removeQuery()}
+        onClose={(e) => {
+          setQuery(null, {
+            history: 'replace',
+          })
+        }}
         index={selectedIndex >= 0 ? selectedIndex : 0}
         onIndexChange={(index) => {
-          console.log('changing index')
-          setQuery(props.scenes[index].id!, { replace: true })
+          const sceneId = props.scenes[index].id
+          if (sceneId) {
+            setQuery(sceneId, { history: 'replace' })
+          }
         }}
         loop={false}
       />
@@ -52,7 +61,7 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
           return (
             <MyNextImage300
               alt={`favorite-scene-${index}`}
-              key={index}
+              key={scene.id}
               src={scene.imageUrl}
               style={{
                 width: props.widthHeight ?? 64,
@@ -69,7 +78,7 @@ const FavoriteScenesSection = ({ ...props }: Props) => {
         return (
           <img
             alt={`favorite-scene-${index}`}
-            key={index}
+            key={scene.id}
             src={scene.imageUrl}
             style={{
               width: props.widthHeight ?? 64,

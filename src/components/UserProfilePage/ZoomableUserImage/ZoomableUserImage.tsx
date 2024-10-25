@@ -1,7 +1,9 @@
-import { PhotoSlider } from 'react-photo-view'
+import { useEffect } from 'react'
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useQueryParams } from '../../../hooks/useQueryParams'
+import { usePhotoSliderStoreV2 } from '../../../hooks/zustand/usePhotoSliderStore'
 import { UserSimpleDto } from '../../../types/domain/user/UserSimpleDto'
+import { PressableDivButton } from '../../_common/flex/PressableDivButton/PressableDivButton'
 import UserImage from '../../_common/image/SyncroItemImage/UserImage/UserImage'
 
 type Props = {
@@ -10,37 +12,49 @@ type Props = {
 
 const ZoomableUserImage = ({ userInfo, ...props }: Props) => {
   const { isSmallScreen } = useMyMediaQuery()
-  const { queryValue, removeQuery, setQuery } = useQueryParams().profileImage
+  const [queryValue] = useQueryParams().profileImage
+
+  const { openPhotosSlider } = usePhotoSliderStoreV2({
+    openPhotosSlider: true,
+  })
+
+  useEffect(() => {
+    if (queryValue) {
+      handleOpen()
+    }
+  }, [])
+
+  const handleOpen = () => {
+    openPhotosSlider({
+      images: [
+        {
+          key: userInfo.id,
+          src: userInfo.profile.pictureUrl,
+        },
+      ],
+      queryParams: {
+        key: 'profileImage',
+        value: 'true',
+      },
+    })
+  }
+
   return (
-    <>
-      <PhotoSlider
-        images={[
-          {
-            key: userInfo.id,
-            src: userInfo.profile.pictureUrl,
-          },
-        ]}
-        visible={!!queryValue}
-        onClose={() => {
-          removeQuery({ backTwice: true })
-        }}
+    <PressableDivButton
+      style={{
+        cursor: 'pointer',
+      }}
+      onClick={() => {
+        handleOpen()
+      }}
+    >
+      <UserImage
+        key={userInfo.id}
+        pictureUrl={userInfo.profile.pictureUrl}
+        username={userInfo.username}
+        widthHeight={isSmallScreen ? 80 : 96}
       />
-      <div
-        style={{
-          cursor: 'pointer',
-        }}
-        onClick={() => {
-          setQuery(userInfo.id)
-        }}
-      >
-        <UserImage
-          key={userInfo.id}
-          pictureUrl={userInfo.profile.pictureUrl}
-          username={userInfo.username}
-          widthHeight={isSmallScreen ? 80 : 96}
-        />
-      </div>
-    </>
+    </PressableDivButton>
   )
 }
 

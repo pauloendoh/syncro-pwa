@@ -11,7 +11,7 @@ import RatingSimilarityItem from './RatingSimilarityItem/RatingSimilarityItem'
 type SortBy = 'items count' | 'rating similarity'
 
 const RatingSimilarityList = () => {
-  const { queryValue, setQuery } = useQueryParams().itemType
+  const [queryValue, setQuery] = useQueryParams().itemType
 
   const { data: ratingSimilarities, isLoading } = useMySimilarUsersQuery(
     queryValue || 'all'
@@ -41,7 +41,7 @@ const RatingSimilarityList = () => {
           includeAll
           value={queryValue || 'all'}
           onChange={(value) => {
-            setQuery(value, { replace: true })
+            setQuery(value, { history: 'replace' })
           }}
           label="Item type"
           width={120}

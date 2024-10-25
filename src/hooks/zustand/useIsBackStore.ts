@@ -1,7 +1,8 @@
 import { create } from 'zustand'
+import { buildShallowStoreHookV2 } from './utils/useShallowStore'
 
 interface IStore {
-  isBack: boolean
+  isBack: boolean // unreliable, sometimes it works too late
   setIsBack: (isBack: boolean) => void
 
   // STATES THAT YOU WANT TO MANTAIN AFTER GOING BACK
@@ -21,5 +22,6 @@ const useIsBackStore = create<IStore>((set, get) => ({
     set({ userItemsGridPage: page })
   },
 }))
+export const useIsBackStoreV2 = buildShallowStoreHookV2(useIsBackStore)
 
 export default useIsBackStore

@@ -8,6 +8,7 @@ import { useNewMessageSocket } from '../../../hooks/socket/domain/message-room/u
 import { useMyMediaQuery } from '../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../hooks/useMyRouterQuery'
 import useAuthStore from '../../../hooks/zustand/useAuthStore'
+import GlobalPhotoSlider from '../GlobalPhotoSlider/GlobalPhotoSlider'
 import GlobalModals from '../modals/GlobalModals'
 import MobileFooter from './MobileFooter/MobileFooter'
 import MyNavbar from './MyNavbar/MyNavbar'
@@ -78,6 +79,7 @@ const DefaultLayout = (props: Props) => {
 
       {isMobile && !isLoadingMyMediaQuery && !isMessagePage && <MobileFooter />}
       <GlobalModals />
+      <GlobalPhotoSlider />
     </AppShell>
   )
 }
