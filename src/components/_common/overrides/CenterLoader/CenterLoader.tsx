@@ -11,8 +11,8 @@ const CenterLoader = (props: Props) => {
     <Center
       mt={props.mt}
       sx={{
-        height: props.height || 80,
-        width: props.width || '100%',
+        height: props.height ?? '100%',
+        width: props.width ?? '100%',
       }}
     >
       <Loader />

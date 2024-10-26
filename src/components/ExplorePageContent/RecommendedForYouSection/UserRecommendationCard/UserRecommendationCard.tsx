@@ -12,6 +12,7 @@ import Span from '../../../_common/text/Span'
 
 type Props = {
   user: UserSimpleDto
+  disableIgnoreButton?: boolean
 }
 
 // PE 3/3
@@ -31,15 +32,17 @@ const UserRecommendationCard = ({ ...props }: Props) => {
         width: 133,
       }}
     >
-      <ActionIcon
-        pos="absolute"
-        top={4}
-        right={4}
-        onClick={() => submitIgnore({ ignoreUserId: props.user.id })}
-        title="Ignore follow recommendation"
-      >
-        <MdClose />
-      </ActionIcon>
+      {!props.disableIgnoreButton && (
+        <ActionIcon
+          pos="absolute"
+          top={4}
+          right={4}
+          onClick={() => submitIgnore({ ignoreUserId: props.user.id })}
+          title="Ignore follow recommendation"
+        >
+          <MdClose />
+        </ActionIcon>
+      )}
 
       <FlexCol
         align={'center'}
