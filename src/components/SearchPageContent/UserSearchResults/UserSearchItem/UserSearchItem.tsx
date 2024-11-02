@@ -27,6 +27,10 @@ const UserSearchItem = ({ user }: Props) => {
   }, [user.username])
 
   const entriesLabel = useMemo(() => {
+    if (user.entryCount === undefined) {
+      return ''
+    }
+
     if (user.entryCount === 0) {
       return 'No entries'
     }
