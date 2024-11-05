@@ -80,6 +80,7 @@ export const urls = {
       API_URL + '/search-more?' + qs.stringify(params),
     searchAutocomplete: (params: SearchParams) =>
       API_URL + '/search-autocomplete?' + qs.stringify(params),
+    searchMyEntries: (q: string) => API_URL + '/search-my-entries?q=' + q,
     itemNews: (syncroItemId: string) =>
       `/item-news?syncroItemId=${syncroItemId}`,
 

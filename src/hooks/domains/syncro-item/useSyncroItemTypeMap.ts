@@ -5,6 +5,7 @@ import { syncroItemTypeOptions } from './syncroItemOptions/syncroItemOptions'
 /**
  * Get syncro item type map by item type
  */
+// PE 2/3 - make conditional typing
 export const useSyncroItemTypeMap = (by: {
   tabIndex?: number
   itemType?: SyncroItemType

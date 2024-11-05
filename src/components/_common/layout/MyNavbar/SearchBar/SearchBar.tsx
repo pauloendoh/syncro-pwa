@@ -1,34 +1,18 @@
-import {
-  Box,
-  Flex,
-  LoadingOverlay,
-  Paper,
-  Select,
-  Text,
-  useMantineTheme,
-} from '@mantine/core'
-import {
-  useClickOutside,
-  useDebouncedValue,
-  useElementSize,
-} from '@mantine/hooks'
+import { Select } from '@mantine/core'
+import { useDebouncedValue, useElementSize } from '@mantine/hooks'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
-import { SearchType } from '../../../../../types/domain/search/SearchParams'
 import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
-import { urls } from '../../../../../utils/urls/urls'
-import { useAxios } from '../../../../../utils/useAxios'
 import { isSyncroItemType } from '../../../../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
 import MyTextInput from '../../../inputs/MyTextInput'
-import CenterLoader from '../../../overrides/CenterLoader/CenterLoader'
-import MyNextLink from '../../../overrides/MyNextLink'
-import SearchAutocompleteItem from './SearchAutocompleteItem/SearchAutocompleteItem'
+import AllMyItemsPreviewSection from './AllMyItemsPreviewSection/AllMyItemsPreviewSection'
 import SearchBarSelectItem from './SearchBarSelectItem/SearchBarSelectItem'
+import SpecificTypePreviewSection from './SpecificTypePreviewSection/SpecificTypePreviewSection'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
 
 type SearchPreviewDto = {
@@ -36,8 +20,6 @@ type SearchPreviewDto = {
 }
 
 const SearchBar = () => {
-  const theme = useMantineTheme()
-
   const { q, type } = useMyRouterQuery()
   const [input, setInput] = useState('')
 
@@ -68,58 +50,7 @@ const SearchBar = () => {
     if (input.length > 0 && isMobile) handleSubmit()
   }, [selectedType])
 
-  const [previewData, setPreviewData] = useState<SearchPreviewDto[]>([])
   const { ref, width } = useElementSize()
-
-  const axios = useAxios()
-
-  const [loading, setLoading] = useState(false)
-
-  const cancelController = useRef(new AbortController())
-
-  // PE 2/3 - rename to searchPreviewItems
-  const handlePreviewItems = useCallback(
-    async (input: string, selectedType: SearchType) => {
-      if (q === debouncedInput && type === selectedType) {
-        setPreviewData([])
-        return
-      }
-
-      if (!isSyncroItemType(selectedType)) {
-        setPreviewData([])
-        return
-      }
-
-      if (input.length > 0) {
-        setLoading(true)
-        cancelController.current.abort()
-
-        await axios
-          .get<SearchPreviewDto[]>(
-            urls.api.searchAutocomplete({
-              q: debouncedInput,
-              type: selectedType,
-            })
-          )
-          .then((res) => {
-            setPreviewData(res.data)
-          })
-          .finally(() => {
-            setLoading(false)
-          })
-        return
-      }
-
-      setPreviewData([])
-    },
-    [debouncedInput, selectedType]
-  )
-
-  useEffect(() => {
-    handlePreviewItems(debouncedInput, selectedType)
-  }, [debouncedInput, selectedType])
-
-  const clickOutsideRef = useClickOutside(() => setPreviewData([]))
 
   // PE 2/3 - rename to SelectedItemTypeIcon, and maybe use SyncroItemIcon component?
   const SelectedIcon = useMemo(() => {
@@ -215,9 +146,6 @@ const SearchBar = () => {
           },
         }}
         ref={inputRef}
-        onFocus={() => {
-          handlePreviewItems(input, selectedType)
-        }}
       />
 
       <button
@@ -226,64 +154,26 @@ const SearchBar = () => {
         }}
       />
 
-      {(previewData.length > 0 || loading) && (
-        <Paper
-          ref={clickOutsideRef}
-          sx={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            width: width,
-            zIndex: 100,
-            maxHeight: 340,
-            overflowY: 'auto',
-            backgroundColor: theme.colors.dark[8],
-          }}
-        >
-          <Box pos="relative">
-            {previewData.length === 0 && loading && (
-              <CenterLoader width={'100%'} />
-            )}
-            <LoadingOverlay
-              mah={340}
-              visible={previewData.length > 0 && loading}
-            />
-            {previewData.length > 0 && (
-              <>
-                <MyNextLink
-                  href={urls.pages.search({
-                    q: input,
-                    type: selectedType,
-                  })}
-                >
-                  <Flex
-                    p={8}
-                    justify="center"
-                    sx={{
-                      cursor: 'pointer',
-                      ':hover': {
-                        backgroundColor: theme.colors.dark[4],
-                      },
-                    }}
-                  >
-                    <Text color="primary" underline>
-                      See all results
-                    </Text>
-                  </Flex>
-                </MyNextLink>
-                {previewData.map(({ item }) => (
-                  <SearchAutocompleteItem
-                    key={item.id}
-                    item={item}
-                    onClick={() => {
-                      setPreviewData([])
-                    }}
-                  />
-                ))}
-              </>
-            )}
-          </Box>
-        </Paper>
+      {isSyncroItemType(selectedType) && (
+        <SpecificTypePreviewSection
+          input={input}
+          inputRef={inputRef}
+          selectedType={selectedType}
+          width={width}
+          debouncedInput={debouncedInput}
+          queryParamQ={q}
+          queryParamType={type}
+        />
+      )}
+      {selectedType === 'all' && (
+        <AllMyItemsPreviewSection
+          input={input}
+          inputRef={inputRef}
+          width={width}
+          debouncedInput={debouncedInput}
+          queryParamQ={q}
+          queryParamType={type}
+        />
       )}
     </form>
   )

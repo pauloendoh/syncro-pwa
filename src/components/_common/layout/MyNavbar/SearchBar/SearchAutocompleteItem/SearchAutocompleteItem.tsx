@@ -1,7 +1,9 @@
 import { Flex, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
+import { useSyncroItemTypeMap } from '../../../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useMyRatingsQuery } from '../../../../../../hooks/react-query/rating/useMyRatingsQuery'
 import { SyncroItemDto } from '../../../../../../types/domain/syncro-item/SyncroItemDto'
+import { middleDot } from '../../../../../../utils/text/middleDot'
 import FlexCol from '../../../../flex/FlexCol'
 import SyncroItemImage from '../../../../image/SyncroItemImage/SyncroItemImage'
 import UserEntryIcons from '../../../../modals/ItemRatedByModal/ItemRatedByModalItem/UserEntryIcons/UserEntryIcons'
@@ -22,6 +24,9 @@ const SearchAutocompleteItem = ({ ...props }: Props) => {
   }, [myRatings])
 
   const theme = useMantineTheme()
+  const typeMap = useSyncroItemTypeMap({
+    itemType: props.item.type,
+  })
 
   return (
     <SyncroItemLink
@@ -51,7 +56,13 @@ const SearchAutocompleteItem = ({ ...props }: Props) => {
           >
             {props.item.title}
           </Text>
-          {props.item.year ?? <Text>{props.item.year}</Text>}
+          <span>
+            <span>
+              <span>{typeMap.getTypeLabel()}</span>
+              {!!props.item.year && <span> {middleDot} </span>}
+            </span>
+            {props.item.year ?? <span>{props.item.year}</span>}
+          </span>
           {myRating && (
             <UserEntryIcons
               color={theme.colors.secondary[9]}
