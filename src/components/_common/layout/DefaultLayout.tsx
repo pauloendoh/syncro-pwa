@@ -22,6 +22,7 @@ type Props = {
   mustBeLoggedIn?: boolean
   disableAppShell?: boolean
   horizontalScrollable?: boolean
+  overrideMobileFooter?: React.ReactNode
 }
 
 const DefaultLayout = (props: Props) => {
@@ -77,7 +78,10 @@ const DefaultLayout = (props: Props) => {
 
       {props.disableMarginBottom ? null : <Box mt={96} />}
 
-      {isMobile && !isLoadingMyMediaQuery && !isMessagePage && <MobileFooter />}
+      {isMobile &&
+        !isLoadingMyMediaQuery &&
+        !isMessagePage &&
+        (props.overrideMobileFooter ?? <MobileFooter />)}
       <GlobalModals />
       <GlobalPhotoSlider />
     </AppShell>

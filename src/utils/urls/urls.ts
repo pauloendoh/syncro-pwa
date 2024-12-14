@@ -61,6 +61,13 @@ export const urls = {
     admin: () => '/admin/dashboard/users',
 
     allPlanned: () => '/all-planned',
+
+    dating: {
+      editDatingProfile: () => '/dating/edit-profile',
+      people: () => '/dating/people',
+      likedYou: () => '/dating/liked-you',
+      chats: () => '/dating/chats',
+    },
   },
   api: {
     register: (pushToken: string | null) =>
