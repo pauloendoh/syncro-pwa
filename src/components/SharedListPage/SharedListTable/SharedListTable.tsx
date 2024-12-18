@@ -59,7 +59,7 @@ export const SharedListTable = ({ ...props }: Props) => {
 
   const authUser = useAuthUser()
 
-  const myUser = props.selectedList.users.find(
+  const myUser = props.selectedList.users?.find(
     (user) => user.user.id === authUser?.id
   )?.user
 
