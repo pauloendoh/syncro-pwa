@@ -21,6 +21,7 @@ import {
 } from '@mantine/hooks'
 import { Notifications } from '@mantine/notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -94,7 +95,7 @@ function App(props: AppProps) {
 
   return (
     <QueryClientProvider client={myQueryClient}>
-      {/* <ReactQueryDevtools /> */}
+      <ReactQueryDevtools />
 
       <Head>
         <title>Syncro</title>

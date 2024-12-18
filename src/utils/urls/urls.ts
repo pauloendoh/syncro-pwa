@@ -68,6 +68,10 @@ export const urls = {
       likedYou: () => '/dating/liked-you',
       chats: () => '/dating/chats',
     },
+    sharedList: {
+      index: () => '/shared-list',
+      id: (id: string) => `/shared-list/${id}`,
+    },
   },
   api: {
     register: (pushToken: string | null) =>
@@ -250,6 +254,17 @@ export const urls = {
       addUserDailyLog: API_URL + '/user-daily-log',
       getDailyLoggedUsers: (lastNDays = 30) =>
         `/daily-logged-users?lastNDays=${lastNDays}`,
+    },
+    sharedList: {
+      mySharedLists: () => `/me/shared-lists`,
+      createSharedList: () => `/create-shared-list`,
+      sharedListsIncludingUsers: (userIds: string[]) =>
+        `/shared-lists-including-users?${qs.stringify({ userIds })}`,
+      sharedListItems: (sharedListId: string) =>
+        `/shared-list-items?${qs.stringify({ sharedListId })}`,
+      sharedListItemMutation: () => `/shared-list-item-interest`,
+      sharedListItemId: (interestId: string) =>
+        `/shared-list-item-interest/${interestId}`,
     },
   },
 

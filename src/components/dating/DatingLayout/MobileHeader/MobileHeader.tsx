@@ -10,6 +10,11 @@ import MyNextLink from '../../../_common/overrides/MyNextLink'
 type Props = {
   title: React.ReactNode
   rightTitle?: React.ReactNode
+
+  /**
+   * @default true
+   * */
+  fixedHeader?: boolean
 }
 
 const MobileHeader = ({ ...props }: Props) => {
@@ -28,7 +33,7 @@ const MobileHeader = ({ ...props }: Props) => {
     >
       <FlexVCenter
         sx={{
-          position: 'fixed',
+          position: props.fixedHeader === false ? 'absolute' : 'fixed',
           top: 0,
           left: 0,
           right: 0,

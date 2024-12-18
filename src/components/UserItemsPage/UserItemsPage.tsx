@@ -30,6 +30,7 @@ import UserItemsFilter from './UserItemsFilter/UserItemsFilter'
 import UserItemsGrid from './UserItemsGrid/UserItemsGrid'
 import UserItemsList from './UserItemsList/UserItemsList'
 import UserItemsMdTable from './UserItemsMdTable/UserItemsMdTable'
+import UserItemsPageMoreMenu from './UserItemsPageMoreMenu/UserItemsPageMoreMenu'
 import UserItemsViewSelector from './UserItemsViewSelector/UserItemsViewSelector'
 
 // PE 2/3 - maybe change variables order?
@@ -137,14 +138,20 @@ const UserItemsPage = () => {
       >
         <Grid.Col span={12} xs={12} sm={8} md={8} lg={8} xl={8}>
           <Container fluid={isSmallScreen}>
-            <FlexVCenter gap={16}>
-              <UserImage
-                pictureUrl={userInfo?.profile?.pictureUrl}
-                userIdForLink={thisIsYourList ? authUser?.id : userInfo?.id}
-              />
-              <Title order={3}>
-                {userInfo?.username}'s {typeMap.getTypeLabelLowerCase(true)}
-              </Title>
+            <FlexVCenter justify={'space-between'}>
+              <FlexVCenter gap={16}>
+                <UserImage
+                  pictureUrl={userInfo?.profile?.pictureUrl}
+                  userIdForLink={thisIsYourList ? authUser?.id : userInfo?.id}
+                />
+                <Title order={3}>
+                  {userInfo?.username}'s {typeMap.getTypeLabelLowerCase(true)}
+                </Title>
+              </FlexVCenter>
+
+              {!thisIsYourList && authUser && userInfo?.id && (
+                <UserItemsPageMoreMenu userId={userInfo.id} />
+              )}
             </FlexVCenter>
             {isSmallScreen && (
               <Box mt={16} w="100%">

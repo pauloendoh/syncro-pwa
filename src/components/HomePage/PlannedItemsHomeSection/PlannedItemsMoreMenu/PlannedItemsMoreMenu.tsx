@@ -22,6 +22,9 @@ const PlannedItemsMoreMenu = ({ ...props }: Props) => {
         <MyNextLink href={urls.pages.allPlanned()}>
           <Menu.Item>See All Planned</Menu.Item>
         </MyNextLink>
+        <MyNextLink href={urls.pages.sharedList.index()}>
+          <Menu.Item>Shared lists</Menu.Item>
+        </MyNextLink>
         <Menu.Divider />
 
         <Menu.Label>Rating Status</Menu.Label>
