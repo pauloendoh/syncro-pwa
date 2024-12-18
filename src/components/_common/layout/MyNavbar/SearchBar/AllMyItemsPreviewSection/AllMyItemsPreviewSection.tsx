@@ -127,7 +127,9 @@ const AllMyItemsPreviewSection = ({ ...props }: Props) => {
         >
           <Box pos="relative">
             {previewData.length === 0 && loading && (
-              <CenterLoader width={'100%'} />
+              <Box p={16}>
+                <CenterLoader width={'100%'} loaderSize={'xs'} />
+              </Box>
             )}
             <LoadingOverlay
               mah={340}

@@ -6,7 +6,6 @@ import { MdSearch } from 'react-icons/md'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import { useMyRouterQuery } from '../../../../../hooks/useMyRouterQuery'
 import useSearchStore from '../../../../../hooks/zustand/useSearchStore'
-import { SyncroItemDto } from '../../../../../types/domain/syncro-item/SyncroItemDto'
 import { isSyncroItemType } from '../../../../SearchPageContent/isSyncroItemType/isSyncroItemType'
 import { searchTabOptions } from '../../../../SearchPageContent/searchTabOptions/searchTabOptions'
 import MyTextInput from '../../../inputs/MyTextInput'
@@ -14,10 +13,6 @@ import AllMyItemsPreviewSection from './AllMyItemsPreviewSection/AllMyItemsPrevi
 import SearchBarSelectItem from './SearchBarSelectItem/SearchBarSelectItem'
 import SpecificTypePreviewSection from './SpecificTypePreviewSection/SpecificTypePreviewSection'
 import { useSubmitSearchBar } from './useSubmitSearchBar/useSubmitSearchBar'
-
-type SearchPreviewDto = {
-  item: SyncroItemDto
-}
 
 const SearchBar = () => {
   const { q, type } = useMyRouterQuery()

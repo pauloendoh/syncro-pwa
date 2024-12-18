@@ -1,9 +1,10 @@
-import { Center, Loader } from '@mantine/core'
+import { Center, Loader, MantineNumberSize } from '@mantine/core'
 
 type Props = {
   height?: number
   width?: string | number
   mt?: number
+  loaderSize?: MantineNumberSize
 }
 
 const CenterLoader = (props: Props) => {
@@ -15,7 +16,7 @@ const CenterLoader = (props: Props) => {
         width: props.width ?? '100%',
       }}
     >
-      <Loader />
+      <Loader size={props.loaderSize} />
     </Center>
   )
 }
