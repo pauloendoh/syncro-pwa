@@ -64,7 +64,7 @@ export const SharedListTable = ({ ...props }: Props) => {
   )?.user
 
   const otherUsers = props.selectedList.users
-    .map((user) => user.user)
+    ?.map((user) => user.user)
     .filter((user) => user.id !== authUser?.id)
 
   const theme = useMantineTheme()
