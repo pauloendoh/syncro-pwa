@@ -43,7 +43,7 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   userId: '',
   ratingValue: null,
   review: '',
-  status: 'IN_PROGRESS',
+  status: 'PLANNED',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   timelineDate: new Date().toISOString(),

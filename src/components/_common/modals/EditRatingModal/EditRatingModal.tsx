@@ -1,5 +1,4 @@
 import {
-  Alert,
   Anchor,
   Box,
   Button,
@@ -12,12 +11,11 @@ import {
   Textarea,
   Title,
   Transition,
-  useMantineTheme,
+  useMantineTheme
 } from '@mantine/core'
 import { useQueryState } from 'next-usequerystate'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { MdInfo } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import useDeleteRatingMutation from '../../../../hooks/react-query/rating/useDeleteRatingMutation'
 import useSaveRatingMutation from '../../../../hooks/react-query/rating/useSaveRatingMutation/useSaveRatingMutation'
@@ -325,31 +323,8 @@ const EditRatingModal = () => {
       <FlexCol>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Box p={16} h={!isMobile ? undefined : 'calc(100dvh + 40px)'}>
-            {userSettings?.showDefaultStatusIsInProgressNow &&
-              !form.watch('id') && (
-                <Alert
-                  mt={24}
-                  variant="light"
-                  color="blue"
-                  icon={<MdInfo />}
-                  withCloseButton
-                  onClose={() => {
-                    submitUpdateSettings({
-                      ...userSettings,
-                      showDefaultStatusIsInProgressNow: false,
-                    })
-                  }}
-                  styles={{
-                    icon: {
-                      marginRight: 4,
-                    },
-                  }}
-                >
-                  The default status has been updated from "Completed" to "In
-                  Progress."
-                </Alert>
-              )}
-
+            {/* PE 1/3 - delete related stuff? */}
+           
             <Flex justify={'space-between'} w="100%">
               {syncroItem && (
                 <RatingStatusSelector
