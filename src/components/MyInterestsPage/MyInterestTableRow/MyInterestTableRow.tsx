@@ -65,7 +65,7 @@ export const MyInterestTableRow = ({ rating, ...props }: Props) => {
               interestLevel: null,
             })
           }
-          const num = Number(text ?? '')
+          const num = parseFloat(text ?? '')
           if (isNaN(num)) {
             alert('Invalid number.')
             return
