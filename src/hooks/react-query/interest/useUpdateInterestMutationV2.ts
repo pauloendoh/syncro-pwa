@@ -22,12 +22,13 @@ export const useUpdateInterestMutationV2 = () => {
         const queryKey = [urls.api.myInterestsV2]
         qc.cancelQueries(queryKey)
         qc.setQueryData<RatingDto[]>(queryKey, (curr) => {
-          const rating = curr?.find((r) => r.id === input.ratingId)
+          if (!curr) return []
+          const rating = curr.find((r) => r.id === input.ratingId)
           if (rating) {
             rating.interestLevel = input.interestLevel
           }
 
-          return curr
+          return [...curr]
         })
       },
     }
