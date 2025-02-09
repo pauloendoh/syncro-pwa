@@ -73,8 +73,12 @@ export const ratingStatusArray: {
   },
 ]
 
+export function useRatingStatusMapV2(ratingStatus: RatingStatusType) {
+  return ratingStatusArray.find((status) => status.value === ratingStatus)
+}
+
 // PE 1/3 - PE 1/3 - kinda weird  using this.. I expect a ratingStatus instead of itemType
-export function useRatingStatusMap(itemType: SyncroItemType) {
+export function useRatingStatusMap(itemType: SyncroItemType | undefined) {
   const typeMap = useSyncroItemTypeMap({ itemType })
   const map: {
     // PE 1/3 - use Record

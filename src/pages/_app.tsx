@@ -1,3 +1,5 @@
+import { scan } from 'react-scan' // import this BEFORE react
+
 import 'dayjs/locale/en'
 
 import { DatesProvider } from '@mantine/dates'
@@ -61,6 +63,13 @@ function App(props: AppProps) {
 
   useEffect(() => {
     setSessionStorage('initialHistoryLength', String(window.history.length))
+
+    if (typeof window !== 'undefined') {
+      scan({
+        enabled: !myEnvs.isProduction,
+        log: true,
+      })
+    }
   }, [])
 
   useEffect(() => {

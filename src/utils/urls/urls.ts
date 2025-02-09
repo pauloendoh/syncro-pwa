@@ -113,6 +113,7 @@ export const urls = {
     uploadFavoriteScene: API_URL + `/upload-favorite-scene`,
 
     myInterests: API_URL + `/me/interests`,
+    myInterestsV2: API_URL + `/my-interests`,
     toggleSaveItem: (itemId: string) =>
       API_URL + `/toggle-save/item?id=${itemId}`,
     plannedItems: (userId: string) =>
@@ -266,6 +267,8 @@ export const urls = {
       sharedListItemId: (interestId: string) =>
         `/shared-list-item-interest/${interestId}`,
     },
+
+    entryInterest: (entryId: string) => `/entry/${entryId}/interest`,
   },
 
   others: {
