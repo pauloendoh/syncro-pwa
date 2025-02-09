@@ -37,6 +37,7 @@ export type RatingDto = {
   completedCount: number
 
   interestLevel: number | null
+  myHoursLeft: number | null
 }
 
 export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
@@ -62,5 +63,6 @@ export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   completedCount: 0,
 
   interestLevel: null,
+  myHoursLeft: null,
   ...p,
 })

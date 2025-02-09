@@ -89,7 +89,35 @@ export const MyInterestTableRow = ({ rating, ...props }: Props) => {
       >
         {rating.interestLevel}
       </td>
-      <td>{/* duration */}</td>
+      <td
+        className="clickable"
+        onClick={() => {
+          const text = prompt('Enter hours left')?.trim()
+          if (text === '') {
+            submitUpdateInterest({
+              ratingId: rating.id,
+              myHoursLeft: null,
+            })
+            return
+          }
+          const num = parseFloat(text ?? '')
+          if (isNaN(num)) {
+            return
+          }
+
+          submitUpdateInterest({
+            ratingId: rating.id,
+            myHoursLeft: num,
+          })
+        }}
+        style={{
+          textAlign: 'center',
+        }}
+      >
+        {rating.myHoursLeft !== null &&
+          rating.myHoursLeft > 0 &&
+          `${rating.myHoursLeft} hours`}
+      </td>
       <td
         style={{
           textAlign: 'center',

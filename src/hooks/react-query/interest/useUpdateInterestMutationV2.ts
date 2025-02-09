@@ -9,10 +9,15 @@ export const useUpdateInterestMutationV2 = () => {
   const qc = useQueryClient()
 
   return useMutation(
-    (input: { ratingId: string; interestLevel: number | null }) =>
+    (input: {
+      ratingId: string
+      interestLevel?: number | null
+      myHoursLeft?: number | null
+    }) =>
       axios
         .patch<true>(urls.api.entryInterest(input.ratingId), {
           interestLevel: input.interestLevel,
+          myHoursLeft: input.myHoursLeft,
         })
         .then((res) => res.data),
     {
@@ -24,8 +29,11 @@ export const useUpdateInterestMutationV2 = () => {
         qc.setQueryData<RatingDto[]>(queryKey, (curr) => {
           if (!curr) return []
           const rating = curr.find((r) => r.id === input.ratingId)
-          if (rating) {
+          if (rating && input.interestLevel !== undefined) {
             rating.interestLevel = input.interestLevel
+          }
+          if (rating && input.myHoursLeft !== undefined) {
+            rating.myHoursLeft = input.myHoursLeft
           }
 
           return [...curr]

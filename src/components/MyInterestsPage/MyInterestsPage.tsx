@@ -27,6 +27,11 @@ export const MyInterestsPage = () => {
         if (a.interestLevel === null) return -1
         if (b.interestLevel === null) return 1
 
+        if (a.interestLevel === b.interestLevel) {
+          // returns lower hours left first
+          return (a.myHoursLeft ?? 0) - (b.myHoursLeft ?? 0)
+        }
+
         return b.interestLevel - a.interestLevel
       })
       .filter((rating) => {
@@ -99,9 +104,10 @@ export const MyInterestsPage = () => {
                     <th
                       style={{
                         width: 80,
+                        textAlign: 'center',
                       }}
                     >
-                      Duration
+                      Hours left
                     </th>
                     <th
                       style={{
