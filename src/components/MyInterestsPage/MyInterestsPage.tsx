@@ -1,8 +1,6 @@
-import { Container, Select, Table, useMantineTheme } from '@mantine/core'
+import { Container, MultiSelect, Table, useMantineTheme } from '@mantine/core'
 import { useMemo, useState } from 'react'
-import { useUpdateInterestMutationV2 } from '../../hooks/react-query/interest/useUpdateInterestMutationV2'
 import { useMyInterestsQueryV2 } from '../../hooks/react-query/rating/useMyInterestsQueryV2'
-import { useMyColors } from '../../hooks/useMyColors'
 import { zIndexes } from '../../utils/zIndexes'
 import FlexCol from '../_common/flex/FlexCol'
 import DefaultLayout from '../_common/layout/DefaultLayout'
@@ -12,8 +10,8 @@ import { MyInterestTableRow } from './MyInterestTableRow/MyInterestTableRow'
 export const MyInterestsPage = () => {
   const { data: ratings, isLoading } = useMyInterestsQueryV2()
 
-  type StatusType = 'All' | 'PLANNED' | 'IN_PROGRESS' | 'ON_HOLD'
-  const [status, setStatus] = useState<StatusType>('All')
+  type StatusType = 'PLANNED' | 'IN_PROGRESS' | 'ON_HOLD'
+  const [statuses, setStatues] = useState<StatusType[]>([])
 
   const sortedRatings = useMemo(() => {
     return (ratings ?? [])
@@ -26,16 +24,13 @@ export const MyInterestsPage = () => {
 
         return b.interestLevel - a.interestLevel
       })
-      .filter((item) => {
-        if (status === 'All') return true
-        return item.status === status
+      .filter((rating) => {
+        if (statuses.length === 0) return true
+        return statuses.includes(rating.status as StatusType)
       })
-  }, [ratings, status])
+  }, [ratings, statuses])
 
   const theme = useMantineTheme()
-  const myColors = useMyColors()
-
-  const { mutate: submitUpdateInterest } = useUpdateInterestMutationV2()
 
   return (
     <DefaultLayout>
@@ -45,21 +40,21 @@ export const MyInterestsPage = () => {
 
           {!isLoading && (
             <FlexCol gap={8}>
-              <Select
-                value={status}
+              <MultiSelect
+                multiple
+                value={statuses}
                 label={'Filter by status'}
                 styles={{
                   root: {
-                    width: 160,
+                    width: 340,
                   },
                 }}
                 data={[
-                  { value: 'All', label: 'All' },
                   { value: 'PLANNED', label: 'Planned' },
                   { value: 'IN_PROGRESS', label: 'In progress' },
                   { value: 'ON_HOLD', label: 'On hold' },
                 ]}
-                onChange={(value) => setStatus(value as StatusType)}
+                onChange={(values) => setStatues(values as StatusType[])}
               />
               <Table
                 highlightOnHover
