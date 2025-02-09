@@ -1,6 +1,8 @@
 import { Container, MultiSelect, Table, useMantineTheme } from '@mantine/core'
-import { useMemo, useState } from 'react'
+import { useLocalStorage } from '@mantine/hooks'
+import { useMemo } from 'react'
 import { useMyInterestsQueryV2 } from '../../hooks/react-query/rating/useMyInterestsQueryV2'
+import { localStorageKeys } from '../../utils/consts/localStorageKeys'
 import { zIndexes } from '../../utils/zIndexes'
 import FlexCol from '../_common/flex/FlexCol'
 import DefaultLayout from '../_common/layout/DefaultLayout'
@@ -11,7 +13,10 @@ export const MyInterestsPage = () => {
   const { data: ratings, isLoading } = useMyInterestsQueryV2()
 
   type StatusType = 'PLANNED' | 'IN_PROGRESS' | 'ON_HOLD'
-  const [statuses, setStatues] = useState<StatusType[]>([])
+  const [statuses, setStatues] = useLocalStorage<StatusType[]>({
+    key: localStorageKeys.myInterestsPage.statuses,
+    defaultValue: ['PLANNED', 'IN_PROGRESS', 'ON_HOLD'],
+  })
 
   const sortedRatings = useMemo(() => {
     return (ratings ?? [])

@@ -8,4 +8,8 @@ export const localStorageKeys = {
   browsePage: {
     hideAlreadySaved: 'browsePage/hideAlreadySaved',
   },
+
+  myInterestsPage: {
+    statuses: 'myInterestsPage/statuses',
+  },
 } as const
