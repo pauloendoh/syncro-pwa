@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
-import { myNotifications } from '../../../utils/mantine/myNotifications'
 import { urls } from '../../../utils/urls/urls'
 import { useAxios } from '../../../utils/useAxios'
 
@@ -22,8 +21,6 @@ export const useUpdateInterestMutationV2 = () => {
         .then((res) => res.data),
     {
       onSuccess: (saved, input) => {
-        myNotifications.success('Feedback saved!')
-
         const queryKey = [urls.api.myInterestsV2]
         qc.cancelQueries(queryKey)
         qc.setQueryData<RatingDto[]>(queryKey, (curr) => {
