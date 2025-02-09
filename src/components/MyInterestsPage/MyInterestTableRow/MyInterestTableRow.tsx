@@ -76,6 +76,9 @@ export const MyInterestTableRow = ({ rating, ...props }: Props) => {
             interestLevel: num,
           })
         }}
+        style={{
+          textAlign: 'center',
+        }}
       >
         {rating.interestLevel}
       </td>

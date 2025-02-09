@@ -91,6 +91,7 @@ export const MyInterestsPage = () => {
                     <th
                       style={{
                         width: 80,
+                        textAlign: 'center',
                       }}
                     >
                       INT
