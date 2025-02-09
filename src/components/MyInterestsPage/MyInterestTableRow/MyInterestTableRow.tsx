@@ -64,6 +64,7 @@ export const MyInterestTableRow = ({ rating, ...props }: Props) => {
               ratingId: rating.id,
               interestLevel: null,
             })
+            return
           }
           const num = parseFloat(text ?? '')
           if (isNaN(num)) {
