@@ -28,32 +28,29 @@ export const MyInterestTableRow = ({ rating, ...props }: Props) => {
     <tr key={rating.id}>
       <td>
         <SyncroItemLink item={rating.syncroItem!}>
-          <Anchor color="unset">
-            <Span>{rating.syncroItem?.title}</Span>
-            <br />
-            <Span
-              size="xs"
-              sx={{
-                marginTop: 2,
-                display: 'block',
-                width: 'fit-content',
-
-                background: typeMap.interestBgColor,
-                borderRadius: 4,
-                paddingInline: 4,
-                paddingBlock: 1,
-              }}
-            >
-              <FlexVCenter gap={4}>
-                <SyncroItemIcon
-                  type={rating.syncroItem?.type ?? 'movie'}
-                  size={12}
-                />
-                <span>{typeMap.getTypeLabel()}</span>
-              </FlexVCenter>
-            </Span>
-          </Anchor>
+          <Anchor color="unset">{rating.syncroItem?.title}</Anchor>
         </SyncroItemLink>
+        <Span
+          size="xs"
+          sx={{
+            marginTop: 2,
+            display: 'block',
+            width: 'fit-content',
+
+            background: typeMap.interestBgColor,
+            borderRadius: 4,
+            paddingInline: 4,
+            paddingBlock: 1,
+          }}
+        >
+          <FlexVCenter gap={4}>
+            <SyncroItemIcon
+              type={rating.syncroItem?.type ?? 'movie'}
+              size={12}
+            />
+            <span>{typeMap.getTypeLabel()}</span>
+          </FlexVCenter>
+        </Span>
       </td>
       <td
         className="clickable"
