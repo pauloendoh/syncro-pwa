@@ -1,4 +1,4 @@
-import { Anchor, Center } from '@mantine/core'
+import { Anchor, Center, Flex } from '@mantine/core'
 import { MdStar } from 'react-icons/md'
 import { useSyncroItemTypeMap } from '../../../hooks/domains/syncro-item/useSyncroItemTypeMap'
 import { useUpdateInterestMutationV2 } from '../../../hooks/react-query/interest/useUpdateInterestMutationV2'
@@ -6,7 +6,9 @@ import { useMyColors } from '../../../hooks/useMyColors'
 import { RatingDto } from '../../../types/domain/rating/RatingDto'
 import { useRatingStatusMapV2 } from '../../../types/domain/rating/ratingStatusArray'
 import { capitalize } from '../../../utils/text/capitalize'
+import FlexCol from '../../_common/flex/FlexCol'
 import FlexVCenter from '../../_common/flex/FlexVCenter'
+import SyncroItemImage from '../../_common/image/SyncroItemImage/SyncroItemImage'
 import SyncroItemLink from '../../_common/SyncroItemLink/SyncroItemLink'
 import Span from '../../_common/text/Span'
 import SyncroItemIcon from '../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
@@ -27,30 +29,38 @@ export const MyInterestTableRow = ({ rating, ...props }: Props) => {
   return (
     <tr key={rating.id}>
       <td>
-        <SyncroItemLink item={rating.syncroItem!}>
-          <Anchor color="unset">{rating.syncroItem?.title}</Anchor>
-        </SyncroItemLink>
-        <Span
-          size="xs"
-          sx={{
-            marginTop: 2,
-            display: 'block',
-            width: 'fit-content',
+        <Flex gap={8}>
+          <SyncroItemLink item={rating.syncroItem!}>
+            <SyncroItemImage width={40} item={rating.syncroItem} />
+          </SyncroItemLink>
 
-            background: typeMap.interestBgColor,
-            borderRadius: 4,
-            paddingInline: 4,
-            paddingBlock: 1,
-          }}
-        >
-          <FlexVCenter gap={4}>
-            <SyncroItemIcon
-              type={rating.syncroItem?.type ?? 'movie'}
-              size={12}
-            />
-            <span>{typeMap.getTypeLabel()}</span>
-          </FlexVCenter>
-        </Span>
+          <FlexCol>
+            <SyncroItemLink item={rating.syncroItem!}>
+              <Anchor color="unset">{rating.syncroItem?.title}</Anchor>
+            </SyncroItemLink>
+            <Span
+              size="xs"
+              sx={{
+                marginTop: 2,
+                display: 'block',
+                width: 'fit-content',
+
+                background: typeMap.interestBgColor,
+                borderRadius: 4,
+                paddingInline: 4,
+                paddingBlock: 1,
+              }}
+            >
+              <FlexVCenter gap={4}>
+                <SyncroItemIcon
+                  type={rating.syncroItem?.type ?? 'movie'}
+                  size={12}
+                />
+                <span>{typeMap.getTypeLabel()}</span>
+              </FlexVCenter>
+            </Span>
+          </FlexCol>
+        </Flex>
       </td>
       <td
         className="clickable"
