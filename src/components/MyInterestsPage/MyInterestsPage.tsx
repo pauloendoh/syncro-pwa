@@ -10,7 +10,7 @@ import CenterLoader from '../_common/overrides/CenterLoader/CenterLoader'
 import { MyInterestTableRow } from './MyInterestTableRow/MyInterestTableRow'
 
 export const MyInterestsPage = () => {
-  const { data: ratings, isLoading } = useMyInterestsQueryV2()
+  const { data: ratings, isLoading, isFetching } = useMyInterestsQueryV2()
 
   type StatusType = 'PLANNED' | 'IN_PROGRESS' | 'ON_HOLD'
   const [statuses, setStatues] = useLocalStorage<StatusType[]>({
@@ -38,7 +38,7 @@ export const MyInterestsPage = () => {
         if (statuses.length === 0) return true
         return statuses.includes(rating.status as StatusType)
       })
-  }, [ratings, statuses])
+  }, [isFetching, statuses])
 
   const theme = useMantineTheme()
 

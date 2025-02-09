@@ -28,7 +28,8 @@ export const useUpdateInterestMutationV2 = () => {
         qc.cancelQueries(queryKey)
         qc.setQueryData<RatingDto[]>(queryKey, (curr) => {
           if (!curr) return []
-          const rating = curr.find((r) => r.id === input.ratingId)
+          const copy = [...curr]
+          const rating = copy.find((r) => r.id === input.ratingId)
           if (rating && input.interestLevel !== undefined) {
             rating.interestLevel = input.interestLevel
           }
@@ -36,7 +37,7 @@ export const useUpdateInterestMutationV2 = () => {
             rating.myHoursLeft = input.myHoursLeft
           }
 
-          return [...curr]
+          return copy
         })
       },
     }
