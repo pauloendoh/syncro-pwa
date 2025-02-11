@@ -1,4 +1,5 @@
 import { Box, Flex, Rating, Text, useMantineTheme } from '@mantine/core'
+import { MdStar } from 'react-icons/md'
 import { useSettingsQuery } from '../../../../../hooks/react-query/user-settings/useSettingsQuery'
 import { useMyMediaQuery } from '../../../../../hooks/useMyMediaQuery'
 import FlexVCenter from '../../../flex/FlexVCenter'
@@ -36,7 +37,12 @@ const RatingSection = ({ ...props }: Props) => {
           }}
         />
         <MyNumberInput
-          label="Your rating"
+          label={
+            <FlexVCenter gap={2}>
+              <MdStar color="orange" />
+              <span>Your rating</span>
+            </FlexVCenter>
+          }
           onChange={props.onChange}
           precision={1}
           step={0.1}
