@@ -21,7 +21,7 @@ type Props = {
 
 export const SharedListTable = ({ ...props }: Props) => {
   const [selectedItemType, setSelectedItemType] =
-    useState<SyncroItemTypeAll>('movie')
+    useState<SyncroItemTypeAll>('all')
   const [filterByText, setFilterByText] = useState('')
 
   const parsedItems = useMemo(() => {
