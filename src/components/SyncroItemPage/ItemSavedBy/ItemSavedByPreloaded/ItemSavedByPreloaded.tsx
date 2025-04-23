@@ -9,6 +9,7 @@ import StatusIcon from '../StatusIcon/StatusIcon'
 type Props = {
   itemId: string
   ratings: RatingDto[]
+  actionOnClick?: 'openModal' | 'linkToUser'
 }
 
 const ItemSavedByPreloaded = (props: Props) => {
@@ -21,6 +22,9 @@ const ItemSavedByPreloaded = (props: Props) => {
     <FlexVCenter
       h={40}
       onClick={() => {
+        if (props.actionOnClick === 'linkToUser') {
+          return
+        }
         openModal(props.itemId, 'you-follow')
       }}
       sx={{
@@ -46,6 +50,9 @@ const ItemSavedByPreloaded = (props: Props) => {
               pictureUrl={rating.user?.profile?.pictureUrl}
               username={rating.user?.username}
               widthHeight={24}
+              userIdForLink={
+                props.actionOnClick === 'linkToUser' ? rating.userId : undefined
+              }
             />
             <div
               style={{

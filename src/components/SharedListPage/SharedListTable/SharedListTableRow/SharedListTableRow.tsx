@@ -13,6 +13,7 @@ import SyncroItemImage from '../../../_common/image/SyncroItemImage/SyncroItemIm
 import SyncroItemLink from '../../../_common/SyncroItemLink/SyncroItemLink'
 import Span from '../../../_common/text/Span'
 import SyncroItemIcon from '../../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroItemIcon'
+import ItemSavedByPreloaded from '../../../SyncroItemPage/ItemSavedBy/ItemSavedByPreloaded/ItemSavedByPreloaded'
 
 type Props = {
   sharedList: SharedListDto
@@ -43,7 +44,7 @@ export const SharedListTableRow = ({
     <>
       <td>
         <SyncroItemLink item={item}>
-          <SyncroItemImage item={item} width={48} forceHeight={48} />
+          <SyncroItemImage item={item} width={48} />
         </SyncroItemLink>
       </td>
 
@@ -56,13 +57,19 @@ export const SharedListTableRow = ({
           >
             {item.title}
           </Text>
-          {props.showItemType && (
-            <FlexVCenter opacity={0.66} gap={3}>
-              <SyncroItemIcon type={item.type} size={11} />
-              <Span size="xs">{typeMap?.getTypeLabel()}</Span>
-            </FlexVCenter>
-          )}
         </SyncroItemLink>
+        <FlexVCenter opacity={0.66} gap={3}>
+          <SyncroItemIcon type={item.type} size={11} />
+          <Span size="xs">{typeMap?.getTypeLabel()}</Span>
+        </FlexVCenter>
+
+        {ratings.length > 0 && (
+          <ItemSavedByPreloaded
+            actionOnClick="linkToUser"
+            itemId={item.id}
+            ratings={ratings}
+          />
+        )}
       </td>
 
       <td
