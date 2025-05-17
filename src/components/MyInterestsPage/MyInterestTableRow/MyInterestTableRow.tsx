@@ -15,6 +15,7 @@ import SyncroItemIcon from '../../HomePage/HomeRatingItem/SyncroItemIcon/SyncroI
 
 type Props = {
   rating: RatingDto
+  index: number
 }
 
 export const MyInterestTableRow = ({ rating, ...props }: Props) => {
@@ -28,6 +29,7 @@ export const MyInterestTableRow = ({ rating, ...props }: Props) => {
 
   return (
     <tr key={rating.id}>
+      <td>{props.index + 1}</td>
       <td>
         <Flex gap={8}>
           <SyncroItemLink item={rating.syncroItem!}>

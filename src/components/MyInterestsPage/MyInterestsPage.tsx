@@ -22,10 +22,17 @@ export const MyInterestsPage = () => {
     return (ratings ?? [])
       .sort((a, b) => {
         // sort by interest level DESC, nulls first
-        if (a.interestLevel === null && b.interestLevel === null) return 0
+        if (a.interestLevel === null && b.interestLevel === null) {
+          return 0
+        }
 
-        if (a.interestLevel === null) return -1
-        if (b.interestLevel === null) return 1
+        if (a.interestLevel === null) {
+          return -1
+        }
+
+        if (b.interestLevel === null) {
+          return 1
+        }
 
         if (a.interestLevel === b.interestLevel) {
           // returns lower hours left first
@@ -35,7 +42,10 @@ export const MyInterestsPage = () => {
         return b.interestLevel - a.interestLevel
       })
       .filter((rating) => {
-        if (statuses.length === 0) return true
+        if (statuses.length === 0) {
+          return true
+        }
+
         return statuses.includes(rating.status as StatusType)
       })
   }, [dataUpdatedAt, statuses])
@@ -87,6 +97,14 @@ export const MyInterestsPage = () => {
                   <tr>
                     <th
                       style={{
+                        width: 40,
+                      }}
+                    >
+                      #
+                    </th>
+
+                    <th
+                      style={{
                         width: 300,
                       }}
                     >
@@ -122,9 +140,13 @@ export const MyInterestsPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortedRatings.map((rating) => {
+                  {sortedRatings.map((rating, index) => {
                     return (
-                      <MyInterestTableRow rating={rating} key={rating.id} />
+                      <MyInterestTableRow
+                        rating={rating}
+                        key={rating.id}
+                        index={index} // Pass the index as a prop
+                      />
                     )
                   })}
                 </tbody>
