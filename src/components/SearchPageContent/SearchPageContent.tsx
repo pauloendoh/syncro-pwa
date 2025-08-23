@@ -11,6 +11,7 @@ import { isSyncroItemType } from './isSyncroItemType/isSyncroItemType'
 
 type Props = {}
 
+// rename to SearchPage
 const SearchPageContent = (props: Props) => {
   const { q, type } = useMyRouterQuery()
 
@@ -23,9 +24,10 @@ const SearchPageContent = (props: Props) => {
           margin: '0 !important',
         }}
       >
-        <Grid.Col sm={1} md={2} lg={1} xl={2} />
+        {!isMobile && <Grid.Col sm={1} md={2} lg={1} xl={2} />}
+
         <Grid.Col sm={8} md={7} lg={6}>
-          <Container size="sm">
+          <Container size="sm" px={isMobile ? 8 : undefined}>
             {isMobile && (
               <FlexVCenter w="100%" mb={24}>
                 <SearchBar />

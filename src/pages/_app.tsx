@@ -66,7 +66,8 @@ function App(props: AppProps) {
 
     if (typeof window !== 'undefined') {
       scan({
-        enabled: !myEnvs.isProduction,
+        // enabled: !myEnvs.isProduction,
+        enabled: false,
         log: true,
       })
     }
