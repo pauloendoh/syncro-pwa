@@ -113,7 +113,7 @@ const SyncroItemImage = (props: Props) => {
         <Center
           pos="absolute"
           right={2}
-          bottom={2}
+          top={2}
           title={props.showItemType}
           sx={{
             backgroundColor: theme.colors.gray[9],
