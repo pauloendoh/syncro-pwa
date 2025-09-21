@@ -176,10 +176,11 @@ const HomeRatingItem = (props: Props) => {
                 width={isSmallScreen ? 100 : 120}
               />
 
+              {/* PE 1/3 - use prop in syncro item image? */}
               <Center
                 pos="absolute"
                 right={2}
-                bottom={2}
+                top={2}
                 title={typeMap?.getTypeLabel() || 'Unknown type'}
                 sx={{
                   backgroundColor: theme.colors.gray[9],
