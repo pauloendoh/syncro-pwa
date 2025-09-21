@@ -50,7 +50,7 @@ const RatingSimilarityList = () => {
         <Select
           label="Sort by"
           data={[
-            { value: 'items count', label: 'Items count' },
+            { value: 'items count', label: 'Shared items' },
             { value: 'rating similarity', label: 'Rating similarity' },
           ]}
           value={sortBy}
