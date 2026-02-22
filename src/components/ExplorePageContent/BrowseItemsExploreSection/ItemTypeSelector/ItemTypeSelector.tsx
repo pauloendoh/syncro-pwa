@@ -28,7 +28,7 @@ type Props = {
 
 const ItemTypeSelector = ({ ...props }: Props) => {
   const { data: itemsCount } = useUserItemsCountDetailsQuery(
-    props.entriesCountFromUserId
+    props.entriesCountFromUserId,
   )
 
   const options = useMemo(() => {
@@ -87,6 +87,12 @@ const ItemTypeSelector = ({ ...props }: Props) => {
       }}
       maxDropdownHeight={400}
       required={props.required}
+      withinPortal
+      styles={{
+        dropdown: {
+          minWidth: 120,
+        },
+      }}
     />
   )
 }
